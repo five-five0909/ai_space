@@ -1,0 +1,841 @@
+\documentclass[a4paper,11pt]{ctexart}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=2.0cm, bottom=2.0cm, headsep=0.3cm, footskip=1cm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{needspace}
+\usepackage{multirow}
+
+\AtBeginDocument{
+  \hypersetup{colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan}
+}
+
+\setlist{nosep, itemsep=0.8ex, parsep=0.1em}
+\setlist[itemize]{leftmargin=1.8em}
+\setlist[enumerate]{leftmargin=1.8em}
+
+% ===== 颜色定义 =====
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebg}{rgb}{0.98,0.98,0.98}
+\definecolor{tipsblue}{rgb}{0.85,0.93,1.0}
+\definecolor{highlightyellow}{rgb}{1.0,0.97,0.8}
+
+% ===== 代码块样式 =====
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=6pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=Python,
+    frame=single,
+    framerule=0.5pt,
+    rulecolor=\color{gray!40}
+}
+\lstset{style=mystyle}
+
+% ===== 彩色框 =====
+\newtcolorbox{problembox}[1][]{
+    colback=white,
+    colframe=blue!60!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=10pt, after skip=8pt
+}
+
+\newtcolorbox{solutionbox}[1][]{
+    enhanced, breakable,
+    colback=green!3!white,
+    colframe=green!50!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=10pt
+}
+
+\newtcolorbox{metaphorbox}[1][]{
+    colback=orange!5!white,
+    colframe=orange!70!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+\newtcolorbox{beginnerbox}[1][]{
+    colback=tipsblue,
+    colframe=blue!50!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+\newtcolorbox{appbox}[1][]{
+    colback=green!3!white,
+    colframe=green!60!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=10pt
+}
+
+\newtcolorbox{keybox}[1][]{
+    colback=highlightyellow,
+    colframe=orange!80!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+% ===== 页眉页脚 =====
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{深度学习-第6章}
+\fancyhead[L]{PyTorch 简介 · 练习题}
+\fancyfoot[C]{\thepage}
+\addtolength{\headheight}{2pt}
+
+\parskip=2pt plus 1pt minus 0.5pt
+\linespread{1.35}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+
+\title{\textbf{深度学习\\第6章\quad PyTorch 简介}\\[0.5em]
+{\large\color{gray}——从安装到张量，把深度学习的"乐高积木"摸透}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% ===== 章节导读 =====
+\begin{beginnerbox}[本章题目导览：你将挑战哪些核心问题？]
+    学深度学习，PyTorch 就是你的工具箱。工具不熟，后面所有的模型都是空中楼阁。本章 6 道题从零打通 PyTorch 的操作基础，帮你在动手之前先在脑子里把逻辑捋清楚：
+
+    \begin{itemize}
+        \item \textbf{Q6-01（辨析填空）}：张量创建方法大梳理——\texttt{zeros}、\texttt{ones}、\texttt{rand}、\texttt{arange}、\texttt{linspace}……每种函数的参数和作用是什么？
+        \item \textbf{Q6-02（概念理解）}：张量与 ndarray 的关系——Tensor 和 NumPy 数组怎么互转？共享内存是什么意思？什么时候会踩坑？
+        \item \textbf{Q6-03（计算题）}：矩阵运算手动推导——给定两个张量，分别计算哈达玛积（元素级乘法）和矩阵乘法，搞清楚形状变化规律。
+        \item \textbf{Q6-04（对比分析）}：四种索引方式横向对比——简单索引、范围索引、列表索引、布尔索引，各自的语法和适用场景是什么？
+        \item \textbf{Q6-05（代码阅读）}：张量形状操作代码追踪——\texttt{reshape}、\texttt{squeeze}、\texttt{unsqueeze}、\texttt{transpose} 逐步追踪形状变化，搞清楚维度操作的本质。
+        \item \textbf{Q6-06（综合应用）}：线性回归全流程——用自动微分模块手动实现梯度计算和参数更新，理解深度学习训练的底层逻辑。
+    \end{itemize}
+\end{beginnerbox}
+
+\section{第 6 章\quad PyTorch 简介}
+
+在学具体的神经网络之前，有一件事必须先搞定：\textbf{学会用 PyTorch 操作数据}。
+
+神经网络里流动的每一份数据——图片、文字、音频——在计算机内部都是一个\textbf{张量（Tensor）}。张量就是 PyTorch 的"货币"，你必须知道怎么创建它、操作它、计算它，才能真正理解后面的模型在干什么。
+
+\begin{itemize}
+    \item 一个数字，是 0 维张量（标量）；
+    \item 一行数字，是 1 维张量（向量）；
+    \item 一个表格，是 2 维张量（矩阵）；
+    \item 一张彩色图片（高 $\times$ 宽 $\times$ 通道），是 3 维张量；
+    \item 一批彩色图片（批量 $\times$ 高 $\times$ 宽 $\times$ 通道），是 4 维张量。
+\end{itemize}
+
+\textbf{维度越高，装的数据越复杂——但操作规律是一样的。}
+
+\begin{metaphorbox}[先建立一个总感觉：PyTorch 张量像什么？]
+    \textbf{把 PyTorch 张量想象成一个超级智能的 Excel 表格。}
+
+    \begin{itemize}
+        \item 普通 Excel 是二维的（行 $\times$ 列）；张量可以是任意维度，一张图片是三维"表格"，一批视频帧是五维"表格"；
+        \item Excel 只能手动计算；张量支持\textbf{自动求导}，你做完加减乘除，它能自动告诉你"对每个参数求偏导数是多少"——这正是深度学习训练的核心引擎；
+        \item 张量还可以住在 GPU 上，数据搬上去之后，矩阵运算速度提升成百上千倍。
+    \end{itemize}
+
+    本章的所有操作，都是在练习\textbf{怎么优雅地操作这个超级表格}。
+\end{metaphorbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-01\quad 张量创建方法大梳理]
+    \textbf{题目描述：}\\
+    文档第 6.3 节介绍了多种创建张量的方式。在做题之前，先来系统梳理各类创建函数的用法。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，将各张量创建函数的关键信息补全：
+
+        \begin{center}
+        \begin{tabular}{p{3.5cm} p{4.5cm} p{4.5cm}}
+            \toprule
+            函数调用示例 & 返回张量的内容 & 常见用途 \\
+            \midrule
+            \texttt{torch.zeros(3, 4)} & \underline{\hspace{3.5cm}} & 初始化\underline{\hspace{2.5cm}} \\[1.2em]
+            \texttt{torch.ones(2, 3)} & \underline{\hspace{3.5cm}} & \underline{\hspace{3.5cm}} \\[1.2em]
+            \texttt{torch.arange(0, 10, 2)} & 从0开始，步长为2，到10（不含）的序列：\underline{\hspace{1.5cm}} & \underline{\hspace{3.5cm}} \\[1.2em]
+            \texttt{torch.linspace(0, 1, 5)} & 在$[0,1]$上均匀分布的\underline{\hspace{0.8cm}}个数 & \underline{\hspace{3.5cm}} \\[1.2em]
+            \texttt{torch.rand(3, 3)} & \underline{\hspace{3.5cm}}分布的随机数 & 参数\underline{\hspace{2.0cm}}初始化 \\[1.2em]
+            \texttt{torch.randn(3, 3)} & \underline{\hspace{3.5cm}}分布的随机数 & \underline{\hspace{3.5cm}} \\[1.2em]
+            \texttt{torch.full((2,3), 7)} & \underline{\hspace{3.5cm}} & 快速创建\underline{\hspace{2.0cm}}张量 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \texttt{torch.arange} 和 \texttt{torch.linspace} 都能生成序列，核心区别是什么？分别在什么场景下更合适？
+
+        \item 以下代码会输出什么形状的张量？请写出答案并解释：
+        \begin{lstlisting}[language=Python]
+a = torch.zeros_like(torch.rand(4, 5))
+b = torch.ones_like(torch.zeros(2, 3, 4))
+print(a.shape, b.shape)
+        \end{lstlisting}
+
+        \item 如何用 \texttt{torch.tensor()} 从一个 Python 列表 \texttt{[[1, 2], [3, 4], [5, 6]]} 创建张量？该张量的 \texttt{shape}、\texttt{dtype} 和 \texttt{ndim} 分别是什么？
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.3 张量创建]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：张量的三个最重要属性]
+    \begin{itemize}
+        \item \textbf{\texttt{shape}（形状）}：张量每个维度的大小，如 \texttt{torch.Size([3, 4])} 表示3行4列。形状是理解数据结构最直观的方式，调试时第一件事就是打印 \texttt{x.shape}。
+        \item \textbf{\texttt{dtype}（数据类型）}：张量中每个元素的类型。整数默认 \texttt{torch.int64}，浮点数默认 \texttt{torch.float32}。神经网络的权重必须是浮点类型，因为梯度是小数。
+        \item \textbf{\texttt{device}（设备）}：张量存在 CPU（\texttt{cpu}）还是 GPU（\texttt{cuda:0}）上。两个张量必须在同一设备上才能运算，否则报错。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 张量创建函数对比表（填写内容）：}
+
+    \begin{center}
+    \begin{tabular}{p{3.5cm} p{4.5cm} p{4.0cm}}
+        \toprule
+        函数调用示例 & 返回张量的内容 & 常见用途 \\
+        \midrule
+        \texttt{torch.zeros(3, 4)} & 全0的 $3\times4$ 矩阵 & 初始化偏置/掩码 \\[0.8em]
+        \texttt{torch.ones(2, 3)} & 全1的 $2\times3$ 矩阵 & 构造全1基准张量 \\[0.8em]
+        \texttt{torch.arange(0,10,2)} & \texttt{[0, 2, 4, 6, 8]} & 生成等差序列/索引 \\[0.8em]
+        \texttt{torch.linspace(0,1,5)} & 均匀分布的5个数 & 坐标轴/插值采样 \\[0.8em]
+        \texttt{torch.rand(3, 3)} & $[0,1)$ 均匀分布随机数 & 参数随机初始化 \\[0.8em]
+        \texttt{torch.randn(3, 3)} & 标准正态分布随机数 & Kaiming/Xavier初始化 \\[0.8em]
+        \texttt{torch.full((2,3), 7)} & 全为7的 $2\times3$ 矩阵 & 快速创建常数张量 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) \texttt{arange} vs \texttt{linspace}：}
+
+    \begin{itemize}
+        \item \texttt{arange(start, end, step)}：指定\textbf{步长}，元素个数由步长决定，类似 Python 的 \texttt{range}；适合需要固定间隔的整数序列或生成索引。
+        \item \texttt{linspace(start, end, steps)}：指定\textbf{元素个数}，间隔由个数决定，端点包含在内；适合需要在区间内均匀采样的场景（如绘图坐标轴）。
+    \end{itemize}
+
+    \textbf{(3) \texttt{zeros\_like} 和 \texttt{ones\_like} 的输出形状：}
+
+    \texttt{zeros\_like(input)} 和 \texttt{ones\_like(input)} 返回与 \texttt{input} 形状相同的全0或全1张量，\textbf{忽略输入的数值，只复制形状}。
+    \[
+    \texttt{a.shape} = \texttt{torch.Size([4, 5])}, \quad \texttt{b.shape} = \texttt{torch.Size([2, 3, 4])}
+    \]
+
+    \textbf{(4) 从 Python 列表创建张量：}
+    \begin{lstlisting}[language=Python]
+t = torch.tensor([[1, 2], [3, 4], [5, 6]])
+print(t.shape)   # torch.Size([3, 2])
+print(t.dtype)   # torch.int64（列表元素为整数）
+print(t.ndim)    # 2（二维张量）
+    \end{lstlisting}
+
+    \begin{keybox}[张量创建速查口诀]
+        \begin{itemize}
+            \item \textbf{全0/全1}：\texttt{zeros} / \texttt{ones}；\quad\textbf{复制形状}：\texttt{zeros\_like} / \texttt{ones\_like}
+            \item \textbf{固定步长序列}：\texttt{arange}；\quad\textbf{固定个数序列}：\texttt{linspace}
+            \item \textbf{均匀随机}：\texttt{rand}；\quad\textbf{正态随机}：\texttt{randn}；\quad\textbf{填充常数}：\texttt{full}
+            \item \textbf{从数据创建}：\texttt{torch.tensor(data)}
+        \end{itemize}
+    \end{keybox}
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-02\quad Tensor 与 NumPy ndarray 的相互转换]
+    \textbf{题目描述：}\\
+    文档第 6.4 节介绍了张量的各种转换操作。在实际项目中，数据往往先用 NumPy 处理，再送入 PyTorch 进行深度学习计算，理解两者的转换规则至关重要。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 阅读以下代码，逐行写出每个变量的类型和值：
+        \begin{lstlisting}[language=Python]
+import torch
+import numpy as np
+
+a = np.array([1.0, 2.0, 3.0])
+b = torch.from_numpy(a)   # 行A
+a[0] = 99.0               # 行B
+print(b)                  # 行C：b 的值是什么？
+
+c = torch.tensor([4.0, 5.0, 6.0])
+d = c.numpy()             # 行D
+c[0] = 88.0               # 行E
+print(d)                  # 行F：d 的值是什么？
+        \end{lstlisting}
+
+        \item 上述代码中，修改 \texttt{a} 会影响 \texttt{b}，修改 \texttt{c} 也会影响 \texttt{d}，这是为什么？这种现象叫什么？在实际编程中会带来什么隐患，如何避免？
+
+        \item 将 Tensor 转换为标量（Python 数值）有哪两种方式？它们有什么区别？以下代码哪一行会报错？
+        \begin{lstlisting}[language=Python]
+t1 = torch.tensor([42.0])
+t2 = torch.tensor([1.0, 2.0, 3.0])
+
+val1 = t1.item()   # 方式一
+val2 = t2.item()   # 方式二：会报错吗？
+val3 = float(t1)   # 方式三
+        \end{lstlisting}
+
+        \item 解释 \texttt{dtype} 转换的两种方式，并说明深度学习中为什么通常要把整数类型的张量转换为 \texttt{float32}：
+        \begin{lstlisting}[language=Python]
+x = torch.tensor([1, 2, 3])   # 默认 int64
+y = x.float()                  # 方式一
+z = x.to(torch.float32)        # 方式二
+        \end{lstlisting}
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.4 张量转换]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：为什么 Tensor 和 ndarray 要"共享内存"？]
+    \begin{itemize}
+        \item \textbf{共享内存的好处}：数据不需要复制一份，节省内存，转换速度极快。对于大型数据集（如数百MB的图像数组），复制一份代价极高。
+        \item \textbf{共享内存的风险}：修改一个，另一个跟着变。如果代码逻辑上认为"转换后两个是独立的"，就会产生难以察觉的bug。
+        \item \textbf{如何"断开"共享}：转换时用 \texttt{.copy()} 或 \texttt{torch.tensor()}（注意不是 \texttt{from\_numpy}）创建副本，两者就不再共享内存了。
+        \item \textbf{GPU 上不能 \texttt{.numpy()}}：\texttt{.numpy()} 要求张量必须在 CPU 上。GPU 张量需要先 \texttt{.cpu()} 再 \texttt{.numpy()}，或用 \texttt{.cpu().detach().numpy()}（如果有梯度追踪的话）。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{metaphorbox}[生活比喻：共享内存像什么？]
+    \textbf{把 \texttt{from\_numpy} 想象成"共享文档"而不是"复制文档"。}
+
+    \begin{itemize}
+        \item \texttt{from\_numpy(a)} = 给同一份 Google 文档创建了两个快捷方式（\texttt{a} 和 \texttt{b}），打开任何一个都是同一份文档，在一处修改，另一处立刻看到变化；
+        \item \texttt{torch.tensor(a)} = 真正复印了一份，两份文档从此独立，互不影响；
+        \item 工作中的隐患：你以为改的是自己的那份，结果同事那边的数据也被你悄悄改掉了——深度学习里这种bug极难排查。
+    \end{itemize}
+\end{metaphorbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 逐行分析：}
+
+    \begin{itemize}
+        \item \textbf{行A}：\texttt{b = torch.from\_numpy(a)}——\texttt{b} 是与 \texttt{a} \textbf{共享内存}的 Tensor，形状 \texttt{[3]}，dtype \texttt{float64}；
+        \item \textbf{行B}：\texttt{a[0] = 99.0}——修改了底层内存的第一个元素；
+        \item \textbf{行C}：由于共享内存，\texttt{b} 的值同步变化，输出 \texttt{tensor([99., 2., 3.], dtype=torch.float64)}；
+        \item \textbf{行D}：\texttt{d = c.numpy()}——\texttt{d} 是与 \texttt{c} 共享内存的 ndarray；
+        \item \textbf{行E}：\texttt{c[0] = 88.0}——修改 Tensor 的第一个元素；
+        \item \textbf{行F}：\texttt{d} 同步变化，输出 \texttt{[88. 5. 6.]}。
+    \end{itemize}
+
+    \textbf{(2) 共享内存（内存共享 / Memory Sharing）：}
+
+    \texttt{torch.from\_numpy} 和 \texttt{tensor.numpy()} 都不复制数据，转换后的对象与原对象指向同一块内存地址。修改任一方，另一方立刻可见。
+
+    \textbf{实际隐患}：数据预处理流水线中，若对 ndarray 做了原地修改（如归一化），会意外改变已送入 DataLoader 的 Tensor 数据。
+
+    \textbf{避免方法}：
+    \begin{lstlisting}[language=Python]
+# 断开共享，创建独立副本
+b = torch.tensor(a)         # 从 ndarray 创建独立 Tensor
+d = c.detach().clone().numpy()  # 从 Tensor 创建独立 ndarray
+    \end{lstlisting}
+
+    \textbf{(3) 标量转换：}
+
+    \texttt{t2.item()} 会\textbf{报错}（\texttt{RuntimeError}），因为 \texttt{.item()} 只能用于包含\textbf{单个元素}的张量。\texttt{t2} 有3个元素，无法转换为单一标量。
+
+    \texttt{t1.item()} 和 \texttt{float(t1)} 均正常，返回 Python 浮点数 \texttt{42.0}。
+
+    \textbf{(4) dtype 转换及原因：}
+
+    两种方式等价：\texttt{x.float()} 是 \texttt{x.to(torch.float32)} 的简写。
+
+    深度学习中必须用 \texttt{float32} 的原因：反向传播计算的梯度是小数，整数类型无法表示小数，也不支持自动微分（\texttt{requires\_grad} 只对浮点类型有效）。\texttt{float32} 在精度和显存占用之间取得了最佳平衡，是 GPU 运算的默认类型。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-03\quad 矩阵运算手动推导：哈达玛积 vs 矩阵乘法]
+    \textbf{题目描述：}\\
+    文档第 6.5 节介绍了张量的数值计算，重点区分了三种"乘法"：逐元素乘（哈达玛积）、矩阵乘法和标量乘法。这三种乘法在深度学习中各有明确的用途，混淆会导致形状报错或计算错误。
+
+    \vspace{0.3cm}
+    给定两个张量：
+    \[
+    A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}, \quad
+    B = \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix}
+    \]
+
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 计算哈达玛积 $A \odot B$（逐元素乘法，对应 \texttt{A * B} 或 \texttt{torch.mul(A, B)}），写出结果矩阵。
+
+        \item 计算矩阵乘法 $A \times B$（对应 \texttt{torch.mm(A, B)} 或 \texttt{A @ B}），写出结果矩阵，并指出结果的形状。
+
+        \item 下面三行代码，哪些会报错？为什么？
+        \begin{lstlisting}[language=Python]
+C = torch.tensor([[1, 2, 3]])   # shape: [1, 3]
+D = torch.tensor([[4, 5, 6]])   # shape: [1, 3]
+
+result1 = C * D           # 哈达玛积
+result2 = torch.mm(C, D)  # 矩阵乘法
+result3 = C @ D.T         # D 转置后矩阵乘法
+        \end{lstlisting}
+
+        \item 什么是"节省内存"（in-place 操作）？以下两种写法有什么区别？在哪种情况下不能使用 in-place 操作？
+        \begin{lstlisting}[language=Python]
+x = torch.tensor([1.0, 2.0, 3.0])
+y = x + 1       # 普通操作
+x.add_(1)       # in-place 操作（末尾加下划线）
+        \end{lstlisting}
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.5 张量数值计算]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：三种"乘法"傻傻分不清楚？]
+    \begin{itemize}
+        \item \textbf{标量乘法}：\texttt{A * 2}，每个元素都乘以2，形状不变，最简单；
+        \item \textbf{哈达玛积}（逐元素乘法）：\texttt{A * B}，两个形状完全相同的张量，对应位置元素相乘，结果形状不变。用于注意力机制的掩码、逐元素加权等；
+        \item \textbf{矩阵乘法}：\texttt{A @ B} 或 \texttt{torch.mm(A, B)}，遵循线性代数规则——第一个矩阵的列数必须等于第二个矩阵的行数，结果形状为 $[m, n] \times [n, k] = [m, k]$。全连接层的核心计算就是矩阵乘法。
+        \item \textbf{记忆口诀}：\texttt{*} 对元素，\texttt{@} 对矩阵。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 哈达玛积 $A \odot B$：}
+
+    对应位置元素相乘，形状保持 $2\times2$：
+    \[
+    A \odot B = \begin{pmatrix} 1\times5 & 2\times6 \\ 3\times7 & 4\times8 \end{pmatrix}
+    = \begin{pmatrix} 5 & 12 \\ 21 & 32 \end{pmatrix}
+    \]
+
+    \textbf{(2) 矩阵乘法 $A \times B$：}
+
+    $[2,2] \times [2,2] = [2,2]$，结果形状为 $2\times2$：
+    \[
+    A \times B = \begin{pmatrix} 1\times5+2\times7 & 1\times6+2\times8 \\ 3\times5+4\times7 & 3\times6+4\times8 \end{pmatrix}
+    = \begin{pmatrix} 19 & 22 \\ 43 & 50 \end{pmatrix}
+    \]
+
+    \textbf{(3) 哪些代码报错：}
+
+    \begin{itemize}
+        \item \texttt{result1 = C * D}：\textbf{不报错}。\texttt{C} 和 \texttt{D} 形状均为 \texttt{[1,3]}，逐元素乘法可以执行，结果为 \texttt{[[4, 10, 18]]}；
+        \item \texttt{result2 = torch.mm(C, D)}：\textbf{报错}。矩阵乘法要求第一个矩阵列数等于第二个矩阵行数。\texttt{C} 形状 \texttt{[1,3]}，\texttt{D} 形状 \texttt{[1,3]}，列数3 $\neq$ 行数1，形状不匹配；
+        \item \texttt{result3 = C @ D.T}：\textbf{不报错}。\texttt{D.T} 形状为 \texttt{[3,1]}，\texttt{[1,3] @ [3,1] = [1,1]}，结果为 \texttt{[[32]]}（即 $4+10+18$）。
+    \end{itemize}
+
+    \textbf{(4) In-place 操作与内存：}
+
+    \texttt{y = x + 1}：创建一个新的张量 \texttt{y}，\texttt{x} 不变，额外占用内存。
+
+    \texttt{x.add\_(1)}：直接在 \texttt{x} 的内存上修改，不创建新张量，节省内存。PyTorch 中所有 in-place 操作在函数名末尾加下划线（如 \texttt{add\_}、\texttt{mul\_}、\texttt{fill\_}）。
+
+    \textbf{不能使用 in-place 的情况}：当张量参与了计算图（即 \texttt{requires\_grad=True}）并被后续操作引用时，不能对其使用 in-place 操作，否则会破坏反向传播所需的中间值，导致梯度计算错误，PyTorch 会抛出 \texttt{RuntimeError}。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-04\quad 四种索引方式横向对比]
+    \textbf{题目描述：}\\
+    文档第 6.7 节介绍了张量的索引操作。索引是"从大张量中取出你想要的那部分数据"的核心手段。四种索引方式各有语法和适用场景。
+
+    \vspace{0.3cm}
+    给定张量 \texttt{x}（形状 \texttt{[4, 5]}）：
+    \begin{lstlisting}[language=Python]
+x = torch.arange(20).reshape(4, 5)
+# tensor([[ 0,  1,  2,  3,  4],
+#         [ 5,  6,  7,  8,  9],
+#         [10, 11, 12, 13, 14],
+#         [15, 16, 17, 18, 19]])
+    \end{lstlisting}
+
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{简单索引}：写出以下操作的结果：
+        \begin{enumerate}[a.]
+            \item \texttt{x[2]}：\underline{\hspace{6cm}}
+            \item \texttt{x[1, 3]}：\underline{\hspace{6cm}}
+            \item \texttt{x[-1, -1]}：\underline{\hspace{6cm}}
+        \end{enumerate}
+
+        \item \textbf{范围索引（切片）}：写出以下操作的结果形状和内容：
+        \begin{enumerate}[a.]
+            \item \texttt{x[1:3, 2:5]}：形状\underline{\hspace{2cm}}，内容\underline{\hspace{3.5cm}}
+            \item \texttt{x[:, 0]}：形状\underline{\hspace{2cm}}，内容\underline{\hspace{3.5cm}}
+            \item \texttt{x[::2, ::2]}：形状\underline{\hspace{2cm}}，内容\underline{\hspace{3.5cm}}
+        \end{enumerate}
+
+        \item \textbf{列表索引}：\texttt{x[[0, 2, 3]]} 和 \texttt{x[:, [1, 3]]} 分别返回什么？形状各是多少？
+
+        \item \textbf{布尔索引}：以下代码的作用和输出是什么？布尔索引在深度学习中最常用于什么场景？
+        \begin{lstlisting}[language=Python]
+mask = x > 10
+result = x[mask]
+print(result.shape, result)
+        \end{lstlisting}
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.7 张量索引操作]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：索引不改变原张量，切片返回视图！]
+    \begin{itemize}
+        \item \textbf{索引与切片的区别}：\texttt{x[2]} 是取一整行，结果是1维向量；\texttt{x[2:3]} 是取一个范围（虽然只有一行），结果仍是2维矩阵。维度会减少是索引的特点，切片保留维度。
+        \item \textbf{切片是视图（View）}：切片不复制数据，修改切片会改变原张量。布尔索引和列表索引则会返回副本。
+        \item \textbf{负数索引}：\texttt{-1} 表示最后一个，\texttt{-2} 表示倒数第二个，和 Python 列表一样，非常实用。
+        \item \textbf{步长切片 \texttt{::2}}：表示每隔一个取一个，相当于"隔行/列采样"，常用于降采样。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 简单索引：}
+    \begin{enumerate}[a.]
+        \item \texttt{x[2]}：第3行，结果为 \texttt{tensor([10, 11, 12, 13, 14])}，形状 \texttt{[5]}；
+        \item \texttt{x[1, 3]}：第2行第4列，结果为标量 \texttt{tensor(8)}；
+        \item \texttt{x[-1, -1]}：最后一行最后一列，结果为标量 \texttt{tensor(19)}。
+    \end{enumerate}
+
+    \textbf{(2) 范围索引：}
+    \begin{enumerate}[a.]
+        \item \texttt{x[1:3, 2:5]}：取第1、2行（不含3）、第2至4列（不含5）。形状 \texttt{[2, 3]}，内容：
+        \[
+        \begin{pmatrix} 7 & 8 & 9 \\ 12 & 13 & 14 \end{pmatrix}
+        \]
+        \item \texttt{x[:, 0]}：所有行的第0列。形状 \texttt{[4]}，内容 \texttt{tensor([0, 5, 10, 15])}；
+        \item \texttt{x[::2, ::2]}：每隔一行、一列取一个。形状 \texttt{[2, 3]}，内容：
+        \[
+        \begin{pmatrix} 0 & 2 & 4 \\ 10 & 12 & 14 \end{pmatrix}
+        \]
+    \end{enumerate}
+
+    \textbf{(3) 列表索引：}
+    \begin{itemize}
+        \item \texttt{x[[0, 2, 3]]}：取第0、2、3行，形状 \texttt{[3, 5]}，内容为第0、2、3行组成的矩阵；
+        \item \texttt{x[:, [1, 3]]}：取所有行的第1、3列，形状 \texttt{[4, 2]}，内容为第1列 \texttt{[1,6,11,16]} 和第3列 \texttt{[3,8,13,18]} 组成的矩阵。
+    \end{itemize}
+
+    \textbf{(4) 布尔索引：}
+
+    \texttt{mask = x > 10} 生成一个形状为 \texttt{[4, 5]} 的布尔张量，元素大于10的位置为 \texttt{True}。
+
+    \texttt{x[mask]} 返回所有 \texttt{True} 位置对应的元素，结果是\textbf{一维张量}（布尔索引总是将结果"拍平"）：
+    \[
+    \texttt{tensor([11, 12, 13, 14, 15, 16, 17, 18, 19])}，\text{形状 \texttt{[9]}}
+    \]
+
+    \textbf{深度学习中的常见用途}：用布尔索引筛选满足条件的样本（如过滤掉损失超过阈值的异常样本）、在目标检测中筛选置信度大于阈值的候选框。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-05\quad 张量形状操作代码追踪]
+    \textbf{题目描述：}\\
+    文档第 6.8 节介绍了张量的形状操作，包括维度交换、形状调整、维度增删。形状操作是深度学习代码中最高频的操作之一——模型输入输出形状不对、批量维度缺失，都会在这里出问题。
+
+    \vspace{0.3cm}
+    \textbf{阅读以下代码，逐步填写各变量的形状：}
+    \begin{lstlisting}[language=Python]
+import torch
+
+x = torch.arange(24)                     # 步骤1
+a = x.reshape(2, 3, 4)                   # 步骤2
+b = a.transpose(0, 2)                    # 步骤3
+c = a.reshape(6, -1)                     # 步骤4
+d = a.unsqueeze(0)                       # 步骤5
+e = d.squeeze(0)                         # 步骤6
+f = torch.cat([a, a], dim=0)             # 步骤7（来自6.9节）
+g = torch.stack([a, a], dim=0)           # 步骤8（来自6.9节）
+    \end{lstlisting}
+
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 依次写出步骤1至步骤8每个变量的形状（\texttt{shape}）：
+        \begin{enumerate}[a.]
+            \item \texttt{x.shape}：\underline{\hspace{4cm}}
+            \item \texttt{a.shape}：\underline{\hspace{4cm}}
+            \item \texttt{b.shape}：\underline{\hspace{4cm}}
+            \item \texttt{c.shape}：\underline{\hspace{4cm}}
+            \item \texttt{d.shape}：\underline{\hspace{4cm}}
+            \item \texttt{e.shape}：\underline{\hspace{4cm}}
+            \item \texttt{f.shape}：\underline{\hspace{4cm}}
+            \item \texttt{g.shape}：\underline{\hspace{4cm}}
+        \end{enumerate}
+
+        \item \texttt{reshape} 和 \texttt{view} 都能调整形状，两者有什么区别？什么情况下 \texttt{view} 会失败？
+
+        \item \texttt{torch.cat} 和 \texttt{torch.stack} 都能拼接张量，核心区别是什么？用一句话分别说明各自的使用场景。
+
+        \item 在实际深度学习代码中，\texttt{unsqueeze(0)} 最常用于什么目的？举一个具体的场景。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.8 张量形状操作 / 6.9 张量拼接操作]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：形状操作不改变总元素个数！]
+    \begin{itemize}
+        \item \textbf{reshape 的铁律}：调整前后总元素数必须相等。24个元素可以变成 \texttt{[2,3,4]}、\texttt{[6,4]}、\texttt{[24,1]} 等，但不能变成 \texttt{[5,5]}（25个元素）。
+        \item \textbf{\texttt{-1} 的妙用}：\texttt{reshape(6, -1)} 中 \texttt{-1} 表示"让 PyTorch 自动计算这一维的大小"。总元素24，第一维是6，第二维自动算出 $24/6=4$，所以结果是 \texttt{[6,4]}。
+        \item \textbf{unsqueeze vs squeeze}：\texttt{unsqueeze(dim)} 在指定位置增加一个大小为1的维度；\texttt{squeeze(dim)} 删除指定位置大小为1的维度。如果 squeeze 指定的维度大小不是1，则\textbf{不做任何操作}。
+        \item \textbf{cat vs stack}：\texttt{cat} 在已有维度上拼接（维度数不变）；\texttt{stack} 新建一个维度再拼接（维度数加一）。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 逐步形状追踪：}
+
+    \begin{center}
+    \begin{tabular}{clll}
+        \toprule
+        步骤 & 变量 & 形状 & 说明 \\
+        \midrule
+        1 & \texttt{x} & \texttt{[24]} & 0到23的一维序列，共24个元素 \\
+        2 & \texttt{a} & \texttt{[2, 3, 4]} & 24个元素重塑为三维张量 \\
+        3 & \texttt{b} & \texttt{[4, 3, 2]} & 交换维度0和维度2，原 $[2,3,4]$ 变为 $[4,3,2]$ \\
+        4 & \texttt{c} & \texttt{[6, 4]} & $2\times3=6$，第二维自动推算为 $24/6=4$ \\
+        5 & \texttt{d} & \texttt{[1, 2, 3, 4]} & 在最前面增加一个大小为1的批量维度 \\
+        6 & \texttt{e} & \texttt{[2, 3, 4]} & 删除第0维（大小为1），恢复原形状 \\
+        7 & \texttt{f} & \texttt{[4, 3, 4]} & 沿 dim=0 拼接两个 \texttt{[2,3,4]}，第0维 $2+2=4$ \\
+        8 & \texttt{g} & \texttt{[2, 2, 3, 4]} & 新建 dim=0，将两个 \texttt{[2,3,4]} 堆叠成 $[2,2,3,4]$ \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) \texttt{reshape} vs \texttt{view}：}
+
+    两者功能相同，但 \texttt{view} 要求张量在内存中是\textbf{连续存储}的（contiguous）。如果对张量做了 \texttt{transpose}、\texttt{permute} 等操作，内存布局变得不连续，此时调用 \texttt{view} 会抛出错误。需要先调用 \texttt{.contiguous()} 使其变连续，再 \texttt{view}；或者直接用 \texttt{reshape}（会自动处理非连续情况，必要时复制数据）。
+
+    \textbf{(3) \texttt{cat} vs \texttt{stack}：}
+
+    \begin{itemize}
+        \item \texttt{torch.cat}：\textbf{在已有维度上合并}，不增加维度数。用于将同类数据沿批量或序列方向拼接，如将两批图像合并为一个更大的批量；
+        \item \texttt{torch.stack}：\textbf{新建一个维度再合并}，维度数加一。用于将多个同形状张量组成新的批量维度，如将多张处理好的图像打包成一个 batch。
+    \end{itemize}
+
+    \textbf{(4) \texttt{unsqueeze(0)} 的典型用途：}
+
+    最常用于\textbf{为单个样本增加批量维度}，以满足模型输入格式要求。例如：
+    \begin{lstlisting}[language=Python]
+# 推理时，单张图片形状为 [3, 224, 224]（通道×高×宽）
+img = load_image("test.jpg")       # shape: [3, 224, 224]
+img = img.unsqueeze(0)             # shape: [1, 3, 224, 224]
+output = model(img)                # 模型期望 [batch, C, H, W]
+    \end{lstlisting}
+    模型在训练时始终接收批量输入 \texttt{[batch, ...]}，推理时若直接传入单样本会形状不匹配，\texttt{unsqueeze(0)} 加上批量维度后即可正常工作。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-06\quad 综合应用：自动微分与线性回归全流程]
+    \textbf{题目描述：}\\
+    文档第 6.10 节介绍了 PyTorch 的自动微分模块（\texttt{autograd}），第 6.11 节给出了线性回归案例。自动微分是深度学习的核心引擎——你只需要写出前向计算，PyTorch 就能自动算出所有参数的梯度。以下是一段手动实现线性回归的代码骨架：
+
+    \begin{lstlisting}[language=Python]
+import torch
+
+# 生成数据：y = 2x + 1 + 噪声
+torch.manual_seed(42)
+X = torch.rand(100, 1)
+y = 2 * X + 1 + 0.1 * torch.randn(100, 1)
+
+# 初始化参数
+w = torch.randn(1, 1, requires_grad=True)   # 权重
+b = torch.zeros(1, requires_grad=True)      # 偏置
+
+lr = 0.1   # 学习率
+
+for epoch in range(100):
+    # 前向传播
+    y_pred = X @ w + b                      # 行A
+
+    # 计算损失（MSE）
+    loss = ((y_pred - y) ** 2).mean()       # 行B
+
+    # 反向传播
+    loss.backward()                         # 行C
+
+    # 参数更新（不计入计算图）
+    with torch.no_grad():
+        w -= lr * w.grad                    # 行D
+        b -= lr * b.grad                    # 行E
+        w.grad.zero_()                      # 行F
+        b.grad.zero_()                      # 行G
+    \end{lstlisting}
+
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{\texttt{requires\_grad=True} 的作用}：为什么只有 \texttt{w} 和 \texttt{b} 设置了 \texttt{requires\_grad=True}，而 \texttt{X} 和 \texttt{y} 没有？
+
+        \item \textbf{计算图（Computation Graph）}：执行行A和行B之后，PyTorch 内部构建了一张计算图。请用文字描述这张图的大致结构：从 \texttt{w}、\texttt{b}、\texttt{X} 出发，经过哪些操作，最终得到 \texttt{loss}？
+
+        \item \textbf{\texttt{loss.backward()} 的作用}（行C）：执行这行后，\texttt{w.grad} 和 \texttt{b.grad} 里存的是什么？数学上对应什么量？
+
+        \item \textbf{为什么参数更新要放在 \texttt{with torch.no\_grad()} 里}（行D、E）？如果去掉这个上下文管理器，会发生什么？
+
+        \item \textbf{为什么要手动清零梯度}（行F、G）？如果不清零，连续训练两个 epoch 会出现什么问题？
+
+        \item 如果把这段手动更新代码替换成 PyTorch 的优化器，应该怎么写？请用 \texttt{torch.optim.SGD} 改写行D到行G的部分。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.10 自动微分模块 / 6.11 机器学习案例：线性回归]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：自动微分到底在"自动"什么？]
+    \begin{itemize}
+        \item \textbf{核心思想}：PyTorch 在你做前向计算时，偷偷记录了所有操作（构成"计算图"）。调用 \texttt{backward()} 时，它沿着计算图反向走一遍，用链式法则自动算出每个参数的偏导数，存入 \texttt{.grad} 属性。
+        \item \textbf{你不需要手推梯度公式}：不管网络多深、多复杂，只要前向计算写对了，反向传播完全自动。这就是为什么深度学习可以处理数百层的网络——手推梯度几乎不可能，但自动微分可以。
+        \item \textbf{梯度的含义}：\texttt{w.grad} 告诉你"如果把 \texttt{w} 增加一点点，损失会增加多少倍"。梯度下降就是朝着梯度的反方向更新参数——损失减少最快的方向。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{metaphorbox}[生活比喻：自动微分像导航软件的实时重算]
+    \begin{itemize}
+        \item \textbf{前向传播} = 沿着当前路线从起点开到终点，记录每一个路口的转弯；
+        \item \textbf{计算图} = 导航软件记录下来的完整行驶轨迹；
+        \item \textbf{backward()} = 到达终点（算出 loss）后，倒回去问"如果在某个路口稍微左转一点，总耗时会变多还是变少？"——对每一个路口（参数）都问一遍；
+        \item \textbf{梯度下降更新} = 根据回答，调整每个路口的决策，下次走得更快；
+        \item \textbf{梯度清零} = 清空上次行程的记录，开始记录新一次行程——否则两次记录叠加，路口信息就乱了。
+    \end{itemize}
+\end{metaphorbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) \texttt{requires\_grad=True} 的作用：}
+
+    \texttt{requires\_grad=True} 告诉 PyTorch："这个张量是需要优化的参数，请追踪与它相关的所有计算，以便反向传播时计算梯度。"
+
+    \texttt{X}（输入数据）和 \texttt{y}（标签）是已知的固定数据，不需要优化，因此无需追踪梯度。只有模型的可学习参数 \texttt{w} 和 \texttt{b} 才需要通过梯度下降不断调整，所以只给它们设置 \texttt{requires\_grad=True}。这也减少了不必要的内存占用和计算开销。
+
+    \textbf{(2) 计算图的结构（文字描述）：}
+
+    \begin{itemize}
+        \item 行A：\texttt{X}（数据）与 \texttt{w}（参数）做矩阵乘法 $\rightarrow$ 加上偏置 \texttt{b} $\rightarrow$ 得到预测值 \texttt{y\_pred}；
+        \item 行B：\texttt{y\_pred} 减去真实值 \texttt{y} $\rightarrow$ 对差值平方 $\rightarrow$ 对所有元素求均值 $\rightarrow$ 得到标量 \texttt{loss}。
+    \end{itemize}
+
+    整张图的叶节点是 \texttt{w}、\texttt{b}（有梯度），根节点是 \texttt{loss}。反向传播从根节点出发，沿箭头方向逆向传播梯度。
+
+    \textbf{(3) \texttt{loss.backward()} 的结果：}
+
+    执行后，PyTorch 从 \texttt{loss} 出发沿计算图反向遍历，计算 $\dfrac{\partial \text{loss}}{\partial w}$ 和 $\dfrac{\partial \text{loss}}{\partial b}$，分别存入 \texttt{w.grad} 和 \texttt{b.grad}。这在数学上正是 MSE 损失对两个参数的偏导数，即梯度向量在参数空间上的分量。
+
+    \textbf{(4) 为什么更新要在 \texttt{torch.no\_grad()} 里：}
+
+    参数更新 \texttt{w -= lr * w.grad} 本身是一次张量运算，如果在计算图追踪状态下执行，PyTorch 会把这次更新也记录进计算图，导致计算图不断扩大，内存泄漏，且下一次 \texttt{backward()} 时会把参数更新本身也当作一部分计算路径——这完全不是我们想要的。\texttt{torch.no\_grad()} 告诉 PyTorch："这段代码不需要追踪，纯粹的数值更新"，既节省内存又语义正确。
+
+    \textbf{(5) 为什么要手动清零梯度：}
+
+    PyTorch 的梯度是\textbf{累加}而非覆盖的。若不清零，第2个 epoch 的梯度会叠加在第1个 epoch 的梯度上，等效于用"两倍梯度"更新参数，参数更新方向和幅度均错误，训练无法正常收敛。
+
+    \textbf{(6) 用 \texttt{torch.optim.SGD} 改写：}
+
+    \begin{lstlisting}[language=Python]
+import torch.optim as optim
+
+# 在循环外定义优化器
+optimizer = optim.SGD([w, b], lr=0.1)
+
+for epoch in range(100):
+    y_pred = X @ w + b
+    loss = ((y_pred - y) ** 2).mean()
+
+    optimizer.zero_grad()   # 替代行F、G：清零梯度
+    loss.backward()         # 行C：反向传播（不变）
+    optimizer.step()        # 替代行D、E：自动更新 w 和 b
+    \end{lstlisting}
+
+    \begin{keybox}[自动微分三步节奏（深度学习的心跳）]
+        \begin{itemize}
+            \item \textbf{第一步}：\texttt{optimizer.zero\_grad()} —— 清空上一轮的梯度记录
+            \item \textbf{第二步}：\texttt{loss.backward()} —— 从损失反向传播，计算所有参数的梯度
+            \item \textbf{第三步}：\texttt{optimizer.step()} —— 根据梯度更新参数
+            \item \textbf{顺序铁律}：清零 $\to$ 反向 $\to$ 更新，三步缺一不可，顺序不能乱
+        \end{itemize}
+    \end{keybox}
+\end{solutionbox}
+
+\begin{appbox}[现实应用场景]
+    \textbf{PyTorch 的 \texttt{autograd}——支撑起整个深度学习时代的底层引擎：}\\
+    GPT、Stable Diffusion、AlphaFold……这些划时代的模型，底层都依赖自动微分来训练参数。研究人员只需要写出模型的前向计算逻辑，反向传播完全交给框架。PyTorch 的动态计算图（每次前向传播都重建计算图）让调试变得和普通 Python 代码一样直观——你可以在 \texttt{forward} 里加 \texttt{print}、加断点、写条件分支，而不需要像静态图框架那样提前声明所有计算。这也是 PyTorch 在研究界迅速超越 TensorFlow 的核心原因。
+\end{appbox}
+
+% ===== 本章小结 =====
+\section{本章小结：把 PyTorch 的底层逻辑装进脑子里}
+
+学完这 6 道题，如果还觉得"操作很多、记不住"，试试把整章内容浓缩成这几句画面：
+
+\begin{itemize}
+    \item \textbf{张量是一切的基础}：数字、向量、矩阵、图片、批量……在 PyTorch 里统统是张量，维度不同，但操作规律一样。
+    \item \textbf{创建张量的方法分两类}：从数据创建（\texttt{tensor}）；按规则生成（\texttt{zeros}、\texttt{rand}、\texttt{arange} 等）。
+    \item \textbf{Tensor 与 ndarray 共享内存}：\texttt{from\_numpy} 和 \texttt{.numpy()} 不复制数据，修改一个会影响另一个——改用 \texttt{torch.tensor()} 创建独立副本。
+    \item \textbf{三种乘法别搞混}：\texttt{*} 逐元素，\texttt{@} 矩阵乘，标量乘各自用途不同。
+    \item \textbf{形状操作记住"总元素不变"}：\texttt{reshape} 自由变形，\texttt{unsqueeze}/\texttt{squeeze} 增删维度，\texttt{cat} 沿已有维度拼，\texttt{stack} 新建维度再拼。
+    \item \textbf{自动微分的三步节奏}：清零梯度 $\to$ \texttt{backward()} $\to$ \texttt{step()}，这是深度学习训练的心跳，往后每个章节都是在这个框架上加料。
+\end{itemize}
+
+\begin{metaphorbox}[给零基础读者的一句总比喻]
+    \textbf{如果把深度学习比作造一辆汽车：}
+    \begin{itemize}
+        \item \textbf{张量} = 钢板、零件——所有数据的物理形态；
+        \item \textbf{张量操作（索引、切片、形状变换）} = 切割、焊接、打磨——把原材料加工成需要的形状；
+        \item \textbf{自动微分} = 发动机——给整辆车提供动力，让训练可以自动推进；
+        \item \textbf{线性回归案例} = 第一次发动引擎的测试：结构最简单，但发动机（autograd）是真实的，往后无论多复杂的模型，用的是同一台引擎。
+    \end{itemize}
+\end{metaphorbox}
+
+\end{document}

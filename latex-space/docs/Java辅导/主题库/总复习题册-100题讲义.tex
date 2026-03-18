@@ -1,0 +1,322 @@
+\documentclass[12pt, a4paper]{ctexart} % 使用 ctexart 自动处理中文
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{setspace}
+\usepackage{listings}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 字体设置（XeLaTeX + ctexart 已处理中文）
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun} % Windows 宋体；macOS 用 "Songti SC"
+
+% 超链接
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={Java单选题讲义},
+    pdfauthor={专升本-fifine老师}
+}
+
+% 蓝色主题
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+% 简化蓝色框（避免使用 enhanced/breakable）
+\newtcolorbox{bluebox}[1][]{
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+% 章节格式
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% 标题
+\title{\textcolor{myblue}{\textbf{Java课程设计期末考试题库 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月02日}
+
+% 代码高亮
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+% 定义\code命令用于代码
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Java基础语法与程序设计}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{在Java中，以下哪个关键字用于定义常量？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item final
+		      \item static
+		      \item abstract
+		      \item interface
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. final}
+
+		      \textbf{【背景知识】}
+		      Java中没有 \code{const} 关键字，使用 \code{final} 修饰变量表示"常量"，即赋值后不可修改。
+
+		      \textbf{【考点】}
+		      - \code{final} 修饰变量、方法和类的作用
+		      - 常量命名规范（全大写 + 下划线）
+		      - \code{static} 与 \code{final} 的区别
+
+		      \textbf{【选项原理分析】}
+		      \begin{itemize}[leftmargin=*]
+			      \item \textbf{A. final} — 正确。\code{final\ int\ MAX\ =\ 100;} 定义常量。基本类型值不可变，引用类型引用不可变。
+			      \item \textbf{B. static} — 错误。\code{static} 表示类级别变量，可被修改（除非加 \code{final}）。
+			      \item \textbf{C. abstract} — 错误。用于抽象类或方法，与常量无关。
+			      \item \textbf{D. interface} — 错误。接口中字段默认是 \code{public\ static\ final}，但 \code{interface} 本身不是定义常量的关键字。
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{enumerate}
+			      \item \code{final} 变量必须在声明时或构造器中初始化
+			      \item 常量命名：\code{MAX\_SIZE}, \code{PI}
+			      \item \code{final} 方法不可重写，\code{final} 类不可继承
+		      \end{enumerate}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是Java中的合法标识符？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 123abc
+		      \item @abc
+		      \item \_abc
+		      \item class
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. \_abc}
+
+		      \textbf{【背景知识】}
+		      标识符用于命名变量、方法、类等。规则：字母、\code{\$},\code{\_} 开头，后接字母、数字、\code{\$},\code{\_}。
+
+		      \textbf{【考点】}
+		      - 标识符命名规则
+		      - 关键字不能作为标识符
+		      - 特殊字符的合法性
+
+		      \textbf{【选项原理分析】}
+		      \begin{itemize}[leftmargin=*]
+			      \item \textbf{A. 123abc} — 错误。不能以数字开头。
+			      \item \textbf{B. @abc} — 错误。\code{@} 不是合法标识符字符（用于注解）。
+			      \item \textbf{C. \_abc} — 正确。下划线开头是合法的（尽管不推荐单独使用 \code{\_}）。
+			      \item \textbf{D. class} — 错误。\code{class} 是关键字。
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{enumerate}
+			      \item 合法字符：\code{A-Z,\ a-z,\ 0-9,\ \$,\ \_}
+			      \item 不能以数字开头
+			      \item 区分大小写
+			      \item 避免使用 \code{\$} 和 \code{\_} 作为普通变量名
+		      \end{enumerate}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{Java中用于声明整数类型变量的关键字是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item int
+		      \item float
+		      \item double
+		      \item long
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. int}
+
+		      \textbf{【背景知识】}
+		      Java有8种基本类型，其中 \code{int} 是最常用的32位整数类型。
+
+		      \textbf{【考点】}
+		      - 基本数据类型分类
+		      - 默认类型（整数默认 \code{int}，浮点默认 \code{double}）
+
+		      \textbf{【选项原理分析】}
+		      \begin{itemize}[leftmargin=*]
+			      \item \textbf{A. int} — 正确。\code{int} 是整数类型关键字。
+			      \item \textbf{B. float} — 错误。单精度浮点。
+			      \item \textbf{C. double} — 错误。双精度浮点。
+			      \item \textbf{D. long} — 错误。虽然是整数类型，但题目问"关键字"，\code{int} 是最基础答案。
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{enumerate}
+			      \item 整数类型：\code{byte} (1B), \code{short} (2B), \code{int} (4B), \code{long} (8B)
+			      \item 字面量：\code{100} 是 \code{int}，\code{100L} 是 \code{long}
+		      \end{enumerate}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下代码的输出结果是}
+	      \begin{lstlisting}[language=Java]
+int a = 5;
+int b = 2;
+System.out.println(a / b);
+\end{lstlisting}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 2.5
+		      \item 2
+		      \item 3
+		      \item 2.0
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 2}
+
+		      \textbf{【背景知识】}
+		      两个整数相除，结果为整数，小数部分被截断（向零取整）。
+
+		      \textbf{【考点】}
+		      - 整数除法 vs 浮点除法
+		      - 类型转换
+
+		      \textbf{【选项原理分析】}
+		      \begin{itemize}[leftmargin=*]
+			      \item \textbf{A. 2.5} — 错误。这是数学结果，但Java整数除法不保留小数。
+			      \item \textbf{B. 2} — 正确。\code{5\ /\ 2\ =\ 2}（截断）。
+			      \item \textbf{C. 3} — 错误。不是四舍五入。
+			      \item \textbf{D. 2.0} — 错误。输出是整数 \code{2}，不是浮点数。
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{enumerate}
+			      \item 整数除法：截断小数
+			      \item 得到浮点结果：\code{a\ /\ (double)\ b}
+			      \item 取模：\code{a\ \%\ b} 得余数
+		      \end{enumerate}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是Java中的逻辑与运算符？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item \&\&
+		      \item ||
+		      \item !
+		      \item \&
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. \&\&}
+
+		      \textbf{【背景知识】}
+		      逻辑运算符用于布尔表达式，\code{\&\&} 是短路与。
+
+		      \textbf{【考点】}
+		      - 逻辑运算符 vs 位运算符
+		      - 短路求值
+
+		      \textbf{【选项原理分析】}
+		      \begin{itemize}[leftmargin=*]
+			      \item \textbf{A. \&\&} — 正确。逻辑与，短路。
+			      \item \textbf{B. ||} — 错误。逻辑或。
+			      \item \textbf{C. !} — 错误。逻辑非。
+			      \item \textbf{D. \&} — 错误。按位与，或非短路布尔与（不推荐用于逻辑判断）。
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{enumerate}
+			      \item \code{\&\&} 和 \code{||} 是短路的
+			      \item \code{\&} 和 \code{|} 作用于布尔时是非短路的
+			      \item 优先级：\code{!} > \code{\&\&} > \code{||}
+		      \end{enumerate}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下代码的输出结果是}
+	      \begin{lstlisting}[language=Java]
+boolean flag = false;
+if (flag) {
+    System.out.println("True");
+} else {
+    System.out.println("False");
+}
+\end{lstlisting}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item True
+		      \item False
+		      \item 编译错误
+		      \item 运行时错误
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. False}
+
+		      \textbf{【背景知识】}
+		      \code{if} 语句根据布尔表达式决定执行分支。
+
+		      \textbf{【考点】}
+		      - 布尔变量作为条件
+		      - \code{if-else} 执行流程
+
+		      \textbf{【选项原理分析】}
+		      \begin{itemize}[leftmargin=*]
+			      \item \textbf{A. True} — 错误。\code{flag} 为 \code{false}，不进入 \code{if}。
+			      \item \textbf{B. False} — 正确。执行 \code{else} 分支。
+			      \item \textbf{C. 编译错误} — 错误。语法正确。
+			      \item \textbf{D. 运行时错误} — 错误。无异常。
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{enumerate}
+			      \item \code{if} 条件必须为布尔类型（Java不支持非零即真）
+			      \item \code{else} 与最近的 \code{if} 匹配
+		      \end{enumerate}
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,430 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{tikz} % 用于绘图
+\tcbuselibrary{skins, breakable}
+
+% 页面设置
+\geometry{a4paper, margin=1in}
+\pagestyle{fancy}
+\fancyhead[L]{专升本高数：微分中值定理考点全覆盖}
+\fancyhead[R]{劳资必是本科生}
+
+% ==========================================
+% 环境定义区
+% ==========================================
+
+% 1. 基础红色字体环境（符合讲义要求）
+\newenvironment{redenv}{\color{red}}{}
+
+% 2. 概念解析框（理论部分用，也可用于习题概念）
+\newtcolorbox{conceptbox}[1][概念解析]{
+    colback=red!5, 
+    colframe=red!50!black, 
+    fonttitle=\bfseries, 
+    title=#1, 
+    breakable
+}
+
+% 3. 真题提示框（红色系，醒目）
+\newtcolorbox{examnote}[1]{
+    colback=red!5!white,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=【真题提示：#1】,
+    breakable
+}
+
+% 4. 详细解析专用环境（习题部分用）
+% 学生版：定义为空或只保留标题占位，但为了排版美观，我们在正文中直接用 \vspace 替换内容
+\newenvironment{detailedanalysis}{%
+    \color{red}
+    \begin{enumerate}[label=\textbf{第\arabic*步：}, leftmargin=*, align=left, itemsep=1.5ex]
+}{%
+    \end{enumerate}
+}
+
+% 5. 公式推导环境（习题部分用）
+\newenvironment{formuladerivation}{%
+    \begin{enumerate}[label={\textbf{公式\arabic*：}}, leftmargin=*, align=left]
+}{%
+    \end{enumerate}
+}
+
+% 6. 分隔线命令
+\newcommand{\problemrule}{\noindent\rule{\textwidth}{1.5pt}\vspace{-0.8em}}
+\newcommand{\analysisrule}{\noindent\rule{\textwidth}{0.8pt}\vspace{-0.8em}}
+
+\begin{document}
+
+\title{\textbf{微分中值定理：方法总结与归纳（学生版）}}
+\author{fifine老师}
+\date{}
+\maketitle
+
+% ##################################################################
+% 第一部分：理论体系与逻辑架构 (讲义内容)
+% ##################################################################
+
+\section{引言：局部性态向整体特征的逻辑跨越}
+微分中值定理是连接函数“局部性质”与“整体形态”的桥梁，也是解决专升本高数证明题的核心钥匙。
+
+\textbf{通俗理解：}
+如果我们只知道函数在两端 $a$ 和 $b$ 的取值（这是整体信息），通常很难直接看出函数中间的具体变化。但是，中值定理告诉我们：\textbf{整体的平均变化率，一定等于中间某一点的瞬时变化率。}
+
+\textbf{物理直观：}
+如果你开车 2 小时走了 120 公里（整体平均速度 $60\text{km/h}$），那么在途中一定有一个瞬间，你的车速表显示的正是 $60\text{km/h}$（瞬时速度）。这就是“以瞬时（导数）刻画整体（差商）”的核心思想。
+
+\textbf{解题意义：}
+它允许我们将难处理的函数差值 $f(b)-f(a)$，转化为某一点的导数 $f'(\xi)$ 来研究。这样，我们就可以利用导数的工具（正负号判断单调性等）来解决关于原函数的证明问题。
+
+\subsection*{核心定理}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=0.8, domain=0.5:3.5]
+            \draw[->] (-0.2,0) -- (4,0) node[right] {$x$};
+            \draw[->] (0,-0.2) -- (0,3.5) node[above] {$y$};
+            \draw[dashed] (1,0) node[below]{$a$} -- (1,2);
+            \draw[dashed] (3,0) node[below]{$b$} -- (3,2);
+            \draw[thick, blue] plot (\x, {-1.0*(\x-2)*(\x-2) + 3});
+            \draw[thick, red] (1.2, 3) -- (2.8, 3);
+            \fill (2,3) circle (2pt) node[above] {$\xi$};
+            \draw[dashed] (2,0) node[below]{$\xi$} -- (2,3);
+            \node at (2, -1) {\textbf{罗尔定理} $f'(\xi)=0$};
+        \end{tikzpicture}
+        \begin{tcolorbox}[colback=red!5, colframe=red!75!black, title=罗尔定理定义]
+        若 $f \in C[a,b]$，$(a,b)$ 可导，且 \textbf{$f(a)=f(b)$}，\\
+        则 $\exists \xi \in (a,b)$，使得 \textbf{$f'(\xi)=0$}。
+        \end{tcolorbox}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=0.8, domain=0.5:3.5]
+            \draw[->] (-0.2,0) -- (4,0) node[right] {$x$};
+            \draw[->] (0,-0.2) -- (0,4) node[above] {$y$};
+            \draw[dashed] (1,0) node[below]{$a$} -- (1,1.25);
+            \draw[dashed] (3,0) node[below]{$b$} -- (3,3.25);
+            \draw[gray, dashed] (1,1.25) -- (3,3.25); % 割线
+            \draw[thick, blue] plot (\x, {0.25*\x*\x + 1}); % 曲线
+            \draw[thick, red] (1,1) -- (3,3); % 平行切线
+            \fill (2,2) circle (2pt) node[below right] {$\xi$};
+            \draw[dashed] (2,0) node[below]{$\xi$} -- (2,2);
+            \node at (2, -1) {\textbf{拉格朗日定理} $f'(\xi)=\frac{f(b)-f(a)}{b-a}$};
+        \end{tikzpicture}
+        \begin{tcolorbox}[colback=blue!5, colframe=blue!75!black, title=拉格朗日定理由来]
+        若 $f \in C[a,b]$，$(a,b)$ 可导，\\
+        则 $\exists \xi \in (a,b)$，使得 \textbf{$f(b)-f(a) = f'(\xi)(b-a)$}。
+        \end{tcolorbox}
+    \end{minipage}
+\end{figure}
+
+\subsection{中值定理-归纳图}
+\begin{center}
+\begin{tikzpicture}[node distance=2.5cm, auto]
+    \node (R) [draw, rectangle, rounded corners, minimum height=1cm, align=center] {罗尔定理 \\ $f'(\xi)=0$};
+    \node (L) [draw, rectangle, rounded corners, below left of=R, node distance=5cm, minimum height=1cm, align=center] {拉格朗日定理 \\ $f'(\xi)=\frac{f(b)-f(a)}{b-a}$};
+    \node (C) [draw, rectangle, rounded corners, below right of=R, node distance=5cm, minimum height=1cm, align=center] {柯西定理 \\ (拉格朗日推广)};
+    
+    \draw[->, thick] (L) -- (R) node[midway, above, sloped] {特例：$f(a)=f(b)$};
+    \draw[->, thick] (R) -- (L) node[midway, below, sloped] {构造辅助函数变形};
+    \draw[->, dashed] (L) -- (C) node[midway, below] {推广};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{定理选用策略：题目特征判别}
+在解题过程中，根据题目给出的条件特征（如区间性质、端点值），快速锁定使用的定理：
+
+\begin{center}
+\begin{tabular}{p{0.45\textwidth}|p{0.45\textwidth}}
+\toprule
+\textbf{出现以下特征 $\to$ 优先用罗尔定理} & \textbf{出现以下特征 $\to$ 优先用拉格朗日} \\
+\midrule
+1. \textbf{结论形式}：$f'(\xi)=0$ 或含 $f(\xi), f'(\xi)$ 的等式（如 $f'(\xi)+f(\xi)=0$） & 1. \textbf{结论形式}：含 $f(b)-f(a)$ 或此形式的变体 \\
+2. \textbf{端点条件}：题目明确给出（或隐含）$f(a)=f(b)$ & 2. \textbf{不等式证明}：需证明 $f(b)>f(a)$ 或与导数大小相关的不等式 \\
+3. \textbf{多次求导}：高阶导数问题（如 $f^{(n)}(\xi)=0$）通常多次用罗尔 & 3. \textbf{极限计算}：出现 $f(x)-f(y)$ 的极限型问题 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{tcolorbox}[colback=yellow!10, colframe=orange!80!black, title=【冲刺口诀】]
+\textbf{闭连续，开可导，端点相等罗尔找；} \\
+\textbf{端点不等差商造，拉格朗日能通考。}
+\end{tcolorbox}
+
+\section{罗尔定理与辅助函数构造}
+
+\begin{conceptbox}[定理 1：罗尔定理]
+若函数 $f(x)$ 满足以下条件：
+1. 在闭区间 $[a, b]$ 上连续；
+2. 在开区间 $(a, b)$ 内可导；
+3. \textbf{端点值相等} $f(a)=f(b)$；\\
+则必存在 $\xi \in (a, b)$，使得 $f'(\xi)=0$。
+\end{conceptbox}
+
+\subsection{构造辅助函数 $F(x)$ 的三大方法}
+在证明题中，能否正确构造 $F(x)$ 是解题的逻辑核心。：
+
+\begin{enumerate}
+    \item \textbf{方法一：一阶线性微分方程逆推（公式法）}
+    针对结论形式为 $f'(\xi) + g(\xi)f(\xi) = 0$。根据一阶线性微分方程的积分因子求解思路，构造：
+    $$F(x) = f(x) e^{\int g(x) dx}$$
+    
+    \begin{examnote}{2017年真题}
+    \textbf{题目}：证明 $f'(\xi) - \frac{3}{1-\xi}f(\xi) = 0$。\\
+    \textbf{逻辑构造}：\vspace{1.5cm} % 学生填写区域
+    \end{examnote}
+
+    \item \textbf{方法二：莱布尼茨乘积法则（四则运算型）}
+    针对结论形式为 $u' v + u v' = 0$。利用积的求导公式逆推，构造 $F(x) = u(x)v(x)$。补充：加法用乘，减法用除!
+    
+    \begin{examnote}{2018年真题}
+    \textbf{题目}：证明 $f(\xi) + \xi f'(\xi) = 0$。\\
+    \textbf{逻辑构造}：\vspace{1.5cm} % 学生填写区域
+    \end{examnote}
+
+    \item \textbf{方法三：直接积分原函数型}
+    针对结论不含 $f(x)$ 且导数项独立的等式。
+    
+    \begin{examnote}{示例题目}
+    \textbf{题目}：证明 $f'(\xi) = 1$。\\
+    \textbf{逻辑构造}：\vspace{1.5cm} % 学生填写区域
+    \end{examnote}
+\end{enumerate}
+
+\section{拉格朗日中值定理}
+
+\begin{conceptbox}[定理 2：拉格朗日中值定理]
+若 $f(x)$ 在闭区间 $[a, b]$ 上连续，且在开区间 $(a, b)$ 内可导，则至少存在一点 $\xi \in (a, b)$，使：
+$$f(b) - f(a) = f'(\xi)(b - a)$$
+\end{conceptbox}
+
+\subsection{逻辑应用：不等式与极限的解析}
+
+\begin{examnote}{2018年真题}
+\textbf{真题考点}：证明 $x < \tan x < \frac{x}{\cos^2 x}$ （其中 $x \in (0, \frac{\pi}{2})$）。\\
+\textbf{逻辑推演}：\vspace{2cm} % 学生填写区域
+\end{examnote}
+
+\begin{examnote}{2016年真题}
+\textbf{真题考点}：证明 $|\arcsin x_1 - \arcsin x_2| \ge |x_1 - x_2|$。\\
+\textbf{逻辑推演}：\vspace{2cm} % 学生填写区域
+\end{examnote}
+
+\section{高阶技巧：罗尔定理与零点定理的嵌套应用}
+当端点值不直接相等（如 $F(a) \neq F(b)$）时，需运用\textbf{连续函数的零点定理}来寻找中间点。
+
+\begin{examnote}{示例题目}
+\textbf{逻辑模型}：已知 $f(0)=f(1)=0, f(\frac{1}{2})=1$，证明 $f'(\xi)=1$。\\
+\textbf{证明逻辑}：\vspace{3cm} % 学生填写区域
+\end{examnote}
+
+\section{中值定理求解极限技巧}
+\begin{examnote}{示例题目}
+\textbf{高阶计算}：求极限 $\lim_{x \to 0} \frac{e^x - e^{\sin x}}{x^3}$。\\
+\textbf{解析逻辑}：\vspace{3cm} % 学生填写区域
+\end{examnote}
+
+% ##################################################################
+% 第二部分：典型习题深度解析 (习题内容，按要求补充)
+% ##################################################################
+\newpage
+\section{典型习题深度解析}
+
+% ========== 第1题 ==========
+\problemrule
+\subsection*{【题目1】罗尔定理与辅助函数构造实战}
+已知函数 $f(x)$ 在区间 $[a, b]$ 上连续，在 $(a, b)$ 内可导。
+请证明：若需证 $f'(\xi) - \frac{3}{1-\xi}f(\xi) = 0$ （其中 $\xi \in (a, b)$），应如何构造辅助函数？结合2017年真题思路，写出完整的构造逻辑。
+
+\begin{redenv}
+\subsubsection*{逐步解析}
+\vspace{3cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第2题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目2】拉格朗日中值定理证明不等式实战}
+证明：当 $x \in (0, \frac{\pi}{2})$ 时，有 $x < \tan x < \frac{x}{\cos^2 x}$。（源自2018年真题考点）
+
+\begin{redenv}
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第3题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目3】中值定理与零点定理的综合应用}
+已知函数 $f(x)$ 在 $[0, 1]$ 上二阶可导，且 $f(0)=f(1)=0, f(\frac{1}{2})=1$。
+证明：存在 $\xi \in (0, 1)$，使得 $f'(\xi) = 1$。
+
+\begin{redenv}
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第4题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目4】利用中值定理求极限}
+求极限：$\lim_{x \to 0} \frac{e^x - e^{\sin x}}{x^3}$。
+
+\begin{redenv}
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第5题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目5】拉格朗日中值定理证明双向不等式}
+证明：当 $0 < a < b$ 时，有 $\frac{b-a}{b} < \ln \frac{b}{a} < \frac{b-a}{a}$。
+
+\begin{redenv}
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第6题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目6】零点定理与单调性判别根的个数}
+证明：方程 $x^3 + x - 1 = 0$ 在区间 $(0, 1)$ 内有且仅有一个实根。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{6cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第7题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目7】辅助函数构造（乘积型）}
+已知函数 $f(x)$ 在 $[0, 1]$ 上连续，在 $(0, 1)$ 内可导，且 $f(0)=f(1)=0$。证明：存在 $\xi \in (0, 1)$，使得 $f'(\xi) + 2\xi f(\xi) = 0$。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第8题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目8】利用导数性质比较大小}
+比较 $e^\pi$ 与 $\pi^e$ 的大小。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{6cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第9题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目9】利用拉格朗日中值定理证明不等式}
+证明：当 $x>0$ 时，$\frac{x}{1+x} < \ln(1+x) < x$。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第10题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目10】简单的拉格朗日中值定理应用}
+已知函数 $f(x)$ 在 $[0, 1]$ 上连续，在 $(0, 1)$ 内可导，且 $f(0)=0, f(1)=1$。证明：在 $(0, 1)$ 内至少有一点 $\xi$ 使 $f'(\xi)=1$。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{6cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第11题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目11】辅助函数构造（幂函数型）}
+设函数 $f(x)$ 在 $[1, 2]$ 上连续，在 $(1, 2)$ 内可导，且 $f(1) = 4f(2)$。证明：存在一点 $\xi \in (1, 2)$，使得 $2f(\xi) + \xi f'(\xi) = 0$。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{6cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第12题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目12】利用单调性证明不等式}
+证明：当 $x > 0$ 时，$\ln(1+x) > x - \frac{1}{2}x^2$。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第13题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目13】拉格朗日中值定理计算题}
+求函数 $f(x) = x^2 + 2x$ 在区间 $[0, 1]$ 上满足拉格朗日中值定理条件的 $\xi$ 值。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第14题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目14】利用单调性证明正弦不等式}
+证明：当 $x > 0$ 时，$\sin x < x$。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第15题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目15】反复应用罗尔定理}
+已知 $f(x)$ 在 $[1, 3]$ 上二阶可导，且 $f(1)=f(2)=f(3)=0$。证明：存在 $\xi \in (1, 3)$，使得 $f''(\xi)=0$。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+% ========== 第16题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目16】单调性与零点判定}
+证明：方程 $x^3 - 3x + 1 = 0$ 在区间 $(-2, 2)$ 内恰有三个实根。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+\vspace{8cm} % 学生作答区域
+\end{redenv}
+
+\end{document}

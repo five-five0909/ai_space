@@ -1,0 +1,196 @@
+% !TEX program = xelatex
+% !TEX encoding = UTF-8
+
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{framed}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据结构讲义}
+\lhead{章节精讲}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{第四章 串}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{本章知识脉络}
+
+本章介绍串（字符串）这一重要的数据结构。串是由零个或多个字符组成的有限序列，是线性表的特例，其特殊性体现在数据元素只能是字符。串在文本处理、信息检索、编译程序等领域有广泛应用。
+
+\vspace{1em}
+
+串的基本操作主要包括求串长、串连接、求子串、串比较、串定位（模式匹配）等。其中模式匹配是重点也是难点，主要介绍了BF（Brute-Force）算法和KMP（Knuth-Morris-Pratt）算法。
+
+\vspace{1em}
+
+串的存储方式与线性表类似，可采用顺序存储和链式存储。顺序存储又分为定长顺序存储和堆分配存储两种方式。
+
+\section{串的基本概念}
+
+\subsection{串的定义}
+
+串（String）是由零个或多个字符组成的有限序列，通常记作 $S="a_1a_2\cdots a_n"$，其中 $S$ 是串名，双引号是串的定界符，$a_i$ ($1 \le i \le n$) 是字符。串中字符的个数称为串的长度，长度为零的串称为空串，记作 $S=\texttt{""}$。
+
+\vspace{1em}
+
+串是由字符组成的线性结构，但它与普通线性表的区别在于：串的数据元素只能是字符。
+
+\subsection{空串与空格串的区别}
+
+\textbf{空串}：长度为零的串，不包含任何字符，记作 $\texttt{""}$ 或 $\emptyset$。
+
+\textbf{空格串}：由一个或多个空格字符组成的串。
+
+\vspace{1em}
+
+\textbf{区别}：
+\begin{itemize}
+	\item 空串长度为0
+	\item 空格串长度至少为1
+\end{itemize}
+
+\subsection{串的基本操作}
+
+\textbf{求串长StrLength(S)}：返回串S中字符的个数。
+
+\textbf{串连接Concat(S, T)}：将串T连接到串S的后面。
+
+\textbf{求子串SubString(S, pos, len)}：返回串S中从第pos个字符开始的子串。
+
+\textbf{串定位Index(S, T)}：查找子串T在主串S中首次出现的位置。
+
+\section{串的模式匹配算法}
+
+\subsection{模式匹配的概念}
+
+模式匹配是指在主串S中查找子串T首次出现的位置。
+
+\textbf{BF算法}：时间复杂度$O(n \times m)$，简单但效率低。
+
+\textbf{KMP算法}：时间复杂度$O(n + m)$，通过next数组避免回溯。
+
+\subsection{BF算法}
+
+BF（Brute-Force）算法是最直接的模式匹配算法。算法的基本思想是：
+\begin{enumerate}
+	\item 从主串的第一个字符开始比较
+	\item 如果相等，继续比较后续字符
+	\item 如果不等，主串指针回溯到第二个字符，重新开始比较
+\end{enumerate}
+
+\subsection{KMP算法}
+
+KMP算法的核心：利用已经匹配过的部分信息，避免主串指针回溯。
+
+\textbf{next数组}：用于指示在匹配失败时模式串该如何调整位置。
+
+\textbf{KMP算法特点}：
+\begin{itemize}
+	\item 主串指针永远不回溯
+	\item 时间复杂度为$O(n + m)$
+\end{itemize}
+
+\section{典型例题精讲}
+
+\subsection{选择题精析}
+
+\begin{framed}
+	\textbf{答案：D}
+
+	\textbf{【核心认知框架】}
+
+	本题考查串的基本定义。
+
+	\textbf{【选项深度解析】}
+
+	\begin{enumerate}
+		\item A. 不正确：串中的字符不限于字母
+		\item B. 不正确：表述不准确
+		\item C. 不正确：排除了空串
+		\item D. 正确：完整准确的定义
+	\end{enumerate}
+\end{framed}
+
+\begin{framed}
+	\textbf{答案：B}
+
+	\textbf{【核心认知框架】}
+
+	本题考查空串与空格串的区别。
+
+	\textbf{【选项深度解析】}
+
+	\begin{itemize}
+		\item 空串：长度为0
+		\item 空格串：长度为$n \ge 1$
+	\end{itemize}
+
+	\textbf{结论}：空串与空格串不相同。
+\end{framed}
+
+\begin{framed}
+	\textbf{答案：B}
+
+	串的特殊性体现在：数据元素是一个字符。这是串与其他线性表的根本区别。
+\end{framed}
+
+\begin{framed}
+	\textbf{答案：B}
+
+	模式匹配的功能是在主串中查找子串首次出现的位置。
+\end{framed}
+
+\subsection{填空题精析}
+
+\begin{enumerate}
+	\item 串的两种最基本的存储方式是\textbf{顺序存储}和\textbf{链式存储}
+	\item 两个串相等的充分必要条件是\textbf{两个串的长度相等且对应位置的字符相同}
+	\item 空串的长度等于\textbf{0}，空格串的长度等于\textbf{其包含的空格个数}
+	\item BF算法的时间复杂度为\textbf{O(n $\times$ m)}
+	\item KMP算法的时间复杂度为\textbf{O(n + m)}
+\end{enumerate}
+
+\subsection{判断题精析}
+
+\begin{enumerate}
+	\item \textbf{顺序存储方式只能用于存储线性结构。（错误）}
+	\item \textbf{串是一种特殊的线性表，其特殊性体现在可以顺序存储。（错误）}
+	\item \textbf{空串和空白串是相同的。（错误）}
+	\item \textbf{串是有限个字符的序列。（正确）}
+	\item \textbf{串是一种特殊的线性表，其特殊性体现在数据元素是一个字符。（正确）}
+	\item \textbf{KMP算法的效率一定优于BF算法。（正确）}
+\end{enumerate}
+
+\section{本章学习建议}
+
+本章学习建议：
+
+\begin{enumerate}
+	\item 理解串的基本概念
+	\item 掌握串的基本操作
+	\item 重点掌握模式匹配算法
+	\item 通过编程实践加深理解
+\end{enumerate}
+
+\end{document}

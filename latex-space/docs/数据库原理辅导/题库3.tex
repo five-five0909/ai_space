@@ -1,0 +1,1590 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+\documentclass[12pt,a4paper]{ctexart}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+
+% 页面设置
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{湖南理工数据库原理专升本真题}
+\fancyfoot[C]{\thepage}
+
+% 列表设置
+\setlist[itemize]{noitemsep,topsep=0pt}
+\setlist[enumerate]{noitemsep,topsep=2pt,leftmargin=2em}
+
+% 题目环境定义
+\newcounter{question}
+\newenvironment{question}{
+    \stepcounter{question}
+    \vspace{0.5em}
+    \noindent\textbf{\arabic{question}、}
+}{\vspace{0.5em}}
+
+% 选项环境定义
+\newenvironment{options}{
+    \begin{enumerate}[label=\Alph*、,leftmargin=3em]
+}{
+    \end{enumerate}
+}
+
+% 答案命令
+\newcommand{\answer}[1]{\noindent\textbf{答案：#1}\par}
+
+\title{\heiti 湖南理工数据库原理专升本真题}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\begin{question}
+候选键约束可以在 CREATE TABLE 或 ALTER TABLE 语句中使用关键字【】来实现。
+\begin{options}
+    \item REFERENCES
+    \item FOREIGN KEY
+    \item PRIMARY KEY
+    \item UNIQUE
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+关系数据库是以【】的形式组织数据。
+\begin{options}
+    \item 二维表格
+    \item 结构
+    \item 元组
+    \item 分量
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+关于候选键与主键，下列说法正确的是
+\begin{options}
+    \item 一个表中只能创建一个主键和一个候选键
+    \item 一个表中只能创建一个主键，但可以定义若干个候选键
+    \item 一个表中可以创建若干个主键和候选键
+    \item 一个表中可以创建若干个主键，但只能定义一个候选键
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+最简单有效的保障封锁其调度是可串行性的方法是
+\begin{options}
+    \item 1级封锁
+    \item 2级封锁
+    \item 3级封锁
+    \item 两段封锁法
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+属于数据库实现与操作阶段的是
+\begin{options}
+    \item 逻辑设计
+    \item 概念设计
+    \item 物理设计
+    \item 数据库的修改与调整
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+数据库设计的重要目标包括
+\begin{options}
+    \item 研究构造数据库
+    \item 数据库结构设计
+    \item 数据库行为设计
+    \item 良好的数据库性能
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+聚类的目的是
+\begin{options}
+    \item 使对象之间的距离尽可能小
+    \item 使对象之间的距离尽可能大
+    \item 使属于同一类别的对象之间的距离尽可能大，而不同类别的对象间的距离尽可能小
+    \item 使属于同一类别的对象之间的距离尽可能小，而不同类别的对象间的距离尽可能大
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+下列属于关联分析算法的是
+\begin{options}
+    \item Apriori
+    \item GMM
+    \item Redis
+    \item HBase
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+数据集市的基本思想是【】的数据仓库的开发方法。
+\begin{options}
+    \item 自上而下
+    \item 自下而上
+    \item 自左向右
+    \item 自右向左
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+下列关于MySQL的说法中，错误的是
+\begin{options}
+    \item MySQL是一个RDBMS
+    \item MySQL具有客户/服务器体系结构
+    \item MySQL由美国MySQLAB公司开发
+    \item 许多中、小型网站为了降低网站总体拥有成本而选择MySQL作为网站数据库
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+产生数据不一致的主要原因是并发操作破坏了事务的
+\begin{options}
+    \item 隔离性
+    \item 一致性
+    \item 原子性
+    \item 持续性
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+主键约束可以在 CREATE TABLE或ALTER TABLE 语句中使用关键字【】来实现。
+\begin{options}
+    \item REFERENCES
+    \item FOREIGN KEY
+    \item PRIMARY KEY
+    \item UNIQUE
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+【】是指数据正确性的约束范围和验证准则，以及一致性保护的要求。
+\begin{options}
+    \item 响应时间
+    \item 数据恢复
+    \item 数据的安全保密性
+    \item 数据的完整性
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+下列关于数据控制语言的说法中，正确的是
+\begin{options}
+    \item REVOKE语句用于授予权限
+    \item GRANT语句用于收回权限
+    \item 数据控制语言主要用于数据执行流程管理
+    \item 数据控制语言包括的主要SQL语句是GRANT 和 REVOKE
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+MySQL支持的用户自定义完整性约束不包括
+\begin{options}
+    \item 非空约束
+    \item CHECK约束
+    \item 触发器
+    \item 视图
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+在图存储数据库中，【】保存与结点相关的信息。
+\begin{options}
+    \item 结点
+    \item 属性
+    \item 边
+    \item 联系
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+在关系的一个码中移去某个属性，它仍然是这个关系的码，这样的码称为
+\begin{options}
+    \item 全码
+    \item 超码
+    \item 主属性
+    \item 外码
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+命名完整性约束的方法是在各种完整性约束的定义说明之前加上关键字【】和该约束的名字。
+\begin{options}
+    \item UNIQUE
+    \item CONSTRAINT
+    \item NOT
+    \item PRIMARY KEY
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+主要反映应用部门原始业务处理的工作流程的是
+\begin{options}
+    \item 数据操作特征表
+    \item 数据流程图
+    \item 任务分类表
+    \item 操作过程说明书
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+在SELECT语句的语法结构中，【】用于对查询的结果进行排序。
+\begin{options}
+    \item ORDER BY子句
+    \item WHERE子句
+    \item GROUP BY子句
+    \item HAVING子句
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+属性的取值范围称为该属性的
+\begin{options}
+    \item 联系
+    \item 实体
+    \item 码
+    \item 域
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+在MySQL数据库中，数据库系统通常使用数据库用户权限确认等访问控制措施，这主要是为了实现数据库的
+\begin{options}
+    \item 安全性
+    \item 完整性
+    \item 并发控制
+    \item 恢复
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+根据数据流程图、任务分类表及数据操作特征表等，标明各任务的主要逻辑执行步骤的是
+\begin{options}
+    \item 数据字典
+    \item 任务总表
+    \item 数据表
+    \item 操作过程说明书
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+使用MySQL数据库管理系统构建各种信息管理系统或互联网网站的应用环境，采用WAMP构架方式时，【】作为操作系统。
+\begin{options}
+    \item UNIX
+    \item Windows
+    \item Linux
+    \item MAC
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+能唯一标识该关系的元组的属性称为该关系的
+\begin{options}
+    \item 分量
+    \item 超码
+    \item 码
+    \item 超键
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+实现数据在不会被相互干扰的情况下并发使用，并且在发生故障时能够对数据库进行正确的恢复的是
+\begin{options}
+    \item 数据定义功能
+    \item 数据库的运行管理功能
+    \item 数据操纵功能
+    \item 数据库的维护功能
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+在多表连接查询的连接类型中，最常用的是
+\begin{options}
+    \item 交叉连接
+    \item 内连接
+    \item 左连接
+    \item 右连接
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+下列不属于查询操作的是【】
+\begin{options}
+    \item 投影
+    \item 选择
+    \item 修改
+    \item 交
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+下列关于游标的说法中，错误的是
+\begin{options}
+    \item 在实际应用中，一个游标可以被多次打开
+    \item 在定义游标之后，必须打开该游标，才能使用
+    \item 在使用游标之前，必须先声明定义它
+    \item 句柄必须在游标之前定义，否则系统会出现错误消息
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+在数据定义语言包括的SQL语句中，用于删除数据库或数据库对象的是
+\begin{options}
+    \item GRANT
+    \item ALTER
+    \item DROP
+    \item CREATE
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+数据库中存储的数据的基本特点不包括
+\begin{options}
+    \item 永久存储
+    \item 有组织
+    \item 可共享
+    \item 易于扩展
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+在下列MySQL的内置函数中，属于加密函数的是
+\begin{options}
+    \item ENCODE函数
+    \item COUNT函数
+    \item ASCII函数
+    \item YEAR函数
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+事务的原子性是指
+\begin{options}
+    \item 事务中包括的所有操作要么都做，要么都不做
+    \item 事务一旦提交，对数据库的改变是永久的
+    \item 一个事务内部的操作及使用的数据对并发的其他事务是隔离的
+    \item 事务执行完毕后将数据库从一个一致性状态转变到另一个一致性状态
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+在图存储数据库中，【】用来连接结点。
+\begin{options}
+    \item 结点
+    \item 属性
+    \item 边
+    \item 联系
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+在图存储数据库中，【】代表实体。
+\begin{options}
+    \item 结点
+    \item 属性
+    \item 边
+    \item 联系
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+关于调用存储过程的说法，错误的是
+\begin{options}
+    \item 可以从交互式界面调用
+    \item 可以使用CALL语句来调用存储过程
+    \item 可以由嵌入式SQL调用
+    \item 不是所有的SQL接口都能调用存储过程
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+在使用游标的过程中，需要注意的事项不包括
+\begin{options}
+    \item 游标不能单独在查询操作中使用
+    \item 在一个BEGIN $\cdots$ END语句块中每一个游标的名字并不是唯一的
+    \item 游标是被SELECT 语句检索出来的结果集
+    \item 在存储过程或存储函数中可以定义多个游标
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+下列关于SQL的说法中，错误的是
+\begin{options}
+    \item SQL是一个简洁易学的语言
+    \item SQL语句可以由一个关键字组成
+    \item SQL由很少的词构成
+    \item SQL语句最多有三个关键字组成
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+数据库设计的起点是
+\begin{options}
+    \item 需求分析
+    \item 概念结构设计
+    \item 逻辑结构设计
+    \item 物理结构设计
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+删除用户账号的语句是
+\begin{options}
+    \item CREATE USER
+    \item DROP USER
+    \item RENAME USER
+    \item SET PASSWORD
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+子查询返回的结果集仅仅是一个值的是
+\begin{options}
+    \item 表子查询
+    \item 行子查询
+    \item 列子查询
+    \item 标量子查询
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+下列关于数据控制语言的说法中，错误的是
+\begin{options}
+    \item GRANT语句用于授予权限
+    \item REVOKE语句用于收回权限
+    \item 数据控制语言主要用于数据执行流程管理
+    \item 数据控制语言包括的主要SQL语句是GRANT 和 REVOKE
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+关系数据库的标准语言是
+\begin{options}
+    \item C语言
+    \item C++
+    \item SQL
+    \item Delphi
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+系统维护中最困难的工作是
+\begin{options}
+    \item 数据库重组与重构
+    \item 数据库运行
+    \item 数据库实施
+    \item 物理设计
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+在下列MySQL的内置函数中，属于系统信息函数的是
+\begin{options}
+    \item IF函数
+    \item IFNULL函数
+    \item CASE函数
+    \item VERSION函数
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+关系模型的组成不包括
+\begin{options}
+    \item 数据结构
+    \item 关系操作
+    \item 数据完整性
+    \item 数据一致性
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+下列关于数据库外模式的说法，正确的是
+\begin{options}
+    \item 一个数据库只能有一个外模式
+    \item 外模式不能重叠
+    \item 一个外模式可以只为一个应用程序使用
+    \item 不可被多个应用程序所共享
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+将数据库系统与现实世界进行密切地、有机地、协调一致地结合的过程是
+\begin{options}
+    \item 数据库设计的内容
+    \item 数据库设计
+    \item 数据库生命周期
+    \item 数据库设计方法
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+DBMS提供【】来严格地定义模式。
+\begin{options}
+    \item 模式描述语言
+    \item 子模式描述语言
+    \item 内模式描述语言
+    \item 程序设计语言
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+下列属于新一代数据库系统的是
+\begin{options}
+    \item 层次数据库系统
+    \item 网状数据库系统
+    \item 关系数据库系统
+    \item 面向对象数据库系统
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+下列关于MySQL的说法中，错误的是
+\begin{options}
+    \item MySQL是一个关系型数据库管理系统
+    \item 在MySQL中，一个关系对应一个视图
+    \item 在MySQL中，一个表可以有若干索引
+    \item 在MySQL中，索引存放在存储文件中，其中存储文件的逻辑结构组成了MySQL的内模式
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+实体所具有的某种特性称为
+\begin{options}
+    \item 键
+    \item 域
+    \item 实体型
+    \item 属性
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+人工管理阶段，计算机主要应用于
+\begin{options}
+    \item 数据集成
+    \item 过程控制
+    \item 故障恢复
+    \item 科学计算
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+修改用户口令的语句是
+\begin{options}
+    \item CREATE USER
+    \item DROP USER
+    \item RENAME USER
+    \item SET PASSWORD
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+在 SELECT语句的语法结构中，【】用于指定组的选择条件。
+\begin{options}
+    \item ORDER BY子句
+    \item WHERE子句
+    \item GROUP BY子句
+    \item HAVING子句
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+目的是为可实际运行的应用程序设计提供依据与指导，并作为设计评价的基础的是
+\begin{options}
+    \item 模型转换
+    \item 编制应用程序设计说明
+    \item 设计评价
+    \item 子模式设计
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+同一数据被反复存储的情况是
+\begin{options}
+    \item 删除异常
+    \item 插入异常
+    \item 数据冗余
+    \item 更新异常
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+下列属于文档型数据库的是
+\begin{options}
+    \item Redis
+    \item CouchDB
+    \item Cassandra
+    \item HBase
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+【】是NoSQL数据库采用最多的数据存储方式。
+\begin{options}
+    \item 键值存储
+    \item 文档存储
+    \item 列存储
+    \item 图存储
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+当关系有多个候选码时，选定一个作为主键，若主键为全码，应包含
+\begin{options}
+    \item 单个属性
+    \item 两个属性
+    \item 多个属性
+    \item 全部属性
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+在使用SELECT 语句进行查询时，若查询一个表中的所有列，则可在SELECT语句指定列的位置上直接使用的通配符是
+\begin{options}
+    \item \#
+    \item @
+    \item *
+    \item \&
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+索引在逻辑上通常包含有普通索引、唯一性索引和主键三类。创建主键时，通常使用的关键字是
+\begin{options}
+    \item INDEX
+    \item UNIQUE
+    \item PRIMARY KEY
+    \item KEY
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+下列属于列存储数据库的是
+\begin{options}
+    \item Redis
+    \item CouchDB
+    \item MongoDB
+    \item Cassandra
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+引起数据不一致的根源是
+\begin{options}
+    \item 数据集成
+    \item 并发控制
+    \item 数据冗余
+    \item 故障恢复
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+【】可以防止丢失更新和"读脏数据"。
+\begin{options}
+    \item 0级封锁
+    \item 1级封锁
+    \item 2级封锁
+    \item 两段锁协议
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+属于数据库结构设计阶段的是
+\begin{options}
+    \item 逻辑结构设计
+    \item 功能设计
+    \item 事务设计
+    \item 程序设计
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+【】要求明确标明数据库的应用范围及应达到的应用处理功能。
+\begin{options}
+    \item 数据库的应用功能目标
+    \item 标明不同用户视图范围
+    \item 应用处理过程需求说明
+    \item 数据字典
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+对多用户的并发操作加以控制和协调是指
+\begin{options}
+    \item 数据集成
+    \item 数据共享
+    \item 并发控制
+    \item 故障恢复
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+下列关于SQL的说法中，错误的是
+\begin{options}
+    \item SQL是一个综合的、功能强大的语言
+    \item SQL与Java、C等程序设计语言非常相似
+    \item SQL由很少的词构成
+    \item 每个SQL语句都是由一个或多个关键字所组成
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+【】主要是指某些特定应用要求的数据存取时间限制。
+\begin{options}
+    \item 响应时间
+    \item 数据恢复
+    \item 数据的安全保密性
+    \item 数据的完整性
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+事务的持续性是指
+\begin{options}
+    \item 事务中包括的所有操作要么都做，要么都不做
+    \item 事务一旦提交，对数据库的改变是永久的
+    \item 一个事务内部的操作及使用的数据对并发的其他事务是隔离的
+    \item 事务执行完毕后将数据库从一个一致性状态转变到另一个一致性状态
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+关系数据库以【】作为数据的逻辑模型。
+\begin{options}
+    \item 二维表
+    \item 关系模型
+    \item 数据库
+    \item 关系
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+在数据定义语言包括的SQL语句中，用于对数据库或数据库对象进行修改的是【】
+\begin{options}
+    \item CREATE
+    \item ALTER
+    \item DROP
+    \item UPDATE
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+表中的列，也称作
+\begin{options}
+    \item 元组
+    \item 键
+    \item 码
+    \item 字段
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+下列不属于数据库的建立和维护功能的是
+\begin{options}
+    \item 数据库空间的维护
+    \item 数据库的性能监视
+    \item 数据库的分析
+    \item 数据定义
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+下列关于存储函数与存储过程的说法中，错误的是
+\begin{options}
+    \item 可以直接对存储函数进行调用，且不需要使用CALL语句
+    \item 存储函数与存储过程一样，都可以被应用程序调用
+    \item 存储函数中不能包含RETURN语句
+    \item 对存储过程的调用，需要使用CALL语句
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+长期储存在计算机中的有组织的、可共享的数据集合是指
+\begin{options}
+    \item 数据
+    \item 数据库
+    \item 数据库管理系统
+    \item 数据库系统
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+数据库设计的出发点是
+\begin{options}
+    \item 用户对数据的需求
+    \item 数据库的构造
+    \item 数据库设计方法的确定
+    \item 数据库的实现
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+若干元组之间、关系之间的联系的约束是指
+\begin{options}
+    \item 列级约束
+    \item 元组约束
+    \item 表级约束
+    \item 行级约束
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+在MySQL中，实体完整性是通过【】来实现的。
+\begin{options}
+    \item 键约束
+    \item 主键约束
+    \item 候选键约束
+    \item 主键约束和候选键约束
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+在创建存储过程时，常用的循环语句不包括
+\begin{options}
+    \item FOR语句
+    \item REPEAT语句
+    \item LOOP语句
+    \item WHILE语句
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+下列关于存储函数与存储过程的说法中，错误的是
+\begin{options}
+    \item 存储过程可以拥有输出参数
+    \item 可以直接对存储函数进行调用，且不需要使用CALL语句
+    \item 存储过程中必须包含一条 RETURN语句
+    \item 对存储过程的调用，需要使用CALL语句
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+标明不同任务的功能及使用状况的是
+\begin{options}
+    \item 操作过程说明书
+    \item 数据操作特征表
+    \item 任务分类表
+    \item 数据流程图
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+下列关于SQL的说法中，错误的是
+\begin{options}
+    \item SQL不是某个特定数据库供应商专有的语言
+    \item 掌握SQL可以帮助用户与几乎所有的关系数据库进行交互
+    \item SQL简单易学
+    \item SQL语句区分大小写
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+数据仓库的特征不包括
+\begin{options}
+    \item 面向主题
+    \item 集成性
+    \item 数据的易失性
+    \item 数据的时变性
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+在 DROP USER语句的使用中，如果没有明确地给出账户的主机名，则该主机名会默认为是
+\begin{options}
+    \item \%
+    \item \&
+    \item *
+    \item \#
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+在MySQL中，当需要删除己创建的数据库时，可使用【】语句。
+\begin{options}
+    \item ALTER DATABASE
+    \item DROP SCHEMA
+    \item ALTER SCHEMA
+    \item CREATE SCHEMA
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+SQL提供了【】进行数据查询，该功能强大、使用灵活。
+\begin{options}
+    \item SELECT语句
+    \item UPDATE语句
+    \item CREATE语句
+    \item DELETE语句
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+【】是用户定义的一个数据操作序列，这些操作可作为一个完整的工作单元，要么全部执行，要么全部不执行，是一个不可分割的工作单位。
+\begin{options}
+    \item 程序
+    \item 命令
+    \item 事务
+    \item 文件
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+在一个关系的若干个候选码中指定一个用来唯一标识关系的元组，这个被指定的候选码称为该关系的
+\begin{options}
+    \item 超码
+    \item 主码
+    \item 全码
+    \item 域
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+在计算机领域，称为数据库时代的是
+\begin{options}
+    \item 20世纪60年代
+    \item 20世纪70年代
+    \item 20世纪80年代
+    \item 20世纪90年代
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+下列不属于关联的是
+\begin{options}
+    \item 简单关联
+    \item 复杂关联
+    \item 时序关联
+    \item 因果关联
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+在MySQL中，可以使用【】来修改已被创建的数据库的相关参数。
+\begin{options}
+    \item USE语句
+    \item CREATE SCHEMA语句
+    \item ALTER DATABASE语句
+    \item DROP DATABASE语句
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+在 SELECT语句的语法结构中，【】用于对检索到的记录进行分组。
+\begin{options}
+    \item FROM子句
+    \item WHERE子句
+    \item GROUP BY子句
+    \item HAVING子句
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+【】又称为数据库中的知识发现。
+\begin{options}
+    \item 数据挖掘
+    \item 数据仓库
+    \item 数据分析
+    \item 数据整理
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+在创建存储过程时，常用的条件判断语句有
+\begin{options}
+    \item LOOP语句
+    \item REPEAT语句
+    \item WHILE语句
+    \item CASE语句
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+概念模型中，用椭圆表示
+\begin{options}
+    \item 实体型
+    \item 属性
+    \item 联系
+    \item 关系
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+第三代数据库系统应该是以支持【】数据模型为主要特征的数据库系统。
+\begin{options}
+    \item 关系
+    \item 网状
+    \item 面向对象
+    \item 面向过程
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+数据库管理系统是计算机的
+\begin{options}
+    \item 应用软件
+    \item 系统软件
+    \item 数据库系统
+    \item 数据库
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+当关系中的某个属性不是这个关系的主码或候选码，而是另一关系的主码时，称该属性为这个关系的
+\begin{options}
+    \item 全码
+    \item 外码
+    \item 参照关系
+    \item 候选码
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+下列不属于数据库系统三级模式结构的是
+\begin{options}
+    \item 模式
+    \item 外模式
+    \item 内模式
+    \item 数据模式
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+下列不属于数据定义语言包括的SQL语句的是
+\begin{options}
+    \item DELETE
+    \item ALTER
+    \item CREATE
+    \item DROP
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+【】的任务是分析并检验模式及子模式的正确性与合理性。
+\begin{options}
+    \item 设计评价
+    \item 物理设计
+    \item 加载数据
+    \item 应用程序设计
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+在数据库技术中，数据处理基于【】，可以发现有用的信息。
+\begin{options}
+    \item 更新
+    \item 视图
+    \item 查询
+    \item 表
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+使用存储过程的好处不包括
+\begin{options}
+    \item 存储过程可作为一种安全机制来确保数据的完整性
+    \item 可增强SQL语言的功能和灵活性
+    \item 移植性好
+    \item 良好的封装性
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+【】是把数据按照相似性归纳成若干类别，同一类中的数据彼此相似，不同类中的数据相异
+\begin{options}
+    \item 聚类
+    \item 关联
+    \item 分类
+    \item 孤立点检测
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+在数据仓库技中【】是数据汇总/聚集工具。
+\begin{options}
+    \item 数据挖掘
+    \item 分割
+    \item OLAP
+    \item OLTP
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+数据库的【】是指数据库中数据的正确性和相容性。
+\begin{options}
+    \item 安全性
+    \item 完整性
+    \item 并发控制
+    \item 恢复
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+在MySQL数据库中，创建索引的方式不包括
+\begin{options}
+    \item 使用CREATE INDEX 语句创建索引
+    \item 使用 CREATE TABLE 语句创建索引
+    \item 使用ALTER TABLE语句创建索引
+    \item 使用USE TABLE语句创建索引
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+数据库管理系统的主要目的是
+\begin{options}
+    \item 数据集成
+    \item 数据共享
+    \item 数据冗余小
+    \item 数据独立性高
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+下列关于触发器的说法中，错误的是
+\begin{options}
+    \item 在触发器的创建中，每个表每个事件每次只允许一个触发器
+    \item 在删除一个表的同时，不会自动地删除该表上的触发器
+    \item 触发器不能更新或覆盖
+    \item 为了修改一个触发器，必须先删除它，然后再重新创建
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+属于行为设计阶段的是
+\begin{options}
+    \item 功能设计
+    \item 逻辑设计
+    \item 概念设计
+    \item 物理设计
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+保护数据库以防止不合法的使用而造成数据泄露、更改或破坏，这是指数据的
+\begin{options}
+    \item 安全性
+    \item 完整性
+    \item 并发控制
+    \item 恢复
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+下列关于MySQL中的变量的说法中，错误的是
+\begin{options}
+    \item 在MySQL中，变量分为用户变量和系统变量
+    \item 在使用用户变量时，应在该变量前添加一个"@"符号
+    \item 大多数系统变量应用于其他SQL语句中时，必须在系统变量名称前添加一个"@"符号
+    \item 变量用于临时存储数据
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+在某表中将学号字段的前四位规定为学生的入学年份，第5位规定为院系的编号。这属于列级约束中的
+\begin{options}
+    \item 对数据类型的约束
+    \item 对数据格式的约束
+    \item 对取值范围的约束
+    \item 对空值的约束
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+下列关于MySQL的说法中，正确的是
+\begin{options}
+    \item 在MySQL中，一个关系对应多个基本表
+    \item 在MySQL中，一个或多个基本表对应一个存储文件
+    \item 在MySQL中，一个表只能有一个索引
+    \item 在MySQL中，索引不能存放在存储文件中
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+表中的行，也称作
+\begin{options}
+    \item 属性
+    \item 记录
+    \item 分量
+    \item 超码
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+关于使用存储过程的说法，错误的是
+\begin{options}
+    \item 存储过程会预先编译，执行速度会快于交互执行的SQL语句
+    \item 存储过程能完成复杂的逻辑判断和复杂的运算
+    \item 存储过程中的声明和参数都是可选的
+    \item 存储过程中可以使用创建数据库对象的语句
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+修改用户账号的语句是
+\begin{options}
+    \item CREATE USER
+    \item DROP USER
+    \item RENAME USER
+    \item SET PASSWORD
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+数据库的核心是
+\begin{options}
+    \item 存储模式
+    \item 概念模式
+    \item 外部模式
+    \item 内部模式
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+下列关于SQL的说法中，错误的是
+\begin{options}
+    \item SQL是 SQLServer 2000 专有的语言
+    \item 掌握SQL可以帮助用户与几乎所有的关系数据库进行交互
+    \item SQL简单易学
+    \item SQL是一种强有力的语言
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+以下4个概念中，可用来解决"一个并发调度是否正确"问题的是
+\begin{options}
+    \item 串行调度
+    \item 并发执行调度的可串行化
+    \item 并发事务的可并行化
+    \item 并发事务的有效调度
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+若$D_1=\{a_1, a_2, a_3\}$，$D_2=\{1, 2, 3\}$，则$D_1 \times D_2$集合中共有【】个元组。
+\begin{options}
+    \item 6
+    \item 8
+    \item 9
+    \item 27
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+关系模式的任何属性
+\begin{options}
+    \item 不可再分
+    \item 可再分
+    \item 命名在该关系模式中可以不唯一
+    \item 以上都不正确
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+事务的一致性是指
+\begin{options}
+    \item 事务中包括的所有操作要么都做，要么都不做
+    \item 事务一旦提交，对数据库的改变是永久的
+    \item 一个事务内部的操作及使用的数据对并发的其他事务是隔离的
+    \item 事务执行完毕后将数据库由一个一致性状态转变到另一个一致性状态
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+控制数据在一定的范围内有效或要求数据之间满足一定的关系，保证输入到数据库中的数据满足相应的约束条件，以确保数据有效、正确是指
+\begin{options}
+    \item 并发控制
+    \item 故障恢复
+    \item 数据安全性
+    \item 数据完整性
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+在使用游标的过程中，需要注意的事项不包括
+\begin{options}
+    \item 游标不能单独在查询操作中使用
+    \item 游标只能用于存储过程或存储函数中
+    \item 游标是被SELECT 语句检索出来的结果集
+    \item 在存储过程或存储函数中只能定义一个游标
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+将符合要求的初始数据装载到数据库中去是指
+\begin{options}
+    \item 应用程序设计
+    \item 加载数据
+    \item 数据库试运行
+    \item 数据库维护
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+当某个事务对某段数据加了S锁之后，在此事务释放锁之前，其他事务可以对此段数据加的锁是
+\begin{options}
+    \item T锁
+    \item D锁
+    \item U锁
+    \item S锁
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+在关系模式$R(U，F)$中，$R$中任何非主属性对候选键完全函数依赖是$R \in 3NF$的
+\begin{options}
+    \item 充分必要条件
+    \item 必要条件
+    \item 充分条件
+    \item 既不充分也不必要条件
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+下列关于INSERT 语句的说法中，错误的是
+\begin{options}
+    \item 使用INSERT $\cdots$ VALUES语句可以插入单行元组数据
+    \item 使用INSERT $\cdots$ VALUES 语句可以插入多行元组数据
+    \item 使用INSERT $\cdots$ SET语句可以插入单行或多行元组数据
+    \item 使用INSERT $\cdots$ SELECT 语句可以插入子查询数据
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+成功创建存储函数后，可以使用关键字【】对其进行调用。
+\begin{options}
+    \item SELECT
+    \item CREATE
+    \item CALL
+    \item RETURN
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+可唯一标识实体的属性集称为
+\begin{options}
+    \item 键
+    \item 域
+    \item 实体型
+    \item 属性
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+下列属于第一代数据库系统的是
+\begin{options}
+    \item SYBASE
+    \item IMS
+    \item Ingres
+    \item OODBS
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+用户定义数据库中的数据对象，是通过数据库管理系统的
+\begin{options}
+    \item 数据库备份功能
+    \item 数据库恢复功能
+    \item 数据操纵语言
+    \item 数据定义语言
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+对关系的描述不正确的是
+\begin{options}
+    \item 关系是一个集合
+    \item 关系是一张二维表
+    \item 关系可以嵌套定义
+    \item 关系中的元组次序可交换
+\end{options}
+\answer{C}
+\end{question}
+
+\begin{question}
+下列关于MySQL的说法中，错误的是
+\begin{options}
+    \item MySQL是一个关系型数据库管理系统
+    \item MySQL具有B/S体系结构
+    \item MySQL由瑞典MySQLAB公司开发
+    \item MySQL具有体积小的特点
+\end{options}
+\answer{B}
+\end{question}
+
+\begin{question}
+下列关于MySQL中的常量的说法中，错误的是
+\begin{options}
+    \item 常量是指在程序运行过程中值不变的量
+    \item 常量的使用格式取决于值的数据类型
+    \item 字符串常量是指用单引号或双引号括起来的字符序列
+    \item 一个十六进制值通常指定为一个字符串常量，每对十六进制数字被转换为一个字符，其最前面有一个大写字母"0"或小写字母"o"
+\end{options}
+\answer{D}
+\end{question}
+
+\begin{question}
+MySQL的用户账号及相关信息都存储在一个名为【】的MySQL数据库中。
+\begin{options}
+    \item mysql
+    \item root
+    \item user
+    \item admin
+\end{options}
+\answer{A}
+\end{question}
+
+\begin{question}
+使用存储过程的好处不包括
+\begin{options}
+    \item 存储过程可作为一种安全机制来确保数据库的安全性
+    \item 高性能
+    \item 可增加网络流量
+    \item 良好的封装性
+\end{options}
+\answer{C}
+\end{question}
+
+\end{document}

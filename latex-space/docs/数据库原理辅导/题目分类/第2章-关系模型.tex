@@ -1,0 +1,764 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理习题集}
+\lhead{第2章 关系模型}
+\cfoot{\thepage}
+
+\title{\textbf{第2章 关系模型}}
+\date{}
+
+\begin{document}
+
+\section{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 有两个实体集，而且这两个实体集之间存在 M:N 联系，则依照转换规则，这个 E-R 结构转换成表的数目应该为（\quad）个。
+	      \begin{enumerate}
+		      \item 1
+		      \item 2
+		      \item 3
+		      \item 4
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 设某工程设计企业中要求，一项工程是由多名职员共同完成，而一名职员只能参加一个工程项目，则职员与工程之间的联系类型是（\quad）。
+	      \begin{enumerate}
+		      \item 1:n
+		      \item 1:1
+		      \item m:n
+		      \item n:1
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据模型是（\quad）。
+	      \begin{enumerate}
+		      \item 文件集合
+		      \item 记录集合
+		      \item 数据集合
+		      \item 记录及其联系集合
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库类型是依照（\quad）划分。
+	      \begin{enumerate}
+		      \item 数据描述功能
+		      \item 记录形式
+		      \item 数据模型
+		      \item 存取数据方法
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 数据模型应该具备（\quad）功能。
+	      \begin{enumerate}
+		      \item 数据描述
+		      \item 数据联系描述
+		      \item A 和 B 同时具备
+		      \item 数据查询
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 以下关于数据模型描述中，错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据模型表示的是数据库本身
+		      \item 数据模型表示的是数据库框架
+		      \item 数据模型是客观事物及其联系的描述
+		      \item 数据模型能够以一定结构形式表示出各种不一样数据之间的联系
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 以下关于实体描述中，错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 实体是指现实世界中存在的一切事物
+		      \item 实体靠联系来描述
+		      \item 实体所具备的性质统称为属性
+		      \item 实体和属性是信息世界表壳概念的两个不一样单位
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item （\quad）不是 E-R 图的三大要素之一。
+	      \begin{enumerate}
+		      \item 属性
+		      \item 实体
+		      \item 键
+		      \item 联系
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 当前，在微机上数据库系统广泛使用的数据模型是（\quad）。
+	      \begin{enumerate}
+		      \item 层次模型
+		      \item 网状模型
+		      \item 关系模型
+		      \item 概念模型
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在现实世界中，某种产品名称对应于计算机世界中的（\quad）。
+	      \begin{enumerate}
+		      \item 文件
+		      \item 实体
+		      \item 数据项
+		      \item 记录
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 在某企业的所有人员实体中，用关系模型来表示这些实体，经理这个称呼属于（\quad）。
+	      \begin{enumerate}
+		      \item 实体型
+		      \item 实体值
+		      \item 属性型
+		      \item 属性值
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 关系模型是（\quad）。
+	      \begin{enumerate}
+		      \item 用关系表示实体
+		      \item 用关系表示联系
+		      \item 用关系表示实体及联系
+		      \item 用关系表示属性
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 实体必须是（\quad）。
+	      \begin{enumerate}
+		      \item 有生命的东西
+		      \item 无生命的东西
+		      \item 实际存在的东西
+		      \item 任何可区分的东西
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 实体中的任一关键字（\quad）。
+	      \begin{enumerate}
+		      \item 只能由一个可区分实体集合中的不一样个体属性组成
+		      \item 可能由一个或多个可区分实体集合中的不一样个体属性组成
+		      \item 必须由多个可区分实体集合中的不一样个体属性组成
+		      \item 是由用户任意指定
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 关系数据模型用来表示数据之间联系的是（\quad）。
+	      \begin{enumerate}
+		      \item 任一属性
+		      \item 多个属性
+		      \item 主键
+		      \item 外部键
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 关系模型所能表示的实体间联系方式（\quad）。
+	      \begin{enumerate}
+		      \item 只能表示 1:1 联系
+		      \item 只能表示 1:n 联系
+		      \item 只能表示 m:n 联系
+		      \item 能够表示任意联系方式
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item FoxPro 是一个关系型数据库管理系统，所谓关系是指（\quad）。
+	      \begin{enumerate}
+		      \item 各条记录中数据彼此有一定的关系
+		      \item 一个数据库文件与另一个数据库之间有一定的关系
+		      \item 数据模型符合满足一定条件的二维表格
+		      \item 数据库中各个字段之间彼此有一定的关系
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 模型是对现实世界的抽象，在数据库技术中，用模型概念描述数据库结构与语义，对现实世界进行抽象。表示现实世界中实体类型及实体间联系模型称为（\quad）。
+	      \begin{enumerate}
+		      \item 关系模型
+		      \item 层次模型
+		      \item 网状模型
+		      \item E-R 模型
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 在层次模型中，数据之间的联系是通过（\quad）来实现。
+	      \begin{enumerate}
+		      \item 主键
+		      \item 外部键
+		      \item 指针
+		      \item 候选键
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在 E-R 模型转化成关系模型过程中，以下叙述不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 每个实体类型转化成一个关系模式
+		      \item 每个联系类型转化成一个关系模式
+		      \item 每个 m:n 联系转化成一个关系模式
+		      \item 在 1:n 联系中，"1"端实体的主键作为外部键放在"n"端实体类型转换成的关系模式中
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 以下关于关系叙述中，正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 关系是一个由行与列组成、能够表示数据及数据之间联系二维表
+		      \item 表中某一列的数据类型既可以是字符串，也可以是数字
+		      \item 表中某一列值可以取空值 null，所谓空值是指安全可靠或零
+		      \item 表中必须有一列作为主关键字，用来惟一标识一行
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 已知有以下 3 个表：学生（学号，姓名，性别，班级）；课程（课程名称，课时，性质）；成绩（课程名称，学号，分数）。若要显示学生成绩单，包含学号、姓名、课程名称、分数，应该对这些关系进行（\quad）操作。
+	      \begin{enumerate}
+		      \item 并
+		      \item 交
+		      \item 乘积和投影
+		      \item 自然连接和投影
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 若要列出班级 = "97 计算机"的全部同学姓名，应该对关系"学生"进行（\quad）操作。
+	      \begin{enumerate}
+		      \item 选择
+		      \item 连接
+		      \item 投影
+		      \item 选择和投影
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 若要列出班级 = "99 网络"班全部"数据库技术"课成绩不及格同学学号、姓名、课程名称、分数，则应该对这些表进行（\quad）操作。
+	      \begin{enumerate}
+		      \item 选择和连接
+		      \item 投影和连接
+		      \item 选择、投影和连接
+		      \item 选择和投影
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 已知关系 R 和 S，R 和 S 进行并运算，其结果元组数是（\quad）。
+	      \begin{enumerate}
+		      \item 6
+		      \item 5
+		      \item 4
+		      \item 0
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item R 和 S 进行差运算，其结果元组数是（\quad）。
+	      \begin{enumerate}
+		      \item 1
+		      \item 0
+		      \item 6
+		      \item 2
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item R 和 S 进行交运算，其结果元组数是（\quad）。
+	      \begin{enumerate}
+		      \item 0
+		      \item 6
+		      \item 4
+		      \item 1
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item R 和 S 进行乘积运算，其结果元组数是（\quad）。
+	      \begin{enumerate}
+		      \item 6
+		      \item 9
+		      \item 1
+		      \item 3
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 在关系理论中称为关系概念，在关系数据库中称为（\quad）。
+	      \begin{enumerate}
+		      \item 实体集
+		      \item 文件
+		      \item 表
+		      \item 记录
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在关系理论中称为元组概念，在关系数据库中称为（\quad）。
+	      \begin{enumerate}
+		      \item 实体
+		      \item 记录
+		      \item 行
+		      \item 字段
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在 E-R 模型中，一个实体相对于关系数据库中关系的一个（\quad）。
+	      \begin{enumerate}
+		      \item 属性
+		      \item 元组
+		      \item 列
+		      \item 字段
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 在关系数据库中，实现"表中任意两行不能相同"的约束是靠（\quad）来实现。
+	      \begin{enumerate}
+		      \item 外码
+		      \item 属性
+		      \item 主码
+		      \item 列
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 关系数据库中，表与表之间联系约束是通过（\quad）来实现。
+	      \begin{enumerate}
+		      \item 实体完整性规则
+		      \item 引用完整性规则
+		      \item 用户自定义完整性
+		      \item 值域
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 关系数据库中，实现主键标识元组作用是通过（\quad）来实现。
+	      \begin{enumerate}
+		      \item 实体完整性规则
+		      \item 参照完整性规则
+		      \item 用户自定义完整性
+		      \item 属性值域
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 两个没有公共属性的关系做自然连接等价于它们做（\quad）。
+	      \begin{enumerate}
+		      \item 并
+		      \item 交
+		      \item 差
+		      \item 笛卡尔积
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 对表进行水平方向分割，用运算是（\quad）。
+	      \begin{enumerate}
+		      \item 交
+		      \item 投影
+		      \item 选择
+		      \item 连接
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 对表进行垂直方向分割，用运算是（\quad）。
+	      \begin{enumerate}
+		      \item 交
+		      \item 投影
+		      \item 选择
+		      \item 连接
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 关系规范化实质上是围绕（\quad）进行。
+	      \begin{enumerate}
+		      \item 函数
+		      \item 函数依赖
+		      \item 范式
+		      \item 关系
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 以下关于关系说法中正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 一个关系就是一张二维表
+		      \item 在关系所对应的二维表中，行对应属性，列对应元组
+		      \item 关系中各属性不允许有相同的域
+		      \item 关系各属性名必须与对应域同名
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 以下关于二维表说法，不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 二维表列可以任意交换
+		      \item 二维表行可以任意交换
+		      \item 二维表中每一列中各个分量的性质相同
+		      \item 二维表中每一列代表一个实体
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 以下关于二维表阐述，不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 表中每一个元组分量都是不可再分的
+		      \item 表中行次序不能任意交换，不然会改变关系意义
+		      \item 表中每一列取自同一个域，且性质相同
+		      \item 表中第一行通常称为属性名
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 依照关系模式完整性规则，一个关系中的主键（\quad）。
+	      \begin{enumerate}
+		      \item 不能有两个
+		      \item 不能成为另一个关系的外部键
+		      \item 不允许空值
+		      \item 能够取空值
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 若一个关系模式只有两个属性，则该关系模式（\quad）。
+	      \begin{enumerate}
+		      \item 最高属于 1NF
+		      \item 最高属于 2NF
+		      \item 可能属于 3NF
+		      \item 必定属于 3NF
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 若要求工资表中基本工资不得超过 5000 元，则这个要求属于（\quad）。
+	      \begin{enumerate}
+		      \item 关系完整性约束
+		      \item 实体完整性约束
+		      \item 参照完整性约束
+		      \item 用户定义完整性约束
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 已知关系 R 有 30 个元组，S 有 15 个元组，则 R $\cup$ S 和 R $\cap$ S 的元组数不可能是（\quad）。
+	      \begin{enumerate}
+		      \item 40、5
+		      \item 30、15
+		      \item 45、15
+		      \item 38、7
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 关系代数中，连接操作是由（\quad）组合而成。
+	      \begin{enumerate}
+		      \item 乘积和选择
+		      \item 乘积、选择和投影
+		      \item 乘积和投影
+		      \item 投影和选择
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item "年纪在 15 至 30 岁之间"，这种约束属于数据库系统的（\quad）。
+	      \begin{enumerate}
+		      \item 完整性方法
+		      \item 安全性方法
+		      \item 恢复方法
+		      \item 并发控制方法
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关系模型中，实体完整性是指（\quad）。
+	      \begin{enumerate}
+		      \item 实体不允许是空实体
+		      \item 实体主键值不允许是空值
+		      \item 实体外键值不允许是空值
+		      \item 实体属性值不能是空值
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 设关系 R、S、W 各有 10 个元组，那么这三个关系的笛卡尔积元组个数是（\quad）。
+	      \begin{enumerate}
+		      \item 10
+		      \item 30
+		      \item 1000
+		      \item 不确定
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在关系模式 R（A，B，C）中，存在函数依赖关系｛B$\to$A，（A，C）$\to$B｝，R 满足的范式为（\quad）。
+	      \begin{enumerate}
+		      \item 1NF
+		      \item 2NF
+		      \item 3NF
+		      \item 不确定
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 设关系 R 和 S 属性个数分别为 r 个和 s 个，那么（R $\times$ S）操作结果的属性个数为（\quad）。
+	      \begin{enumerate}
+		      \item r+s
+		      \item r-s
+		      \item r $\times$ s
+		      \item max(r,s)
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 设关系 R 和 S 结构相同，且各有 100 个元组，那么这两个关系的并操作结果元组个数为（\quad）。
+	      \begin{enumerate}
+		      \item 100
+		      \item 小于等于 100
+		      \item 200
+		      \item 小于等于 200
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库通常使用（\quad）以上关系。
+	      \begin{enumerate}
+		      \item 1NF
+		      \item 2NF
+		      \item 3NF
+		      \item 4NF
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 进行自然联接运算的两个关系（\quad）。
+	      \begin{enumerate}
+		      \item 最少存在一个相同属性名
+		      \item 可不存在任何相同属性名
+		      \item 不可存在多个相同属性名
+		      \item 全部属性名必须完全相同
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关于关系中的元组的描述正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 元组的先后顺序不能任意颠倒，一定要按照输入的顺序排列
+		      \item 元组的先后顺序可以颠倒，但是不能出现重复元组
+		      \item 元组的先后顺序不能任意颠倒，一定要按照主码顺序排列
+		      \item 元组的先后顺序颠倒后，会影响数据库中数据之间的关系
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 从指定关系中选取满足给定条件的若干元组组成一个新关系是（\quad）。
+	      \begin{enumerate}
+		      \item 选择运算
+		      \item 投影运算
+		      \item 除运算
+		      \item 连接运算
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 下列运算中不要求两个关系的属性个数相同的是（\quad）。
+	      \begin{enumerate}
+		      \item 并
+		      \item 交
+		      \item 差
+		      \item 笛卡尔积
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 关系数据库的所谓"关系"即是指（\quad）。
+	      \begin{enumerate}
+		      \item 表
+		      \item 元组
+		      \item 约束
+		      \item 属性
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关于关系的数据结构，一个关系逻辑上对应（\quad）。
+	      \begin{enumerate}
+		      \item 一行
+		      \item 一列
+		      \item 一张二维表
+		      \item 一个元组
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在关系数据库中，（\quad）表示属性的取值范围。
+	      \begin{enumerate}
+		      \item 字段
+		      \item 字符
+		      \item 域
+		      \item 数据模型
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 关系数据库中的投影操作是指从关系中（\quad）。
+	      \begin{enumerate}
+		      \item 抽出特定列
+		      \item 抽出特定记录
+		      \item 建立相应的影像
+		      \item 建立相应的图形
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关系的候选码（\quad）。
+	      \begin{enumerate}
+		      \item 可由一个或多个其值能唯一标识该关系模式中任何元组的属性组成
+		      \item 可由多个任意属性组成
+		      \item 至多由一个属性组成
+		      \item 以上都不是
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关系模型中，候选码（\quad）。
+	      \begin{enumerate}
+		      \item 可由一个或多个其值能唯一标识该关系模式中任何元组的属性组成
+		      \item 可由多个任意属性组成
+		      \item 至多由一个属性组成
+		      \item 以上都不是
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在关系模型中，元组个数称为（\quad）。
+	      \begin{enumerate}
+		      \item 元数
+		      \item 基数
+		      \item 度数
+		      \item 目数
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 关系模型中，关系的"基数"(Cardinality)是指（\quad）。
+	      \begin{enumerate}
+		      \item 行数
+		      \item 列数
+		      \item 属性个数
+		      \item 关系个数
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关系的规范化实质上是围绕（\quad）进行的。
+	      \begin{enumerate}
+		      \item 函数
+		      \item 函数依赖
+		      \item 范式
+		      \item 关系
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 规范化理论是关系数据库进行逻辑设计的理论依据，根据这个理论，关系数据库中的关系必须满足：其每一属性都是（\quad）。
+	      \begin{enumerate}
+		      \item 不可分解的
+		      \item 互不相关的
+		      \item 长度可变的
+		      \item 互相关联的
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在一个关系 R 中，若每个数据项都是不可再分割的，那么关系 R 一定属于（\quad）。
+	      \begin{enumerate}
+		      \item 1NF
+		      \item 3NF
+		      \item BCNF
+		      \item 2NF
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 下列关于关系说法中正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 一个关系就是一张二维表
+		      \item 在关系所对应的二维表中，行对应属性，列对应元组
+		      \item 关系中各属性不允许有相同的域
+		      \item 关系各属性名必须与对应域同名
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关系表中的列，也称作（\quad）。
+	      \begin{enumerate}
+		      \item 元组
+		      \item 记录
+		      \item 字段
+		      \item 数组
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 数据库中"元组"对应的术语是（\quad）。
+	      \begin{enumerate}
+		      \item 行
+		      \item 列
+		      \item 属性
+		      \item 字段
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在数据库中，与"属性"同义的术语是（\quad）。
+	      \begin{enumerate}
+		      \item 列
+		      \item 行
+		      \item 元组
+		      \item 记录
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关系的元数是指（\quad）。
+	      \begin{enumerate}
+		      \item 元组个数
+		      \item 属性个数
+		      \item 候选码个数
+		      \item 外码个数
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 两个子查询的结果（\quad）时，可以执行并、交、差操作。
+	      \begin{enumerate}
+		      \item 结构完全一致
+		      \item 结构完全不一致
+		      \item 结构部分一致
+		      \item 主键一致
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在Access中要显示"教师表"中姓名和职称的信息，应采用的关系运算是（\quad）。
+	      \begin{enumerate}
+		      \item 选择
+		      \item 投影
+		      \item 连接
+		      \item 关联
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 下列关于二维表阐述，不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 表中每一个元组分量都是不可再分
+		      \item 表中行次序不能任意交换，不然会改变关系意义
+		      \item 表中每一列取自同一个域，且性质相同
+		      \item 表中第一行通常称为属性名
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 关系数据库的任何检索操作都是由三种基本运算组合而成，这三种基本运算不包含（\quad）。
+	      \begin{enumerate}
+		      \item 选择
+		      \item 投影
+		      \item 连接
+		      \item 并
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库通常使用（\quad）以上的关系。
+	      \begin{enumerate}
+		      \item 1NF
+		      \item 2NF
+		      \item 3NF
+		      \item 4NF
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 关系数据库的关系演算语言是以（\quad）为基础的 DML 语言。
+	      \textbf{答案：谓词演算}
+
+	\item 与文件管理系统相比较，数据库系统的数据冗余度（\quad）、数据共享性（\quad）。
+	      \textbf{答案：低；好}
+
+	\item 关系数据库的（\quad）规则规定：基本关系的主属性不能取空。
+	      \textbf{答案：实体完整性}
+
+	\item 关系数据库的（\quad）规定规则：一个基本关系的外码取值不能取空值或者必须等于它所对应基本关系中的主码值。
+	      \textbf{答案：参照完整性}
+
+	\item 关系数据库数据操作的处理单位是（\quad），层次和网状数据库数据操作的处理单位是记录。
+	      \textbf{答案：关系}
+
+	\item 关系代数中专门的关系运算包括：选择、投影、连接和（\quad）。
+	      \textbf{答案：除}
+
+	\item 数据模型通常由（\quad）、（\quad）和完整性约束三个要素组成。
+	      \textbf{答案：数据结构；数据操作}
+
+	\item 关系数据库是关系的集合。（\quad）
+	      \textbf{答案：正确}
+
+	\item 对于一个基本关系表来说，行的顺序无所谓——即将一条记录插入在第一行和插入在第五行没有本质上的不同。（\quad）
+	      \textbf{答案：正确}
+
+	\item 对于一个基本关系表来说，列的顺序无所谓——即改变属性的排列顺序不会改变该关系的本质结构。（\quad）
+	      \textbf{答案：正确}
+\end{enumerate}
+
+\end{document}

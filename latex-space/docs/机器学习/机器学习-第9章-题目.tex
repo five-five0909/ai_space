@@ -1,0 +1,916 @@
+\documentclass[a4paper,11pt]{ctexart}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=2.0cm, bottom=2.0cm, headsep=0.3cm, footskip=1cm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{needspace}
+\usepackage{multirow}
+
+\AtBeginDocument{
+  \hypersetup{colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan}
+}
+
+\setlist{nosep, itemsep=0.8ex, parsep=0.1em}
+\setlist[itemize]{leftmargin=1.8em}
+\setlist[enumerate]{leftmargin=1.8em}
+
+% ===== 颜色定义 =====
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebg}{rgb}{0.98,0.98,0.98}
+\definecolor{tipsblue}{rgb}{0.85,0.93,1.0}
+\definecolor{highlightyellow}{rgb}{1.0,0.97,0.8}
+
+% ===== 代码块样式 =====
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=6pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=Python,
+    frame=single,
+    framerule=0.5pt,
+    rulecolor=\color{gray!40}
+}
+\lstset{style=mystyle}
+
+% ===== 彩色框 =====
+\newtcolorbox{problembox}[1][]{
+    colback=white,
+    colframe=blue!60!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=10pt, after skip=8pt
+}
+
+\newtcolorbox{solutionbox}[1][]{
+    enhanced, breakable,
+    colback=green!3!white,
+    colframe=green!50!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=10pt
+}
+
+\newtcolorbox{metaphorbox}[1][]{
+    colback=orange!5!white,
+    colframe=orange!70!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+\newtcolorbox{beginnerbox}[1][]{
+    colback=tipsblue,
+    colframe=blue!50!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+\newtcolorbox{appbox}[1][]{
+    colback=green!3!white,
+    colframe=green!60!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=10pt
+}
+
+\newtcolorbox{keybox}[1][]{
+    colback=highlightyellow,
+    colframe=orange!80!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+% ===== 页眉页脚 =====
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{机器学习-第9章}
+\fancyhead[L]{其他监督学习算法 · 练习题}
+\fancyfoot[C]{\thepage}
+\addtolength{\headheight}{2pt}
+
+\parskip=2pt plus 1pt minus 0.5pt
+\linespread{1.35}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+
+\title{\textbf{机器学习\\第9章\quad 其他监督学习算法}\\[0.5em]
+{\large\color{gray}——贝叶斯、决策树、SVM、集成学习，四大经典算法全面打通}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% ===== 章节导读 =====
+\begin{beginnerbox}[本章题目导览：你将挑战哪些核心问题？]
+    神经网络并非解决一切问题的唯一答案。在数据量不大、可解释性要求高、或特征工程已经充分的场景下，经典机器学习算法往往更简洁、高效且可解释。本章 8 道题覆盖四大经典监督学习算法族：
+
+    \begin{itemize}
+        \item \textbf{Q9-01（概念辨析）}：朴素贝叶斯三要素——极大似然估计 vs 贝叶斯估计，"朴素"假设的含义与代价是什么？
+        \item \textbf{Q9-02（计算题）}：朴素贝叶斯分类手算——给定训练数据，计算条件概率，判断新样本属于哪个类别。
+        \item \textbf{Q9-03（原理理解）}：决策树工作过程与特征选择——信息熵、信息增益、信息增益率、基尼指数各自在哪种决策树算法中使用？
+        \item \textbf{Q9-04（计算题）}：信息增益手动计算——给定数据集，计算 $H(D)$、$H(D|A)$、$IG(D,A)$，选出最优划分特征。
+        \item \textbf{Q9-05（对比分析）}：ID3 vs C4.5 vs CART——三种决策树生成算法的核心差异、各自的优缺点和适用场景。
+        \item \textbf{Q9-06（概念推导）}：SVM 间隔最大化——硬间隔、软间隔、核函数，SVM 为什么要最大化间隔？几何直觉是什么？
+        \item \textbf{Q9-07（计算填空）}：支持向量与间隔计算——给定超平面和数据点，找出支持向量，计算间隔宽度。
+        \item \textbf{Q9-08（综合对比）}：集成学习——AdaBoost 与随机森林的工作原理对比，Bagging vs Boosting 的本质区别。
+    \end{itemize}
+\end{beginnerbox}
+
+\section{第 9 章\quad 其他监督学习算法：经典方法的智慧}
+
+前面学的逻辑回归和神经网络都是从"优化损失函数"的视角出发的。但机器学习发展了几十年，留下了很多从完全不同视角解决同一问题的经典算法——
+
+\begin{itemize}
+    \item \textbf{朴素贝叶斯}：从概率论出发，用条件概率直接建模"给定特征，各类别发生的概率"；
+    \item \textbf{决策树}：从信息论出发，每次选"信息量最大"的特征做划分，构建一棵分类树；
+    \item \textbf{支持向量机}：从几何出发，在样本空间中找一条"离两类数据都尽量远"的分界线；
+    \item \textbf{集成学习}：从"三个臭皮匠顶一个诸葛亮"出发，把多个弱模型组合成一个强模型。
+\end{itemize}
+
+\begin{metaphorbox}[先建立一个总感觉：四种算法的哲学]
+    想象你是一个医生，要判断患者是否得了某种病：
+    \begin{itemize}
+        \item \textbf{朴素贝叶斯}：查历史病例，算"有这些症状的患者中，得这种病的概率有多高"——统计规律直接说话。
+        \item \textbf{决策树}：像填问卷一样：先问"发烧吗？"，再问"咳嗽吗？"，逐步缩小范围——每一步都选最能区分病情的问题。
+        \item \textbf{SVM}：在所有特征构成的空间中，找一条分界线，让它离"健康"样本和"患病"样本都尽量远，减少模糊地带。
+        \item \textbf{集成学习}：请多位医生会诊，有的擅长看化验单，有的擅长看影像，综合所有意见得出诊断——众智胜独智。
+    \end{itemize}
+\end{metaphorbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q9-01\quad 朴素贝叶斯：原理与"朴素"假设的代价]
+    \textbf{题目描述：}\\
+    朴素贝叶斯（Naive Bayes）是基于贝叶斯定理的概率分类器，其核心假设是"特征之间条件独立"。理解这个假设的含义与局限，是掌握朴素贝叶斯的关键。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{贝叶斯定理回顾}：写出贝叶斯公式，并解释朴素贝叶斯分类器如何利用它进行预测（给出类别后验概率的表达式）。
+
+        \item \textbf{"朴素"假设}：朴素贝叶斯的"朴素"体现在哪里？这个假设在数学上将联合概率 $P(x_1, x_2, \ldots, x_p \mid y)$ 化简成了什么形式？
+
+        \item 填写下表，对比\textbf{极大似然估计}与\textbf{贝叶斯估计}在朴素贝叶斯中的差异：
+
+        \begin{center}
+        \begin{tabular}{p{3.5cm} p{4.5cm} p{4.5cm}}
+            \toprule
+            对比维度 & 极大似然估计（MLE） & 贝叶斯估计（含 Laplace 平滑） \\
+            \midrule
+            先验信息 & \underline{\hspace{3.5cm}} & 引入先验分布（如均匀先验） \\[1.2em]
+            训练数据不足时 & 可能出现\underline{\hspace{2cm}}问题（概率为0） & \underline{\hspace{3.5cm}} \\[1.2em]
+            Laplace 平滑公式 & 不适用 & $P(x_j=a \mid y=c_k) = \dfrac{N_{kj} + \lambda}{N_k + S_j \lambda}$ \newline（$\lambda$ 通常取\underline{\quad}） \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 朴素贝叶斯分类的最终判断公式是什么？（即预测类别 $\hat{y}$ 的表达式）
+
+        \item 举一个实际场景，说明朴素贝叶斯的"条件独立"假设\textbf{明显不成立}，但模型实际表现仍然较好的例子，并解释为什么。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 9 章 9.1.1 朴素贝叶斯法简介]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：贝叶斯定理的直觉是什么？]
+    \begin{itemize}
+        \item \textbf{贝叶斯定理}：$P(y \mid x) = \dfrac{P(x \mid y) \cdot P(y)}{P(x)}$，意思是"已知证据 $x$ 后，事件 $y$ 发生的概率"。
+        \item \textbf{先验 → 后验}：$P(y)$ 是"还没看到数据时，$y$ 发生的概率"（先验）；$P(y \mid x)$ 是"看到数据 $x$ 后更新的概率"（后验）。$P(x \mid y)$ 是"已知 $y$ 发生，看到 $x$ 的可能性"（似然）。
+        \item \textbf{分类时为什么忽略分母 $P(x)$？}：对所有类别，$P(x)$ 是一样的常数，不影响哪个类别的后验概率最大，所以比较时可以直接忽略。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 贝叶斯定理与分类：}
+
+    贝叶斯公式：$P(y \mid \mathbf{x}) = \dfrac{P(\mathbf{x} \mid y) \cdot P(y)}{P(\mathbf{x})}$
+
+    分类时，对每个类别 $c_k$ 计算后验概率，选后验最大的类：
+    \[
+    \hat{y} = \arg\max_{c_k}\ P(y = c_k) \cdot P(\mathbf{x} \mid y = c_k)
+    \]
+    （分母 $P(\mathbf{x})$ 对所有类别相同，可忽略）
+
+    \textbf{(2) "朴素"假设：}
+
+    "朴素"指\textbf{各特征在给定类别下条件独立}：
+    \[
+    P(x_1, x_2, \ldots, x_p \mid y = c_k) = \prod_{j=1}^{p} P(x_j \mid y = c_k)
+    \]
+    这将一个 $p$ 维联合概率（难以估计）拆解为 $p$ 个一维条件概率的乘积（容易从频率中统计），大幅降低了计算量和对数据量的要求。
+
+    \textbf{(3) MLE vs 贝叶斯估计对比：}
+
+    \begin{center}
+    \begin{tabular}{p{3.5cm} p{4.5cm} p{4.5cm}}
+        \toprule
+        对比维度 & MLE & 贝叶斯估计（Laplace 平滑） \\
+        \midrule
+        先验信息 & 不引入任何先验，纯粹用频率 & 引入均匀先验，视为各取值各出现了 $\lambda$ 次 \\[1em]
+        训练数据不足 & 出现\textbf{零概率}问题（某特征取值在训练集某类别中从未出现，概率为 0，导致整个乘积为 0） & 分子加 $\lambda$，保证所有概率非零 \\[1em]
+        Laplace 平滑 & 不适用 & $\lambda = 1$ \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(4) 最终判断公式（含 Laplace 平滑）：}
+    \[
+    \hat{y} = \arg\max_{c_k}\ P(y = c_k) \prod_{j=1}^{p} P(x_j \mid y = c_k)
+    \]
+
+    \textbf{(5) 假设不成立但效果好的例子：}
+
+    \textbf{垃圾邮件过滤}：邮件中"免费"和"领奖"两个词高度相关（同时出现），条件独立假设明显不成立。但朴素贝叶斯在文本分类中表现依然很好，原因在于：分类任务只需要判断哪个类别的后验概率\textbf{更大}，而非精确估计概率值。即使条件独立假设导致概率估计有偏，只要各类别之间的"相对大小"关系维持正确，分类结果就是正确的——这在实践中很多时候成立。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q9-02\quad 朴素贝叶斯分类手动计算]
+    \textbf{题目描述：}\\
+    下表是一个关于"是否购买电脑"的训练数据集（5 条样本），特征为"年龄"和"收入水平"，标签为"购买（Yes/No）"。
+
+    \begin{center}
+    \begin{tabular}{cccc}
+        \toprule
+        样本编号 & 年龄 & 收入水平 & 购买电脑 \\
+        \midrule
+        1 & 青年 & 高 & Yes \\
+        2 & 青年 & 低 & No  \\
+        3 & 中年 & 高 & Yes \\
+        4 & 老年 & 低 & Yes \\
+        5 & 老年 & 低 & No  \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    现有一个新样本：\textbf{年龄=青年，收入水平=低}，使用\textbf{朴素贝叶斯（含 Laplace 平滑，$\lambda=1$）}预测其是否会购买电脑。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 计算类别先验概率 $P(\text{Yes})$ 和 $P(\text{No})$（含 Laplace 平滑）。
+        \item 计算条件概率：$P(\text{年龄=青年} \mid \text{Yes})$、$P(\text{年龄=青年} \mid \text{No})$、$P(\text{收入=低} \mid \text{Yes})$、$P(\text{收入=低} \mid \text{No})$（均含 Laplace 平滑）。
+        \item 根据以上计算，比较 $P(\text{Yes}) \cdot P(\text{青年}\mid\text{Yes}) \cdot P(\text{低}\mid\text{Yes})$ 与 $P(\text{No}) \cdot P(\text{青年}\mid\text{No}) \cdot P(\text{低}\mid\text{No})$，给出预测结论。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 9 章 9.1.1 学习与分类过程]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：Laplace 平滑怎么用？]
+    \begin{itemize}
+        \item \textbf{类别先验平滑}：$P(y = c_k) = \dfrac{N_k + \lambda}{N + K\lambda}$，其中 $N$ 是总样本数，$K$ 是类别数，$N_k$ 是类别 $c_k$ 的样本数。
+        \item \textbf{条件概率平滑}：$P(x_j = a \mid y = c_k) = \dfrac{N_{kj}(a) + \lambda}{N_k + S_j \lambda}$，其中 $S_j$ 是特征 $j$ 的取值种数，$N_{kj}(a)$ 是类别为 $c_k$ 且特征 $j$ 取值为 $a$ 的样本数。
+        \item \textbf{$\lambda=1$ 时}：相当于给每种取值各"虚构"一条训练样本，保证所有概率非零。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{数据统计：}共 5 条样本，Yes 有 3 条，No 有 2 条；类别数 $K=2$。
+
+    \textbf{特征取值个数}：年龄有 3 种（青年/中年/老年，$S_1=3$），收入有 2 种（高/低，$S_2=2$）。
+
+    \vspace{0.5em}
+    \textbf{(1) 类别先验概率（Laplace 平滑 $\lambda=1$）：}
+    \[
+    P(\text{Yes}) = \frac{3 + 1}{5 + 2 \times 1} = \frac{4}{7} \approx 0.571
+    \]
+    \[
+    P(\text{No}) = \frac{2 + 1}{5 + 2 \times 1} = \frac{3}{7} \approx 0.429
+    \]
+
+    \textbf{(2) 条件概率（Laplace 平滑）：}
+
+    在 Yes 类（$N_k=3$）中：年龄=青年出现 1 次，收入=低出现 1 次。
+    \[
+    P(\text{青年} \mid \text{Yes}) = \frac{1+1}{3+3\times1} = \frac{2}{6} = \frac{1}{3}
+    \]
+    \[
+    P(\text{低} \mid \text{Yes}) = \frac{1+1}{3+2\times1} = \frac{2}{5}
+    \]
+
+    在 No 类（$N_k=2$）中：年龄=青年出现 1 次，收入=低出现 2 次。
+    \[
+    P(\text{青年} \mid \text{No}) = \frac{1+1}{2+3\times1} = \frac{2}{5}
+    \]
+    \[
+    P(\text{低} \mid \text{No}) = \frac{2+1}{2+2\times1} = \frac{3}{4}
+    \]
+
+    \textbf{(3) 后验得分比较与预测：}
+    \[
+    \text{Score(Yes)} = \frac{4}{7} \times \frac{1}{3} \times \frac{2}{5} = \frac{8}{105} \approx 0.0762
+    \]
+    \[
+    \text{Score(No)} = \frac{3}{7} \times \frac{2}{5} \times \frac{3}{4} = \frac{18}{140} = \frac{9}{70} \approx 0.1286
+    \]
+
+    由于 $\text{Score(No)} > \text{Score(Yes)}$，\textbf{预测结论：该新样本（青年，低收入）不会购买电脑（No）}。
+
+    \begin{keybox}[计算流程小结]
+        \begin{enumerate}
+            \item 统计各类别样本数和各特征在各类别中的取值频次
+            \item 用 Laplace 平滑公式计算先验和条件概率
+            \item 对每个类别，计算"先验 × 所有条件概率的乘积"
+            \item 选得分最大的类别作为预测结果
+        \end{enumerate}
+    \end{keybox}
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q9-03\quad 决策树：工作过程与特征选择指标对比]
+    \textbf{题目描述：}\\
+    决策树通过递归地选择"最优特征"来划分数据，不同的"最优"衡量标准产生了不同的决策树算法。本题梳理决策树的整体工作框架与三大指标的联系。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 描述决策树的\textbf{工作过程}：从根节点到叶节点，每一步在做什么决策？什么时候停止划分？
+
+        \item 填写下表，对比三种特征选择指标：
+
+        \begin{center}
+        \begin{tabular}{p{2.8cm} p{2.8cm} p{3.5cm} p{3.5cm}}
+            \toprule
+            指标 & 使用算法 & 计算公式（概述） & 主要缺陷 \\
+            \midrule
+            信息增益 & \underline{\hspace{2cm}} & $IG(D,A) = H(D) - H(D|A)$ & 偏向选取\underline{\hspace{1.5cm}}的特征 \\[1.5em]
+            信息增益率 & \underline{\hspace{2cm}} & $IGR(D,A) = \dfrac{IG(D,A)}{H_A(D)}$ & 可能偏向选取\underline{\hspace{1.5cm}}的特征 \\[1.5em]
+            基尼指数 & \underline{\hspace{2cm}} & $\text{Gini}(D) = 1 - \sum_k p_k^2$ & 计算相对简单，但\underline{\hspace{1.5cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 决策树容易\textbf{过拟合}。简述两种主要的剪枝策略（预剪枝 vs 后剪枝）的思路和各自优缺点。
+
+        \item CART 树除了用于分类，还可以用于\textbf{回归}。CART 回归树如何选择划分点？叶节点的预测值是什么？
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 9 章 9.2.1--9.2.7]}}
+\end{problembox}
+
+\begin{metaphorbox}[生活比喻：决策树就是"二十个问题"游戏]
+    你一定玩过"猜数字"或"猜动物"——心里想一个动物，别人通过问"是不是哺乳动物？""会不会游泳？"等问题来猜。决策树做的正是同一件事：
+    \begin{itemize}
+        \item \textbf{每次提问 = 选一个特征做划分}：好的问题能大幅缩小"嫌疑范围"，坏的问题只能排除极少数情况。信息增益、信息增益率、基尼指数，都是在量化"这个问题有多好"。
+        \item \textbf{问题越好 = 划分后越"纯净"}：理想情况是问完一个问题后，每个分支里的样本都属于同一个类别——这就是"纯度"的概念。
+        \item \textbf{剪枝 = 防止问题太细太碎}：如果树问得太深，每片叶子只有一个样本，对训练集完美但对新样本毫无用处——这就是过拟合，剪枝就是适时停下来。
+    \end{itemize}
+\end{metaphorbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 决策树工作过程：}
+
+    \begin{enumerate}
+        \item \textbf{从根节点开始}：对当前节点的训练样本集 $D$，用选定的指标（信息增益/基尼指数等）评估每个特征的划分效果，选\textbf{最优特征} $A^*$ 作为当前节点的划分依据。
+        \item \textbf{递归划分}：按 $A^*$ 的取值将 $D$ 分成若干子集，对每个子集递归重复步骤 1，构建子节点。
+        \item \textbf{停止条件}：当当前节点的样本全属于同一类别（节点"纯净"）；或没有更多可用特征；或样本数少于阈值；或达到最大树深度——停止划分，将该节点设为叶节点，标记为该节点中样本数最多的类别。
+    \end{enumerate}
+
+    \textbf{(2) 特征选择指标对比：}
+
+    \begin{center}
+    \begin{tabular}{p{2.8cm} p{2.8cm} p{3.5cm} p{3.5cm}}
+        \toprule
+        指标 & 使用算法 & 计算公式（概述） & 主要缺陷 \\
+        \midrule
+        信息增益 & \textbf{ID3} & $H(D) - H(D|A)$ & 偏向选取\textbf{取值种数多}的特征（如 ID 列） \\[1em]
+        信息增益率 & \textbf{C4.5} & $IG / H_A(D)$，用固有值归一化 & 可能偏向选取\textbf{取值种数少}的特征 \\[1em]
+        基尼指数 & \textbf{CART} & $1 - \sum_k p_k^2$，选使加权基尼最小的划分 & 只做二叉划分，树结构受限 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(3) 剪枝策略：}
+
+    \begin{keybox}[预剪枝 vs 后剪枝]
+        \begin{itemize}
+            \item \textbf{预剪枝（Pre-pruning）}：在生长过程中提前停止——若当前划分不能提升验证集准确率，则不继续展开该节点。优点：速度快，减少过拟合；缺点：可能停得太早，欠拟合（有时候当前划分看似无益，但再深一层才能发挥作用）。
+            \item \textbf{后剪枝（Post-pruning）}：先让树完整生长，再自底向上剪枝——若将某内部节点替换为叶节点后，验证集表现不变或更好，则剪掉该子树。优点：保留更多信息，泛化能力通常优于预剪枝；缺点：计算开销大，需先建完整树。
+        \end{itemize}
+    \end{keybox}
+
+    \textbf{(4) CART 回归树：}
+
+    CART 回归树用\textbf{最小均方误差（MSE）}选择划分点：遍历所有特征的所有可能切割点 $(j, s)$，选使划分后两个子区域内样本的 MSE 之和最小的切割点。叶节点的预测值为该叶节点内所有训练样本目标值的\textbf{均值}。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q9-04\quad 信息增益手动计算：选最优划分特征]
+    \textbf{题目描述：}\\
+    下表是一个关于"是否打网球"的经典数据集（8 条样本），两个特征为"天气"和"风速"，标签为"打球（Yes/No）"。
+
+    \begin{center}
+    \begin{tabular}{ccccc}
+        \toprule
+        编号 & 天气 & 风速 & 打球 & 编号 & 天气 & 风速 & 打球 \\
+        \midrule
+        1 & 晴天 & 弱 & Yes & 5 & 阴天 & 弱 & Yes \\
+        2 & 晴天 & 强 & No  & 6 & 阴天 & 强 & Yes \\
+        3 & 阴天 & 弱 & Yes & 7 & 雨天 & 弱 & Yes \\
+        4 & 雨天 & 强 & No  & 8 & 雨天 & 强 & No  \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 计算数据集 $D$ 的\textbf{信息熵} $H(D)$。（保留 4 位小数）
+
+        \item 计算特征"天气"对数据集 $D$ 的\textbf{条件熵} $H(D \mid \text{天气})$。
+
+        \item 计算特征"天气"的\textbf{信息增益} $IG(D, \text{天气})$。
+
+        \item 类似地，计算特征"风速"的信息增益 $IG(D, \text{风速})$。
+
+        \item 根据 ID3 算法，应选哪个特征作为根节点的划分特征？
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 9 章 9.2.2 信息熵 / 9.2.3 信息增益与ID3]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：信息熵衡量的是什么？]
+    \begin{itemize}
+        \item \textbf{信息熵 = 不确定性}：$H(D) = -\sum_k p_k \log_2 p_k$。如果数据集中所有样本都是同一类，熵 $= 0$（完全确定）；如果各类均匀分布，熵最大（最不确定）。
+        \item \textbf{条件熵 = 知道特征后的不确定性}：$H(D|A) = \sum_v \frac{|D_v|}{|D|} H(D_v)$，是按特征取值加权的各子集的熵之和。
+        \item \textbf{信息增益 = 知道特征后，不确定性减少了多少}：$IG = H(D) - H(D|A)$，值越大说明该特征对分类越有帮助。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{数据统计}：共 8 条，Yes 有 5 条，No 有 3 条。
+
+    \textbf{(1) 数据集信息熵：}
+    \[
+    H(D) = -\frac{5}{8}\log_2\frac{5}{8} - \frac{3}{8}\log_2\frac{3}{8}
+    = -0.625 \times (-0.6781) - 0.375 \times (-1.4150)
+    \approx 0.4238 + 0.5306 = \mathbf{0.9544}
+    \]
+
+    \textbf{(2) 特征"天气"的条件熵：}
+
+    天气的三种取值：晴天（样本 1,2：1Yes/1No）、阴天（样本 3,5,6：3Yes/0No）、雨天（样本 4,7,8：1Yes/2No）。
+
+    \[
+    H(D_{\text{晴}}) = -\frac{1}{2}\log_2\frac{1}{2} - \frac{1}{2}\log_2\frac{1}{2} = 1.0000
+    \]
+    \[
+    H(D_{\text{阴}}) = -1\cdot\log_2 1 = 0.0000
+    \]
+    \[
+    H(D_{\text{雨}}) = -\frac{1}{3}\log_2\frac{1}{3} - \frac{2}{3}\log_2\frac{2}{3}
+    \approx 0.5283 + 0.3900 = 0.9183
+    \]
+    \[
+    H(D \mid \text{天气}) = \frac{2}{8}\times1.0 + \frac{3}{8}\times0 + \frac{3}{8}\times0.9183
+    = 0.25 + 0 + 0.3444 = \mathbf{0.5944}
+    \]
+
+    \textbf{(3) 天气的信息增益：}
+    \[
+    IG(D, \text{天气}) = H(D) - H(D\mid\text{天气}) = 0.9544 - 0.5944 = \mathbf{0.3600}
+    \]
+
+    \textbf{(4) 特征"风速"的信息增益：}
+
+    风速取值：弱（样本 1,3,5,7：4Yes/0No）、强（样本 2,4,6,8：1Yes/3No）。
+    \[
+    H(D_{\text{弱}}) = 0, \quad H(D_{\text{强}}) = -\frac{1}{4}\log_2\frac{1}{4} - \frac{3}{4}\log_2\frac{3}{4} \approx 0.5 + 0.3113 = 0.8113
+    \]
+    \[
+    H(D\mid\text{风速}) = \frac{4}{8}\times 0 + \frac{4}{8}\times 0.8113 = \mathbf{0.4057}
+    \]
+    \[
+    IG(D, \text{风速}) = 0.9544 - 0.4057 = \mathbf{0.5487}
+    \]
+
+    \textbf{(5) 结论：}
+
+    $IG(D, \text{风速}) = 0.5487 > IG(D, \text{天气}) = 0.3600$，
+
+    \textbf{ID3 算法应选"风速"作为根节点的划分特征}，因为它带来了更大的信息增益（划分后数据集整体更纯净）。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q9-05\quad ID3 vs C4.5 vs CART：三种决策树算法深度对比]
+    \textbf{题目描述：}\\
+    ID3、C4.5、CART 是决策树家族的三个主要成员，各有其发明背景和设计取舍。理解它们的差异是选择合适算法的基础。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item ID3 有一个著名的缺陷：对"取值数量非常多"的特征有偏好。举一个具体例子，说明为什么这种偏好会导致问题。
+
+        \item C4.5 使用信息增益率 $IGR(D,A) = \dfrac{IG(D,A)}{H_A(D)}$ 来修正 ID3 的偏差。其中"固有值" $H_A(D) = -\sum_v \dfrac{|D_v|}{|D|}\log_2 \dfrac{|D_v|}{|D|}$ 起到了什么作用？
+
+        \item 填写下表，完成三种算法的核心差异对比：
+
+        \begin{center}
+        \begin{tabular}{p{2cm} p{2.8cm} p{2.8cm} p{3cm} p{2.5cm}}
+            \toprule
+            算法 & 特征选择指标 & 树结构 & 是否支持连续特征 & 是否支持回归 \\
+            \midrule
+            ID3 & \underline{\hspace{1.5cm}} & 多叉树 & \underline{\quad} & \underline{\quad} \\[1em]
+            C4.5 & \underline{\hspace{1.5cm}} & 多叉树 & \underline{\quad}（离散化） & \underline{\quad} \\[1em]
+            CART & \underline{\hspace{1.5cm}} & \underline{\hspace{1.5cm}} & \underline{\quad} & \underline{\quad} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \texttt{sklearn} 的 \texttt{DecisionTreeClassifier} 默认使用哪种算法？如何通过参数切换特征选择指标？写出关键代码。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 9 章 9.2.4 信息增益率与C4.5 / 9.2.5 基尼指数与CART]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) ID3 对多取值特征的偏好问题：}
+
+    假设数据集有一列"样本 ID"特征，每个样本的 ID 都不同（取值数 = 样本数）。按 ID 划分后，每个子节点恰好只有一条样本，节点纯度为 1，条件熵为 0，信息增益极大——但用 ID 划分对新样本毫无泛化能力，完全过拟合。
+
+    \textbf{(2) 固有值的作用：}
+
+    当特征 $A$ 的取值数量越多，其固有值 $H_A(D)$ 越大（因为将样本分得越细，分布越均匀，熵越大）。用信息增益除以固有值，相当于对"取值多的特征天然获得高信息增益"这一现象做\textbf{惩罚归一化}，使得取值多的特征不再有不公平优势。
+
+    \textbf{(3) 三种算法对比：}
+
+    \begin{center}
+    \begin{tabular}{p{2cm} p{2.8cm} p{2.8cm} p{3cm} p{2.5cm}}
+        \toprule
+        算法 & 特征选择指标 & 树结构 & 支持连续特征 & 支持回归 \\
+        \midrule
+        ID3 & 信息增益 & 多叉树 & 否（仅离散） & 否 \\
+        C4.5 & 信息增益率 & 多叉树 & 是（离散化） & 否 \\
+        CART & 基尼指数（分类） / MSE（回归） & \textbf{二叉树} & 是 & 是 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(4) sklearn 代码：}
+
+    \begin{lstlisting}[language=Python]
+from sklearn.tree import DecisionTreeClassifier
+
+# 默认使用基尼指数（CART 风格）
+clf_gini = DecisionTreeClassifier(criterion='gini')
+
+# 使用信息增益（entropy，接近 ID3/C4.5 风格）
+clf_entropy = DecisionTreeClassifier(criterion='entropy')
+
+# 控制过拟合的常用参数
+clf = DecisionTreeClassifier(
+    criterion='gini',
+    max_depth=5,          # 最大树深
+    min_samples_split=10, # 内部节点继续划分所需最小样本数
+    min_samples_leaf=5    # 叶节点最小样本数
+)
+    \end{lstlisting}
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q9-06\quad SVM：间隔最大化的几何直觉与数学推导]
+    \textbf{题目描述：}\\
+    支持向量机（SVM）的核心思想是"最大化分类间隔"。理解这个思想的几何含义和数学形式，是掌握 SVM 的关键。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{几何直觉}：在二维平面上，用一条直线分类两类点有无数条可能的直线。SVM 为什么要找"间隔最大"的那条？（用泛化能力的角度解释）
+
+        \item \textbf{间隔的定义}：设超平面方程为 $w^T x + b = 0$，两类样本分别满足 $w^T x + b \geq 1$ 和 $w^T x + b \leq -1$（规范化后）。请推导：两个平行边界超平面之间的距离（即"几何间隔"）$\gamma$ 等于 $\dfrac{2}{\|w\|}$。
+
+        \item \textbf{优化目标}：最大化间隔等价于最小化什么目标函数？写出硬间隔 SVM 的优化问题（目标函数 + 约束条件）。
+
+        \item \textbf{软间隔 vs 硬间隔}：
+        \begin{enumerate}[a.]
+            \item 硬间隔 SVM 在什么情况下无法使用？
+            \item 软间隔引入了松弛变量 $\xi_i \geq 0$，修改后的约束变为什么？正则化参数 $C$ 如何控制"容忍错误"与"最大化间隔"之间的权衡？
+        \end{enumerate}
+
+        \item \textbf{核函数}：当数据线性不可分时，核函数的作用是什么？列举两种常见的核函数及其适用场景。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 9 章 9.3.1--9.3.4]}}
+\end{problembox}
+
+\begin{metaphorbox}[生活比喻：SVM 就像在两群人之间画路]
+    想象两群人站在广场上，你要在他们之间画一条分界线：
+    \begin{itemize}
+        \item \textbf{普通分类器}：只要"没有人站错边"就行，所以有无数种画法，随便哪条能分开就行。
+        \item \textbf{SVM}：要求分界线不仅能把两群人分开，还要\textbf{离两边最近的人都尽量远}——这样画的路最"宽"，如果来了新人站在边界附近，也不容易判断错。
+        \item \textbf{支持向量}：离分界线最近的那几个人——他们"撑住"了这条路的宽度，是最关键的样本。
+        \item \textbf{软间隔}：如果两群人有少数"越界"的，允许他们越界，但要收"罚款"（松弛变量），不能越太多。
+        \item \textbf{核函数}：如果两群人在平面上根本没办法用直线分开（比如一圈包着一圈），就把他们"升维"到三维空间——在三维看原来圆形的分布，可能就变成线性可分的了。
+    \end{itemize}
+\end{metaphorbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 最大间隔的泛化意义：}
+
+    间隔越大，意味着分界线距离两类样本的"安全距离"越大。当新样本出现一定程度的噪声或偏移时，间隔大的分类器更不容易误判。从 VC 理论来看，最大化间隔等价于最小化模型复杂度上界，从而获得更好的泛化能力。
+
+    \textbf{(2) 几何间隔推导：}
+
+    两个边界超平面为 $w^T x + b = +1$ 和 $w^T x + b = -1$。从第一个平面上任取一点 $x^+$（满足 $w^T x^+ + b = 1$），它到超平面 $w^T x + b = 0$ 的距离为 $\dfrac{|w^T x^+ + b|}{\|w\|} = \dfrac{1}{\|w\|}$。
+
+    由对称性，第二个平面上的点到中心超平面的距离也是 $\dfrac{1}{\|w\|}$，因此两个边界超平面之间的总间隔为：
+    \[
+    \gamma = \frac{1}{\|w\|} + \frac{1}{\|w\|} = \frac{2}{\|w\|}
+    \]
+
+    \textbf{(3) 硬间隔 SVM 优化问题：}
+
+    最大化 $\gamma = \dfrac{2}{\|w\|}$ 等价于最小化 $\dfrac{1}{2}\|w\|^2$：
+    \[
+    \min_{w, b}\ \frac{1}{2}\|w\|^2 \quad \text{s.t.}\ y_i(w^T x_i + b) \geq 1,\ \forall i
+    \]
+
+    \textbf{(4) 软间隔：}
+
+    \begin{itemize}
+        \item \textbf{硬间隔失效场景}：数据线性不可分时（两类样本在特征空间中混合，无论怎么画超平面都无法完全分开），硬间隔 SVM 无解。
+        \item \textbf{软间隔约束}：$y_i(w^T x_i + b) \geq 1 - \xi_i$，其中 $\xi_i \geq 0$。优化目标改为：
+        \[
+        \min_{w, b, \xi}\ \frac{1}{2}\|w\|^2 + C\sum_i \xi_i
+        \]
+        \item \textbf{$C$ 的权衡}：$C$ 越大，对误分类惩罚越重，模型更倾向于不容忍错误（间隔可能更小，更容易过拟合）；$C$ 越小，容忍更多错误，间隔更大（更可能欠拟合）。
+    \end{itemize}
+
+    \textbf{(5) 核函数：}
+
+    核函数 $K(x_i, x_j) = \phi(x_i)^T \phi(x_j)$ 隐式地将数据映射到更高维（甚至无穷维）空间，使原本线性不可分的数据在高维空间中变得线性可分，同时避免了显式计算高维映射（节省计算量）。
+
+    \begin{keybox}[常见核函数]
+        \begin{itemize}
+            \item \textbf{多项式核} $K(x,z) = (x^T z + c)^d$：适用于图像分类等特征之间有明确乘积交互关系的场景。
+            \item \textbf{RBF 核（径向基核/高斯核）} $K(x,z) = \exp\left(-\dfrac{\|x-z\|^2}{2\sigma^2}\right)$：最常用，适用于大多数非线性问题，对参数 $\sigma$（或 $\gamma = 1/2\sigma^2$）较敏感。
+        \end{itemize}
+    \end{keybox}
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q9-07\quad 支持向量与间隔计算：具体数值练习]
+    \textbf{题目描述：}\\
+    设在二维平面上，SVM 训练后得到的最优超平面方程为：
+    \[
+    2x_1 + x_2 - 3 = 0
+    \]
+    已知以下数据点：$A(0, 3)$、$B(2, 1)$、$C(1, 4)$、$D(3, 0)$（正类），$E(0, 0)$、$F(1, 0)$（负类）。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 计算每个数据点代入超平面方程 $2x_1 + x_2 - 3$ 的值，判断每个点属于哪一侧。
+
+        \item 计算每个数据点到超平面的\textbf{几何距离}（距离公式：$d = \dfrac{|w^T x + b|}{\|w\|}$，此处 $\|w\| = \sqrt{2^2+1^2} = \sqrt{5}$）。
+
+        \item 根据支持向量的定义（距离超平面最近的点），找出正类和负类各自的\textbf{支持向量}。
+
+        \item 计算该 SVM 的\textbf{几何间隔} $\gamma$（两类支持向量到超平面距离之和）。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 9 章 9.3.2 线性可分支持向量机]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 各点代入超平面方程 $f(x) = 2x_1 + x_2 - 3$：}
+
+    \begin{center}
+    \begin{tabular}{cccc}
+        \toprule
+        数据点 & $f(x) = 2x_1 + x_2 - 3$ & 所在侧 & 类别 \\
+        \midrule
+        $A(0,3)$ & $0+3-3=0$ & 超平面上 & 正类 \\
+        $B(2,1)$ & $4+1-3=2$ & $f>0$ 侧 & 正类 \\
+        $C(1,4)$ & $2+4-3=3$ & $f>0$ 侧 & 正类 \\
+        $D(3,0)$ & $6+0-3=3$ & $f>0$ 侧 & 正类 \\
+        $E(0,0)$ & $0+0-3=-3$ & $f<0$ 侧 & 负类 \\
+        $F(1,0)$ & $2+0-3=-1$ & $f<0$ 侧 & 负类 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 各点到超平面的几何距离（$\|w\|=\sqrt{5}$）：}
+
+    \begin{center}
+    \begin{tabular}{ccc}
+        \toprule
+        数据点 & $|f(x)|$ & 距离 $d = |f(x)|/\sqrt{5}$ \\
+        \midrule
+        $A(0,3)$ & 0 & $0$ \\
+        $B(2,1)$ & 2 & $2/\sqrt{5} \approx 0.894$ \\
+        $C(1,4)$ & 3 & $3/\sqrt{5} \approx 1.342$ \\
+        $D(3,0)$ & 3 & $3/\sqrt{5} \approx 1.342$ \\
+        $E(0,0)$ & 3 & $3/\sqrt{5} \approx 1.342$ \\
+        $F(1,0)$ & 1 & $1/\sqrt{5} \approx 0.447$ \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(3) 支持向量：}
+
+    \begin{itemize}
+        \item 正类中离超平面最近的点：$B(2,1)$，距离 $\approx 0.894$。
+        \item 负类中离超平面最近的点：$F(1,0)$，距离 $\approx 0.447$。
+    \end{itemize}
+
+    注意：$A(0,3)$ 恰好在超平面上，距离为 0，按严格 SVM 定义应不属于任一类的支持向量，或说明该点被错误分类/恰好在边界上。
+
+    \textbf{(4) 几何间隔：}
+    \[
+    \gamma = d_{\text{正类支持向量}} + d_{\text{负类支持向量}} = \frac{2}{\sqrt{5}} + \frac{1}{\sqrt{5}} = \frac{3}{\sqrt{5}} = \frac{3\sqrt{5}}{5} \approx 1.342
+    \]
+
+    \begin{keybox}[支持向量的特殊地位]
+        SVM 的超平面完全由支持向量决定——即使删去训练集中所有非支持向量的样本，重新训练得到的超平面完全相同。这是 SVM 的一个重要特性：模型只依赖少数关键样本，对非支持向量的噪声具有天然的鲁棒性。
+    \end{keybox}
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q9-08\quad 集成学习：AdaBoost 与随机森林的原理对比]
+    \textbf{题目描述：}\\
+    集成学习（Ensemble Learning）的核心思想是"博采众长"——将多个弱学习器组合成一个强学习器。AdaBoost 和随机森林是两种主流的集成策略，代表了 Boosting 和 Bagging 两种不同的组合思路。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，对比 Bagging 与 Boosting 的核心区别：
+
+        \begin{center}
+        \begin{tabular}{p{3.5cm} p{4.2cm} p{4.2cm}}
+            \toprule
+            对比维度 & Bagging（随机森林） & Boosting（AdaBoost） \\
+            \midrule
+            基学习器关系 & \underline{\hspace{3.5cm}} & \underline{\hspace{3.5cm}} \\[1.2em]
+            训练数据采样 & 有放回随机采样（Bootstrap） & \underline{\hspace{3.5cm}} \\[1.2em]
+            基学习器权重 & 所有基学习器\underline{\hspace{1.5cm}} & 根据\underline{\hspace{2cm}}分配不等权重 \\[1.2em]
+            主要解决的问题 & 降低\underline{\hspace{1cm}}（方差） & 降低\underline{\hspace{1cm}}（偏差） \\[1.2em]
+            并行/串行 & \underline{\quad} & \underline{\quad} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{AdaBoost 工作流程}：简述 AdaBoost 如何调整样本权重，以及最终如何组合多个弱分类器的预测结果。
+
+        \item \textbf{随机森林的"随机"体现在哪里？}随机森林比单棵决策树更好，原因是什么？（从偏差-方差权衡角度解释）
+
+        \item 以下场景分别更适合用随机森林还是 AdaBoost？请选择并说明理由。
+        \begin{enumerate}[A.]
+            \item 数据有大量噪声样本，担心模型对异常值过于敏感
+            \item 希望将多个欠拟合的弱模型逐步提升到强分类器
+            \item 需要并行训练以节省时间，数据集规模很大
+            \item 基学习器本身已经较复杂（如深层决策树），需要控制过拟合
+        \end{enumerate}
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 9 章 9.4 集成学习]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：弱学习器 + 组合 = 强学习器，怎么实现的？]
+    \begin{itemize}
+        \item \textbf{弱学习器}：比随机猜测稍好一点的模型（如深度很浅的决策树"树桩"，只做一次划分）。单个弱学习器准确率可能只有 55\%，但把很多个组合起来，集成模型准确率可以超过 95\%。
+        \item \textbf{Bagging 的思路（随机森林）}：让每棵树在不同的"数据视角"（有放回采样）下独立成长，再投票。树之间互相独立，各自的错误是不相关的，组合后错误相互抵消。
+        \item \textbf{Boosting 的思路（AdaBoost）}：像一个团队不断反思——第一个模型做完，找出它做错的样本，下一个模型专门盯着那些错误样本练习，依次改进。最终组合时，能力强的模型权重更大。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) Bagging vs Boosting 对比：}
+
+    \begin{center}
+    \begin{tabular}{p{3.5cm} p{4.2cm} p{4.2cm}}
+        \toprule
+        对比维度 & Bagging（随机森林） & Boosting（AdaBoost） \\
+        \midrule
+        基学习器关系 & \textbf{相互独立}，并行训练 & \textbf{串行依赖}，后一个依赖前一个的结果 \\[0.8em]
+        训练数据采样 & Bootstrap 有放回采样 & 每轮根据上一轮错误\textbf{调整样本权重}，关注难样本 \\[0.8em]
+        基学习器权重 & 所有基学习器\textbf{等权重}（多数投票/均值） & 按\textbf{分类误差率}分配不等权重，误差小的权重更大 \\[0.8em]
+        主要解决的问题 & 降低\textbf{方差}（过拟合） & 降低\textbf{偏差}（欠拟合） \\[0.8em]
+        并行/串行 & 可并行 & 串行（必须顺序训练） \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) AdaBoost 工作流程：}
+
+    \begin{enumerate}
+        \item 初始化所有样本权重相等 $w_i = 1/N$。
+        \item 训练第 $m$ 个弱分类器 $h_m$，计算其加权错误率 $\epsilon_m = \sum_{i: h_m(x_i)\neq y_i} w_i$。
+        \item 计算该弱分类器的权重：$\alpha_m = \dfrac{1}{2}\ln\dfrac{1-\epsilon_m}{\epsilon_m}$（误差率越低，权重越大）。
+        \item 更新样本权重：\textbf{被错误分类的样本权重增大}，被正确分类的权重减小，使下一轮弱学习器更关注当前的错误样本。
+        \item 最终强分类器：$H(x) = \text{sign}\left(\sum_m \alpha_m h_m(x)\right)$，即各弱分类器的\textbf{加权投票}。
+    \end{enumerate}
+
+    \textbf{(3) 随机森林的"随机"与优势：}
+
+    随机体现在两个层面：\textbf{（1）数据随机}——每棵树用 Bootstrap 采样的子数据集训练；\textbf{（2）特征随机}——每次节点划分时，不是用全部特征，而是随机选取一个特征子集中的最优特征。
+
+    从偏差-方差角度：单棵深层决策树方差大（过拟合），随机森林通过对多棵相关性低的树取平均，\textbf{大幅降低方差}，而引入的偏差增加有限——因为每棵树仍然是"足够强"的学习器。
+
+    \textbf{(4) 场景匹配：}
+    \begin{itemize}
+        \item \textbf{A → 随机森林}：对噪声/异常值更鲁棒，因为有放回采样使得单个异常点影响有限，且最终多数投票稀释了异常值的影响。AdaBoost 会对噪声样本持续增加权重，反而可能过拟合异常。
+        \item \textbf{B → AdaBoost}：Boosting 的核心就是通过串行叠加弱模型逐步降低偏差，将欠拟合的弱学习器提升为强分类器。
+        \item \textbf{C → 随机森林}：Bagging 天然支持并行训练，可以充分利用多核 CPU；AdaBoost 必须串行。
+        \item \textbf{D → 随机森林}：基学习器已经复杂时，随机森林通过 Bootstrap 和特征随机降低过拟合风险；AdaBoost 对复杂基学习器容易过拟合。
+    \end{itemize}
+\end{solutionbox}
+
+\begin{appbox}[现实应用场景]
+    \textbf{XGBoost / LightGBM——现代 Boosting 的工业级实现：}\\
+    AdaBoost 是 Boosting 的开山鼻祖，而工业界真正打比赛、做工程的是其"进化版"——梯度提升树（GBDT）及其高效实现 XGBoost、LightGBM。这些算法在 Kaggle 竞赛的结构化数据赛道长期霸榜：据统计，约 60\% 的冠军方案都用到了 XGBoost 或 LightGBM。它们将 Boosting 的残差拟合思想与决策树的非线性能力完美结合，同时加入正则化控制过拟合，是现代机器学习工程师必备的工具。
+\end{appbox}
+
+
+% ===== 本章小结 =====
+\section{本章小结：四大经典算法的选择指南}
+
+学完本章 8 道题，可以把四类算法的核心用一个"选算法决策树"来总结：
+
+\begin{itemize}
+    \item \textbf{数据有明确的概率分布假设 + 特征相对独立？} → 朴素贝叶斯（速度快、数据量少也能用，擅长文本分类）
+    \item \textbf{需要可解释性、可视化决策规则？} → 决策树（CART/C4.5，医疗诊断、风控规则等场景）
+    \item \textbf{高维小样本、需要最大化泛化能力？} → SVM（人脸识别、生物信息学等小样本高维场景的经典选择）
+    \item \textbf{追求最高预测精度、数据量充足？} → 集成学习（随机森林/XGBoost，结构化数据竞赛首选）
+\end{itemize}
+
+\begin{metaphorbox}[给零基础读者的一句总比喻]
+    \textbf{如果把分类任务比作"判断一封邮件是不是垃圾邮件"：}
+    \begin{itemize}
+        \item \textbf{朴素贝叶斯}：查历史统计，"含'免费领奖'的邮件，95\% 是垃圾邮件"——用概率说话，快速直接；
+        \item \textbf{决策树}：先看"有没有附件？" → 再看"发件人认识吗？" → 再看"标题有没有感叹号？"——一问一答，规则清晰；
+        \item \textbf{SVM}：在"所有词语的出现频次"构成的高维空间中，找一条离垃圾/正常邮件都最远的超平面——数学上最优雅；
+        \item \textbf{随机森林/AdaBoost}：让 100 位审核员各自按不同规则判断，投票决定——众智胜独智，实际精度往往最高。
+    \end{itemize}
+\end{metaphorbox}
+
+\end{document}

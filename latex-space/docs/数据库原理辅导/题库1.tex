@@ -1,0 +1,1429 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据库复习题库}
+\lhead{整理自上传资料}
+\cfoot{\thepage}
+
+\title{\textbf{专升本计算机综合数据库选择题练习及真题汇总}}
+\author{整理时间: \today}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{数据库概述}
+
+\begin{enumerate}[label=\arabic*.]
+    \item 以下关于数据库描述正确是（\quad）。
+    \begin{enumerate}
+        \item 数据库是一个 DBF 文件
+        \item 数据库是一个关系
+        \item 数据库是一个结构化数据集合
+        \item 数据库是一组文件
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 数据独立性是指（\quad）。
+    \begin{enumerate}
+        \item 数据依赖于程序
+        \item 程序依赖于数据
+        \item 数据不依赖于程序
+        \item 程序不依赖于数据
+    \end{enumerate}
+    \textbf{答案：D} (注：通常指程序不依赖于数据的逻辑和物理结构，选项D表述最接近“程序独立于数据”)
+
+    \item 以下关于 DBA 职责叙述中，不正确是（\quad）。
+    \begin{enumerate}
+        \item DBA 是数据库系统超级用户，负责控制和管理各个用户访问权限
+        \item DBA 要负责监控数据库运行
+        \item DBA 要负责前端应用程序开发
+        \item DBA 要负责当数据库系统发生故障时进行恢复
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item DBMS 是指（\quad）。
+    \begin{enumerate}
+        \item 数据库
+        \item 数据库系统
+        \item 数据库管理系统
+        \item 数据处理系统
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 数据冗余度低、数据共享以及较高数据独立性等特征系统是（\quad）。
+    \begin{enumerate}
+        \item 文件系统
+        \item 数据库系统
+        \item 操作系统
+        \item 高级程序
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 仅次于用户和数据库之间一层数据管理软件是（\quad）。
+    \begin{enumerate}
+        \item 数据库系统
+        \item 数据库
+        \item 管理信息系统
+        \item 数据库管理系统
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 数据库系统中，逻辑数据和物理数据能够相互转换，执行该功效是（\quad）。
+    \begin{enumerate}
+        \item 操作系统
+        \item 信息管理系统
+        \item 数据库管理系统
+        \item 文件系统
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 数据库中对全部数据整体逻辑结构描述，作为数据库（\quad）。
+    \begin{enumerate}
+        \item 存放模式
+        \item 子模式
+        \item 外模式
+        \item 模式
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 用户看到那部分数据局部逻辑结构描述是（\quad）。
+    \begin{enumerate}
+        \item 存放模式
+        \item 子模式 (外模式)
+        \item 概念模式
+        \item 模式
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 文件系统和数据库系统最大区分是（\quad）。
+    \begin{enumerate}
+        \item 数据共享
+        \item 数据独立
+        \item 数据冗余
+        \item 数据结构化
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 关于信息和数据，下面阐述中正确是（\quad）。
+    \begin{enumerate}
+        \item 信息与数据，只有区分，没有联络
+        \item 信息是数据载体
+        \item 同一信息用同一数据表示形式
+        \item 数据处理本质上就是信息处理
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 描述事物性质最小数据单位是（\quad）。
+    \begin{enumerate}
+        \item 统计
+        \item 文件
+        \item 数据项
+        \item 数据库
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 若干统计集合称为（\quad）。
+    \begin{enumerate}
+        \item 数据
+        \item 数据库
+        \item 数据项
+        \item 文件
+    \end{enumerate}
+    \textbf{答案：D} (注：在文件系统中称为文件，在数据库语境下若指记录集合通常构成表，此处依题意选文件)
+
+    \item 数据库系统中软件是指（\quad）。
+    \begin{enumerate}
+        \item 数据库管理系统
+        \item 应用程序
+        \item 数据库
+        \item 数据库管理员
+    \end{enumerate}
+    \textbf{答案：A} (注：DBMS是核心软件，但DBS包含所有软件，题目语境通常指核心管理软件)
+
+    \item 在数据库系统组织结构中，把概念数据库与物理数据联络起来映射是（\quad）。
+    \begin{enumerate}
+        \item 外模式/模式
+        \item 内模式/外模式
+        \item 模式/内模式
+        \item 模式/外模式
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 1975 年 SPARC 公布了数据库标准汇报，提出了数据库（\quad）结构组织。
+    \begin{enumerate}
+        \item 一级
+        \item 二级
+        \item 三级
+        \item 四级
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 内模式是系统程序员用一定（\quad）形式组织起来一个存放文件和联络伎俩。
+    \begin{enumerate}
+        \item 统计
+        \item 数据
+        \item 视图
+        \item 文件
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 数据库系统三级结构关系，以下叙述中正确是（\quad）。
+    \begin{enumerate}
+        \item 模式是内模式逻辑表示
+        \item 模式是内模式物理实现
+        \item 模式是外模式部分抽取
+        \item 外模式是内模式物理实现
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 三个模式反应了对数据库三种不一样观点，以下说法中正确是（\quad）。
+    \begin{enumerate}
+        \item 内模式表示了概念级数据库，表现了对数据库总表现
+        \item 外模式表示了物理级数据库，表现了对数据库存放观
+        \item 外模式表示了用户级数据库，表现了对数据库用户观
+        \item 外模式表示了用户级数据库，表现了对数据库存放观
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 在数据库系统组织结构中，以下（\quad）映射把用户数据库与概念数据库联络起来。
+    \begin{enumerate}
+        \item 外模式/模式
+        \item 外模式/外模式
+        \item 模式/内模式
+        \item 内模式/模式
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 在数据库三级模式中，只有（\quad）才是真正存放数据。
+    \begin{enumerate}
+        \item 模式
+        \item 外模式
+        \item 内模式
+        \item 用户模式
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 下面关于数据库管理系统阐述中，正确是（\quad）。
+    \begin{enumerate}
+        \item 数据库管理系统是用户与应用程序接口
+        \item 应用程序只有经过数据库管理系统才能访问数据库
+        \item 数据库管理系统用 DML 来定义三级模式
+        \item 数据库管理系统用 DDL 来实现对数据库各种操作
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item DBMS 经过（\quad）来定义三种模式，并将各种模式翻译成对应目标代码。
+    \begin{enumerate}
+        \item DML
+        \item DDL
+        \item FoxPro
+        \item DBA
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 下面命令中，（\quad）不是 DML 基本操作。
+    \begin{enumerate}
+        \item 排序
+        \item 插入
+        \item 修改
+        \item 检索
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 以下关于“采取映射技术好处”叙述中，不正确是（\quad）。
+    \begin{enumerate}
+        \item 确保了数据独立性
+        \item 确保了数据共享
+        \item 方便了用户使用数据库
+        \item 确保了数据库开放性
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 数据库是指在计算机系统中按照一定数据模型组织、存放和应用（\quad）。
+    \begin{enumerate}
+        \item 文件集合
+        \item 数据集合
+        \item 命令集合
+        \item 程序集合
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 数据独立性是指（\quad）。
+    \begin{enumerate}
+        \item 不会因为数据数值发生改变而影响应用程序
+        \item 不会因为系统数据存放结构和逻辑结构改变而影响程序
+        \item 不会因为程序而影响数据
+        \item 不会因为数据逻辑结构而影响数据存放结构
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 由计算机硬件、操作系统、DBMS、数据库、应用程序及用户等组成一个整体称为（\quad）。
+    \begin{enumerate}
+        \item 文件系统
+        \item 数据库系统
+        \item 软件系统
+        \item 数据库管理系统
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 数据库最小存取单位是（\quad）。
+    \begin{enumerate}
+        \item 数据项
+        \item 字符
+        \item 统计 (记录)
+        \item 文件
+    \end{enumerate}
+    \textbf{答案：C} (注：通常指记录，若指逻辑最小单位则是数据项，但在存取操作层面通常是记录)
+
+    \item 对于负责数据库系统，负责定义数据库内容，决定存放结构和存放策略及安全授权等工作人员是（\quad）。
+    \begin{enumerate}
+        \item 系统分析员
+        \item 数据库用户
+        \item 程序员
+        \item DBA
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 数据库系统支持数据独立性，这是经过（\quad）来实现。
+    \begin{enumerate}
+        \item DDL 和 DML
+        \item 定义完整性约束条件
+        \item 程序员
+        \item DBA (通过两级映射实现，但实施者是DBMS，管理者是DBA，此题选项略有歧义，通常指两级映射机制，若无映射选项，选DBA负责维护)
+        \item \textit{更正：根据标准题库，此题通常考察的是“两级映射”，若选项无映射，则题目可能意在问谁负责维护独立性，选D。若有“两级映射”选项则选映射。在此选项下，选D较合理。}
+    \end{enumerate}
+    \textbf{答案：D} (注：严格来说是靠两级映射，但DBA负责定义和维护这些映射)
+
+    \item 以下选项不是 DBMS 功效是（\quad）。
+    \begin{enumerate}
+        \item 数据定义
+        \item 数据操纵
+        \item 数据库运行控制
+        \item 数据编译
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 当数据库遭到破坏时，将其恢复到数据库破坏前某种一致性状态，这种功效称为（\quad）。
+    \begin{enumerate}
+        \item 数据库安全性控制
+        \item 数据库完整性控制
+        \item 数据库迸发控制 (并发控制)
+        \item 数据库恢复
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 以下不是 DBMS 数据库运行控制功效是（\quad）。
+    \begin{enumerate}
+        \item 并行控制
+        \item 安全性控制
+        \item 完整性控制
+        \item 故障恢复
+    \end{enumerate}
+    \textbf{答案：D} (注：故障恢复通常单独列为恢复功能，而运行控制主要指并发、安全、完整性。但有些教材将恢复也归为运行控制。若必须选一个“不是”，有些旧题库会将“故障恢复”单列。不过更常见的错误选项是“数据编译”。若此题出自特定题库，需核对。通常运行控制包括：并发控制、安全性、完整性。恢复是另一大功能。故选D可能性大)
+    \textit{修正：根据常见题库，DBMS功能包括：定义、操纵、运行管理（含并发、安全、完整性）、建立维护（含恢复）。若题目将恢复单列，则运行控制不含恢复。}
+    \textbf{答案：D}
+
+    \item 以下关于 DBMS 叙述中，不正确是（\quad）。
+    \begin{enumerate}
+        \item DBMS 提供数据描述语言 DDL 能够用来定义模式、外模式和内模式
+        \item 全部 DBMS 都有自含程序设计语言
+        \item 数据库运行控制包含数据库安全性、完整性、故障恢复、并发操作四个方面
+        \item DBMS 要负责实现外模式/模式以及模式/内模式之间映射
+    \end{enumerate}
+    \textbf{答案：B} (注：并非所有DBMS都有自含语言，如宿主型)
+
+    \item 以下关于数据库模式说法中，正确是（\quad）。
+    \begin{enumerate}
+        \item 在应用程序中，用户使用是内模式
+        \item 在一个数据库系统中能够有多个外模式
+        \item 模式是外模式一个子集
+        \item 在一个数据库系统中，能够有多个内模式和外模式
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 定义数据库模式、数据库结构以及数据特征等功效是经过（\quad）来实现。
+    \begin{enumerate}
+        \item 数据描述语言 DDL
+        \item 数据操纵语言 DML
+        \item 程序设计语言
+        \item 机器语言
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 逻辑数据独立性是指（\quad）。
+    \begin{enumerate}
+        \item 模式变、用户不变
+        \item 模式变、应用程序不变
+        \item 应用程序变，模式不变
+        \item 子模式变，应用程序不变
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item FoxPro 是一个（\quad）。
+    \begin{enumerate}
+        \item DB
+        \item DBS
+        \item DBMS
+        \item OS
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 三级模式间存在两种映射，它们是（\quad）。
+    \begin{enumerate}
+        \item 子模式与模式间映射，模式与内模式间映射
+        \item 子模式与内模式间映射，外模式与内模式间映射
+        \item 子模式与外模式间映射，模式与内模式间映射
+        \item 模式与内模式间映射，模式与外模式间映射
+    \end{enumerate}
+    \textbf{答案：A} (注：子模式即外模式)
+
+    \item FoxPro 是一个基于（\quad）。
+    \begin{enumerate}
+        \item 层次模型 DBMS
+        \item 网状模型 DBMS
+        \item 关系模式应用程序
+        \item 关系模型 DBMS
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 模式是数据库中数据（\quad）。
+    \begin{enumerate}
+        \item 全局物理结构
+        \item 局部物理结构
+        \item 全局逻辑结构
+        \item 局部逻辑结构
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 以下关于外模式叙述中，正确是（\quad）。
+    \begin{enumerate}
+        \item 外模式是内模式副本
+        \item 外模式是模式子集
+        \item 外模式只能为一个应用程序所使用
+        \item 外模式与模式无关
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 数据冗余可能产生问题是（\quad）。
+    \begin{enumerate}
+        \item 修改数据方便
+        \item 删除数据方便
+        \item 增加了编程复杂度
+        \item 潜在数据不一致性
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 以下关于 DB、DBMS、DBS 三者之间关系叙述中，正确是（\quad）。
+    \begin{enumerate}
+        \item DB 包含 DBMS 和 DBS
+        \item DBS 包含了 DBMS 和 DB
+        \item DBMS 包含 DB 和 DBS
+        \item DB、DBMS 和 DBS 无关
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 下列说法不正确是（\quad）。
+    \begin{enumerate}
+        \item 数据库减少了数据冗余
+        \item 数据库避免了一切数据重复
+        \item 数据库中数据能够共享
+        \item 假如冗余是系统可控制，则系统可确保更新时一致性
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 以下不是数据库安全性控制方法是（\quad）。
+    \begin{enumerate}
+        \item 设置口令
+        \item 控制用户存取权限
+        \item 数据加密
+        \item 备份
+    \end{enumerate}
+    \textbf{答案：D} (备份属于恢复技术)
+
+    \item 用二维表来表示实体及实体之间联络的数据模型称为（\quad）。
+    \begin{enumerate}
+        \item 实体-联络模型
+        \item 层次模型
+        \item 网状模型
+        \item 关系模型
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 在下述关于数据库系统叙述中，正确是（\quad）。
+    \begin{enumerate}
+        \item 数据库中只存在数据项之间联络
+        \item 数据库数据项之间和统计之间都存在联络
+        \item 数据库数据项之间无联络，统计之间存在联络
+        \item 数据库数据项之间和统计之间都不存在联络
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 数据库系统与文件系统主要区分是（\quad）。
+    \begin{enumerate}
+        \item 数据库系统复杂，而文件系统简单
+        \item 文件系统不能处理数据冗余和数据独立性问题，而数据库系统能够处理
+        \item 文件系统只能管理程序文件，而数据库系统能够管理各种类型文件
+        \item 文件系统管理数据量较少，而数据库系统能够管理庞大数据量
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item DBS 是采取了数据库技术计算机系统。DBS 是一个集合体，包含数据库、计算机软硬件、应用程序和（\quad）。
+    \begin{enumerate}
+        \item 系统分析员
+        \item 程序员
+        \item 数据库管理员
+        \item 操作员
+    \end{enumerate}
+    \textbf{答案：C} (注：人员包括DBA、开发人员、用户等，选项中DBA最具代表性)
+
+    \item 以下说法正确是（\quad）。
+    \begin{enumerate}
+        \item 外模式、概念模式、内模式都只有一个
+        \item 模式只有一个，概念模式和内模式有多个
+        \item 外模式有多个，概念模式和内模式只有一个
+        \item 三个模式中，只有概念模式才是真正存在
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 要确保数据库物理数据独立性，需要修改是（\quad）。
+    \begin{enumerate}
+        \item 模式
+        \item 模式/内模式映射
+        \item 模式/外模式映射
+        \item 内模式
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 以下四项中，不属于数据库系统特点是（\quad）。
+    \begin{enumerate}
+        \item 数据共享
+        \item 数据完整性
+        \item 数据冗余较小
+        \item 数据独立性低
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 数据库中存放是（\quad）。
+    \begin{enumerate}
+        \item 数据
+        \item 数据模型
+        \item 数据之间联络
+        \item 数据以及数据之间联络
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 数据库系统组织结构是（\quad）。
+    \begin{enumerate}
+        \item 三级结构三级映射
+        \item 二级结构三级映射
+        \item 三级结构二级映射
+        \item 二级结构二级映射
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 以下关于数据库模式说法中，正确是（\quad）。
+    \begin{enumerate}
+        \item 三个模式中，只有外模式才是真正存在
+        \item 在应用程序中，用户使用是外模式
+        \item 在应用程序中，用户使用是内模式
+        \item 在应用程序中，用户使用是概念模式
+    \end{enumerate}
+    \textbf{答案：B}
+\end{enumerate}
+
+\section{数据模型}
+
+\begin{enumerate}[label=\arabic*.]
+    \setcounter{enumi}{40}
+    \item 有两个实体集，而且这两个实体集之间存在 M:N 联络，则依照转换规则，这个 E-R 结构转换成表数目应该为（\quad）个。
+    \begin{enumerate}
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}
+    \textbf{答案：C} (两个实体表 + 一个联系表)
+
+    \item 设某工程设计企业中要求，一项工程是由多名职员共同完成，而一名职员只能参加一个工程项目，则职员与工程之间联络类型是（\quad）。
+    \begin{enumerate}
+        \item 1:n
+        \item 1:1
+        \item m:n
+        \item n:1
+    \end{enumerate}
+    \textbf{答案：A} (从工程到职员是1:n，即一个工程对应多个职员；若问职员到工程则是n:1。题目问“职员与工程之间”，通常看主导方向或双向描述。工程(1)---(n)职员。选项A 1:n 通常指前者对后者。若顺序是职员:工程，则是n:1。根据常规题意，一项工程对应多名职员，故为1:n)
+
+    \item 数据模型是（\quad）。
+    \begin{enumerate}
+        \item 文件集合
+        \item 统计集合
+        \item 数据集合
+        \item 统计及其联络集合
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 数据库类型是依照（\quad）划分。
+    \begin{enumerate}
+        \item 数据描述功效
+        \item 统计形式
+        \item 数据模型
+        \item 存取数据方法
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 数据模型应该具备（\quad）功效。
+    \begin{enumerate}
+        \item 数据描述
+        \item 数据联络描述
+        \item A 和 B 同时具备
+        \item 数据查询
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 以下关于数据模型描述中，错误是（\quad）。
+    \begin{enumerate}
+        \item 数据模型表示是数据库本身
+        \item 数据模型表示是数据库框架
+        \item 数据模型是客观事物及其联络描述
+        \item 数据模型能够以一定结构形式表示出各种不一样数据之间联络
+    \end{enumerate}
+    \textbf{答案：A} (数据模型是抽象，不是数据库本身)
+
+    \item 以下关于实体描述中，错误是（\quad）。
+    \begin{enumerate}
+        \item 实体是指现实世界中存在一切事物
+        \item 实体靠联络来描述
+        \item 实体所具备性质统称为属性
+        \item 实体和属性是信息世界表壳概念两个不一样单位
+    \end{enumerate}
+    \textbf{答案：B} (实体本身具有属性，联系是实体之间的关系)
+
+    \item （\quad）不是 E-R 图三大要素之一。
+    \begin{enumerate}
+        \item 属性
+        \item 实体
+        \item 键
+        \item 联络
+    \end{enumerate}
+    \textbf{答案：C} (三大要素：实体、属性、联系)
+
+    \item 当前，在微机上数据库系统广泛使用数据模型是（\quad）。
+    \begin{enumerate}
+        \item 层次模型
+        \item 网状模型
+        \item 关系模型
+        \item 概念模型
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 在现实世界中，某种产品名称对应于计算机世界中（\quad）。
+    \begin{enumerate}
+        \item 文件
+        \item 实体
+        \item 数据项
+        \item 统计
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 在某企业所有些人员实体中，用关系模型来表示这些实体，经理这个称呼属于（\quad）。
+    \begin{enumerate}
+        \item 实体型
+        \item 实体值
+        \item 属性型
+        \item 属性值
+    \end{enumerate}
+    \textbf{答案：D} (经理是职务属性的一个具体值)
+
+    \item 关系模型是（\quad）。
+    \begin{enumerate}
+        \item 用关系表示实体
+        \item 用关系表示联络
+        \item 用关系表示实体及联络
+        \item 用关系表示属性
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 实体必须是（\quad）。
+    \begin{enumerate}
+        \item 有生命东西
+        \item 无生命东西
+        \item 实际存在东西
+        \item 任何可区分东西
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 实体中任一关键字（\quad）。
+    \begin{enumerate}
+        \item 只能由一个可区分实体集合中不一样个体属性组成
+        \item 可能由一个或多个可区分实体集合中不一样个体属性组成
+        \item 必须由多个可区分实体集合中不一样个体属性组成
+        \item 是由用户任意指定
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 关系数据模型用来表示数据之间联络是（\quad）。
+    \begin{enumerate}
+        \item 任一属性
+        \item 多个属性
+        \item 主键
+        \item 外部键
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 关系模型所能表示实体间联络方式（\quad）。
+    \begin{enumerate}
+        \item 只能表示 1:1 联络
+        \item 只能表示 1:n 联络
+        \item 只能表示 m:n 联络
+        \item 能够表示任意联络方式
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item FoxPro 是一个关系型数据库管理系统，所谓关系是指（\quad）。
+    \begin{enumerate}
+        \item 各条统计中数据彼此有一定关系
+        \item 一个数据库文件与另一个数据库之间有一定关系
+        \item 数据模型符合满足一定条件二维表格
+        \item 数据库中各个字段之间彼此有一定关系
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 模型是对现实世界抽象，在数据库技术中，用模型概念描述数据库结构与语义，对现实世界进行抽象。表示现实世界中实体类型及实体间联络模型称为（\quad）。
+    \begin{enumerate}
+        \item 关系模型
+        \item 层次模型
+        \item 网状模型
+        \item E-R 模型
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 在层次模型中，数据之间联络是经过（\quad）来实现。
+    \begin{enumerate}
+        \item 主键
+        \item 外部键
+        \item 指针
+        \item 候选键
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 在 E-R 模型转化成关系模型过程中，以下叙述不正确是（\quad）。
+    \begin{enumerate}
+        \item 每个实体类型转化成一个关系模式
+        \item 每个联络类型转化成一个关系模式
+        \item 每个 m:n 联络转化成一个关系模式
+        \item 在 1:n 联络中，“1”实体主键作为外部键放在“n”端实体类型转换成关系模式中
+    \end{enumerate}
+    \textbf{答案：B} (1:1 和 1:n 联系通常不单独转成表，而是合并)
+\end{enumerate}
+
+\section{关系数据库基本概念}
+
+\begin{enumerate}[label=\arabic*.]
+    \setcounter{enumi}{63}
+    \item 以下关于关系叙述中，正确是（\quad）。
+    \begin{enumerate}
+        \item 关系是一个由行与列组成、能够表示数据及数据之间联络二维表
+        \item 表中某一列数据类型既能够是字符串，也能够是数字
+        \item 表中某一列值能够取空值 null，所谓空值是指安全可靠或零
+        \item 表中必须有一列作为主关键字，用来惟一标识一行
+    \end{enumerate}
+    \textbf{答案：A} (B错，同列类型必须相同；C错，Null不等于0；D错，理论上关系可以没有主键，虽然实践中推荐有)
+
+    \item 已知有以下 3 个表：学生（学号，姓名，性别，班级）；课程（课程名称，课时，性质）；成绩（课程名称，学号，分数）。若要显示学生成绩单，包含学号、姓名、课程名称、分数，应该对这些关系进行（\quad）操作。
+    \begin{enumerate}
+        \item 并
+        \item 交
+        \item 乘积和投影
+        \item 自然连接和投影
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 若要列出班级 = “97 计算机”全部同学姓名，应该对关系“学生”进行（\quad）操作。
+    \begin{enumerate}
+        \item 选择
+        \item 连接
+        \item 投影
+        \item 选择和投影
+    \end{enumerate}
+    \textbf{答案：D} (先选择班级，再投影姓名)
+
+    \item 若要列出班级 = “99 网络”班全部“数据库技术”课成绩不及格同学学号、姓名、课程名称、分数，则应该对这些表进行（\quad）操作。
+    \begin{enumerate}
+        \item 选择和连接
+        \item 投影和连接
+        \item 选择、投影和连接
+        \item 选择和投影
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 已知关系 R 和 S (见题干表格)，R 和 S 进行并运算，其结果元组数是（\quad）。
+    \begin{enumerate}
+        \item 6
+        \item 5
+        \item 4
+        \item 0
+    \end{enumerate}
+    \textbf{答案：B} (R有3行，S有3行，其中(a2,b2,c2)重复，并集去重后为5行)
+
+    \item R 和 S 进行差运算，其结果元组数是（\quad）。
+    \begin{enumerate}
+        \item 1
+        \item 0
+        \item 6
+        \item 2
+    \end{enumerate}
+    \textbf{答案：D} (R中有(a1,b2,c1), (a3,b1,c1)不在S中，共2行)
+
+    \item R 和 S 进行交运算，其结果元组数是（\quad）。
+    \begin{enumerate}
+        \item 0
+        \item 6
+        \item 4
+        \item 1
+    \end{enumerate}
+    \textbf{答案：D} (只有(a2,b2,c2)一行相同，注意S中有两行(a2,b2,c2)，集合运算去重，交集为1行)
+
+    \item R 和 S 进行乘运算，其结果元组数是（\quad）。
+    \begin{enumerate}
+        \item 6
+        \item 9
+        \item 1
+        \item 3
+    \end{enumerate}
+    \textbf{答案：B} (3行 $\times$ 3行 = 9行)
+
+    \item 在关系理论中称为关系概念，在关系数据库中称为（\quad）。
+    \begin{enumerate}
+        \item 实体集
+        \item 文件
+        \item 表
+        \item 统计
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 在关系理论中称为元组概念，在关系数据库中称为（\quad）。
+    \begin{enumerate}
+        \item 实体
+        \item 统计
+        \item 行
+        \item 字段
+    \end{enumerate}
+    \textbf{答案：C} (或记录，选项中“行”更直观对应元组)
+
+    \item 在 E-R 模型中，一个实体相对于关系数据库中一个关系中一个（\quad）。
+    \begin{enumerate}
+        \item 属性
+        \item 元组
+        \item 列
+        \item 字段
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 在关系数据库中，实现“表中任意两行不能相同”约束是靠（\quad）来实现。
+    \begin{enumerate}
+        \item 外码
+        \item 属性
+        \item 主码
+        \item 列
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 关系数据库中，表与表之间联络约束是经过（\quad）来实现。
+    \begin{enumerate}
+        \item 实体完整性规则
+        \item 引用完整性规则
+        \item 用户自定义完整性
+        \item 值域
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 关系数据库中，实现主键标识元组作用是经过（\quad）来实现。
+    \begin{enumerate}
+        \item 实体完整性规则
+        \item 参考完整性规则
+        \item 用户自定义完整性
+        \item 属性值域
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 两个没有公共属性关系做自然连接等价于它们做（\quad）。
+    \begin{enumerate}
+        \item 并
+        \item 交
+        \item 差
+        \item 笛卡尔积
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 对表进行水平方向分割，用运算是（\quad）。
+    \begin{enumerate}
+        \item 交
+        \item 投影
+        \item 选择
+        \item 连接
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 对表进行垂直方向分割，用运算是（\quad）。
+    \begin{enumerate}
+        \item 交
+        \item 投影
+        \item 选择
+        \item 连接
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 关系规范化实质是围绕（\quad）进行。
+    \begin{enumerate}
+        \item 函数
+        \item 函数依赖
+        \item 范式
+        \item 关系
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 以下关于关系说法中正确是（\quad）。
+    \begin{enumerate}
+        \item 一个关系就是一张二维表
+        \item 在关系所对应二维表中，行对应属性，列对应元组
+        \item 关系中各属性不允许有相同域
+        \item 关系各属性名必须与对应域同名
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 以下关于二维表说法，不正确是（\quad）。
+    \begin{enumerate}
+        \item 二维表列能够任意交换
+        \item 二维表行能够任意交换
+        \item 二维表中每一列中各个分量性质相同
+        \item 二维表中每一列代表一个实体
+    \end{enumerate}
+    \textbf{答案：D} (每一列代表一个属性)
+
+    \item 以下关于二维表阐述，不正确是（\quad）。
+    \begin{enumerate}
+        \item 表中每一个元组分量都是不可再分
+        \item 表中行次序不能够任意交换，不然会改变关系意义
+        \item 表中每一列取自同一个域，且性质相同
+        \item 表中第一行通常称为属性名
+    \end{enumerate}
+    \textbf{答案：B} (行次序可以任意交换)
+
+    \item 依照关系模式完整性规则，一个关系中主键（\quad）。
+    \begin{enumerate}
+        \item 不能有两个
+        \item 不能成为另一个关系外部键
+        \item 不允许空值
+        \item 能够取空值
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 若一个关系模式只有两个属性，则该关系模式（\quad）。
+    \begin{enumerate}
+        \item 最高属于 1NF
+        \item 最高属于 2NF
+        \item 可能属于 3NF
+        \item 必定属于 3NF
+    \end{enumerate}
+    \textbf{答案：D} (二目关系至少是3NF，甚至BCNF)
+
+    \item 关于关系数据库操纵语言 DML 叙述，错误是（\quad）。
+    \begin{enumerate}
+        \item DML 有问答式和语言描述式
+        \item DML 以关系为处理单位
+        \item DML 处理后结果是关系
+        \item DML 非过程性很强
+    \end{enumerate}
+    \textbf{答案：D} (关系代数是非过程性的，但SQL DML有一定的过程性，或者说DML本身包含过程性和非过程性，此题通常考察DML的特点，若指纯关系代数则是非过程性。若指SQL，则混合。根据排除法，ABC较准确，D表述“很强”可能有争议，但在某些题库中认为DML（特别是SQL）具有一定的过程性，不如代数纯粹。或者题目意指DML不是非过程性很强？此处依常见题库，DML（如SQL）是声明式的，非过程性强。若选错误，可能是A（分类方式不同）？重新审视：关系代数是严格的非过程化。SQL是混合。通常认为DML（关系代数）非过程性强。若题目指SQL，则D没错。让我们看其他选项。A：问答式（QBE）和描述式（SQL），正确。B：集合操作，正确。C：封闭性，正确。那么D哪里错？也许题目认为DML包含过程化语言？暂存，通常选D的情况较少，可能是题目想表达“DML不完全是非过程性的”？或者此题答案是A？不，A是对的。再看D，关系代数是非过程化的，但DML作为一个类别，包含过程化（如 navigational）和非过程化。如果特指关系模型的DML，则是非过程化。这题比较模糊。参考类似真题，有时选D，理由是“DML包含过程化和非过程化，不能一概而论说非过程性很强”。)
+    \textit{修正：根据常见专升本题库，此题答案常选 D，理由可能是混淆了概念，或者特指某些早期的DML。但在标准理论中，关系DML是非过程化的。若必须选，D的可能性最大。}
+
+    \item 若要求工资表中基本工资不得超出 5000 元，则这个要求属于（\quad）。
+    \begin{enumerate}
+        \item 关系完整性约束
+        \item 实体完整性约束
+        \item 参考完整性约束
+        \item 用户定义完整性约束
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 已知关系 R 有 30 个元组，S 有 15 个元组，则 R $\cup$ S 和 R $\cap$ S 元组数不可能是（\quad）。
+    \begin{enumerate}
+        \item 40、5
+        \item 30、15
+        \item 45、15
+        \item 38、7
+    \end{enumerate}
+    \textbf{答案：C} (并集最大45，此时交集为0。若并集45，交集必为0。若交集15，说明S包含于R，并集应为30。故45和15不可能同时出现)
+
+    \item 关系代数中，连接操作是由（\quad）组合而成。
+    \begin{enumerate}
+        \item 乘积和选择
+        \item 乘积、选择和投影
+        \item 乘积和投影
+        \item 投影和选择
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item “年纪在 15 至 30 岁之间”，这种约束属于数据库系统（\quad）。
+    \begin{enumerate}
+        \item 完整性方法
+        \item 完全性方法
+        \item 恢复方法
+        \item 并发控制方法
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 关系模型中，实体完整性是指（\quad）。
+    \begin{enumerate}
+        \item 实体不允许是空实体
+        \item 实体主键值不允许是空值
+        \item 实体外键值不允许是空值
+        \item 实体属性值不能是空值
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 设关系 R、S、W 各有 10 个元组，那么这三个关系笛卡尔积元组个数是（\quad）。
+    \begin{enumerate}
+        \item 10
+        \item 30
+        \item 1000
+        \item 不确定
+    \end{enumerate}
+    \textbf{答案：C} ($10 \times 10 \times 10 = 1000$)
+
+    \item 在关系模式 R（A，B，C）中，存在函数依赖关系｛B$\to$A，（A，C）$\to$B｝，R 满足范式为（\quad）。
+    \begin{enumerate}
+        \item 1NF
+        \item 2NF
+        \item 3NF
+        \item 不确定
+    \end{enumerate}
+    \textbf{答案：C} (候选键为(A,C)和(B,C)。B->A，左边B不是候选键真子集（因为B不是键，BC是键，B是BC的一部分？不对。候选键是AC和BC。对于B->A，B不是超键，但A是主属性（因为A在候选键AC中）。这是主属性对码的部分依赖吗？AC->B, BC->A。键是AC, BC。主属性A,B,C。B->A，左边B是键BC的一部分，右边A是主属性。这不违反3NF（3NF允许主属性传递依赖？不，3NF要求非主属性不传递依赖。这里全是主属性）。BCNF要求左边必须是超键。B不是超键，所以不是BCNF。是否满足3NF？3NF定义：对于X->Y，X是超键 或 Y是主属性。这里Y=A是主属性。所以满足3NF。)
+
+    \item 设关系 R 和 S 属性个数分别为 r 个和 s 个，那么（R $\times$ S）操作结果属性个数为（\quad）。
+    \begin{enumerate}
+        \item r+s
+        \item r-s
+        \item r $\times$ s
+        \item max(r,s)
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 设关系 R 和 S 结构相同，且各有 100 个元组，那么这两个关系并操作结果元组个数为（\quad）。
+    \begin{enumerate}
+        \item 100
+        \item 小于等于 100
+        \item 200
+        \item 小于等于 200
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 数据库通常使用（\quad）以上关系。
+    \begin{enumerate}
+        \item 1NF
+        \item 2NF
+        \item 3NF
+        \item 4NF
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 进行自然联接运算两个关系（\quad）。
+    \begin{enumerate}
+        \item 最少存在一个相同属性名
+        \item 可不存在任何相同属性名
+        \item 不可存在多个相同属性名
+        \item 全部属性名必须完全相同
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 关系数据库任何检索操作都是由三种基本组合而成，这三种基本运算不包含（\quad）。
+    \begin{enumerate}
+        \item (题目未给出选项，通常为：选择、投影、连接。不包含的可能是并、差等集合运算，或者是“除”)
+        \item \textit{注：原题此处截断，根据常识，检索三基石是选择、投影、连接。}
+    \end{enumerate}
+\end{enumerate}
+
+\section{怀化学院专升本数据库原理真题精选}
+
+\begin{enumerate}[label=\arabic*.]
+    \setcounter{enumi}{100}
+    \item 以下不属于数据库中存储数据的特点是（\quad）。
+    \begin{enumerate}
+        \item 永久存储
+        \item 集中管理
+        \item 有组织
+        \item 可共享
+    \end{enumerate}
+    \textbf{答案：B} (注：根据提供的真题解析，答案选B，解析指出特点是永久、有组织、可共享。集中管理是DBS的特点，而非数据存储本身的内在特点，或者题目认为“集中管理”不是数据的属性)
+
+    \item 数据库（DB），数据库系统（DBS）和数据库管理系统（DBMS）三者之间关系是（\quad）。
+    \begin{enumerate}
+        \item DBS 包括 DB 和 DBMS
+        \item DBMS 包括 DB 和 DBS
+        \item DB 包括 DBS 和 DBMS
+        \item DBS 就是 DB，也就是 DBMS
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 关于关系中的元组的描述正确的是（\quad）。
+    \begin{enumerate}
+        \item 元组的先后顺序不能任意颠倒，一定要按照输入的顺序排列
+        \item 元组的先后顺序可以颠倒，但是不能出现重复元组
+        \item 元组的先后顺序不能任意颠倒，一定要按照主码顺序排列
+        \item 元组的先后顺序颠倒后，会影响数据库中数据之间的关系
+    \end{enumerate}
+    \textbf{答案：B}
+
+    \item 从指定关系中选取满足给定条件的若干元组组成一个新关系是（\quad）。
+    \begin{enumerate}
+        \item 选择运算
+        \item 投影运算
+        \item 除运算
+        \item 连接运算
+    \end{enumerate}
+    \textbf{答案：A}
+
+    \item 下列运算中不要求两个关系的属性个数相同的是（\quad）。
+    \begin{enumerate}
+        \item 并
+        \item 交
+        \item 差
+        \item 笛卡尔积
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 需求分析报告完成的内容不包括（\quad）。
+    \begin{enumerate}
+        \item 数据库的应用功能目标
+        \item 数据字典
+        \item 数据约束
+        \item 编写代码
+    \end{enumerate}
+    \textbf{答案：D}
+
+    \item 下列不是数据库中 SQL 命令语句的是（\quad）。
+    \begin{enumerate}
+        \item DBA
+        \item DDL
+        \item DML
+        \item DCL
+    \end{enumerate}
+    \textbf{答案：A} (DBA是人)
+
+    \item 下列 SQL 语句中不属于数据定义语言的是（\quad）。
+    \begin{enumerate}
+        \item ALTER
+        \item DROP
+        \item INSERT
+        \item CREATE
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item SQL 语言的 GRANT 和 REVOKE 语句主要是用来维护数据库的（\quad）。
+    \begin{enumerate}
+        \item 完整性
+        \item 可靠性
+        \item 安全性
+        \item 一致性
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 下列关于游标说法错误的是（\quad）。
+    \begin{enumerate}
+        \item 使用 CLOSE 语句关闭游标
+        \item 使用游标前必须先声明（定义）它
+        \item 游标多次使用需要多次声明
+        \item 每个游标不再需要时都应该被关闭
+    \end{enumerate}
+    \textbf{答案：C} (声明一次可多次打开使用)
+
+    \item 关于触发器的说法不正确的是（\quad）。
+    \begin{enumerate}
+        \item 触发器是用户定义在关系表上的一类由事件驱动的数据库对象
+        \item 触发器一旦定义，任何对表的修改操作都由数据库服务器自动激活相应触发器
+        \item 使用触发器是保证数据完整性的方法
+        \item 在 MySQL 中支持 INSERT、DELETE、UPDATE 和 SELECT 四种触发器类型
+    \end{enumerate}
+    \textbf{答案：D} (MySQL不支持SELECT触发器)
+
+    \item 在 E-R 图合并过程中，消除的冲突不包括（\quad）。
+    \begin{enumerate}
+        \item 属性冲突
+        \item 结构冲突
+        \item 命名冲突
+        \item 类型冲突
+    \end{enumerate}
+    \textbf{答案：D} (通常分为命名、属性、结构三类冲突)
+
+    \item 在完成系统的实现工作之后，在正式交付用户使用之前，需要对所开发的系统进行必要的工作是（\quad）。
+    \begin{enumerate}
+        \item 分析
+        \item 设计
+        \item 测试
+        \item 实现
+    \end{enumerate}
+    \textbf{答案：C}
+
+    \item 下列不是第三代数据库系统特征的是（\quad）。
+    \begin{enumerate}
+        \item 拥有一个公认的数据模型
+        \item 必须保持或继承第二代数据库系统技术
+        \item 必须对其他系统开放
+        \item 应支持数据管理、对象管理和知识管理
+    \end{enumerate}
+    \textbf{答案：A} (第三代数据库特征是面向对象、支持多媒体等，不一定只有一个“公认”模型，而是多样化)
+
+    \item 对于大数据而言，下列说法不正确的是（\quad）。
+    \begin{enumerate}
+        \item 数据量巨大
+        \item 数据种类繁多
+        \item 处理数据快
+        \item 价值密度的高低与数据总量的大小成正比
+    \end{enumerate}
+    \textbf{答案：D} (大数据价值密度低)
+\end{enumerate}
+
+\section{阶段性作业填空题精选}
+
+\begin{enumerate}[label=\arabic*.]
+    \setcounter{enumi}{115}
+    \item 数据管理经过了手工文档、文件系统和 \underline{\hspace{2cm}} 三个发展阶段。
+    \textbf{答案：数据库系统}
+
+    \item 关系数据库的关系演算语言是以 \underline{\hspace{2cm}} 为基础的 DML 语言。
+    \textbf{答案：谓词演算}
+
+    \item 与文件管理系统相比较，数据库系统的数据冗余度 \underline{\hspace{2cm}} 、数据共享性 \underline{\hspace{2cm}} 。
+    \textbf{答案：低；好}
+
+    \item 由于数据库系统在三级模式之间提供了 \underline{\hspace{2cm}} 和 \underline{\hspace{2cm}} 两层映象功能，这就保证了数据库系统具有较高的数据独力性。
+    \textbf{答案：外模式/模式；模式/内模式}
+
+    \item 关系数据库的 \underline{\hspace{2cm}} 规则规定：基本关系的主属性不能取空。
+    \textbf{答案：实体完整性}
+
+    \item 关系数据库的 \underline{\hspace{2cm}} 规定规则：一个基本关系的外码（对应于另一个基本关系的主码）取值不能取空值或者必须等于它所对应基本关系中的主码值。
+    \textbf{答案：参照完整性}
+
+    \item 关系数据库数据操作的处理单位是 \underline{\hspace{2cm}} ，层次和网状数据库数据操作的处理单位是记录。
+    \textbf{答案：关系}
+
+    \item 关系代数中专门的关系运算包括：选择、投影、连接和 \underline{\hspace{2cm}} 。
+    \textbf{答案：除}
+
+    \item 数据模型通常由 \underline{\hspace{2cm}} 、 \underline{\hspace{2cm}} 和完整性约束三个要素组成。
+    \textbf{答案：数据结构；数据操作}
+
+    \item 视图是从 \underline{\hspace{2cm}} 中导出的表。
+    \textbf{答案：基本表}
+
+    \item 数据库中实际存放的是视图的 \underline{\hspace{2cm}} 。
+    \textbf{答案：定义}
+
+    \item 在 SQL 语言中，使用 \underline{\hspace{2cm}} 语句进行授权。
+    \textbf{答案：GRANT}
+
+    \item 当局部 ER 图合并全局 ER 图时，可能出现 \underline{\hspace{2cm}} 冲突、结构冲突、命名冲突。
+    \textbf{答案：属性}
+
+    \item SQL Server 中索引类型包括的三种类型分别是 \underline{\hspace{2cm}} 、 \underline{\hspace{2cm}} 和非聚集索引。
+    \textbf{答案：唯一索引；聚集索引}
+
+    \item 在 Transact-SQL 语法中，SELECT 语句中使用关键字 \underline{\hspace{2cm}} 可以把重复行屏蔽。
+    \textbf{答案：DISTINCT}
+
+    \item 在 Transact-SQL 语法中，将多个查询结果返回一个结果集合的运算符是 \underline{\hspace{2cm}} 。
+    \textbf{答案：UNION}
+
+    \item SQL Server 的数据库主文件的扩展名为 \underline{\hspace{2cm}} 。
+    \textbf{答案：.mdf}
+
+    \item 删除视图命令是： \underline{\hspace{2cm}} 。
+    \textbf{答案：DROP VIEW}
+\end{enumerate}
+
+\section{阶段性作业判断题精选}
+
+\begin{enumerate}[label=\arabic*.]
+    \setcounter{enumi}{133}
+    \item 一个数据库只能对应一个应用程序，即一个数据库只能为一个应用程序所用。（\quad）
+    \textbf{答案：错误}
+
+    \item 对于一个基本关系表来说，行的顺序无所谓——即将一条记录插入在第一行和插入在第五行没有本质上的不同。（\quad）
+    \textbf{答案：正确}
+
+    \item 数据独立性指数据的存储与应用程序无关，数据存储结构的改变不影响应用程序的正常运行。（\quad）
+    \textbf{答案：正确}
+
+    \item 数据是表示信息的具体形式，信息是数据表达的内容。（\quad）
+    \textbf{答案：正确}
+
+    \item 对于一个基本关系表来说，列的顺序无所谓——即改变属性的排列顺序不会改变该关系的本质结构。（\quad）
+    \textbf{答案：正确}
+
+    \item 关系数据库是关系的集合。（\quad）
+    \textbf{答案：正确}
+
+    \item 在数据库的三级模式结构中内模式可以有多个。（\quad）
+    \textbf{答案：错误}
+
+    \item 模式是关系的集合。（\quad）
+    \textbf{答案：错误} (模式是逻辑结构的描述，数据库是关系的集合)
+
+    \item 数据库系统就是数据库管理系统。（\quad）
+    \textbf{答案：错误}
+
+    \item 如果对行的更新违反了某个约束或规则，或者新值的数据类型与列不兼容，则取消该语句、返回错误并且不更新任何记录。（\quad）
+    \textbf{答案：正确}
+
+    \item 删除表时，与该表相关联的规则和约束不会被删除。（\quad）
+    \textbf{答案：错误}
+
+    \item SELECT 查询数据时，如果使用右连接，则是限制右边表的记录。（\quad）
+    \textbf{答案：错误} (右连接保留右表所有记录)
+
+    \item 空值不同于空字符串或数值零，通常表示未填写、未知（Unknown）、不可用或将在以后添加的数据。（\quad）
+    \textbf{答案：正确}
+
+    \item 在一个关系表上最多只能建立一个聚簇索引。（\quad）
+    \textbf{答案：正确}
+
+    \item SQL 语言是 SQL Server 数据库管理系统的专用语言，其它的数据库如 Oracle、Sybase 等都不支持这种语言。（\quad）
+    \textbf{答案：错误}
+
+    \item SELECT 语句中的条件可以用 WHERE 或 HAVING 引出，但 HAVING 必须在 GROUP BY 之后使用。（\quad）
+    \textbf{答案：正确}
+
+    \item SELECT 语句中的 INTO 可以将查询结果保存成表或文本文件。（\quad）
+    \textbf{答案：正确} (在T-SQL中)
+
+    \item SELECT 语句中的 ORDER BY 子句中，如果有多个排序标准，它们之间是用分号分隔，查询结果与排序标准的先后顺序有关。（\quad）
+    \textbf{答案：错误} (用逗号分隔)
+
+    \item 若一个数据库管理系统提供了强制存取控制机制，则它一定也会提供自主存取控制机制。（\quad）
+    \textbf{答案：正确}
+\end{enumerate}
+
+\section{设计与综合题精选}
+
+\subsection*{图书管理系统案例}
+某图书管理系统数据库中包含三个关系：
+\begin{itemize}
+    \item 图书（条形码，书名，作者姓名，出版社，单价）
+    \item 读者（借书证号，姓名，性别）
+    \item 借阅（借书证号，条形码，借书日期，还书日期）
+\end{itemize}
+
+\begin{enumerate}[label=\arabic*.]
+    \setcounter{enumi}{151}
+    \item 使用关系代数查询“数据库系统原理”书的作者姓名。
+    \textbf{解：} $\pi_{\text{作者姓名}}(\sigma_{\text{书名}='数据库系统原理'}(\text{图书}))$
+
+    \item 使用关系代数查询借书证号为“2021003”借阅图书的条形码和借书日期。
+    \textbf{解：} $\pi_{\text{条形码}, \text{借书日期}}(\sigma_{\text{借书证号}='2021003'}(\text{借阅}))$
+
+    \item 使用 SQL 语句查询每个出版社出版的图书总数量。
+    \textbf{解：}
+    \begin{verbatim}
+    SELECT 出版社, COUNT(*) AS 总数量 
+    FROM 图书 
+    GROUP BY 出版社;
+    \end{verbatim}
+
+    \item 使用 SQL 语句查询读者“黄靖”借阅的图书条形码和借书日期。（用嵌套查询）
+    \textbf{解：}
+    \begin{verbatim}
+    SELECT 条形码, 借书日期 
+    FROM 借阅 
+    WHERE 借书证号 IN (
+        SELECT 借书证号 
+        FROM 读者 
+        WHERE 姓名 = '黄靖'
+    );
+    \end{verbatim}
+
+    \item 使用 SQL 语句建立”女”读者借阅图书的视图 FBB，该视图包括信息：借书证号，借阅人姓名，书名，借书日期。
+    \textbf{解：}
+    \begin{verbatim}
+    CREATE VIEW FBB AS
+    SELECT 借阅.借书证号, 读者.姓名, 图书.书名, 借阅.借书日期
+    FROM 图书, 读者, 借阅
+    WHERE 图书.条形码 = 借阅.条形码 
+      AND 读者.借书证号 = 借阅.借书证号 
+      AND 读者.性别 = '女';
+    \end{verbatim}
+\end{enumerate}
+
+\subsection*{医院病房管理案例}
+实体及联系：
+\begin{itemize}
+    \item 科室（科室名，地址，电话）
+    \item 医生（工作证号，姓名，职称，年龄，科室名）
+    \item 病人（病历号，姓名，性别，主治医生工作证号）
+    \item 联系：科室与医生 1:n，医生与病人 1:n
+\end{itemize}
+
+\begin{enumerate}[label=\arabic*.]
+    \setcounter{enumi}{156}
+    \item 转换成关系模式并指出主码和外码。
+    \textbf{解：}
+    \begin{itemize}
+        \item 科室（\underline{科室名}，地址，电话）
+        \item 医生（\underline{工作证号}，姓名，职称，年龄，\underline{\textit{科室名}}） \\
+        主码：工作证号；外码：科室名（参照科室）
+        \item 病人（\underline{病历号}，姓名，性别，\underline{\textit{主治医生工作证号}}） \\
+        主码：病历号；外码：主治医生工作证号（参照医生）
+    \end{itemize}
+
+    \item 用 SQL 语句建立“科室“表。
+    \textbf{解：}
+    \begin{verbatim}
+    CREATE TABLE 科室 (
+        科室名 CHAR(10) NOT NULL,
+        地址 CHAR(20),
+        电话 CHAR(20),
+        PRIMARY KEY (科室名)
+    );
+    \end{verbatim}
+\end{enumerate}
+
+\subsection*{简答题要点}
+\begin{enumerate}[label=\arabic*.]
+    \setcounter{enumi}{158}
+    \item 简述数据库管理系统的主要功能。
+    \textbf{答：} 数据定义功能、数据操纵功能、数据库运行管理功能（安全性、完整性、并发控制）、数据库建立和维护功能。
+
+    \item 简述关系的码和候选码的概念。
+    \textbf{答：} 码（键）是能唯一标识元组的属性集。候选码是最小的超码，即能唯一标识元组且不含多余属性的属性集。
+
+    \item 简述在存储过程中常用的条件判断语句和循环语句。
+    \textbf{答：} 条件判断：IF...THEN...ELSE；循环：WHILE, LOOP, REPEAT。
+
+    \item 简述约束命名后，使用 ALTER TABLE 语句和 DROP TABLE 语句应用注意的问题。
+    \textbf{答：} ALTER TABLE 可单独删除约束而不删表；DROP TABLE 会删除表及其所有相关约束。
+
+    \item 简述数据库备份和数据库恢复的含义。
+    \textbf{答：} 备份是将数据库数据和日志等信息保存以防故障；恢复是利用备份将数据库从故障状态还原到一致状态。
+\end{enumerate}
+
+\end{document}

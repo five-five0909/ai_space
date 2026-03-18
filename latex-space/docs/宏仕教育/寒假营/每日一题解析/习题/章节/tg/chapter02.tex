@@ -1,0 +1,95 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{fancyhdr}       % 页眉页脚
+\usepackage{cases}          % 分段函数增强
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 纵向排列的选项 (1列)
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+% 填空题下划线
+\newcommand{\blank}[1]{\underline{\hspace{#1}}}
+
+\title{\textbf{《高等数学》必刷习题——提高版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第二章 极限（提高）}
+
+\begin{enumerate}
+    \item $ f(x) $ 在点 $ x = x_{0} $ 处有定义，是 $ f(x) $ 在 $ x = x_{0} $ 处连续的 \blank{1cm}。
+    \choicesFour{必要条件}{充分条件}{充分必要条件}{无关条件}
+
+    \item $ \lim_{x\to0}\frac{e^{x^{2}}-1}{\cos x-1}= $ \blank{1cm}。
+    \choicesFour{$ \infty $}{2}{0}{-2}
+
+    \item 下列极限正确的是 \blank{1cm}。
+    \choicesTwo
+    {$ \lim_{x\to0}\frac{1}{x}\sin x=1 $}
+    {$ \lim_{x\to\infty}\frac{1}{x}\sin x=1 $}
+    {$ \lim_{x\to0}x\sin\frac{1}{x}=1 $}
+    {$ \lim_{x\to\infty}x\sin\frac{1}{x}=0 $}
+
+    \item $ \lim_{x\to\infty}\frac{\cos e^{x}}{x}= $ \blank{1cm}。
+    \choicesFour{$ \frac{\pi}{2} $}{0}{1}{$ \infty $}
+
+    \item 以下极限中存在的是 \blank{1cm}。
+    \choicesFour{$ \lim_{x\to0}2^{\frac{1}{x}} $}{$ \lim_{x\to0}\arctan\frac{1}{x} $}{$ \lim_{x\to0}x\sin\frac{1}{x} $}{$ \lim_{x\to0}\sin\frac{1}{x} $}
+
+    \item 求极限 $ \lim_{x \to \infty} \frac{x - \sin x}{x + \sin x} = $ \blank{2cm}。
+
+    \item 求极限 $ \lim_{x\to1}\left(\frac{x}{x-1}-\frac{1}{\ln x}\right)= $ \blank{2cm}。
+
+    \item 求极限 $ \lim_{x\to\infty}x[\ln(x-2)-\ln(x+1)]= $ \blank{2cm}。
+
+    \item 求极限 $ \lim_{x\to1}\frac{\arcsin(x^{2}-1)}{\ln x}= $ \blank{2cm}。
+
+    \item 求极限 $ \lim_{x\to1}\frac{\sin(x^{3}-1)}{x-1}= $ \blank{2cm}。
+
+    \item 求极限 $ \lim_{x\to0}\left(\frac{1}{2x}-\frac{1}{e^{2x}-1}\right) $。
+
+    \item 求极限 $ \lim_{x \to 0} \left(\frac{1}{\sin^{2} x} - \frac{1}{x^{2}}\right) $。
+
+    \item 求极限 $ \lim_{x \to e} \frac{x - e}{\ln x - 1} $。
+
+    \item 求极限 $ \lim_{x\to0}\frac{\sqrt{1+\sin x}-\sqrt{1+\tan x}}{x^{3}} $。
+
+    \item 求极限 $ \lim_{x\to0}\left(\lim_{n\to\infty}\cos\frac{x}{2}\cos\frac{x}{2^2}\cdots \cos\frac{x}{2^n}\right) $。
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,1734 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={多线程讲义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt,
+    breakable
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{多线程 - 深度解析讲义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月02日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{多线程}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于线程的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 多线程可以提高程序的执行效率
+		      \item 线程之间共享内存
+		      \item 实现线程的方式有继承Thread类和实现Runnable接口
+		      \item 线程是进程的一部分
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查线程与进程的关系、线程内存模型
+			      \item \textbf{关键区分点}：线程共享进程的堆内存，但有独立的栈空间
+			      \item \textbf{命题人意图}：测试对线程内存模型的深入理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 多线程可以提高程序的执行效率 — 正确（并发优势）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{多核利用}：在多核CPU上，多线程可真正并行执行
+			      \item \textbf{IO等待优化}：单线程等待IO时，其他线程可继续工作
+			      \item \textbf{注意}：单核CPU下，多线程通过时间片轮转提高响应性，但不提高执行效率
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 线程之间共享内存 — 错误（部分共享）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{线程内存模型}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 堆：所有线程共享
+				            \item 方法区：所有线程共享
+				            \item 栈：每个线程独立
+				            \item 程序计数器：每个线程独立
+			            \end{itemize}
+			      \item \textbf{正确说法}：线程共享进程的堆内存和方法区，但每个线程有独立的栈空间
+			      \item \textbf{代码验证}：
+			            \begin{lstlisting}[language=Java]
+public class ThreadMemory {
+    int sharedVar = 0; // 堆内存，线程共享
+    
+    public void method() {
+        int localVar = 1; // 栈内存，线程私有
+    }
+}
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 实现线程的方式有继承Thread类和实现Runnable接口 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{方式一：继承Thread类}
+			            \begin{lstlisting}[language=Java]
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread running");
+    }
+}
+new MyThread().start();
+      \end{lstlisting}
+			      \item \textbf{方式二：实现Runnable接口}
+			            \begin{lstlisting}[language=Java]
+class MyRunnable implements Runnable {
+    public void run() {
+        System.out.println("Runnable running");
+    }
+}
+new Thread(new MyRunnable()).start();
+      \end{lstlisting}
+			      \item \textbf{方式三：实现Callable接口（带返回值）}
+			            \begin{lstlisting}[language=Java]
+class MyCallable implements Callable<String> {
+    public String call() { return "result"; }
+}
+FutureTask<String> task = new FutureTask<>(new MyCallable());
+new Thread(task).start();
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 线程是进程的一部分 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{进程}：正在执行的程序，是资源分配的基本单位
+			      \item \textbf{线程}：CPU调度的基本单位，是进程内的执行流
+			      \item \textbf{关系}：一个进程可以包含多个线程，线程共享进程资源
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{进程vs线程}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{对比} & \textbf{进程} & \textbf{线程} \\
+				            \hline
+				            资源分配        & 进程是资源分配单位   & 线程共享进程资源    \\
+				            \hline
+				            调度          & 进程是调度单位     & 线程是CPU调度单位  \\
+				            \hline
+				            通信          & 进程间通信复杂     & 线程间通信简单     \\
+				            \hline
+			            \end{tabular}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1："线程完全共享内存" → 忽略栈的独立性
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：线程共享堆和方法区，私有栈和程序计数器
+	      \end{bluebox}
+
+	\item \textbf{在Java中，以下哪个方法用于启动线程？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item start()
+		      \item run()
+		      \item sleep()
+		      \item yield()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：区分线程的启动方法与执行方法
+			      \item \textbf{关键区分点}：start()创建新线程，run()只是普通方法
+			      \item \textbf{命题人意图}：测试对线程生命周期的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. start() — 正确（启动新线程）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{作用}：启动新线程，JVM调用线程的run()方法
+			            \begin{lstlisting}[language=Java]
+Thread t = new Thread(() -> System.out.println("Running"));
+t.start(); // 启动新线程执行run()
+// 同时输出"Running"
+      \end{lstlisting}
+			      \item \textbf{线程状态变化}：New → Runnable → Running → Terminated
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. run() — 错误（不启动新线程）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{作用}：run()只是普通方法，在当前线程执行
+			            \begin{lstlisting}[language=Java]
+Thread t = new Thread(() -> System.out.println("Running"));
+t.run(); // 在主线程执行，不会创建新线程
+// 不会并发执行
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. sleep() — 错误（暂停线程）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{作用}：让当前线程暂停指定时间
+			            \begin{lstlisting}[language=Java]
+Thread.sleep(1000); // 暂停1秒
+      \end{lstlisting}
+			      \item \textbf{注意}：sleep()不释放锁，静态方法作用于当前线程
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. yield() — 错误（让步）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{作用}：提示调度器让出CPU时间片
+			            \begin{lstlisting}[language=Java]
+Thread.yield(); // 暂停当前线程，允许其他线程执行
+      \end{lstlisting}
+			      \item \textbf{注意}：yield()不确定一定让出，只是建议
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{start() vs run()}：
+			            \begin{itemize}[label={}, nosep]
+				            \item start()：创建新线程，异步执行
+				            \item run()：同步执行，不创建新线程
+			            \end{itemize}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1：调用run()不会启动新线程
+				            \item 陷阱2：start()只能调用一次，多次调用抛IllegalThreadStateException
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：记启动用start()，执行用run()
+	      \end{bluebox}
+
+	\item \textbf{以下关于同步的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以使用synchronized关键字实现同步
+		      \item 同步可以保证线程安全
+		      \item 同步会降低程序的执行效率
+		      \item 同步可以在方法和代码块上使用
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D（原题可能存在争议）}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查synchronized同步机制的理解
+			      \item \textbf{关键区分点}：D选项实际上是正确的
+			      \item \textbf{命题人意图}：本题可能有误，出题人可能想设置其他错误选项
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 可以使用synchronized关键字实现同步 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{synchronized}：Java内置的同步关键字
+			      \item \textbf{作用}：保证同一时刻只有一个线程执行同步代码
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 同步可以保证线程安全 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{线程安全}：多个线程访问共享数据时，程序行为正确
+			      \item \textbf{synchronized保证}：原子性、可见性、有序性
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 同步会降低程序的执行效率 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{原因}：同步导致线程等待，增加上下文切换
+			      \item \textbf{优化方向}：减小同步粒度、使用并发包
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 同步可以在方法和代码块上使用 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{方法级别}：
+			            \begin{lstlisting}[language=Java]
+public synchronized void method() { } // 锁this对象
+public static synchronized void staticMethod() { } // 锁类对象
+      \end{lstlisting}
+			      \item \textbf{代码块级别}：
+			            \begin{lstlisting}[language=Java]
+synchronized(obj) { } // 锁指定对象
+synchronized(this) { } // 锁当前实例
+synchronized(ClassName.class) { } // 锁Class对象
+      \end{lstlisting}
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{同步的代价}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 线程等待时间增加
+				            \item 上下文切换开销
+				            \item 可能导致死锁
+			            \end{itemize}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 注意：本题D选项实际上是正确的
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{说明}：本题原答案D，但D选项本身正确，可能是题目有误
+	      \end{bluebox}
+
+	\item \textbf{以下哪个方法用于获取当前线程的名称？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item getName()
+		      \item getThreadName()
+		      \item currentThreadName()
+		      \item threadName()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Thread类的API方法
+			      \item \textbf{关键区分点}：获取当前线程需要组合调用
+			      \item \textbf{命题人意图}：测试对Thread API的熟悉程度
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. getName() — 正确（获取线程名）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{使用方式}：
+			            \begin{lstlisting}[language=Java]
+Thread.currentThread().getName(); // 获取当前线程名称
+new Thread(() -> {}).getName(); // 获取指定线程名称
+      \end{lstlisting}
+			      \item \textbf{默认命名}：Thread-0, Thread-1, ...
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. getThreadName() — 错误（不存在）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：没有此方法，只有getName()
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. currentThreadName() — 错误（不存在）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{正确写法}：Thread.currentThread().getName()
+			      \item \textbf{currentThread()}：静态方法，返回当前执行的Thread对象
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. threadName() — 错误（不存在）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：常见干扰项
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{Thread常用API}：
+			            \begin{itemize}[label={}, nosep]
+				            \item currentThread()：返回当前线程
+				            \item getName()：获取线程名
+				            \item setName(String name)：设置线程名
+				            \item getId()：获取线程ID
+				            \item getPriority()：获取优先级
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：Thread.currentThread().getName()是标准写法
+	      \end{bluebox}
+
+	\item \textbf{以下哪个方法用于暂停当前线程指定的时间？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item sleep()
+		      \item wait()
+		      \item yield()
+		      \item stop()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：区分线程控制方法的不同用途
+			      \item \textbf{关键区分点}：sleep是线程暂停，wait是等待notify
+			      \item \textbf{命题人意图}：测试对线程状态转换的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. sleep() — 正确（线程休眠）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{作用}：让当前线程暂停指定时间
+			            \begin{lstlisting}[language=Java]
+Thread.sleep(1000); // 暂停1毫秒
+Thread.sleep(1000L); // 支持long类型
+      \end{lstlisting}
+			      \item \textbf{特点}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 静态方法，作用于当前线程
+				            \item 不释放锁
+				            \item 会抛出InterruptedException
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. wait() — 错误（需配合锁）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{作用}：让线程进入等待状态
+			            \begin{lstlisting}[language=Java]
+synchronized(obj) {
+    obj.wait(); // 释放锁，等待notify
+}
+      \end{lstlisting}
+			      \item \textbf{特点}：必须在synchronized块中调用
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. yield() — 错误（只是建议）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{作用}：提示调度器让出CPU（不一定成功）
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. stop() — 错误（已废弃）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{说明}：stop()已废弃，会导致数据不一致
+			      \item \textbf{替代方案}：使用interrupt() + 标志位
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{sleep vs wait}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{对比} & \textbf{sleep} & \textbf{wait}    \\
+				            \hline
+				            所属类         & Thread         & Object           \\
+				            \hline
+				            释放锁         & 否              & 是                \\
+				            \hline
+				            用法限制        & 无              & 必须在synchronized中 \\
+				            \hline
+			            \end{tabular}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：sleep暂停指定时间，wait等待notify
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中线程同步的方法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 使用synchronized关键字修饰方法
+		      \item 使用synchronized关键字修饰代码块
+		      \item 使用ReentrantLock类
+		      \item 多线程访问共享资源不需要同步
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查多线程同步的必要性
+			      \item \textbf{关键区分点}：共享资源只要有写操作就必须同步
+			      \item \textbf{命题人意图}：测试对线程安全条件的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 使用synchronized关键字修饰方法 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{实例方法}：锁this对象
+			      \item \textbf{静态方法}：锁Class对象
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 使用synchronized关键字修饰代码块 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{更细粒度}：可以只同步关键代码
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 使用ReentrantLock类 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{显式锁}：JDK5+提供的显式锁
+			            \begin{lstlisting}[language=Java]
+Lock lock = new ReentrantLock();
+lock.lock();
+try {
+    // 临界区
+} finally {
+    lock.unlock();
+}
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 多线程访问共享资源不需要同步 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{共享资源}：多个线程同时访问的变量/对象
+			      \item \textbf{必须同步的情况}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 至少有一个线程对共享资源进行写操作
+				            \item 存在竞态条件
+			            \end{itemize}
+			      \item \textbf{不需要同步}：只读操作或使用线程安全类
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{线程安全条件}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 多个线程共享数据
+				            \item 至少有一个线程修改数据
+			            \end{itemize}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1："只读不需要同步" → 正确
+				            \item 陷阱2："有写操作就一定要同步" → 正确
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：共享资源有写必须同步，只读无需同步
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中线程通信的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以使用wait()、notify()和notifyAll()方法
+		      \item 这些方法必须在synchronized代码块中使用
+		      \item wait()会释放锁
+		      \item notify()会唤醒所有等待的线程
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Object的wait/notify机制
+			      \item \textbf{关键区分点}：notify只唤醒一个，notifyAll唤醒全部
+			      \item \textbf{命题人意图}：测试对线程通信机制的深入理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 可以使用wait()、notify()和notifyAll()方法 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{Object方法}：定义在java.lang.Object中
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 这些方法必须在synchronized代码块中使用 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{原因}：调用wait/notify需要持有对象的监视器锁
+			      \item \textbf{IllegalMonitorStateException}：未持有锁时调用会抛异常
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. wait()会释放锁 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{与sleep的区别}：wait()释放锁，sleep()不释放
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. notify()会唤醒所有等待的线程 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{notify()}：只唤醒一个等待线程（由JVM选择）
+			      \item \textbf{notifyAll()}：唤醒所有等待线程
+			            \begin{lstlisting}[language=Java]
+synchronized(obj) {
+    obj.notify(); // 唤醒一个线程
+    // 或
+    obj.notifyAll(); // 唤醒所有线程
+}
+      \end{lstlisting}
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{wait/notify速查表}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{方法} & \textbf{作用} & \textbf{备注}     \\
+				            \hline
+				            wait()      & 等待，释放锁      & 需在synchronized中 \\
+				            \hline
+				            notify()    & 唤醒一个线程      & 不释放锁            \\
+				            \hline
+				            notifyAll() & 唤醒所有线程      & 不释放锁            \\
+				            \hline
+			            \end{tabular}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：notify一个，notifyAll全部
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中线程池的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以减少创建和销毁线程的开销
+		      \item 性能比手动创建线程差
+		      \item 不能控制线程数量
+		      \item 不需要管理线程资源
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查线程池的核心优势
+			      \item \textbf{关键区分点}：线程池复用线程，减少开销
+			      \item \textbf{命题人意图}：测试对并发编程优化的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 可以减少创建和销毁线程的开销 — 正确（核心优势）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{线程创建开销}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 分配栈内存
+				            \item 注册线程到JVM
+				            \item 调用操作系统API创建线程
+			            \end{itemize}
+			      \item \textbf{线程池优势}：复用已有线程，避免重复创建销毁
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 性能比手动创建线程差 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{事实}：线程池性能更好，尤其在大量短任务场景
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 不能控制线程数量 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{线程池参数}：
+			            \begin{itemize}[label={}, nosep]
+				            \item corePoolSize：核心线程数
+				            \item maximumPoolSize：最大线程数
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 不需要管理线程资源 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{恰恰相反}：线程池就是为了管理线程资源
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{线程池核心优势}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 复用线程，减少开销
+				            \item 控制并发数量
+				            \item 提供任务队列管理
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：线程池 = 复用 + 控制 + 管理
+	      \end{bluebox}
+
+	\item \textbf{以下哪个是创建固定大小线程池的方法？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item newCachedThreadPool()
+		      \item newFixedThreadPool()
+		      \item newScheduledThreadPool()
+		      \item newSingleThreadExecutor()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Executors工厂类的线程池创建方法
+			      \item \textbf{关键区分点}：不同方法创建不同类型的线程池
+			      \item \textbf{命题人意图}：测试对线程池类型的掌握
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. newCachedThreadPool() — 可缓存线程池}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{特点}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 核心线程数为0
+				            \item 最大线程数 Integer.MAX\_VALUE
+				            \item 线程空闲60秒后回收
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. newFixedThreadPool() — 固定大小线程池}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{特点}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 固定线程数
+				            \item 超出核心线程数的任务进入队列等待
+			            \end{itemize}
+			            \begin{lstlisting}[language=Java]
+ExecutorService pool = Executors.newFixedThreadPool(5);
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. newScheduledThreadPool() — 定时任务线程池}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{特点}：支持定时和周期性任务
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. newSingleThreadExecutor() — 单线程池}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{特点}：只有一个工作线程，保证顺序执行
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{Executors工厂方法}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{方法}               & \textbf{类型} & \textbf{适用场景} \\
+				            \hline
+				            newFixedThreadPool(n)     & 固定大小        & 任务并发量稳定       \\
+				            \hline
+				            newCachedThreadPool()     & 可扩展         & 任务量变化大        \\
+				            \hline
+				            newScheduledThreadPool()  & 定时任务        & 定时执行任务        \\
+				            \hline
+				            newSingleThreadExecutor() & 单线程         & 任务需顺序执行       \\
+				            \hline
+			            \end{tabular}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：固定大小 = newFixedThreadPool(n)
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中锁的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item ReentrantLock是可重入锁
+		      \item 锁可以提高并发性能
+		      \item 读多写少的场景适合使用读写锁
+		      \item 锁可能导致死锁
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java锁的高级特性
+			      \item \textbf{关键区分点}：不当使用锁会降低并发性能
+			      \item \textbf{命题人意图}：测试对锁的理解深度
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. ReentrantLock是可重入锁 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{可重入}：同一线程可多次获取同一把锁
+			            \begin{lstlisting}[language=Java]
+synchronized void method1() {
+    method2(); // 可以进入，因为是同一线程
+}
+synchronized void method2() {
+    // 同一线程可重入
+}
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 锁可以提高并发性能 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{正确理解}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 过度同步会降低并发性能
+				            \item 锁竞争导致线程等待
+				            \item 应使用细粒度锁或无锁算法
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 读多写少的场景适合使用读写锁 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{ReentrantReadWriteLock}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 读锁：共享锁，多线程同时读
+				            \item 写锁：独占锁，排他写
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 锁可能导致死锁 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{死锁条件}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 互斥条件
+				            \item 占有并等待
+				            \item 不可抢占
+				            \item 循环等待
+			            \end{itemize}
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{锁优化策略}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 减小锁粒度
+				            \item 使用读写锁
+				            \item 使用ConcurrentHashMap
+				            \item 使用原子类
+			            \end{itemize}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1：锁不是越多越好，过度同步降低性能
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：锁会降低并发性能，不是提高
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中volatile关键字的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 保证变量的可见性
+		      \item 不能保证原子性
+		      \item 可以替代锁
+		      \item 常用于多线程环境
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查volatile与锁的区别
+			      \item \textbf{关键区分点}：volatile只能保证可见性，不能保证原子性
+			      \item \textbf{命题人意图}：测试对volatile的理解深度
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 保证变量的可见性 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{可见性}：一个线程修改后，其他线程立即可见
+			      \item \textbf{JMM保证}：volatile写后立即刷新到主内存
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 不能保证原子性 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{原子性}：不可分割的操作
+			      \item \textbf{volatile局限}：i++这类复合操作不是原子的
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 可以替代锁 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{替代锁的条件}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 对变量的操作是原子性的（单次读写）
+				            \item 不依赖变量的当前值
+			            \end{itemize}
+			      \item \textbf{错误示例}：
+			            \begin{lstlisting}[language=Java]
+volatile int count = 0;
+count++; // 不是原子操作，volatile不能保证线程安全
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 常用于多线程环境 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{适用场景}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 状态标记
+				            \item 双重检查锁定（单例模式）
+				            \item 取消标志
+			            \end{itemize}
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{volatile vs synchronized}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{对比} & \textbf{volatile} & \textbf{synchronized} \\
+				            \hline
+				            可见性         & 保证                & 保证                    \\
+				            \hline
+				            原子性         & 不保证               & 保证                    \\
+				            \hline
+				            性能          & 高                 & 低                     \\
+				            \hline
+			            \end{tabular}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1：volatile不能替代synchronized
+				            \item 陷阱2：i++不是原子操作
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：volatile保可见，不保原子，不能替代锁
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中Atomic类的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 提供了原子操作
+		      \item 性能比锁差
+		      \item 不能用于并发场景
+		      \item 只支持整数类型
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查java.util.concurrent.atomic包
+			      \item \textbf{关键区分点}：原子类提供无锁原子操作
+			      \item \textbf{命题人意图}：测试对并发工具类的了解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 提供了原子操作 — 正确（核心优势）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{常用类}：
+			            \begin{itemize}[label={}, nosep]
+				            \item AtomicInteger、AtomicLong、AtomicBoolean
+				            \item AtomicReference、AtomicStampedReference
+				            \item AtomicIntegerArray、AtomicLongArray
+			            \end{itemize}
+			            \begin{lstlisting}[language=Java]
+AtomicInteger count = new AtomicInteger(0);
+count.incrementAndGet(); // 原子+1
+count.getAndIncrement(); // +1后返回
+count.compareAndSet(0, 1); // CAS操作
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 性能比锁差 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{CAS优势}：无锁算法，通常比synchronized性能好
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 不能用于并发场景 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{恰恰相反}：专为并发场景设计
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 只支持整数类型 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{支持类型}：整数、布尔、引用、数组等
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{Atomic类优势}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 无锁算法，性能好
+				            \item 支持多种类型
+				            \item 提供CAS操作
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：Atomic = 无锁 + 原子 + 高性能
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中ConcurrentHashMap的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 线程安全的HashMap
+		      \item 性能比HashTable好
+		      \item 不支持并发遍历
+		      \item 可以在多线程环境中使用
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查ConcurrentHashMap的特性
+			      \item \textbf{关键区分点}：支持并发遍历，迭代器弱一致性
+			      \item \textbf{命题人意图}：测试对并发集合类的了解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 线程安全的HashMap — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{实现}：JDK8使用CAS + synchronized + 红黑树
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 性能比HashTable好 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{原因}：
+			            \begin{itemize}[label={}, nosep]
+				            \item HashTable：全局锁
+				            \item ConcurrentHashMap：分段锁 → 细粒度锁
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 不支持并发遍历 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{支持并发遍历}：迭代器具有弱一致性
+			      \item \textbf{不抛ConcurrentModificationException}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 可以在多线程环境中使用 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{设计目标}：高并发场景
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{ConcurrentHashMap vs HashTable}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{对比} & \textbf{ConcurrentHashMap} & \textbf{HashTable} \\
+				            \hline
+				            锁机制         & 分段锁/CAS                    & synchronized全局锁    \\
+				            \hline
+				            并发性能        & 高                          & 低                  \\
+				            \hline
+				            迭代器弱一致      & 支持                         & 不支持                \\
+				            \hline
+			            \end{tabular}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：并发Map首选ConcurrentHashMap
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中BlockingQueue的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 是一个阻塞队列
+		      \item 不支持多线程操作
+		      \item 元素取出顺序和插入顺序相同
+		      \item 容量无限
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查BlockingQueue阻塞队列特性
+			      \item \textbf{关键区分点}：队列是否阻塞取决于实现
+			      \item \textbf{命题人意图}：测试对并发队列的掌握
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 是一个阻塞队列 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{阻塞特性}：
+			            \begin{itemize}[label={}, nosep]
+				            \item take()：队列为空时阻塞
+				            \item put()：队列满时阻塞
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 不支持多线程操作 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{恰恰相反}：专为多线程设计
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 元素取出顺序和插入顺序相同 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{ArrayBlockingQueue}：FIFO，顺序相同
+			      \item \textbf{PriorityBlockingQueue}：按优先级，不保证顺序
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 容量无限 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{可设置容量}：LinkedBlockingQueue可选有界/无界
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{BlockingQueue方法}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{方法} & \textbf{队列满/空时} & \textbf{返回值} \\
+				            \hline
+				            add()       & 抛异常             & 元素           \\
+				            \hline
+				            offer()     & 返回false         & boolean      \\
+				            \hline
+				            put()       & 阻塞              & void         \\
+				            \hline
+				            poll()      & 返回null          & 元素           \\
+				            \hline
+				            take()      & 阻塞              & 元素           \\
+				            \hline
+			            \end{tabular}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：BlockingQueue = 阻塞 + 线程安全 + 队列
+	      \end{bluebox}
+
+	\item \textbf{以下哪个是BlockingQueue的实现类？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item ArrayBlockingQueue
+		      \item LinkedBlockingQueue
+		      \item PriorityBlockingQueue
+		      \item 以上都是
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查BlockingQueue的常用实现
+			      \item \textbf{关键区分点}：三个都是常用实现
+			      \item \textbf{命题人意图}：测试对并发队列实现的了解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. ArrayBlockingQueue — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{特点}：有界、FIFO、数组实现
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. LinkedBlockingQueue — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{特点}：可选有界/无界、链表实现
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. PriorityBlockingQueue — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{特点}：无界、优先级队列
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 以上都是 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{都是BlockingQueue实现}
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{BlockingQueue实现类}：
+			            \begin{itemize}[label={}, nosep]
+				            \item ArrayBlockingQueue：有界、FIFO
+				            \item LinkedBlockingQueue：无界/有界、FIFO
+				            \item PriorityBlockingQueue：无界、优先级
+				            \item SynchronousQueue：零容量、直接交付
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：Array/Linked/Priority都是BlockingQueue实现
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中CountDownLatch的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以实现线程等待
+		      \item 可以设置等待的线程数量
+		      \item 等待的线程被唤醒后不能再次等待
+		      \item 常用于多线程协作
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C（原题可能存在争议）}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查CountDownLatch一次性特性
+			      \item \textbf{关键区分点}：是一次性的，但"不能再次等待"说法有歧义
+			      \item \textbf{命题人意图}：测试对并发工具的掌握
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 可以实现线程等待 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{await()}：等待计数归零
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 可以设置等待的线程数量 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{构造方法}：CountDownLatch(int count)
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 等待的线程被唤醒后不能再次等待 — 有争议}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{一次性}：计数归零后不能重置
+			      \item \textbf{可新建实例}：需要再次等待则创建新实例
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 常用于多线程协作 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{典型场景}：主线程等待子线程完成
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{CountDownLatch vs CyclicBarrier}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{对比} & \textbf{CountDownLatch} & \textbf{CyclicBarrier} \\
+				            \hline
+				            能否重置        & 不能                      & 能                      \\
+				            \hline
+				            计数方向        & 减到0                     & 增到指定值                  \\
+				            \hline
+			            \end{tabular}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{说明}：本题原答案C，CountDownLatch是一次性的
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中CyclicBarrier的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以循环使用
+		      \item 只能使用一次
+		      \item 不能设置参与的线程数量
+		      \item 不支持线程等待
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查CyclicBarrier可循环特性
+			      \item \textbf{关键区分点}：可重置后重复使用
+			      \item \textbf{命题人意图}：测试对并发工具的区分
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 可以循环使用 — 正确（核心特性）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{重置方法}：reset()
+			            \begin{lstlisting}[language=Java]
+CyclicBarrier barrier = new CyclicBarrier(3);
+barrier.await(); // 3个线程都到达后继续
+barrier.reset(); // 可以重复使用
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 只能使用一次 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{与CountDownLatch区别}：CyclicBarrier可重复使用
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 不能设置参与的线程数量 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{构造方法}：CyclicBarrier(int parties)
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 不支持线程等待 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{恰恰相反}：await()就是让线程等待
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{CyclicBarrier特点}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 可循环使用
+				            \item 设置线程数量
+				            \item 线程相互等待
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：CyclicBarrier = 可循环 + 相互等待
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中Semaphore的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 用于控制资源的访问数量
+		      \item 可以实现信号量的获取和释放
+		      \item 不能用于实现互斥
+		      \item 是一种并发工具类
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Semaphore信号量机制
+			      \item \textbf{关键区分点}：可初始化为1实现互斥
+			      \item \textbf{命题人意图}：测试对信号量的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 用于控制资源的访问数量 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{构造方法}：Semaphore(int permits)
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 可以实现信号量的获取和释放 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{acquire()}：获取
+			      \item \textbf{release()}：释放
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 不能用于实现互斥 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{互斥实现}：初始化为1
+			            \begin{lstlisting}[language=Java]
+Semaphore semaphore = new Semaphore(1);
+semaphore.acquire(); // 获取锁
+// 临界区
+semaphore.release(); // 释放锁
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 是一种并发工具类 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{位置}：java.util.concurrent.Semaphore
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{Semaphore应用场景}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 限流：控制同时访问资源的线程数
+				            \item 互斥：permits=1时作为互斥锁
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：Semaphore permits=1 可作互斥锁
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中Future和Callable的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item Future用于获取异步任务的结果
+		      \item Callable不能返回结果
+		      \item Future不能取消任务
+		      \item Callable不能抛出异常
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Future/Callable异步编程
+			      \item \textbf{关键区分点}：Future获取结果，Callable执行任务
+			      \item \textbf{命题人意图}：测试对异步编程的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. Future用于获取异步任务的结果 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{方法}：
+			            \begin{itemize}
+				            \item get()：阻塞获取结果
+				            \item get(long timeout, TimeUnit unit)：超时获取
+				            \item isDone()：判断是否完成
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. Callable不能返回结果 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{返回结果}：V call() throws Exception
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. Future不能取消任务 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{cancel()}：取消任务
+			            \begin{lstlisting}[language=Java]
+Future<?> future = executor.submit(task);
+future.cancel(true); // 尝试取消
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. Callable不能抛出异常 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{可抛出异常}：call() throws Exception
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{Future/Callable关系}：
+			            \begin{itemize}[label={}, nosep]
+				            \item Callable：类似Runnable，但有返回值
+				            \item Future：获取Callable的执行结果
+				            \item 提交：ExecutorService.submit(Callable)
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：Callable有返回，Future获取结果，可取消
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中CompletableFuture的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 是Future的增强版
+		      \item 支持异步回调
+		      \item 性能比Future差
+		      \item 提供了丰富的组合操作
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查CompletableFuture异步编程
+			      \item \textbf{关键区分点}：功能强大，性能不差
+			      \item \textbf{命题人意图}：测试对现代异步编程的了解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 是Future的增强版 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{继承}：实现Future + CompletionStage
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 支持异步回调 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{thenApply()}：转换结果
+			      \item \textbf{thenAccept()}：消费结果
+			      \item \textbf{thenCompose()}：组合异步
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 性能比Future差 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{性能}：CompletableFuture不差于Future
+			      \item \textbf{优势}：非阻塞+组合
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 提供了丰富的组合操作 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{链式调用}：thenApply、thenCompose、thenCombine等
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{CompletableFuture优势}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 非阻塞异步编程
+				            \item 丰富的组合操作
+				            \item 支持函数式回调
+			            \end{itemize}
+
+			      \item \textbf{创建方式}：
+			            \begin{lstlisting}[language=Java]
+CompletableFuture.supplyAsync(() -> "result")
+    .thenApply(s -> s.toUpperCase())
+    .thenAccept(System.out::println);
+    \end{lstlisting}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：CompletableFuture = Future + 异步回调 + 组合操作
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

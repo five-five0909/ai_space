@@ -1,0 +1,98 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{graphicx}       % 图片支持
+\usepackage{fancyhdr}       % 页眉页脚
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 使用方法：\choices{选项A}{选项B}{选项C}{选项D}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+
+\title{\textbf{《高等数学》必刷习题——基础版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第四章 导数与微分（基础）}
+
+\begin{enumerate}
+    \item 若函数 $ f(x) $ 在 $ x_{0} $ 处可导，则极限 $ \lim_{\Delta x \to 0} \frac{f(x_{0} + 3\Delta x) - f(x_{0})}{\Delta x} $ 可表示为 \underline{\hspace{1cm}}。
+    \choicesFour{$ -f'(x_{0}) $}{$ 3f'(x_{0}) $}{$ \frac{1}{3}f'(x_{0}) $}{$ -3f'(x_{0}) $}
+
+    \item 设 $ y = 2^{\cos x} $ ，则 $ y' = $ \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ 2^{x} \ln 2 $}
+    {$ -2^{\cos x} \sin x $}
+    {$ -2^{\cos x} \ln 2 \sin x $}
+    {$ -2^{\frac{1}{\cos x}} \sin x $}
+
+    \item 曲线 $ y = \ln x $ 与直线 $ y = x $ 平行的切线方程为 \underline{\hspace{1cm}}。
+    \choicesFour{$x-y=0$}{$x-y-1=0$}{$ x-y+1=0 $}{$ x-y+2=0 $}
+
+    \item 若曲线 $ y=x^{2}+ax+b $ 和 $ y=x^{3}+x $ 在点 $(1,2)$ 处相切，则 $a,b$ 之值为 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$a=2,b=-1$}
+    {$a=1,b=-3$}
+    {$a=0,b=-2$}
+    {$a=-3,b=1$}
+
+    \item 设 $ f(x)=\begin{cases}x, & x<0\\ xe^{x}, & x\geq0\end{cases} $ 在点 $x=0$ 处，下列结论错误的是 \underline{\hspace{1cm}}。
+    \choicesFour{连续}{可导}{不可导}{可微}
+
+    \item 设 $ f(x)=\begin{cases}\frac{1-\mathrm{e}^{x^{2}}}{x}, & x \neq 0 \\ 0, & x = 0\end{cases} $ 则 $ f'(0)= $ \underline{\hspace{2cm}}。
+
+    \item $ \frac{d^2}{dx^{2}}(x^{2}-3x^{4})= $ \underline{\hspace{2cm}}。
+
+    \item 若 $ e^{y} = xy $ ，则 $ y'= $ \underline{\hspace{2cm}}。
+
+    \item $ d(\arcsin\sqrt{x}) = $ \underline{\hspace{2cm}}。
+
+    \item 设 $ f(x) = x(x + 1)(x + 2)(x + 3) $ ，则 $ f'(0) = $ \underline{\hspace{2cm}}。
+
+    \item 求函数 $ y = x^{x} $ 的导数。
+
+    \item 求函数 $ y = \ln(x + \sqrt{x^{2} + a^{2}}) $ 的导数。
+
+    \item 设 $ f(x)=\begin{cases}\frac{\ln(1+2x)}{x}\\2\end{cases} \quad -\frac{1}{2}<x<\frac{1}{2} $ 且 $ x\neq0 $ , 求 $ f^{(100)}(0) $。
+
+    \item 曲线 $ y = x^{3} - x + 2 $ 上哪一点的切线与直线 $ 2x - y - 1 = 0 $ 平行？
+
+    \item 求下列参数方程所确定的函数的导数：
+    $$ \begin{cases}x=t-t^{2}\\ y=1-t^{2}\end{cases} $$
+\end{enumerate}
+
+
+\end{document}

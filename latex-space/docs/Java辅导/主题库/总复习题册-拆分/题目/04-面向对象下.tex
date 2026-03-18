@@ -1,0 +1,129 @@
+\section{面向对象（下）}
+
+\begin{question}
+	在Java中，以下哪个关键字用于实现继承？
+	\begin{options}
+		\item extends
+		\item implements
+		\item interface
+		\item abstract
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{extends} 用于类继承；\texttt{implements} 用于实现接口。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于抽象类的说法错误的是
+	\begin{options}
+		\item 抽象类可以有抽象方法
+		\item 抽象类不能被实例化
+		\item 抽象类的子类必须实现所有抽象方法
+		\item 抽象类中可以有非抽象方法
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		如果子类也是抽象类，则可以不实现父类的抽象方法。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个关键字用于定义接口？
+	\begin{options}
+		\item interface
+		\item abstract class
+		\item class
+		\item extends
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		接口使用 \texttt{interface} 关键字定义。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于接口的说法错误的是
+	\begin{options}
+		\item 接口中的方法默认是public abstract修饰的
+		\item 接口中的变量默认是public static final修饰的
+		\item 一个类可以实现多个接口
+		\item 接口可以继承类
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		接口只能继承接口，不能继承类。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个关键字用于修饰内部类，使其可以访问外部类的私有成员？
+	\begin{options}
+		\item static
+		\item final
+		\item private
+		\item public
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		静态内部类可以访问外部类的私有静态成员；非静态内部类天然可访问外部类所有成员（包括私有）。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于匿名内部类的说法错误的是
+	\begin{options}
+		\item 没有类名
+		\item 可以继承其他类或实现接口
+		\item 只能使用一次
+		\item 不能定义构造方法
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		匿名内部类虽然没有显式类名，但可以在创建时多次使用（例如多次 new），只是每次都是新类。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	在Java中，以下哪个方法用于比较两个对象是否相等？
+	\begin{options}
+		\item equals()
+		\item compareTo()
+		\item isEqual()
+		\item same()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{equals()} 用于逻辑相等比较。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中对象克隆的说法错误的是
+	\begin{options}
+		\item 可以通过实现Cloneable接口来实现对象克隆
+		\item clone()方法是在Object类中定义的
+		\item 克隆分为浅克隆和深克隆
+		\item 默认的clone()方法实现的是深克隆
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		默认 \texttt{clone()} 是浅克隆。
+	\end{explanation}
+\end{question}

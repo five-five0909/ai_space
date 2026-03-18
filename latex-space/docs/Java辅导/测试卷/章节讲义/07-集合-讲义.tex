@@ -1,0 +1,1540 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbset{autoparskip}
+
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={集合-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{集合 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月05日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{集合}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于Java集合框架的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item List允许重复元素
+		      \item Set允许重复元素
+		      \item Map存储键值对，键可以重复
+		      \item 以上都不对
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. List允许重复元素}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查三大集合核心特性对比
+			      \item \textbf{关键区分点}：重复元素规则、存储结构、键值唯一性
+			      \item \textbf{命题人意图}：测试对集合框架本质差异的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{List允许重复元素 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JVM层面实现}：
+				                  \begin{lstlisting}[language=Java]
+// ArrayList底层使用Object[]数组
+transient Object[] elementData;
+
+// add方法直接添加，不检查重复元素
+public boolean add(E e) {
+    ensureCapacityInternal(size + 1);
+    elementData[size++] = e;
+    return true;
+}
+				      \end{lstlisting}
+				            \item \textbf{内存结构}：顺序存储，索引访问O(1)
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+List<String> list = new ArrayList<>();
+list.add("A");
+list.add("A"); // 允许重复
+System.out.println(list); // [A, A]
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{Set允许重复元素 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JVM层面实现}：
+				                  \begin{lstlisting}[language=Java]
+// HashSet依赖HashMap的key唯一性
+private transient HashMap<E,Object> map;
+
+public boolean add(E e) {
+    return map.put(e, PRESENT) == null;
+    // 返回null说明之前不存在，添加成功
+    // 返回非null说明之前已存在，添加失败
+}
+				      \end{lstlisting}
+				            \item \textbf{哈希机制}：通过equals()和hashCode()保证唯一性
+				            \item \textbf{命题陷阱}：命题人故意混淆List和Set的重复规则
+			            \end{itemize}
+
+			      \item[C] \textbf{Map存储键值对，键可以重复 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JVM层面实现}：
+				                  \begin{lstlisting}[language=Java]
+// HashMap的put方法会覆盖旧值
+public V put(K key, V value) {
+    return putVal(hash(key), key, value, false, true);
+}
+
+final V putVal(int hash, K key, V value,
+               boolean onlyIfAbsent, boolean evict) {
+    // 如果key已存在，覆盖value
+    if (e != null) {
+        V oldValue = e.value;
+        if (!onlyIfAbsent || oldValue == null)
+            e.value = value;
+        return oldValue;
+    }
+}
+				      \end{lstlisting}
+				            \item \textbf{唯一性保证}：通过哈希冲突处理机制保证key唯一
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+Map<String, Integer> map = new HashMap<>();
+map.put("A", 1);
+map.put("A", 2); // 覆盖旧值
+System.out.println(map); // {A=2}
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{以上都不对 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item A选项陈述正确
+				            \item 命题人设置此选项是为了干扰判断
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item List：有序、允许重复、可通过索引访问
+			      \item Set：无序、不允许重复、依赖equals()和hashCode()
+			      \item Map：键值对存储、键唯一、值可重复
+			      \item 选项辨析：List=有序重复，Set=无序唯一，Map=键值对
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"允许重复"→必选List，"不允许重复"→必选Set
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{在Java中，以下哪个集合实现了链表结构？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item ArrayList
+		      \item LinkedList
+		      \item HashSet
+		      \item HashMap
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. LinkedList}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查集合底层数据结构
+			      \item \textbf{关键区分点}：数组结构 vs 链表结构 vs 哈希表结构
+			      \item \textbf{命题人意图}：测试对集合实现细节的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{ArrayList — 错误（动态数组实现）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// ArrayList声明
+public class ArrayList<E> extends AbstractList<E>
+    implements List<E>, RandomAccess, Cloneable, java.io.Serializable {
+
+    transient Object[] elementData; // 数组结构
+}
+				      \end{lstlisting}
+				            \item \textbf{内存布局}：连续内存空间，索引访问O(1)
+				            \item \textbf{扩容机制}：capacity grows by 1.5倍
+				            \item \textbf{适用场景}：频繁随机访问
+			            \end{itemize}
+
+			      \item[B] \textbf{LinkedList — 正确（双向链表实现）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// LinkedList声明
+public class LinkedList<E>
+    extends AbstractSequentialList<E>
+    implements List<E>, Deque<E>, Cloneable, java.io.Serializable {
+
+    transient Node<E> first; // 头节点
+    transient Node<E> last;  // 尾节点
+
+    // 链表节点定义
+    private static class Node<E> {
+        E item;
+        Node<E> next;
+        Node<E> prev;
+
+        Node(Node<E> prev, E element, Node<E> next) {
+            this.item = element;
+            this.next = next;
+            this.prev = prev;
+        }
+    }
+}
+				      \end{lstlisting}
+				            \item \textbf{双向链表特性}：每个节点有prev和next指针
+				            \item \textbf{性能特点}：插入删除O(1)，随机访问O(n)
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+LinkedList<String> list = new LinkedList<>();
+list.add("A"); // 添加到链表尾部
+list.addFirst("B"); // 添加到头部
+list.addLast("C"); // 添加到尾部
+System.out.println(list); // [B, A, C]
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{HashSet — 错误（哈希表实现）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+public class HashSet<E>
+    extends AbstractSet<E>
+    implements Set<E>, Cloneable, java.io.Serializable {
+
+    private transient HashMap<E,Object> map;
+    // 底层依赖HashMap
+}
+				      \end{lstlisting}
+				            \item \textbf{哈希表结构}：数组+链表+红黑树
+				            \item \textbf{查找性能}：O(1)平均
+			            \end{itemize}
+
+			      \item[D] \textbf{HashMap — 错误（哈希表实现）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+public class HashMap<K,V> extends AbstractMap<K,V>
+    implements Map<K,V>, Cloneable, Serializable {
+
+    transient Node<K,V>[] table; // 哈希表
+    static final int TREEIFY_THRESHOLD = 8;
+
+    // 哈希桶结构
+    static class Node<K,V> implements Map.Entry<K,V> {
+        final int hash;
+        final K key;
+        V value;
+        Node<K,V> next;
+    }
+}
+				      \end{lstlisting}
+				            \item \textbf{哈希冲突处理}：链表转红黑树（JDK8+）
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item ArrayList：动态数组，查询快O(1)，增删慢O(n)
+			      \item LinkedList：双向链表，增删快O(1)，查询慢O(n)
+			      \item HashSet/HashMap：哈希表，增删改查O(1)
+			      \item 选项辨析：LinkedList=链表，ArrayList=数组，HashMap=哈希表
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"链表"→选LinkedList
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个集合是无序且不允许重复元素的？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item ArrayList
+		      \item HashSet
+		      \item LinkedHashSet
+		      \item TreeSet
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. HashSet}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查集合的有序性和重复性特性
+			      \item \textbf{关键区分点}：有序vs无序，允许重复vs不允许重复
+			      \item \textbf{命题人意图}：测试对Set子类特性的精确理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{ArrayList — 错误（有序且允许重复）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{有序性}：元素按插入顺序存储
+				            \item \textbf{重复性}：允许重复元素
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+ArrayList<String> list = new ArrayList<>();
+list.add("A");
+list.add("B");
+list.add("A");
+System.out.println(list); // [A, B, A] 有序允许重复
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{HashSet — 正确（无序且不允许重复）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+public class HashSet<E> extends AbstractSet<E> {
+    private transient HashMap<E,Object> map;
+    private static final Object PRESENT = new Object();
+
+    public HashSet() {
+        map = new HashMap<>();
+    }
+
+    public boolean add(E e) {
+        return map.put(e, PRESENT) == null;
+    }
+}
+				      \end{lstlisting}
+				            \item \textbf{无序性}：哈希表存储，元素顺序取决于哈希值
+				            \item \textbf{不允许重复}：依赖HashMap的key唯一性
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+HashSet<String> set = new HashSet<>();
+set.add("A");
+set.add("B");
+set.add("A");
+System.out.println(set); // [A, B] 或 [B, A] 无序不允许重复
+				      \end{lstlisting}
+				            \item \textbf{命题陷阱}：虽然顺序不可预测，但"无序"是准确描述
+			            \end{itemize}
+
+			      \item[C] \textbf{LinkedHashSet — 错误（有序且不允许重复）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+public class LinkedHashSet<E>
+    extends HashSet<E>
+    implements Set<E>, Cloneable, java.io.Serializable {
+
+    public LinkedHashSet(int initialCapacity, float loadFactor) {
+        super(initialCapacity, loadFactor, true);
+        // 调用HashSet的accessOrder=true的构造器
+    }
+}
+				      \end{lstlisting}
+				            \item \textbf{有序性}：维护插入顺序（LinkedList + HashMap）
+				            \item \textbf{不允许重复}：继承自HashSet
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+LinkedHashSet<String> set = new LinkedHashSet<>();
+set.add("A");
+set.add("B");
+set.add("A");
+System.out.println(set); // [A, B] 有序不允许重复
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{TreeSet — 错误（有序且不允许重复）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+public class TreeSet<E> extends AbstractSet<E>
+    implements NavigableSet<E>, Cloneable, java.io.Serializable {
+
+    private transient NavigableMap<E,Object> m;
+
+    public TreeSet() {
+        this(new TreeMap<>());
+    }
+}
+				      \end{lstlisting}
+				            \item \textbf{有序性}：自然排序或自定义排序（红黑树）
+				            \item \textbf{不允许重复}：红黑树的BST特性
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+TreeSet<String> set = new TreeSet<>();
+set.add("C");
+set.add("A");
+set.add("B");
+System.out.println(set); // [A, B, C] 排序不允许重复
+				      \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item HashSet：无序、不允许重复、基于哈希表
+			      \item LinkedHashSet：有序（插入顺序）、不允许重复、哈希表+链表
+			      \item TreeSet：有序（排序）、不允许重复、红黑树
+			      \item 选项辨析：HashSet=无序唯一，LinkedHashSet=有序唯一，TreeSet=排序唯一
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"无序且不允许重复"→选HashSet
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于HashMap的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 存储键值对
+		      \item 键不允许重复
+		      \item 是线程安全的
+		      \item 基于哈希表实现
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 是线程安全的}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查HashMap的线程安全性
+			      \item \textbf{关键区分点}：线程安全 vs 线程不安全
+			      \item \textbf{命题人意图}：测试对并发编程基础的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{存储键值对 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+public class HashMap<K,V> extends AbstractMap<K,V> {
+    public V put(K key, V value) {
+        return putVal(hash(key), key, value, false, true);
+    }
+
+    public V get(Object key) {
+        Node<K,V> e;
+        return (e = getNode(hash(key), key)) == null ? null : e.value;
+    }
+}
+				      \end{lstlisting}
+				            \item \textbf{存储结构}：键值对 Entry<K,V>
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+Map<String, Integer> map = new HashMap<>();
+map.put("name", 18);
+System.out.println(map.get("name")); // 18
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{键不允许重复 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{哈希冲突处理}：
+				                  \begin{lstlisting}[language=Java]
+final V putVal(int hash, K key, V value, ...) {
+    Node<K,V>[] tab; Node<K,V> p; int n, i;
+    // 通过哈希值确定索引
+    if ((p = tab[i = (n - 1) & hash]) == null)
+        tab[i] = newNode(hash, key, value, null);
+    else {
+        // key已存在，覆盖value
+        if (e.hash == hash &&
+            ((k = e.key) == key || (key != null && key.equals(k)))) {
+            e.value = value;
+        }
+    }
+}
+				      \end{lstlisting}
+				            \item \textbf{唯一性保证}：通过equals()和hashCode()
+			            \end{itemize}
+
+			      \item[C] \textbf{是线程安全的 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{线程不安全证据}：
+				                  \begin{lstlisting}[language=Java]
+public V put(K key, V value) {
+    // 没有任何同步机制
+    return putVal(hash(key), key, value, false, true);
+}
+
+// 扩容操作不是原子的
+final Node<K,V>[] resize() {
+    // 多线程扩容会导致死循环或数据丢失
+}
+				      \end{lstlisting}
+				            \item \textbf{并发问题}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 数据覆盖：多线程put同一位置
+					                  \item 扩容死循环：链表环化（JDK7）
+					                  \item 丢失数据：resize时覆盖旧数据
+				                  \end{itemize}
+				            \item \textbf{线程安全替代方案}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Hashtable（过时，全表锁）
+					                  \item ConcurrentHashMap（推荐，分段锁）
+					                  \item Collections.synchronizedMap()
+				                  \end{itemize}
+				            \item \textbf{代码验证（并发问题）}：
+				                  \begin{lstlisting}[language=Java]
+Map<String, Integer> map = new HashMap<>();
+Runnable task = () -> {
+    for (int i = 0; i < 1000; i++) {
+        map.put("key", map.getOrDefault("key", 0) + 1);
+    }
+};
+// 多线程执行后，值可能小于预期
+				      \end{lstlisting}
+				            \item \textbf{命题陷阱}：这是高频考点，常考HashMap线程不安全
+			            \end{itemize}
+
+			      \item[D] \textbf{基于哈希表实现 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{数据结构}：
+				                  \begin{lstlisting}[language=Java]
+transient Node<K,V>[] table; // 哈希表
+
+// JDK8+：数组 + 链表 + 红黑树
+static final int TREEIFY_THRESHOLD = 8;
+static final int UNTREEIFY_THRESHOLD = 6;
+				      \end{lstlisting}
+				            \item \textbf{性能特性}：增删改查平均O(1)
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item HashMap：线程不安全、基于哈希表、键唯一
+			      \item ConcurrentHashMap：线程安全、分段锁
+			      \item Hashtable：线程安全、全表锁（性能差）
+			      \item 选项辨析：HashMap=不安全，ConcurrentHashMap=安全
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到HashMap选"线程安全"→必错，选"线程不安全"→必对
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法可以判断一个集合是否为空？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item isEmpty()
+		      \item isBlank()
+		      \item isNullOrEmpty()
+		      \item isNotNull()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. isEmpty()}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Collection接口的标准方法
+			      \item \textbf{关键区分点}：标准接口方法 vs 第三方库方法
+			      \item \textbf{命题人意图}：测试对Java集合API的掌握
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{isEmpty() — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+public interface Collection<E> extends Iterable<E> {
+    // Collection接口中定义的标准方法
+    boolean isEmpty();
+}
+
+// ArrayList实现
+public boolean isEmpty() {
+    return size == 0;
+}
+
+// HashSet实现
+public boolean isEmpty() {
+    return map.isEmpty();
+}
+				      \end{lstlisting}
+				            \item \textbf{标准API}：所有集合通用方法
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+List<String> list = new ArrayList<>();
+System.out.println(list.isEmpty()); // true
+
+list.add("A");
+System.out.println(list.isEmpty()); // false
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{isBlank() — 错误（非集合方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{实际来源}：Apache Commons Lang或Spring工具类
+				            \item \textbf{常见用法}：
+				                  \begin{lstlisting}[language=Java]
+// Apache Commons Lang
+org.apache.commons.lang3.StringUtils.isBlank(String str)
+
+// Spring
+org.springframework.util.StringUtils.hasText(String str)
+				      \end{lstlisting}
+				            \item \textbf{命题陷阱}：不是Java标准集合API
+			            \end{itemize}
+
+			      \item[C] \textbf{isNullOrEmpty() — 错误（非集合方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{实际来源}：Apache Commons Lang
+				                  \begin{lstlisting}[language=Java]
+// Apache Commons Lang
+org.apache.commons.lang3.CollectionUtils.isEmpty(Collection<?> coll)
+org.apache.commons.lang3.StringUtils.isEmpty(String str)
+				      \end{lstlisting}
+				            \item \textbf{注意事项}：不是JDK标准API
+			            \end{itemize}
+
+			      \item[D] \textbf{isNotNull() — 错误（非集合方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{实际来源}：断言库或测试框架
+				                  \begin{lstlisting}[language=Java]
+// Apache Commons Lang
+org.apache.commons.lang3.Validate.notNull(Object reference)
+
+// Guava
+com.google.common.base.Preconditions.checkNotNull(Object reference)
+				      \end{lstlisting}
+				            \item \textbf{正确判断}：
+				                  \begin{lstlisting}[language=Java]
+// 判断集合不为空
+if (list != null && !list.isEmpty()) {
+    // 处理集合
+}
+				      \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item isEmpty()：Collection接口标准方法
+			      \item size()：返回元素个数
+			      \item 判断非空：list != null && !list.isEmpty()
+			      \item 选项辨析：isEmpty()=JDK标准，isBlank/isNullOrEmpty=第三方库
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"判断集合是否为空"→选isEmpty()
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中Lambda表达式的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以简化匿名内部类的写法
+		      \item 不支持函数式接口
+		      \item 不能作为方法参数
+		      \item 性能比普通方法差
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. 可以简化匿名内部类的写法}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Lambda表达式的核心价值
+			      \item \textbf{关键区分点}：语法糖本质 vs 功能限制
+			      \item \textbf{命题人意图}：测试对Lambda的设计目的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{可以简化匿名内部类的写法 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{代码对比}：
+				                  \begin{lstlisting}[language=Java]
+// 传统匿名内部类
+Runnable r1 = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("Hello");
+    }
+};
+
+// Lambda表达式
+Runnable r2 = () -> System.out.println("Hello");
+
+// List遍历对比
+// 传统方式
+for (String s : list) {
+    System.out.println(s);
+}
+
+// Lambda方式
+list.forEach(s -> System.out.println(s));
+				      \end{lstlisting}
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// Lambda编译为私有静态方法或私有实例方法
+// 运行时通过invokedynamic指令动态调用
+// 比匿名内部类生成的类文件更少
+				      \end{lstlisting}
+				            \item \textbf{简化程度}：代码量减少50~80%
+			            \end{itemize}
+
+			      \item[B] \textbf{不支持函数式接口 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{反证}：Lambda只能用于函数式接口
+				                  \begin{lstlisting}[language=Java]
+@FunctionalInterface
+interface Calculator {
+    int calculate(int a, int b);
+}
+
+// Lambda表达式
+Calculator add = (a, b) -> a + b;
+Calculator multi = (a, b) -> a * b;
+
+System.out.println(add.calculate(3, 5)); // 8
+				      \end{lstlisting}
+				            \item \textbf{函数式接口定义}：只包含一个抽象方法的接口
+				            \item \textbf{常见函数式接口}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Runnable：无参无返回
+					                  \item Callable：无参有返回
+					                  \item Consumer：有参无返回
+					                  \item Function：有参有返回
+					                  \item Predicate：有参返回boolean
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[C] \textbf{不能作为方法参数 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{代码反证}：
+				                  \begin{lstlisting}[language=Java]
+// Lambda作为方法参数
+public void process(List<Integer> list,
+                    Consumer<Integer> consumer) {
+    list.forEach(consumer);
+}
+
+// 调用
+List<Integer> numbers = Arrays.asList(1, 2, 3);
+process(numbers, n -> System.out.println(n * 2));
+				      \end{lstlisting}
+				            \item \textbf{实际应用}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Stream API：filter、map、forEach
+					                  \item 线程池：submit(() -> {})
+					                  \item 事件处理：onClick(e -> {})
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[D] \textbf{性能比普通方法差 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{性能对比}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Lambda性能接近普通方法
+					                  \item 匿名内部类需要生成类文件，可能有额外开销
+					                  \item invokedynamic指令优化了调用性能
+				                  \end{itemize}
+				            \item \textbf{JDK优化}：
+				                  \begin{lstlisting}[language=Java]
+// JDK8+: Lambda被编译为调用点处的invokedynamic指令
+// 运行时动态绑定为方法句柄
+// 性能与直接调用方法相近
+				      \end{lstlisting}
+				            \item \textbf{实测数据}：Lambda性能 ≤ 普通方法 < 匿名内部类
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item Lambda：简化匿名内部类、用于函数式接口、可作方法参数
+			      \item 函数式接口：只有一个抽象方法的接口
+			      \item 常见接口：Runnable、Consumer、Function、Predicate
+			      \item 语法：(参数) -> {方法体} 或 参数 -> {方法体} 或 参数 -> 表达式
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到Lambda"简化"→选正确，"不支持/不能"→选错误
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是函数式接口？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 接口中有多个抽象方法
+		      \item 接口中有一个抽象方法
+		      \item 接口中有静态方法
+		      \item 接口中有默认方法
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 接口中有一个抽象方法}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查函数式接口的精确定义
+			      \item \textbf{关键区分点}：抽象方法数量是唯一标准
+			      \item \textbf{命题人意图}：测试对函数式接口规范的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{接口中有多个抽象方法 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{反证}：多抽象方法不能用于Lambda
+				                  \begin{lstlisting}[language=Java]
+// 非函数式接口（多个抽象方法）
+interface NotFunctional {
+    void method1();
+    void method2();
+}
+
+// 编译错误：目标类型不是函数式接口
+// Runnable r = () -> {}; // OK
+// NotFunctional nf = () -> {}; // 错误
+				      \end{lstlisting}
+				            \item \textbf{Lambda限制}：只能用于函数式接口
+			            \end{itemize}
+
+			      \item[B] \textbf{接口中有一个抽象方法 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{定义依据}：JLS §9.8
+				            \item \textbf{@FunctionalInterface注解}：
+				                  \begin{lstlisting}[language=Java]
+@FunctionalInterface
+interface Calculator {
+    int calculate(int a, int b);
+}
+
+// 编译器会检查是否只有一个抽象方法
+@FunctionalInterface
+interface Functional {
+    void abstractMethod();
+    static void staticMethod() {}    // OK
+    default void defaultMethod() {}  // OK
+}
+
+// 错误：多个抽象方法
+@FunctionalInterface  // 编译错误
+interface Invalid {
+    void method1();
+    void method2();
+}
+				      \end{lstlisting}
+				            \item \textbf{重要说明}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 可以有多个默认方法
+					                  \item 可以有多个静态方法
+					                  \item 可以继承Object的方法
+					                  \item 但只能有一个自己的抽象方法
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[C] \textbf{接口中有静态方法 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{不影响判断}：静态方法不是抽象方法
+				                  \begin{lstlisting}[language=Java]
+@FunctionalInterface
+interface FunctionalWithStatic {
+    void abstractMethod();
+
+    static String getName() {
+        return "functional";
+    }
+}
+
+// OK：仍然是函数式接口
+FunctionalWithStatic fs = () -> {};
+				      \end{lstlisting}
+				            \item \textbf{命题陷阱}：静?方法不影响函数式接口判断
+			            \end{itemize}
+
+			      \item[D] \textbf{接口中有默认方法 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{不影响判断}：默认方法不是抽象方法
+				                  \begin{lstlisting}[language=Java]
+@FunctionalInterface
+interface FunctionalWithDefault {
+    void abstractMethod();
+
+    default void greet() {
+        System.out.println("Hello");
+    }
+
+    default void farewell() {
+        System.out.println("Goodbye");
+    }
+}
+
+// OK：仍然是函数式接口
+FunctionalWithDefault fd = () -> {};
+				      \end{lstlisting}
+				            \item \textbf{Java8特性}：默认方法让接口可扩展
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item 函数式接口：只有一个抽象方法的接口
+			      \item 可包含：多个默认方法、多个静态方法
+			      \item @FunctionalInterface：可选，编译器检查
+			      \item 常见接口：Runnable、Consumer、Function、Predicate、Supplier
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到函数式接口定义→选"一个抽象方法"，静态/默认方法选错误
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中方法引用的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以减少代码量
+		      \item 有四种类型的方法引用
+		      \item 不能引用静态方法
+		      \item 是Lambda表达式的一种简洁写法
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 不能引用静态方法}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查方法引用的语法和类型
+			      \item \textbf{关键区分点}：四种类型的能力范围
+			      \item \textbf{命题人意图}：测试对方法引用完整语法的掌握
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{可以减少代码量 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{代码对比}：
+				                  \begin{lstlisting}[language=Java]
+// Lambda表达式
+list.forEach(s -> System.out.println(s));
+
+// 方法引用
+list.forEach(System.out::println);
+
+// Lambda
+list.stream().map(s -> s.toUpperCase());
+
+// 方法引用
+list.stream().map(String::toUpperCase);
+				      \end{lstlisting}
+				            \item \textbf{简化程度}：平均减少30~50%代码量
+			            \end{itemize}
+
+			      \item[B] \textbf{有四种类型的方法引用 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{四种类型}：
+				                  \begin{lstlisting}[language=Java]
+// 1. 静态方法引用
+Function<String, Integer> func1 = Integer::parseInt;
+Integer value1 = func1.apply("123");
+
+// 2. 对象实例方法引用
+Consumer<String> consumer = System.out::println;
+consumer.accept("Hello");
+
+// 3. 类实例方法引用
+BiPredicate<String, String> bp = String::equals;
+boolean result = bp.test("abc", "abc");
+
+// 4. 构造器引用
+Supplier<List<String>> supplier = ArrayList::new;
+List<String> list = supplier.get();
+				      \end{lstlisting}
+				            \item \textbf{语法总结}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item ClassName::staticMethod
+					                  \item object::instanceMethod
+					                  \item ClassName::instanceMethod
+					                  \item ClassName::new
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[C] \textbf{不能引用静态方法 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{代码反证}：
+				                  \begin{lstlisting}[language=Java]
+// 静态方法引用
+List<String> list = Arrays.asList("1", "2", "3");
+
+// Lambda方式
+list.stream().map(s -> Integer.parseInt(s));
+
+// 方法引用方式
+list.stream().map(Integer::parseInt)
+           .forEach(System.out::println);
+
+// 输出：1 2 3
+				      \end{lstlisting}
+				            \item \textbf{更多示例}：
+				                  \begin{lstlisting}[language=Java]
+// Math类静态方法
+UnaryOperator<Double> sqrt = Math::sqrt;
+System.out.println(sqrt.apply(16.0)); // 4.0
+
+// Arrays类静态方法
+Function<String[], List<String>> toList = Arrays::asList;
+List<String> result = toList.apply(new String[]{"A", "B"});
+				      \end{lstlisting}
+				            \item \textbf{命题陷阱}：这是方法引用最常用的类型之一
+			            \end{itemize}
+
+			      \item[D] \textbf{是Lambda表达式的一种简洁写法 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{等价关系}：
+				                  \begin{lstlisting}[language=Java]
+// Lambda
+Function<String, Integer> f1 = s -> Integer.parseInt(s);
+
+// 方法引用（等价）
+Function<String, Integer> f2 = Integer::parseInt;
+
+// 编译后字节码相同
+				      \end{lstlisting}
+				            \item \textbf{适用条件}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Lambda体只调用一个方法
+					                  \item 方法参数和返回类型匹配函数式接口
+				                  \end{itemize}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item 方法引用：Lambda的简洁写法
+			      \item 四种类型：静态方法、实例方法、类实例方法、构造器
+			      \item 语法：ClassName::method 或 object::method
+			      \item 优势：减少代码量、提高可读性
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"不能引用静态方法"→必错，方法引用完全支持静态方法
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中Stream流的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以对集合进行高效的操作
+		      \item 只能顺序处理数据
+		      \item 不支持并行处理
+		      \item 不能进行数据过滤
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. 可以对集合进行高效的操作}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Stream API的核心价值
+			      \item \textbf{关键区分点}：声明式编程 vs 命令式编程
+			      \item \textbf{命题人意图}：测试对Stream设计理念的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{可以对集合进行高效的操作 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{代码对比}：
+				                  \begin{lstlisting}[language=Java]
+// 传统方式（命令式）
+List<String> result = new ArrayList<>();
+for (String s : names) {
+    if (s.length() > 3) {
+        result.add(s.toUpperCase());
+    }
+}
+
+// Stream方式（声明式）
+List<String> result = names.stream()
+    .filter(s -> s.length() > 3)
+    .map(String::toUpperCase)
+    .collect(Collectors.toList());
+				      \end{lstlisting}
+				            \item \textbf{高效性体现}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 内部迭代（由Stream控制）
+					                  \item 惰性求值（中间操作延迟执行）
+					                  \item 短路优化（limit等提前终止）
+					                  \item 并行优化（parallelStream）
+				                  \end{itemize}
+				            \item \textbf{常见操作}：filter、map、sorted、limit、distinct
+			            \end{itemize}
+
+			      \item[B] \textbf{只能顺序处理数据 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{代码反证}：
+				                  \begin{lstlisting}[language=Java]
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+
+// 顺序流
+long start1 = System.nanoTime();
+long count1 = list.stream().filter(n -> n > 2).count();
+long end1 = System.nanoTime();
+
+// 并行流
+long start2 = System.nanoTime();
+long count2 = list.parallelStream().filter(n -> n > 2).count();
+long end2 = System.nanoTime();
+				      \end{lstlisting}
+				            \item \textbf{并行流特性}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 自动拆分任务（ForkJoinPool）
+					                  \item 多线程并行执行
+					                  \item 大数据集性能提升明显
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[C] \textbf{不支持并行处理 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{并行流API}：
+				                  \begin{lstlisting}[language=Java]
+// 创建并行流的方式
+IntStream.range(1, 1000000).parallel()
+
+// 从集合创建
+list.parallelStream()
+
+// 配置线程池
+System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "4");
+				      \end{lstlisting}
+				            \item \textbf{性能对比}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 小数据集：并行可能更慢（线程开销）
+					                  \item 大数据集：并行可提升2~4倍性能
+					                  \item CPU密集型：并行效率高
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[D] \textbf{不能进行数据过滤 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{代码反证}：
+				                  \begin{lstlisting}[language=Java]
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+
+// 过滤偶数
+List<Integer> evens = numbers.stream()
+    .filter(n -> n % 2 == 0)
+    .collect(Collectors.toList());
+
+// 输出：[2, 4, 6]
+System.out.println(evens);
+
+// 复杂过滤
+List<String> filtered = names.stream()
+    .filter(s -> s.startsWith("A"))
+    .filter(s -> s.length() > 3)
+    .distinct()
+    .collect(Collectors.toList());
+				      \end{lstlisting}
+				            \item \textbf{过滤操作}：filter、distinct、limit、skip
+				            \item \textbf{命题陷阱}：filter是Stream最常用的操作之一
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item Stream：声明式集合操作、支持顺序和并行
+			      \item 中间操作：filter、map、sorted、distinct
+			      \item 终端操作：collect、forEach、count、reduce
+			      \item 优势：代码简洁、可并行、惰性求值
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到Stream"不能"→必错，Stream功能很强大
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于创建Stream流？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item stream()
+		      \item createStream()
+		      \item makeStream()
+		      \item generateStream()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. stream()}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Stream API的标准创建方法
+			      \item \textbf{关键区分点}：标准API vs 虚构方法名
+			      \item \textbf{命题人意图}：测试对Java Stream API的掌握
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{stream() — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// Collection接口中定义
+public interface Collection<E> extends Iterable<E> {
+    default Stream<E> stream() {
+        return StreamSupport.stream(spliterator(), false);
+    }
+}
+
+// List实现
+public interface List<E> extends Collection<E> {
+    // 继承stream()方法
+}
+
+// ArrayList实现（无需重写，使用默认实现）
+				      \end{lstlisting}
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+// 从集合创建
+List<String> list = Arrays.asList("A", "B", "C");
+Stream<String> stream1 = list.stream();
+
+// 从Set创建
+Set<Integer> set = new HashSet<>();
+set.add(1);
+set.add(2);
+Stream<Integer> stream2 = set.stream();
+
+// 并行流
+Stream<Integer> parallelStream1 = set.parallelStream();
+				      \end{lstlisting}
+				            \item \textbf{其他创建方式}：
+				                  \begin{lstlisting}[language=Java]
+// 从数组创建
+Stream<String> stream3 = Arrays.stream(new String[]{"X", "Y", "Z"});
+
+// 从值创建
+Stream<String> stream4 = Stream.of("A", "B", "C");
+
+// 范围创建
+IntStream range1 = IntStream.range(1, 10); // 1~9
+IntStream range2 = IntStream.rangeClosed(1, 10); // 1~10
+
+// 生成创建
+Stream<Double> randoms = Stream.generate(Math::random).limit(10);
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{createStream() — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{虚构API}：Java标准库中没有此方法
+				            \item \textbf{常见误区}：与Spring或其他框架混淆
+				            \item \textbf{命题陷阱}：看似合理但不存在的方法
+			            \end{itemize}
+
+			      \item[C] \textbf{makeStream() — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{虚构API}：Java标准库中没有此方法
+				            \item \textbf{正确方法}：应该使用stream()或Stream.of()
+			            \end{itemize}
+
+			      \item[D] \textbf{generateStream() — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{相近API}：Stream.generate()
+				                  \begin{lstlisting}[language=Java]
+// 正确用法
+Stream.generate(() -> "Hello").limit(5).forEach(System.out::println);
+				      \end{lstlisting}
+				            \item \textbf{方法混淆}：generate是Stream的静态方法，不是实例方法
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item Collection.stream()：从创建Stream
+			      \item Stream.of()：从值创建Stream
+			      \item Arrays.stream()：从数组创建Stream
+			      \item Stream.generate()：生成无限Stream
+			      \item parallelStream()：创建并行Stream
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"创建Stream流"→选stream()或Stream.of()
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中Stream流的终端操作的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 终端操作会触发流的执行
+		      \item forEach()是终端操作
+		      \item 终端操作只能执行一次
+		      \item 终端操作后可以继续进行中间操作
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 终端操作后可以继续进行中间操作}
+
+		      \textbf{【核心认知框架}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Stream的生命周期特性
+			      \item \textbf{关键区分点}：中间操作 vs 终端操作
+			      \item \textbf{命题人意图}：测试对Stream消费机制的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{终端操作会触发流的执行 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// 中间操作：惰性求值，不立即执行
+Stream<String> stream = list.stream()
+    .filter(s -> {
+        System.out.println("Filtering: " + s);
+        return s.length() > 3;
+    });
+// 此时不会输出
+
+// 终端操作：触发执行
+stream.collect(Collectors.toList());
+// 此时才会输出过滤过程
+				      \end{lstlisting}
+				            \item \textbf{惰性求值机制}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 中间操作构建操作链
+					                  \item 终端操作触发整个链的执行
+					                  \item 只在需要时才执行（优化性能）
+				                  \end{itemize}
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+List<String> list = Arrays.asList("A", "BB", "CCC", "DDDD");
+
+// 创建流（惰性）
+Stream<String> stream = list.stream()
+    .filter(s -> s.length() > 2)
+    .map(String::toUpperCase);
+
+// 触发执行
+List<String> result = stream.collect(Collectors.toList());
+System.out.println(result); // [CCC, DDDD]
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{forEach()是终端操作 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{API定义}：
+				                  \begin{lstlisting}[language=Java]
+// Stream接口中定义
+void forEach(Consumer<? super T> action);
+
+// 返回void，说明是终端操作
+				      \end{lstlisting}
+				            \item \textbf{代码验证}：
+				                  \begin{lstlisting}[language=Java]
+List<String> list = Arrays.asList("A", "B", "C");
+
+// forEach是终端操作
+list.stream()
+    .map(String::toUpperCase)
+    .forEach(System.out::println);
+
+// 可以添加peek（中间操作）在forEach之前
+list.stream()
+    .peek(System.out::println)  // 中间操作
+    .map(String::toUpperCase)
+    .forEach(System.out::println); // 终端操作
+				      \end{lstlisting}
+				            \item \textbf{常见终端操作}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item forEach
+					                  \item collect
+					                  \item count
+					                  \item reduce
+					                  \item anyMatch/allMatch/noneMatch
+					                  \item findFirst/findAny
+					                  \item min/max
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[C] \textbf{终端操作只能执行一次 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误示例}：
+				                  \begin{lstlisting}[language=Java]
+Stream<String> stream = list.stream()
+    .filter(s -> s.length() > 2);
+
+// 第一次消费
+long count1 = stream.count();
+
+// 第二次消费：抛出IllegalStateException
+// long count2 = stream.count(); // 错误！流已被消费
+				      \end{lstlisting}
+				            \item \textbf{异常信息}：
+				                  \begin{lstlisting}[language=Java]
+Exception in thread "main" java.lang.IllegalStateException:
+stream has already been operated upon or closed
+				      \end{lstlisting}
+				            \item \textbf{设计原因}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Stream是单次使用的管道
+					                        \终端操作后Stream被消费
+					                        \避免重复计算，提高性能
+				                  \end{itemize}
+				            \item \textbf{正确做法}：
+				                  \begin{lstlisting}[language=Java]
+// 方案1：每次创建新流
+list.stream().filter(...).collect(...);
+list.stream().filter(...).count();
+
+// 方案2：将结果存储到变量
+List<String> filtered = list.stream()
+    .filter(s -> s.length() > 2)
+    .collect(Collectors.toList());
+// 可以多次使用结果
+filtered.size();
+filtered.forEach(...);
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{终端操作后可以继续进行中间操作 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误示例}：
+				                  \begin{lstlisting}[language=Java]
+Stream<String> stream = list.stream()
+    .map(String::toLowerCase);
+
+// 执行终端操作
+stream.forEach(System.out::println);
+
+// 尝试添加中间操作：编译错误
+// stream.filter(s -> s.length() > 2); // 错误！
+                      \end{lstlisting}
+				            \item \textbf{正确的操作顺序}：
+				                  \begin{lstlisting}[language=Java]
+// 正确：中间操作 终端操作
+list.stream()
+    .filter(s -> s.length() > 2)  // 中间
+    .map(String::toUpperCase)     // 中间
+    .forEach(System.out::println); // 终端
+
+// 错误：终端操作 中间操作
+Stream<String> s = list.stream().filter(...);
+s.forEach(...);
+// s.filter(...); // 错误
+				      \end{lstlisting}
+				            \item \textbf{原理机制}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Stream构建：中间操作链接
+					                  \item Stream执行：终端操作触发
+					                  \item Stream关闭：终端操作后被消耗
+					                  \item 无法在关闭的Stream上进行操作
+				                  \end{itemize}
+				            \item \textbf{命题陷阱}：这是Stream最重要的生命周期特性
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点}
+		      \begin{itemize}[label={}, nosep]
+			      \item 中间操作：惰性、可链式调用、返回Stream
+			      \item 终端操作：触发执行、只能执行一次、返回具体结果
+			      \item Stream生命周期：构建→执行→消耗
+			      \item 重要原则：终端操作后Stream不可再使用
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"终端操作后可以继续..."→必错，Stream只能使用一次
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

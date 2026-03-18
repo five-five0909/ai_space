@@ -1,0 +1,625 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+%==================== 导言区：宏包加载 ====================
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage{geometry}                 % 页面设置
+\usepackage{xcolor}                   % 颜色支持
+\usepackage{fancyhdr}                 % 页眉页脚
+\usepackage{enumitem}                 % 列表定制
+\usepackage{tcolorbox}                %以此美化文本框
+\usepackage{titlesec}                 % 标题格式调整
+
+%==================== 页面布局设置 ====================
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+%==================== 自定义视觉样式 ====================
+
+% 1. 定义分隔线样式
+\newcommand{\TopSeparator}{
+    \par\noindent\rule{\textwidth}{1.5pt}\vspace{0.5em} % 粗实线 ━━━━
+}
+\newcommand{\AnalysisSeparator}{
+    \par\noindent\rule{\textwidth}{0.5pt}\vspace{0.2em}\hrule\vspace{0.5em} % 双线效果 ════
+}
+
+% 2. 定义红色解析环境
+%在这个环境内的所有文字和公式都会自动变成红色
+\newenvironment{RedAnalysis}{
+    \par
+    \color{red} % 设置后续字体为红色
+}{
+    \par
+    \color{black} % 结束时恢复黑色
+}
+
+% 3. 标题格式微调
+\titleformat{\section}{\large\bfseries\heiti}{}{0em}{}[\vspace{-0.5em}]
+\titleformat{\subsection}{\bfseries\kaishu}{}{0em}{}
+
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+%==================== 文档开始 ====================
+\begin{document}
+
+% 标题信息
+\title{\textbf{第八章 微分方程（解析）}}
+\author{数学习题讲义}
+\date{\today}
+\maketitle
+
+% --- 题目 1 ---
+\TopSeparator
+\section*{题目1}
+
+\textbf{【题目重现】} \\
+下列是二阶微分方程的是 \underline{\hspace{1cm}}。
+\choicesTwo
+{$ (y')^{2}-3y=0 $}
+{$ (y')^{2}+x^{2}y'=0 $}
+{$ y'y+x^{2}=0 $}
+{$ y''+yx^{2}=0 $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+微分方程的阶数是指方程中未知函数导数的最高阶数。
+二阶微分方程必须含有 $y''$（二阶导数），且不含有更高阶导数。
+
+\textbf{详细步骤} \\
+A. 只含 $y'$，一阶。
+B. 只含 $y'$，一阶。
+C. 只含 $y'$，一阶。
+D. 含有 $y''$，且最高为二阶。
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. \textbf{概念}：阶数=最高导数阶数。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 2 ---
+\TopSeparator
+\section*{题目2}
+
+\textbf{【题目重现】} \\
+下列是线性微分方程的是 \underline{\hspace{1cm}}。
+\choicesTwo
+{$ y''+(\ln x)y'+\cos x \cdot y=0 $}
+{$ y''-2y+y^{2}=e^{2} $}
+{$ y'-xy+1=\ln x $}
+{$ (y')^{2}-y'=3x+7 $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+线性微分方程是指未知函数 $y$ 及其各阶导数 $y', y'' \dots$ 均为一次幂，且它们互不相乘（系数仅即可以是常数或 $x$ 的函数）。
+
+\textbf{详细步骤} \\
+A. $y''$, $y'$, $y$ 均为一次幂，系数仅含 $x$。这是线性方程（二阶变系数线性齐次）。
+B. 含有 $y^2$，非线性。
+C. 含有 $-xy$，项式符合线性，虽然题目格式稍乱，整理得 $y'-xy=\ln x - 1$，是一阶线性。
+D. $(y')^2$ 非线性。
+
+\textbf{第四步：最终答案} \\
+A （注：C 也是线性方程，若为单选倾向于 A 考察二阶线性结构）
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：线性微分方程的定义。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 3 ---
+\TopSeparator
+\section*{题目3}
+
+\textbf{【题目重现】} \\
+微分方程 $ \frac{dy}{dx}=\frac{2x+\sin x}{e^{y}} $ 的通解是 \underline{\hspace{1cm}}。
+\choicesTwo
+{$ e^{y}=x^{2}+\cos x+C $}
+{$ e^{y}=x^{2}-\cos x+C $}
+{$ e^{y}=x^{2}+\sin x+C $}
+{$ e^{y}=x^{2}-\sin x+C $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+可分离变量的微分方程。
+
+\textbf{详细步骤} \\
+1. 分离变量：
+   $e^y dy = (2x + \sin x) dx$
+2. 两边积分：
+   $\int e^y dy = \int (2x + \sin x) dx$
+   $e^y = x^2 - \cos x + C$
+
+\textbf{第四步：最终答案} \\
+B
+
+\subsection*{二、核心公式}
+1. \textbf{分离变量}：$g(y)dy = f(x)dx$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 4 ---
+\TopSeparator
+\section*{题目4}
+
+\textbf{【题目重现】} \\
+微分方程 $ y'' + 7y' - 8y = 0 $ 的通解是 \underline{\hspace{1cm}}。
+\choicesTwo
+{$ y = C_{1}e^{-x} + C_{2}e^{8x} $}
+{$ y = C_{1}e^{-x} + C_{2}e^{-8x} $}
+{$ y = C_{1}e^{x} + C_{2}e^{8x} $}
+{$ y = C_{1}e^{x} + C_{2}e^{-8x} $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+二阶常系数齐次线性微分方程。求特征根。
+
+\textbf{详细步骤} \\
+1. 特征方程：$r^2 + 7r - 8 = 0$。
+2. 因式分解：$(r+8)(r-1) = 0$。
+3. 特征根：$r_1 = 1, r_2 = -8$。
+4. 通解：$y = C_1 e^{x} + C_2 e^{-8x}$。
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. \textbf{特征根法}：两个不等实根 $r_1, r_2 \Rightarrow y = C_1 e^{r_1 x} + C_2 e^{r_2 x}$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 5 ---
+\TopSeparator
+\section*{题目5}
+
+\textbf{【题目重现】} \\
+微分方程 $ y' = 2xy $ 的通解是 $ y = $ \underline{\hspace{1cm}}。
+\choicesFour{$ Ce^{x^{2}} $}{$ e^{y^{2}}+C $}{$ x^{2}+C $}{$ e^{x}+C $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+可分离变量方程。
+
+\textbf{详细步骤} \\
+1. 分离变量：
+   $\frac{dy}{y} = 2x dx$
+2. 积分：
+   $\ln|y| = x^2 + C_1$
+3. 整理：
+   $y = \pm e^{x^2+C_1} = \pm e^{C_1} e^{x^2} = C e^{x^2}$
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：可分离变量微分方程。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 6 ---
+\TopSeparator
+\section*{题目6}
+
+\textbf{【题目重现】} \\
+微分方程 $ y'' = e^{x} + \sin x $ 的通解是 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+直接积分法（降阶）。
+
+\textbf{详细步骤} \\
+1. 第一次积分：
+   $y' = \int (e^x + \sin x) dx = e^x - \cos x + C_1$
+2. 第二次积分：
+   $y = \int (e^x - \cos x + C_1) dx = e^x - \sin x + C_1 x + C_2$
+
+\textbf{第四步：最终答案} \\
+$ e^x - \sin x + C_1 x + C_2 $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：可降阶微分方程。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 7 ---
+\TopSeparator
+\section*{题目7}
+
+\textbf{【题目重现】} \\
+微分方程 $ y' - y \tan x - \sec x = 0 $ 的通解为 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+化为标准的一阶线性微分方程形式：$y' - (\tan x)y = \sec x$。
+使用通解公式。
+
+\textbf{详细步骤} \\
+1. $P(x) = -\tan x, Q(x) = \sec x$。
+2. 通解公式：
+   \[ y = e^{-\int P(x)dx} (\int Q(x) e^{\int P(x)dx} dx + C) \]
+3. 计算积分因子：
+   \[ \int P(x) dx = - \int \tan x dx = \ln|\cos x| \]
+   \[ e^{\int P(x)dx} = \cos x \]
+   \[ e^{-\int P(x)dx} = \frac{1}{\cos x} = \sec x \]
+4. 代入公式：
+   \[ y = \sec x (\int \sec x \cdot \cos x dx + C) \]
+   \[ y = \sec x (\int 1 dx + C) \]
+   \[ y = \sec x (x + C) \]
+
+\textbf{第四步：最终答案} \\
+$ (x+C)\sec x $
+
+\subsection*{二、核心公式}
+1. \textbf{一阶线性DE公式}：$y = e^{-\int P dx}(\int Q e^{\int P dx} dx + C)$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 8 ---
+\TopSeparator
+\section*{题目8}
+
+\textbf{【题目重现】} \\
+求微分方程 $ y'' - 4y' + 2y = 0 $ 的通解。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+二阶常系数齐次线性DE。
+
+\textbf{详细步骤} \\
+1. 特征方程：$r^2 - 4r + 2 = 0$。
+2. 求根：
+   \[ r = \frac{4 \pm \sqrt{16-8}}{2} = \frac{4 \pm \sqrt{8}}{2} = 2 \pm \sqrt{2} \]
+3. 根是 $r_1 = 2+\sqrt{2}, r_2 = 2-\sqrt{2}$。
+4. 通解：
+   \[ y = C_1 e^{(2+\sqrt{2})x} + C_2 e^{(2-\sqrt{2})x} \]
+
+\textbf{第四步：最终答案} \\
+$ y = C_1 e^{(2+\sqrt{2})x} + C_2 e^{(2-\sqrt{2})x} $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：特征根法（判别式大于0）。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 9 ---
+\TopSeparator
+\section*{题目9}
+
+\textbf{【题目重现】} \\
+微分方程 $ y'' + 6y' + 9y = 0 $ 的通解为 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+1. 特征方程：$r^2 + 6r + 9 = 0$。
+2. 即 $(r+3)^2 = 0$。
+3. 两个相等实根：$r_1 = r_2 = -3$。
+4. 通解：
+   \[ y = (C_1 + C_2 x)e^{-3x} \]
+
+\textbf{第四步：最终答案} \\
+$ y = (C_1 + C_2 x)e^{-3x} $
+
+\subsection*{二、核心公式}
+1. \textbf{特征根法}：相等实根 $r \Rightarrow y = (C_1+C_2x)e^{rx}$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 10 ---
+\TopSeparator
+\section*{题目10}
+
+\textbf{【题目重现】} \\
+微分方程 $ \frac{dy}{dx} = -\frac{x}{y} $ 的通解为 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+1. 分离变量：$y dy = -x dx$。
+2. 积分：$\frac{1}{2}y^2 = -\frac{1}{2}x^2 + C_1$。
+3. 整理：$x^2 + y^2 = 2C_1$。令 $C = 2C_1$。
+   即 $x^2 + y^2 = C$ （圆族）。
+
+\textbf{第四步：最终答案} \\
+$ x^2 + y^2 = C $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：分离变量法。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 11 ---
+\TopSeparator
+\section*{题目11}
+
+\textbf{【题目重现】} \\
+求微分方程 $ (x^{2}-y)dx-(x-y)dy=0 $ 的通解。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+检查是否为全微分方程。
+$P = x^2-y, Q = -(x-y) = y-x$。
+
+\textbf{详细步骤} \\
+1. 检验：$\frac{\partial P}{\partial y} = -1$，$\frac{\partial Q}{\partial x} = -1$。相等，是全微分方程。
+2. 凑微分或积分法：
+   $(x^2 dx) - (y dx + x dy) + y dy = 0$
+   $d(\frac{x^3}{3}) - d(xy) + d(\frac{y^2}{2}) = 0$
+3. 积分：
+   $\frac{1}{3}x^3 - xy + \frac{1}{2}y^2 = C$
+
+\textbf{第四步：最终答案} \\
+$ \frac{1}{3}x^3 - xy + \frac{1}{2}y^2 = C $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：全微分方程。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 12 ---
+\TopSeparator
+\section*{题目12}
+
+\textbf{【题目重现】} \\
+求微分方程 $ y' + y = e^{x} + 1 $ 的通解。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+一阶线性微分方程，$P(x)=1, Q(x)=e^x+1$。
+
+\textbf{详细步骤} \\
+1. 通解公式：
+   $y = e^{-\int 1 dx} (\int (e^x+1) e^{\int 1 dx} dx + C)$
+   $y = e^{-x} (\int (e^x+1) e^x dx + C)$
+2. 计算积分：
+   $\int (e^{2x} + e^x) dx = \frac{1}{2}e^{2x} + e^x$
+3. 代入：
+   $y = e^{-x} (\frac{1}{2}e^{2x} + e^x + C)$
+   $y = \frac{1}{2}e^x + 1 + Ce^{-x}$
+
+\textbf{第四步：最终答案} \\
+$ y = \frac{1}{2}e^x + 1 + Ce^{-x} $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：一阶线性微分方程。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 13 ---
+\TopSeparator
+\section*{题目13}
+
+\textbf{【题目重现】} \\
+若 $ f(x) $ 连续，且 $ f(x) + 2 \int_{0}^{x} f(t) dt = x^{2} $ ，求 $ f(x) $ 。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+积分方程，求导化为微分方程。
+
+\textbf{详细步骤} \\
+1. 求导：
+   $f'(x) + 2f(x) = 2x$
+2. 这是一阶线性方程，$P=2, Q=2x$。
+   $f(x) = e^{-2x} (\int 2x e^{2x} dx + C)$
+3. 积分 $\int 2x e^{2x} dx$（分部）：
+   $= x e^{2x} - \int e^{2x} dx = x e^{2x} - \frac{1}{2}e^{2x}$
+4. 通解：
+   $f(x) = e^{-2x} (xe^{2x} - \frac{1}{2}e^{2x} + C) = x - \frac{1}{2} + Ce^{-2x}$
+5. 定 C：此题有隐含初始条件。
+   代入 $x=0$ 到原方程：$f(0) + 0 = 0 \Rightarrow f(0)=0$。
+   $0 = 0 - \frac{1}{2} + C \Rightarrow C = \frac{1}{2}$。
+6. 最后结果：
+   $f(x) = x - \frac{1}{2} + \frac{1}{2}e^{-2x}$
+
+\textbf{第四步：最终答案} \\
+$ f(x) = x - \frac{1}{2} + \frac{1}{2}e^{-2x} $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：积分方程化微分方程。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 14 ---
+\TopSeparator
+\section*{题目14}
+
+\textbf{【题目重现】} \\
+求微分方程 $ y'' - 6y' + 9y = 0 $ 的满足初始条件 $ y(0) = 1, y'(0) = 2 $ 的特解。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+先求通解，再代入初值。
+
+\textbf{详细步骤} \\
+1. 前面已求通解（同第9题）：$y = (C_1 + C_2 x)e^{3x}$。
+2. 修正：第9题是 $y''+6y'+9y=0$ ($r=-3$)。
+   此题是 $y''-6y'+9y=0$ ($r^2-6r+9=0 \Rightarrow (r-3)^2=0 \Rightarrow r=3$)。
+   所以此题通解为 $y = (C_1 + C_2 x)e^{3x}$。
+3. 代入 $y(0)=1$：
+   $1 = (C_1 + 0) \cdot 1 \Rightarrow C_1 = 1$。
+   $y = (1 + C_2 x)e^{3x}$。
+4. 求导：
+   $y' = C_2 e^{3x} + (1 + C_2 x) 3e^{3x} = e^{3x} (C_2 + 3 + 3C_2 x)$。
+5. 代入 $y'(0)=2$：
+   $2 = 1 \cdot (C_2 + 3 + 0) \Rightarrow C_2 = -1$。
+6. 特解：
+   $y = (1 - x)e^{3x}$。
+
+\textbf{第四步：最终答案} \\
+$ y = (1 - x)e^{3x} $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：二阶线性DE的初值问题。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 15 ---
+\TopSeparator
+\section*{题目15}
+
+\textbf{【题目重现】} \\
+求方程 $ \frac{dy}{dx}=\frac{e^{x}}{y+y^{3}} $ 的通解。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+1. 分离变量：
+   $(y + y^3) dy = e^x dx$
+2. 积分：
+   $\int (y + y^3) dy = \int e^x dx$
+   $\frac{1}{2}y^2 + \frac{1}{4}y^4 = e^x + C$
+3. 一般保留隐式解即可。
+
+\textbf{第四步：最终答案} \\
+$ \frac{1}{4}y^4 + \frac{1}{2}y^2 = e^x + C $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：可分离变量微分方程。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\end{document}

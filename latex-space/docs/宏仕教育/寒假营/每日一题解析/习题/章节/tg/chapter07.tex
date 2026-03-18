@@ -1,0 +1,104 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{fancyhdr}       % 页眉页脚
+\usepackage{cases}          % 分段函数增强
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 纵向排列的选项 (1列)
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+% 填空题下划线
+\newcommand{\blank}[1]{\underline{\hspace{#1}}}
+
+\title{\textbf{《高等数学》必刷习题——提高版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第七章 定积分（提高）}
+
+\begin{enumerate}
+    \item $ \frac{d}{dx}[x\int_{0}^{x}\sqrt{1+t^{4}}dt]= $ \blank{1cm}。
+    \choicesTwo
+    {$ \int_{0}^{x}\sqrt{1+t^{4}}dt $}
+    {$ 4x^{4}\int_{0}^{x}\sqrt{1+t^{4}}dt $}
+    {$ \int_{0}^{x}\sqrt{1+t^{4}}dt + x\sqrt{1+x^{4}} $}
+    {$ x\sqrt{1+x^{4}} $}
+
+    \item 设 $ f(x) $ 是连续函数，则 $ \frac{d}{dx}\int_{x^{2}}^{-1}f(t)dt= $ \blank{1cm}。
+    \choicesFour{$ f(x^{2}) $}{$ 2xf(x^{2}) $}{$ -f(x^{2}) $}{$ -2xf(x^{2}) $}
+
+    \item $ f(x) $ 在 $ [a, b] $ 上连续是 $ \int_{a}^{b} f(x) \, dx $ 存在的 \blank{1cm}。
+    \choicesTwo
+    {充分必要条件}
+    {充分条件非必要条件}
+    {必要条件非充分条件}
+    {既非必要也非充分条件}
+
+    \item $ \frac{d}{dx}\int_{0}^{x}g(x)f(t)dt= $ \blank{1cm}。
+    \choicesTwo
+    {$ g(x)f(x) $}
+    {$ g'(x)f'(x) $}
+    {$ g'(x)f(x) + g(x)f'(x) $}
+    {$ g(x)f(x) + g'(x) \int_{0}^{x} f(t) dt $}
+
+    \item 设函数 $ y = \int_{0}^{x} (t - 1) dt $ ，则 $y$ 有 \blank{1cm}。
+    \choicesFour{极小值 $ \frac{1}{2} $}{极小值 $ -\frac{1}{2} $}{极大值 $ \frac{1}{2} $}{极大值 $ -\frac{1}{2} $}
+
+    \item 已知 $ f(x) $ 连续，则 $ \frac{d}{dx} \int_{0}^{x} f(x - t) dt = $ \blank{2cm}。
+
+    \item $ \int_{1}^{e^{3}}\frac{dx}{x\sqrt{1+\ln x}}= $ \blank{2cm}。
+
+    \item 定积分 $ \int_{0}^{2}\sqrt{4-x^{2}}dx= $ \blank{2cm}。
+
+    \item 定积分 $ \int_{-1}^{1}\frac{x^{2}+x^{5}\sin x^{2}}{1+x^{2}}dx= $ \blank{2cm}。
+
+    \item 定积分 $ \int_{0}^{a}x^{2}\sqrt{a^{2}-x^{2}}dx= $ \blank{2cm}。
+
+    \item 设函数 $ f(x)=\lim_{n\to\infty}\frac{d}{dx}\left(\int_{-1}^{x}\frac{1+t}{1+t^{4n}}dt\right) $ ，求 $ f(x) $ 的间断点。
+
+    \item 求定积分 $ \int_{\frac{1}{e}}^{e}|\ln x|dx $。
+
+    \item 已知 $ f(x) = e^{x^{2}} $ ，求 $ \int_{0}^{1} f'(x) f''(x) dx $。
+
+    \item 求定积分 $ \int_{0}^{\frac{1}{2}}\arcsin x dx $。
+
+    \item 设 $ f(x) $ 在 $ [a,b] $ 上连续，且单调增加，证明：
+    $$ \int_{a}^{b}tf(t)dt\geq\frac{a+b}{2}\int_{a}^{b}f(t)dt $$
+\end{enumerate}
+
+\end{document}

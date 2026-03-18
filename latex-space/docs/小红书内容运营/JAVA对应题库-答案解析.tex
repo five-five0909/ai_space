@@ -1,0 +1,1192 @@
+\documentclass[12pt,a4paper]{ctexart}
+
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{hyperref}
+% 水印部分
+% 直接挂载到 LaTeX 的前景(foreground)渲染层
+\AddToHook{shipout/foreground}{
+    \begin{tikzpicture}[remember picture, overlay]
+        % 在页面正中心放置置顶水印
+        \node[text=blue, opacity=0.2, scale=5, rotate=30] 
+        at (current page.center) {fifine专升本};
+    \end{tikzpicture}
+}
+\setstretch{1.2}
+\setlist[enumerate]{itemsep=0.6em, topsep=0.4em}
+
+\titleformat{\section}{\Large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red!70!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    frame=single,
+    breaklines=true,
+    columns=flexible,
+    showstringspaces=false,
+    tabsize=4
+}
+
+\newtcolorbox{coverbox}{
+    colback=gray!5,
+    colframe=black!60,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=2mm
+}
+
+\newtcolorbox{answerbox}{
+    colback=blue!5,
+    colframe=blue!60,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=2mm
+}
+
+\begin{document}
+
+\begin{center}
+	{\LARGE \textbf{专升本 Java 小红书发题题库（第一阶段）}}\\[0.6em]
+	{\large 适用方向：专升本学生｜图文发题｜题目+解析版｜可用于早题晚解析}\\[0.8em]
+	{\normalsize 使用方式：每一节可单独作为 1 篇小红书笔记发布}
+\end{center}
+
+\vspace{1em}
+
+\section*{使用说明}
+本题库为“小红书解析版”，每组题控制在 3～4 题，便于做成图文轮播。\\
+本文件\textbf{包含答案和解析}，可直接用于晚间解析发布。
+
+\newpage
+
+%========================
+\section{笔记 1：Java 基础概念查漏补缺}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜基础概念这4题，能看出你底子稳不稳\\
+	\textbf{副标题建议：}\\
+	别小看基础题，很多同学就丢在这
+\end{coverbox}
+
+\subsection*{题目 1}
+在 Java 中，以下哪个关键字用于定义常量？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{final}
+	\item \texttt{static}
+	\item \texttt{abstract}
+	\item \texttt{interface}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. final}
+
+	\textbf{解析：}Java中没有const关键字，使用final修饰变量表示"常量"，即赋值后不可修改。final可以修饰变量、方法和类：\\
+	- 修饰变量：定义常量，必须在声明时或构造器中初始化\\
+	- 修饰方法：方法不可被重写\\
+	- 修饰类：类不可被继承
+
+	\textbf{易错点：}static表示类级别变量，可被修改（除非加final）；abstract用于抽象类或方法；interface是定义接口的关键字。
+\end{answerbox}
+
+\subsection*{题目 2}
+以下哪个是 Java 中的合法标识符？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{123abc}
+	\item \texttt{@abc}
+	\item \texttt{\_abc}
+	\item \texttt{class}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. \_abc}
+
+	\textbf{解析：}Java标识符规则：\\
+	- 可以使用字母、数字、\$、\_ 开头\\
+	- 不能以数字开头\\
+	- 不能使用Java关键字（如class、if、while等）\\
+	- 标识符区分大小写
+
+	\textbf{易错点：}123abc以数字开头，非法；@abc中@是注解专用字符，非法；class是Java关键字，非法；\_abc虽然可以但不推荐单独使用。
+\end{answerbox}
+
+\subsection*{题目 3}
+Java 中用于声明整数类型变量的关键字是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{int}
+	\item \texttt{float}
+	\item \texttt{double}
+	\item \texttt{boolean}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. int}
+
+	\textbf{解析：}Java有8种基本数据类型：\\
+	- 整数类型：byte(1字节)、short(2字节)、int(4字节)、long(8字节)\\
+	- 浮点类型：float(4字节)、double(8字节)\\
+	- 字符类型：char(2字节)\\
+	- 布尔类型：boolean
+
+	\textbf{易错点：}int是最常用的32位整数类型，是默认的整数类型；float和double是浮点类型；boolean是布尔类型。
+\end{answerbox}
+
+\subsection*{题目 4}
+以下哪个是 Java 中的逻辑与运算符？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{\&\&}
+	\item \texttt{||}
+	\item \texttt{!}
+	\item \texttt{\&}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. \&\&}
+
+	\textbf{解析：}Java中的逻辑运算符：\\
+	- \textbf{\&\&}：逻辑与（短路与），两边都为true结果才为true\\
+	- \texttt{||}：逻辑或（短路或），一边为true结果就为true\\
+	- \texttt{!}：逻辑非，取反
+
+	\textbf{易错点：}\&是按位与（非短路），也可以用于布尔运算但不推荐；||是逻辑或，不是与。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 2：整数运算最容易错的地方}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜整数除法这3题，很多人第一眼就错\\
+	\textbf{副标题建议：}\\
+	先别急着算，先看数据类型
+\end{coverbox}
+
+\subsection*{题目 1}
+以下代码的输出结果是
+\begin{lstlisting}
+int a = 5;
+int b = 2;
+System.out.println(a / b);
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+	\item 2.5
+	\item 2
+	\item 3
+	\item 2.0
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 2}
+
+	\textbf{解析：}两个整数相除，结果为整数，小数部分被截断（向零取整）。5/2 = 2（余数1被丢弃）。
+
+	\textbf{易错点：}这不是四舍五入；如果要得到小数，需要使用浮点除法：a / (double) b 或 a * 1.0 / b
+\end{answerbox}
+
+\subsection*{题目 2}
+以下代码的输出结果是
+\begin{lstlisting}
+int a = 7;
+int b = 3;
+System.out.println(a % b);
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+	\item 1
+	\item 2
+	\item 3
+	\item 0
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 1}
+
+	\textbf{解析：}取模运算（\%）返回余数。7除以3得2余1，所以7\%3 = 1。
+
+	\textbf{易错点：}注意负数的取模：-7\%3 = -1（结果的符号与被除数相同）
+\end{answerbox}
+
+\subsection*{题目 3}
+以下代码的输出结果是
+\begin{lstlisting}
+int a = 8;
+int b = 3;
+System.out.println(a / b + a % b);
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+	\item 2
+	\item 3
+	\item 4
+	\item 5
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 5}
+
+	\textbf{解析：}先计算除法和取模：\\
+	- a / b = 8 / 3 = 2（整数除法截断）\\
+	- a \% b = 8 \% 3 = 2（8 = 3×2 + 2）\\
+	- 2 + 2 = 4
+
+	\textbf{易错点：}不是3+2=5，注意8/3=2而非3
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 3：类和对象第一组母题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜类和对象这3题，别只会背概念\\
+	\textbf{副标题建议：}\\
+	看懂这组，后面面向对象才不容易乱
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于类和对象的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 类是对象的实例
+	\item 对象是类的模板
+	\item 一个类只能创建一个对象
+	\item 对象是类的具体实例
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 对象是类的具体实例}
+
+	\textbf{解析：}类与对象的关系：\\
+	- \textbf{类}：抽象的模板/蓝图，定义对象的属性和行为\\
+	- \textbf{对象}: 类的具体实例，根据类这个模板创建出来的具体个体
+
+	\textbf{易错点：}类不是对象的实例（关系颠倒）；对象也不是类的模板（也是颠倒）；一个类可以创建多个对象（单例模式除外）。
+\end{answerbox}
+
+\subsection*{题目 2}
+以下哪个说法更符合 Java 中对象作为参数传递的特点？
+\begin{enumerate}[label=\Alph*.]
+	\item 传递的是对象本身
+	\item 传递的是对象的引用
+	\item 传递的是对象成员变量的值
+	\item 传递的是对象类型
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 传递的是对象的引用}
+
+	\textbf{解析：}Java中参数传递方式：\\
+	- 基本类型：传递值的副本（值传递）\\
+	- 对象类型：传递引用地址的副本（本质也是值传递，但表现像引用传递）
+
+	\textbf{易错点：}传递的不是对象本身，而是在栈上复制了一份引用（地址），通过这个引用可以访问堆中的对象。
+\end{answerbox}
+
+\subsection*{题目 3}
+下列说法中正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 一个对象可以脱离类单独存在
+	\item 类用于描述一组对象的共同特征和行为
+	\item 对象和类在 Java 中没有区别
+	\item 对象只能包含属性，不能包含行为
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 类用于描述一组对象的共同特征和行为}
+
+	\textbf{解析：}类的定义：类是对一组对象的共同特征和行为的抽象描述，包括：\\
+	- \textbf{属性（字段）}: 描述对象的特征\\
+	- \textbf{方法}: 描述对象的行为
+
+	\textbf{易错点：}对象不能脱离类单独存在；对象和类有本质区别；对象既包含属性也包含行为（方法）。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 4：继承、抽象类、接口辨析题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜extends、abstract、interface 总混？这4题测一下\\
+	\textbf{副标题建议：}\\
+	这组题特别适合做一轮查漏补缺
+\end{coverbox}
+
+\subsection*{题目 1}
+在 Java 中，以下哪个关键字用于实现继承？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{extends}
+	\item \texttt{implements}
+	\item \texttt{interface}
+	\item \texttt{abstract}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. extends}
+
+	\textbf{解析：}Java中的继承实现：\\
+	- \textbf{类继承类}: 使用extends关键字（单继承）\\
+	- \textbf{类实现接口}: 使用implements关键字（可多实现）
+
+	\textbf{易错点：}extends用于继承类；implements用于实现接口；interface是定义接口的关键字；abstract是抽象修饰符。
+\end{answerbox}
+
+\subsection*{题目 2}
+以下关于抽象类的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 抽象类可以有抽象方法
+	\item 抽象类不能被实例化
+	\item 抽象类的子类必须实现所有抽象方法
+	\item 抽象类中可以有非抽象方法
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 抽象类的子类必须实现所有抽象方法}
+
+	\textbf{解析：}抽象类的特点：\\
+	- 抽象类可以有抽象方法（没有方法体的方法）\\
+	- 抽象类不能被实例化（不能new）\\
+	- 抽象类中可以有非抽象方法（普通方法）\\
+	- 如果子类是抽象类，可以不实现抽象方法
+
+	\textbf{易错点：}如果子类是具体类（非抽象类），则必须实现所有抽象方法。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下哪个关键字用于定义接口？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{interface}
+	\item \texttt{abstarct class}
+	\item \texttt{class}
+	\item \texttt{extends}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. interface}
+
+	\textbf{解析：}接口的定义：使用interface关键字定义接口，接口中的方法默认是抽象方法（Java 8之前）。
+
+	\textbf{易错点：}abstract class是抽象类；class是定义类；extends用于类继承，不能用于定义接口。
+\end{answerbox}
+
+\subsection*{题目 4}
+以下关于接口的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 接口中的方法默认是 \texttt{public abstract} 修饰的
+	\item 接口中的变量默认是 \texttt{public static final} 修饰的
+	\item 一个类可以实现多个接口
+	\item 接口可以继承类
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 接口可以继承类}
+
+	\textbf{解析：}接口的特点：\\
+	- 方法默认：public abstract（抽象方法）\\
+	- 变量默认：public static final（常量）\\
+	- 多实现：一个类可实现多个接口\\
+	- 接口可以继承接口（多继承）
+
+	\textbf{易错点：}接口不能继承类；类只能继承一个父类，但可以实现多个接口。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 5：字符串 API 高频题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜String 这4题别再凭感觉做了\\
+	\textbf{副标题建议：}\\
+	方法名会背，不等于题能做对
+\end{coverbox}
+
+\subsection*{题目 1}
+以下哪个方法可以将字符串转换为整数？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{parseInt()}
+	\item \texttt{valueOf()}
+	\item \texttt{toString()}
+	\item \texttt{toInteger()}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. parseInt()}
+
+	\textbf{解析：}字符串转整数的方法：\\
+	- \textbf{Integer.parseInt(String)}: 返回基本类型int\\
+	- \textbf{Integer.valueOf(String)}: 返回包装类Integer对象
+
+	\textbf{易错点：}valueOf返回的是Integer对象，不是int基本类型；toString()是反向转换（整数转字符串）。
+\end{answerbox}
+
+\subsection*{题目 2}
+在 Java 中，以下哪个方法用于获取字符串的长度？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{length()}
+	\item \texttt{size()}
+	\item \texttt{count()}
+	\item \texttt{getLength()}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. length()}
+
+	\textbf{解析：}String获取长度：str.length()返回字符串中的字符数。
+
+	\textbf{易错点：}size()用于集合（如List、Set）；String没有size()方法；count和getLength()不是String类的方法。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下哪个方法用于将字符串转换为大写？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{toUpperCase()}
+	\item \texttt{upperCase()}
+	\item \texttt{makeUpperCase()}
+	\item \texttt{convertToUpperCase()}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. toUpperCase()}
+
+	\textbf{解析：}String的大小写转换：\\
+	- toUpperCase(): 转大写\\
+	- toLowerCase(): 转小写
+
+	\textbf{易错点：}其他选项都不是String类的方法；注意方法名的拼写。
+\end{answerbox}
+
+\subsection*{题目 4}
+以下哪个方法用于截取字符串？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{substring()}
+	\item \texttt{cut()}
+	\item \texttt{slice()}
+	\item \texttt{truncate()}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. substring()}
+
+	\textbf{解析：}String截取子串：str.substring(beginIndex, endIndex)返回指定范围的子串。
+
+	\textbf{易错点：}cut、slice、truncate都不是String类的方法；substring是Java中截取字符串的标准方法。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 6：异常处理核心考点}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜异常处理最容易考的4题，先做一遍\\
+	\textbf{副标题建议：}\\
+	finally、catch、常见异常别混了
+\end{coverbox}
+
+\subsection*{题目 1}
+以下哪个异常类用于处理数组下标越界异常？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{ArrayIndexOutOfBoundsException}
+	\item \texttt{NullPointerException}
+	\item \texttt{ArithmeticException}
+	\item \texttt{ClassCastException}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. ArrayIndexOutOfBoundsException}
+
+	\textbf{解析：}常见异常类型：\\
+	- ArrayIndexOutOfBoundsException: 数组下标越界\\
+	- NullPointerException: 空指针异常\\
+	- ArithmeticException: 算术异常（如除零）\\
+	- ClassCastException: 类型转换异常
+
+	\textbf{易错点：}数组下标 < 0 或 >= 数组长度时抛出此异常。
+\end{answerbox}
+
+\subsection*{题目 2}
+在 Java 中，以下哪个关键字用于捕获异常？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{try}
+	\item \texttt{catch}
+	\item \texttt{throw}
+	\item \texttt{throws}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. catch}
+
+	\textbf{解析：}异常处理关键字：\\
+	- try: 包裹可能抛出异常的代码\\
+	- catch: 捕获并处理异常\\
+	- throw: 抛出异常（用于方法内）\\
+	- throws: 声明异常（用于方法声明）
+
+	\textbf{易错点：}try用于包裹代码块，catch用于捕获处理异常，throw和throws用于抛出异常。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下关于 Java 中异常处理中 \texttt{finally} 块的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 无论是否发生异常都会执行
+	\item 只有发生异常才会执行
+	\item 只有不发生异常才会执行
+	\item 只有在 \texttt{try} 块中有 \texttt{return} 语句时才会执行
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 无论是否发生异常都会执行}
+
+	\textbf{解析：}finally块的特点：\\
+	- 无论try块中是否发生异常，finally块都会执行\\
+	- 通常用于释放资源（如关闭文件、数据库连接）\\
+	- 即使try或catch中有return，finally仍会执行
+
+	\textbf{易错点：}finally唯一不执行的情况是System.exit()终止JVM。
+\end{answerbox}
+
+\subsection*{题目 4}
+以下哪种情况更容易导致 \texttt{OutOfMemoryError}？
+\begin{enumerate}[label=\Alph*.]
+	\item 数组越界
+	\item 除数为 0
+	\item 内存长期无法释放
+	\item 空指针异常
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 内存长期无法释放}
+
+	\textbf{解析：}OutOfMemoryError（内存溢出）的原因：\\
+	- 创建对象过多，内存无法回收\\
+	- 内存泄漏导致内存耗尽\\
+	- 虚拟机堆内存设置过小
+
+	\textbf{易错点：}数组越界是ArrayIndexOutOfBoundsException；除数为0是ArithmeticException；空指针是NullPointerException，都不是OutOfMemoryError。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 7：集合框架第一组母题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜List、Set、Map 这4题你能全对吗\\
+	\textbf{副标题建议：}\\
+	集合题最怕概念一知半解
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于 Java 集合框架的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item List 允许重复元素
+	\item Set 允许重复元素
+	\item Map 存储键值对，键可以重复
+	\item 以上都不对
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. List 允许重复元素}
+
+	\textbf{解析：}三大集合的特性：\\
+	- List（有序）: 允许重复元素，可通过索引访问\\
+	- Set（无序）: 不允许重复元素\\
+	- Map: 键值对存储，键不允许重复，值可以重复
+
+	\textbf{易错点：}Set不允许重复；Map键不能重复，值可以重复。
+\end{answerbox}
+
+\subsection*{题目 2}
+在 Java 中，以下哪个集合实现了链表结构？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{ArrayList}
+	\item \texttt{LinkedList}
+	\item \texttt{HashSet}
+	\item \texttt{HashMap}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. LinkedList}
+
+	\textbf{解析：}集合底层实现：\\
+	- ArrayList: 动态数组（连续内存）\\
+	- LinkedList: 双向链表（非连续内存）\\
+	- HashSet: 哈希表\\
+	- HashMap: 哈希表
+
+	\textbf{易错点：}ArrayList是数组实现，LinkedList是链表实现。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下哪个集合是无序且不允许重复元素的？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{ArrayList}
+	\item \texttt{HashSet}
+	\item \texttt{LinkedHashSet}
+	\item \texttt{TreeSet}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. HashSet}
+
+	\textbf{解析：}集合的有序性：\\
+	- HashSet: 无序，不允许重复\\
+	- LinkedHashSet: 有序（按插入顺序），不允许重复\\
+	- TreeSet: 有序（按自然顺序），不允许重复\\
+	- ArrayList: 有序，允许重复
+
+	\textbf{易错点：}HashSet底层是哈希表，所以无序；TreeSet底层是红黑树，有序。
+\end{answerbox}
+
+\subsection*{题目 4}
+以下关于 \texttt{HashMap} 的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 存储键值对
+	\item 键不允许重复
+	\item 是线程安全的
+	\item 基于哈希表实现
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 是线程安全的}
+
+	\textbf{解析：}HashMap的特点：\\
+	- 存储键值对（key-value）\\
+	- 键不允许重复（重复会覆盖）\\
+	- 基于哈希表实现\\
+	- \textbf{非线程安全}（线程不安全）
+
+	\textbf{易错点：}HashMap是线程不安全的；Hashtable是线程安全的；ConcurrentHashMap是线程安全且高效的。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 8：泛型高频辨析题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜泛型别只会背"提高安全性"，这3题试试\\
+	\textbf{副标题建议：}\\
+	一到擦除和边界就开始乱了
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于 Java 中泛型的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 可以提高代码的安全性
+	\item 可以减少类型转换
+	\item 泛型类型在运行时会被擦除
+	\item 泛型可以直接用于基本数据类型
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 泛型可以直接用于基本数据类型}
+
+	\textbf{解析：}泛型的特性：\\
+	- 提高安全性：编译时检查类型\\
+	- 减少类型转换：不需要强制类型转换\\
+	- 类型擦除：运行时泛型信息被擦除
+
+	\textbf{易错点：}泛型不能用于基本数据类型，必须使用包装类。例如：List<int>错误，List<Integer>正确。
+\end{answerbox}
+
+\subsection*{题目 2}
+以下哪个是正确的 Java 泛型声明？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{class MyClass<T extends Number>}
+	\item \texttt{class MyClass<T super Number>}
+	\item \texttt{class MyClass<T implements Number>}
+	\item \texttt{class MyClass<T>}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. class MyClass<T extends Number>}
+
+	\textbf{解析：}泛型的边界：\\
+	- extends: 上界，表示T必须是Number或Number的子类\\
+	- super: 下界（只用于泛型方法）\\
+	- implements不用于泛型声明
+
+	\textbf{易错点：}泛型声明使用extends指定上界；implements用于类实现接口，不用于泛型。
+\end{answerbox}
+
+\subsection*{题目 3}
+关于泛型和包装类的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{List<int>} 是合法写法
+	\item 泛型中通常应使用包装类而不是基本类型
+	\item Java 泛型只支持字符串类型
+	\item 泛型和集合无关
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 泛型中通常应使用包装类而不是基本类型}
+
+	\textbf{解析：}泛型与包装类：\\
+	- List<int>非法，必须用List<Integer>\\
+	- 泛型支持各种引用类型，不限于String\\
+	- 泛型和集合密切相关，集合是泛型的主要应用场景
+
+	\textbf{易错点：}基本类型不能用于泛型，必须用对应的包装类；自动装箱/拆箱使得使用包装类像使用基本类型一样方便。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 9：反射机制第一轮筛错题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜反射机制这3题，先别被概念绕进去\\
+	\textbf{副标题建议：}\\
+	这部分最适合做"筛错题"
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于 Java 中反射机制的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 可以在运行时获取类的信息
+	\item 可以动态创建对象
+	\item 不能调用对象的私有方法
+	\item 反射机制会降低程序性能
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 不能调用对象的私有方法}
+
+	\textbf{解析：}反射的能力：\\
+	- 获取类信息：Class对象、字段、方法、构造器\\
+	- 动态创建对象：newInstance()\\
+	- 调用私有成员：setAccessible(true)后可访问\\
+	- 性能：反射有额外开销，会降低性能
+
+	\textbf{易错点：}通过setAccessible(true)可以访问私有方法；反射会降低性能，因为需要额外的安全检查。
+\end{answerbox}
+
+\subsection*{题目 2}
+以下关于 Java 中 \texttt{ClassLoader} 的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 用于加载类文件
+	\item 可以自定义 \texttt{ClassLoader}
+	\item 只有一个默认的 \texttt{ClassLoader}
+	\item 不同的 \texttt{ClassLoader} 可以加载同名类
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 只有一个默认的 \texttt{ClassLoader}}
+
+	\textbf{解析：}ClassLoader的特点：\\
+	- 负责加载类文件（.class）\\
+	- 可以自定义ClassLoader实现特殊加载逻辑\\
+	- JVM有多个ClassLoader（引导、扩展、应用）\\
+	- 不同ClassLoader可以加载同名的类
+
+	\textbf{易错点：}JVM有多个ClassLoader，不是只有一个；不同的ClassLoader加载的类是不同的。
+\end{answerbox}
+
+\subsection*{题目 3}
+关于反射机制，下列说法正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 只能在编译期获取类信息
+	\item 运行时也可以操作类的成员
+	\item 反射只能用于接口
+	\item 反射和普通代码执行效率完全相同
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 运行时也可以操作类的成员}
+
+	\textbf{解析：}反射的特点：\\
+	- 可以在运行时获取和操作类的信息\\
+	- 可以动态创建对象、调用方法、访问字段\\
+	- 不仅用于接口，也用于类
+
+	\textbf{易错点：}反射是运行时特性；反射比普通代码慢；反射可以用于任何类。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 10：I/O 流和 File 高频题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜IO 和 File 这4题，很多人做题顺序就错了\\
+	\textbf{副标题建议：}\\
+	先分清"读写"和"字节字符"
+\end{coverbox}
+
+\subsection*{题目 1}
+以下哪个类用于实现文件读取？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{FileReader}
+	\item \texttt{FileWriter}
+	\item \texttt{BufferedReader}
+	\item \texttt{BufferedWriter}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. FileReader}
+
+	\textbf{解析：}字符流文件操作：\\
+	- FileReader: 文件字符输入流（读）\\
+	- FileWriter: 文件字符输出流（写）\\
+	- BufferedReader: 缓冲字符输入流\\
+	- BufferedWriter: 缓冲字符输出流
+
+	\textbf{易错点：}Reader是读，Writer是写；Buffered是缓冲流。
+\end{answerbox}
+
+\subsection*{题目 2}
+以下哪个类用于实现文件写入？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{FileReader}
+	\item \texttt{FileWriter}
+	\item \texttt{BufferedReader}
+	\item \texttt{BufferedWriter}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. FileWriter}
+
+	\textbf{解析：}见上题解析。
+
+	\textbf{易错点：}Writer用于写，Reader用于读。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下关于 Java 中流的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 分为字节流和字符流
+	\item 字节流以字节为单位处理数据
+	\item 字符流以字符为单位处理数据
+	\item 字节流和字符流可以直接随意互换
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 字节流和字符流可以直接随意互换}
+
+	\textbf{解析：}IO流的分类：\\
+	- 字节流：InputStream/OutputStream，以字节为单位\\
+	- 字符流：Reader/Writer，以字符为单位\\
+	- 字节流和字符流需要通过转换流转换：InputStreamReader、OutputStreamWriter
+
+	\textbf{易错点：}字节流和字符流不能直接互换，需要使用转换流。
+\end{answerbox}
+
+\subsection*{题目 4}
+以下哪个方法用于创建一个新文件？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{createNewFile()}
+	\item \texttt{mkdir()}
+	\item \texttt{mkdirs()}
+	\item \texttt{exists()}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. createNewFile()}
+
+	\textbf{解析：}File类的常用方法：\\
+	- createNewFile(): 创建新文件\\
+	- mkdir(): 创建单层目录\\
+	- mkdirs(): 创建多层目录\\
+	- exists(): 判断文件/目录是否存在
+
+	\textbf{易错点：}createNewFile用于文件，mkdir/mkdirs用于目录。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 11：JDBC 最容易考的核心题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜JDBC 这4题不熟，后面很容易整章混\\
+	\textbf{副标题建议：}\\
+	连接、查询、预编译、事务一次测一下
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于 Java 中 JDBC 的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 用于连接数据库
+	\item 不同数据库有不同驱动
+	\item 执行 SQL 语句可以通过 \texttt{Statement} 对象
+	\item 不需要关闭连接资源
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 不需要关闭连接资源}
+
+	\textbf{解析：}JDBC的核心概念：\\
+	- JDBC: Java Database Connectivity，Java数据库连接\\
+	- 不同数据库需要不同的JDBC驱动\\
+	- Statement对象用于执行SQL语句\\
+	- 必须关闭Connection、Statement、ResultSet等资源
+
+	\textbf{易错点：}JDBC资源必须手动关闭，通常在finally块中关闭。
+\end{answerbox}
+
+\subsection*{题目 2}
+以下哪个方法用于执行查询语句？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{executeQuery()}
+	\item \texttt{executeUpdate()}
+	\item \texttt{execute()}
+	\item \texttt{runQuery()}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. executeQuery()}
+
+	\textbf{解析：}Statement的方法：\\
+	- executeQuery(): 执行SELECT查询，返回ResultSet\\
+	- executeUpdate(): 执行INSERT/UPDATE/DELETE，返回影响行数\\
+	- execute(): 执行任何SQL语句，返回boolean
+
+	\textbf{易错点：}查询用executeQuery；增删改用executeUpdate。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下关于 Java 中 \texttt{PreparedStatement} 的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 性能比 \texttt{Statement} 差
+	\item 不能防止 SQL 注入
+	\item 可以设置参数
+	\item 不支持批量操作
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 可以设置参数}
+
+	\textbf{解析：}PreparedStatement的特点：\\
+	- 性能更好（预编译）\\
+	- 防止SQL注入（参数化查询）\\
+	- 可以通过setXxx()设置参数\\
+	- 支持批量操作（addBatch/executeBatch）
+
+	\textbf{易错点：}PreparedStatement性能更好；能防止SQL注入；支持批量操作。
+\end{answerbox}
+
+\subsection*{题目 4}
+以下关于 Java 中事务的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 保证数据的一致性
+	\item 可以通过 \texttt{commit()} 提交
+	\item 可以通过 \texttt{rollback()} 回滚
+	\item 事务中的操作一定能成功
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 事务中的操作一定能成功}
+
+	\textbf{解析：}事务的特性：\\
+	- 原子性：要么全部成功，要么全部失败\\
+	- 一致性：事务执行前后数据保持一致\\
+	- 隔离性：并发事务互不干扰\\
+	- 持久性：事务提交后修改永久生效
+
+	\textbf{易错点：}事务中的操作可能失败，失败时需要rollback回滚。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 12：多线程高频辨析题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜多线程这4题，很多人学过但还是会混\\
+	\textbf{副标题建议：}\\
+	start、run、sleep、同步一次区分
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于线程的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 多线程可以提高程序执行效率
+	\item 线程之间完全共享所有内存
+	\item 实现线程的方式有继承 \texttt{Thread} 类和实现 \texttt{Runnable} 接口
+	\item 线程是进程的一部分
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 线程之间完全共享所有内存}
+
+	\textbf{解析：}线程的特点：\\
+	- 多线程可提高效率（充分利用CPU多核）\\
+	- 线程共享堆内存，私有栈内存\\
+	- 两种创建方式：继承Thread、实现Runnable\\
+	- 线程是进程的组成部分
+
+	\textbf{易错点：}线程共享堆内存，但不共享栈内存；每个线程有自己的虚拟机栈。
+\end{answerbox}
+
+\subsection*{题目 2}
+在 Java 中，以下哪个方法用于启动线程？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{start()}
+	\item \texttt{run()}
+	\item \texttt{sleep()}
+	\item \texttt{yield()}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. start()}
+
+	\textbf{解析：}线程相关方法：\\
+	- start(): 启动线程（真正创建新线程）\\
+	- run(): 线程执行的内容（普通方法）\\
+	- sleep(): 休眠（暂停执行）\\
+	- yield(): 礼让（暂停让出CPU）
+
+	\textbf{易错点：}调用start()才会创建新线程；直接调用run()只是普通方法调用。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下关于同步的说法中，正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 只能在普通方法上使用
+	\item 可以使用 \texttt{synchronized} 实现同步
+	\item 同步一定会提高程序效率
+	\item 同步和线程安全无关
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 可以使用 \texttt{synchronized} 实现同步}
+
+	\textbf{解析：}synchronized关键字：\\
+	- 可修饰方法、代码块\\
+	- 保证同一时刻只有一个线程执行\\
+	- 实现线程同步，避免线程安全问题
+
+	\textbf{易错点：}synchronized可以修饰方法、静态方法、代码块；同步会降低效率，但保证线程安全。
+\end{answerbox}
+
+\subsection*{题目 4}
+以下哪个方法用于暂停当前线程指定的时间？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{sleep()}
+	\item \texttt{wait()}
+	\item \texttt{yield()}
+	\item \texttt{stop()}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. sleep()}
+
+	\textbf{解析：}线程控制方法：\\
+	- sleep(): 休眠指定毫秒数（静态方法）\\
+	- wait(): 等待（需配合notify）\\
+	- yield(): 礼让（暂停让出CPU）\\
+	- stop(): 已废弃（不安全）
+
+	\textbf{易错点：}sleep是Thread类的静态方法；wait是Object的方法；yield只是让出CPU，不阻塞。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 13：网络编程基础题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本Java｜Socket 和 URL 这4题，先把基础拿稳\\
+	\textbf{副标题建议：}\\
+	网络编程别一上来就被名词吓住
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于 Java 中 Socket 编程的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 用于网络通信
+	\item \texttt{ServerSocket} 用于服务器端
+	\item \texttt{Socket} 用于客户端
+	\item 不需要处理异常
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 不需要处理异常}
+
+	\textbf{解析：}Socket编程：\\
+	- Socket用于网络通信（TCP/UDP）\\
+	- ServerSocket用于服务器端监听\\
+	- Socket用于客户端连接\\
+	- 网络编程必须处理异常（IOException）
+
+	\textbf{易错点：}网络编程涉及IO操作，必须处理异常；所有网络操作都可能抛出IOException。
+\end{answerbox}
+
+\subsection*{题目 2}
+以下哪个方法更常用于向输出流发送数据？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{send()}
+	\item \texttt{write()}
+	      {output()}
+	\item \texttt \item \texttt{transmit()}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. write()}
+
+	\textbf{解析：}IO流的方法：\\
+	- write()是OutputStream/Writer的基本写方法\\
+	- Socket的OutputStream使用write()方法发送数据
+
+	\textbf{易错点：}send、output、transmit都不是IO流的标准方法。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下关于 Java 中 \texttt{URL} 类的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 用于表示统一资源定位符
+	\item 可以获取网络资源
+	\item 不能解析 URL
+	\item 可以获取 URL 的各个部分
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 不能解析 URL}
+
+	\textbf{解析：}URL类的方法：\\
+	- URL表示统一资源定位符\\
+	- 可以通过openStream()获取网络资源\\
+	- 可以解析URL的各个部分（协议、主机、路径等）\\
+	- getProtocol()、getHost()、getPath()等
+
+	\textbf{易错点：}URL类可以解析URL，提供getXxx()方法获取各部分。
+\end{answerbox}
+
+\subsection*{题目 4}
+以下哪个方法用于获取 URL 的协议部分？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{getProtocol()}
+	\item \texttt{getScheme()}
+	\item \texttt{getType()}
+	\item \texttt{getProtocolType()}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. getProtocol()}
+
+	\textbf{解析：}URL类的常用方法：\\
+	- getProtocol(): 获取协议（http、https等）\\
+	- getHost(): 获取主机名\\
+	- getPort(): 获取端口号\\
+	- getPath(): 获取路径
+
+	\textbf{易错点：}其他选项都不是URL类的方法；注意方法名的拼写。
+\end{answerbox}
+
+\end{document}

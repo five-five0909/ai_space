@@ -1,0 +1,126 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+
+% 页面设置
+\geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm}
+
+% 配色方案
+\definecolor{azure}{RGB}{0, 102, 204}       
+\definecolor{tealgreen}{RGB}{0, 128, 128}   
+\definecolor{lightgray}{RGB}{245, 245, 245} 
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textbf{中考数学专项突破}}
+\fancyhead[R]{\small \textbf{第11关 反比例函数 (习题卷)}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+
+% 自定义盒子
+\newtcolorbox{problem}[2][]{
+    enhanced, colback=white, colframe=azure, coltitle=white,
+    fonttitle=\bfseries\large, title={#2},
+    attach boxed title to top left={yshift*=-\tcboxedtitleheight/2, xshift=5mm},
+    boxed title style={colback=azure, sharp corners},
+    boxrule=1pt, top=15pt, bottom=5pt, sharp corners=south, drop fuzzy shadow, #1
+}
+
+\begin{document}
+
+\section*{考点1：反比例函数的图象与性质}
+
+% Q1
+\begin{problem}{题目 1 [2024 湖南株洲]}
+下列关系中，是反比例函数关系的是 ( \quad )
+\begin{enumerate}[label=\Alph*., itemsep=0pt]
+    \item 圆的面积 $S$ 与它的半径 $r$ 之间的关系
+    \item 用频率估计概率时，概率 $P$ 与频率 $p$ 的关系
+    \item 电压 $U$ 一定时，电流 $I$ 与电阻 $R$ 之间的关系
+    \item 小明的身高 $h$ 与年龄 $x$ 之间的关系
+\end{enumerate}
+\end{problem}
+\vspace{1cm}
+
+% Q2
+\begin{problem}{题目 2 [2024 陕西榆林三模]}
+在同一个平面直角坐标系中，函数 $y=\dfrac{ab}{x}$ 与 $y=ax+b$ 的图象可能是 ( \quad )
+\begin{center}
+    (此处为图象选项 A, B, C, D)
+\end{center}
+\end{problem}
+\vspace{1cm}
+
+% Q3
+\begin{problem}{题目 3 [2024 湖北武汉]}
+某反比例函数 $y=\dfrac{k}{x}$ 具有下列性质：当 $x>0$ 时，$y$ 随 $x$ 的增大而减小。写出一个满足条件的 $k$ 的值是 \underline{\hspace{2cm}}。
+\end{problem}
+\vspace{1cm}
+
+% Q4
+\begin{problem}{题目 4 [2024 四川遂宁]}
+若反比例函数 $y=\dfrac{2-k}{x}$ 的图象位于第一、三象限，则整数 $k$ 的值是 \underline{\hspace{2cm}}。
+\end{problem}
+\vspace{1cm}
+
+% Q5
+\begin{problem}{题目 5 [2024 山东济宁]}
+已知点 $A(-2,y_1), B(-1,y_2), C(3,y_3)$ 在反比例函数 $y=\dfrac{k}{x} (k<0)$ 的图象上，则 $y_1, y_2, y_3$ 的大小关系是 ( \quad )
+\end{problem}
+\vspace{1cm}
+
+% Q6
+\begin{problem}{题目 6 [2024 贵州]}
+已知点 $(1,3)$ 在反比例函数 $y=\dfrac{k}{x}$ 的图象上。
+(1) 求反比例函数的表达式；
+(2) 点 $(-3, a), (1, b), (3, c)$ 都在该图象上，比较 $a, b, c$ 的大小。
+\end{problem}
+\vspace{2cm}
+
+\section*{考点2：反比例函数与几何知识综合}
+
+% Q7
+\begin{problem}{题目 7 [2024 江苏苏州]}
+如图，点 $A$ 为反比例函数 $y=-\dfrac{1}{x} (x<0)$ 图象上的一点，连接 $AO$，过点 $O$ 作 $OA$ 的垂线与反比例函数 $y=\dfrac{4}{x} (x>0)$ 的图象交于点 $B$，则 $\dfrac{AO}{BO}$ 的值为 ( \quad )
+\end{problem}
+\vspace{2cm}
+
+% Q8
+\begin{problem}{题目 8 [2024 四川宜宾]}
+如图，等腰三角形 $ABC$ 中， $AB=AC$，反比例函数 $y=\dfrac{k}{x}$ 的图象经过点 $A$、$B$ 及 $AC$ 的中点 $M$， $BC // x$ 轴... 则 $\dfrac{AN}{AB}$ 的值为 ( \quad )
+\end{problem}
+\vspace{2cm}
+
+% Q9
+\begin{problem}{题目 9 [2024 四川广元]}
+已知 $y=\sqrt{3}x$ 与 $y=\dfrac{k}{x}(x>0)$ 交于点 $A(2, m)$... 将 $\triangle OAB$ 沿 $OA$ 翻折... $B$ 落在 $C$ 处，求 $B$ 点坐标。
+\end{problem}
+\vspace{3cm}
+
+% Q10
+\begin{problem}{题目 10}
+菱形 $AOCB$，$\tan \angle AOC = \frac{4}{3}$，点 $A$ 在 $y=\frac{3}{x}$ 上，点 $B$ 在 $y=\frac{k}{x}$ 上，求 $k$。
+\end{problem}
+\vspace{2cm}
+
+% Q11
+\begin{problem}{题目 11 [2024 福建]}
+如图，反比例函数 $y=\dfrac{k}{x}$ 与 $\odot O$ 交于 $A, B$ 两点 (第一象限)。若 $A(1,2)$，则点 $B$ 的坐标为 \underline{\hspace{2cm}}。
+\end{problem}
+\vspace{2cm}
+
+% Q12
+\begin{problem}{题目 12 [2024 甘肃兰州]}
+反比例函数 $y=\dfrac{k}{x}$ 与一次函数 $y=mx+1$ 交于点 $A(2,3)$，点 $B$ 是反比例图象上一点，$BC \perp x$ 轴于 $C$，交一次函数于 $D$，连接 $AB$。
+(1) 求表达式；(2) 当 $OC=4$ 时，求 $\triangle ABD$ 的面积。
+\end{problem}
+\vspace{4cm}
+
+\end{document}

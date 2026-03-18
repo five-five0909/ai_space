@@ -1,0 +1,557 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tcolorbox}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\newtcolorbox{bluebox}[1][]{
+colback=blue!5!white,
+colframe=blue!75!black,
+fonttitle=\bfseries,
+title=#1,
+arc=0mm,
+boxrule=1pt,
+left=2mm,right=2mm,top=1mm,bottom=1mm
+}
+
+\lstset{
+language=C,
+basicstyle=\ttfamily\small,
+keywordstyle=\color{blue},
+commentstyle=\color{green!60!black},
+stringstyle=\color{red},
+numbers=left,
+numberstyle=\tiny\color{gray},
+frame=single,
+breaklines=true,
+escapeinside={(*@}{@*)}
+}
+
+\title{\textbf{第六章 结构体-题库深度解析}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+% ======== 题目6: typedef与结构体 ========
+\section*{题目6: typedef定义结构体类型}
+
+\textbf{原题目:}
+设有如下的函数
+\begin{verbatim}
+typedef struct NODE{ int num; struct NODE*next; } OLD;
+\end{verbatim}
+则以下叙述中正确的是\_\_\_\_\_\_。
+\begin{enumerate}
+    \item[A)] 以上的说明形式非法
+    \item[B)] NODE是一个结构体类型
+    \item[C)] OLD是一个结构体类型
+    \item[D)] OLD是一个结构体变量
+\end{enumerate}
+
+\begin{bluebox}{答案与深度解析}
+\textbf{答案: C) OLD是一个结构体类型}
+
+% ======== 阶段一:核心认知框架 ========
+\textbf{【核心认知框架】}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{题目本质}: 考查typedef与struct的结合使用
+  \item \textbf{关键区分点}: \texttt{struct NODE} VS \texttt{old}的类型差异
+  \item \textbf{命题人意图}: 测试考生对typedef定义类型别名的理解
+\end{itemize}
+
+% ======== 阶段二:深度解析 ========
+\textbf{【typedef与结构体深度解析】}
+
+\textbf{① typedef的作用}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{定义}: typedef用来为已有类型创建\textbf{类型别名}
+  \item \textbf{语法}: \texttt{typedef 旧类型 新类型名}
+  \item \textbf{不是定义变量}: 定义的是类型,不是变量!
+\end{itemize}
+
+\textbf{② 语句解析}
+\begin{lstlisting}[language=C]
+typedef struct NODE{ int num; struct NODE*next; } OLD;
+
+// 分解理解:
+// 1. struct NODE{...}; 定义一个struct类型
+// 2. typedef struct NODE OLD; 为这个类型创建别名OLD
+
+// 等价写法:
+struct NODE {           // 定义struct NODE类型
+    int num;
+    struct NODE* next;
+};
+typedef struct NODE OLD; // 定义node类型别名
+    \end{lstlisting}
+
+\textbf{③ 类型分析}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{标识符} & \textbf{类型} & \textbf{说明} \\
+\hline
+\texttt{struct NODE} & 结构体标签 & 结构体的标签名 \\
+\hline
+\texttt{OLD} & 类型别名 & \texttt{typedef}创建的别名 \\
+\hline
+\end{tabular}
+
+\textbf{④ 自引用问题}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \texttt{struct NODE*next}中引用了自己的标签名
+  \item 这是合法的自引用结构体(链表节点)
+  \item 使用struct标签而不是别名,因为此时OLD还未定义
+\end{itemize}
+
+\textbf{⑤ 使用方法}
+\begin{lstlisting}[language=C]
+// 方法1: 使用标签struct NODE
+struct NODE node1;
+struct NODE* p1 = &node1;
+
+// 方法2: 使用别名OLD
+OLD node2;
+OLD* p2 = &node2;
+
+// 两种方式完全等价!
+struct NODE* p3 = &node2;  // 正确
+OLD* p4 = &node1;          // 正确
+    \end{lstlisting}
+
+% ======== 选项分析 ========
+\textbf{【选项分析】}
+
+\textbf{A) 以上的说明形式非法 — 错误}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 这是合法的typedef用法
+  \item 可以在一个语句中同时定义struct类型和创建别名
+  \item 非常常见和标准的写法
+\end{itemize}
+
+\textbf{B) NODE是一个结构体类型 — 错误}
+\begin{itemize}[leftmargin=*, nosep]
+  \item NODE只是\textbf{结构体标签}
+  \item 完整类型是\texttt{struct NODE}
+  \item 单独使用NODE是非法的
+\end{itemize}
+
+\textbf{C) OLD是一个结构体类型 — 正确}
+\begin{itemize}[leftmargin=*, nosep]
+  \item OLD是typedef创建的\textbf{类型别名}
+  \item 类型是\texttt{struct NODE}
+  \item 可以像struct NODE一样直接使用OLD
+\end{itemize}
+
+\textbf{D) OLD是一个结构体变量 — 错误}
+\begin{itemize}[leftmargin=*, nosep]
+  \item typedef定义的是\textbf{类型},不是变量
+  \item 如果需要变量: \texttt{OLD node;} 这是变量定义
+  \item 题目中的OLD本身是类型名
+\end{itemize}
+
+% ======== 对比: 结构体变量 ========
+\textbf{【结构体变量定义对比】}
+\begin{lstlisting}[language=C]
+// 1. 定义类型(题目中已做的)
+typedef struct NODE{ int num; struct NODE*next; } OLD;
+
+// 2. 声明变量(使用该类型)
+OLD myNode;         // 使用别名
+struct NODE myNode2; // 使用标签
+
+// 3. typedef只定义类型,不分配内存
+OLD;                // 错误!不能单独写类型名
+OLD myNode3;        // 正确!定义变量才分配内存
+    \end{lstlisting}
+
+% ======== 阶段三:应背诵知识点 ========
+\textbf{【应背诵知识点】}
+
+\begin{enumerate}[leftmargin=*, nosep]
+  \item \textbf{typedef的作用}:
+    \begin{itemize}
+      \item 定义类型别名
+      \item 增强代码可读性
+      \item 简化类型声明
+    \end{itemize}
+
+  \item \textbf{结构体标签与类型别名}:
+    \begin{tabular}{|c|c|}
+      \hline
+      \textbf{标签名} & \textbf{类型别名} \\
+      \hline
+      \texttt{struct NODE} & \texttt{NODE(需要typedef)} \\
+      \hline
+      使用较繁琐 & 使用简洁 \\
+      \hline
+    \end{tabular}
+
+  \item \textbf{typedef与变量}:
+    \begin{itemize}
+      \item typedef定义的是类型
+      \item 类型不分配内存
+      \item 使用类型定义变量才分配内存
+    \end{itemize}
+\end{enumerate}
+
+% ======== 阶段四:实战策略 ========
+\textbf{【实战策略】}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{分析typedef语句}:
+    \begin{enumerate}
+      \item 找出struct定义
+      \item 找出typedef创建的别名
+      \item 区分标签和别名
+    \end{enumerate}
+
+  \item \textbf{速记}:
+    \begin{itemize}
+      \item typedef的别名=类型
+      \item struct的标签=标签
+      \item 标签前必须加struct
+    \end{itemize}
+\end{itemize}
+\end{bluebox}
+
+\vspace{1cm}
+
+% ======== 题目7: sizeof结构体 ========
+\section*{题目7: 结构体内存大小}
+
+\textbf{原题目:}
+若有结构体类型定义 \texttt{struct STU\{int a; float x; char c;\};},\texttt{sizeof(struct STU)} 的值是\_\_\_\_\_\_。
+\begin{enumerate}
+    \item[A)] 4
+    \item[B)] 8
+    \item[C)] 9
+    \item[D)] 12
+\end{itemize}
+
+\begin{bluebox}{答案与深度解析}
+\textbf{答案: D) 12}
+
+% ======== 阶段一:核心认知框架 ========
+\textbf{【核心认知框架】}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{题目本质}: 考查结构体内存布局和对齐规则
+  \item \textbf{关键区分点}: 实际大小各成员之和加上填充
+  \item \textbf{命题人意图}: 测试考生对内存对齐(Memory Alignment)的理解
+\end{itemize}
+
+% ======== 阶段二:内存对齐解析 ========
+\textbf{【内存对齐深度解析】}
+
+\textbf{① 结构体成员大小}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{成员} & \textbf{类型} & \textbf{大小(字节)} & \textbf{对齐值} \\
+\hline
+a & int & 4 & 4 \\
+\hline
+x & float & 4 & 4 \\
+\hline
+c & char & 1 & 1 \\
+\hline
+\end{tabular}
+
+\textbf{② 对齐规则}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{成员对齐}: 每个成员从其大小的倍数地址开始
+  \item \textbf{结构体对齐}: 结构体大小必须是其最大成员对齐值的倍数
+  \item \textbf{C标准}: C11标准\$6.2.8
+\end{itemize}
+
+\textbf{③ 内存布局}
+\begin{verbatim}
+成员    偏移    大小    对齐
+a       0      4       4
+x       4      4       4
+c       8      1       1
+
+内存布局:
+地址    内容
+0x00    a (4字节: 0-3)
+0x04    x (4字节: 4-7)
+0x08    c (1字节: 8)
+
+总大小计算:
+最大对齐值 = 4 (int和float)
+当前大小 = 9字节 (0-8)
+需要填充: 对齐到4的倍数
+        = 12字节 (填充3字节: 9-11)
+    \end{verbatim}
+
+\textbf{④ 详细内存映射}
+\begin{lstlisting}[language=C]
+// 内存实际布局(假设起始地址为0)
+
+// 成员a: int, 从偏移0开始,占4字节
+[0][1][2][3]  →  a的4个字节
+
+// 成员x: float, 从偏移4开始,占4字节
+[4][5][6][7]  →  x的4个字节
+
+// 成员c: char, 从偏移8开始,占1字节
+[8]           →  c的1个字节
+
+// 填充字节: 从偏移9到11,共3字节
+[9][10][11]   →  填充(padding)
+
+// 总大小: 12字节
+    \end{lstlisting}
+
+\textbf{⑤ 为什么需要对齐?}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{CPU访问效率}: 按边界访问更快
+  \item \textbf{硬件限制}: 某些CPU不支持非对齐访问
+  \item \textbf{交换数据}: 保证数据在内存中位置规范
+\end{itemize}
+
+% ======== 选项分析 ========
+\textbf{【选项分析】}
+
+\textbf{A) 4 — 错误}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 4字节只是一个int的大小
+  \item 明显太小了
+\end{itemize}
+
+\textbf{B) 8 — 错误}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 这是1+4+4=9的一种舍入
+  \item 但没有考虑对齐到4字节边界
+\end{itemize}
+
+\textbf{C) 9 — 错误}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 这是简单相加的结果 4+4+1=9
+  \item 没有考虑填充(padding)
+\end{itemize}
+
+\textbf{D) 12 — 正确}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 成员大小: 4+4+1 = 9
+  \item 对齐到4的倍数: 12
+  \item 填充: 3字节
+  \item 总大小: 12字节
+\end{itemize}
+
+% ======== 不同编译器的结果 ========
+\textbf{【不同平台可能的结果】}
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{x86/x64}: 通常12字节
+  \item \textbf{ARM}: 通常12字节
+  \item \textbf{某些嵌入式}: 可能是9字节(#pragma pack(1))
+  \item \textbf{标准编译}: 默认对齐,结果是12字节
+\end{itemize}
+
+\textbf{⑥ 汇编验证}
+\begin{lstlisting}[language=C]
+// x86汇编: sizeof(struct STU)
+// 编译时计算,结果为12
+
+// 稍后可以验证:
+struct STU s;
+printf("%zu", sizeof(s));  // 输出12
+    \end{lstlisting}
+
+% ======== 阶段三:应背诵知识点 ========
+\textbf{【应背诵知识点】}
+
+\begin{enumerate}[leftmargin=*, nosep]
+  \item \textbf{内存对齐规则}:
+    \begin{itemize}
+      \item 成员按其对齐值定位
+      \item 结构体大小按最大对齐值对齐
+    \end{itemize}
+
+  \item \textbf{常见类型大小}:
+    \begin{itemize}
+      \item char/unsigned char: 1字节
+      \item short/unsigned short: 2字节
+      \item int/unsigned int: 4字节
+      \item float: 4字节
+      \item double: 8字节
+    \end{itemize}
+
+  \item \textbf{计算步骤}:
+    \begin{enumerate}
+      \item 累加所有成员大小
+      \item 找出最大对齐值
+      \item 对齐到该值的倍数
+    \end{enumerate}
+\end{enumerate}
+
+% ======== 阶段四:实战策略 ========
+\textbf{【实战策略】}
+\begin{enumerate}
+  \item 列出每个成员的大小和对齐值
+  \item 从0开始排列成员
+  \item 计算填充和总大小
+  \item 对齐到最大对齐值的倍数
+\end{enumerate}
+
+\end{bluebox}
+
+\vspace{1cm}
+
+% ======== 题目8: 共用体内存大小 ========
+\section*{题目8: 共用体内存大小}
+
+\textbf{原题目:}
+若int型变量占内存2个字节,double型变量占内存8个字节,有如下定义:
+\newline
+\texttt{union data \{ int i; double d; \} a;}
+\newline
+则变量a在内存中所占字节数为\_\_\_\_\_\_。
+\begin{enumerate}
+    \item[A)] 2
+    \item[B)] 8
+    \item[C)] 10
+    \item[D)] 16
+\end{enumerate}
+
+\begin{bluebox}{答案与深度解析}
+\textbf{答案: B) 8}
+
+% ======== 阶段一:核心认知框架 ========
+\textbf{【核心认知框架】}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{题目本质}: 考查共用体(union)的内存特性
+  \item \textbf{关键区分点}: 共用体所有成员共享同一块内存
+  \item \textbf{命题人意图}: 测试考生对struct与union区别的理解
+\end{itemize}
+
+% ======== 阶段二:共用体解析 ========
+\textbf{【共用体深度解析】}
+
+\textbf{① union的定义和特性}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{union}: 所有成员共享同一段内存
+  \item \textbf{大小}: 最大成员的大小
+  \item \textbf{互斥}: 同一时间只能使用一个成员
+\end{itemize}
+
+\textbf{② 内存布局}
+\begin{verbatim}
+union data {
+    int i;     // 2字节
+    double d;  // 8字节
+};
+
+内存分配:
+共享8字节(最大成员的大小)
+[0][1][2][3][4][5][6][7]
+
+i占用: [0][1]     (2字节)
+d占用: [0][1][2][3][4][5][6][7] (8字节)
+    \end{verbatim}
+
+\textbf{③ 与struct对比}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{特性} & \textbf{struct} & \textbf{union} \\
+\hline
+\textbf{内存布局} & 各成员独立 & 所有成员共享 \\
+\hline
+\textbf{大小} & 所有成员之和+对齐填充 & 最大成员的大小 \\
+\hline
+\textbf{成员使用} & 同时可用 & 互斥 \\
+\hline
+\textbf{同一时间} & 全部有效 & 只有一个有效 \\
+\hline
+\end{tabular}
+
+\textbf{④ 计算过程}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 成员1: \texttt{int i} = 2字节
+  \item 成员2: \texttt{double d} = 8字节
+  \item 共用体大小: max(2, 8) = \textbf{8字节}
+\end{itemize}
+
+\textbf{⑤ 使用注意事项}
+\begin{lstlisting}[language=C]
+union data a;
+a.i = 100;     // 设置i
+a.d = 3.14;    // 设置d,覆盖了i
+
+// 此时:
+// a.d = 3.14  (有效)
+// a.i = ???    (已被覆盖,无意义)
+    \end{lstlisting}
+
+% ======== 选项分析 ========
+\textbf{【选项分析】}
+
+\textbf{A) 2 — 错误}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 这是int成员的大小
+  \item union不是最小的成员,是最大的成员
+\end{itemize}
+
+\textbf{B) 8 — 正确}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 最大成员是double(8字节)
+  \item union大小为8字节
+\end{itemize}
+
+\textbf{C) 10 — 错误}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 这是2+8的结果
+  \item 但union不需要相加,是共享
+  \item 这应该是struct的大小(忽略对齐)
+\end{itemize}
+
+\textbf{D) 16 — 错误}
+\begin{itemize}[leftmargin=*, nosep]
+  \item 这是2+8+6的对齐结果
+  \item union不存在对齐填充问题
+\end{itemize}
+
+% ======== 阶段三:应背诵知识点 ========
+\textbf{【应背诵知识点】}
+
+\begin{enumerate}[leftmargin=*, nosep]
+  \item \textbf{union特性}:
+    \begin{itemize}
+      \item 所有成员共享内存
+      \item 大小=最大成员大小
+      \item 成员互斥使用
+    \end{itemize}
+
+  \item \textbf{struct vs union}:
+    \begin{itemize}
+      \item struct: 独立,总大小
+      \item union: 共享,最大大小
+    \end{itemize}
+
+  \item \textbf{应用场景}:
+    \begin{itemize}
+      \item 节省内存
+      \item 类型转换
+      \item 抽象共用数据
+    \end{itemize}
+\end{enumerate}
+
+% ======== 阶段四:实战策略 ========
+\textbf{【快速计算法则】}
+\begin{itemize}[leftmargin=*, nosep]
+  \item union大小 = max(各成员大小)
+  \item 直接找最大的成员
+  \item 不用考虑对齐
+\end{itemize}
+\end{bluebox}
+
+\end{document}

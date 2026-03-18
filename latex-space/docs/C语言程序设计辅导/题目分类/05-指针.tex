@@ -1,0 +1,643 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{ctex}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\title{\textbf{第五章\ 指针}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{一、选择题}
+
+\begin{enumerate}
+	\item 若有定义：\texttt{int a[10], *p=a;},则 \texttt{*(p+5)} 表示\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] a[5]的地址
+		      \item[B)] a[5]的值
+		      \item[C)] a[6]的值
+		      \item[D)] a的地址
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下程序的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include <stdio.h>
+void main()
+{
+    int a[10]={1,2,3,4,5,6,7,8,9,10},*p=&a[3],b;
+    b=*(p+2);
+    printf("%d\n",b);
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] 6
+		      \item[B)] 7
+		      \item[C)] 8
+		      \item[D)] 9
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有以下定义和语句：\\
+	      \texttt{int a[10]=\{1,2,3,4,5,6,7,8,9,10\},*p=a;}\\
+	      则值为6的表达式是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] \texttt{*p+6}
+		      \item[B)] \texttt{*p++}
+		      \item[C)] \texttt{p+6}
+		      \item[D)] \texttt{p+=5,*(p+5)}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有以下定义和语句：\\
+	      \texttt{int c[4][5], (*p)[5];}\\
+	      \texttt{p=c;}\\
+	      能够正确引用数组元素 \texttt{c[1][2]} 的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] \texttt{*(*(p+1)+2)}
+		      \item[B)] \texttt{(*p)[2]}
+		      \item[C)] \texttt{p+1[2]}
+		      \item[D)] \texttt{*(p+5)}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 设有定义：\texttt{int n=0,*p=\&n, **q=\&p;}，则下列选项中正确的赋值语句是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] \texttt{p=1;}
+		      \item[B)] \texttt{*q=2;}
+		      \item[C)] \texttt{q=p;}
+		      \item[D)] \texttt{*p=5;}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有说明 \texttt{int* p, a[10], j=3;}，下列指针变量赋值错误的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] \texttt{p=\&j;}
+		      \item[B)] \texttt{p=\&a[j];}
+		      \item[C)] \texttt{p=a;}
+		      \item[D)] \texttt{p=0x1000;}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 已有定义:\texttt{int a[5], *p;}，当执行了 \texttt{p=\&a[3];} 语句时，是将指针变量p指向了a数组的第\_\_\_\_\_\_个元素的地址。
+	      \begin{enumerate}
+		      \item[A)] 2
+		      \item[B)] 3
+		      \item[C)] 4
+		      \item[D)] 5
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 设有说明 \texttt{int (*ptr)[10]} 其中的标识符ptr是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 10个指向整型变量的指针
+		      \item[B)] 指向10个整型变量的函数指针
+		      \item[C)] 一个指向具有10个整型元素的一维数组的指针
+		      \item[D)] 具有10个指针元素的一维指针数组，每个元素都只能指向整型量
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个指针变量占用的内存大小为\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 1个字节
+		      \item[B)] 2个字节
+		      \item[C)] 4个字节或8个字节（取决于操作系统）
+		      \item[D)] 与所指向的变量相同
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有定义 \texttt{char* s="\\\\Name\\\\Address\\n"}，则指针s所指字符串长度为\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 19
+		      \item[B)] 15
+		      \item[C)] 18
+		      \item[D)] 说明不合法
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有以下说明和语句：\\
+	      \texttt{int c[4][5], (*p)[5];}\\
+	      \texttt{p=c;}\\
+	      则以下叙述中正确的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] p是指向整型变量的指针
+		      \item[B)] p是指向整型变量的数组指针
+		      \item[C)] p是指向函数的指针
+		      \item[D)] p是数组名
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下程序的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include <stdio.h>
+void fun(char *c, int d)
+{
+    *c=*c+1; d=d+1;
+    printf("%c, %c, ", *c, d);
+}
+void main()
+{
+    char a='A', b='a';
+    fun(&b, a);
+    printf("%c, %c\n", a, b);
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] B, b, A, a
+		      \item[B)] a, B, B, b
+		      \item[C)] A, b, B, a
+		      \item[D)] b, B, a, B
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 指针变量可以\_\_\_\_\_\_一个整数。
+	      \begin{enumerate}
+		      \item[A)] 加
+		      \item[B)] 减
+		      \item[C)] 加减
+		      \item[D)] 乘除
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下叙述正确的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 数组名代表数组所占存储区的首地址，其值不可以改变
+		      \item[B)] 数组名代表数组所占存储区的首地址，其值可以改变
+		      \item[C)] 数组名不代表数组所占存储区的首地址
+		      \item[D)] 数组名是常量指针
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有定义：\texttt{int a[5], *p=a;},则p++后，p指向\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] a[0]
+		      \item[B)] a[1]
+		      \item[C)] a[2]
+		      \item[D)] a[3]
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 数组a[10]的第i个元素的指针是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] a+i
+		      \item[B)] \&a[i]
+		      \item[C)] a[i]
+		      \item[D)] A和B都是
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下面程序通过指向整型变量的指针将数组m[4][3]的内容按4行3列的格式输出，空白处应填\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include <stdio.h>
+int main() {
+    int m[4][3]={{1,2,3},{4,5,6},{7,8,9},{10,11,12}};
+    int i,j,*p=m;
+    for(i=0;i<4;i++){
+        for(j=0;j<3;j++) printf("%4d",____________);
+        printf("\n");
+    }
+    return 0;
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] *p++
+		      \item[B)] p[i][j]
+		      \item[C)] *(p+i*3+j)
+		      \item[D)] *(*(p+i)+j)
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有说明 \texttt{int* p, a[10], j=3;}，下列指针变量赋值正确的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] p=a;
+		      \item[B)] p=\&a;
+		      \item[C)] p=1000;
+		      \item[D)] p=NULL;
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下面程序能够完成交换数组a和数组b中的对应元素的功能，空白处应填\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include<stdio.h>
+swap(int*p1,int *p2){
+    int temp;
+    ___________;
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] temp = p1; p1 = p2; p2 = temp;
+		      \item[B)] temp = *p1; *p1 = *p2; *p2 = temp;
+		      \item[C)] *p1 = *p2;
+		      \item[D)] p1 = p2;
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，要求运算数必须是整型的运算符是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] \%
+		      \item[B)] /
+		      \item[C)] <
+		      \item[D)] !
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int main(){
+    int a,b,*p1,*p2;
+    p1=&a; p2=&b;
+    *p1=100; *p2=200;
+    int c=*p1+*p2;
+    printf("%d\n",c);
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 300
+		      \item[B)] 100+200
+		      \item[C)] 100
+		      \item[D)] 200
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 把指针str所指的字符串按相反的顺序赋给rev[]，空白处应填\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include<stdio.h>
+int main(){
+    char *str="abcdefg";
+    char rev[10];
+    int i;
+    for(i=0;i<7;i++) ______________;
+    rev[i]='\0';
+    printf("%s\n",rev);
+    return 0;
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] rev[i]=str[i]
+		      \item[B)] rev[i]=str[6-i]
+		      \item[C)] rev[6-i]=str[i]
+		      \item[D)] rev[i]=*str+i
+	      \end{enumerate}
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{二、填空题}
+
+\begin{enumerate}
+	\item 若有定义：\texttt{int a[10], *p=a;},则 \texttt{*(p+5)} 表示\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个指针变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 数组a[10]的第i个元素的指针是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 设有定义：\texttt{int n=0, *p=\&n, **q=\&p;},则 \texttt{*q} 表示\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 设有定义：\texttt{int n=0, *p=\&n, **q=\&p;},则 \texttt{**q} 表示\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 若有说明 \texttt{int* p, a[10], j=3;},则 \texttt{p=\&a[j];} 表示\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    int *p = &a;
+    printf("%d\n", *p);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a[5] = {1, 2, 3, 4, 5};
+    int *p = a;
+    printf("%d\n", *(p + 2));
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 若指针p指向数组a的首元素，则 \texttt{p+i} 和 \texttt{a+i} 等价，都表示\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 两个指针变量可以相减，其结果表示\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 两个指针变量\_\_\_\_\_\_相加。（填"可以"或"不可以"）
+	      \vspace{0.3cm}
+
+	\item 指针变量\_\_\_\_\_\_与整数进行乘除运算。（填"可以"或"不可以"）
+	      \vspace{0.3cm}
+
+	\item 下面程序的功能是\_\_\_\_\_\_。
+	      \begin{verbatim}
+void ss(char *s1, char *s2) {
+    while (*s1 != '\0') s1++;
+    while (*s2 != '\0') {
+        *s1 = *s2;
+        s1++; s2++;
+    }
+    *s1 = '\0';
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 下面程序的功能是\_\_\_\_\_\_。
+	      \begin{verbatim}
+void reverse(char *s) {
+    char *p = s;
+    while (*p) p++;
+    p--;
+    while (s < p) {
+        char c = *s;
+        *s = *p;
+        *p = c;
+        s++; p--;
+    }
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 下面程序的功能是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int strLen(char *s) {
+    int len = 0;
+    while (*s != '\0') {
+        len++;
+        s++;
+    }
+    return len;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 下面程序的功能是\_\_\_\_\_\_。
+	      \begin{verbatim}
+void strCopy(char *dest, char *src) {
+    while (*src != '\0') {
+        *dest = *src;
+        dest++; src++;
+    }
+    *dest = '\0';
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{三、阅读程序题}
+
+\begin{enumerate}
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+void fun(char *c, int d)
+{
+    *c=*c+1; d=d+1;
+    printf("%c, %c, ", *c, d);
+}
+int main()
+{
+    char a='A', b='a';
+    fun(&b, a);
+    printf("%c, %c\n", a, b);
+    return 0;
+}
+    \end{verbatim}
+	      程序运行后的输出结果是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int fun(int a, int b, int *cn, int *dn) {
+    *cn = a * b + b * b;
+    *dn = a * a - b * b;
+    a = 5; b = 6;
+}
+int main() {
+    int a = 2, b = 3, c = 5, d = 6;
+    fun(a, b, &c, &d);
+    printf("a=%d,b=%d,c=%d\n", a, b, c, d);
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int fun(int x) {
+    static y = 2;
+    y++;
+    x += y;
+    return x;
+}
+int main() {
+    int k;
+    k = fun(3);
+    printf("%d,%d\n", k, fun(k));
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int main() {
+    int a[5] = {10, 20, 30, 40, 50};
+    int *p = a;
+    printf("%d\n", *p);
+    printf("%d\n", *(p + 1));
+    printf("%d\n", *p + 1);
+    printf("%d\n", *(p++));
+    printf("%d\n", *p);
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int main() {
+    char *s = "Hello";
+    printf("%c\n", *s);
+    printf("%c\n", *(s + 1));
+    printf("%s\n", s);
+    printf("%s\n", s + 2);
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int main() {
+    int a[3][3] = {{1,2,3},{4,5,6},{7,8,9}};
+    int *p = a[0];
+    int i;
+    for (i = 0; i < 9; i++) {
+        printf("%d ", *(p + i));
+    }
+    printf("\n");
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{四、程序填空题}
+
+\begin{enumerate}
+	\item 下面程序通过指向整型变量的指针将数组m[4][3]的内容按4行3列的格式输出，请填空使程序完整。
+	      \begin{verbatim}
+#include <stdio.h>
+int main() {
+    int m[4][3] = {{1,2,3},{4,5,6},{7,8,9},{10,11,12}};
+    int i, j, *p = ________;
+    for(i = 0; i < 4; i++) {
+        for(j = 0; j < 3; j++) 
+            printf("%4d", ________);
+        printf("\n");
+    }
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 下面程序能够完成交换数组a和数组b中的对应元素的功能，请填空。
+	      \begin{verbatim}
+#include <stdio.h>
+void swap(int *p1, int *p2) {
+    int temp;
+    ________;
+}
+int main() {
+    int a[5] = {1, 3, 5, 7, 9};
+    int b[5] = {2, 4, 6, 8, 10};
+    int i;
+    for(i = 0; i < 5; i++) 
+        swap(&a[i], &b[i]);
+    for(i = 0; i < 5; i++) 
+        printf("a[%d]=%-4d", i, a[i]);
+    printf("\n");
+    for(i = 0; i < 5; i++) 
+        printf("b[%d]=%-4d", i, b[i]);
+    printf("\n");
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 把指针str所指的字符串按相反的顺序赋给rev[]，请填空。
+	      \begin{verbatim}
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char *str = "abcdefg";
+    char rev[10];
+    int i;
+    for(i = 0; i < 7; i++) 
+        ________;
+    rev[i] = '\0';
+    printf("%s\n", rev);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 某大学举行的演讲比赛中，有十个评委为参赛的选手打分，分数为0～100分。选手最后得分为：去掉一个最高分和一个最低分后其余八个分数的平均值。请填空。
+	      \begin{verbatim}
+#include <stdio.h>
+int main() {
+    int max, min, score, i;
+    int sum = 0;
+    max = 0; min = 100;
+    for(i = 0; i < 10; i++) {
+        printf("Input number %d=", i + 1);
+        scanf("%d", &score);
+        sum += score;
+        if(max < score) max = score;
+        if(min > score) min = score;
+    }
+    printf("Canceled max score:%d\n", max);
+    printf("Canceled min score:%d\n", min);
+    printf("average score:%lf\n", ________________);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 统计字符串中英文字母个数的程序，请填空。
+	      \begin{verbatim}
+#include <stdio.h>
+int count(char str[]) {
+    int num = 0;
+    for(int i = 0; str[i]; i++)
+        if (str[i] >= 'a' && str[i] <= 'z' || ____________)
+            ____________;
+    ____________;
+}
+int main() {
+    char s1[80];
+    printf("Enter a line:");
+    scanf("%s", s1);
+    printf("count=%d\n", count(s1));
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{五、编程题}
+
+\begin{enumerate}
+	\item 编写一个函数，实现字符串逆序。
+	      \vspace{2cm}
+
+	\item 编写一个函数，实现字符串复制。
+	      \vspace{2cm}
+
+	\item 编写一个函数，实现字符串连接。
+	      \vspace{2cm}
+
+	\item 编写一个函数，实现字符串比较。
+	      \vspace{2cm}
+
+	\item 编写一个函数，计算字符串长度。
+	      \vspace{2cm}
+
+	\item 编写一个函数，实现数组元素交换。
+	      \vspace{2cm}
+
+	\item 编写一个函数，使用指针实现查找数组中的最大元素。
+	      \vspace{2cm}
+
+	\item 编写一个函数，使用指针实现数组元素排序。
+	      \vspace{2cm}
+\end{enumerate}
+
+\end{document}

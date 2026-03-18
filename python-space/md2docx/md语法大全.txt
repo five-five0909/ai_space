@@ -1,0 +1,580 @@
+# Markdown 全面语法参考文档
+
+## 1. 标题
+
+```markdown
+# 一级标题 (h1)
+## 二级标题 (h2)
+### 三级标题 (h3)
+#### 四级标题 (h4)
+##### 五级标题 (h5)
+###### 六级标题 (h6)
+
+可选语法（仅一级和二级）：
+一级标题
+========
+
+二级标题
+--------
+```
+
+## 2. 段落与换行
+
+```markdown
+这是第一段落。段落之间用一个或多个空行分隔。
+
+这是第二段落。  
+行末两个空格加回车表示换行（软换行）。
+
+直接回车
+不会换行（除非有行尾空格）。
+
+这是新段落。
+```
+
+## 3. 文本样式
+
+```markdown
+**粗体文本** 或 __粗体文本__
+
+*斜体文本* 或 _斜体文本_
+
+***粗斜体文本*** 或 ___粗斜体文本___
+
+~~删除线文本~~
+
+==高亮文本==（部分编辑器支持）
+
+`行内代码`
+
+<u>下划线文本</u>（部分编辑器支持）
+
+上标: X^2^ 或 X<sup>2</sup>
+下标: H~2~O 或 H<sub>2</sub>O
+```
+
+## 4. 列表
+
+### 无序列表
+```markdown
+- 项目一
+  - 嵌套项目一
+  - 嵌套项目二
+    * 三级嵌套（可使用*、+、-）
+- 项目二
++ 使用加号
+* 使用星号
+```
+
+### 有序列表
+```markdown
+1. 第一项
+2. 第二项
+   1. 嵌套第一项
+   2. 嵌套第二项
+3. 第三项
+
+或使用相同数字：
+1. 第一项
+1. 第二项
+1. 第三项
+```
+
+### 任务列表
+```markdown
+- [ ] 未完成任务
+- [x] 已完成任务
+- [-] 取消的任务（部分编辑器）
+- [>] 延期任务（部分编辑器）
+```
+
+### 定义列表
+```markdown
+术语一
+: 定义一
+: 第二个定义
+
+术语二
+: 定义二
+```
+
+## 5. 引用
+
+```markdown
+> 引用文本
+> 多行引用
+>
+> > 嵌套引用
+> 
+> 引用中的**粗体**和`代码`
+>
+> 引用段落结束
+```
+
+## 6. 代码块
+
+### 普通代码块
+````markdown
+```
+这是普通代码块
+不需要指定语言
+```
+````
+
+### 语法高亮代码块
+````markdown
+```javascript
+function hello() {
+  console.log("Hello, World!");
+  // 行内注释
+}
+```
+
+```python
+def hello():
+    print("Hello, World!")
+    # Python注释
+```
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Hello, World!" << endl;
+    return 0;
+}
+```
+````
+
+### 行内代码
+```markdown
+使用 `console.log()` 函数进行输出。
+```
+
+## 7. 表格
+
+```markdown
+| 左对齐 | 居中对齐 | 右对齐 |
+| :----- | :------: | -----: |
+| 单元格1 | 单元格2 | 单元格3 |
+| 第二行 | **粗体** | `代码` |
+| 第三行 | [链接](#) | ![图片](https://...) |
+
+或简化写法（部分编辑器）：
+左对齐 | 居中对齐 | 右对齐
+:--- | :---: | ---:
+内容 | 内容 | 内容
+```
+
+## 8. 链接
+
+```markdown
+[内联链接](https://example.com "可选标题")
+
+[引用式链接][id]
+[id]: https://example.com "可选标题"
+
+自动链接：<https://example.com>
+
+邮箱链接：<email@example.com>
+
+[锚点链接](#8-链接)
+
+[相对路径链接](../folder/file.md)
+```
+
+## 9. 图片
+
+```markdown
+![替代文本](https://example.com/image.jpg "可选标题")
+
+![引用式图片][logo]
+[logo]: https://example.com/logo.png "Logo"
+
+带链接的图片：
+[![图片替代文本](image.jpg)](https://example.com)
+
+指定尺寸（部分编辑器）：
+![图片](image.jpg =200x150)
+![图片](image.jpg =50%x)
+```
+
+## 10. 数学公式
+
+### 行内公式
+```markdown
+行内公式：$E = mc^2$ 或 \(E = mc^2\)
+```
+
+### 公式块
+```latex
+$$
+\begin{aligned}
+f(x) &= \int_{-\infty}^{\infty} \hat{f}(\xi) e^{2 \pi i \xi x} d\xi \\
+\frac{\partial u}{\partial t} &= \alpha \nabla^2 u
+\end{aligned}
+$$
+
+$$
+\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt
+$$
+```
+
+### 常用数学符号示例
+```latex
+$$
+\begin{matrix}
+a & b \\
+c & d
+\end{matrix}
+
+\quad
+
+\begin{pmatrix}
+a & b \\
+c & d
+\end{pmatrix}
+
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+
+\lim_{x \to \infty} \frac{1}{x} = 0
+
+\sqrt[3]{x^3 + y^3}
+$$
+```
+
+## 11. 脚注
+
+```markdown
+这是一个带脚注的句子[^1]。这是另一个脚注[^2]。
+
+[^1]: 这是第一个脚注。
+[^2]: 这是第二个脚注，可以包含**格式**和`代码`。
+    多行脚注内容。
+```
+
+## 12. 分割线
+
+```markdown
+---
+***
+___
+```
+
+## 13. 转义字符
+
+```markdown
+\# 不是标题
+\* 不是列表
+\[不是链接\]\(不是URL\)
+\\ 反斜杠
+\` 反引号
+\* 星号
+\_ 下划线
+\{ \} 大括号
+\[ \] 方括号
+\( \) 圆括号
+\# 井号
+\+ 加号
+\- 减号
+\. 点
+\! 感叹号
+```
+
+## 14. 注释（部分编辑器支持）
+
+```markdown
+<!-- 这是HTML注释，在部分编辑器中可见 -->
+
+[//]: # (这是另一种注释方式)
+
+%% 这是Obsidian注释 %%
+```
+
+## 15. 目录（TOC）
+
+```markdown
+[TOC]
+
+<!-- 或 -->
+[[_TOC_]]
+
+<!-- 或使用Obsidian样式 -->
+```toc
+min_depth: 1
+max_depth: 6
+```
+```
+
+## 16. 元数据（Front Matter）
+
+```yaml
+---
+title: 文档标题
+author: 作者名
+date: 2023-01-01
+tags:
+  - 标签1
+  - 标签2
+categories:
+  - 分类1
+aliases:
+  - 别名
+---
+```
+
+## 17. 嵌入内容
+
+### 嵌入文件（Obsidian风格）
+```markdown
+![[文档名.md]]
+
+![[图片.jpg]]
+
+![[音频.mp3]]
+
+![[视频.mp4]]
+```
+
+### 嵌入指定部分
+```markdown
+![[文档名.md#章节标题]]
+```
+
+### 嵌入代码片段
+````markdown
+```embed
+path: "文件路径"
+title: "可选标题"
+```
+````
+
+## 18. 特殊元素
+
+### 进度条
+```markdown
+[==50%]（部分编辑器）
+```
+
+### 表情符号
+```markdown
+:smile: :heart: :+1:
+```
+
+### 复选框
+```markdown
+- [ ] 任务1
+- [ ] 任务2
+- [x] 已完成
+```
+
+### 时间戳（部分编辑器）
+```markdown
+@2023-01-01
+@2023-01-01T12:00:00
+```
+
+### 标注（Obsidian Callouts）
+```markdown
+> [!note]
+> 这是一个标注
+
+> [!warning]
+> 警告内容
+
+> [!tip]
+> 提示内容
+
+> [!important]
+> 重要内容
+```
+
+## 19. 图表（Mermaid）
+
+### 流程图
+````markdown
+```mermaid
+graph TD
+    A[开始] --> B{判断}
+    B -->|是| C[执行]
+    B -->|否| D[结束]
+    C --> D
+```
+````
+
+### 序列图
+````markdown
+```mermaid
+sequenceDiagram
+    participant A as 用户
+    participant B as 服务器
+    A->>B: 请求数据
+    B-->>A: 返回数据
+```
+````
+
+### 饼图
+````markdown
+```mermaid
+pie title 数据分布
+    "类别1" : 42.96
+    "类别2" : 27.78
+    "类别3" : 29.26
+```
+````
+
+### 甘特图
+````markdown
+```mermaid
+gantt
+    title 项目计划
+    dateFormat YYYY-MM-DD
+    section 阶段1
+    任务1 :a1, 2023-01-01, 30d
+    任务2 :after a1, 20d
+    section 阶段2
+    任务3 :2023-02-20, 12d
+    任务4 : 24d
+```
+````
+
+## 20. 链接类型
+
+### Wiki链接（Obsidian风格）
+```markdown
+[[内部文档]]
+[[内部文档|显示文本]]
+[[内部文档#章节]]
+[[内部文档#章节|显示文本]]
+```
+
+### 块引用
+```markdown
+![[文档名#^block-id]]
+```
+
+## 21. 特殊格式
+
+### 键盘按键
+```markdown
+<kbd>Ctrl</kbd> + <kbd>C</kbd>
+```
+
+### 摘要/详情
+```markdown
+<details>
+<summary>点击展开详情</summary>
+
+这里是被隐藏的内容。
+
+- 列表项
+- 另一项
+
+</details>
+```
+
+## 22. 综合示例
+
+```markdown
+# 综合示例文档
+
+## 1. 任务列表
+
+- [x] 完成Markdown语法收集
+- [ ] 编写示例文档
+- [ ] 测试兼容性
+
+## 2. 代码示例
+
+```python
+class Example:
+    def __init__(self):
+        self.data = []
+    
+    def add(self, item):
+        """添加项目"""
+        self.data.append(item)
+```
+
+## 3. 数学公式
+
+勾股定理：$a^2 + b^2 = c^2$
+
+矩阵乘法：
+$$
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+b_{11} & b_{12} \\
+b_{21} & b_{22}
+\end{bmatrix}
+=
+\begin{bmatrix}
+c_{11} & c_{12} \\
+c_{21} & c_{22}
+\end{bmatrix}
+$$
+
+## 4. 表格数据
+
+| 姓名 | 年龄 | 城市 | 成绩 |
+|------|------|------|------|
+| 张三 | 25 | 北京 | 89.5 |
+| 李四 | 30 | 上海 | 92.0 |
+| 王五 | 28 | 广州 | 85.5 |
+
+---
+
+> **注意**：本文档包含了Typora和Obsidian兼容的Markdown语法。
+> 不同编辑器可能对某些语法的支持有所不同。
+```
+
+## 23. 兼容性说明
+
+1. **Typora**：
+   - 支持CommonMark + GFM
+   - 支持数学公式（MathJax/KaTeX）
+   - 支持Mermaid图表
+   - 支持YAML Front Matter
+
+2. **Obsidian**：
+   - 支持CommonMark + 扩展语法
+   - 支持Wiki链接
+   - 支持Callouts
+   - 支持Mermaid图表
+   - 支持Dataview插件语法
+
+3. **通用建议**：
+   - 使用标准CommonMark语法保证最大兼容性
+   - 扩展语法使用时注明
+   - 测试目标编辑器的具体支持情况
+
+## 24. 附录：特殊字符参考
+
+```
+常用符号：
+• 项目符号点
+→ 箭头
+✓ 勾选
+✗ 取消
+© 版权
+® 注册商标
+™ 商标
+℃ 摄氏度
+° 度
+± 加减
+× 乘号
+÷ 除号
+≠ 不等于
+≤ 小于等于
+≥ 大于等于
+```
+
+---
+
+*本文档最后更新：2024年1月12日*  
+*适用于Typora 1.x+ 和 Obsidian 1.x+*

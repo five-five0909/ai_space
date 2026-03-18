@@ -1,0 +1,991 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbset{autoparskip}
+
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={面向对象（下）-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{面向对象（下） - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月05日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{面向对象（下）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{在Java中，以下哪个关键字用于实现继承？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item extends
+		      \item implements
+		      \item interface
+		      \item abstract
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. extends}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查类继承与接口实现的关键字区分
+			      \item \textbf{关键区分点}：extends继承类，implements实现接口
+			      \item \textbf{命题人意图}：测试面向对象核心语法——继承的实现方式
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{extends — 正确（类继承关键字）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{语法规则}：class 子类 extends 父类（JLS §8.1.4）
+				            \item \textbf{继承特性}：单继承（一个类只能继承一个父类）
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+class Animal {}
+class Dog extends Animal {}
+
+// 字节码（javap -v）
+// class Dog extends Animal
+// Super class: #2; //class Animal
+				      \end{lstlisting}
+				            \item \textbf{内存模型}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Class对象：Dog继承Animal的类信息
+					                  \item 方法表：包含继承的方法
+					                  \item 实例布局：包含父类+子类字段
+				                  \end{itemize}
+				            \item \textbf{完整代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// 父类
+class Animal {
+    String name;
+
+    public void eat() {
+        System.out.println("动物吃东西");
+    }
+}
+
+// 使用extends继承父类
+class Dog extends Animal {
+    String breed;  // 子类特有字段
+
+    @Override
+    public void eat() {
+        System.out.println("狗吃骨头");  // 重写父类方法
+    }
+
+    public void bark() {
+        System.out.println("汪汪叫");  // 子类特有方法
+    }
+}
+
+public class ExtendsDemo {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.name = "旺财";         // 继承的属性
+        dog.breed = "金毛";        // 子类属性
+        dog.eat();                 // 继承的方法（被重写）
+        dog.bark();                // 子类方法
+    }
+}
+				            \end{lstlisting}
+				            \item \textbf{继承层次}：
+				                  \begin{lstlisting}[language=Java]
+// 继承链：Object -> Animal -> Dog
+class Dog extends Animal {}       // 直接继承
+class Puppy extends Dog {}        // 间接继承Animal
+// 多层继承支持
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{implements — 错误（接口实现关键字）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{语法规则}：class 类名 implements 接口1, 接口2（JLS §8.1.5）
+				            \item \textbf{特性}：多实现（一个类可实现多个接口）
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+interface Flyable { void fly(); }
+class Bird implements Flyable {
+    public void fly() { System.out.println("飞翔"); }
+}
+
+// 字节码
+// interfaces: 2, fields: 0, methods: 1
+// 接口表包含Flyable
+				      \end{lstlisting}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+interface Swimable { void swim(); }
+interface Flyable { void fly(); }
+
+class Duck implements Swimable, Flyable {
+    @Override
+    public void swim() {
+        System.out.println("鸭子游泳");
+    }
+
+    @Override
+    public void fly() {
+        System.out.println("鸭子飞翔");
+    }
+}
+// 一个类可实现多个接口
+				      \end{lstlisting}
+				            \item \textbf{命题陷阱}：考生容易混淆类继承和接口实现
+			            \end{itemize}
+
+			      \item[C] \textbf{interface — 错误（接口定义关键字）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{语法规则}：interface 接口名（JLS §9.1）
+				            \item \textbf{作用}：定义接口规范，不是实现继承
+				            \item \textbf{字节码特征}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+interface Runnable { void run(); }
+
+// 字节码
+// flags: (0x0600) ACC_INTERFACE, ACC_ABSTRACT
+// interface标记为接口类型
+				      \end{lstlisting}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// 定义接口（不是继承）
+interface Cloneable {
+    void clone();
+}
+
+// 实现接口（不是继承）
+class MyClass implements Cloneable {
+    public void clone() {}
+}
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{abstract — 错误（抽象修饰符）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{语法规则}：abstract class / abstract method
+				            \item \textbf{作用}：修饰符，不是实现语法
+				            \item \textbf{字节码标记}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+abstract class Shape {
+    abstract void draw();
+}
+
+// 字节码
+// flags: (0x0400) ACC_ABSTRACT
+// ACC_ABSTRACT标记抽象类和方法
+				      \end{lstlisting}
+				            \item \textbf{完整示例}：
+				                  \begin{lstlisting}[language=Java]
+// abstract修饰抽象类
+abstract class Animal {
+    String name;
+    Animal(String name) {
+        this.name = name;
+    }
+
+    // abstract修饰抽象方法
+    abstract void makeSound();
+}
+
+// 子类继承抽象类，实现抽象方法
+class Cat extends Animal {
+    Cat(String name) {
+        super(name);
+    }
+
+    @Override
+    void makeSound() {
+        System.out.println(name + " 喵喵叫");
+    }
+}
+// abstract是修饰符，extends是实现继承的关键字
+				      \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{itemize}[label={}, nosep]
+			      \item 类继承：class 子类 extends 父类（单继承）
+			      \item 接口实现：class 类 implements 接口（多实现）
+			      \item 选项辨析：
+			            \begin{itemize}[label={}, nosep]
+				            \item extends→继承类
+				            \item implements→实现接口
+				            \item interface→定义接口
+				            \item abstract→抽象修饰符
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀三步法}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item 看到"继承类"→extends
+			      \item 看到"实现接口"→implements
+			      \item 看到"实现继承"→找extends
+		      \end{enumerate}
+
+		      \textbf{记忆口诀}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 类继承用extends，单根继承是规则
+			      \item 接口实现implements，多实现也允许
+		      \end{itemize}
+
+		      \textbf{高频陷阱}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item 混淆extends和implements
+			      \item 误认为interface是继承关键字
+			      \item 误认为abstract可替代extends
+		      \end{enumerate}
+
+		      \textbf{5秒决策技巧}：看到"实现继承"→extends
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于抽象类的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 抽象类可以有抽象方法
+		      \item 抽象类不能被实例化
+		      \item 抽象类的子类必须实现所有抽象方法
+		      \item 抽象类中可以有非抽象方法
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 抽象类的子类必须实现所有抽象方法}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查抽象类与子类的实现规则
+			      \item \textbf{关键区分点}：抽象子类可延迟实现，具体子类必须实现
+			      \item \textbf{命题人意图}：测试抽象类的灵活使用规则
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{抽象类可以有抽象方法 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JVM规范}：抽象类可包含抽象方法（JLS §8.1.1.1）
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+abstract class Shape {
+    abstract void draw();  // 抽象方法
+}
+
+// 字节码
+// flags: (0x0400) ACC_ABSTRACT
+// abstract void draw();  // ACC_ABSTRACT修饰方法
+				            \end{lstlisting}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+abstract class Animal {
+    String name;
+
+    // 抽象方法（无方法体）
+    abstract void makeSound();
+
+    // 非抽象方法
+    void sleep() {
+        System.out.println(name + " 睡觉");
+    }
+}
+// 抽象类可以有0个或多个抽象方法
+// 必须包含至少一个抽象方法才值得使用abstract关键字
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{抽象类不能被实例化 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JVM机制}：new指令不能实例化抽象类（JLS §15.9.1）
+				            \item \textbf{编译器检查}：
+				                  \begin{lstlisting}[language=Java]
+abstract class Shape {
+    abstract void draw();
+}
+
+// 编译错误！
+Shape shape = new Shape();
+// error: Shape is abstract; cannot be instantiated
+				      \end{lstlisting}
+				            \item \textbf{字节码验证}：
+				                  \begin{lstlisting}[language=Java]
+// 尝试实例化抽象类时编译失败
+// javac编译时：
+// - 检查ACC_ABSTRACT标志
+// - 如果flag=ACC_ABSTRACT则拒绝new操作
+// 输出编译错误信息
+				            \end{lstlisting}
+				            \item \textbf{正确用法}：
+				                  \begin{lstlisting}[language=Java]
+// 正确：通过子类实例化
+abstract class Shape {
+    abstract void draw();
+}
+
+class Circle extends Shape {
+    @Override
+    void draw() {
+        System.out.println("画圆形");
+    }
+}
+
+Shape shape = new Circle();  // 实例化子类（向上转型）
+shape.draw();  // 输出：画圆形
+				      \end{lstlisting}
+				            \item \textbf{匿名内部类实例化}：
+				                  \begin{lstlisting}[language=Java]
+// 使用匿名内部类"实现"抽象类
+Shape shape = new Shape() {
+    @Override
+    void draw() {
+        System.out.println("画图形");
+    }
+};
+shape.draw();  // 输出：画图形
+// 本质：创建子类并实例化
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{抽象类的子类必须实现所有抽象方法 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误原因}：子类若也是抽象类，可不实现
+				            \item \textbf{正确规则}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 具体子类：必须实现所有抽象方法
+					                  \item 抽象子类：可不实现（可延迟到更底层）
+				                  \end{itemize}
+				            \item \textbf{代码证据}：
+				                  \begin{lstlisting}[language=Java]
+abstract class Animal {
+    abstract void makeSound();
+    abstract void move();
+}
+
+// 抽象子类：不实现所有抽象方法
+abstract class Dog extends Animal {
+    // 只实现一个抽象方法
+    @Override
+    void makeSound() {
+        System.out.println("汪汪叫");
+    }
+    // move()未实现，Dog必须声明为abstract
+
+    abstract void bark();  // 可以新增抽象方法
+}
+
+// 具体子类：必须实现所有抽象方法
+class Poodle extends Dog {
+    // 必须实现Dog的抽象方法bark()
+    // 必须实现Animal遗留的抽象方法move()
+    @Override
+    void bark() {
+        System.out.println("贵宾犬吠叫");
+    }
+
+    @Override
+    void move() {
+        System.out.println("贵宾犬跑步");
+    }
+}
+// 抽象子类可延迟实现具体子类必须实现
+				      \end{lstlisting}
+				            \item \textbf{命题陷阱}：考生误认为"子类=具体子类"，忽略了抽象子类
+				            \item \textbf{字节码标记}：
+				                  \begin{lstlisting}[language=Java]
+// 抽象子类的字节码
+// flags: (0x0400) ACC_ABSTRACT
+// 即使有未实现的抽象方法，只要标记为abstract即可
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{抽象类中可以有非抽象方法 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JVM规范}：抽象类可包含非抽象方法（JLS §8.4）
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+abstract class Shape {
+    void common() {  // 非抽象方法
+        System.out.println("通用方法");
+    }
+    abstract void draw();
+}
+
+// 字节码：
+// 方法表包含两个方法
+// 0: common()  // 普通方法
+// 1: draw()    // ACC_ABSTRACT标记
+				            \end{lstlisting}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+abstract class Animal {
+    String name;
+
+    // 构造方法（非抽象）
+    Animal(String name) {
+        this.name = name;
+    }
+
+    // 实例方法（非抽象）
+    void sleep() {
+        System.out.println(name + " 睡觉");
+    }
+
+    // 静态方法（非抽象）
+    static void info() {
+        System.out.println("动物信息");
+    }
+
+    // 抽象方法
+    abstract void makeSound();
+}
+
+// 子类继承所有非抽象方法
+class Cat extends Animal {
+    Cat(String name) {
+        super(name);
+    }
+
+    @Override
+    void makeSound() {
+        System.out.println(name + " 喵喵叫");
+        sleep();  // 调用继承的非抽象方法
+    }
+}
+// 抽象类可包含构造方法、实例方法、静态方法
+				      \end{lstlisting}
+				            \item \textbf{模板方法模式}：
+				                  \begin{lstlisting}[language=Java]
+abstract class DataProcessor {
+    // 模板方法（非抽象）
+    public final void process() {
+        loadData();       // 具体
+        processData();    // 抽象（子类实现）
+        saveData();       // 具体
+    }
+
+    private void loadData() { /* 加载数据 */ }
+    abstract void processData();  // 子类实现
+    private void saveData() { /* 保存数据 */ }
+}
+
+class CSVProcessor extends DataProcessor {
+    @Override
+    void processData() {
+        System.out.println("处理CSV数据");
+    }
+}
+// 抽象类定义算法骨架（非抽象），子类填充细节
+				      \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{itemize}[label={}, nosep]
+			      \item 抽象类特性：不能实例化、可有/无抽象方法、可有非抽象方法
+			      \item 子类规则：
+			            \begin{itemize}[label={}, nosep]
+				            \item 具体子类→必须实现所有抽象方法
+				            \item 抽象子类→可不实现（延迟到下级）
+			            \end{itemize}
+			      \item 选项辨析：
+			            \begin{itemize}[label={}, nosep]
+				            \item 有抽象方法→正确
+				            \item 不能实例化→正确
+				            \item 子类必须实现所有→错误（抽象子类可不实现）
+				            \item 有非抽象方法→正确
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀三步法}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item 看到"必须所有"→警惕（可能是陷阱）
+			      \item 区分"抽象子类"和"具体子类"
+			      \item 子类是abstract→可不实现
+		      \end{enumerate}
+
+		      \textbf{记忆口诀}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 抽象类不能new，方法可有也有无
+			      \item 抽象子类可延后，具体子类要全做
+		      \end{itemize}
+
+		      \textbf{高频陷阱}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item 误认为"所有子类必须实现所有抽象方法"
+			      \item 忽略抽象子类可不实现的事实
+			      \item 混淆"实例化"和"作为类型引用"
+		      \end{enumerate}
+
+		      \textbf{5秒决策技巧}：看到"子类必须实现所有抽象方法"→错误（抽象子类例外）
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个关键字用于定义接口？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item interface
+		      \item abstract class
+		      \item class
+		      \item extends
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. interface}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查接口定义的关键字
+			      \item \textbf{关键区分点}：interface vs abstract class vs class
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{interface — 正确（接口定义关键字）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{语法规则}：interface 接口名（JLS §9.1）
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+interface Flyable { void fly(); }
+
+// 字节码（javap -v）
+// flags: (0x0600) ACC_INTERFACE, ACC_ABSTRACT
+// Access flags: 0x0600
+// 代表接口类型
+				            \end{lstlisting}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// 定义接口
+interface Flyable {
+    void fly();  // 隐式public abstract
+    int MAX_ALTITUDE = 10000;  // 隐式public static final
+}
+
+// 实现接口
+class Bird implements Flyable {
+    @Override
+    public void fly() {  // 必须public
+        System.out.println("飞翔");
+    }
+}
+				      \end{lstlisting}
+				            \item \textbf{接口特性}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 方法默认public abstract
+					                  \item 字段默认public static final
+					                  \item 不能实例化
+					                  \item 多接口继承
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[B] \textbf{abstract class — 错误（抽象类定义）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{语法}：abstract class 类名
+				            \item \textbf{区别}：抽象类可有构造方法、实例变量、非抽象方法
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// 抽象类（不是接口）
+abstract class Animal {
+    String name;  // 实例变量
+
+    Animal(String name) {  // 构造方法
+        this.name = name;
+    }
+
+    void sleep() {  // 非抽象方法
+        System.out.println("睡觉");
+    }
+
+    abstract void makeSound();  // 抽象方法
+}
+// abstract class是抽象类，不是接口
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{class — 错误（普通类定义）}
+			            \begin{itemize}[label={}, nosep]
+				            \item \textbf{语法}：class 类名
+				            \item \textbf{区别}：class可实例化，不能定义接口
+				            \item \textbf{字节码}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+class Person {}
+
+// 字节码
+// flags: (0x0020) ACC_SUPER
+// 无ACC_INTERFACE标志
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{extends — 错误（继承关键字）}
+			            \begin{itemize}[label={}, nosep]
+				            \item \textbf{用法}：子类 extends 父类
+				            \item \textbf{区别}：extends用于继承，interface用于定义
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{itemize}[label={}, nosep]
+			      \item 接口定义：interface 接口名
+			      \item 选项辨析：
+			            \begin{itemize}[label={}, nosep]
+				            \item interface→定义接口
+				            \item abstract class→定义抽象类
+				            \item class→定义普通类
+				            \item extends→继承操作符
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{5秒决策技巧}：看到"定义接口"→interface
+	      \end{bluebox}
+
+	\item \textbf{以下关于接口的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 接口中的方法默认是public abstract修饰的
+		      \item 接口中的变量默认是public static final修饰的
+		      \item 一个类可以实现多个接口
+		      \item 接口可以继承类
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 接口可以继承类}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查接口的继承规则和成员默认修饰符
+			      \item \textbf{关键区分点}：接口只能继承接口，不能继承类
+			      \item \textbf{命题人意图}：测试对接口机制的深度理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{接口中的方法默认是public abstract修饰的 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JLS规范}：JLS §9.4 接口方法隐式public abstract
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+interface Flyable { void fly(); }
+
+// 字节码（javap -v）
+// public abstract void fly()
+// flags: ACC_PUBLIC, ACC_ABSTRACT
+						      \end{lstlisting}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+interface MyInterface {
+    // 三种声明等价
+    void method1();
+    public void method2();
+    abstract void method3();
+
+    // default和static方法例外（Java 8+）
+    default void defaultMethod() {
+        System.out.println("默认实现");
+    }
+    static void staticMethod() {
+        System.out.println("静态方法");
+    }
+}
+// 普通接口方法默认public abstract
+					      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{接口中的变量默认是public static final修饰的 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JLS规范}：JLS §9.3 接口字段隐式public static final
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+interface Constants { int MAX = 100; }
+
+// 字节码
+// field public static final int MAX
+// flags: ACC_PUBLIC, ACC_STATIC, ACC_FINAL
+// ConstantValue: int 100
+						      \end{lstlisting}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+interface Constants {
+    // 三种声明等价
+    int MAX = 100;
+    public static final int MIN = 0;
+    final int COUNT = 10;
+
+    // 错误：不能是其他修饰符
+    // private int x = 1;  // 编译错误
+    // protected int y = 2; // 编译错误
+    // int VALUE;         // 必须初始化
+}
+
+// 使用
+int x = Constants.MAX;  // 通过接口名访问
+// Constants.MAX = 200;  // 编译错误，final不可修改
+					      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{一个类可以实现多个接口 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JLS规范}：JLS §8.1.5 多接口实现
+				            \item \textbf{字节码层面}：class文件中的interfaces字段数组存储实现的接口
+				            \item \textbf{完整代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// 定义多个接口
+interface Flyable { void fly(); }
+interface Runnable { void run(); }
+interface Swimmable { void swim(); }
+
+// 实现多个接口
+class Duck implements Flyable, Runnable, Swimmable {
+    @Override
+    public void fly() {
+        System.out.println("鸭子飞翔");
+    }
+
+    @Override
+    public void run() {
+        System.out.println("鸭子跑");
+    }
+
+    @Override
+    public void swim() {
+        System.out.println("鸭子游泳");
+    }
+}
+
+// 使用
+Duck duck = new Duck();
+duck.fly();   // 实现Flyable
+duck.run();   // 实现Runnable
+duck.swim();  // 实现Swimmable
+// 一个类可实现多个接口，弥补单继承局限
+					      \end{lstlisting}
+				            \item \textbf{默认方法冲突处理}：
+				                  \begin{lstlisting}[language=Java]
+interface A {
+    default void method() {
+        System.out.println("A.method");
+    }
+}
+
+interface B {
+    default void method() {
+        System.out.println("B.method");
+    }
+}
+
+// 编译错误：多个默认方法冲突
+class C implements A, B {}  // error: 接口A和B都继承了method()
+
+// 解决：显式重写并指定调用
+class D implements A, B {
+    @Override
+    public void method() {
+        A.super.method();  // 或 B.super.method()
+    }
+}
+// 多接口实现的默认方法冲突必须显式解决
+					      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{接口可以继承类 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误原因}：接口只能继承接口，不能继承类
+				            \item \textbf{JLS规范}：JLS §9.1 接口extends子句只能列出接口类型
+				            \item \textbf{底层原因}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 接口是规范，不包含实现代码
+					                  \item 类包含实现，违反接口设计原则
+					                  \item JVM不支持接口继承类的字节码结构
+					                  \item 破坏Java的单继承模型
+				                  \end{itemize}
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// 编译失败的代码
+class MyClass {}
+interface MyInterface extends MyClass {}  // 编译错误
+
+// javac错误信息：
+// expected: 接口类型
+// found: 类MyClass
+// 接口只能继承其他接口
+						      \end{lstlisting}
+				            \item \textbf{代码反证}：
+				                  \begin{lstlisting}[language=Java]
+class Animal {
+    void eat() {}  // 实现方法
+}
+
+// 编译错误！接口不能继承类
+interface Pet extends Animal {
+    // ^ 提示：期望接口类型
+}
+
+// 正确做法：接口继承接口
+interface AnimalBehavior {
+    void eat();
+    void sleep();
+}
+
+interface DogBehavior extends AnimalBehavior {
+    void bark();
+}
+// 接口只能extends接口，不能extends类
+					      \end{lstlisting}
+				            \item \textbf{接口的多继承}：
+				                  \begin{lstlisting}[language=Java]
+interface A { void a(); }
+interface B { void b(); }
+interface C { void c(); }
+
+// 接口可以继承多个接口（接口的多继承）
+interface All extends A, B, C {
+    // All拥有a()、b()、c()三个抽象方法
+}
+
+class Impl implements All {
+    public void a() {}
+    public void b() {}
+    public void c() {}
+}
+// 接口多重继承是允许的，但只能继承接口
+					      \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【接口vs抽象类继承对比】}
+		      \begin{itemize}[label={}, nosep]
+			      \item 类继承：class Son extends Father（单继承一个类）
+			      \item 类实现：class Son implements I1, I2（多实现多个接口）
+			      \item 接口继承：interface I extends J, K（多继承接口，不能继承类）
+			      \item 接口继承只能指向接口，不能指向类
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{itemize}[label={}, nosep]
+			      \item 接口方法隐式public abstract
+			      \item 接口字段隐式public static final
+			      \item 类可多实现接口
+			      \item 接口只能继承接口
+			      \item 选项辨析：
+			            \begin{itemize}[label={}, nosep]
+				            \item 方法默认pub抽象→正确
+				            \item 字段默认pub静final→正确
+				            \item 类可多实现→正确
+				            \item 接口能继承类→错误
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀三步法}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item 看到方法→默认public abstract
+			      \item 看到变量→默认public static final
+			      \item 看到接口继承类→直接否定
+		      \end{enumerate}
+
+		      \textbf{记忆口诀}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 接口方法pub抽象，字段pub静final
+			      \item 类可多实现接口
+			      \item 接口只能继接口，不能继承类
+		      \end{itemize}
+
+		      \textbf{高频陷阱}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item 误认为接口可以继承类
+			      \item 混淆接口多继承（接口）和类多实现（接口实现）
+		      \end{enumerate}
+
+		      \textbf{5秒决策技巧}：看到"接口继承类"→错
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

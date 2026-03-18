@@ -1,0 +1,743 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+%==================== 导言区：宏包加载 ====================
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage{geometry}                 % 页面设置
+\usepackage{xcolor}                   % 颜色支持
+\usepackage{fancyhdr}                 % 页眉页脚
+\usepackage{enumitem}                 % 列表定制
+\usepackage{tcolorbox}                %以此美化文本框
+\usepackage{titlesec}                 % 标题格式调整
+
+%==================== 页面布局设置 ====================
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+%==================== 自定义视觉样式 ====================
+
+% 1. 定义分隔线样式
+\newcommand{\TopSeparator}{
+    \par\noindent\rule{\textwidth}{1.5pt}\vspace{0.5em} % 粗实线 ━━━━
+}
+\newcommand{\AnalysisSeparator}{
+    \par\noindent\rule{\textwidth}{0.5pt}\vspace{0.2em}\hrule\vspace{0.5em} % 双线效果 ════
+}
+
+% 2. 定义红色解析环境
+%在这个环境内的所有文字和公式都会自动变成红色
+\newenvironment{RedAnalysis}{
+    \par
+    \color{red} % 设置后续字体为红色
+}{
+    \par
+    \color{black} % 结束时恢复黑色
+}
+
+% 3. 标题格式微调
+\titleformat{\section}{\large\bfseries\heiti}{}{0em}{}[\vspace{-0.5em}]
+\titleformat{\subsection}{\bfseries\kaishu}{}{0em}{}
+
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+%==================== 文档开始 ====================
+\begin{document}
+
+% 标题信息
+\title{\textbf{第二章 极限（基础）解析讲义}}
+\author{数学习题讲义}
+\date{\today}
+\maketitle
+
+% --- 题目 1 ---
+\TopSeparator
+\section*{题目1}
+
+\textbf{【题目重现】} \\
+$ \lim_{x\to0}3^{\frac{1}{x}}= $ \underline{\hspace{1cm}}。
+\choicesFour{1}{0}{$ \infty $}{不存在}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+考查指数函数在指数趋于无穷大时的极限行为，特别是左右极限的差异。
+
+\textbf{第二步：思路构建} \\
+$x \to 0$ 时，$\frac{1}{x}$ 的极限不存在（分为 $+\infty$ 和 $-\infty$），因此需要计算左右极限。
+
+\textbf{第三步：详细步骤} \\
+1. 左极限：
+   $x \to 0^{-}$ 时，$\frac{1}{x} \to -\infty$。
+   $\lim_{x\to 0^{-}} 3^{1/x} = 3^{-\infty} = 0$。
+2. 右极限：
+   $x \to 0^{+}$ 时，$\frac{1}{x} \to +\infty$。
+   $\lim_{x\to 0^{+}} 3^{1/x} = 3^{+\infty} = +\infty$。
+3. 结论：
+   左右极限不相等，且其中一个为无穷大，故极限不存在。
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. \textbf{左右极限法则}：极限存在 $\iff$ 左极限 = 右极限。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：极限的存在性。
+    \item \textbf{易错点提示}：遇到 $e^{1/x}$ 或 $a^{1/x}$ 型极限，当 $x \to 0$ 时必须讨论左右。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 2 ---
+\TopSeparator
+\section*{题目2}
+
+\textbf{【题目重现】} \\
+已知函数 $ f(x)=\frac{|x|}{x} $ ，则 $ \lim_{x\to0}f(x)= $ \underline{\hspace{1cm}}。
+\choicesFour{1}{$-1$}{0}{不存在}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+考查绝对值函数的极限，需去绝对值符号。
+
+\textbf{第二步：思路构建} \\
+分 $x>0$ 和 $x<0$ 两种情况讨论。
+
+\textbf{第三步：详细步骤} \\
+1. 右极限 ($x>0$)：
+   $f(x) = \frac{x}{x} = 1$。
+   $\lim_{x\to 0^+} f(x) = 1$。
+2. 左极限 ($x<0$)：
+   $f(x) = \frac{-x}{x} = -1$。
+   $\lim_{x\to 0^-} f(x) = -1$。
+3. 结论：
+   $1 \ne -1$，极限不存在。
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：左右极限。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 3 ---
+\TopSeparator
+\section*{题目3}
+
+\textbf{【题目重现】} \\
+极限 $ \lim_{x\to0}\frac{\sin ax}{2x}=1 $ , 则 $a=$ \underline{\hspace{1cm}}。
+\choicesFour{0}{1}{2}{3}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+利用重要极限 $\lim_{x\to 0} \frac{\sin x}{x} = 1$ 进行参数反求。
+
+\textbf{第二步：思路构建} \\
+将原式凑成重要极限的形式。
+
+\textbf{第三步：详细步骤} \\
+1. 原式变形：
+   \[ \lim_{x\to 0} \frac{\sin ax}{2x} = \lim_{x\to 0} \frac{\sin ax}{ax} \cdot \frac{a}{2} \]
+2. 利用 $\lim_{u\to 0} \frac{\sin u}{u} = 1$：
+   \[ 1 \cdot \frac{a}{2} = \frac{a}{2} \]
+3. 由题设极限为 1，得：
+   \[ \frac{a}{2} = 1 \implies a = 2 \]
+
+\textbf{第四步：最终答案} \\
+C
+
+\subsection*{二、核心公式}
+1. \textbf{第一重要极限}：$\lim_{x\to 0} \frac{\sin x}{x} = 1$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：重要极限求解与参数计算。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 4 ---
+\TopSeparator
+\section*{题目4}
+
+\textbf{【题目重现】} \\
+极限 $ \lim_{x\to+\infty}\frac{\ln x}{x+2}= $ \underline{\hspace{1cm}}。
+\choicesFour{0}{1}{2}{$ +\infty $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+$\frac{\infty}{\infty}$ 型极限。
+
+\textbf{第二步：思路构建} \\
+利用洛必达法则或增长速度比较。
+
+\textbf{第三步：详细步骤} \\
+方法一：洛必达法则
+求导得：
+\[ \lim_{x\to+\infty} \frac{(\ln x)'}{(x+2)'} = \lim_{x\to+\infty} \frac{1/x}{1} = 0 \]
+
+方法二：增长速度
+当 $x \to +\infty$ 时，对数函数的增长速度远小于幂函数（一次函数），故极限为 0。
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{二、核心公式}
+1. \textbf{洛必达法则}：适用于 $\frac{0}{0}$ 或 $\frac{\infty}{\infty}$。
+2. \textbf{增长阶}：$\ln x \ll x^n \ll e^x$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：无穷大比阶。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 5 ---
+\TopSeparator
+\section*{题目5}
+
+\textbf{【题目重现】} \\
+极限 $ \lim_{n\to\infty}\frac{n+(-1)^{n}}{2n}= $ \underline{\hspace{1cm}}。
+\choicesFour{$ \frac{1}{2} $}{0}{$ \infty $}{不存在}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+数列极限，分子含有振荡项 $(-1)^n$。
+
+\textbf{第二步：思路构建} \\
+分子分母同除以 $n$，利用有界量与无穷小的乘积为无穷小这一性质。
+
+\textbf{第三步：详细步骤} \\
+1. 分子分母同除以 $n$：
+   \[ \frac{1 + \frac{(-1)^n}{n}}{2} \]
+2. 由于 $\lim_{n\to\infty} \frac{1}{n} = 0$，而 $(-1)^n$ 有界。
+   故 $\lim_{n\to\infty} \frac{(-1)^n}{n} = 0$。
+3. 原极限 $= \frac{1+0}{2} = \frac{1}{2}$。
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{二、核心公式}
+1. \textbf{无穷小性质}：无穷小 $\times$ 有界量 = 无穷小。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：数列极限。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 6 ---
+\TopSeparator
+\section*{题目6}
+
+\textbf{【题目重现】} \\
+极限 $ \lim_{n\to\infty}\sqrt{n^{2}+n}-n= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+$\infty - \infty$ 型极限。
+
+\textbf{第二步：思路构建} \\
+分子有理化。
+
+\textbf{第三步：详细步骤} \\
+1. 有理化：
+   \[ \frac{(\sqrt{n^2+n}-n)(\sqrt{n^2+n}+n)}{\sqrt{n^2+n}+n} = \frac{n^2+n-n^2}{\sqrt{n^2+n}+n} = \frac{n}{\sqrt{n^2+n}+n} \]
+2. 分子分母同除以 $n$：
+   \[ \frac{1}{\sqrt{1+\frac{1}{n}}+1} \]
+3. 取极限 $n \to \infty$：
+   \[ \frac{1}{\sqrt{1+0}+1} = \frac{1}{2} \]
+
+\textbf{第四步：最终答案} \\
+$1/2$
+
+\subsection*{二、核心公式}
+1. \textbf{有理化公式}：$A-B = \frac{A^2-B^2}{A+B}$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：根式极限求解。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 7 ---
+\TopSeparator
+\section*{题目7}
+
+\textbf{【题目重现】} \\
+已知 $ \lim_{x\to\infty}\left(\frac{x-a}{x}\right)^x=2 $ ，则 $a=$ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+$1^{\infty}$ 型极限，利用第二重要极限求解参数。
+
+\textbf{第二步：思路构建} \\
+变形为 $(1 + \frac{1}{u})^u$ 的形式。
+
+\textbf{第三步：详细步骤} \\
+1. 变形：
+   \[ \left( 1 - \frac{a}{x} \right)^x = \left[ \left( 1 + \left(-\frac{a}{x}\right) \right)^{\frac{x}{-a}} \right]^{-a} \]
+2. 利用 $\lim (1+t)^{1/t} = e$：
+   原极限 $= e^{-a}$。
+3. 由题意 $e^{-a} = 2$。
+4. 取对数：$-a = \ln 2 \Rightarrow a = -\ln 2$。
+
+\textbf{第四步：最终答案} \\
+$-\ln 2$
+
+\subsection*{二、核心公式}
+1. \textbf{第二重要极限}：$\lim_{x\to\infty} (1+\frac{k}{x})^x = e^k$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：幂指函数极限。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 8 ---
+\TopSeparator
+\section*{题目8}
+
+\textbf{【题目重现】} \\
+极限 $ \lim_{x \to 0} \frac{\ln(1-2x)}{\sin 3x} = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+$\frac{0}{0}$ 型极限。
+
+\textbf{第二步：思路构建} \\
+利用等价无穷小代换最简便。
+
+\textbf{第三步：详细步骤} \\
+1. 当 $x \to 0$ 时：
+   $\ln(1-2x) \sim -2x$
+   $\sin 3x \sim 3x$
+2. 代入极限：
+   \[ \lim_{x\to 0} \frac{-2x}{3x} = -\frac{2}{3} \]
+
+\textbf{第四步：最终答案} \\
+$-2/3$
+
+\subsection*{二、核心公式}
+1. \textbf{等价无穷小} ($x \to 0$)：
+   $\ln(1+u) \sim u \quad (u \to 0)$
+   $\sin u \sim u \quad (u \to 0)$
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：等价无穷小代换。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 9 ---
+\TopSeparator
+\section*{题目9}
+
+\textbf{【题目重现】} \\
+求极限 $ \lim_{n\to\infty}\left(1+\frac{1}{2n}\right)^n= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+$1^\infty$ 型极限。
+
+\textbf{第二步：思路构建} \\
+凑第二重要极限公式。
+
+\textbf{第三步：详细步骤} \\
+1. 原式 $= \left[ \left(1+\frac{1}{2n}\right)^{2n} \right]^{\frac{1}{2}}$
+2. 令 $t = 2n$，则 $n \to \infty$ 时 $t \to \infty$。
+   括号内趋于 $e$。
+3. 整体极限为 $e^{1/2}$ 即 $\sqrt{e}$。
+
+\textbf{第四步：最终答案} \\
+$\sqrt{e}$
+
+\subsection*{二、核心公式}
+1. \textbf{第二重要极限}：$\lim_{n\to\infty} (1+\frac{1}{n})^n = e$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：重要极限。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 10 ---
+\TopSeparator
+\section*{题目10}
+
+\textbf{【题目重现】} \\
+极限 $ \lim_{x \to 0} \frac{x - \tan x}{x^{2}(e^{x} - 1)} = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+$\frac{0}{0}$ 型，分母含有 $e^x-1$ 可以先代换。
+
+\textbf{第二步：思路构建} \\
+先进行分母等价无穷小代换，再处理分子（泰勒展开或洛必达）。
+
+\textbf{第三步：详细步骤} \\
+1. 分母代换：
+   $e^x - 1 \sim x$。分母等价于 $x^2 \cdot x = x^3$。
+   原极限化为 $\lim_{x \to 0} \frac{x - \tan x}{x^3}$。
+2. 分子处理（洛必达）：
+   分子导数 $1 - \sec^2 x = -\tan^2 x$。
+   分母导数 $3x^2$。
+   极限化为 $\lim_{x \to 0} \frac{-\tan^2 x}{3x^2}$。
+3. 继续代换：
+   $\tan x \sim x \implies \tan^2 x \sim x^2$。
+   极限 $= \lim_{x \to 0} \frac{-x^2}{3x^2} = -\frac{1}{3}$。
+   
+   或者直接记忆常用高阶无穷小：$x - \tan x \sim -\frac{1}{3}x^3$。
+
+\textbf{第四步：最终答案} \\
+$-1/3$
+
+\subsection*{二、核心公式}
+1. \textbf{常用极限}：$\lim_{x\to 0} \frac{\tan x - x}{x^3} = \frac{1}{3}$，所以 $x-\tan x \sim -\frac{1}{3}x^3$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：高阶无穷小求解。
+    \item \textbf{易错点提示}：分子 $x-\tan x$ 是三阶无穷小，不能直接把 $\tan x$ 换成 $x$ 导致结果为0（这是错误的“代数和作差”代换）。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 11 ---
+\TopSeparator
+\section*{题目11}
+
+\textbf{【题目重现】} \\
+求极限 $ \lim_{n\to\infty}\left(\frac{1}{n^{2}+n-1}+\frac{1}{n^{2}+n-2}+\cdots+\frac{1}{n^{2}+n-n}\right) $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+$n$ 项和的极限，每项趋于0，但项数趋于无穷。
+
+\textbf{第二步：思路构建} \\
+使用夹逼准则（放大与缩小）。
+
+\textbf{第三步：详细步骤} \\
+1. 观察通项：分母从 $n^2+n-1$ 变到 $n^2$。
+   最小项是 $\frac{1}{n^2+n-1}$，最大项是 $\frac{1}{n^2}$。
+   共有 $n$ 项。
+2. 放缩：
+   \[ n \cdot \frac{1}{n^2+n-1} \le S_n \le n \cdot \frac{1}{n^2} \]
+3. 求极限：
+   右边：$\lim_{n\to\infty} \frac{n}{n^2} = \lim \frac{1}{n} = 0$。
+   左边：$\lim_{n\to\infty} \frac{n}{n^2+n-1} = 0$。
+4. 结论：
+   由夹逼准则，原极限为 0。
+
+\textbf{第四步：最终答案} \\
+$0$
+
+\subsection*{二、核心公式}
+1. \textbf{夹逼准则}。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：数列和的极限。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 12 ---
+\TopSeparator
+\section*{题目12}
+
+\textbf{【题目重现】} \\
+求下列函数极限：
+\begin{enumerate}
+    \item $ \lim_{x\to0}x^{2}\sin\frac{1}{x} $
+    \item $ \lim_{x\to\infty}\frac{\arctan x}{x} $
+    \item $ \lim_{n\to\infty}\frac{\cos n^{2}}{n} $
+\end{enumerate}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{（1）$ \lim_{x\to0}x^{2}\sin\frac{1}{x} $}
+   - 分析：$x^2$ 是无穷小（趋于0），$\sin(1/x)$ 是有界函数（在$[-1, 1]$震荡）。
+   - 原理：无穷小 $\times$ 有界量 = 无穷小。
+   - 结果：0。
+
+\textbf{（2）$ \lim_{x\to\infty}\frac{\arctan x}{x} $}
+   - 分析：$x \to \infty$ 时，$\arctan x \to \pm \frac{\pi}{2}$（有界）。
+   - 计算：$\lim \frac{\text{有界}}{\infty} = 0$。
+   - 结果：0。
+
+\textbf{（3）$ \lim_{n\to\infty}\frac{\cos n^{2}}{n} $}
+   - 分析：与前两题类似，分子 $\cos n^2$ 有界，分母趋于无穷。
+   - 结果：0。
+
+\textbf{第四步：最终答案} \\
+(1) 0; (2) 0; (3) 0
+
+\subsection*{二、核心公式}
+1. \textbf{核心结论}：$\lim (\text{无穷小} \times \text{有界函数}) = 0$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：有界性在极限中的应用。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 13 ---
+\TopSeparator
+\section*{题目13}
+
+\textbf{【题目重现】} \\
+求下列函数极限
+\begin{enumerate}
+    \item $ \lim_{x \to 0^{+}} \frac{\sin ax}{\sqrt{1 - \cos x}} $
+    \item $ \lim_{x \to 0} \frac{\cos ax - \cos bx}{x^{2}} $
+\end{enumerate}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{（1）$ \lim_{x \to 0^{+}} \frac{\sin ax}{\sqrt{1 - \cos x}} $}
+   - 化简分母：$1-\cos x = 2\sin^2 \frac{x}{2}$。
+     因为 $x \to 0^+$，所以 $\sqrt{1-\cos x} = \sqrt{2}|\sin \frac{x}{2}| = \sqrt{2}\sin \frac{x}{2}$。
+   - 等价代换：$\sin ax \sim ax$，$\sqrt{2}\sin \frac{x}{2} \sim \sqrt{2} \cdot \frac{x}{2}$。
+   - 计算：
+     \[ \lim_{x \to 0^+} \frac{ax}{\frac{\sqrt{2}}{2}x} = \frac{2a}{\sqrt{2}} = \sqrt{2}a \]
+   - 答案：$\sqrt{2}a$
+
+\textbf{（2）$ \lim_{x \to 0} \frac{\cos ax - \cos bx}{x^{2}} $}
+   - 利用泰勒公式（或二倍角公式转化）：
+     $\cos x \sim 1 - \frac{x^2}{2}$。
+     $\cos ax \sim 1 - \frac{a^2x^2}{2}$，$\cos bx \sim 1 - \frac{b^2x^2}{2}$。
+   - 代入：
+     \[ \frac{(1 - \frac{a^2x^2}{2}) - (1 - \frac{b^2x^2}{2})}{x^2} = \frac{\frac{b^2 - a^2}{2}x^2}{x^2} = \frac{b^2 - a^2}{2} \]
+   - 答案：$\frac{b^2-a^2}{2}$
+
+\textbf{第四步：最终答案} \\
+(1) $\sqrt{2}a$; (2) $\frac{b^2-a^2}{2}$
+
+\subsection*{二、核心公式}
+1. $1-\cos x \sim \frac{1}{2}x^2$。
+2. $\sqrt{x^2} = |x|$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{解题技巧}：熟悉三角函数常用的等价无穷小。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 14 ---
+\TopSeparator
+\section*{题目14}
+
+\textbf{【题目重现】} \\
+求下列函数极限
+\begin{enumerate}
+    \item $ \lim_{x\to0} \frac{\arctan x^{2}}{\sin\frac{x}{2}\arcsin x} $
+    \item $ \lim_{x \to 0} \frac{\frac{x}{\sqrt{1-x^{2}}}}{\ln(1-x)} $
+\end{enumerate}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{（1）$ \lim_{x\to0} \frac{\arctan x^{2}}{\sin\frac{x}{2}\arcsin x} $}
+   - 等价代换：
+     $\arctan u \sim u \implies \arctan x^2 \sim x^2$。
+     $\sin \frac{x}{2} \sim \frac{x}{2}$。
+     $\arcsin x \sim x$。
+   - 计算：
+     \[ \lim \frac{x^2}{\frac{x}{2} \cdot x} = \lim \frac{x^2}{x^2/2} = 2 \]
+   - 答案：2
+
+\textbf{（2）$ \lim_{x \to 0} \frac{\frac{x}{\sqrt{1-x^{2}}}}{\ln(1-x)} $}
+   - 代换：
+     $\ln(1-x) \sim -x$。
+     $\sqrt{1-x^2} \to 1$。
+   - 计算：
+     \[ \lim \frac{x/1}{-x} = -1 \]
+   - 答案：-1
+
+\textbf{第四步：最终答案} \\
+(1) 2; (2) -1
+
+\subsection*{二、核心公式}
+1. \textbf{等价无穷小}：$\arctan x \sim x, \arcsin x \sim x$。
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 15 ---
+\TopSeparator
+\section*{题目15}
+
+\textbf{【题目重现】} \\
+求下列函数极限：
+\begin{enumerate}
+    \item $ \lim_{x\to0}\frac{1-\cos 4x}{2\sin^{2}x+x\tan^{2}x} $
+    \item $ \lim_{x \to 0} \frac{\cos ax - \cos bx}{x^{2}} $
+    \item $ \lim_{x\to0}\frac{\frac{x}{\sqrt{1-x^{2}}}}{\ln(1-x)} $
+    \item $ \lim_{x\to0}\frac{\ln(\sin^{2}x+e^{x})-x}{\ln(x^{2}+e^{2x})-2x} $
+\end{enumerate}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{（1）$ \lim_{x\to0}\frac{1-\cos 4x}{2\sin^{2}x+x\tan^{2}x} $}
+   - 分子：$1-\cos 4x \sim \frac{1}{2}(4x)^2 = 8x^2$。
+   - 分母：$2\sin^2 x \sim 2x^2$，$x\tan^2 x \sim x \cdot x^2 = x^3 = o(x^2)$。
+     故分母主部为 $2x^2$。
+   - 计算：$8x^2 / 2x^2 = 4$。
+   - 答案：4
+
+\textbf{（2）与第13题(2)相同}
+   - 答案：$\frac{b^2-a^2}{2}$
+
+\textbf{（3）与第14题(2)相同}
+   - 答案：-1
+
+\textbf{（4）$ \lim_{x\to0}\frac{\ln(\sin^{2}x+e^{x})-x}{\ln(x^{2}+e^{2x})-2x} $}
+   - 分子变形：$\ln(e^x(e^{-x}\sin^2 x + 1)) - x = \ln e^x + \ln(1+e^{-x}\sin^2 x) - x = x + \ln(1+\dots) - x = \ln(1+e^{-x}\sin^2 x)$。
+     等价于 $e^{-x}\sin^2 x \sim 1 \cdot x^2 = x^2$。
+   - 分母变形：$\ln(e^{2x}(x^2 e^{-2x}+1)) - 2x = 2x + \ln(1+x^2 e^{-2x}) - 2x = \ln(1+x^2 e^{-2x})$。
+     等价于 $x^2 e^{-2x} \sim x^2$。
+   - 计算：$x^2 / x^2 = 1$。
+   - 答案：1
+
+\textbf{第四步：最终答案} \\
+(1) 4; (2) $\frac{b^2-a^2}{2}$; (3) -1; (4) 1
+
+\subsection*{二、核心公式}
+1. \textbf{对数恒等变形}：$\ln(A) - \ln B = \ln(A/B)$ 或提公因式 $\ln(e^x \cdot M) = x + \ln M$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{难点}：第(4)小题需要灵活提取指数因子来抵消 $x$。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\end{document}

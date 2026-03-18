@@ -1,0 +1,93 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{graphicx}       % 图片支持
+\usepackage{fancyhdr}       % 页眉页脚
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 使用方法：\choices{选项A}{选项B}{选项C}{选项D}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+
+\title{\textbf{《高等数学》必刷习题——基础版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第七章 定积分（基础）}
+
+\begin{enumerate}
+    \item 已知 $ f(x) $ 为 $ [1, +\infty] $ 上的连续函数，且 $ F(x) = \int_{1}^{x^{2}} \frac{f(t)}{t} dt, x \in (1, +\infty) $ 。则 $ F'(x) = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ 2f(x) $}{$ 2xf(x^{2}) $}{$ \frac{f(x^{2})}{x} $}{$ \frac{2f(x^{2})}{x} $}
+
+    \item 定积分 $ \int_{-2}^{0}|x+1|dx $ 的值为 \underline{\hspace{1cm}}。
+    \choicesFour{-2}{2}{-1}{1}
+
+    \item 定积分 $ \int_{-1}^{1}\frac{x^{4}\tan x}{2x^{2}+\cos x}dx $ 的值为 \underline{\hspace{1cm}}。
+    \choicesFour{0}{1}{-1}{2}
+
+    \item 设 $ p = \int_{0}^{\frac{\pi}{2}} \sin^{2}x \, dx $ , $ q = \int_{0}^{\frac{\pi}{2}} \cos^{2}x \, dx $ , $ r = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \sin^{2}x \, dx $ , 则 \underline{\hspace{1cm}}。
+    \choicesFour{$ p = q = r $}{$ p = q < r $}{$ p < q < r $}{$ p > q > r $}
+
+    \item $ \int_{a}^{b}f'(2x)dx= $ \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ f(b) - f(a) $}
+    {$ f(2b) - f(2a) $}
+    {$ \frac{1}{2}[f(2b)-f(2a)] $}
+    {$ 2[f(2b)-f(2a)] $}
+
+    \item 设 $ \varphi'(x) = \int_{0}^{\ln x} t^{2} dt $ , 则 $ \varphi'(x) = $ \underline{\hspace{2cm}}。
+
+    \item 函数 $ f(x) $ 满足 $ \int_{0}^{2x} f(t) dt = 1 + x^{3} $ ，则 $ f(8) = $ \underline{\hspace{2cm}}。
+
+    \item $ \int_{0}^{\pi}\cos x \, dx= $ \underline{\hspace{2cm}}。
+
+    \item 定积分 $ \int_{0}^{1}\frac{dx}{100+x^{2}}= $ \underline{\hspace{2cm}}。
+
+    \item 定积分 $ \int_{1}^{2}\frac{\sqrt{x-1}}{x}dx= $ \underline{\hspace{2cm}}。
+
+    \item 求定积分 $ \int_{1}^{5}e^{\sqrt{2x-1}}dx $。
+
+    \item 求定积分 $ \int_{1}^{4}\frac{1+\ln x}{\sqrt{x}}dx $。
+
+    \item 求定积分 $ \int_{0}^{\sqrt{3}} \arctan x \, dx $。
+
+    \item $ f(x)=\begin{cases}xe^{-x}, & x\leq0\\ 3x^{2}, & 0<x\leq1\end{cases} $ ，求 $ \int_{-3}^{1}f(x)dx $。
+
+    \item 求定积分 $ \int_{0}^{\pi} x(\sin x)^{3}dx $。
+\end{enumerate}
+
+
+\end{document}

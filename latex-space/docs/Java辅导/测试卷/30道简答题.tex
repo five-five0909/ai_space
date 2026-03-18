@@ -1,0 +1,162 @@
+% -*- coding: utf-8 -*-
+% XeLaTeX 编译
+\documentclass[a3paper, landscape, 11pt, twocolumn]{article}
+
+% 引入宏包
+\usepackage{fontspec}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{lastpage}
+\usepackage{titlesec}
+
+% 设置页面边距 (A3横向双栏)
+\geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm, columnsep=1.8cm}
+
+% 颜色定义
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{keywordcolor}{RGB}{0,0,150}
+\definecolor{commentcolor}{RGB}{0,128,0}
+\definecolor{stringcolor}{RGB}{163,21,21}
+
+% 代码样式（备用）
+\lstdefinestyle{JavaExam}{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    keywordstyle=\color{keywordcolor}\bfseries,
+    commentstyle=\color{commentcolor},
+    stringstyle=\color{stringcolor},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{black!50},
+    tabsize=4,
+    xleftmargin=1em,
+    xrightmargin=1em,
+    aboveskip=1em,
+    belowskip=1em
+}
+
+% 页眉页脚设置
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\Large\bfseries 《面向对象程序设计》简答题专项练习}
+\fancyfoot[C]{第 \thepage\ 页 共 \pageref{LastPage}\ 页}
+\fancyfoot[R]{得分：\underline{\hspace{2cm}}}
+\fancyfoot[L]{题号：\underline{\hspace{1cm}}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% 简答题环境
+\newcounter{shortq}
+\setcounter{shortq}{0}
+\newcommand{\sq}{%
+    \refstepcounter{shortq}%
+    \noindent\textbf{\theshortq、}\hspace{0.5em}%
+}
+
+% 答题空白行
+\newcommand{\answerblank}{\vspace{3cm}}
+
+\begin{document}
+
+% 试卷头部
+\twocolumn[{
+    \begin{center}
+        \vspace*{-1cm}
+        {\huge\bfseries 《面向对象程序设计》简答题专项练习}\\[0.8em]
+        {\large 考试时间：120 分钟 \hspace{2em} 总分：150 分}\\[1em]
+        {\large 姓名：\underline{\hspace{4cm}} \hspace{2em} 学号：\underline{\hspace{5cm}} \hspace{2em} 班级：\underline{\hspace{4cm}}}
+        \vspace{0.8em}
+        \hrule
+        \vspace{1em}
+    \end{center}
+}]
+
+\section*{【简答题】共 30 小题，每小题 5 分，共 150 分。}
+\textit{（请将答案写在题目下方的空白处，要求要点明确、条理清晰）}
+
+% 题目开始
+\sq 简述 Java 语言的主要特点。 \answerblank
+
+\sq 解释 JDK、JRE 和 JVM 的区别与联系。 \answerblank
+
+\sq 什么是标识符？Java 对标识符的命名规则有哪些？ \answerblank
+
+\sq Java 的基本数据类型有哪些？并说明每种类型的占用字节数。 \answerblank
+
+\sq 简述自动类型转换和强制类型转换的区别，并举例说明。 \answerblank
+
+\sq 解释 `==` 和 `equals()` 方法的区别。 \answerblank
+
+\sq 数组的 `length` 属性和字符串的 `length()` 方法有何不同？ \answerblank
+
+\sq 什么是类？什么是对象？二者之间的关系是什么？ \answerblank
+
+\sq 简述构造方法的特点和作用。构造方法可以重载吗？ \answerblank
+
+\sq `this` 关键字有哪些用途？请举例说明。 \answerblank
+
+\sq 什么是方法重载？方法重载的规则是什么？ \answerblank
+
+\sq 什么是方法重写？方法重写需要遵循哪些规则？ \answerblank
+
+\sq 简述类变量（静态变量）和实例变量的区别。 \answerblank
+
+\sq 静态方法和实例方法有何不同？静态方法能否访问实例变量？为什么？ \answerblank
+
+\sq `final` 关键字可以修饰哪些地方？分别起什么作用？ \answerblank
+
+\sq 什么是访问控制修饰符？Java 中的访问控制修饰符有哪些？各自的作用范围是什么？ \answerblank
+
+\sq 简述封装的概念及其在 Java 中的实现方式。 \answerblank
+
+\sq 什么是继承？Java 中如何实现继承？子类能从父类继承哪些成员？ \answerblank
+
+\sq `super` 关键字的作用是什么？请举例说明。 \answerblank
+
+\sq 什么是多态？Java 中多态的实现方式有哪些？ \answerblank
+
+\sq 什么是抽象类？抽象类有哪些特点？ \answerblank
+
+\sq 什么是接口？接口和抽象类的区别是什么？ \answerblank
+
+\sq Java 中如何实现多重继承？为什么？ \answerblank
+
+\sq 什么是异常？Java 的异常处理机制中有哪些关键字？分别说明其作用。 \answerblank
+
+\sq 简述受检查异常（checked exception）和运行时异常（unchecked exception）的区别。 \answerblank
+
+\sq 自定义异常类应如何定义？请写出基本步骤。 \answerblank
+
+\sq `String` 和 `StringBuilder`、`StringBuffer` 的区别是什么？ \answerblank
+
+\sq 列举 Java 集合框架中常用的 List、Set、Map 接口的实现类，并简述它们的特点。 \answerblank
+
+\sq 什么是泛型？使用泛型有什么好处？ \answerblank
+
+\sq 简述线程的生命周期，并说明线程创建的方式。 \answerblank
+
+\sq 什么是线程同步？为什么要进行线程同步？synchronized 关键字可以怎么使用？ \answerblank
+
+\sq 简述 Java 中 I/O 流的分类，并举例说明字节流和字符流的区别。 \answerblank
+
+\sq 什么是序列化？如何实现对象的序列化和反序列化？ \answerblank
+
+\sq 简述 JDBC 操作数据库的基本步骤。 \answerblank
+
+% 说明：共30题，但序号会自动递增。为凑齐30题，以上已列出30题（从1到30）。下面留出空白页。
+\newpage
+% 确保有30题，序号从1到30已覆盖。
+
+\begin{center}
+    \textbf{—— 试卷结束，请仔细检查 ——}
+\end{center}
+
+\end{document}

@@ -1,0 +1,1165 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={Java API-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt,
+    breakable
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{Java API - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月02日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{Java API}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下哪个方法可以将字符串转换为整数？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item parseInt()
+		      \item valueOf()
+		      \item toString()
+		      \item toInteger()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. parseInt()}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. parseInt() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Integer.parseInt(String s) 将字符串解析为int基本类型
+			      \item 属于Integer类的静态方法
+
+					  \end{itemize}
+		      \item \textbf{B. valueOf() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Integer.valueOf(String s) 返回Integer包装类对象
+			      \item 返回类型是Integer而非int
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. toString() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item toString()是将其他类型转为字符串，不是字符串转整数
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. toInteger() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 不存在此方法
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      parseInt返回int基本类型，valueOf返回Integer包装类
+		      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{在Java中，以下哪个方法用于获取字符串的长度？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item length()
+		      \item size()
+		      \item count()
+		      \item getLength()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. length()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. length() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item String类使用length()方法获取字符数
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. size() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item size()用于集合类（如List、Set）
+
+					  \end{itemize}
+		      \item \textbf{C. count() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 不是String的方法
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. getLength() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 不是String的标准方法
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于将字符串转换为大写？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item toUpperCase()
+		      \item upperCase()
+		      \item makeUpperCase()
+		      \item convertToUpperCase()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. toUpperCase()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. toUpperCase() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item String类的toUpperCase()方法返回大写字符串
+
+					  \end{itemize}
+		      \item \textbf{B/C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些方法不存在
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于将字符串转换为小写？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item toLowerCase()
+		      \item lowerCase()
+		      \item makeLowerCase()
+		      \item convertToLowerCase()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. toLowerCase()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. toLowerCase() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item String类的toLowerCase()方法返回小写字符串
+
+					  \end{itemize}
+		      \item \textbf{B/C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些方法不存在
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于截取字符串？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item substring()
+		      \item cut()
+		      \item slice()
+		      \item truncate()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. substring()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. substring() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item substring(int beginIndex, int endIndex) 截取字符串
+			      \item 注意：endIndex是Exclusive的
+
+					  \end{itemize}
+		      \item \textbf{B/C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些方法不是String类的
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于判断字符串是否以指定字符串开头？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item startsWith()
+		      \item beginWith()
+		      \item isStartWith()
+		      \item hasStartWith()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. startsWith()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. startsWith() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item boolean startsWith(String prefix) 判断是否以指定字符串开头
+
+					  \end{itemize}
+		      \item \textbf{B/C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些方法不存在
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于判断字符串是否以指定字符串结尾？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item endsWith()
+		      \item finishWith()
+		      \item isEndWith()
+		      \item hasEndWith()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. endsWith()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. endsWith() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item boolean endsWith(String suffix) 判断是否以指定字符串结尾
+
+					  \end{itemize}
+		      \item \textbf{B/C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些方法不存在
+		      
+		      
+			  
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于在字符串中查找指定字符第一次出现的位置？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item indexOf()
+		      \item find()
+		      \item search()
+		      \item locate()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. indexOf()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. indexOf() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item int indexOf(String str) 返回首次出现的索引
+			      \item 未找到返回-1
+
+					  \end{itemize}
+		      \item \textbf{B/C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些方法不存在于String类
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于在字符串中查找指定字符最后一次出现的位置？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item lastIndexOf()
+		      \item findLast()
+		      \item searchLast()
+		      \item locateLast()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. lastIndexOf()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. lastIndexOf() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item int lastIndexOf(String str) 返回最后一次出现的索引
+			      \item 未找到返回-1
+
+					  \end{itemize}
+		      \item \textbf{B/C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些方法不存在于String类
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中的包装类的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 包装类可以将基本数据类型转换为对象
+		      \item Integer是int的包装类
+		      \item 包装类的对象不可变
+		      \item 包装类可以提高基本数据类型的操作效率
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 包装类可以提高基本数据类型的操作效率}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. 包装类可以将基本数据类型转换为对象 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 装箱(Autoboxing)：int → Integer
+
+					  \end{itemize}
+		      \item \textbf{B. Integer是int的包装类 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 八大基本类型都有对应包装类
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 包装类的对象不可变 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Integer等包装类都是不可变类（immutable）
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 包装类可以提高基本数据类型的操作效率 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 恰恰相反，包装类有额外开销，效率更低
+			      \item 包装类主要用于集合操作、泛型等需要对象的场景
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      包装类特点：
+		      \begin{itemize}[label={}, nosep]
+			      \item 基本类型与包装类的转换（装箱/拆箱）
+			      \item 自动装箱：Integer i = 10;（JDK5+）
+			      \item 不可变性保证线程安全
+			      \item 缓存机制：Integer IntegerCache [-128, 127]
+		      \end{itemize}
+		      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是Double类的静态方法，用于将字符串转换为Double类型？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item parseDouble()
+		      \item valueOf()
+		      \item toString()
+		      \item toDouble()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. parseDouble()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. parseDouble() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Double.parseDouble(String s) 返回double基本类型
+
+					  \end{itemize}
+		      \item \textbf{B. valueOf() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Double.valueOf(String s) 返回Double对象
+		      
+
+					  \end{itemize}
+		      \item \textbf{C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些方法不是Double类的转换方法
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中的枚举类型的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 枚举类型是一种特殊的类
+		      \item 枚举类型的成员是常量
+		      \item 枚举类型可以有构造方法
+		      \item 枚举类型不能实现接口
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 枚举类型不能实现接口}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. 枚举类型是一种特殊的类 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 枚举本质上继承自java.lang.Enum
+
+					  \end{itemize}
+		      \item \textbf{B. 枚举类型的成员是常量 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 枚举成员是public static final的实例
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 枚举类型可以有构造方法 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 枚举构造方法必须是private
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 枚举类型不能实现接口 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 枚举可以实现接口！
+			      \item 格式：enum Color implements Runnable \{ RED \{ @Override public void run() \{\} \} \}
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      枚举特点：
+		      \begin{itemize}[label={}, nosep]
+			      \item 继承java.lang.Enum
+			      \item 成员是static final实例
+			      \item 构造方法私有化
+			      \item 可以实现接口
+			      \item 可以有抽象方法（每个实例必须实现）
+		      \end{itemize}
+		      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个类用于获取系统属性？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item System
+		      \item Properties
+		      \item Runtime
+		      \item SystemProperties
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. Properties}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. System — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item System类是系统类，通过getProperties()获取属性
+
+					  \end{itemize}
+		      \item \textbf{B. Properties — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item System.getProperties()返回Properties对象
+			      \item Properties继承自Hashtable
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. Runtime — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Runtime是运行时类，用于内存管理等
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. SystemProperties — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 没有这个类
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中的注解的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 注解是一种元数据
+		      \item 可以自定义注解
+		      \item 注解可以影响程序的逻辑
+		      \item 注解可以为代码添加额外的信息
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 注解可以影响程序的逻辑}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. 注解是一种元数据 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 注解用于提供程序的元数据信息
+
+					  \end{itemize}
+		      \item \textbf{B. 可以自定义注解 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 使用@interface定义
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 注解可以影响程序的逻辑 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 注解本身不改变程序逻辑
+			      \item 需要由注解处理器（工具/框架）处理
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 注解可以为代码添加额外的信息 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这是注解的主要作用
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是Java中的基本注解？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item @Override
+		      \item @Deprecated
+		      \item @SuppressWarnings
+		      \item 以上都是
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 以上都是}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item[] 三大内置注解：
+		      
+			      \item @Override：标记重写方法
+			      \item @Deprecated：标记已过时
+			      \item @SuppressWarnings：抑制警告
+		      
+	      
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java注解@SuppressWarnings的作用，正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 抑制所有的警告
+		      \item 抑制指定类型的警告
+		      \item 增加警告信息
+		      \item 用于代码注释
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 抑制指定类型的警告}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. 抑制所有的警告 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 需要指定具体警告类型
+
+					  \end{itemize}
+		      \item \textbf{B. 抑制指定类型的警告 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item @SuppressWarnings("unchecked")、@SuppressWarnings("deprecation")等
+		      
+
+					  \end{itemize}
+		      \item \textbf{C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 与注释无关，不能增加警告
+		      
+		      
+
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中StringBuilder和StringBuffer的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item StringBuilder是线程安全的，StringBuffer不是
+		      \item StringBuffer是线程安全的，StringBuilder不是
+		      \item 两者性能相同
+		      \item 两者都不是线程安全的
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. StringBuffer是线程安全的，StringBuilder不是}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. StringBuilder线程安全 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item StringBuilder是非线程安全的
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. StringBuffer线程安全 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item StringBuffer方法使用synchronized修饰
+			      \item 线程安全，但性能较低
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 性能相同 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item StringBuilder性能更好（无需同步）
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 都不是线程安全 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item StringBuffer是线程安全的
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      StringBuilder vs StringBuffer：
+		      \begin{itemize}[label={}, nosep]
+			      \item StringBuilder：非线程安全，性能好
+			      \item StringBuffer：线程安全（JDK1.0），性能较差
+			      \item 单线程用StringBuilder，多线程用StringBuffer
+			      \item String：不可变，线程安全
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于将StringBuilder或StringBuffer对象转换为字符串？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item toString()
+		      \item toStr()
+		      \item getString()
+		      \item getText()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. toString()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. toString() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Object类的方法，所有对象都有
+			      \item StringBuilder/StringBuffer都重写了toString()
+		      
+
+					  \end{itemize}
+		      \item \textbf{B/C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些方法不存在
+		      
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中Math类的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 提供了常用的数学计算方法
+		      \item 所有方法都是静态的
+		      \item 可以创建Math类的对象
+		      \item 包含了求绝对值、平方根等方法
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 可以创建Math类的对象}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. 提供数学计算方法 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Math类提供丰富的数学函数
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. 所有方法都是静态的 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Math是工具类，方法都是静态的
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 可以创建Math类的对象 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Math构造方法是private，不能实例化
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 包含绝对值、平方根 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Math.abs()、Math.sqrt()等
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      Math类特点：
+		      \begin{itemize}[label={}, nosep]
+			      \item 工具类：构造方法私有
+			      \item 所有方法static：直接Math.method()
+			      \item 常量：Math.PI、Math.E
+			      \item 常见方法：abs、sqrt、pow、random、max、min
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于获取随机数？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item random()
+		      \item getRandom()
+		      \item Random.nextInt()
+		      \item Math.random()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. Math.random()}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. random() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 不是任何类的直接方法
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. getRandom() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 不存在此方法
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. Random.nextInt() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 需要先创建Random对象
+			      \item 格式：new Random().nextInt()
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. Math.random() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item static方法，直接调用
+			      \item 返回[0.0, 1.0)的double值
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      random()方法：
+		      \begin{itemize}[label={}, nosep]
+			      \item Math.random()：返回[0.0, 1.0)
+			      \item Random类：nextInt(n)返回[0, n)
+			      \item 生成指定范围随机数：(int)(Math.random() * n)
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中Calendar类的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 用于操作日期和时间
+		      \item 是一个抽象类
+		      \item 可以直接创建对象
+		      \item 可以通过getInstance()方法获取实例
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 可以直接创建对象}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. 操作日期时间 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Calendar提供日期时间操作API
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. 抽象类 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Calendar是抽象类
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 可以直接创建对象 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 抽象类不能直接new
+			      \item 需要通过getInstance()
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. getInstance()获取实例 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Calendar cal = Calendar.getInstance();
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      Calendar类：
+		      \begin{itemize}[label={}, nosep]
+			      \item 抽象类，需通过getInstance()获取实例
+			      \item JDK8+推荐使用LocalDateTime
+			      \item 常用字段：YEAR、MONTH、DATE、HOUR等
+			      \item 注意：MONTH从0开始（0=一月）
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于格式化日期？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item format()
+		      \item parse()
+		      \item DateFormat.format
+		      \item SimpleDateFormat.format()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. SimpleDateFormat.format()}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A/B. format()/parse() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 需要通过具体类调用
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. DateFormat.format — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item DateFormat是抽象类，不能直接使用
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. SimpleDateFormat.format() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item SimpleDateFormat是DateFormat的实现类
+			      \item 格式：new SimpleDateFormat("yyyy-MM-dd").format(date)
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      日期格式化：
+		      \begin{itemize}[label={}, nosep]
+			      \item SimpleDateFormat：线程不安全
+			      \item JDK8+：DateTimeFormatter（线程安全）
+			      \item 常用格式：yyyy年MM月dd日 HH:mm:ss
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中Optional类的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 用于避免空指针异常
+		      \item 可以包含值或为空
+		      \item 不支持值的获取和判断
+		      \item 提供了一些有用的方法
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 不支持值的获取和判断}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. 避免空指针 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Optional提供null安全
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. 可包含值或为空 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Optional.of(value) / Optional.empty()
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 不支持获取和判断 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 支持！isPresent()、get()、orElse()等
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 提供有用方法 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item map()、filter()、orElseGet()等
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      Optional常用方法：
+		      \begin{itemize}[label={}, nosep]
+			      \item isPresent()：判断是否有值
+			      \item get()：获取值（可能有NoSuchElementException）
+			      \item orElse(default)：有值返回，无值返回默认值
+			      \item orElseGet(supplier)：无值时执行supplier
+			      \item map()：转换值
+			      \item filter()：过滤值
+		      \end{itemize}
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

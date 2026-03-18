@@ -1,0 +1,574 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+%==================== 导言区：宏包加载 ====================
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage{geometry}                 % 页面设置
+\usepackage{xcolor}                   % 颜色支持
+\usepackage{fancyhdr}                 % 页眉页脚
+\usepackage{enumitem}                 % 列表定制
+\usepackage{tcolorbox}                %以此美化文本框
+\usepackage{titlesec}                 % 标题格式调整
+
+%==================== 页面布局设置 ====================
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+%==================== 自定义视觉样式 ====================
+
+% 1. 定义分隔线样式
+\newcommand{\TopSeparator}{
+    \par\noindent\rule{\textwidth}{1.5pt}\vspace{0.5em} % 粗实线 ━━━━
+}
+\newcommand{\AnalysisSeparator}{
+    \par\noindent\rule{\textwidth}{0.5pt}\vspace{0.2em}\hrule\vspace{0.5em} % 双线效果 ════
+}
+
+% 2. 定义红色解析环境
+%在这个环境内的所有文字和公式都会自动变成红色
+\newenvironment{RedAnalysis}{
+    \par
+    \color{red} % 设置后续字体为红色
+}{
+    \par
+    \color{black} % 结束时恢复黑色
+}
+
+% 3. 标题格式微调
+\titleformat{\section}{\large\bfseries\heiti}{}{0em}{}[\vspace{-0.5em}]
+\titleformat{\subsection}{\bfseries\kaishu}{}{0em}{}
+
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+%==================== 文档开始 ====================
+\begin{document}
+
+% 标题信息
+\title{\textbf{第十章 向量代数与空间解析几何（解析）}}
+\author{数学习题讲义}
+\date{\today}
+\maketitle
+
+% --- 题目 1 ---
+\TopSeparator
+\section*{题目1}
+
+\textbf{【题目重现】} \\
+已知点 $ A(2,2,\sqrt{2}) $ , $ B(1,3,0) $ ,则向量 $ \overrightarrow{AB} $ 的模和方向角为 \underline{\hspace{1cm}}。
+\choicesTwo
+{$2, (\frac{2\pi}{3},\frac{\pi}{3},\frac{\pi}{4})$}
+{$1, (\frac{2\pi}{3},\frac{\pi}{3},\frac{3\pi}{4})$}
+{$2, (\frac{2\pi}{3},\frac{\pi}{3},\frac{3\pi}{4})$}
+{$1, (\frac{2\pi}{3},\frac{\pi}{3},\frac{\pi}{4})$}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+先求向量坐标，再求模，最后求方向余弦及方向角。
+
+\textbf{详细步骤} \\
+1. \textbf{求向量}：
+   $\overrightarrow{AB} = B - A = (1-2, 3-2, 0-\sqrt{2}) = (-1, 1, -\sqrt{2})$。
+2. \textbf{求模}：
+   $|\overrightarrow{AB}| = \sqrt{(-1)^2 + 1^2 + (-\sqrt{2})^2} = \sqrt{1+1+2} = \sqrt{4} = 2$。
+3. \textbf{求方向余弦}：
+   $\cos \alpha = \frac{-1}{2}, \cos \beta = \frac{1}{2}, \cos \gamma = \frac{-\sqrt{2}}{2}$。
+4. \textbf{求方向角}：
+   $\alpha = \arccos(-1/2) = \frac{2\pi}{3} = 120^\circ$。
+   $\beta = \arccos(1/2) = \frac{\pi}{3} = 60^\circ$。
+   $\gamma = \arccos(-\sqrt{2}/2) = \frac{3\pi}{4} = 135^\circ$。
+   
+\textbf{第四步：最终答案} \\
+C
+
+\subsection*{二、核心公式}
+1. \textbf{模}：$|\mathbf{a}| = \sqrt{x^2+y^2+z^2}$。
+2. \textbf{方向余弦}：$\cos \alpha = \frac{x}{|\mathbf{a}|}$ 等。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 2 ---
+\TopSeparator
+\section*{题目2}
+
+\textbf{【题目重现】} \\
+设数 $ \lambda_{1}, \lambda_{2}, \lambda_{3} $ 不全为零，使得 $ \lambda_{1}\mathbf{a} + \lambda_{2}\mathbf{b} + \lambda_{3}\mathbf{c} = 0 $ ，则 $\mathbf{a}, \mathbf{b}, \mathbf{c}$ 三向量 \underline{\hspace{1cm}}。
+\choicesFour{线性无关}{共线}{共面}{共点}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+向量组线性相关性的几何意义。三个向量线性相关的几何意义是共面。
+
+\textbf{详细步骤} \\
+1. 存在不全为0的系数使得线性组合为0，说明向量组线性相关。
+2. 两个向量线性相关 $\Leftrightarrow$ 共线。
+3. 三个向量线性相关 $\Leftrightarrow$ 共面。
+
+\textbf{第四步：最终答案} \\
+C
+
+\subsection*{二、核心公式}
+1. \textbf{共面条件}：线性相关（混合积为0）。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 3 ---
+\TopSeparator
+\section*{题目3}
+
+\textbf{【题目重现】} \\
+下列各平面中，与平面 $ x + 2y - 3z = 6 $ 垂直的是 \underline{\hspace{1cm}}。
+\choicesTwo
+{$ 2x+4y-6z=1 $}
+{$ 2x + 4y - 6z = 12 $}
+{$ \frac{x}{-1}+\frac{y}{2}+\frac{z}{3}=1 $}
+{$ -x+2y+z=1 $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+两平面垂直 $\Leftrightarrow$ 它们的法向量垂直 $\Leftrightarrow$ 法向量数量积为0。
+已知法向量 $\mathbf{n}_1 = (1, 2, -3)$。
+
+\textbf{详细步骤} \\
+1. A选项 $\mathbf{n}_A = (2, 4, -6) = 2\mathbf{n}_1$，平行。
+2. B选项 $\mathbf{n}_B = (2, 4, -6)$，平行。
+3. C选项（截距式）$\Rightarrow \frac{x}{-1} + \frac{y}{2} + \frac{z}{3} = 1 \Rightarrow$ 法向量 $\mathbf{n}_C = (-1, \frac{1}{2}, \frac{1}{3})$。不方便，先化整：$-6x + 3y + 2z = 6 \Rightarrow \mathbf{n}_C = (-6, 3, 2)$。
+   计算数量积：$1(-6) + 2(3) + (-3)(2) = -6 + 6 - 6 = -6 \neq 0$。
+4. D选项 $\mathbf{n}_D = (-1, 2, 1)$。
+   计算数量积：$1(-1) + 2(2) + (-3)(1) = -1 + 4 - 3 = 0$。
+   数量积为0，垂直。
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. \textbf{垂直条件}：$\mathbf{n}_1 \cdot \mathbf{n}_2 = 0 \Rightarrow A_1A_2 + B_1B_2 + C_1C_2 = 0$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 4 ---
+\TopSeparator
+\section*{题目4}
+
+\textbf{【题目重现】} \\
+直线 $\begin{cases}x+y+z-4=0\\ x-y-z+2=0\end{cases}$ 与直线 $\begin{cases}x-2y-z-1=0\\ x-y-2z=0\end{cases}$ 的位置关系 \underline{\hspace{1cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+求出两直线的方向向量，然后判断平行、垂直或异面。
+
+\textbf{详细步骤} \\
+1. **直线 $L_1$**：
+   法向量 $\mathbf{n}_1=(1,1,1), \mathbf{n}_2=(1,-1,-1)$。
+   方向向量 $\mathbf{s}_1 = \mathbf{n}_1 \times \mathbf{n}_2 = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 1 & 1 & 1 \\ 1 & -1 & -1 \end{vmatrix} = (0, 2, -2) \parallel (0, 1, -1)$。
+2. **直线 $L_2$**：
+   法向量 $\mathbf{n}_3=(1,-2,-1), \mathbf{n}_4=(1,-1,-2)$。
+   方向向量 $\mathbf{s}_2 = \mathbf{n}_3 \times \mathbf{n}_4 = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 1 & -2 & -1 \\ 1 & -1 & -2 \end{vmatrix} = (3, 1, 1)$。
+3. **判断关系**：
+   - 是否平行？ $(0,1,-1)$ 与 $(3,1,1)$ 显然不平行。
+   - 是否垂直？ $\mathbf{s}_1 \cdot \mathbf{s}_2 = 0 \cdot 3 + 1 \cdot 1 + (-1) \cdot 1 = 0$。
+   数量积为0，说明两直线方向向量垂直，故两直线**垂直**（可能相交或异面）。
+   只需回答“垂直”即可，除非题目有选项区分垂直相交和垂直异面。基础题通常指方向关系。
+
+\textbf{第四步：最终答案} \\
+垂直
+
+\subsection*{二、核心公式}
+1. \textbf{方向向量求解}：两平面法向量叉乘。
+2. \textbf{垂直判定}：$\mathbf{s}_1 \cdot \mathbf{s}_2 = 0$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 5 ---
+\TopSeparator
+\section*{题目5}
+
+\textbf{【题目重现】} \\
+空间曲线 $ x=t,y=t^{2},z=t^{3} $ 在点 $(1,1,1)$ 的法平面方程 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+曲线的法平面垂直于切线。故法平面的法向量 = 曲线的切向量。
+
+\textbf{详细步骤} \\
+1. \textbf{求切向量}：
+   曲线参数方程求导：$(x'(t), y'(t), z'(t)) = (1, 2t, 3t^2)$。
+2. \textbf{确定 $t$ 值}：
+   对应点 $(1,1,1)$，解得 $t=1$。
+3. \textbf{计算法向量}：
+   $\mathbf{n} = (1, 2(1), 3(1)^2) = (1, 2, 3)$。
+4. \textbf{点法式方程}：
+   $1(x-1) + 2(y-1) + 3(z-1) = 0$。
+   整理：$x + 2y + 3z - 6 = 0$。
+
+\textbf{第四步：最终答案} \\
+$ x + 2y + 3z - 6 = 0 $
+
+\subsection*{二、核心公式}
+1. \textbf{切向量}：$\mathbf{T} = r'(t) = (x', y', z')$。
+2. \textbf{法平面}：以 $\mathbf{T}$ 为法向量的平面。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 6 ---
+\TopSeparator
+\section*{题目6}
+
+\textbf{【题目重现】} \\
+已知两点 $ A(-1,2,0) $ 和 $ B(2,-3,\sqrt{2}) $ ，则与向量 $ \overrightarrow{AB} $ 同方向的单位向量为 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+求单位向量 $\mathbf{e} = \frac{\overrightarrow{AB}}{|\overrightarrow{AB}|}$。
+
+\textbf{详细步骤} \\
+1. $\overrightarrow{AB} = (2-(-1), -3-2, \sqrt{2}-0) = (3, -5, \sqrt{2})$。
+2. 模 $|\overrightarrow{AB}| = \sqrt{3^2 + (-5)^2 + (\sqrt{2})^2} = \sqrt{9+25+2} = \sqrt{36} = 6$。
+3. 单位向量 $\mathbf{e} = (\frac{3}{6}, \frac{-5}{6}, \frac{\sqrt{2}}{6}) = (\frac{1}{2}, -\frac{5}{6}, \frac{\sqrt{2}}{6})$。
+
+\textbf{第四步：最终答案} \\
+$ (\frac{1}{2}, -\frac{5}{6}, \frac{\sqrt{2}}{6}) $
+
+\subsection*{二、核心公式}
+1. \textbf{单位化}：$\mathbf{e} = \frac{\mathbf{a}}{|\mathbf{a}|}$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 7 ---
+\TopSeparator
+\section*{题目7}
+
+\textbf{【题目重现】} \\
+设 $ \mathbf{a} \neq 0 $ , 则与向量 $\mathbf{a}$ 同方向的单位向量 $ \mathbf{e} = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\textbf{详细步骤} \\
+定义直接填空。
+
+\textbf{第四步：最终答案} \\
+$ \frac{\mathbf{a}}{|\mathbf{a}|} $
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 8 ---
+\TopSeparator
+\section*{题目8}
+
+\textbf{【题目重现】} \\
+设已知两点 $ M_{1}(2,2,\sqrt{2}) $ 和 $ M_{2}(1,3,0) $ ，则向量的模 $ \left|\overrightarrow{M_{1}M_{2}}\right|= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\textbf{详细步骤} \\
+同第1题计算。
+$\overrightarrow{M_1M_2} = (1-2, 3-2, 0-\sqrt{2}) = (-1, 1, -\sqrt{2})$。
+模 $= \sqrt{1+1+2} = 2$。
+
+\textbf{第四步：最终答案} \\
+2
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 9 ---
+\TopSeparator
+\section*{题目9}
+
+\textbf{【题目重现】} \\
+向量 $ (1,0,1) $ 与 $ (1,\sqrt{2},1) $ 的夹角是 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+使用点积公式求夹角余弦。
+
+\textbf{详细步骤} \\
+1. $\mathbf{a}=(1,0,1), \mathbf{b}=(1,\sqrt{2},1)$。
+2. $\mathbf{a} \cdot \mathbf{b} = 1\cdot1 + 0 + 1\cdot1 = 2$。
+3. $|\mathbf{a}| = \sqrt{1^2+0+1^2} = \sqrt{2}$。
+4. $|\mathbf{b}| = \sqrt{1^2+2+1^2} = \sqrt{4} = 2$。
+5. $\cos \theta = \frac{\mathbf{a} \cdot \mathbf{b}}{|\mathbf{a}||\mathbf{b}|} = \frac{2}{\sqrt{2} \cdot 2} = \frac{1}{\sqrt{2}} = \frac{\sqrt{2}}{2}$。
+6. $\theta = \frac{\pi}{4}$ ($45^\circ$)。
+
+\textbf{第四步：最终答案} \\
+$ \frac{\pi}{4} $ (或 $45^\circ$)
+
+\subsection*{二、核心公式}
+1. \textbf{夹角公式}：$\cos \theta = \frac{\mathbf{a} \cdot \mathbf{b}}{|\mathbf{a}||\mathbf{b}|}$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 10 ---
+\TopSeparator
+\section*{题目10}
+
+\textbf{【题目重现】} \\
+设 $ \mathbf{a} = \{1, 2, 3\} $ , $ \mathbf{b} = \{0, 1, -2\} $ , 则 $ (\mathbf{a} + \mathbf{b}) \times (\mathbf{a} - \mathbf{b}) = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+利用叉乘的分配律和反交换律简化运算，或者直接代入计算。
+公式法：$(\mathbf{a}+\mathbf{b})\times(\mathbf{a}-\mathbf{b}) = \mathbf{a}\times\mathbf{a} - \mathbf{a}\times\mathbf{b} + \mathbf{b}\times\mathbf{a} - \mathbf{b}\times\mathbf{b}$。
+因为 $\mathbf{a}\times\mathbf{a}=0$，$\mathbf{a}\times\mathbf{b} = -\mathbf{b}\times\mathbf{a}$。
+原式 $= - \mathbf{a}\times\mathbf{b} - \mathbf{a}\times\mathbf{b} = -2 (\mathbf{a}\times\mathbf{b})$。
+或者 $= 2(\mathbf{b} \times \mathbf{a})$。
+
+\textbf{详细步骤} \\
+1. 计算 $\mathbf{a} \times \mathbf{b}$：
+   \[ \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 1 & 2 & 3 \\ 0 & 1 & -2 \end{vmatrix} = \mathbf{i}(-4-3) - \mathbf{j}(-2-0) + \mathbf{k}(1-0) = (-7, 2, 1) \]
+2. 结果是 $-2(-7, 2, 1) = (14, -4, -2)$。
+
+\textbf{第四步：最终答案} \\
+$ (14, -4, -2) $
+
+\subsection*{二、核心公式}
+1. \textbf{叉乘性质}：$\mathbf{b} \times \mathbf{a} = - \mathbf{a} \times \mathbf{b}$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 11 ---
+\TopSeparator
+\section*{题目11}
+
+\textbf{【题目重现】} \\
+向量 $ \left|\mathbf{a}\right|=13,\left|\mathbf{b}\right|=19,\left|\mathbf{a}+\mathbf{b}\right|=24 $ , 则 $ \left|\mathbf{a}-\mathbf{b}\right|= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+利用平行四边形定则或模平方公式。
+$|\mathbf{a}+\mathbf{b}|^2 + |\mathbf{a}-\mathbf{b}|^2 = 2(|\mathbf{a}|^2 + |\mathbf{b}|^2)$。
+
+\textbf{详细步骤} \\
+1. 代入数据：
+   $24^2 + x^2 = 2(13^2 + 19^2)$。
+2. 计算：
+   $576 + x^2 = 2(169 + 361) = 2(530) = 1060$。
+   $x^2 = 1060 - 576 = 484$。
+   $x = \sqrt{484} = 22$。
+
+\textbf{第四步：最终答案} \\
+22
+
+\subsection*{二、核心公式}
+1. \textbf{平行四边形恒等式}：$2(|\mathbf{a}|^2 + |\mathbf{b}|^2) = |\mathbf{a}+\mathbf{b}|^2 + |\mathbf{a}-\mathbf{b}|^2$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 12 ---
+\TopSeparator
+\section*{题目12}
+
+\textbf{【题目重现】} \\
+点 $ (1,2,3) $ 到平面 $ 2x + y - 2z + 4 = 0 $ 的距离是 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+点到平面距离公式。
+
+\textbf{详细步骤} \\
+1. 公式：$d = \frac{|Ax_0 + By_0 + Cz_0 + D|}{\sqrt{A^2+B^2+C^2}}$。
+2. 代入：
+   $d = \frac{|2(1) + 1(2) - 2(3) + 4|}{\sqrt{2^2 + 1^2 + (-2)^2}}$
+   $= \frac{|2+2-6+4|}{\sqrt{9}} = \frac{2}{3}$。
+
+\textbf{第四步：最终答案} \\
+$ \frac{2}{3} $
+
+\subsection*{二、核心公式}
+1. \textbf{距离公式}。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 13 ---
+\TopSeparator
+\section*{题目13}
+
+\textbf{【题目重现】} \\
+通过三点 $ (0,0,0) $ , $ (1,0,1) $ , $ (2,1,0) $ 的平面方程是 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+平面过原点，方程为 $Ax+By+Cz=0$。求法向量。
+$\mathbf{n} = \overrightarrow{OA} \times \overrightarrow{OB}$。
+
+\textbf{详细步骤} \\
+1. $\mathbf{a} = (1,0,1), \mathbf{b} = (2,1,0)$。
+2. $\mathbf{n} = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 1 & 0 & 1 \\ 2 & 1 & 0 \end{vmatrix} = (-1, 2, 1)$。
+3. 方程：$-x + 2y + z = 0$ 或 $x - 2y - z = 0$。
+
+\textbf{第四步：最终答案} \\
+$ x - 2y - z = 0 $
+
+\subsection*{二、核心公式}
+1. \textbf{平面法向量}：两向量叉乘。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 14 ---
+\TopSeparator
+\section*{题目14}
+
+\textbf{【题目重现】} \\
+过点 $ (1,0,1) $ 和平面 $ x+y-z-1=0 $ 、平面 $ 2x+z+1=0 $ 平行的直线方程。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+直线的方向向量 $\mathbf{s}$ 同时平行于两个平面 $\Rightarrow$ $\mathbf{s}$ 垂直于两个平面的法向量。
+故 $\mathbf{s} = \mathbf{n}_1 \times \mathbf{n}_2$。
+
+\textbf{详细步骤} \\
+1. 法向量：$\mathbf{n}_1 = (1,1,-1), \mathbf{n}_2 = (2,0,1)$。
+2. 方向向量：
+   $\mathbf{s} = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 1 & 1 & -1 \\ 2 & 0 & 1 \end{vmatrix} = (1, -3, -2)$。
+3. 点向式方程：
+   $\frac{x-1}{1} = \frac{y-0}{-3} = \frac{z-1}{-2}$。
+
+\textbf{第四步：最终答案} \\
+$ \frac{x-1}{1} = \frac{y}{-3} = \frac{z-1}{-2} $
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 15 ---
+\TopSeparator
+\section*{题目15}
+
+\textbf{【题目重现】} \\
+求通过点 $ M_{1}(3,-5,1) $ ， $ M_{2}(4,1,2) $ 且垂直于平面 $ x-8y+3z-1=0 $ 的平面方程。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+法向量 $\mathbf{n}$ 垂直于平面法向量 $\mathbf{n}_p=(1,-8,3)$，且 $\mathbf{n}$ 垂直于向量 $\overrightarrow{M_1M_2}$。
+故 $\mathbf{n} = \mathbf{n}_p \times \overrightarrow{M_1M_2}$。
+
+\textbf{详细步骤} \\
+1. $\overrightarrow{M_1M_2} = (4-3, 1-(-5), 2-1) = (1, 6, 1)$。
+2. $\mathbf{n}_p = (1, -8, 3)$。
+3. $\mathbf{n} = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 1 & 6 & 1 \\ 1 & -8 & 3 \end{vmatrix} = (26, -2, -14)$。
+   取简化法向量 $\mathbf{n} = (13, -1, -7)$。
+4. 点法式（用 $M_1$）：
+   $13(x-3) - 1(y+5) - 7(z-1) = 0$。
+   $13x - y - 7z - 39 - 5 + 7 = 0$。
+   $13x - y - 7z - 37 = 0$。
+
+\textbf{第四步：最终答案} \\
+$ 13x - y - 7z - 37 = 0 $
+
+\end{RedAnalysis}
+
+\end{document}

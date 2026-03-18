@@ -1,0 +1,3088 @@
+\documentclass[11pt, a4paper]{ctexart}
+
+% 页面设置
+\usepackage[margin=2.5cm]{geometry}
+
+% 宏包引入
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{multirow} % 用于表格中的合并行
+
+% 颜色定义
+\definecolor{mainblue}{RGB}{0, 70, 140}
+\definecolor{accentred}{RGB}{200, 30, 30}
+\definecolor{bglight}{RGB}{245, 245, 245}
+
+% 设置样式
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\leftmark}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% 标题格式
+\ctexset{
+    section = {
+        format = \Large\bfseries\color{mainblue},
+        number = \chinese{section}、
+    },
+    subsection = {
+        format = \large\bfseries\color{black},
+        number = （\chinese{subsection}）
+    },
+    subsubsection = {
+        format = \bfseries\color{black},
+        number = \arabic{subsubsection}.
+    }
+}
+
+% 自定义环境
+\newtcolorbox{tipsbox}[1]{
+    colback=bglight,
+    colframe=mainblue,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=2mm
+}
+
+\newtcolorbox{examplebox}[1]{
+    colback=white,
+    colframe=gray!50!white,
+    coltitle=black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=0mm,
+    boxrule=0.5pt
+}
+
+% 用于显示原始OCR图片标记的命令
+\newcommand{\ocrimage}[1]{\texttt{#1}}
+
+\begin{document}
+
+\begin{center}
+    {\Huge \bfseries 专升本护理考试《基础护理学》解读} \\
+    \vspace{0.3cm}
+    {\large 01 25年录取分析 \quad 02 考试科目 \quad 03 考纲分析 \quad 04 知识点讲解}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{2025年录取分析}
+\begin{table}[htbp]
+\centering
+\caption{护理学专业25年录取分析}
+\label{tab:admission}
+\small
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{院校名称} & \textbf{办学性质} & \textbf{学费} & \textbf{2025录取人数} & \textbf{2025录取率} \\
+\hline
+吉首大学 & 公办 & 7500 & 28 & 14.36\% \\
+邵阳学院 & 公办 & 7500 & 52 & 10.00\% \\
+湖南医药学院 & 公办 & 7150 & 26 & 12.56\% \\
+湘南学院 & 公办 & 7150 & 43 & 12.65\% \\
+张家界学院 & 民办 & 17250 & 1273 & 47.29\% \\
+湖南交通工程学院 & 民办 & 27180 & 229 & 78.16\% \\
+长沙医学院 & 民办 & 39819 & 452 & 54.00\% \\
+湖南中医药大学湘杏学院 & 独立学院 & 15000 & 187 & 34.31\% \\
+南华大学船山学院 & 独立学院 & 15000 & 69 & 27.17\% \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{2026年考试科目}
+\begin{table}[htbp]
+\centering
+\caption{“护理学”本科院校考试科目（2026年）}
+\label{tab:exam}
+\small
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{院校名称} & \textbf{统考科目} & \textbf{统考科目} & \textbf{专业综合科目} \\
+\hline
+邵阳学院 & 大学英语 & 大学语文 & 护理学基础(基础护理学) \\
+湘南学院 & 大学英语 & 大学语文 & 护理学综合(系统解剖学+基础护理学) \\
+张家界学院 & 大学英语 & 大学语文 & 护理学综合(内科护理学+外科护理学+基础护理学) \\
+湖南交通工程学院 & 大学英语 & 大学语文 & 护理学专业综合(生理学+药理学) \\
+长沙医学院 & 大学英语 & 大学语文 & 护理综合(人体解剖学+基础护理学) \\
+湖南中医药大学湘杏学院 & 大学英语 & 大学语文 & 护理学基础(基础护理学) \\
+南华大学船山学院 & 大学英语 & 大学语文 & 护理综合(护理学基础+内科护理学) \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{《基础护理学》串讲}
+\subsection{串讲章节}
+第二章 环境 \\
+第三章 预防与控制医院感染 \\
+第四章 患者入院和出院的护理 \\
+第五章 患者安全与护士的职业防护 \\
+第六章 患者的清洁卫生 \\
+第七章 休息与活动 \\
+第八章 医疗与护理文件 \\
+第九章 生命体征的评估与护理 \\
+第十章 冷、热疗法 \\
+第十一章 饮食与营养 \\
+第十二章 排泄 \\
+第十三章 给药 \\
+第十四章 静脉输液与输血 \\
+第十五章 标本采集 \\
+第十六章 疼痛患者的护理 \\
+第十七章 病情观察及危重症患者的管理 \\
+第十八章 临终护理 \\
+新增内容 护理学导论
+
+% \subsection{空白演示}
+% \subsubsection*{Page 9}
+% Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+
+% \subsubsection*{Page 10}
+% Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+
+\section{第二章 环境}
+\subsection{环境的概述}
+\subsubsection{环境的分类}
+\begin{itemize}
+    \item \textbf{内环境}：包含生理环境和心理环境
+    \item \textbf{外环境}：包括自然环境和社会环境
+\end{itemize}
+% \ocrimage{https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/general-layout-parsing-v3//23a547fc-85f1-4381-b50f-acfeb67ebca9/markdown_0/imgs/img_in_image_box_53_629_761_1028.jpg}
+% \ocrimage{https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/general-layout-parsing-v3//23a547fc-85f1-4381-b50f-acfeb67ebca9/markdown_0/imgs/img_in_image_box_812_626_1538_1029.jpg}
+% \ocrimage{https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/general-layout-parsing-v3//23a547fc-85f1-4381-b50f-acfeb67ebca9/markdown_0/imgs/img_in_image_box_1585_937_1916_1073.jpg}
+
+\subsection{医院物理环境}
+\begin{itemize}
+    \item \textbf{空间}：每个病区设30-40张病床为宜，每间病室宜设2-4张病床或单床。
+    \item \textbf{温度}：普通病室温度保持在18-22℃为宜，新生儿室、老年病房、产房、手术室以22-24℃为宜（记忆口诀：巴适的很）。
+    \item \textbf{湿度}：适宜的病室湿度为50\%-60\%，气管切开病人病室湿度为60\%-70\%（记忆口诀：S-5）。
+    \item \textbf{通风}：一次通风时间不超过30分钟。
+    \item \textbf{噪声}：白天较理想的噪声强度是35-40dB（记忆口诀：吵死（4）了）。
+    \item 工作人员行动与工作时应尽可能做到“四轻”，即说话轻、走路轻、操作轻、关门轻。
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 病室最适宜的温度和相对湿度是（D）\\
+    A.14-16℃,30\%-40\% \quad B.16-18℃,40\%-50\% \quad C.16-18℃,50\%-60\% \quad D.18-22℃,50\%-60\% \quad E.22-24℃,60\%-70\%
+    \item 病室的湿度过低病人会出现（A）\\
+    A.口渴咽痛 \quad B.烦躁不安 \quad C.肌肉紧张 \quad D.头晕头痛 \quad E.胸闷咳嗽
+    \item 下列病室通风的目中不合适的是（D）\\
+    A.保持室内空气的新鲜 \quad B.调节室内的温度及湿度 \quad C.降低室内空气中的微生物的密度 \quad D.减少热量散失 \quad E.增加病人舒适感
+    \item 护士的基本任务不包括（A）\\
+    A.抢救生命 \quad B.促进健康 \quad C.预防疾病 \quad D.恢复健康 \quad E.减轻痛苦
+\end{enumerate}
+\end{examplebox}
+
+\subsection{医院门诊及急诊环境}
+\begin{itemize}
+    \item \textbf{门诊护理工作}：包括预检分诊、安排候诊、日常工作等（注意：如果病人在候诊时出现高热、呼吸困难、休克等应采取相应措施或让患者提前就诊，必要时送至急诊）。
+    \item \textbf{预检分诊}：急诊护士接待来就诊的病人，要做到“一问、二看、三检查、四分诊”。
+    \item \textbf{抢救物品要求}：所有抢救物品要求做到“五定”，即定数量品种、定点安置、定专人保管、定期消毒灭菌和定期检查维修（记忆：定数点，人消检）。
+    \item 抢救过程中可以执行口头医嘱，但必须复述一遍，双方确认无误后方可执行，并要在抢救结束后6小时内补写医嘱。
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 对门诊就诊的患者首先应实行（C）\\
+    A.心理安慰 \quad B.卫生指导 \quad C.预检分诊 \quad D.查阅病案资料 \quad E.健康教育
+    \item 护理的基本任务是（减轻痛苦）预防（疾病）恢复（健康）和促进健康。
+    \item 人类环境中内环境包括（生理）环境和（心理）环境，外环境包括（自然）环境和（社会）环境。
+\end{enumerate}
+\end{examplebox}
+
+\section{第三章 预防与控制医院感染}
+\subsection{医院感染}
+\begin{itemize}
+    \item \textbf{医院感染}：又称医院获得性感染、医疗相关感染，指住院病人在医院内获得的感染，包括在住院期间发生的感染和在医院内获得出院后发生的感染，但不包括入院前已存在或者入院时已处于潜伏期的感染。
+    \item \textbf{分类}：按病原体的来源分类分为：
+    \begin{itemize}
+        \item \textbf{内源性医院感染}：又称自身医院感染，指各种原因引起的病人在医院内遭受自身固有病原体侵袭而发生的医院感染。
+        \item \textbf{外源性医院感染}：又称交叉感染，指各种原因引起的病人在医院内遭受非自身固有病原体侵袭而发生的医院感染。
+    \end{itemize}
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 关于医院感染的概念，描述正确的是（C）\\
+    A.感染和发病应同时发生 \quad B.探视陪住者也是医院感染的主要对象 \quad C.病人出院后发生的感染可能属于医院感染 \quad D.一定是病人在住院期间遭受并发生的感染 \quad E.住院期间发生的感染都属于医院感染
+    \item 不属于医院感染的是（E）\\
+    A.骨盆骨折病人住院第4天查出尿路感染 \quad B.肺炎链球菌感染的病人进行痰培养分离出肺炎克雷伯杆菌 \quad C.出生4天的新生儿诊断为“新生儿脐炎” \quad D.保洁员在倾倒医疗垃圾时不慎被针头刺伤脚踝致局部感染 \quad E.脑卒中病人的骶尾部见到压之不褪色的红斑
+    \item 关于内源性医院感染的描述，错误的是（C）\\
+    A．又称自身感染，感染源是患者自身 \quad B．病原体是来自患者体内或体表的常居菌或暂居菌 \quad C．引起感染的主要传播途径是病原体通过手、媒介物直接或间接接触 \quad D．患者抵抗力下降或免疫功能受损时易发生感染 \quad E．抗菌药物的广泛应用，使感染机会增加
+\end{enumerate}
+\end{examplebox}
+
+\subsection{医院感染发生的条件}
+\begin{itemize}
+    \item \textbf{三个要素}：感染源、传播途径和易感人群。
+    \item \textbf{感染源}：又称病原微生物贮源，指病原体自然生存、繁殖并排出的宿主（人或动物）或场所。
+    \item \textbf{传播途径}：
+    \begin{itemize}
+        \item \textbf{接触传播}：是医院感染中最常见也是最重要的传播方式之一。常见的主要经接触传播疾病有艾滋病、狂犬病等。
+        \item \textbf{空气传播}：常见的主要经空气传播的疾病有开放性肺结核、麻疹和水痘。
+        \item \textbf{飞沫传播}：常见的主要通过飞沫传播的疾病有：猩红热、百日咳、急性传染性非典型肺炎(SARS)等。
+        \item \textbf{其它途径}：动物携带病原微生物而引起的生物媒介传播，如鼠疫杆菌主要通过鼠蚤叮咬致人感染而发生鼠疫。
+    \end{itemize}
+    \item \textbf{易感人群}：
+    \begin{itemize}
+        \item 婴幼儿及老年人；
+        \item 机体免疫功能严重受损者；
+        \item 营养不良者等
+    \end{itemize}
+\end{itemize}
+
+\begin{examplebox}{练习题}
+医院感染的主要对象是（C）\\
+A.门诊患者 \quad B．急诊患者 \quad C．住院患者 \quad D．探视者 \quad E．陪护者
+\end{examplebox}
+
+\subsection{清洁、消毒、灭菌}
+\subsubsection{消毒灭菌的概念}
+\begin{itemize}
+    \item \textbf{消毒}：指清除或杀灭传播媒介上病原微生物，使其达到无害化的处理。能杀灭传播媒介上的微生物并达到消毒要求的制剂称为消毒剂。
+    \item \textbf{灭菌}：指杀灭或清除医疗器械、器具和物品上一切微生物的处理，并达到灭菌保证水平的方法。灭菌保证水平是灭菌处理单位产品上存在活微生物的概率，通常表示为10\textsuperscript{-6}，即经灭菌处理后在一百万件物品中最多只允许一件物品存在活微生物。
+\end{itemize}
+
+\subsubsection{消毒灭菌的方法}
+常用的消毒灭菌方法有两大类：物理消毒灭菌法和化学消毒灭菌法。
+
+\begin{tipsbox}{物理消毒灭菌法——干热法}
+\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
+\hline
+ & \textbf{燃烧法} & \textbf{干烤法} \\
+\hline
+概念 & 是一种简单、迅速、彻底的灭菌方法 & 利用专用密闭烤箱进行灭菌 \\
+\hline
+适用范围 & 1.不需保存的物品 2、急用某些金属器械(锐利刀剪禁用此法以免锋刃变钝)、搪瓷类物品 & 适用于耐热、不耐湿、蒸汽或气体不能穿透物品的灭菌，如油剂、粉剂、金属和玻璃器皿等的灭菌 \\
+\hline
+注意事项 & 点火燃烧直至熄灭，注意不可中途添加乙醇、不得将引燃物投入消毒容器中，同时要远离易燃、易爆物品等以确保安全 & ①灭菌前预处理：物品应先清洁，玻璃器皿需保持干燥 ②物品包装合适：体积通常不超过10cmX10cmx20cm，凡士林纱布条厚度不超过1.3cm \\
+\hline
+\end{tabular}
+\end{tipsbox}
+
+\begin{tipsbox}{物理消毒灭菌法——湿热法}
+\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
+\hline
+ & \textbf{压力蒸汽灭菌法} & \textbf{煮沸消毒法} \\
+\hline
+概念 & 是热力消毒灭菌法中效果最好的一种方法 & 是应用最早的消毒方法之一 \\
+\hline
+适用范围 & 1、耐热、耐湿类诊疗器械、器具和物品的灭菌，不能用于油类和粉剂的灭菌 & 适用于金属、搪瓷、玻璃和餐饮具或其他耐湿、耐热物品的消毒。 \\
+\hline
+注意事项 & 1、器械包重量不超过7kg，敷料包重量不宜超过5kg。2、装载恰当:使用专用灭菌架或篮筐装载灭菌物品，灭菌包之间留有空隙。3、多种物品需同时灭菌时布类物品放在金属、陶瓷物品上面。 & 1、物品刷洗干净后全部浸没在水中≥3cm，加热煮沸后维持≥15分钟。消毒时间从水沸后算起。2、水沸后放入如中途加入物品，则在第二次水沸后重新计时。3、水的沸点受气压影响，一般海拔每增高300m，消毒时间需延长2分钟。4、为增强杀菌作用、去污防锈，可将碳酸氢钠加入水中，沸点可达到105℃。5、消毒后应将物品及时取出置于无菌容器内，及时应用，4小时内未用需要重煮消毒。 \\
+\hline
+\end{tabular}
+\end{tipsbox}
+
+\begin{tipsbox}{物理消毒灭菌法——辐射消毒法}
+\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
+\hline
+ & \textbf{日光暴晒法} & \textbf{紫外线消毒} \\
+\hline
+概念 & 利用日光的热、干燥和紫外线作用达到消毒效果 & 紫外线波长为200~280nm，其中杀菌作用最强的为253.7nm \\
+\hline
+适用范围 & 常用于床垫、被服、书籍等物品的消毒 & 可杀灭多种微生物，包括杆菌、病毒等 \\
+\hline
+注意事项 & 将物品放在直射阳光下曝晒6小时，并定时翻动，使物品各面均能受到日光照射 & 1、紫外线消毒灯距离地面1.8~2.2m，数量≥1.5W/m³，照射时间不少于30分钟 2、一般每周1次用70\%~80\%乙醇布巾擦拭 3、紫外线的消毒时间须从灯亮5~7分钟后开始计时，若使用时间超过1000小时，需更换灯管 \\
+\hline
+\end{tabular}
+\end{tipsbox}
+
+\subsubsection{化学消毒灭菌法}
+\begin{itemize}
+    \item \textbf{化学消毒剂的种类}
+    \begin{table}[htbp]
+    \centering
+    \begin{tabular}{|p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+    \hline
+     & \textbf{灭菌剂} & \textbf{高效消毒剂} & \textbf{中效消毒剂} & \textbf{低效消毒剂} \\
+    \hline
+    作用 & 能杀灭一切微生物（包括细菌芽胞），并达到灭菌要求的化学制剂。 & 能杀灭一切细菌繁殖体（包括分枝杆菌）病毒、真菌及其孢子等 & 能杀灭分枝杆菌、真菌、病毒及细菌繁殖体等微生物的化学制剂。 & 能杀灭细菌繁殖体和亲脂病毒的化学制剂。 \\
+    \hline
+    种类 & 如戊二醛（用于精密仪器、医疗器械的消毒，如内镜）、环氧乙烷等。 & 如过氧乙酸、过氧化氢、部分含氯 & 如醇类、碘类、部分含氯消毒剂等。 & 如酚类、胍类、季铵盐类消毒剂等。氯己定（洗必泰） \\
+    \hline
+    \end{tabular}
+    \end{table}
+    \item \textbf{化学消毒剂的使用方法}
+    \begin{table}[htbp]
+    \centering
+    \begin{tabular}{|p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+    \hline
+     & \textbf{浸泡法} & \textbf{擦拭法} & \textbf{喷雾法} & \textbf{熏蒸法} \\
+    \hline
+    概念 & 将被消毒的物品清洗、擦干后浸没在规定浓度的消毒液内一定时间的消毒方法 & 蘸取规定浓度的化学消毒剂擦拭被污染物品的表面或皮肤、黏膜的消毒方法 & 在规定时间内用喷雾器将一定浓度的化学消毒剂均匀地喷洒于空间或物品表面进行消毒的方法 & 在密闭空间内将一定浓度的消毒剂加热或加入氧化剂，使其产生气体在规定的时间内进行消毒灭菌的方法 \\
+    \hline
+    注意事项 & 浸泡前要打开物品的轴节或套盖，管腔内要灌满消毒液 & 一般选用易溶于水、穿透力强、无显著刺激性的消毒剂 & 常用于地面、墙壁、空气、物品表面的消毒 & 可用于手术室、换药室、病室的空气消毒以及精密贵重仪器、不能蒸煮、浸泡物品的消毒 \\
+    \hline
+    \end{tabular}
+    \end{table}
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 能杀灭所有微生物以及细菌芽胞的方法是（D）\\
+    A.清洁 \quad B.消毒 \quad C.抑菌 \quad D.灭菌 \quad E.抗菌
+    \item 不适合使用干热法灭菌的是（E）\\
+    A.玻璃制品 \quad B.陶瓷类 \quad C.油剂 \quad D.粉剂 \quad E.橡胶制品
+    \item 海拔600m高处采用煮沸法消毒餐具时，需要延长消毒时间（D）\\
+    A.2分钟 \quad B.3分钟 \quad C.4分钟 \quad D.5分钟 \quad E.6分钟
+    \item 杀菌作用最强的紫外线波段是（C）\\
+    A.210～230nm \quad B.230～250nm \quad C.250～270nm \quad D.270～300nm \quad E.300～320nm
+    \item 不适用于燃烧法灭菌的是（B）\\
+    A.污染的纸张 \quad B.手术刀片 \quad C.破伤风病人用过的敷料 \quad D.治疗碗 \quad E.血管钳
+    \item 化学消毒剂使用方法不包括（B）\\
+    A.擦拭法 \quad B.煮沸法 \quad C.浸泡法 \quad D.熏蒸法 \quad E.喷雾法
+\end{enumerate}
+\end{examplebox}
+
+\subsection{消毒、灭菌方法的选择原则}
+医院清洁、消毒、灭菌工作应严格遵守工作程序。重复使用的诊疗器械、器具和物品，使用后应先清洁，再进行消毒或灭菌；被气性坏疽及突发不明原因的传染病病原体污染的诊疗器械、器具和物品应先消毒，再按常规清洗消毒灭菌。
+
+\subsection{医疗器械分类}
+根据医疗器械污染后使用所致感染的危险性大小及在病人使用前的消毒或灭菌要求，将医疗器械分为三类：
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+ & \textbf{高度危险性物品} & \textbf{中度危险性物品} & \textbf{低度危险性物品} \\
+\hline
+概念 & 进入人体无菌组织、器官、脉管系统，或有无菌体液从中流过的物品，或接触破损皮肤、破损黏膜的物品 & 与完整黏膜相接触，而不进入人体无菌组织、器官和血流，也不接触破损皮肤、破损黏膜的物品 & 与完整皮肤接触而不与黏膜接触的器材，包括生活卫生用品和病人、医务人员生活和工作环境中的物品 \\
+\hline
+包括 & 手术器械、穿刺针、腹腔镜、活检钳、脏器移植物等 & 胃肠道内镜、气管镜、喉镜、体温表、呼吸机管道、压舌板等；菌落总≤20CFU/件 & 听诊器、血压计、病床围栏、床面以及床头柜；菌落总数应≤200CFU/件 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{examplebox}{练习题}
+属于高度危险性的医用物品是（C）\\
+A.肠镜 \quad B.体温计 \quad C.手术缝线 \quad D.血压计袖带 \quad E.压舌板
+\end{examplebox}
+
+\subsection{医院日常的清洁、消毒、灭菌}
+从空气消毒的角度将医院环境分为四类：
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{2cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+\hline
+ & \textbf{I类} & \textbf{II类} & \textbf{III类} & \textbf{IV类} \\
+\hline
+要求 & 空气平均菌落：≤150CFU/m³ 物品表面平均菌落：≤5CFU/m³ & 物品表面平均菌落：≤5CFU/m² & 物品表面平均菌落：≤10CFU/m² & 物品表面平均菌落：≤10CFU/m² \\
+\hline
+举例 & 洁净手术室 洁净骨髓移植病房 & 非洁净手术部(室)、产房、导管室、血液病病区、烧伤病区、新生儿室 & 母婴同室、血液透析室、其他普通住院病区 & 普通门急诊及其检查、治疗室、感染性疾病科门诊及病区 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{examplebox}{练习题}
+烧伤病区属于II类环境，要求空气中的菌落总数不超过(D)\\
+A.10cfu/m3 \quad B.50cfu/m3 \quad C.100cfu/m3 \quad D.200cfu/m3 \quad E.500cfu/m3
+\end{examplebox}
+
+\subsection{无菌技术}
+无菌技术指在医疗、护理操作过程中，防止一切微生物侵入人体和防止无菌物品、无菌区域被污染的技术。
+
+\subsubsection{无菌持物钳的存放与使用原则}
+\begin{itemize}
+    \item \textbf{存放原则}：每个容器只放一把无菌持物钳，消毒液面浸没轴节以上2～3cm或镊子长度的1/2。（记忆口诀：想到持物钳和镊子有两个角，数字都是2）
+    \item \textbf{使用原则}：
+    \begin{itemize}
+        \item 严格遵循无菌操作原则取放无菌持物钳时闭合钳端，不可触及容器口边缘。
+        \item 使用过程中始终保持钳端向下，不可触及非无菌区。
+        \item 到远处取物时，应将容器一起移至操作处，不可用无菌持物钳夹取油纱布、换药或消毒皮肤。
+        \item 无菌持物钳及其浸泡容器每周消毒2次，同时更换消毒液；使用频率较高的部门应每天消毒。
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{无菌容器使用原则}
+\begin{itemize}
+    \item 严格遵循无菌操作原则。
+    \item 移动无菌容器时，应托住底部，手指不可触及无菌容器的内面及边缘。
+    \item 从无菌容器内取出的物品，即使未用，也不可再放回无菌容器中。
+    \item 无菌容器应定期消毒灭菌；一经打开，使用时间不超过24小时。
+\end{itemize}
+
+\subsubsection{无菌包使用原则}
+\begin{itemize}
+    \item 严格遵循无菌操作原则。
+    \item 打开无菌包时手只能接触包布四角的外面，不可触及包布内面，不可跨越无菌区。
+    \item 包内物品未用完，应按原折痕包好，注明开包日期及时间，限24小时内使用。
+    \item 如包内物品超过有效期、被污染或包布受潮，则需重新灭菌。
+\end{itemize}
+
+\subsubsection{铺无菌盘}
+\begin{itemize}
+    \item 严格遵循无菌操作原则。
+    \item 铺无菌盘区域须清洁干燥、无菌巾避免潮湿、污染。
+    \item 铺盘时非无菌物品和身体应与无菌盘保持适当距离，手不可触及无菌巾内面，不可跨越无菌区。
+    \item 铺好的无菌盘尽早使用，有效期不超过4小时（记忆口诀：盘丝洞一盘（无菌盘），丝-4个小时）。
+\end{itemize}
+
+\subsubsection{倒取无菌溶液原则}
+\begin{itemize}
+    \item 严格遵循无菌操作原则。
+    \item 不可将物品伸入无菌溶液瓶内蘸取溶液；倾倒液体时不可直接接触无菌溶液瓶口。
+    \item 已倒出的溶液不可再倒回瓶内，以免污染剩余溶液。
+    \item 已开启的无菌溶液瓶内的溶液，24小时内有效，余液只作清洁操作用。\\
+    记忆口诀：总结一下，除了无菌铺盘是4个小时，其余均是24小时。
+\end{itemize}
+
+\subsubsection{戴、脱无菌手套原则}
+\begin{itemize}
+    \item 严格遵循无菌操作原则。
+    \item 戴手套时手套外面（无菌面）不可触及任何非无菌物品；已戴手套的手不可触及未戴手套的手及另一手套的内面；未戴手套的手不可触及手套的外面。（记忆方法：手永远是有细菌的，那么手套里面和手接触也是有细菌的，外面是无菌的）
+    \item 选择合适手掌大小的手套尺码；修剪指甲以防刺破手套。
+    \item 戴手套后双手应始终保持在腰部或操作台面以上视线范围内的水平；如发现有破损或可疑污染应立即更换。
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 下列无菌物品的保管方法，错误的是（E）\\
+    A.无菌物品应放在无菌包内 \quad B.无菌物品取出后不得再放回无菌容器内 \quad C.无菌包必须注明灭菌日期 \quad D.无菌物品与非无菌物品应分开放置 \quad E.无菌包内物品打开48小时后重新灭菌
+    \item 下列物品中，可用无菌持物钳夹取的是（E）\\
+    A.凡士林纱布 \quad B.待消毒的治疗碗 \quad C.夹取纱布换药 \quad D.夹取碘伏棉球消毒 \quad E.无菌治疗巾
+    \item 关于无菌持物钳的保存和使用，错误的是（D）\\
+    A.每个容器只放一把无菌持物钳 \quad B.取放无菌持物钳时闭合钳端 \quad C.使用时钳端向下，不可倒转向上 \quad D.将无菌持物钳取出，拿到远处夹取物品 \quad E.不可夹取油纱布和消毒皮肤
+    \item 有关无菌盘的使用方法，错误的是（B）\\
+    A.无菌盘铺好后应注明铺盘时间，在4小时内使用 \quad B.未用过的无菌巾，一旦受潮变湿晾干后再用 \quad C.无菌巾内无菌物品放置有序 \quad D.铺无菌盘前，应检查治疗盘清洁干燥 \quad E.一次性无菌巾使用后弃入医疗垃圾袋内
+    \item 取用无菌溶液时，先倒出少许溶液的目的是（A）\\
+    A.清洗瓶口 \quad B.检查溶液的颜色 \quad C.检查溶液的黏稠度 \quad D.检查溶液有无污染 \quad E.检查溶液有无浑浊
+    \item 戴无菌手套进行操作时，正确的是（C）\\
+    A.手套内面为无菌区，应保持其无菌 \quad B.未戴手套的手可触及手套的外面 \quad C.已戴手套的手不可触及另一手套的内面 \quad D.戴手套前可不必洗手，但要修剪指甲 \quad E.戴好手套后两手置于胸部以上水平
+\end{enumerate}
+\end{examplebox}
+
+\subsection{隔离技术}
+隔离：采用各种方法、技术，防止病原体从病人及携带者传播给他人的措施。
+
+\subsubsection{区域划分}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{2.5cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+ & \textbf{清洁区} & \textbf{潜在污染区} & \textbf{污染区} \\
+\hline
+概念 & 指进行传染病诊治的病区中不易受到病人血液、体液和病原微生物等物质污染及传染病病人不应进入的区域。（记忆口诀：只有医务人员能去的地方） & 也称半污染区，指进行传染病诊治的病区中位于清洁区与污染区之间、有可能被病人血液、体液和病原微生物等物质污染的区域。（记忆口诀：只有医务人员和患者都能去的地方） & 指进行传染病诊治的病区中传染病病人和疑似传染病病人接受诊疗的区域，包括被其血液、体液、分泌物、排泄物污染物品暂存和处理的场所。（记忆口诀：患者主要去的地方） \\
+\hline
+举例 & 包括医务人员的值班室、卫生间、男女更衣室、浴室以及储物间、配餐间等 & 包括医务人员的办公室、治疗室、护士站、病人用后的物品、医疗器械等的处理室、内走廊等 & 如病室、处置室、污物间以及病人入院、出院处理室等。 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{隔离原则}
+\begin{enumerate}
+    \item 隔离标志明确，卫生设施齐全：病室悬挂隔离标志（注：接触传播的隔离病室使用蓝色隔离标志；空气传播的隔离病室使用黄色隔离标志；飞沫传播的隔离病室使用粉红色隔离标志）。
+    \item 传染性分泌物三次培养结果均为阴性或已渡过隔离期，医生开出医嘱后方可解除隔离。
+    \item 保护性隔离：是以保护易感人群作为制定措施的主要依据而采取的隔离。适用：抵抗力低下或极易感染的患者，如严重烧伤、早产儿、白血病、脏器移植及免疫缺陷患者。
+\end{enumerate}
+
+\subsubsection{隔离衣的使用}
+\begin{enumerate}
+    \item 隔离衣每日更换，如有潮湿或污染，应立即更换。
+    \item 穿脱隔离衣过程中始终保持衣领清洁。
+    \item 穿好隔离衣后，不得进入清洁区，不接触清洁物品。
+    \item 消毒手时不能沾湿隔离衣，隔离衣也不可触及其他物品。
+    \item 脱下的隔离衣如挂在半污染区，清洁面向外；挂在污染区则污染面向外。（记忆口诀：污染对应污染，半污染则对应清洁）
+\end{enumerate}
+
+\subsubsection{其它原则}
+\begin{enumerate}
+    \item 取避污纸时，应从页面抓取，不可掀开撕取。
+    \item 口罩摘下后污染面向内折叠，一次性口罩使用不得超过4小时。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 属于潜在污染区的为（D）\\
+    A.储物间 \quad B.处置室 \quad C.病房浴室 \quad D.内走廊 \quad E.病室
+    \item 挂在衣钩上已穿过的隔离衣，被视为清洁的部位是（A）\\
+    A.衣领 \quad B.袖口 \quad C.腰部以上 \quad D.腰部以下 \quad E.胸部以上
+    \item 周先生，48岁，诊断为“急性传染性非典型肺炎”。对于隔离区域的划分，属于污染区的区域为（E）\\
+    A.储物间 \quad B.治疗室 \quad C.医务人员值班室 \quad D.内走廊 \quad E.病室
+    \item 刘先生，30岁，诊断为“伤寒”。对于刘先生使用过的床单，正确的处理步骤是（A）\\
+    A.先灭菌，再清洁、消毒、灭菌 \quad B.清洁后用高压蒸汽灭菌 \quad C.清洗后，用化学消毒剂浸泡消毒 \quad D.直接采取燃烧法 \quad E.先用消毒液浸泡，再清洗
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{本章填空题}
+\begin{enumerate}
+    \item 构成感染链的三个基本条件是感染源、(传播途径)和(易感宿主)。
+    \item 根据病原体的来源分类，可将医院感染分为(内源性)感染和(外源性)感染。
+    \item 医院感染的传播途径主要包括接触传播、(空气传播)、(飞沫传播)。
+    \item 常用的消毒灭菌方法有两大类：(物理)消毒灭菌法和(化学)消毒灭菌法。
+    \item 常用的化学消毒剂的使用方法有喷雾法、浸泡法、(擦拭)法和(熏蒸)法。
+    \item 医院用品的危险性通常分为三类：高度危险性物品、(中度危险性物品)、(低度危险性物品)。
+    \item 层流洁净病房属于(I)类环境。
+    \item 干燥保存的无菌持物钳使用有效期为(4)h；无菌容器一经打开，使用时间不超过(24)h。
+    \item 无菌包内物品一次未用完，则按原折痕包好，有效期为(24)h；铺好的无菌盘有效期为(4)h。
+    \item 根据患者获得感染危险性的程度，医院可分成4个区域：低危险区域、中等危险区域、(高危险区域)和(极高危险区域)。
+    \item 呼吸道传染病病区分为清洁区、(半污染区)和(污染区)，并设立两通道和三区之间的缓冲间。
+    \item 接触传播的隔离病室使用(蓝)色隔离标志，空气传播的隔离病室使用(黄)色隔离标志，飞沫传播的隔离病室使用(粉)色隔离标志。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第四章 病人入院和出院的护理}
+\subsection{病人入院的护理}
+\subsubsection{入院要求}
+急诊或门诊医师经初步诊断，确定病人需要住院时，签发住院证。
+
+\subsubsection{病人进入病区后的初步护理}
+\begin{enumerate}
+    \item 迎接新病人：备用床改为暂空床。
+    \item 通知负责医生诊查病人。
+    \item 协助病人佩戴腕带标识，进行入院护理评估。
+    \item 通知营养室为病人准备膳食。
+    \item 填写住院病历和有关护理表格。（注：住院病历顺序：1、体温单；2、医嘱单；3、入院记录……最后为门诊或以往病历）（记忆方法：体温单每天都要用，所以放到第一张）。
+\end{enumerate}
+
+\subsubsection{分级护理}
+根据对病人病情的轻、重、缓、急以及病人自理能力的评估，给予不同级别的护理。
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\textwidth}{cXXXX}
+\toprule
+ & \textbf{特级护理} & \textbf{一级护理} & \textbf{二级护理} & \textbf{三级护理} \\
+\midrule
+适用对象 & 病情危重，随时可能发生病情变化需要进行抢救的病人；重症监护病人；各种复杂手术或者大手术后病人；使用呼吸机辅助呼吸的病人等 & 病情趋向稳定的重症病人；手术后或者治疗期间需要严格卧床的病人；生活完全不能自理且病情不稳定的病人；生活部分自理，病情随时可能发生变化的病人，如休克、高热、大出血等 & 病情稳定，仍需卧床的病人；生活部分自理的病人 & 生活完全自理且病情稳定的病人；生活完全自理且处于康复期的病人 \\
+\addlinespace % 增加两行之间的额外间距
+护理特点 & 严密观察病人病情变化，监测生命体征 & 每小时巡视病人，观察病人病情变化 & 每2小时巡视病人，观察病人病情变化 & 每3小时巡视病人，观察病人病情变化 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{自理能力分级}
+自理能力（ability of self-care）是指在生活中个体照料自己的行为能力。其分级依据Barthel指数评定量表，对日常生活活动进行评定，根据Barthel指数总分，确定自理能力等级。Barthel指数（Barthel index，BI），范围在0~100分，是对患者日常生活活动的功能状态进行测量，个体得分取决于对一系列独立行为的测量。日常生活活动（activities of daily living，ADL）是人们为了维持生存及适应生存环境而每天反复进行的活动，其总分即为Barthel指数。根据总分，将患者的自理能力分为重度依赖、中度依赖、轻度依赖、无需依赖四个等级。
+\begin{table}[htbp]
+\centering
+\caption{自理能力分级}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{自理能力等级} & \textbf{等级划分标准} & \textbf{需要照护程度} \\
+\hline
+重度依赖 & 总分≤40分 & 全部需要他人照护 \\
+中度依赖 & 总分41~60分 & 大部分需他人照护 \\
+轻度依赖 & 总分61~99分 & 少部分需他人照护 \\
+无需依赖 & 总分100分 & 无需他人照护 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 住院处为患者办理入院手续的主要根据是（D）\\
+    A 单位介绍信 \quad B 转院证明 \quad C 门诊病历 \quad D 住院证 \quad E 公费医疗单
+    \item 被套式备用床的被头边缘与床头的距离是（B）\\
+    A 10 cm \quad B 15 cm \quad C 20cm \quad D 25cm \quad E 30cm
+    \item 特级护理适用于（A）\\
+    A 肝移植患者 \quad B 肾衰竭患者 \quad C 昏迷病人 \quad D 择期手术者 \quad E 年老体弱
+    \item 支气管哮喘急性发作的病人需要采取端坐位，此卧位属于（B）\\
+    A.被动卧位 \quad B.被迫卧位 \quad C.主动卧位 \quad D.稳定性卧位 \quad E.不稳定性卧位
+\end{enumerate}
+\end{examplebox}
+
+\subsection{患者的卧位}
+\subsubsection{卧位的分类}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{2.5cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+ & \textbf{主动卧位} & \textbf{被动卧位} & \textbf{被迫卧位} \\
+\hline
+概念 & 患者根据自己的意愿和习惯采取最舒适、最随意的卧位，并能随意改变卧床姿势 & 患者自身无力变换卧位，躺卧于他人安置的卧位。 & 患者意识清晰，也有变换卧位的能力，但为了减轻疾病所致的痛苦或因治疗需要而被迫采取的卧位 \\
+\hline
+常见人群 & 见于轻症患者、术前及恢复期患者 & 常见于昏迷、极度衰弱的患者 & 如支气管哮喘急性发作、急性肺水肿（左心衰）的病人由于呼吸极度困难而被迫采取端坐位 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{常用卧位}
+\textbf{仰卧位}
+\begin{enumerate}
+    \item \textbf{去枕仰卧位}：
+    \begin{itemize}
+        \item 姿势：去枕仰卧，头偏向一侧，两臂放于身体两侧，两腿伸直，自然放平，将枕横立于床头。
+        \item 适用范围：①昏迷或全身麻醉未清醒的病人。可避免呕吐物误入气管而引起窒息或肺部并发症。②椎管内麻醉或脊髓腔穿刺后的病人。可预防颅内压降低而引起的头痛。
+    \end{itemize}
+    \item \textbf{中凹卧位（休克卧位）}：
+    \begin{itemize}
+        \item 姿势：用垫枕抬高病人的头胸部约10°~20°，抬高下肢约20°~30°。
+        \item 适用范围：休克病人。因抬高头胸部，有利于保持气道通畅，改善通气功能，从而改善缺氧症状；抬高下肢，有利于静脉血回流，增加心输出量而使休克症状得到缓解。
+    \end{itemize}
+    \item \textbf{屈膝仰卧位}：
+    \begin{itemize}
+        \item 姿势：病人仰卧，头下垫枕，两臂放于身体两侧，两膝屈起，并稍向外分开。检查或操作时注意保暖及保护病人隐私。
+        \item 适用范围：胸腹部检查或行导尿术、会阴冲洗等。该卧位可使腹部肌肉放松，便于检查或暴露操作部位。
+    \end{itemize}
+    \item \textbf{侧卧位}：
+    \begin{itemize}
+        \item 姿势：病人侧卧，臀部稍后移，两臂屈肘，一手放在枕旁，一手放在胸前，下腿稍伸直，上腿弯曲。必要时在两膝之间、胸腹部、后背部放置软枕，以扩大支撑面，增加稳定性，使病人感到舒适与安全。
+        \item 适用范围：①灌肠，肛门检查，配合胃镜、肠镜检查等；②预防压疮；③臀部肌内注射；④单侧肺部病变者。
+    \end{itemize}
+    \item \textbf{半坐卧位}：
+    \begin{itemize}
+        \item 姿势：病人仰卧，先摇起床头支架使上半身抬高，与床呈30°~50°，再摇起膝下支架。
+        \item 适用范围：①面、颈部手术后病人（预防术后局部出血）。②胸腔疾病、胸部创伤、心肺疾患引起的呼吸困难患者。减少腹腔脏器对心肺的压力，增加肺活量，减轻肺淤血和心脏负担，促进呼吸。同时，有利于引流脓液、血液等。③盆腹腔术后或炎症患者。④促进引流；⑤使感染局限盆腔，减少炎症的扩散和毒素的吸收；⑥防止膈下脓肿的形成；⑦减轻腹部切口缝合处的张力，减轻疼痛，利于愈合。④疾病恢复期体弱患者。
+    \end{itemize}
+    \item \textbf{端坐位}：
+    \begin{itemize}
+        \item 姿势：扶病人坐起，摇起床头或抬高床头支架。病人身体稍向前倾，床上放一跨床小桌，桌上放软枕，病人可伏桌休息。必要时加床档，以保证病人安全。
+        \item 适用范围：用于左心衰竭、心包积液、支气管哮喘发作的病人。
+    \end{itemize}
+    \item \textbf{俯卧位}：
+    \begin{itemize}
+        \item 适用范围：①脊椎手术后，腰、背、臀有伤口的病人。②胃肠胀气所致腹痛的病人。
+    \end{itemize}
+    \item \textbf{头低足高位}：床尾抬高15°~30°。适用范围：妊娠时胎膜早破。
+    \item \textbf{头高足低位}：床头抬高15°~30°。适用范围：①颈椎骨折病人作颅骨牵引；②预防脑水肿，降低颅内压；③颅脑术后。
+    \item \textbf{膝胸卧位}：
+    \begin{itemize}
+        \item 适用范围：①肛门、直肠、乙状结肠镜检查和治疗；②矫正子宫后倾、胎位不正。
+    \end{itemize}
+    \item \textbf{截石位}：
+    \begin{itemize}
+        \item 适用范围：①会阴、肛门部位的检查、治疗、手术；②产妇分娩。
+    \end{itemize}
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 颅脑手术后的患者采取的卧位是（B）\\
+    A 去枕平卧位 \quad B 头高足低位 \quad C 头低足高位 \quad D 半坐卧位 \quad E 平卧位
+    \item 为患者进行灌肠时，应协助患者采取的卧位是（A）\\
+    A 侧卧位 \quad B 俯卧位 \quad C 去枕仰卧位 \quad D 头高足低位 \quad E 头低足高位
+    \item 为了减轻患者痛苦，下列描述错误的是（B）\\
+    A俯卧位可减轻腰背部伤口的疼痛 \quad B中凹卧位可减轻肺淤血 \quad C半坐卧位可减轻腹部手术后切口的疼痛 \quad D端坐位可减轻呼吸困难 \quad E去枕仰卧位可预防脊髓腔穿刺后因颅内压降低所引起的头痛
+    \item 为胎膜早破的产妇取头低足高位得目的是（D）\\
+    A预防感染 \quad B防止羊水流出 \quad C利于引产 \quad D预防脐带脱出 \quad E防止出血过多
+    \item 甲状腺癌手术后，护士为患者取半坐卧位的目的是（C）\\
+    A减轻疼痛 \quad B减轻呼吸困难 \quad C减轻局部出血 \quad D减少脑部充血 \quad E减少回心血量
+    \item 颈椎骨折进行颅骨牵引时，应采取的卧位是（D）\\
+    A端坐位 \quad B俯卧位 \quad C半坐卧位 \quad D头高足低位 \quad E头低足高位
+\end{enumerate}
+\end{examplebox}
+
+\subsection{体位转换}
+\subsubsection{协助病人移向床头}
+\begin{itemize}
+    \item \textbf{一人协助病人移向床头法}：
+    \begin{enumerate}
+        \item 病人仰卧屈膝，双手握住床头栏杆，双脚踏床面。
+        \item 护士一手稳住病人双脚，另一手在臀部提供助力，使其移向床头。
+    \end{enumerate}
+    \item \textbf{二人协助病人移向床头法}：
+    \begin{enumerate}
+        \item 病人仰卧屈膝。
+        \item 护士两人分别站于床的两侧，交叉托住病人颈肩部和臀部，或一人托住颈、肩部及腰部，另一人托住臀部及腘窝部，两人同时抬起病人移向床头。
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{协助病人翻身}
+\begin{itemize}
+    \item \textbf{一人协助病人翻身侧卧法}：
+    \begin{enumerate}
+        \item 先将病人双下肢移向靠近护士侧的床沿，再将病人肩、腰、臀部向护士侧移动。
+        \item 一手托肩，一手托膝部，轻轻将病人推向对侧，使其背向护士。
+    \end{enumerate}
+    \item \textbf{两人协助病人翻身侧卧法}：
+    \begin{enumerate}
+        \item 两名护士站在床的同一侧，一人托住病人颈肩部和腰部，另一人托住臀部和腘窝部，同时将病人抬起移向近侧。
+        \item 两人分别托扶病人的肩、腰部和臀、膝部，轻推，使病人转向对侧。
+    \end{enumerate}
+    \item \textbf{翻身注意事项}：①伤口渗出液较多者，先换药，再翻身。②病人有管道时应先将管道安置妥当，保持其畅通。③翻身时不可放松牵引。④协助患者由床向平车挪动的顺序为上肢-臀部-下肢。
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 护士一人帮助患者移向床头时，下列做法不妥的是（A）\\
+    A摇起床头支架 \quad B将枕头横立于床头 \quad C患者仰卧屈膝 \quad D嘱患者双手握住床头栏杆 \quad E护士一手托住患者肩背部，一手托住患者臀部，协助患者移向床头
+    \item 两名护士协助患者移向床头时，下列做法不妥的是（D）\\
+    A患者仰卧屈膝 \quad B两人站在床的两侧 \quad C一手托臀部 \quad D一人托颈 肩 腰 \quad E两人同时抬起患者移向床头
+    \item 为患者翻身的操作中，下列不正确的是（E）\\
+    A翻身后需遵循节力原则 \quad B术后患者应先换药再翻身 \quad C颈椎或颅骨牵引者，翻身时不可放松牵引 \quad D颅脑手术者应取健侧或平卧位 \quad E为带有引流管的患者翻身前需将引流管关闭
+    \item 帮助术后带有引流管的患者翻身侧卧位时，下列方法正确的是（B）\\
+    A翻身前夹闭引流管 \quad B两人翻身时着力点分别位于肩腰臀膝部 \quad C翻身后再更换伤口敷料 \quad D翻身后将患者上腿稍伸直，下腿弯曲 \quad E在患者两膝之间夹上软枕
+\end{enumerate}
+\end{examplebox}
+
+\subsection{运送患者}
+\subsubsection{轮椅运送法}
+\begin{itemize}
+    \item 放置轮椅使椅背与床尾平齐，椅面朝向床头，扳制动闸使轮椅止动，翻起脚踏板。
+    \item 下坡时，嘱病人抓紧扶手，保证病人安全。
+\end{itemize}
+
+\subsubsection{平车运送法}
+\begin{itemize}
+    \item 将平车推至床旁与床平行，大轮靠近床头，扳制动闸使平车止动（挪动法）。
+    \item 推平车至病人床旁，大轮端靠近床尾，使平车与床成钝角，扳制动闸使平车止动（搬运法）。
+    \item \textbf{两人搬运法}：①病人双手交叉于胸前。②甲一手托住病人头、颈、肩下方，一手托住腰部下方。③乙一手托住病人臀部下方，另一手托住病人膝部下方。
+    \item \textbf{三人搬运法}：
+    \begin{enumerate}
+        \item 搬运者甲、乙、丙三人站在病人同侧床旁，协助病人将上肢交叉于胸前。
+        \item 搬运者甲双手托住病人头、颈、肩及胸部；搬运者乙双手托住病人背、腰、臀部；搬运者丙双手托住病人膝部及双足。
+        \item 三人同时抬起病人至近侧床缘，再同时抬起病人稳步向平车处移动将病人放于平车中央。
+    \end{enumerate}
+    \item \textbf{四人搬运法}：
+    \begin{enumerate}
+        \item 甲站在床头，托住头、颈、肩部。
+        \item 乙站在床尾，托住病人的双足。
+        \item 丙和丁分别站在病床和平车两侧，紧握帆布兜（或中单）四角，四人同时抬起病人放于平车。
+    \end{enumerate}
+    \item \textbf{注意事项}：①护士站在病人头侧推运，以便观察病情；②平车上下坡时要保证病人头部在高处。
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 协助患者向平车挪动的顺序为（A）\\
+    A上身 臀部 下肢 \quad B上身 下肢 臀部 \quad C下肢 臀部 上身 \quad D臀部 下肢 上身 \quad E臀部 上身 下肢
+    \item 护送座轮椅的患者下坡时应做到（A）\\
+    A患者的头及背应向后靠 \quad B轮椅往前倾 \quad C拉上手 \quad D为患者加上安全带 \quad E护士走在轮椅前面
+    \item 病人李某，男，25岁，身高170cm，体重75kg，从高处坠落，腰椎骨折收入院须立即手术，护士将该病人移至平车上的方法宜为（E）\\
+    A.挪动法 \quad B.一人搬运法 \quad C.二人搬运法 \quad D.三人搬运法 \quad E.四人搬运法
+    \item 患者王女士，60岁，体重约70千克，两护士共同为患者翻身，下面操作不正确的是（C）\\
+    A两护士站在床的同侧 \quad B一人托臀部和腘窝 \quad C一人托患者背部 \quad D两人同时抬起患者 \quad E轻推患者转向对侧
+\end{enumerate}
+\end{examplebox}
+
+\subsection{病人出院护理}
+\subsubsection{医疗护理文件的处理}
+\begin{enumerate}
+    \item 执行出院医嘱。
+    \item 填写病人出院护理记录单。
+    \item 按要求整理病历，交病案室保存（注：出院病人病历排序为住院病历首页...医嘱单、体温单）。
+\end{enumerate}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \item 患者单位的设备及管理要以患者的（舒适）、（安全）和有利于患者（康复）为前提。
+    \item 护士铺床时应遵循的原则是：先（床头），后（床尾）；先（近侧），后（远侧）。
+    \item 卧有患者更换床单法清扫和橡胶单的原则是；自（床头）至（床尾）；自（床中线）至（床外缘）。
+    \item 仰卧位包括（去枕仰卧位）（中凹卧位）和（屈膝仰卧位）。
+    \item 根据卧位的平衡性，卧位可分为（稳定性卧位）和（不稳定性卧位）；根据卧位的自主性可分为（主动卧位）（被动卧位）和（被迫卧位）三种卧位。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第五章 病人安全与护士的职业防护}
+\subsection{病人的安全}
+\subsubsection{保护具的应用}
+\begin{itemize}
+    \item \textbf{约束带使用注意事项}：约束带下须垫衬垫，固定松紧适宜，并定时松解，每2小时放松约束带一次。注意观察受约束部位的末梢循环情况，每15分钟观察一次，发现异常及时处理。必要时进行局部按摩，促进血液循环。
+    \item \textbf{腋杖的使用}：腋杖长度简易计算方法为：使用者身高减去40cm。使用时，使用者双肩放松，身体挺直站立，腋窝与拐杖顶垫间相距2-3cm，腋杖底端应侧离足跟15-20cm。
+\end{itemize}
+
+\subsection{护士锐器伤的应急处理}
+\begin{enumerate}
+    \item 立即用手在伤口旁轻轻挤压，尽可能挤出伤口的血液，但禁止在伤口局部挤压，以免产生虹吸现象，把污染血液吸入血管，增加感染机会。
+    \item 用肥皂水清洗伤口，并在流动水下反复冲洗。暴露的黏膜处，应采用生理盐水反复冲洗干净。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 双腿被开水烫伤的患者，可考虑为其选用的保护具是（A）\\
+    A支被架 \quad B床挡 \quad C肩部约束带 \quad D腕部约束带 \quad E踝部约束带
+    \item 使用约束带正确的是（E）\\
+    A符合使用指征即可使用 \quad B使用前不一定取得患者的同意 \quad C躁动者约束带可拉紧以防脱落 \quad D保护性制动时间可随意延长 \quad E约束带下垫的衬垫松紧要适度
+    \item 不可使用约束带的患者是（B）\\
+    A 发热谵妄 \quad B 神经官能症 \quad C 麻醉后未清醒者 \quad D 精神病患者 \quad E 烦躁不安的患者
+    \item 不需要使用保护具的患者是（A）\\
+    A 分娩后产妇 \quad B 昏迷 \quad C 高热 \quad D 躁动 \quad E 谵妄
+    \item 为限制患者手腕和踝部的活动，可用宽绷带打成（E）\\
+    A外科结 \quad B死结 \quad C滑结 \quad D单套结 \quad E双套结
+    \item 使用约束带时，应注意保持患者肢体处于（E）\\
+    A患者舒适的位置 \quad B患者喜欢的位置 \quad C接受治疗的强迫位置 \quad D容易变换的位置 \quad E功能位置
+    \item 患者王某，因患破伤风被安置在隔离室，表现为牙关紧闭，四肢抽搐，角弓反张，下列采取的安全措施不妥的是（E）\\
+    A用床挡，防坠床 \quad B取下义齿，防窒息 \quad C枕横立于床头，四肢用约束带以防撞伤 \quad D纱布包裹压板垫与上下臼齿之间防咬伤 \quad E室内保持光线充足，安静，以利护理
+    \item 韩护士，在为HBsAg阳性患者拔针时，患者突然躁动被针扎伤，韩护士的HbsAg阴性且未注射乙肝疫苗，则应注射（C）\\
+    A乙肝免疫球蛋白 \quad B乙肝疫苗 \quad C乙肝免疫球蛋白和乙肝疫苗 \quad D无需注射疫苗 \quad E注射胎盘球蛋白
+\end{enumerate}
+\end{examplebox}
+
+\section{第六章 病人的清洁卫生}
+\subsection{口腔护理}
+\subsubsection{口腔护理常用溶液}
+\begin{itemize}
+    \item ①生理盐水：清洁口腔、预防感染（用于正常人）。
+    \item ②复方硼酸溶液（朵贝尔溶液）：轻度抑菌、清除口臭。
+    \item ③1\%～3\%过氧化氢溶液：抗菌、防口臭。
+    \item ④醋酸溶液：适用于铜绿假单胞菌感染。
+    \item ⑤1\%～4\%碳酸氢钠溶液：属碱性溶液，适用于真菌感染。
+\end{itemize}
+
+\subsubsection{口腔护理注意事项}
+\begin{itemize}
+    \item ①昏迷病人禁止漱口（防误吸），用物中不需要准备吸管。
+    \item ②开口器从臼齿处放入。
+    \item ③口腔有白色分泌物提示有真菌感染。
+    \item ④取下的义齿应浸没于贴有标签的冷水杯中，勿将义齿浸于热水或乙醇中，以免变色、变形和老化。
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 口腔护理的目的不包括（C）\\
+    A保持口腔清洁 \quad B清除牙垢 \quad C清除口腔内一切细菌 \quad D预防口腔感染 \quad E观察口腔变化
+    \item 为昏迷病人行口腔护理时，不需准备的用物是（D）\\
+    A棉球 \quad B弯盘 \quad C开口器 \quad D吸水管 \quad E 弯止血钳
+    \item 王某，女，30岁，诊断为血小板减少性紫癜。护士观察口腔时发现唇及口腔黏膜散在瘀点，轻触可出血，护士为其做口腔护理时应特别注意（C）\\
+    A夹紧棉球 \quad B禁忌漱口 \quad C动作轻柔 \quad D先取下义齿 \quad E棉球不可过湿
+    \item 护士在观察王先生口腔时，发现口腔黏膜有一感染溃烂处，应为其选用的口腔护理溶液是（D）\\
+    A生理盐水 \quad B朵贝尔溶液 \quad C0.1\%醋酸溶液 \quad D3\%过氧化氢溶液 \quad E4\%碳酸氢钠溶液
+    \item 张某，男，50岁，细菌培养显示口腔有铜绿假单胞菌感染，护士在为其进行口腔护理时应选用的口腔护理溶液是（D）\\
+    A生理盐水 \quad B1\%-3\%过氧化氢溶液 \quad C1\%-4\%碳酸氢钠溶液 \quad D0.1\%醋酸溶液 \quad E朵贝尔溶液
+    \item 患者，女，脑出血昏迷。护士为其做口腔护理时，取下的活动性义齿应放入（A）\\
+    A冷水中 \quad B热水中 \quad C生理盐水中 \quad D乙醇中 \quad E朵贝尔溶液中
+\end{enumerate}
+\end{examplebox}
+
+\subsection{头发护理}
+\subsubsection{床上洗头注意事项}
+\begin{enumerate}
+    \item 洗头过程中，随时观察病人的病情变化，若面色、脉搏及呼吸有异常，应立即停止操作。
+    \item 洗发时注意调节水温和室温（调节室温在24℃，水温不超过40℃），避免打湿衣物和床铺，及时擦干头发，防止病人受凉。
+\end{enumerate}
+
+\subsubsection{灭头虱常用溶液}
+30\%含酸百部酊剂：百部30g+50\%乙醇。
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 护士为卧床患者进行床头洗头时，水温应调节至（C）\\
+    A 22-26℃ \quad B 28-32℃ \quad C 40-45℃ \quad D 50-60℃ \quad E 60-70℃
+    \item 灭头虱药液的成分是（C）\\
+    A 百部10克，30\%乙醇40毫升 \quad B 百部20克，40\%乙醇50毫升 \quad C 百部30克，50\%乙醇100毫升 \quad D 百部40克，75\%乙醇120毫升 \quad E 百部50克，95\%乙醇60毫升
+\end{enumerate}
+\end{examplebox}
+
+\subsection{皮肤的清洁护理}
+\subsubsection{淋浴、盆浴、床上擦浴注意事项}
+\begin{enumerate}
+    \item 调节室温在22℃以上，水温以皮肤温度为准。
+    \item 洗浴应在进食1小时后进行，以免影响消化功能。
+    \item 盆浴浸泡时间不应超过10分钟，浸泡过久易导致疲倦。
+    \item 妊娠7个月以上的孕妇禁用盆浴。
+    \item 擦浴脱衣服时，先脱近侧后脱远侧。如有肢体外伤，先脱健侧再脱患侧。
+    \item 擦浴穿衣服时，如有肢体外伤，先穿患侧再穿健侧。
+    \item 通常于15-30分钟内完成擦浴。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 下列关于床上擦浴的说法不正确的是（B）\\
+    A 天冷时可在被内操作 \quad B 擦洗时眼部由外眦向内眦 \quad C 为患者脱上衣时，先脱近侧后脱远侧 \quad D 擦洗时注意防止浸湿床单 \quad E 15-30分钟内完成
+    \item 张某，女，32岁，妊娠32周，实施沐浴不妥的是（D）\\
+    A 调节室温至22°以上 \quad B 沐浴门外挂牌以示有人 \quad C 浴室不可闩门 \quad D 盆浴浸泡时间不应超过20分钟 \quad E 若患者使用呼叫器，护士先敲门再入内
+    \item 陈某，女，60岁，因股骨骨折行骨牵引。护士为其进行床上擦浴的目的不包括（C）\\
+    A去除皮肤污垢 \quad B增强皮肤排泄 \quad C预防过敏性皮炎 \quad D促进血液循环 \quad E观察病情
+    \item 晨间护理和晚间护理应分别安排在（E）\\
+    A诊疗开始前，晚饭前 \quad B诊疗开始前，晚饭前 \quad C诊疗开始前，下午四点后 \quad D诊疗开始前，晚饭后 \quad E诊疗开始前，临睡前
+\end{enumerate}
+\end{examplebox}
+
+\subsection{压疮的预防与护理}
+压疮：是身体局部组织长期受压，血液循环障碍，局部组织持续缺血、缺氧，营养缺乏，致使皮肤失去正常功能而引起的组织破损和坏死。通常位于骨隆突处，由压力所致。
+
+\subsubsection{发生压疮的原因}
+\begin{enumerate}
+    \item 力学因素
+    \item 局部潮湿或排泄物刺激
+    \item 营养状况
+    \item 年龄
+    \item 体温升高
+    \item 医疗器械使用不当
+    \item 机体活动、感觉障碍
+    \item 急性应激因素
+\end{enumerate}
+
+\subsubsection{压疮好发的部位}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{卧位} & \textbf{好发部位} \\
+\hline
+仰卧位 & 枕骨粗隆、肩胛部、肘部、脊椎体隆突处、骶尾部（最常见）及足跟部 \\
+侧卧位 & 耳郭、肩峰、肋骨、肘部、髋部、膝关节内外侧及内外踝处 \\
+俯卧位 & 面颊部、耳廓、肩部、女性乳房、男性生殖器、髂嵴、膝部及足尖处 \\
+坐位 & 坐骨结节处 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{压疮的分期}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+ & \textbf{I期：瘀血红润期} & \textbf{II期：炎性浸润期} & \textbf{III期：浅度溃疡期} & \textbf{IV期：坏死溃疡期} \\
+\hline
+概念 & 压疮初期，皮肤完整性未破坏，仅出现暂时性血液循环障碍 & 皮肤表皮层、真皮层或两者发生损伤或坏死 & 全层皮肤破坏，可深及皮下组织和深层组织 & 压疮严重期，坏死组织侵入真皮下层和肌肉层 \\
+\hline
+临床表现 & 皮肤完整，表现红、肿、热、痛或麻木，出现压之不褪色红斑 & 受压部位呈紫红色，皮下产生硬结。皮肤因水肿而变薄，常有水疱形成 & 表皮水疱逐渐扩大、破溃，真皮层创面有黄色渗出液，感染后表面有脓液覆盖，疼痛感加重 & 感染向深部扩展，可深达骨面。坏死组织发黑，脓性分泌物增多，有臭味 \\
+\hline
+处理措施 & 积极去除病因，增加翻身次数（预防压疮一般2小时翻身一次，必要时每30min更换体位1次），避免摩擦、潮湿等刺激 & 对未破的小水泡可用无菌纱布包扎，大水泡应消毒局部皮肤后，再用无菌注射器抽吸出水泡内容物 & 清洁伤口，清除坏死组织，妥善处理伤口渗出液，促进肉芽组织生长，预防和控制感染 & 清洁伤口，清除坏死组织，妥善处理伤口渗出液，促进肉芽组织生长，预防和控制感染 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 发生压疮的最主要原因是（A）\\
+    A 局部组织长期受压 \quad B 机体营养不良 \quad C 局部皮肤潮湿或受排泄物刺激 \quad D 急性应激因素 \quad E 体温升高
+    \item 下列关于剪切力的叙述不正确的是（D）\\
+    A 与体位有关 \quad B 由垂直压力和摩擦力相加而成 \quad C 由剪切力造成的皮肤损害早期不易发现 \quad D 半坐卧位时床头抬高应大于30°避免剪切力的产生 \quad E 长期坐轮椅者应保持正确坐姿，防止身体下滑而产生剪切力
+    \item 压疮的好发部位不包括（B）\\
+    A 仰卧位—骶尾部 \quad B 侧卧位—肩胛部 \quad C 半坐卧位—足跟 \quad D 俯卧位—髂前上棘 \quad E 坐位-坐骨结节
+    \item 李某，75岁，脑卒中致左侧肢体瘫痪。为预防压疮的发生，做简单而有效的方法是（A）\\
+    A 经常翻身 \quad B 进行肢体功能锻炼 \quad C 应用减压敷料 \quad D 应用减压床垫 \quad E 改善营养情况
+    \item 张某，70岁，髋骨骨折行骨牵引，卧床六周。主诉臀部麻木且有触痛，检查发现局部皮肤红肿，此皮肤改变为压疮的（A）\\
+    A 淤血红润期 \quad B 炎性浸润期 \quad C 浅度溃疡期 \quad D 坏死溃疡期 \quad E 深度溃疡期
+    \item 李先生，臀部出现2cm×2cm的创面，且有黄色渗出液。此皮肤改变为压疮的（C）\\
+    A 淤血红润期 \quad B 炎性浸润期 \quad C 浅度溃疡期 \quad D 坏死溃疡期 \quad E 深度溃疡期
+\end{enumerate}
+\end{examplebox}
+
+\subsubsection{压力性损伤（第七版教材改动部分）}
+据美国国家压力性损伤咨询委员会（National Pressure Injury Advisory Panel, NPIAP）/欧洲压力性损伤咨询委员会（European Pressure Ulcer Advisory Panel, EPUAP）压力性损伤分类系统，压力性损伤分为1期—4期、深部组织损伤和不可分期。
+
+\begin{itemize}
+    \item \textbf{1期：指压不变白的红斑，皮肤完整} 局部皮肤完好，出现压之不褪色的局限性红斑，通常位于骨隆突处。与周围组织相比，该区域可有疼痛、坚硬或松软，皮温升高或降低。肤色较深者因不易观察到明显红斑而难以识别，可根据其颜色与周围皮肤不同来判断。
+    \item \textbf{2期：部分皮层缺损} 部分表皮缺损伴真皮层暴露，表现为浅表开放性溃疡，创面呈粉红色、无腐肉；也可表现为完整或破损的浆液性水疱。
+    \item \textbf{3期：全层皮肤缺损} 全层皮肤缺，可见皮下脂肪，但无筋膜、肌腱/肌肉、韧带、软骨/骨骼暴露。可见腐肉和/或焦痂，但未掩盖组织缺失的深度。可有潜行或窦道。此期压力性损伤的深度依解剖学位置不同而表现各异，鼻、耳、枕骨和踝部因皮下组织缺乏可表现为表浅溃疡；臀部等脂肪丰富部位可发展成深部伤口。
+    \item \textbf{4期：全层皮肤和组织缺损} 全层皮肤或组织缺损，伴骨骼、肌腱或肌肉外露，创面基底部可有腐肉和焦痂覆盖，常伴有潜行或窦道。与3期类似，此期压力性损伤的深度取决于解剖位置，可扩展至肌肉和/或筋膜、肌腱或关节囊，严重时可导致骨髓炎。
+    \item \textbf{深部组织损伤}：皮肤完整或破损，局部出现持续的指压不变白，皮肤呈深红色、栗色或紫色，或表皮分离后出现暗红色伤口或充血性水疱。可伴疼痛、坚硬、糜烂、松软、潮湿、皮温升高或降低。肤色较深者难以识别深层组织损伤。
+    \item \textbf{不可分期}：全层皮肤和组织损伤，因创面基底部被腐肉和/或焦痂掩盖而无法确认组织缺失程度，需去除腐肉和/或焦痂后方可判断损伤程度。
+\end{itemize}
+
+\subsubsection{Braden量表}
+Braden量表是目前国内外用来预测压力性损伤发生的较为常用的方法之一，对压力性损伤高危人群具有较好的预测效果，且评估简便、易行。Braden量表的评估内容包括感觉、潮湿、活动力、移动力、营养及摩擦力和剪切力6个部分。总分值范围为6-23分，分值越小，提示发生压力性损伤的危险性越高。评分≤18分，提示患者有发生压力性损伤的危险，建议采取预防措施。
+
+\begin{table}[htbp]
+\centering
+\caption{Braden量表}
+\small
+\begin{tabular}{|p{4cm}|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{项目}} & \multicolumn{4}{c|}{\textbf{分值/分}} \\
+\cline{2-5}
+ & 1 & 2 & 3 & 4 \\
+\hline
+感觉：对压力相关不适的感受能力 & 完全受限 & 非常受限 & 轻度受限 & 未受损 \\
+潮湿：皮肤暴露于潮湿环境的程度 & 持续潮湿 & 潮湿 & 有时潮湿 & 很少潮湿 \\
+活动力：身体活动程度 & 限制卧床 & 坐位 & 偶尔行走 & 经常行走 \\
+移动力：改变和控制体位的能力 & 完全无法移动 & 严重受限 & 轻度受限 & 未受限 \\
+营养：日常食物摄取状态 & 非常差 & 可能缺乏 & 充足 & 丰富 \\
+摩擦力和剪切力 & 有问题 & 有潜在问题 & 无明显问题 &  \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{examplebox}{练习题（第七版）}
+\begin{enumerate}
+    \item 李先生臀部出现2cmx2cm的创面，表现为浅表开放性溃疡，创面呈粉红色，无腐肉。此皮肤改变为压力性损伤的（B）\\
+    A.1期 \quad B.2期 \quad C.3期 \quad D.4期 \quad E.不可分期
+    \item 王女士，卧床4周。护士仔细观察皮肤后，认为是压力性损伤的3期，其典型表现是（B）\\
+    A.受压皮肤呈紫红色 \quad B.全层皮肤缺损 \quad C.骨骼、肌腱或肌肉外露 \quad D.完整的浆液性水疱 \quad E.皮肤完整
+    \item 某截瘫患者，入院时骶尾部压力性损伤。面积2.5cmx3cm，深达肌层，创面有脓性分泌物，坏死组织发黑。下列护理措施不妥的是（A）\\
+    A.50\%乙醇按摩创面及周围皮肤 \quad B.进行创面清创处理 \quad C.用过氧化氢溶液冲洗伤口 \quad D.选择保湿敷料 \quad E.进行全身抗感染治疗
+    \item 王老太，70岁，卧床3周。近日骶尾部皮肤有破溃，护士仔细观察后认为是压力性损伤的2期。支持此判断的是（E）\\
+    A.创面基底部有腐肉 \quad B.骨骼、肌腱、肌肉外露 \quad C.全层皮肤缺损 \quad D.皮肤完整 \quad E.浅表开放性溃疡
+    \item 王老太，70岁，卧床3周。近日骶尾部皮肤有破溃，护士仔细观察后认为是压力性损伤的2期。此患者发生压力性损伤的最主要原因是（A）\\
+    A.局部组织长期受压 \quad B.皮肤破损 \quad C.皮肤受排泄物刺激 \quad D.机体营养不良 \quad E.知觉障碍
+    \item 王老太，70岁，卧床3周。近日骶尾部皮肤有破溃，护士仔细观察后认为是压力性损伤的2期。给予的护理措施不妥的是（D）\\
+    A.每2h翻身一次 \quad B.保持衣裤及床单平整干燥 \quad C.排便后温水擦净皮肤 \quad D.每天按摩骶尾部 \quad E.加强营养物质的摄入
+    \item 在压力性损伤分期中，侵犯到皮下脂肪的是 ，但骨骼、肌腱或肌肉尚未显露。（C）\\
+    A.不可分期 \quad B.2期 \quad C.3期 \quad D.4期
+    \item 压疮表现为局部皮肤完整，但颜色出现紫色或褐红色，有时表现为血泡的是（D）\\
+    A.1期 \quad B.2期 \quad C.3期 \quad D.深部组织损伤
+    \item 以下哪个符合2期压力性损伤的主要表现（A）\\
+    A.粉红色创面 \quad B.局限性红斑 \quad C.皮下脂肪外露 \quad D.肌腱外露
+    \item 关于不可分期压疮下列说法正确的是（D）\\
+    A.缺损未涉及到组织全层 \quad B.溃疡部分被创面的腐肉和焦痂覆盖 \quad C.清创前通常渗液较多 \quad D.踝部或足跟部稳定的焦痂，不应去除
+    \item 3期压疮的深度随解剖部位的不同而具有不同表现，例如：鼻、耳、枕部、足踝等部位因缺乏皮下组织，可能表现为（D）\\
+    A.缺血性坏死 \quad B.骨外露 \quad C.深部组织溃疡 \quad D.表浅溃疡
+    \item 压力性损伤伤口评估的内容包括（D）\\
+    A.渗液的颜色、性质与量 \quad B.伤口床表面 \quad C.伤口边缘 \quad D.以上都是
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{本章填空题}
+\begin{enumerate}
+    \item 对于佩戴义齿的患者，取下的义齿应浸没于有标签的（冷水）杯中，勿浸于（热水）或（乙醇）中，以免变色，变形和老化。
+    \item 特殊口腔护理适用于高热，（昏迷）（危重）（禁食），鼻饲，口腔疾患，术后及生活不能自理的患者。
+    \item 对于口腔内有真菌感染的患者，应选择（1\%-4\%碳酸氢钠溶液）作为口腔护理溶液。
+    \item 为昏迷患者行口腔护理时，禁止为患者（漱口）、需用开口器协助患者开口时，应将其从（臼齿）放入。
+    \item 常用灭头虱药液为30\%含酸百部酊剂，其组成成分为（百部30g）（50\%乙醇100ml）和（纯乙酸1ml）。
+    \item 患者沐浴的种类包括（淋浴）（盆浴）和（床上擦浴）。
+    \item 沐浴应在（进食1h后）进行，以免影响消化功能。
+    \item 患者进行淋浴或盆浴时，护士应调节室温在（22℃）以上，水温保持在（41℃-46℃），或按患者习惯调节。
+    \item 为患者进行床上擦浴时，脱上衣时应先脱（近侧），后脱（远侧）：若有肢体外伤或活动障碍，应先脱（健侧），后脱（患侧）。
+    \item 护士在为患者进行床上擦浴时，应注意观察患者的病情变化，如出现（寒战）（面色苍白）和（脉速）等征象，应立即停止擦浴，并给予适当处理。
+    \item 引起压疮发生的常见原因包括：（力学因素）局部潮湿或排泄物刺激（营养状况）（年龄）体温升高，矫形器械使用不当，机体活动和或感觉障碍，急性应激因素。
+    \item 压疮不仅由（垂直压力）引起，还可由（摩擦力）和（剪切力）引起，通常是2-3种力联合作用所导致。
+    \item 为预防压疮的发生，护士在工作中应做到六勤，即（勤观察）（勤翻身）（勤按摩）勤擦洗，勤整理和勤更换。
+    \item 根据压疮的损伤程度，可将压疮分为（淤血红润期）（炎性浸润期）（浅度溃疡期）和（坏死溃疡期）。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第七章 休息与活动}
+\subsection{休息与睡眠}
+\begin{itemize}
+    \item 成人的6-8小时睡眠中，平均包含4-6个睡眠周期，每个周期平均是90分钟。
+    \item NREM睡眠分期（具体内容见原图）。
+\end{itemize}
+% \ocrimage{https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/general-layout-parsing-v3//f8822c02-111e-4038-aa98-d3036c98268a/markdown_3/imgs/img_in_image_box_38_379_1915_1074.jpg}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 分泌生长激素，促进体力恢复，发生在睡眠的（D）\\
+    A 第I期 \quad B 第II期 \quad C 第III期 \quad D 第IV期 \quad E REM期
+    \item 下列与睡眠无关的表现是（B）\\
+    A 血压下降 \quad B 瞳孔散大 \quad C 呼吸变慢 \quad D 心率减慢 \quad E 尿量减少
+\end{enumerate}
+\end{examplebox}
+
+\subsection{活动}
+\begin{itemize}
+    \item \textbf{机体活动功能可分为5级}：
+    \begin{enumerate}
+        \item 0度：完全独立，可自由活动。
+        \item 1度：需要使用设备或器械。
+        \item 2度：需要他人帮助、监护和教育。
+        \item 3度：既需要有人帮助，也需要设备和器械。
+        \item 4度：完全不能独立，不能活动。
+    \end{enumerate}
+    \item \textbf{肌力一般分为6级}：
+    \begin{enumerate}
+        \item 0级：完全瘫痪、肌力完全丧失。
+        \item 1级：可见肌肉轻微收缩但无肢体活动。
+        \item 2级：肢体可移动位置但不能抬起。
+        \item 3级：肢体能抬离但不能对抗阻力。
+        \item 4级：能作对抗阻力的运动，但肌力减弱。
+        \item 5级：肌力正常。
+    \end{enumerate}
+    \item \textbf{肌肉练习}：
+    \begin{itemize}
+        \item 等长练习：又称静力练习，增加肌肉张力而不改变肌肉长度，不伴明显的关节运动。
+        \item 等张练习：又称动力练习，对抗一定的负荷作关节的活动锻炼，同时也锻炼肌肉收缩，伴有大幅度关节运动。
+    \end{itemize}
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 张某，女70岁，脑出血后卧床，其肢体能抬离床面但不能对抗阻力，请判断该患者的肌力程度为（D）\\
+    A.0级 \quad B.1级 \quad C.2级 \quad D.3级 \quad E.4级
+    \item 可见肌肉轻微收缩但无肢体活动，判断肌力为（1级）。
+\end{enumerate}
+\end{examplebox}
+
+\section{第八章 医疗与护理文件}
+\subsection{医疗与护理文件的书写}
+\subsubsection{体温单}
+\textbf{（一）眉栏}
+\begin{enumerate}
+    \item 用蓝（黑）钢笔填写姓名、科别、病室、住院号及日期等项目。
+    \item 用红钢笔填写“手术（分娩）后日数”。
+\end{enumerate}
+\textbf{（二）40~42℃横线之间}
+用红钢笔纵行在40~42℃间相应时间格内填写入院、转入、手术、分娩、出院、死亡时间。
+\textbf{（三）体温曲线的绘制}
+\begin{enumerate}
+    \item 口温蓝“●”，腋温蓝“×”，肛温蓝“○”。
+    \item 相邻温度用蓝线相连，同在一平行线上可不连接。
+    \item 体温不升时，可将“不升”二字写在35℃线以下。
+    \item 物理降温半小时后测量的体温以红“○”表示，划在物理降温前温度的同一纵格内，并用红虚线与降温前温度相连，下次测得温度仍与降温前温度相连。
+\end{enumerate}
+\textbf{（四）脉搏曲线的绘制}
+\begin{enumerate}
+    \item 用红“●”表示，相邻脉搏用红线相连。
+    \item 脉搏与体温重叠时，先划体温符号，再用红笔在体温符号外划“○”。
+    \item 脉搏短绌时，心率用红“○”表示，相邻心率用红线相连，在脉搏和心率两曲线间用红笔划直线填满。
+\end{enumerate}
+\textbf{（五）大便次数}
+\begin{enumerate}
+    \item 记前一日的大便次数，未解大便记“0”，大便失禁记“※”，人工肛门记“☆”。
+    \item 灌肠后大便次数用“E”表示。灌肠后用“E”作分母、排便作分子，如灌肠后大便3次，记为3/E；2次灌肠后大便3次记为3/2E。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 下列不符合护理文件书写要求的是（A）\\
+    A.文字生动 形象 \quad B.记录及时 准确 \quad C.内容简明 \quad D.医学术语确切 \quad E.记录者签全名
+    \item 下列有关医疗与护理文件管理要求的描述正确的一项是（D）\\
+    A.患者不得复印医嘱单 \quad B.未经护士同意，患者不得随意翻阅 \quad C.患者出院后，特别护理记录单送病案室保存2年 \quad D.医疗与护理文件按规定放置，用后必须放回原处 \quad E.发生医疗事故纠纷时，封存的病历资料可以是复印件
+    \item 患者刘某，肺炎，体温39.5℃，行物理降温，将物理降温后将所测得的体温绘制在体温单上，下列选择中表述正确的是（B）\\
+    A.红圈，以红实线与降温前体温相连 \quad B.红圈，以红虚线与降温前体温相连 \quad C.红点，以红实线与降温前体温相连 \quad D.蓝圈，以红虚线与降温前体温相连 \quad E.蓝圈，以蓝虚线与降温前体温相连
+    \item 住院期间排在病历首页的是（E）\\
+    A 住院病历首页 \quad B 长期医嘱单 \quad C 临时医嘱单 \quad D 入院记录 \quad E 体温单
+\end{enumerate}
+\end{examplebox}
+
+\subsection{医嘱单}
+\textbf{医嘱单}
+\begin{itemize}
+    \item \textbf{长期医嘱}：有效期24小时以上，医生注明停止时间后无效。
+    \item \textbf{临时医嘱}：24小时内有效，一般只执行一次。
+    \item \textbf{备用医嘱}：
+    \begin{itemize}
+        \item \textbf{长期备用医嘱（prn）}：有效时间在24小时以上，必要时用，两次执行之间有间隔时间，由医生注明停止后方失效。
+        \item \textbf{临时备用医嘱（sos）}：自医生开写医嘱起12小时内有效，必要时用，过期未执行则失效。
+    \end{itemize}
+\end{itemize}
+注意：执行医嘱时先执行临时医嘱，再执行长期医嘱。
+
+\subsubsection{出入液量记录单}
+\textbf{（一）记录内容和要求}
+\begin{enumerate}
+    \item 每日摄入量：包括每日的饮水量、食物中的含水量、输液量、输血量等。
+    \item 每日排出量：主要为尿量，此外其他途径的排出液，如大便量、呕吐物量等。
+\end{enumerate}
+\textbf{（二）记录方法}
+\begin{enumerate}
+    \item 用蓝钢笔填写眉栏各项。
+    \item 日间7时至19时用蓝钢笔记录，夜间19时至次晨7时用红钢笔记录。
+\end{enumerate}
+
+\subsubsection{特别护理记录单}
+\textbf{（一）记录内容}：病人的体温、脉搏、呼吸、血压、神志、瞳孔等。
+\textbf{（二）记录方法}
+\begin{enumerate}
+    \item 用蓝钢笔填写眉栏各项。
+    \item 日间7时至19时用蓝钢笔记录，夜间19时至次晨7时用红钢笔记录。
+\end{enumerate}
+
+\subsubsection{病区交班报告}
+\textbf{书写顺序}：
+\begin{enumerate}
+    \item 先填写当日离开病室的病人：即出院、转出、死亡。
+    \item 再写进入病室的病人：即新入院或转入病人。
+    \item 最后写本班重点病人：即手术、分娩、重危及有异常情况的病人。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 下列属于临时医嘱的是（B）\\
+    A病危 \quad B 转科 \quad C一级护理 \quad D半流质饮食 \quad E氧气吸入prn
+    \item 特别护理记录单一般不需用于（D）\\
+    A危重患者 \quad B 大手术后患者 \quad C 行特殊治疗的患者 \quad D骨折生活不能自理患者 \quad E 需要严密观察病情的患者
+    \item 书写病历报告时，应书写的患者是（B）\\
+    A危重患者 \quad B出院患者 \quad C新入院患者 \quad D行特殊治疗的患者 \quad E施行手术的患者
+    \item 对于产妇的交班内容一般不包括（B）\\
+    A自行排尿时间 \quad B分娩前的准备 \quad C新生儿性别及评分 \quad D会阴切口及恶露情况等 \quad E产式产程 分娩时间
+    \item 病理报告眉栏的书写顺序正确的是（D）\\
+    A新入院—转入—出院—手术—危重 \quad B手术—危重—新入院—转入—出院 \quad C转入—新入院—出院—手术—危重 \quad D出院—新入院—转入—手术—危重 \quad E出院—转入—手术—危重—新入院
+    \item 患者李某，胆结石术后感到疼痛，为减轻患者疼痛，10am医生开出医嘱，强痛定100mg im sos，此项医嘱失效时间为（B）\\
+    A当天2pm \quad B当天10pm \quad C第二日10am \quad D第二日10pm \quad E医生开出停止时间
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \item 临时医嘱的有效时间在（24）以内，一般执行（1）次。
+    \item 体温不升者，于（35）℃处以下相应时间纵格内用（红）钢笔写（不升），不再用相邻温度相连。
+    \item 物理或药物降温半小时后测体温以（红圈）表示，划在物理降温前温度的同一纵格内，并用（红虚）线与降温前温度相连，下次测得的温度用（蓝）线仍与降温前温度相连。
+    \item 凡危重（抢救）（大手术后）行特殊治疗或须严密观察病情的患者，应做好特别护理记录。
+    \item 凡转科（手术）（分娩）的患者或医嘱栏已写满换页时需要重整医嘱。
+    \item 书写病案交班报告时，先写（离开病区）的患者，再写（进入病区）的患者，最后写（本班重点）患者。同一栏内的内容，按床号先后顺序书写报告。
+    \item 病历交班报告最后写本班重点患者，即（手术）（分娩）（危重）及有异常情况的患者。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第九章 生命体征的评估与护理}
+\subsection{体温的评估与护理}
+\subsubsection{正常体温}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{部位} & \textbf{平均温度} & \textbf{正常范围} \\
+\hline
+口温 & 37.0℃ & 36.3~37.2℃ (97.3~99.0°F) \\
+肛温 & 37.5℃ & 36.5~37.7℃ (97.7~99.0°F) \\
+腋温 & 36.5℃ & 36.0~37.0℃ (96.8~98.6°F) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{发热过程及表现}
+\begin{enumerate}
+    \item \textbf{体温上升期}：特点：产热>散热。表现：疲乏无力、皮肤苍白、干燥无汗、畏寒、寒战。
+    \item \textbf{高热持续期}：特点：产热和散热在较高水平趋于平衡。表现：面色潮红、皮肤灼热、口唇干燥、呼吸脉搏加快、头痛头晕、食欲减退。
+    \item \textbf{散热期}：特点：散热>产热。表现：大量出汗、皮肤潮湿。体温骤退者应防止虚脱或休克。
+\end{enumerate}
+
+\subsection{异常体温的评估及护理}
+\subsubsection{体温过高}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+\textbf{分级} & \textbf{以口腔温度为例} \\
+\hline
+低热 & 37.3~38.0℃ (99.1~100.4°F) \\
+中等热 & 38.1~39.0℃ (100.6~102.2°F) \\
+高热 & 39.1~41.0℃ (102.4~105.8°F) \\
+超高热 & 41.0℃以上 (105.8°F以上) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{常见热型}
+\begin{enumerate}
+    \item \textbf{稽留热}：体温持续在39～40℃，达数天或数周，24小时波动范围不超过1℃。见于肺炎球菌性肺炎、伤寒。
+    \item \textbf{弛张热}：体温在39℃以上，24小时内温差达2℃以上，体温最低时仍高于正常水平。见于败血症、风湿热、化脓性疾病。
+    \item \textbf{间歇热}：体温骤然升高至39℃以上，持续数小时或更长，然后下降至正常或正常以下，经过一个间歇，又反复发作，即高热期和无热期交替出现。见于疟疾。
+\end{enumerate}
+
+\subsubsection{体温过高的护理措施}
+\begin{enumerate}
+    \item \textbf{降低体温}：可选用物理降温或药物降温方法。物理降温有局部和全身冷疗两种方法。体温超过39℃，选用局部冷疗，可采用冷毛巾、冰袋、化学致冷袋，通过传导方式散热；体温超过39.5℃，选用全身冷疗，可采用温水擦浴、乙醇擦浴方式。
+    \item \textbf{加强病情观察}：观察生命体征，定时测体温。一般每日测量4次，高热时应每4小时测量一次，待体温恢复正常3天后，改为每日1-2次。
+    \item \textbf{补充营养和水分}：①给予高热量、高蛋白、高维生素易消化流质或半流质食物，少量多餐。②多饮水，每日3000ml为宜。
+    \item \textbf{促进病人舒适}：①休息可减少能量的消耗，高热者需卧床休息。②口腔护理：应在晨起、餐后、睡前协助病人漱口，保持口腔清洁。③皮肤护理：保持皮肤清洁、干燥，预防压疮发生。
+    \item \textbf{心理护理}：护士应经常探视病人，耐心解答各种问题、给予精神安慰。
+\end{enumerate}
+
+\subsection{体温的测量}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+ & \textbf{口温} & \textbf{腋温} & \textbf{肛温} \\
+\hline
+部位 & 舌下热窝 & 腋窝正中 & 直肠 \\
+方法 & 闭口鼻呼吸 & 屈臂过胸 & 润滑肛表插入肛门3~4cm \\
+时间 & 3分钟 & 10分钟 & 3分钟 \\
+\hline
+\end{tabular}
+\end{table}
+水银体温计检查方法：体温计甩在35℃以下，同一时间放入已测好的40℃以下水中，3分钟后检视，若误差>0.2℃、玻璃管有裂缝、水银柱自行下降提示体温计损坏。
+
+\textbf{【注意事项】}
+\begin{enumerate}
+    \item 测量体温前，应点清体温计的数量，并检查体温计有无破损。
+    \item 婴幼儿、精神异常、昏迷、口腔疾患、口鼻手术、张口呼吸者禁忌口温测量。腋下有创伤、手术、炎症，腋下出汗较多者，肩关节受伤或消瘦夹不紧体温计者禁忌腋温测量。直肠或肛门手术、腹泻、心肌梗死者禁忌肛温测量。
+    \item 婴幼儿、危重病人、躁动病人，应设专人守护，防止意外。
+    \item 若病人不慎咬破体温计，首先应及时清除玻璃碎屑，再口服蛋清或牛奶，若病情允许，可服用粗纤维食物，加速汞的排出。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 适宜采取用口腔测量体温的是（E）\\
+    A. 昏迷者 \quad B. 患儿 \quad C. 口鼻手术者 \quad D. 呼吸困难者 \quad E. 肛门手术者
+    \item 患者李某，男，35岁，持续高热。在对患者的护理措施中不妥的是（B）\\
+    A. 密切观察病情变化 \quad B. 测体温每两天一次 \quad C. 冰袋冷敷头部 \quad D. 口腔护理 \quad E. 鼓励多饮水
+    \item 患者姚某，男，28岁，持续高热数天，每日体温最高40.3℃，最低体温39.0℃，此热型符合（B）\\
+    A. 稽留热 \quad B. 弛张热 \quad C.间歇热 \quad D. 不规则热 \quad E. 异常热
+    \item 患者汪某，男，34岁。8am体温骤升至39.2℃，持续6h后降至36.9℃，2天后体温又升至39℃，此热型可能为（C）\\
+    A.稽留热 \quad B.弛张热 \quad C.间歇热 \quad D.不规则热 \quad E. 回归热
+    \item 患者林某，女，50岁。诊断为“菌痢”。护士测量体温时得知其5min前饮过开水，为此应（E）\\
+    A. 嘱其用冷开水漱口后再测量 \quad B.参照上次测量值记录 \quad C.改测直肠温度 \quad D.暂停测一次 \quad E. 告知患者30min后再测口温温度
+    \item 患者郑某，男，70岁。测口温时不慎将体温计咬碎，护士应立即采取的措施为（E）\\
+    A. 催吐 \quad B. 口服蛋清液 \quad C.服缓泻剂 \quad D.洗胃 \quad E. 清除口腔内玻璃碎屑
+\end{enumerate}
+\end{examplebox}
+
+\subsection{脉搏的评估与护理}
+\subsubsection{脉率}
+\begin{itemize}
+    \item 正常人在安静状态下脉率为60—100次/分。
+    \item 脉率受年龄、性别、体型、活动、情绪、饮食、药物等影响。
+    \item 正常情况下，脉率=心率。
+\end{itemize}
+
+\subsubsection{脉率异常}
+\begin{enumerate}
+    \item \textbf{心动过速（速脉）}：成人脉率>100次/分。见于发热、甲状腺功能亢进、心衰、血容量不足等。
+    \item \textbf{心动过缓（缓脉）}：成人脉率<60次/分。见于颅内压增高、房室传导阻滞、甲状腺功能减退、阻塞性黄疸。
+\end{enumerate}
+
+\subsubsection{节律异常}
+\textbf{脉搏短绌}：指单位时间内脉率少于心率。特点：心律完全不规则、心率快慢不一、心音强弱不等。见于心房纤颤的病人。
+
+\subsubsection{强弱异常}
+\begin{enumerate}
+    \item \textbf{洪脉}：特点：脉搏强而大。见于高热、甲亢、主动脉瓣关闭不全。
+    \item \textbf{细脉或丝脉}：特点：脉搏弱而小。见于心功能不全、大出血、休克、主动脉瓣狭窄。
+    \item \textbf{交替脉}：指节律正常，而强弱交替出现的脉搏。见于高血压性心脏病、冠心病。
+    \item \textbf{奇脉}：指吸气时脉搏明显减弱或消失。见于心包积液和缩窄性心包炎，心包填塞的重要体征之一。
+\end{enumerate}
+
+\subsubsection{脉搏的测量}
+常用部位：最常选择桡动脉。计数：30秒×2，异常者测1分钟。脉搏短绌：2位护士同时测量，一人听心率，一人测脉率，由听心率者发出“起”或“停”口令，计时1分钟。记录为98/80次/分。
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 脉搏短绌常见于（D）\\
+    A. 发热者 \quad B. 房室传导阻滞者 \quad C. 洋地黄中毒者 \quad D. 心房纤颤者 \quad E. 甲状腺功能亢进患者
+    \item 患者张某，男，45岁，失血性休克。患者的脉搏特征是（B）\\
+    A. 强大有力 \quad B. 细弱无力 \quad C. 动脉管壁变硬，失去弹性 \quad D. 单位时间内脉率少于心率 \quad E. 每隔一个正常搏动后出现一次期前收缩
+    \item 护士小敏先为马先生测量脉搏、呼吸，测量呼吸时小敏的手不离开诊脉部位是为了（B）\\
+    A. 保持患者体位不变 \quad B. 不被察觉，以免紧张 \quad C. 易于记时 \quad D. 对照呼吸与脉搏的频率 \quad E. 观察患者面色
+    \item 患者，女，60岁。烦躁不安，面色苍白，体检：血压90/60mmHg，脉搏呈丝状脉，患者可能是（A）\\
+    A. 休克 \quad B. 甲状腺功能亢进 \quad C. 缩窄性心包炎 \quad D. 脑血管意外 \quad E. 肺气肿
+\end{enumerate}
+\end{examplebox}
+
+\subsection{血压的评估与护理}
+\subsubsection{正常血压}
+收缩压：90~139mmHg (12~18.5kPa) \\
+舒张压：60~89mmHg (8~11.8kPa) \\
+脉压（收缩压与舒张压之差）：30～40mmHg (4 ~ 5.3kPa) \\
+换算：kPa×7.5=mmHg， mmHg×0.13 =kPa
+
+\subsubsection{血压生理变化}
+\begin{enumerate}
+    \item \textbf{年龄}：随年龄的增长，收缩压和舒张压均有增高趋势，但收缩压比舒张压的升高更显著。
+    \item \textbf{性别}：更年期前，女性血压低于男性。更年期后，差别较小。
+    \item \textbf{昼夜和睡眠}：上午6～10时及下午4～8时各有一个高峰，晚上8时后血压呈缓慢下降趋势，表现为“双峰双谷”。睡眠不佳，血压升高。
+    \item \textbf{环境}：寒冷环境，血压略升高。高温环境，血压略下降。
+    \item \textbf{体位}：卧位<坐位<立位。
+    \item \textbf{身体不同部位}：右上肢高于左上肢(10～20mmHg)，下肢血压高于上肢(20-40mmHg)。
+\end{enumerate}
+
+\subsubsection{异常血压的评估}
+\begin{enumerate}
+    \item \textbf{高血压}：指在未使用降压药物的情况下，18岁以上成年人收缩压≥140mmHg和/或舒张压≥90mmHg。
+    \item \textbf{低血压}：是指血压低于90/60mmHg (12.0/8.0kPa)。
+    \item \textbf{脉压异常}：
+    \begin{itemize}
+        \item \textbf{脉压增大}：见于主动脉硬化、主动脉瓣关闭不全、动静脉瘘、甲状腺功能亢进。
+        \item \textbf{脉压减小}：见于心包积液、缩窄性心包炎、末梢循环衰竭。
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{肱动脉血压的测量与注意事项}
+\begin{enumerate}
+    \item 测量血压的手臂位置与心脏同一水平。
+    \item 缠袖带：下缘距肘窝2~3cm，松紧以能插入一指为宜。
+    \item 对需持续观察血压者，应做到四定，即定时间、定部位、定体位、定血压计。
+    \item 发现血压听不清或异常，应重测。重测时，待水银柱降至“0”点，稍等片刻后再测量。必要时，作双侧对照。
+    \item 注意测压装置（血压计、听诊器）、测量者、受检者、测量环境等因素引起血压测量的误差，以保证测量血压的准确性。
+    \item 袖带缠得太松，充气后呈气球状，有效面积变窄使血压测量值偏高；袖带缠得太紧，未注气已受压，使血压测量值偏低（记忆口诀：高晓松矮）。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 可使血压测量值偏高的因素是（D）\\
+    A.手臂位置过高 \quad B.袖带过紧 \quad C.袖带过宽 \quad D.袖带过松 \quad E.眼睛视线高于水银柱弯月面
+    \item 护士小李，为高血压患者进行健康教育，在有关血压生理变化的叙述中不正确的一项是（E）\\
+    A. 更年期前女子略低于男子 \quad B. 寒冷环境血压上升 \quad C. 睡眠不佳时血压可稍升高 \quad D. 上肢血压低于下肢血压 \quad E. 坐位血压低于卧位血压
+    \item 患者万某，男，34岁。测量血压，血压值为132/88mmHg属于（E）\\
+    A.收缩压偏高，舒张压偏低 \quad B.收缩压偏低，舒张压偏高 \quad C.理想血压 \quad D.正常血压 \quad E.正常高值
+\end{enumerate}
+\end{examplebox}
+
+\subsection{呼吸的评估与护理}
+\subsubsection{正常呼吸}
+正常成人安静状态下呼吸频率为16~20次/分，节律规则，男性及儿童以腹式呼吸为主，女性以胸式呼吸为主。
+
+\subsubsection{异常呼吸的评估}
+\textbf{1. 频率异常}
+\begin{itemize}
+    \item \textbf{呼吸过速}：也称气促，指呼吸频率超过24次/分。见于发热、疼痛、甲状腺功能亢进等。一般体温每升高1℃，呼吸频率约增加3~4次/分。
+    \item \textbf{呼吸过缓}：指呼吸频率低于12次/分。见于颅内压增高、巴比妥类药物中毒等。
+\end{itemize}
+\textbf{2. 深度异常}
+\begin{itemize}
+    \item \textbf{深度呼吸}：又称库斯莫呼吸，指一种深而规则的大呼吸，见于糖尿病酮症酸中毒和尿毒症酸中毒等，以便机体排出较多的二氧化碳，调节血中的酸碱平衡。
+    \item \textbf{浅快呼吸}：是一种浅表而不规则的呼吸，有时呈叹息样。可见于呼吸肌麻痹、某些肺与胸膜疾病，也可见于濒死的病人。
+\end{itemize}
+\textbf{3. 节律异常}
+\begin{itemize}
+    \item \textbf{潮式呼吸}：又称陈-施呼吸。是一种呼吸由浅慢逐渐变为深快，然后再由深快转为浅慢，再经一段呼吸暂停后，又开始重复以上过程的周期性变化，其形态犹如潮水起伏。
+    \item \textbf{间断呼吸}：又称毕奥呼吸。表现为有规律的呼吸几次后，突然停止呼吸，间隔一个短时间后又开始呼吸，如此反复交替，常在临终前发生。
+\end{itemize}
+\textbf{4. 声音异常}
+\begin{itemize}
+    \item \textbf{蝉鸣样呼吸}：表现为吸气时产生一种极高的似蝉鸣样音响，产生机制是由于声带附近阻塞，使空气吸入发生困难。常见于喉头水肿、喉头异物等。
+    \item \textbf{鼾声呼吸}：表现为呼吸时发出一种粗大的鼾声，由于气管或支气管内有较多的分泌物积蓄所致。多见于昏迷病人。
+\end{itemize}
+\textbf{5. 呼吸困难临床上可分为：}
+\begin{itemize}
+    \item \textbf{吸气性呼吸困难}：其特点是吸气显著困难，吸气时间延长，有明显的“三凹征”（吸气时胸骨上窝、锁骨上窝、肋间隙出现凹陷）。常见于气管阻塞、气管异物、喉头水肿等。
+    \item \textbf{呼气性呼吸困难}：其特点是呼气费力，呼气时间延长。由于下呼吸道部分梗阻，气流呼出不畅所致。常见于支气管哮喘、阻塞性肺气肿。
+    \item \textbf{混合性呼吸困难}：其特点是吸气、呼气均感费力，呼吸频率增加。常见于重症肺炎、广泛性肺纤维化、大面积肺不张。
+\end{itemize}
+
+\subsubsection{促进呼吸功能的护理技术}
+\begin{enumerate}
+    \item \textbf{叩击}：背隆掌空，从肺底部自下而上，由外向内轻轻叩打，同时鼓励病人咳嗽。
+    \item \textbf{体位引流}：
+    \begin{itemize}
+        \item 患肺处于高位，引流的支气管开口向下。
+        \item 禁止饭后引流。
+    \end{itemize}
+    \item \textbf{吸痰法}：
+    \begin{itemize}
+        \item 调节负压：成人40.0~53.3kPa，儿童<40.0kPa。
+        \item 每次吸痰时间<15s，以免造成缺氧。
+    \end{itemize}
+    \item \textbf{氧气疗法}：
+    \begin{itemize}
+        \item \textbf{缺氧程度的判断}
+        \begin{table}[htbp]
+        \centering
+        \begin{tabular}{|l|c|c|l|l|}
+        \hline
+        \textbf{程度} & \textbf{PaO2（kPa）} & \textbf{SaO2（\%）} & \textbf{症状} & \textbf{氧疗} \\
+        \hline
+        轻度 & >6.67 & >80 & 无发绀 & 不需要 \\
+        中度 & 4～6.67 & 60～80 & 发绀、呼吸困难 & 需要 \\
+        重度 & <4 & <60 & 显著发绀、呼吸困难、三凹征 & 绝对适应症 \\
+        \hline
+        \end{tabular}
+        \end{table}
+        \item \textbf{氧气浓度与流量的关系}：吸氧浓度 (\%) = 21 + 4×氧流量 (L/min)
+        \item \textbf{用氧注意事项}
+        \begin{enumerate}
+            \item 用氧前，检查氧气装置有无漏气，是否通畅。
+            \item 注意用氧安全，做好“四防”：防震、防火、防热、防油。氧气瓶搬运时要避免倾倒撞击。氧气筒放阴凉处，至少距离明火5米，暖气1米。氧气表及螺旋口勿上油，也不用带油的手装卸。
+            \item 使用氧气时，应先调节流量后应用。停用氧气时，应先拔出导管，再关闭氧气开关。中途改变流量，先分离鼻导管与湿化瓶连接处，调好流量再接上。
+            \item 常用湿化液为冷开水、蒸馏水。急性肺水肿用20\%～30\%乙醇（减少肺泡内泡沫表面张力）。
+            \item 氧气筒内氧勿用尽，压力表至少要保留0.5kPa（5kg/cm²）。
+            \item 对未用完或已用尽的氧气筒，应分别悬挂满或空标志。
+            \item 用氧过程中，应加强监测。
+            \item 注意：Ⅱ型呼吸衰竭（PaO2＜60mmHg，PaCO2＞50mmHg），应给予低浓度、低流量(1～2L/min)给氧（记忆：一型呼吸衰竭只有一个原因缺氧，二型既有缺氧又有二氧化碳潴留）。
+        \end{enumerate}
+    \end{itemize}
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 吸气性呼吸困难的发生机制是（A）\\
+    A.上呼吸道狭窄 \quad B.细小支气管狭窄 \quad C.肺组织弹性减弱 \quad D.麻醉药抑制呼吸中枢 \quad E.呼吸面积减少
+    \item 电动吸引器吸痰是利用（B）\\
+    A.正压作用 \quad B.负压作用 \quad C.虹吸原理 \quad D.空吸作用 \quad E.静压作用
+    \item 莫护士长查房，提问实习护士小梅：下列有关呼吸的描述正确的是（A）\\
+    A.呼吸与脉搏的比例为1：4 \quad B.小儿、男性呼吸较快 \quad C.男性及儿童以胸式呼吸为主，女性以腹式呼吸为主 \quad D.情绪激动，低温环境可使呼吸增快 \quad E.呼吸不受意志控制
+    \item 患者金某，女，76岁，糖尿病酮症酸中毒，患者的呼吸可表现（B）\\
+    A.费力呼吸 \quad B.深而规则的大呼吸 \quad C.叹息样呼吸 \quad D.蝉鸣样呼吸 \quad E.鼾声呼吸
+    \item 患者林某，男，65岁，因过量服用巴比妥类药物而中毒，患者出现潮式呼吸。潮式呼吸的特点是（C）\\
+    A.呼吸暂停，呼吸减弱，呼吸增强反复出现 \quad B.呼吸减弱，呼吸增强，呼吸暂停反复出现 \quad C.呼吸浅慢，逐渐加快加深再变浅慢，呼吸暂停后，周而复始 \quad D.呼吸深快，呼吸暂停，呼吸浅慢，三者交替出现 \quad E.呼吸深快，逐步浅慢，以至暂停，反复出现
+    \item 患者柯某，女，36岁，支气管扩张。护士指导患者作体位引流时应避免（A）\\
+    A.在饭后0.5h进行 \quad B.行超声雾化吸入提高疗效 \quad C.引流同时作胸部叩击 \quad D.引流体位是患肺处于高位 \quad E.每次引流15～30min
+    \item 患者黄某，男，28岁。因慢性阻塞性肺部疾病需氧气治疗，有关氧疗的作用不妥的是（C）\\
+    A.增加动脉血氧含量 \quad B.提高动脉血氧分压 \quad C.供给热能 \quad D.改善缺氧状态 \quad E.维持机体生命活动
+    \item 患者范某，男，60岁，因肺源性心脏病收住入院治疗，护士巡视病房时，发现患者有明显呼吸困难及口唇发绀，血气分析：PaO2 5.2KPa，SaO2 70\%，请判断其缺氧程度（C）\\
+    A.极轻度 \quad B.轻度 \quad C.中度 \quad D.重度 \quad E.极重度
+    \item 患者苏某，男，52岁，急性肺水肿。给予20\%-30\%乙醇湿化给氧其目的是（D）\\
+    A.刺激呼吸中枢 \quad B.促使氧气快速湿润 \quad C.吸收水分，减轻肺水肿 \quad D.降低肺泡内泡沫的表面张力 \quad E.刺激血管收缩，减少渗出
+    \item 患者胡某，女，75岁。呼吸困难，给予氧气吸入，吸入的氧浓度为33\%，每分钟的氧流量是（B）\\
+    A.2L \quad B.3L \quad C.4L \quad D.5L \quad E.6L
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \setcounter{enumi}{2}
+    \item 发热过程包括体温（上升）期、高热（持续）期、退热期三个时期。
+    \item 体温上升期的特点是（产热大于散热），退热期的特点是（散热大于产热）。
+    \item 口温测量时，将口表水银端斜放于（舌下热窝），闭紧口唇，用鼻呼吸，时间（3）min。
+    \item 将全部体温计的水银柱甩至35℃以下，同时放入已测好的40℃以下的水中，（3）min后检视，若误差在（0.2）℃以上则不能使用。
+    \item 脉搏短绌的特点是心律（完全不规则）、心率（快慢不一）、心音强弱不等。
+    \item 吸气时脉搏明显（减弱）或（消失）称为奇脉。常见于心包积液和缩窄性心包炎。
+    \item 寒冷环境血压可略（升高）；高温环境血压可略（下降）。
+    \item 水银血压计玻璃管面上刻度的最小分值分别为（2）mmHg或（0.5）kPa。
+    \item 测量血压时应将袖带平整置于上臂中部，下缘距肘窝（2-3）cm，松紧以能插入（一）指为宜。
+    \item 密切观察血压者，应做到四定，即定（时间）、定（部位）、定体位和定血压计。
+    \item 女性以（胸式）呼吸为主；男性和儿童以（腹式）呼吸为主。
+    \item 叩击时操作者将手固定成背隆掌空状，自下而上，由（外）向（内）轻轻叩打。
+    \item 注意用氧安全。切实做好防震、防火、防（热）、防（油）。
+    \item 使用氧气时，应先调节流量后应用。停用氧气时，应先（拔出导管），再（关闭氧气开关）。
+    \item 当氧浓度高于（60）％、持续时间超过（24）h，可出现氧疗副作用。
+    \item II型呼吸衰竭患者应给予（低流量）（低浓度）持续吸氧。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第十章 冷、热疗法}
+\subsection{冷疗法}
+冷、热疗法：是利用低于或高于人体温度的物质作用于人体表面，通过神经传导引起皮肤和内脏器官的收缩和舒张，改变机体各系统体液循环和新陈代谢，达到治疗目的的方法。
+
+\subsubsection{冷疗法目的}
+\begin{enumerate}
+    \item 减轻局部充血或出血。
+    \item 减轻疼痛。
+    \item 控制炎症扩散。
+    \item 降低体温（降温）。
+\end{enumerate}
+
+\subsubsection{冷疗的禁忌}
+\begin{enumerate}
+    \item 血液循环障碍。
+    \item 慢性炎症或深部化脓病灶。
+    \item 组织损伤、破裂、有开放性伤口处。
+    \item 对冷过敏。
+    \item 昏迷、感觉异常、年老体弱、婴幼儿、关节疼痛、心脏病、哺乳期产妇胀奶等慎用。
+    \item \textbf{冷疗的禁忌部位}：
+    \begin{itemize}
+        \item 枕后、耳郭（廓）、阴囊处：用冷易引起冻伤。
+        \item 心前区：用冷易导致反射性心率减慢、心房或心室纤颤、房室传导阻滞。
+        \item 腹部：用冷易引起腹泻。
+        \item 足底：用冷可导致反射性末梢血管收缩影响散热或引起一过性冠状动脉收缩。
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{冷疗常用方法}
+\begin{enumerate}
+    \item \textbf{冰袋使用注意事项}
+    \begin{itemize}
+        \item 放置时间不超过30分钟。
+        \item 冰袋使用后30分钟需测体温，当体温降至39℃以下，应取下冰袋，并做好记录。
+    \end{itemize}
+    \item \textbf{冰帽使用注意事项}
+    \begin{itemize}
+        \item 用冷时间不超过30分钟。
+        \item 密切观察局部皮肤及肛温，维持肛温33℃左右，不低于30℃。
+    \end{itemize}
+    \item \textbf{温水擦浴或乙醇擦浴注意事项}
+    \begin{itemize}
+        \item 冰袋置头部，热水袋置足底。
+        \item 拭浴温度、浓度：温水拭浴32～34℃。
+        \item 乙醇拭浴30℃，25\%～35\%乙醇。
+    \end{itemize}
+    注意：软组织损伤或扭伤的初期（48小时内）一般先做冷疗（冰敷），冷疗时间为15-30分钟，两次冷疗间隔1小时。
+\end{enumerate}
+
+\subsection{热疗法}
+\subsubsection{热疗法的目的}
+\begin{enumerate}
+    \item 促进炎症的消散和局限。
+    \item 减轻疼痛。
+    \item 减轻深部组织充血。
+    \item 保暖与舒适。
+\end{enumerate}
+
+\subsubsection{热疗禁忌}
+\begin{enumerate}
+    \item 未明确诊断的急性腹痛。
+    \item 面部危险三角区的感染。
+    \item 各种脏器出血、出血性疾病。
+    \item 软组织损伤或扭伤的初期（48小时内）。
+    \item 其它：心、肝、肾功能不全者，皮肤湿疹，急性炎症（如牙龈中耳、结膜炎等），孕妇，金属移植物部位、人工关节，恶性病变部位，睾丸。
+\end{enumerate}
+
+\subsubsection{热疗常用方法}
+\begin{enumerate}
+    \item \textbf{热水袋使用注意事项}：
+    \begin{itemize}
+        \item 测量、调节水温：成人60～70℃；昏迷、老人、婴幼儿、感觉迟钝者水温应低于50℃。
+        \item 备热水袋：灌热水袋（1/2-2/3满）。
+    \end{itemize}
+    \item \textbf{红外线灯及烤灯使用注意事项}：
+    \begin{itemize}
+        \item 调节：灯距为30～50cm，温热为宜，用手试温。
+        \item 照射：20～30分钟，注意保护局部。
+    \end{itemize}
+    \item \textbf{热水坐浴注意事项}：
+    \begin{itemize}
+        \item 配药、调温：配置药液置于浴盆内1/2满，调节水温40～45℃。
+        \item 坐浴时间：待适应水温后坐浴，坐浴15～20分钟。
+    \end{itemize}
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 下列影响冷热疗的因素中错误的是（C）\\
+    A.冷疗的方法不同，效果也不同 \quad B.冷疗效果与面积成正比 \quad C.冷疗时间与效果成正比 \quad D.不同个体对冷的反应不同 \quad E.环境温度影响冷效应
+    \item 陈某，女，61岁。因经常便后出血，经检查患有痔疮，行痔疮手术。术后医嘱热水坐浴。以下热水坐浴措施中，错误的是（C）\\
+    A.浴盆和溶液须无菌 \quad B.操作前需排空膀胱 \quad C.水温控制在50℃左右 \quad D.坐浴后更换敷料 \quad E.坐浴时间15-20min
+    \item 患者，男，30岁，鼻唇沟处有一感染化脓灶，以下护理措施中错误的是（D）\\
+    A.肌内注射抗生素 \quad B.口服抗生素 \quad C.局部换药处理 \quad D.局部湿热敷 \quad E.局部涂抗生素药膏
+    \item 李先生，35岁，左侧踝关节扭伤。为防止皮下出血与肿胀，早期应（C）\\
+    A.冷热交替敷 \quad B.局部按摩 \quad C.冷湿敷 \quad D.热湿敷 \quad E.松节油涂擦
+    \item 小张因走路不慎导致脚踝扭伤，护士为其应用化学致冷袋冷敷局部，此时应用冷疗的主要目的不包括（C）\\
+    A.减轻局部充血 \quad B.减轻神经末梢的敏感性 \quad C.控制炎症的扩散 \quad D.减轻局部的肿胀 \quad E.减轻局部出血
+    \item 李阿姨，70岁，胆囊切除术后，因感畏寒而在足部使用热水袋时，使用过程中发现局部皮肤发生潮红、疼痛，此时正确的处理是（C）\\
+    A.热水袋外再包一条毛后继续使用 \quad B.立即停用，局部用25\%硫酸镁湿热敷 \quad C.立即停用，局部涂凡士林 \quad D.立即停用，局部涂90\%乙醇 \quad E.热水袋中加凉水后继续使用
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \item 高热降温时可置冰袋于（前额）、（头顶部）和体表大血管流经处。
+    \item 乙醇拭浴拍拭双上肢时应在（腋窝）、（肘窝）、（手心处）处稍用力并延长停留时间，以促进散热。
+    \item 成人使用热水袋的水温应控制在（60-70）℃，老人、婴幼儿等特殊患者使用热水袋的水温应低于（50）℃。
+    \item 冰帽使用的目的是（头部降温）、（预防脑水肿）。
+    \item 为患者进行冷湿敷时，敷布须透冰水，拧至（不滴水）为宜。
+    \item 乙醇拭浴时应禁忌拭浴（胸前区）、（腹部）、（后颈）、足底等部位。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第十一章 饮食与营养}
+\subsection{医院饮食}
+\subsubsection{基本饮食}
+\begin{itemize}
+    \item 普通饮食
+    \item 软质饮食
+    \item 半流质饮食
+    \item 流质饮食
+\end{itemize}
+
+\subsubsection{治疗饮食}
+\begin{itemize}
+    \item \textbf{高热量饮食}：热能消耗较高的患者，如甲状腺功能亢进、结核等。
+    \item \textbf{高蛋白饮食}：高代谢性疾病，如烧伤、结核等。
+    \item \textbf{低蛋白饮食}：用于急性肾炎、尿毒症、肝性昏迷等限制蛋白质摄入的患者。成人饮食中的蛋白质不超过40g/d。
+    \item \textbf{低脂肪饮食}：用于肝、胆、胰疾病、高脂血症、动脉硬化、冠心病等患者，成人脂肪量＜50g/d。
+    \item \textbf{低胆固醇饮食}：用于高胆固醇血症、高脂血症等患者，胆固醇摄入量少于300mg/d。
+    \item \textbf{低盐饮食}：用于急慢性肾炎、肝硬化腹水、高血压等，饮食原则为每日食盐量<2g。
+    \item \textbf{无盐低钠饮食}：无盐饮食：不放食盐烹调，饮食中含钠量<0.7g/d；低钠饮食：需控制摄入食品中自然存在的含钠量，一般应<0.5g/d。
+    \item \textbf{高纤维素饮食}：用于便秘、肥胖症、高脂血症等患者，饮食中应多含食物纤维，如韭菜、芹菜、卷心菜、粗粮等。
+    \item \textbf{少渣饮食}：用于伤寒、痢疾、腹泻、肠炎、食管胃底静脉曲张；饮食中应少含食物纤维，不用强刺激调味品及坚硬、带碎骨的食物。
+\end{itemize}
+
+\subsubsection{试验饮食}
+指在特定的时间内，通过对饮食内容的调整来协助诊断疾病和确保实验室检查结果正确性的一种饮食。
+
+\begin{enumerate}
+    \item \textbf{肌酐试验饮食}
+    \begin{itemize}
+        \item 适用范围：协助检查、测定肾小球的滤过功能。
+        \item 饮食原则及用法：试验期为3天，试验期间禁食肉类、禽类、鱼类、忌饮茶和咖啡，限制蛋白质的摄入，以排除外源性肌酐的影响；蔬菜、水果、植物油不限。
+    \end{itemize}
+    \item \textbf{甲状腺131I试验饮食}
+    \begin{itemize}
+        \item 适用范围：协助测定甲状腺功能。
+        \item 饮食原则及用法：试验期为2周，试验期间禁用含碘食物，如海带、海蜇、紫菜、加碘食盐等；禁用碘做局部消毒。
+    \end{itemize}
+    \item \textbf{胆囊B超检查饮食}
+    \begin{itemize}
+        \item 适用范围：检查有无胆囊、胆管、肝胆管疾病者。
+        \item 饮食原则及用法：检查前3日禁食牛奶、奶制品、糖类等易于发酵产气的食物；检查前1日晚餐进食无脂肪、低蛋白、高碳水化合物的清淡饮食。
+    \end{itemize}
+    \item \textbf{葡萄糖耐量试验饮食}
+    \begin{itemize}
+        \item 适用范围：用于糖尿病的诊断。
+        \item 饮食原则：试验日晨采血后将葡萄糖75g溶于300ml水中顿服。
+    \end{itemize}
+    \item \textbf{隐血试验饮食}
+    \begin{itemize}
+        \item 适用范围：大便隐血试验的准备，以协助诊断有无消化道出血。
+        \item 饮食原则：试验前3天起禁止食用易造成隐血试验假阳性结果的食物，如肉类、肝类、动物血、含铁丰富的药物或食物、绿色蔬菜等。可进食牛奶、豆制品、土豆、白菜、米饭、面条、馒头等。
+    \end{itemize}
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 为适应不同病情需要，医院饮食分为（A）\\
+    A.基本饮食、治疗饮食、试验饮食 \quad B.基本饮食、普通饮食、试验饮食 \quad C.治疗饮食、普通饮食、试验饮食 \quad D.普通饮食、流质饮食、软质饮食 \quad E.普通饮食、流质饮食、半流质饮食
+    \item 男性，56岁心脏病患者需要低盐饮食。护士应告诉患者其每日食盐不可超过（B）\\
+    A.1g \quad B.2g \quad C.3g \quad D.4g \quad E.5g
+    \item 女性，42岁，因急性肾炎需要低蛋白饮食。该患者应注意每日蛋白质的供应量应低于（B）\\
+    A.30g \quad B.40g \quad C.50g \quad D.60g \quad E.70g
+    \item 男性，48岁，因肝性脑病住院。住院期间应进食（B）\\
+    A.高蛋白饮食 \quad B.低蛋白饮食 \quad C.低盐饮食 \quad D.高脂饮食 \quad E.低脂饮食
+    \item 男性，37岁，因胆囊结石行B超检查，检查前一日晚吃的食物最好是（D）\\
+    A.牛奶 \quad B.炒豆腐 \quad C.烧牛肉 \quad D.清汤面 \quad E.油煎鸡蛋
+    \item 下列哪项不符合流质饮食原则（B）\\
+    A.无刺激性 \quad B.每日3-4餐 \quad C.易吞咽、易消化 \quad D.只能短期使用 \quad E.通常辅以肠外营养以补充热能和营养
+    \item 下列哪种属于试验饮食（D）\\
+    A.高脂肪饮食 \quad B.半流质饮食 \quad C.低盐饮食 \quad D.胆囊造影饮食 \quad E.要素饮食
+    \item 患者，男，54岁，不明原因消瘦，欲行大便隐血试验。试验期间宜选的菜谱是（D）\\
+    A.菠菜粉丝汤 \quad B.西湖牛肉羹 \quad C.大蒜炒猪肝 \quad D.蛋白炒银鱼 \quad E.蒜苗炒羊血
+    \item 患者，女。25岁，习惯性便秘，该患者宜采用的饮食是（A）\\
+    A.高纤维素饮食 \quad B.低纤维素饮食 \quad C.高蛋白饮食 \quad D.低蛋白饮食 \quad E.低脂肪饮食
+    \item 患者男性50岁，既往有高血压病史15年，护士对其进行饮食指导，其中错误的是（E）\\
+    A.低盐、低脂 \quad B.低胆固醇 \quad C.清淡、宜少量多餐 \quad D.富含维生素和蛋白质 \quad E.高热量、高纤维素饮食
+\end{enumerate}
+\end{examplebox}
+
+\subsection{特殊饮食}
+\subsubsection{胃肠内营养}
+\textbf{要素饮食}
+是一种化学组成明确的精制食品，含有人体所必需的易于消化吸收的营养成分，与水混合后可以形成溶液或较为稳定的悬浮液。用于严重烧伤及创伤、消化吸收不良等人群。
+
+\textbf{注意事项：}
+\begin{enumerate}
+    \item 应用原则一般是由低、少、慢开始，逐渐增加，待病人耐受后，再稳定配餐。
+    \item 已配制好的溶液应放在4℃以下的冰箱内保存，防止被细菌污染。配制好的要素饮食应保证于24小时内用完，防止放置时间过长而变质。
+\end{enumerate}
+
+\textbf{鼻饲法考点}
+\begin{enumerate}
+    \item 插入长度一般为前额发际至胸骨剑突处或由鼻尖经耳垂至胸骨剑突处的距离。一般成人插入长度为45～55cm，婴幼儿大约14-18cm。
+    \item 插入胃管约10～15cm（咽喉部）时，嘱清醒患者做吞咽动作，顺势将胃管向前推进，至预定长度。昏迷患者则用左手将患者头托起，使下颌靠近胸骨柄，缓缓插入胃管至预定长度。
+    \item 若插管中出现恶心、呕吐：可暂停插管，并嘱患者做深呼吸。
+    \item 如胃管误入气管：应立即拔出胃管，休息片刻后重新插管。
+    \item \textbf{确认胃管是否在胃内的三种方法：}
+    \begin{enumerate}
+        \item 在胃管末端连接注射器抽吸，能抽出胃液。
+        \item 置听诊器于患者胃部，快速经胃管向胃内注入10ml空气，听到气过水声。
+        \item 胃管末端置于盛水的治疗碗中，无气泡逸出。
+    \end{enumerate}
+    \item 鼻饲液温度应保持在38～40℃左右，避免过冷或过热；每次鼻饲不超过200ml。
+    \item 长期鼻饲者应每天进行2次口腔护理，并定期更换胃管，普通胃管每周更换一次，硅胶胃管每月更换一次。
+\end{enumerate}
+
+\subsubsection{胃肠外营养考点}
+\begin{enumerate}
+    \item 根据补充营养的量分为：部分胃肠外营养（PPN）、全胃肠外营养（TPN）。
+    \item \textbf{并发症包括：}
+    \begin{itemize}
+        \item 机械性并发症：气胸、皮下气肿、血肿甚至神经损伤、血胸或液胸、空气栓塞、甚至死亡。
+        \item 感染性并发症：穿刺部位感染、导管性脓毒症等感染性并发症。长期肠外营养也可发生肠源性感染。
+        \item 代谢性并发症：糖代谢紊乱、肝功能损害、肠黏膜萎缩、胆汁淤积等。
+    \end{itemize}
+    \item 配制好的营养液储存于4℃冰箱内备用，若存放超过24小时，则不宜使用。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 当护士给一患者插胃管时，患者出现呛咳，发绀。护士应（D）\\
+    A.嘱患者深呼吸 \quad B.嘱患者做吞咽动作 \quad C.托起患者头部再插管 \quad D.立即拔出，休息片刻后重插 \quad E.稍停片刻继续插
+    \item 护士为昏迷患者插胃管至15cm处要将患者头部托起。护士应明白这样做的目的是（A）\\
+    A.加大咽喉部通道的弧度 \quad B.以免损伤食管粘膜 \quad C.减轻患者痛苦 \quad D.避免出现恶心 \quad E.使喉部肌肉放松便于插入
+    \item 护士给一位36岁男性患者插入胃管，胃管插入深度为（C）\\
+    A.20-30cm \quad B.35-40cm \quad C.45-55cm \quad D.50-60cm \quad E.55-65cm
+    \item 一位护士给鼻饲患者注入流质饮食后又注入少量温开水。她这样做的目的是（C）\\
+    A.防止患者呕吐 \quad B.使患者温暖舒适 \quad C.避免食物存积于管道 \quad D.便于测量，记录准确 \quad E.便于防止液体反流，发生窒息
+    \item 护士在护理一位长期鼻饲患者时，应注意更换一般胃管的时间为（B）\\
+    A.一天一次 \quad B.一周一次 \quad C.一周两次 \quad D.二周一次 \quad E.一月一次
+    \item 护士为患者提供营养，应使用胃肠外营养的患者是（C）\\
+    A.休克患者 \quad B.昏迷患者 \quad C.完全性肠梗阻患者 \quad D.出凝血功能紊乱患者 \quad E.严重水电解质紊乱患者
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \setcounter{enumi}{5}
+    \item 医院饮食可分为（基本）饮食、（治疗）饮食及（试验）饮食三大类。
+    \item 医院基本饮食包括普通饮食、（软质）饮食、（流质）饮食、和（半流质）饮食四种。
+    \item 一般成人鼻饲管插入深度相当于患者前额（发际）到胸骨（剑突）的长度。
+    \item 鼻饲饮食应注意每次鼻饲量不超过（200）ml，间隔时间应大于（2）h。
+    \item 护士给一患者插入胃管时，患者出现呛咳、呼吸困难，表明胃管（误入气管），应（立即拔出胃管）。
+    \item 应用普通胃管长期鼻饲患者应每天进行（2次）口腔护理，并（每周）更换胃管一次。
+    \item 根据补充营养的量，胃肠外营养可分为（部分）胃肠外营养和（全）胃肠外营养。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第十二章 排泄}
+\subsection{排尿的评估}
+\subsubsection{正常排尿的评估}
+\begin{enumerate}
+    \item \textbf{排尿次数}：正常成人白天3～5次，夜间0～1次。
+    \item \textbf{尿量}：正常人24h的尿量约1000～2000ml，平均在1500ml左右。
+    \item \textbf{颜色}：正常新鲜尿液呈淡黄色或深黄色。
+    \item 正常人尿液呈弱酸性，一般尿液pH为4.5～7.5。
+    \item 正常成人的尿比重波动于1.015～1.025之间，若尿比重经常固定于1.010左右，提示肾功能严重障碍。
+\end{enumerate}
+
+\subsubsection{异常排尿的评估}
+\begin{enumerate}
+    \item \textbf{尿量}：
+    \begin{itemize}
+        \item 多尿：指24h尿量超过2500ml。
+        \item 少尿：24h尿量少于400ml或每小时尿量少于17ml者。
+        \item 无尿或尿闭：指24h尿量少于100ml或12h内无尿液产生者。
+    \end{itemize}
+    \item \textbf{颜色}：在病理情况时，尿的颜色可有以下变化：
+    \begin{itemize}
+        \item 血尿－尿沉渣每高倍镜视野红细胞≥3个；洗肉水色。
+        \item 血红蛋白尿－尿中含有血红蛋白（溶血）；浓红茶色或酱油色。
+        \item 胆红素尿－尿中含有胆红素；深黄色或黄褐色。
+        \item 乳糜尿－尿中含有淋巴液；乳白色。
+    \end{itemize}
+    \item \textbf{气味}：
+    \begin{itemize}
+        \item 当泌尿道有感染时新鲜尿有氨臭味。
+        \item 糖尿病酮症酸中毒时，因尿中含有丙酮，故有烂苹果气味。
+    \end{itemize}
+    \item \textbf{膀胱刺激征}：主要表现为尿频、尿急、尿痛，三者同时出现。
+    \item \textbf{尿失禁}：指排尿失去意识控制或不受意识控制，尿液不自主地流出。分类：
+    \begin{itemize}
+        \item 持续性尿失禁
+        \item 充溢性尿失禁
+        \item 急迫性尿失禁
+        \item 压力性尿失禁
+    \end{itemize}
+    \item \textbf{尿潴留}：指尿液大量存留在膀胱内而不能自主排出。产生常见原因：机械性梗阻；动力性梗阻。
+\end{enumerate}
+
+\subsubsection{尿失禁病人的护理}
+\begin{enumerate}
+    \item 皮肤护理。
+    \item 外部引流：使用接尿装置引流尿液。
+    \item 重建正常的排尿功能：
+    \begin{itemize}
+        \item 白天多饮水，入睡前限制饮水。
+        \item 定时使用便器建立规则的排尿习惯。
+        \item 指导患者进行骨盆底部肌肉的锻炼。
+    \end{itemize}
+    \item 对长期尿失禁的患者，可行导尿术留置导尿术。
+    \item 心理护理。
+\end{enumerate}
+
+\subsubsection{尿潴留病人的护理}
+\begin{enumerate}
+    \item 提供隐蔽的排尿环境。
+    \item 调整体位和姿势：使患者以习惯姿势排尿。
+    \item 诱导排尿：听流水声、温水冲洗会阴、针刺。
+    \item 热敷、按摩：按压膀胱协助排尿。
+    \item 心理护理。
+    \item 健康教育。
+    \item 必要时根据医嘱实施导尿术。
+\end{enumerate}
+
+\subsubsection{导尿术考点}
+\begin{itemize}
+    \item \textbf{女性病人导尿}：
+    \begin{itemize}
+        \item 初步消毒：消毒顺序是由外向内、自上而下。再次消毒：内→外→内。
+        \item 女性尿道3-5cm，见尿液流出再插入5-7cm左右（第七版教材改动：尿流出后再插5-7cm，约至导尿管长度的50\%）。
+    \end{itemize}
+    \item \textbf{男性病人导尿}：
+    \begin{itemize}
+        \item 再次消毒部位为尿道口、龟头及冠状沟。
+        \item 导尿过程中固定阴茎并提起使之与腹壁成60º角的目的为使耻骨前弯消失。
+        \item 男性尿道18-20cm，导尿插入至导尿管Y型分叉处。
+    \end{itemize}
+    \item \textbf{注意}：第一次放尿不得超过1000ml，防止血尿和虚脱的发生。
+\end{itemize}
+
+\subsubsection{留置导尿管患者的护理}
+留置导尿管术：是在导尿后，将导尿管保留在膀胱内，持续引流尿液的方法。
+
+\textbf{护理措施：}
+\begin{enumerate}
+    \item 若需行留置导尿管术，导尿管插入时见尿后再插入7～10cm。
+    \item 鼓励患者多饮水：每日摄入2000ml以上，达到冲洗尿道的目的。
+    \item 训练膀胱反射功能，可采用间歇性夹管方式：夹闭导尿管，每3～4h开放1次，使膀胱定时充盈和排空，促进膀胱功能的恢复。
+    \item 每周更换集尿袋1-2次，若有尿液形状、颜色改变，需及时更换。
+    \item 定期更换导尿管，一般为1-4周更换1次。
+    \item 注意患者的主诉并观察尿液情况：发现尿液混浊、沉淀、有结晶时，应及时处理，每周尿常规检查1次。
+\end{enumerate}
+
+\subsection{排便护理}
+\subsubsection{粪便的颜色}
+正常颜色为成人呈黄褐色或棕黄色。婴儿的粪便呈黄色或金黄色。
+
+异常颜色：
+\begin{itemize}
+    \item 柏油样便－－为上消化道出血。
+    \item 白陶土色便－－胆道梗阻。
+    \item 暗红色血便－－下消化道出血。
+    \item 果酱样便－－肠套叠、阿米巴痢疾。
+    \item 粪便表面粘有鲜红色血液－－痔疮或肛裂。
+\end{itemize}
+
+\subsubsection{粪便的气味}
+正常时粪便气味因膳食种类而异，肉食者味重，素食者味轻。
+
+异常气味：
+\begin{itemize}
+    \item 下消化道溃疡、恶性肿瘤患者的粪便呈腐败臭。
+    \item 上消化道出血的柏油样粪便呈腥臭味。
+    \item 消化不良、乳糖类未充分消化或吸收脂肪酸产生气体，粪便呈酸性反应，气味为酸败臭。
+\end{itemize}
+
+\subsubsection{灌肠}
+灌肠是将一定量的液体由肛门经直肠灌入结肠，以帮助病人清洁肠道、排便、排气或由肠道供给药物或营养，达到确定诊断和治疗目的的方法。
+
+分类：
+\begin{itemize}
+    \item 不保留灌肠术
+    \begin{itemize}
+        \item 大量不保留灌肠术
+        \item 小量不保留灌肠术
+    \end{itemize}
+    \item 保留灌肠术
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+ & \textbf{大量不保留灌肠} & \textbf{小量不保留灌肠法} & \textbf{保留灌肠} \\
+\hline
+目的 & 1.解除便秘、肠胀气；2.清洁肠道：为肠道手术或分娩作准备；3.减轻中毒：稀释并清除肠道内的有害物质；4.降低体温：灌入低温液体，为高热病人降温 & 1.软化粪便，解除便秘；2.排除肠道内的气体，减轻腹胀 & 1.镇静、催眠；2.治疗肠道感染 \\
+\hline
+液面距离肛门 & 40～60cm & 不超过30cm & 不超过30cm \\
+\hline
+插入长度 & 7～10cm & 7-10cm & 15～20cm \\
+\hline
+常用溶液 & 1.0.1\%～0.2\%的肥皂液、生理盐水。2.成人每次用量为500～1000ml，小儿200～500ml。3.溶液温度一般为39～41℃，降温时用28～32℃，中暑用4℃。 & “1、2、3”溶液（50\%硫酸镁30ml、甘油60ml、温开水90ml）；溶液温度为38℃。 & 1.灌肠溶液量不超过200ml。溶液温度38℃。2.镇静、催眠用10\%水合氯醛。 \\
+\hline
+注意事项 & 1.妊娠、急腹症、严重心血管疾病等患者禁忌灌肠。2.伤寒患者灌肠时溶液不得超过500ml，压力要低（液面不得超过肛门30cm）。3.为肝性脑病病人灌肠时，禁用肥皂水，以减少氨的产生和吸收。4.充血性心力衰竭和水钠潴留的病人禁用0.9\%氯化钠溶液灌肠。 & 1.用注洗器抽吸灌肠液，连接肛管、排气、夹管。2.如用小容量灌肠筒，液面距离肛门不能超过30cm。3.保留灌肠溶液10-20min再排便。 & 1.慢性细菌性痢疾，病变部位在直肠或乙状结肠，取左侧卧位。2.阿米巴痢疾病变部位多在回盲部，取右侧卧位以提高疗效。3.液面距肛门不超过30cm。 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{肛管排气法}
+\begin{enumerate}
+    \item 准备体位：左侧卧位。
+    \item 插管：肛管插入直肠15-18cm。
+\end{enumerate}
+
+\subsubsection{便秘病人的护理措施}
+\begin{enumerate}
+    \item 提供适当的排便环境：隐蔽的环境，保护患者隐私。
+    \item 选取适宜的排便姿势：坐位或半坐卧位。
+    \item 腹部环形按摩：自右向左环形按摩。
+    \item 遵医嘱给予口服缓泻药物：蓖麻油、番泻叶、酚酞、大黄等。
+    \item 使用简易通便剂：开塞露、甘油栓。
+    \item 灌肠：以上方法均无效时，遵医嘱给予灌肠。
+    \item 健康教育：帮助患者重建正常的排便习惯、合理安排膳食、鼓励患者适当运动。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 对尿失禁患者的护理中错误的一项是（C）\\
+    A.指导患者行盆底肌锻炼 \quad B.女患者可采用橡胶接尿器 \quad C.对长期尿失禁患者可采用一次性导尿术 \quad D.嘱患者多饮水，促进排尿反射 \quad E.多用温水清洗会阴部
+    \item 下列疾病的患者中排出的尿液含有果味的是（D）\\
+    A.前列腺炎 \quad B.尿道炎 \quad C.膀胱炎 \quad D.糖尿病酸中毒 \quad E.急性肾炎
+    \item 尿潴留患者首次导尿放出的尿量不应超过（C）\\
+    A.500ml \quad B.800ml \quad C.1000ml \quad D.1500ml \quad E.2000ml
+    \item 胆红素尿呈（D）\\
+    A.酱油色 \quad B.红色或棕色 \quad C.金黄色 \quad D.黄褐色 \quad E.乳白色
+    \item 多尿是指24h尿量超过（E）\\
+    A.1000ml \quad B.1600ml \quad C.1800ml \quad D.2000ml \quad E.2500ml
+    \item 当患膀胱炎时患者排出的新鲜尿液有（C）\\
+    A.硫化氢味 \quad B.烂苹果味 \quad C.氨臭味 \quad D.粪臭味 \quad E.芳香味
+    \item 为尿潴留患者导尿的目的是（D）\\
+    A.测量膀胱容量 \quad B.鉴别有无尿闭 \quad C.排空膀胱，避免术中误伤 \quad D.减轻患者痛苦 \quad E.记录尿量、观察肾功能
+    \item 对排便异常的描述，下列错误的是（C）\\
+    A.上消化道出血患者为柏油样便 \quad B.痔疮患者排便后有鲜血滴出 \quad C.胆道完全阻塞时，粪便呈暗黑色 \quad D.肠套叠患者可有果酱样便 \quad E.痢疾患者常为脓血便
+    \item 当患者胆道完全阻塞时，因胆汁不能进入肠道，粪便呈（D）\\
+    A.鲜红色 \quad B.暗红色 \quad C.柏油样便 \quad D.陶土色 \quad E.果酱样便
+    \item 当患者患有阿米巴痢疾或肠套叠时，其粪便为（E）\\
+    A.暗红色 \quad B.鲜红色 \quad C.柏油样便 \quad D.陶土色 \quad E.果酱样便
+    \item 大量不保留灌肠时，成人每次用液量为（D）\\
+    A.200-500ml \quad B.250-600ml \quad C.300-800ml \quad D.500-1000ml \quad E.1000-1500ml
+    \item 大量不保留灌肠时，灌肠筒内液面距肛门约（B）\\
+    A.40-50cm \quad B.40-60cm \quad C.45-60cm \quad D.50-60cm \quad E.60-70cm
+    \item 行大量不保留灌肠时，肛管插入直肠内约（B）\\
+    A.5-10cm \quad B.7-10cm \quad C.15-20cm \quad D.10-15cm \quad E.20-25cm
+    \item 肝性脑病的患者禁用的灌肠液是（B）\\
+    A.等渗盐水 \quad B.肥皂水 \quad C.等渗冰盐水 \quad D.碳酸氢钠水 \quad E.温开水
+    \item 小量不保留灌肠时，溶液液面与肛门距离在（B）\\
+    A.20cm以下 \quad B.30cm以下 \quad C.40cm以下 \quad D.50cm以下 \quad E.60cm以下
+    \item 肛管排气时，其肛管插入肛门约（E）\\
+    A.7-10cm \quad B.10-15cm \quad C.10-20cm \quad D.12-15cm \quad E.15-18cm
+    \item 为使耻骨前弯消失，应提起阴茎与腹壁成（C）\\
+    A.20°角 \quad B.40°角 \quad C.60°角 \quad D.80°角 \quad E.90°角
+    \item 为防止泌尿系统逆行感染，留置导尿管应（C）\\
+    A.每日更换 \quad B.每三天更换 \quad C.每周更换 \quad D.每两周更换 \quad E.每三周更换
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \item 正常人24h的尿量约（1000-2000）ml，平均在（1500）ml左右。
+    \item 当泌尿系统感染时新鲜尿液发出（氨）臭味。糖尿病酮症酸中毒患者的尿液呈（烂苹果）气味。
+    \item 膀胱刺激征主要表现为（尿频）、（尿急）、（尿痛）。
+    \item 女性患者导尿一般插入尿管的长度为（4-6）cm；男性患者导尿一般插入尿管的长度为（20-22）cm。
+    \item 当膀胱高度膨胀时，第一次导尿量不应超过（1000）ml，以免导致患者出现（血尿）和（虚脱）。
+    \item 24h尿量少于（400）ml为少尿。24h尿量大于（2500）ml为多尿。
+    \item 尿失禁可分为（真性尿失禁）、（假性尿失禁（充溢性尿失禁））、（压力性）尿失禁。
+    \item 慢性痢疾患者进行保留灌肠常采取（左侧）卧位，阿米巴痢疾病患者灌肠应取（右侧）卧位。
+    \item 上消化道出血的患者粪便常表现为（柏油样）颜色；胆道梗阻患者的大便常表现为（白陶土）颜色。
+    \item 肛管排气时肛管插入的深度是（15-18）cm，保留灌肠时肛管插入的深度为（15-20）cm。
+    \item 成人每次灌肠的溶液量为（500-1000）ml，小儿（200-500）ml。溶液温度一般为（39-41）℃，降温时用（28-32）℃，中暑时溶液温度为4℃。
+    \item 肝性脑病患者禁用（肥皂液）灌肠；充血性心力衰竭和水钠潴留患者禁用（生理盐水）灌肠；急腹症、消化道出血、妊娠、严重心血管疾病等患者禁忌（灌肠）。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第十三章 给药}
+\subsection{药物的管理}
+\begin{enumerate}
+    \item 药物标签明显：内服药标签蓝色，外用药为红色边，剧毒和麻药为黑色边。
+    \item \textbf{妥善保存}：根据药物的性质妥善保存。
+    \begin{itemize}
+        \item 易挥发、潮解或风化的药物：乙醇、过氧乙酸等应装瓶，拧紧瓶盖。
+        \item 易氧化和遇光易变质的药物：维生素C、氨茶碱等装在棕色瓶内，放于阴暗处保存。
+        \item 易被热破坏的某些生物制品和药品：蛋白制剂、疫苗、益生菌等应置于2-10℃低温处保存。
+        \item 易燃易爆的药物：乙醚、乙醇、环氧乙烷等应单独存放，密闭瓶盖放于阴凉处，远离明火。
+    \end{itemize}
+\end{enumerate}
+
+\subsection{给药}
+\subsubsection{给药原则}
+\begin{enumerate}
+    \item 给药行查对制度：五个准确（准确的药物、按准确的剂量、用准确的途径、在准确的时间内、给予准确的病人）。三查八对：三查：操作前、操作中、操作后查。八对：对床号、姓名、药名、浓度、剂量、用法、时间、有效期。
+    \item \textbf{给药途径的吸收顺序}：除动、静脉注射药液外，其他：气雾吸入＞舌下含服＞直肠给药＞肌内注射＞皮下注射＞口服给药＞皮肤给药。
+\end{enumerate}
+
+\subsubsection{常用外文缩写}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{外文缩写} & \textbf{中文译意} & \textbf{外文缩写} & \textbf{中文译意} \\
+\hline
+qh & 每小时一次 & gtt & 滴 \\
+q2h & 每2小时一次 & PO & 口服 \\
+q4h & 每4小时一次 & ID & 皮内注射 \\
+q6h & 每6小时一次 & IH & 皮下注射 \\
+qn & 每晚一次 & OD & 右眼 \\
+tid & 每日三次 & OS & 左眼 \\
+qid & 每日四次 & OU & 双眼 \\
+qod & 隔日一次 & AD & 右耳 \\
+biw & 每周两次 & AS & 左耳 \\
+hs & 临睡前一次 & AU & 双耳 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{外文缩写} & \textbf{中文译意} & \textbf{外文缩写} & \textbf{中文译意} \\
+\hline
+am & 上午 & Co & 复方 \\
+pm & 下午 & Tab & 片剂 \\
+ac & 饭前 & Pil & 丸剂 \\
+pc & 饭后 & Caps & 胶囊 \\
+12n & 中午12点 & Pulv & 粉剂、散剂 \\
+12mn & 午夜12点 & Liq & 液体 \\
+Mist & 合剂 & DC & 停止 \\
+Sup & 栓剂 & prn & 需要时（长期） \\
+Tr & 酊剂 & sos & 必要时（限用一次，12小时内有效） \\
+Ung & 软膏 & Lot & 洗剂 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{口服给药注意事项}
+\begin{enumerate}
+    \item 对危重病人及不能自行服药的病人应喂药；鼻饲病人需将药物碾碎，用水溶解后，从胃管注入，再用少量温开水冲净胃管。
+    \item 对牙齿有腐蚀作用的药物，如酸类和铁剂，应用吸水管吸服后漱口，以保护牙齿。
+    \item 健胃药宜在饭前服；助消化药及对胃黏膜有刺激性的药物宜在饭后服；催眠药在睡前服；驱虫药宜在空腹或半空腹服用。
+    \item 某些磺胺类药物经肾脏排出，尿少时易析出结晶堵塞肾小管，服药后要多饮水。
+    \item 服用对呼吸道黏膜起安抚作用的药物，如止咳糖浆后不宜立即饮水。
+    \item 同时服用几种药物时一般最后服止咳糖浆类。
+\end{enumerate}
+
+\subsubsection{注射给药法考点}
+\textbf{（一）注射原则}
+\begin{enumerate}
+    \item 严格执行查对制度。
+    \item 严格遵守无菌操作原则。
+    \item 严格执行消毒隔离制度，预防交叉感染。
+    \item 选择合适的注射器和针头。
+    \item 注射药液现配现用。
+    \item 选择合适的注射部位。
+    \item 注射前排尽空气。
+    \item 注射前检查回血。
+    \item 掌握合适的进针角度和深度。
+    \item 掌握无痛注射技术。
+\end{enumerate}
+
+\textbf{（二）无痛注射的方法}
+\begin{enumerate}
+    \item 解除患者的思想顾虑，分散其注意力，取合适的体位，使肌肉放松，易于进针。
+    \item 注射时做到“两快一慢”，即进针快、拔针快、推药速度慢且均匀。
+    \item 注射刺激性较强的药物时，应选择细长针头，并且进针要深。同时注射几种药物时，应先注射无刺激性或刺激性弱的，再注射刺激性强的药物。
+\end{enumerate}
+
+\textbf{（三）皮内注射法（ID）}
+\begin{itemize}
+    \item 用于：药物过敏试验、预防接种如卡介苗、局部麻醉的起始步骤。
+    \item 进针角度：与皮肤呈5°角。
+    \item 药物过敏试验常选用前臂掌侧下段；预防接种常选用上臂三角肌下缘。
+    \item 忌用含碘消毒剂消毒，以免着色影响对局部反应的观察及与碘过敏反应相混淆。
+    \item 若病人乙醇过敏，可选择0.9\%生理盐水进行皮肤清洁。
+    \item 将过敏试验结果记录在病历上，阳性用红笔标记“+”，阴性用蓝笔或黑笔标记“-”。
+    \item 给患者做药物过敏试验后，嘱患者勿离开病室，于20分钟后观察结果。
+\end{itemize}
+
+\textbf{（四）皮下注射法（IH）}
+\begin{itemize}
+    \item 用于：注入小剂量药物，不宜口服给药、需在一定时间内发生药效，如胰岛素注射。
+    \item 进针角度：与皮肤呈30°～40°角。
+    \item 常用注射部位：上臂三角肌下缘、上臂外侧、腹部、大腿前侧和外侧方及后背。
+    \item 进针深度：针梗的1/2～2/3刺入皮下。
+    \item 抽吸无回血，推注药液。
+    \item 长期皮下注射者，经常更换注射部位，防止局部产生硬结。
+\end{itemize}
+
+\textbf{（五）静脉注射法（IV）}
+\begin{itemize}
+    \item 四肢浅静脉注射法：上肢常用肘部浅静脉（贵要静脉、肘正中静脉、头静脉）。
+    \item 婴儿静脉注射多采用头皮静脉。
+    \item 进针角度：与皮肤呈15°-30°。
+    \item 长期注射者，血管应由小到大，远心端→近心端。
+    \item 定位消毒：在穿刺部位上方（近心端）约6cm处扎紧止血带，消毒范围直径大于5cm。
+    \item 股静脉注射法：股静脉位于股动脉内侧0.5cm处，若针头进入股动脉，应立即拔出针头，用无菌纱布紧压穿刺处5-10分钟。
+\end{itemize}
+
+\textbf{（六）臀部肌肉注射法}
+\begin{itemize}
+    \item \textbf{臀大肌注射定位法}：
+    \begin{itemize}
+        \item 十字法：先从臀裂顶点向左/右侧划一水平线，再从髂嵴最高点作一垂直平分线，将一侧臀部分为4个象限，其外上象限并避开内角。
+        \item 连线法：髂前上棘和尾骨连线的外上1/3处。
+    \end{itemize}
+    \item \textbf{臀中肌、臀小肌注射定位法}：
+    \begin{itemize}
+        \item 以示指尖和中指尖分别置于髂前上棘和髂嵴下缘处，使示指、中指与髂嵴构成一个三角形，其示指和中指构成的内角，即为注射部位。
+        \item 髂前上棘外侧三横指处为注射部位（以病人自己的手指宽度为标准）。
+    \end{itemize}
+\end{itemize}
+
+\textbf{（七）静脉注射失败的常见原因}
+\begin{enumerate}
+    \item 针头未刺入静脉（无回血，注入药物后隆起）。
+    \item 针头斜面未完全刺入静脉（可有回血，注入药物后隆起）。
+    \item 针头刺入较深，斜面一半穿破对侧血管壁（可有回血，注射药物后无隆起但有疼痛）。
+    \item 针头刺入过深，穿破对侧血管壁（无回血、无隆起但有疼痛）。
+\end{enumerate}
+
+\textbf{（八）特殊病人的静脉穿刺要点}
+\begin{enumerate}
+    \item 肥胖病人：静脉上方进针，进针角度稍加大（30°～40°）。
+    \item 水肿病人：沿静脉解剖位置，用手按揉局部，使静脉充分显露后再行穿刺。
+    \item 脱水病人：局部热敷、按摩，待血管充盈后再穿刺。
+    \item 老年病人：用手指分别固定穿刺段静脉上下两端，再沿静脉走向穿刺。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 执行给药原则中，下列首要的是（A）\\
+    A.遵医嘱给药 \quad B.给药途径要准确 \quad C.给药时间要准确 \quad D.注意用药不良反应 \quad E.给药过程中要观察疗效
+    \item 剧毒药及麻醉药的最主要保管原则是（D）\\
+    A.与内服药分别放置 \quad B.放阴凉处 \quad C.装密封瓶中保存 \quad D.应加锁并专人保管，认真交班 \quad E.应有明显标签
+    \item 应放在4℃冰箱内保存的药物是（D）\\
+    A.氨茶碱 \quad B.苯巴比妥钠 \quad C.泼尼松（强的松） \quad D.胎盘球蛋白 \quad E.青霉素
+    \item 发挥药效最快的给药途径是（E）\\
+    A.口服 \quad B.外敷 \quad C.吸入 \quad D.皮下注射 \quad E.静脉注射
+    \item 股静脉的穿刺部位为（A）\\
+    A.股动脉内侧0.5cm \quad B.股动脉外侧0.5cm \quad C.股神经内侧0.5cm \quad D.股神经外侧0.5cm \quad E.股神经和股动脉之间
+    \item 肌内注射时，选用联线法进行体表定位，其注射区域正确的是（C）\\
+    A.髂嵴和尾骨联线的外上1/3处 \quad B.髂嵴和尾骨联线的中1/3处 \quad C.髂前上棘和尾骨联线的外上1/3处 \quad D.髂前上棘和尾骨联线的中1/3处 \quad E.髂前上棘和尾骨联线的后1/3处
+    \item 肌肉小剂量注射选用上臂三角肌时，其注射区是（D）\\
+    A.三角肌下缘2~3横指处 \quad B.三角肌上缘2-3横指处 \quad C.上臂内侧，肩峰下2~3横指处 \quad D.上臂外侧，肩峰下2-3横指处 \quad E.肱二头肌下缘2~3横指处
+    \item 静脉注射过程中，发现患者局部肿胀、疼痛、试抽有回血，可能的原因是（C）\\
+    A.静脉痉挛 \quad B.针头刺入过深，穿破对侧血管壁 \quad C.针头斜面一半在血管外 \quad D.针头斜面紧贴血管内壁 \quad E.针头刺入皮下
+    \item 臀大肌注射时，应避免损伤（C）\\
+    A.臀部动脉 \quad B.臀部静脉 \quad C.坐骨神经 \quad D.臀部淋巴 \quad E.骨膜
+    \item 患者张某，需要口服磺胺类药，护士嘱咐其服药期间需多喝水的目的是（E）\\
+    A.减轻胃肠道刺激 \quad B.增强药物疗效 \quad C.维持血液pH \quad D.避免损害造血系统 \quad E.增加药物溶解度，避免结晶析出
+    \item 患者张某，静脉注射25\%葡萄糖，患者述说疼痛，推注稍有阻力，局部无肿胀，抽无回血，应考虑是（B）\\
+    A.静脉痉挛 \quad B.针刺入过深，穿破对侧血管壁 \quad C.针头斜面一半在血管外 \quad D.针头斜面紧贴血管内壁 \quad E.针头刺入过浅，药物注入皮下
+    \item 患儿1岁零8个月，因支气管炎需肌内注射青霉素，其注射部位最好选用（B）\\
+    A.臀大肌 \quad B.臀中肌、臀小肌 \quad C.上臂三角肌 \quad D.前臂外侧肌 \quad E.股外侧肌
+    \item 下列注射法的进针角度哪项是错误的：（D）\\
+    A.皮内5° \quad B.皮下30°—40° \quad C.肌肉90° \quad D.静脉40°
+    \item 无菌注射器针头哪部位手可触及：（D）\\
+    A.针筒、针梗 \quad B.针柄、针尖 \quad C.乳头、针栓 \quad D.空筒、针栓（手能触及的部位只有空筒、针栓、活塞柄）
+\end{enumerate}
+\end{examplebox}
+
+\subsection{药物过敏试验法}
+\subsubsection{青霉素过敏试验考点}
+\begin{enumerate}
+    \item 询问用药史、过敏史及家族过敏史，如使用青霉素停药3天，或使用不同生产批次的制剂时，需重做过敏试验。
+    \item 备好抢救用物与用品：0.1\%盐酸肾上腺素、急救小车、氧气、吸痰器等。
+    \item 方法：前臂掌侧下段皮内注射青霉素皮试溶液0.1ml（含青霉素20～50U）；注射后观察20分钟，20分钟后判断并记录试验结果。
+    \item \textbf{阳性判断}：①皮丘隆起增大，出现红晕，直径大于1cm，周围有伪足伴局部痒感；②全身可有头晕、心慌、恶心，甚至发生过敏性休克（最严重的并发症）。
+    \item \textbf{青霉素过敏性休克及其处理}
+    \begin{enumerate}
+        \item 立即停药，病人平卧，就地抢救，同时报告医生。
+        \item 立即皮下注射0.1％盐酸肾上腺素1mL（0.5ml七版），小儿剂量酌减。如症状不缓解每隔半小时皮下或静脉注射该药，直到脱离危险期。
+        \item 给予氧气吸入，改善缺氧症状。呼吸受抑制时，应立即进行口对口人工呼吸，并肌内注射尼可刹米、洛贝林等呼吸兴奋剂。有条件者可插入气管导管，借助人工呼吸机辅助或控制呼吸。喉头水肿导致窒息时，应尽快施行气管切开。
+        \item 根据医嘱静脉注射地塞米松5～10mg或将琥珀酸钠氢化可的松200～400mg加入5\%～10\%葡萄糖溶液500ml内静脉滴注；应用抗组胺类药物，如肌内注射盐酸异丙嗪25-50mg或苯海拉明40mg。
+        \item 静脉滴注10％葡萄糖溶液或平衡溶液扩充血容量。如血压仍不回升，可按医嘱加入多巴胺或去甲肾上腺素静脉滴注。
+        \item 若发生呼吸心跳骤停，立即进行复苏抢救。
+        \item 密切观察病情，记录患者生命体征、神志和尿量等病情变化。
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection{破伤风抗毒素过敏试验及脱敏注射法}
+\begin{enumerate}
+    \item \textbf{TAT过敏试验}：皮内试验方法：取0.1mlTAT皮试液（含TAT15U）作皮内注射，20分钟后判断试验结果。
+    \item \textbf{破伤风抗毒素脱敏注射法}：
+    \begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{次数} & \textbf{TAT (ml)} & \textbf{加生理盐水 ml} & \textbf{注射途径} \\
+    \hline
+    1 & 0.1 & 0.9 & 肌内注射 \\
+    2 & 0.2 & 0.8 & 肌内注射 \\
+    3 & 0.3 & 0.7 & 肌内注射 \\
+    4 & 余量 & 稀释至1ml & 肌内注射 \\
+    \hline
+    \end{tabular}
+    \end{table}
+\end{enumerate}
+
+\subsubsection{链霉素过敏试验考点}
+\begin{enumerate}
+    \item 实验方法：每1ml含链霉素2500U链霉素，取皮试药液0.1ml（含链霉素250U）作皮内注射，注射后观察20分钟后判断并记录试验结果。结果判断同青霉素。
+    \item \textbf{毒性反应}
+    \begin{itemize}
+        \item 可出现全身麻木、抽搐、肌肉无力、眩晕、耳鸣、耳聋等症状。
+        \item 病人若有抽搐，可用10\%葡萄糖酸钙或5\%氯化钙，静脉缓慢推注，小儿酌情减量。
+        \item 病人若有肌肉无力、呼吸困难，宜用新斯的明皮下注射或静脉注射。
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{记忆方法（均为0.1ml）}
+\begin{itemize}
+    \item 青霉素——20U-50U（青梅竹马520）
+    \item 破伤风——15（破衣服（15））
+    \item 链霉素——250（你个250，连累我们，真该死）
+    \item 细胞色素C——0.075U
+\end{itemize}
+
+\subsubsection{结核菌素试验（PPD试验）}
+\begin{enumerate}
+    \item 试验方法：以PPD为例，取PPD原液0.1ml（5U）在患者前臂掌侧下段做皮内注射。
+    \item 试验结果判断：根据试验部位的皮肤情况进行判断：
+    \begin{itemize}
+        \item 无红晕、无硬结，或硬结直径＜5mm为阴性（-）。
+        \item 硬结直径在5-9mm为弱阳性（+）。
+        \item 硬结直径为10-19mm为中度阳性（++）。
+        \item 硬结直径＞20mm或虽＜20mm但局部出现水疱、坏死或淋巴管炎为强阳性（+++）。
+        \item 注射20-36小时内，注射区皮肤发红且较软，72小时反应消退者为假性。
+    \end{itemize}
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 抢救青霉素过敏性休克的苜选药物是（C）\\
+    A.盐酸异丙嗪 \quad B.去氧肾上腺素 \quad C.盐酸肾上腺素 \quad D.异丙肾上腺素 \quad E.去甲肾上腺素
+    \item 青霉素皮内注射的剂量是（B）\\
+    A.10U \quad B.40U \quad C.80U \quad D.100U \quad E.150U
+    \item 链霉素皮内注射的剂量是（D）\\
+    A.0.25U \quad B.2.5U \quad C.25U \quad D.250U \quad E.2500U
+    \item 接受破伤风抗毒素脱敏注射的患者出现轻微反应时，护士应采取的正确措施是（D）\\
+    A.立即停止注射，迅速给予抢救处理 \quad B.立即报告医生 \quad C.重新开始脱敏注射 \quad D.停止注射，待反应消退后，减少剂量增加次数注射 \quad E.注射苯海拉明抗过敏
+    \item 过敏性休克出现中枢神经系统症状，其原因是（C）\\
+    A.肺水肿 \quad B.有效循环血量锐减 \quad C.脑组织缺氧 \quad D.肾衰竭 \quad E.毛细血管扩张，通透性增加
+    \item 破伤风抗毒素试验液的剂量是每毫升含（C）\\
+    A.15U \quad B.20U \quad C.150U \quad D.200U \quad E.2500U
+    \item 李某，患急性肺炎，注射青霉素数秒后，出现胸闷气促、面色苍白、脉细弱、出冷汗，血压:65/45mmHg，此时首先应采取的急救措施是（C）\\
+    A.立即通知医生 \quad B.静脉注射0.1\%盐酸肾上腺素 \quad C.立即停药、平卧，报告医生，就地抢救，皮下注射0.1\%盐酸肾上腺素1ml \quad D.立即吸氧，行胸外心脏按压 \quad E.即刻注射强心剂
+    \item 郭某，因肺结核注射链霉素，出现了发热、皮疹、荨麻疹。医嘱静脉注射葡萄糖酸钙，其目的是（C）\\
+    A.收缩血管，增加外周阻力 \quad B.松弛支气管平滑肌 \quad C.减轻毒性症状 \quad D.降低体温 \quad E.缓解皮肤瘙痒
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \item 药物保管原则上规定药瓶上应有明显标签。内服药为（蓝）色边、外用药为（红）色边、剧毒药为（黑）色边。
+    \item 给药后要注意观察药物（疗效）和（不良）反应，并做好记录。
+    \item 皮内注射时，针头与皮肤呈（5°）角刺入。
+    \item 皮下注射时，针头与皮肤呈（30~40°）角，迅速将针头的（针梗的1/2~2/3）刺入。
+    \item 肌内注射时，针头与皮肤呈（90°）角，迅速将针头的（1/3）刺入。
+    \item 防止药物过敏，在使用高致敏性药物前，应该询问（用药史）、（过敏史）和（家族过敏史），并做过敏试验。
+    \item 青霉素过敏试验溶液为，每ml含（200~500U）青霉素为标准。
+    \item 链霉素过敏试验溶液为，每ml含（2500U）链霉素为标准。
+    \item TAT过敏试验溶液为，每ml含（150U）TAT为标准。
+    \item 青霉素过敏者出现血清病型反应，一般于用药后（7~14）天内发生。临床表现和（血清病）相似。
+    \item 以前曾用过TAT而超过（3）天者，如再使用，须重作过敏试验。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第十四章 静脉输液与输血}
+\subsection{静脉输液}
+静脉输液：是将大量无菌溶液或药物直接输入静脉的治疗方法。
+
+\subsubsection{补液原则}
+先晶后胶、先盐后糖、宁酸勿碱。
+
+\subsubsection{补钾四不宜}
+\begin{enumerate}
+    \item 不宜过浓：浓度不超过40mmol/L。
+    \item 不宜过快：不超过20mmol/h-40mmol/L。
+    \item 不宜过多：成人每日补钾4.5-6g。
+    \item 不宜过早：见尿补钾，一般尿量超过40ml/h或500ml/天方可补钾。
+\end{enumerate}
+
+\subsubsection{静脉输液的常用溶液及作用}
+\textbf{1. 晶体溶液}：分子量小，在血管内停留时间短，对维持细胞内外水分的相对平衡有重要作用，可有效纠正体液及电解质平衡失调。常用溶液有：
+\begin{itemize}
+    \item 葡萄糖溶液：5％葡萄糖溶液、10％葡萄糖溶液（促进钠（钾）离子进入细胞内）。
+    \item 等渗电解质溶液：0.9％氯化钠溶液、复方氯化钠溶液（补充水分和电解质）。
+    \item 碱性溶液：碳酸氢钠（NaHCO3）溶液（用于纠正酸中毒，调节酸碱平衡失调）。
+    \item 高渗溶液：20％甘露醇（用于消除水肿，降低颅内压）。
+\end{itemize}
+
+\textbf{2. 胶体溶液}：在血管内存留时间长，能有效维持血浆胶体渗透压，增加血容量，改善微循环，提高血压。常用溶液有：
+\begin{itemize}
+    \item 右旋糖酐溶液：中分子右旋糖酐（扩充血容量）、低分子右旋糖酐（改善微循环）。
+    \item 代血浆。
+    \item 血液制品。
+\end{itemize}
+
+\subsubsection{密闭式周围静脉输液法注意事项}
+\begin{enumerate}
+    \item 调节滴速：成人40-60gtt/min，儿童20-40gtt/min。
+    \item 静脉留置针输液法应在穿刺部位上8-10cm处扎止血带。
+    \item 一般静脉留置针可以保留3-5天，最好不要超过7天。
+    \item \textbf{输液速度及时间的计算}：
+    \begin{itemize}
+        \item 已知每分钟滴数与输液总量，计算输液所需用的时间：\\
+        输液时间（小时）= $\frac{\text{液体总量（ml）×点滴系数}}{\text{每分钟滴数×60（分钟）}}$
+        \item 已知输入液体总量与计划所用的输液时间，计算每分钟滴数：\\
+        每分钟滴数 = $\frac{\text{液体总量（ml）×点滴系数}}{\text{输液时间（分钟）}}$
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{溶液不滴的处理}
+\begin{enumerate}
+    \item 针头滑出血管外：将针头拔出，另选血管重新穿刺。
+    \item 针头斜面紧贴血管壁：调整针头位置或适当变换肢体位置，直到点滴通畅为止。
+    \item 针头堵塞：更换针头，重新选择静脉穿刺。
+    \item 压力过低：适当抬高输液瓶（袋）或放低肢体位置。
+    \item 静脉痉挛：局部进行热敷以缓解痉挛。
+\end{enumerate}
+
+\subsubsection{常见输液反应及护理}
+\textbf{（一）发热反应}
+\begin{itemize}
+    \item 临床表现：多发生于输液后数分钟至1小时。表现为发冷、寒战、发热。
+    \item 处理：轻者减慢或停止输液，及时通知医生。重者停止输液，保留剩余溶液和输液器，送检验科做细菌培养，以查找原因。
+\end{itemize}
+
+\textbf{（二）循环负荷过重反应（急性肺水肿）}
+\begin{itemize}
+    \item 原因：输液速度过快；病人原有心肺功能不良。
+    \item 临床表现：病人突然出现呼吸困难、胸闷、咳嗽、咳粉红色泡沫样痰。
+    \item \textbf{处理}：
+    \begin{enumerate}
+        \item 立即停止输液并迅速通知医生。协助病人取端坐位，双腿下垂，以减少下肢静脉回流，减轻心脏负担。同时安慰病人以减轻其紧张心理。
+        \item 给予高流量氧气吸入，一般氧流量为6～8L/min，湿化瓶内加入20\%-30\%的乙醇溶液，以减低肺泡内泡沫表面张力，减轻缺氧症状。
+        \item 遵医嘱给予镇静、平喘、强心、利尿和扩血管药物。
+        \item 必要时进行四肢轮扎，加压时要确保动脉血仍可通过，且须每5～10分钟轮流放松一个肢体上的止血带。
+        \item 静脉放血200～300ml（此法慎用）。
+    \end{enumerate}
+\end{itemize}
+
+\textbf{（三）静脉炎}
+\begin{itemize}
+    \item 原因：主要原因是长期输注高浓度、刺激性较强的药液，或静脉内放置刺激性较强的塑料导管时间过长。也可由于在输液过程中未能严格执行无菌操作。
+    \item 临床表现：沿静脉走向出现条索状红线，局部组织发红、肿胀、灼热、疼痛，有时伴有畏寒、发热等全身症状。
+    \item 处理：停止在此部位静脉输液，并将患肢抬高、制动，局部用50\%硫酸镁或95\%乙醇溶液行湿热敷。
+\end{itemize}
+
+\textbf{（四）空气栓塞}
+\begin{itemize}
+    \item 原因：输液导管内空气未排尽；导管连接不紧，有漏气。
+    \item 临床表现：病人感到胸部异常不适或有胸骨后疼痛，随即发生呼吸困难和严重的发绀，并伴有濒死感。听诊心前区可闻及响亮的、持续的“水泡声”。
+    \item \textbf{处理}：
+    \begin{enumerate}
+        \item 发生空气栓塞时，应立即将病人置于左侧卧位，并保持头低足高位（使气泡避开肺动脉入口）。
+        \item 高流量氧气吸入。
+    \end{enumerate}
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 最严重的输液反应是（D）\\
+    A.过敏反应 \quad B.心脏负荷过重的反应 \quad C.发热反应 \quad D.空气栓塞 \quad E.静脉炎
+    \item 脑水肿病人静脉滴注20\%甘露醇500ml，要求在50分钟内滴完，输液速度应为（C）\\
+    A.100滴/分 \quad B.120滴/分 \quad C.150滴/分 \quad D.170滴/分 \quad E.180滴/分
+    \item 输液引起急性循环负荷过重（肺水肿）的特征性症状是（D）\\
+    A.咳嗽、呼吸困难 \quad B.心慌、恶心、呕吐 \quad C.发绀、烦躁不安 \quad D.咳嗽、咳粉红色泡沫性痰、气促、胸闷 \quad E.胸闷、心悸伴呼吸困难
+    \item 输液时液体滴入不畅；局部肿胀，检查无回血，此时应（B）\\
+    A.改变针头方向 \quad B.更换针头重新穿刺 \quad C.抬高输液瓶位置 \quad D.局部热敷 \quad E.用注射器推注
+    \item 静脉输液过程中发生空气栓塞的致死原因是（B）\\
+    A.空气栓塞在主动脉入口 \quad B.空气栓塞在肺动脉入口 \quad C.空气栓塞在上腔动脉入口 \quad D.空气栓塞在下腔动脉入口 \quad E.空气栓塞在肺静脉入口
+    \item 输液中发生肺水肿时吸氧需用20\%-30\%的乙醇湿化，其目的是（E）\\
+    A.使病人呼吸道湿润 \quad B.使痰液稀薄，易咳出 \quad C.消毒吸入的氧气 \quad D.降低肺泡表面张力 \quad E.降低肺泡泡沫表面张力
+    \item 下列输液所致的发热反应的处理措施，哪一项是错误的（A）\\
+    A.出现反应，立即停止输液 \quad B.通知医生及时处理 \quad C.寒战者给予保温处理 \quad D.高热者给予物理降温 \quad E.及时应用抗过敏药物
+    \item 下列关于静脉炎的原因错误的是（E）\\
+    A.输液时无菌技术不严格 \quad B.输入刺激性强的药物 \quad C.长期输入浓度高的药物 \quad D.长时间静脉留置硅胶管 \quad E.输液中针头穿出血管
+    \item 下列哪一项不是静脉炎的表现（C）\\
+    A.沿静脉走向出现条索状红线 \quad B.局部组织肿胀灼热 \quad C.常伴有高热、无力等全身症状 \quad D.局部伴有疼痛 \quad E.局部组织发红
+    \item 补钾的原则不正确的是（C）\\
+    A.不宜过浓 \quad B.不宜过多 \quad C.不宜过慢 \quad D.不宜过早 \quad E.见尿给钾
+\end{enumerate}
+\end{examplebox}
+
+\subsection{静脉输血}
+静脉输血：是将全血或成分血如血浆、红细胞、白细胞或血小板等通过静脉输入体内的方法。
+
+\subsubsection{静脉输血原则}
+\begin{enumerate}
+    \item 输血前必须做血型鉴定和交叉配血试验。
+    \item 无论是输全血还是输成分血，均应选用同型血液输注。紧急情况下，无同型血，可以选用O型血输给病人。
+    \item 病人如果需要再次输血，则必须重新做交叉配血试验。
+\end{enumerate}
+
+\subsubsection{交叉配血试验}
+\begin{itemize}
+    \item \textbf{直接交叉配血试验}：受血者的血清和供血者的红细胞进行配合实验，检查受血者血清中有无破坏供血者红细胞的抗体。检验结果要求绝对不可以有凝集或溶血现象。
+    \item \textbf{间接交叉配血试验}：供血者的血清和受血者的红细胞进行配合实验，检查供血者血清中有无破坏受血者红细胞的抗体。
+    \item 要求：如果直接交叉和间接交叉实验结果都没有凝集反应，即交叉配血反应实验阴性，为配血相合，方可进行输血。
+\end{itemize}
+
+\subsubsection{常见输血反应及护理}
+\textbf{（一）发热反应}
+\begin{itemize}
+    \item 原因：（1）由致热原引起。（2）输血时没有严格遵守无菌操作原则，造成污染。
+    \item 临床表现：发生在输血中或输血后1～2小时内发生。畏寒、寒战、发热，体温可达38～41℃。可伴有皮肤潮红、头痛、恶心、呕吐等。
+    \item 处理：（1）反应轻者：减慢输血速度。（2）反应重者：立即停止输血，密切观察生命体征，给予对症处理，并及时通知医生。
+\end{itemize}
+
+\textbf{（二）过敏反应}
+\begin{itemize}
+    \item 原因：（1）病人为过敏体质。（2）输入的血液中含有致敏物质。（3）多次输血的病人，体内可产生过敏性抗体。（4）供血者血液中的变态反应性抗体随血液传给受血者。
+    \item 临床表现：（1）轻度反应：皮肤瘙痒、荨麻疹。（2）中度反应：血管神经性水肿、喉头水肿。（3）重度反应：过敏性休克。
+    \item 处理：（1）轻者减慢输血速度。（2）中、重者停止输血。（3）呼吸困难者吸氧，严重者行气管切开。（4）循环衰竭者给予抗休克治疗。
+\end{itemize}
+
+\textbf{（三）溶血反应}
+分类：急性溶血反应和迟发性溶血反应。
+
+\textbf{1. 急性溶血反应}
+\begin{itemize}
+    \item 原因：输入异型血液、输入变质的血液。
+    \item 临床表现：
+    \begin{itemize}
+        \item 第一阶段——红细胞凝集成团，阻塞部分小血管（头痛头胀，腰背剧痛）。
+        \item 第二阶段——大量血红蛋白释放到血浆中（黄疸，血红蛋白尿）。
+        \item 第三阶段——大量血红蛋白从血浆进入肾小管，阻塞肾小管（急性肾衰竭）。
+    \end{itemize}
+    \item \textbf{处理}：
+    \begin{enumerate}
+        \item 立即停止输血，并通知医生。
+        \item 给予氧气吸入，建立静脉通道，遵医嘱给予升压药或其他药物治疗。
+        \item 将剩下的余血、病人血标本和尿标本送化验室进行检验。
+        \item 保护肾脏：腰部封闭、热敷（最首要）。
+        \item 碱化尿液：静脉注射碳酸氢钠。
+        \item 严密观察生命体征和尿量。
+        \item 若出现休克症状，应进行抗休克治疗。
+        \item 心理护理。
+    \end{enumerate}
+\end{itemize}
+
+\textbf{（四）与大量输血有关的反应——枸橼酸钠中毒反应}
+\begin{itemize}
+    \item 原因：库存血中的大量枸橼酸钠不能完全氧化和排出，使血中的游离钙与之结合导致血钙浓度下降。
+    \item 临床表现：手足抽搐，血压下降，心率缓慢。心电图出现Q-T间期延长，甚至心跳骤停。
+    \item 护理：每输库血1000ml，静脉注射10％葡萄酸钙10ml，预防发生低血钙。
+\end{itemize}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 输血引起溶血反应，最早出现的主要表现为（A）\\
+    A.头部胀痛、面部潮红、恶心、呕吐、腰部有剧痛 \quad B.寒战、高热 \quad C.呼吸困难、血压下降 \quad D.瘙痒、皮疹 \quad E.少尿
+    \item 输血前后及两袋血之间应输入的溶液是（C）\\
+    A.5\%葡萄糖溶液 \quad B.5\%葡萄糖盐水 \quad C.0.9\%氯化钠溶液 \quad D.复方氯化钠溶液 \quad E.碳酸氢钠等渗盐水
+    \item 溶血反应所致急性肾功能衰竭的临床表现不包括（D）\\
+    A.少尿或无尿 \quad B.尿素氮增高 \quad C.高钾血症 \quad D.尿内有脓细胞 \quad E.酸中毒
+    \item 病人，女，27岁，因异位妊娠破裂后急需输入400ml血液，输血前的准备错误的是（E）\\
+    A.病人或家属在充分了解输血的潜在危害后，有拒绝输血的权利 \quad B.病人或家属、医生分别在“输血治疗同意书”上签字后方可施行输血治疗 \quad C.做血型鉴定及交叉配血试验 \quad D.两位护士进行查对 \quad E.从血库取出的血如太冷，应放在温水中加温
+    \item 马女士，40岁，因再障贫血住院治疗。近10天连续输血治疗；出现心慌、气促、手足抽搐，检查心率40次/分，血压75/50mmHg。病人出现的输血反应是（E）\\
+    A.肺水肿 \quad B.发热反应 \quad C.过敏反应 \quad D.空气栓塞 \quad E.枸橼酸钠中毒
+    \item 关于采集血标本的操作方法，错误的是（C）\\
+    A.严禁在输液的针头处采血 \quad B.如需空腹采血，应提前通知病人禁食 \quad C.全血标本不可摇动试管以防溶血 \quad D.血清标本应注入干燥试管 \quad E.血培养标本应在使用抗生素前采集
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \item 静脉输液是利用（大气压）和（液体静压）形成的输液系统内压高于人体静脉压的原理将液体输入静脉内。
+    \item 临床输液常用的液体包括（晶体）溶液、（胶体）溶液和静脉高营养液。
+    \item 临床补钾的“四不宜”原则是：不宜（过早）、不宜（过浓）、不宜（过快）和不宜（过多）。
+    \item 静脉输液时，婴儿多采用（头皮）静脉，因为它易于（固定）。
+    \item 对于长期输液的患者，应先从（四肢）远心端静脉开始使用，逐渐向（近心端）移动，做到有计划使用静脉。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第十五章 标本采集}
+\subsection{血液标本的采集}
+\begin{enumerate}
+    \item 一般血培养标本采血5ml，亚急性细菌性心内膜炎患者，采血10-15ml。
+    \item 将血液注入标本容器：同时抽取不同种类血标本，注意注入顺序为培养瓶→抗凝管→干燥管。
+    \item 拔出动脉采血器，应用无菌纱布按压穿刺部位5-10分钟。
+    \item 严禁在输血输液针头处或同侧肢体抽血。
+    \item 肝素是用于血液化学成分检测的首选抗凝剂。
+\end{enumerate}
+
+\subsection{尿液标本的采集}
+\begin{enumerate}
+    \item \textbf{尿常规标本}：用于尿液常规检查，各种有形成分的检查和尿蛋白，尿糖等的检测，将晨起第一次尿（中段尿）留于标本容器中即可。
+    \item \textbf{12小时尿标本}：7pm排空膀胱后开始留取尿液至次晨7am留取最后一次尿液。
+    \item \textbf{24小时尿标本}：7am排空膀胱后开始至次晨7am留取最后一次尿液。注意：两种方法都是留最后一次7时的尿液，第一个7时的尿液不要。
+    \item \textbf{尿培养标本}：适用于病原微生物学培养、鉴定和药物敏感试验，协助临床诊断和治疗。
+\end{enumerate}
+
+\subsubsection{常用防腐剂的使用}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{名称} & \textbf{作用} & \textbf{用法} & \textbf{检验项目} \\
+\hline
+甲醛 & 固定尿中有机成分 & 每100ml尿液中加400mg/L甲醛0.5ml & 艾迪计数（12h细胞计数） \\
+浓盐酸 & 防止尿中激素被氧化 & 24小时尿液中加10ml/L浓盐酸 & 17-羟类固醇、17-酮类固醇 \\
+甲苯 & 保持尿中的化学成分不变 & 每100ml尿液加入甲苯0.5ml & 尿蛋白定量、尿糖定量检查 \\
+硼酸 & 抑制细菌生长 & 每升尿中加入约10g硼酸 & 用于蛋白质、尿酸、5-羟吲哚乙酸、羟氨酸、皮质醇、雌激素、类固醇等检查；不适于pH检测 \\
+碳酸钠 & 化学防腐 & 24h尿中加入约4g碳酸钠 & 用于卟啉、尿胆原检查；不能用于常规筛查 \\
+麝香草酚 & 抑制细菌生长 & 每100ml尿加入0.1g & 用于有形成分检查 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{粪便及痰液标本的采集}
+\subsubsection{粪便标本的采集考点}
+\begin{enumerate}
+    \item \textbf{常规标本}：取脓、血、黏液部分便送检。
+    \item \textbf{检查寄生虫}：晚间睡觉或清晨未起前，将透明胶带粘贴在肛周，取下胶带，粘贴在玻璃片上或将胶带对合，立即送检。
+    \item \textbf{检查阿米巴原虫}：将便盆加温至接近人体的体温，排便后连同便盆立即送检。
+\end{enumerate}
+
+\subsubsection{痰液标本的采集考点}
+\begin{enumerate}
+    \item \textbf{自行留痰}：晨起用清水漱口→深呼吸后用力咳出痰液置于痰盒中。
+    \item \textbf{痰培养标本}：先用朵贝氏溶液再用冷开水清洁口腔→深吸气后用力咳出痰液于无菌容器内，量不得少于1ml。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 采集静脉血标本时，以下操作正确的是（D）\\
+    A.抽取全血标本后，注入干燥试管 \quad B.为危重患者采集血标本，可从输液针头处抽取 \quad C.采集血培养标本后，迅速注入抗凝试管内 \quad D.同时抽取不同种类的血标本时注入顺序为：血培养瓶→抗凝试管→干燥试管 \quad E.血清标本注入试管后，应轻轻旋转摇匀
+    \item 留取尿标本查17–羟类固醇、17–酮类固醇时，应加入的防腐剂是（E）\\
+    A.草酸 \quad B.甲苯 \quad C.甲醛 \quad D.稀盐酸 \quad E.浓盐酸
+    \item 患者，女，26岁，近一个月来因不规则发热、乏力、体重减轻而入院，经检查发现有房间隔缺损，并初步诊断合并亚急性细菌性心内膜炎，医嘱行血培养。采血量至少为（B）\\
+    A.20ml \quad B.10ml \quad C.5ml \quad D.3ml \quad E.1ml
+    \item 患者，女，50岁，为明确诊断，需留取尿常规标本，护士应告知患者正确的方法为（A）\\
+    A.留取晨起第一次尿 \quad B.饭前半小时留取 \quad C.随时收集尿液 \quad D.收集12h尿 \quad E.收集24h尿
+    \item 患者，女，43岁，以肾小球肾炎收入院，医嘱做艾迪计数检查。护士在执行此医嘱时做法不正确的是（C）\\
+    A.向患者解释留尿目的及配合方法 \quad B.准备大口带盖容器 \quad C.容器内加甲苯防腐 \quad D.嘱患者晨7时排空膀胱后开始留尿 \quad E.做好交接班，督促患者准确留取尿液
+    \item 患者，女，怀疑为阿米巴痢疾，为明确诊断，医嘱留大便标本查找阿米巴原虫。护士应为患者选择的标本容器是（D）\\
+    A.无菌便器 \quad B.装有培养基的便器 \quad C.清洁便器 \quad D.加温的清洁便器 \quad E.加有95\%乙醇的便器
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \item 采集标本前应认真查对医嘱，核对患者的（床号）、（姓名）、（住院号）、申请项目等，确认无误后方可进行。
+    \item 静脉血标本包括（全血标本）、（血清标本）和（血培养标本）三种。
+    \item 采集动脉血标本时常用的动脉有（股动脉）、（桡动脉）。
+    \item 为避免尿液久放变质，收集12h或24h尿标本时常用的防腐剂有（甲醛）、（甲苯）和（浓盐酸）。
+    \item 咽拭子标本采集是从（咽部）及（扁桃体）取分泌物做（细菌培养）或病毒分离。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第十六章 疼痛患者的护理}
+\subsection{三阶梯镇痛疗法}
+\begin{enumerate}
+    \item \textbf{目的}：逐渐升级，合理应用镇痛剂来缓解疼痛。
+    \item \textbf{原则}：口服给药、按时给药、按阶梯给药、个体化给药、密切观察药物不良反应及宣教。
+    \item \textbf{内容}：
+    \begin{itemize}
+        \item 第一阶梯：使用非阿片类镇痛药物（阿司匹林、布洛芬）。
+        \item 第二阶梯：选用弱阿片类镇痛药物（曲马多、可待因）。
+        \item 第三阶梯：选用强阿片类镇痛药物（吗啡、哌替啶）。
+    \end{itemize}
+\end{enumerate}
+
+\subsection{疼痛的护理措施}
+\begin{enumerate}
+    \item 减少或消除引起疼痛的原因。
+    \item 合理运用缓解或解除疼痛的方法。
+    \item 提供社会心理支持。
+    \item 恰当地运用心理护理方法及疼痛心理疗法。
+    \item 积极采取促进病人舒适的措施。
+    \item 健康教育和随访。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 属于非阿片类镇痛药的是（B）\\
+    A.吗啡 \quad B.布洛芬 \quad C.阿托品 \quad D.哌替啶 \quad E.芬太尼
+    \item 患者，刘某，肝癌末期疼痛，护士给该患者镇痛治疗，需要对其疼痛治疗前后效果测定对比，最适宜的评估方法是（C）\\
+    A.面部表情疼痛评定法 \quad B.文字描述评定法 \quad C.数字评分法 \quad D.视觉模拟评分法 \quad E.Prince–Henry评分法
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \item 三级阶梯镇痛疗法的第一阶梯使用（非阿片类）镇痛药，主要适用于（轻度疼痛）的患者。
+    \item 三级阶梯镇痛疗法的第二阶梯选用（弱阿片类）镇痛药，主要适用于（中度疼痛）的患者。
+    \item 三级阶梯镇痛疗法的第三阶梯选用（强阿片类）镇痛药，主要适用于（重度疼痛）和剧烈癌痛的患者。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第十七章 病情观察及危重症患者的管理}
+\subsection{病情观察的内容}
+\subsubsection{意识状态的观察}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{2.5cm}|p{3cm}|p{3cm}|p{6cm}|}
+\hline
+\textbf{嗜睡} & \textbf{意识模糊} & \textbf{昏睡} & \textbf{昏迷} \\
+\hline
+是最轻度的意识障碍。患者处于持续睡眠状态，但能被言语或轻度刺激唤醒，醒后能正确、简单而缓慢地回答问题，但反应迟钝，刺激去除后又很快入睡。（回答问题正确） & 其程度较嗜睡严重，表现为思维和语言不连贯，对时间、地点、人物的定向力完全或部分障碍，可有错觉、幻觉、躁动不安、谵语或精神错乱。（回答问题错误） & 患者处于熟睡状态，不易唤醒。压迫眶上神经、摇动身体等强刺激可被唤醒，醒后答话含糊或答非所问，停止刺激后即又进入熟睡状态。（答非所问） & 是最严重的意识障碍，表现为意识持续的中断或完全丧失，按其程度可分为：\\
+& & & ①轻度昏迷：意识大部分丧失，无自主运动，对声、光刺激无反应，对疼痛刺激（如压迫眶上缘）可有痛苦表情及躲避反应。瞳孔对光反射、角膜反射、眼球运动、吞咽反射、咳嗽反射等可存在。\\
+& & & ②中度昏迷：对周围事物及各种刺激均无反应，对于剧烈刺激可出现防御反射。角膜反射减弱，瞳孔对光反射迟钝，眼球无转动。\\
+& & & ③深度昏迷：全身肌肉松弛，对各种刺激均无反应。深、浅反射均消失。\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{瞳孔的观察}
+\begin{enumerate}
+    \item \textbf{形状、大小与对称性}：正常瞳孔呈圆形，两侧等大等圆，位置居中，边缘整齐，直径为2～5mm。
+    \begin{itemize}
+        \item <2mm—瞳孔缩小（常见于有机磷农药、吗啡、氯丙嗪等药物中毒）。
+        \item <1mm—针尖样瞳孔（常见于有机磷农药）。
+        \item >5mm—瞳孔散大（颅内压增高、阿托品中毒等）。
+    \end{itemize}
+    \item \textbf{对光反射}：正常瞳孔对光反应灵敏，当瞳孔大小不随光线刺激而变化时，瞳孔对光反射消失。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 患者处于持续睡眠状态，但能被言语或轻度刺激唤醒，刺激去除后又很快入睡，此时患者处于（A）\\
+    A.嗜睡 \quad B.意识模糊 \quad C.昏睡 \quad D.浅昏迷 \quad E.深昏迷
+    \item 意识完全丧失，对各种刺激均无反应，全身肌肉松弛，深浅反射均消失，此时患者处于（E）\\
+    A.嗜睡 \quad B.意识模糊 \quad C.昏睡 \quad D.浅昏迷 \quad E.深昏迷
+    \item 护理昏迷患者，下列选项正确的是（C）\\
+    A.测口温时护士要扶托体温计 \quad B.用干纱布盖眼以防角膜炎 \quad C.保持病室安静，光线宜暗 \quad D.防止患者坠床用约束带 \quad E.每隔3h给患者鼻饲流质
+    \item 正常瞳孔在自然光线下直径的范围是（C）\\
+    A.1mm \quad B.1.0~1.5mm \quad C.2~5mm \quad D.5.5~6mm \quad E.6mm以上
+    \item 观察患者昏迷深浅度的最可靠指标是（E）\\
+    A.生命体征 \quad B.瞳孔反应 \quad C.肌张力 \quad D.皮肤的温度 \quad E.对疼痛刺激的反应
+\end{enumerate}
+\end{examplebox}
+
+\subsection{常用急救技术}
+\subsubsection{呼吸、心脏骤停的主要临床表现}
+\begin{enumerate}
+    \item 突然面色死灰，意识丧失。
+    \item 大动脉搏动消失。
+    \item 呼吸停止。
+    \item 瞳孔散大。
+    \item 皮肤苍白或发绀。
+    \item 心尖搏动及心音消失。
+    \item 伤口不出血。
+\end{enumerate}
+
+\subsubsection{心肺复苏}
+是对由于外伤、疾病、中毒、意外低温、淹溺和电击等各种原因，导致呼吸、心跳停搏，必须紧急采取重建和促进心脏、呼吸有效功能恢复的一系列措施。
+
+\begin{enumerate}
+    \item \textbf{心肺复苏顺序为CAB}，即胸外按压→开放气道→人工呼吸。
+    \item \textbf{胸外按压}：
+    \begin{itemize}
+        \item 按压部位：两乳头连线的中点。
+        \item 按压频率：100-120次/分。
+        \item 按压深度：5-6厘米。
+    \end{itemize}
+    \item \textbf{开放气道}：
+    \begin{itemize}
+        \item 清理呼吸道异物：检查口腔内是否有分泌物及异物，如果看到即采用头偏向一侧体位，用食指将异物取出。
+        \item 开放气道的方法：①仰头抬颏法（头、颈部损伤者禁用）；②托颌法；③仰头抬颈法。
+    \end{itemize}
+    \item \textbf{人工呼吸}：
+    \begin{itemize}
+        \item 口唇接触严密。
+        \item 吹气量：胸廓有明显起伏。
+        \item 时间：≤2s，按压间歇。
+        \item 频率：10-12次/分。
+        \item 比例：2:30（人工呼吸：胸外按压）。
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{洗胃法考点}
+\begin{enumerate}
+    \item 当中毒物质不明时，洗胃溶液可选用温开水或生理盐水。
+    \item 乐果类药物（1605、1059、4049）用碳酸氢钠洗胃，禁用高锰酸钾。
+    \item 灭鼠药用0.1\%的硫酸铜洗胃。
+    \item 敌百虫禁用碱性溶液洗胃（碳酸氢钠）。
+    \item 洗胃禁忌症：腐蚀性药物（如强酸、强碱）中毒，肝硬化伴食管静脉曲张、胸主动脉瘤、近期上消化道出血及胃穿孔。可服用牛奶、米汤、蛋清保护胃黏膜。
+    \item 一次洗胃灌入量为300-500ml，不能超过500ml。\\
+    记忆口诀（虫怕碳，爱玩乐高）。
+\end{enumerate}
+
+\subsubsection{人工呼吸器考点}
+挤压空气为500ml/次。
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 胸外心脏按压频率为（E）\\
+    A.20~40次/分 \quad B.40~60次/分 \quad C.60~80次/分 \quad D.80~100次/分 \quad E.100次以上
+    \item 为成人进行人工呼吸时呼吸频率为（B）\\
+    A.5~7次/分 \quad B.8~10次/分 \quad C.11~13次/分 \quad D.14~16次/分 \quad E.16次/分以上
+    \item 心脏按压时，按压部位及抢救者双手的摆放是（A）\\
+    A.胸骨中、下1/3交界处，双手平行叠放 \quad B.胸骨中、下1/3交界处，双手垂直叠放 \quad C.胸骨左缘两横指，双手平行叠放 \quad D.胸骨左缘两横指，双手垂直叠放 \quad E.心前区、双手垂直叠放
+    \item 急性中毒患者，当诊断不明时，应选择的洗胃液是（B）\\
+    A.1：15000高锰酸钾 \quad B.温开水或生理盐水 \quad C.牛奶 \quad D.3\%过氧化氢 \quad E.2\%～4\%碳酸氢钠
+    \item 吞服强酸、强碱类腐蚀性药物的患者，切忌进行的护理操作是（B）\\
+    A.口腔护理 \quad B.洗胃 \quad C.导泻 \quad D.灌肠 \quad E.输液
+    \item 成人洗胃灌注量每次应为（B）\\
+    A.200ml \quad B.300~500ml \quad C.500~800ml \quad D.800~1000ml \quad E.1000~1200ml
+    \item 患者，女性，误食灭鼠药（磷化锌）中毒，被送入急诊室，此时为患者洗胃最好选用（D）\\
+    A.温开水 \quad B.生理盐水 \quad C.2\%碳酸氢钠 \quad D.1：15000～1：20000高锰酸钾 \quad E.4\%碳酸氢钠
+    \item 患者张某，患尿毒症，护士查房时发现他表情冷漠，反应迟钝，这种表现是（A）\\
+    A.意识模糊 \quad B.谵妄 \quad C.嗜睡 \quad D.浅昏迷 \quad E.深昏迷
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \item 意识障碍分为嗜睡、（意识模糊）、昏睡、（昏迷）四种类型。
+    \item 洗胃溶液一般每次用量为（300～500）ml，将洗胃溶液温度调节到（25～38）℃范围内为宜。
+    \item 应用简易呼吸器一次挤压可有（500）ml空气进入肺内，频率应保持（10）次/分。
+    \item 实施胸外心脏按压术时按压的部位为胸骨（中）、（下）1/3交界处，按压频率为每分钟至少（100）次以上。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第十八章 临终护理}
+\subsection{死亡的定义与分期}
+\begin{itemize}
+    \item \textbf{脑死亡}：是指包括脑干在内全脑功能丧失且不可逆转，是新的死亡判断标准。
+    \item \textbf{死亡过程分为三期}：濒死期、临床死亡期和生物学死亡期。
+    \begin{enumerate}
+        \item \textbf{濒死期}：又称临终期，是临床死亡前主要生命器官功能极度衰弱，逐渐趋向停止的时期，是死亡的开始阶段。
+        \item \textbf{临床死亡期}：临床死亡是临床上判断死亡的标准。表现为心跳、呼吸完全停止，各种反射消失，瞳孔散大，但各种组织细胞仍有微弱而短暂的代谢活动。
+        \item \textbf{生物学死亡期}：指全身器官，组织，细胞生命活动停止，也称细胞死亡。随着生物学死亡期的发展，相继出现尸冷、尸斑（死亡后2-4小时出现）、尸僵（1-3小时出现）、尸体腐败等现象。最后消失的感觉为听觉。
+    \end{enumerate}
+\end{itemize}
+
+\subsection{临终病人的心理评估}
+\begin{description}
+    \item[否认期] 病人得知患不治之症时表现出震惊和否认，常说的话是“不，不是我”。
+    \item[愤怒期] 自己疾病的坏消息被证实时，病人出现的心理反应是气愤、暴怒和嫉妒。
+    \item[协议期] 病人开始接受自己已患绝症的现实，常会表示：“假如……”，希望能发生奇迹。
+    \item[忧郁期] 病情更加恶化，这时他们的气愤或暴怒都会被一种巨大的失落感所取代。
+    \item[接受期] 病人会感到自己已经竭尽全力，没有什么悲哀和痛苦了，于是开始接受即将面临死亡的事实。
+\end{description}
+
+\subsection{尸体护理考点}
+\begin{enumerate}
+    \item 放平床支架，尸体仰卧，头下置一软枕，防止面部淤血变色。
+    \item 棉花填塞口、鼻、耳、肛门、阴道等孔道，防止体液外溢。
+    \item 传染病病人的尸体使用消毒液擦洗，并用消毒液浸泡的棉球填塞各孔道，尸体用尸单包裹后装入不透水的袋中，并作出传染标识。
+\end{enumerate}
+
+\begin{examplebox}{练习题}
+\begin{enumerate}
+    \item 现代医学已开始主张死亡的依据是（C）\\
+    A.心跳停止 \quad B.呼吸停止 \quad C.脑死亡 \quad D.心电图平直 \quad E.瞳孔散大
+    \item 死亡过程的第二期是（A）\\
+    A.临床死亡期 \quad B.濒死期 \quad C.否认期 \quad D.生物学死亡期 \quad E.接受期
+    \item 尸斑出现在死亡后（A）\\
+    A.2~4h \quad B.2~6h \quad C.4~6h \quad D.6~8h \quad E.2~3h
+    \item 临床死亡期指征不包括（D）\\
+    A.呼吸停止 \quad B.心跳停止 \quad C.各种反射消失 \quad D.出现尸冷 \quad E.瞳孔散大
+    \item 死亡的第三个阶段是（C）\\
+    A.心跳停止、呼吸停止、对光反射消失 \quad B.昏迷、呼吸停止、心跳停止 \quad C.濒死、临床死亡、生物学死亡 \quad D.肌力消退、肌张力减退、反射消失 \quad E.尸斑、尸冷、尸僵
+    \item 尸斑出现的部位是（E）\\
+    A.头顶部 \quad B.面部 \quad C.腹部 \quad D.胸部 \quad E.最低部位
+    \item 临终患者最早出现的心理反应期是（C）\\
+    A.忧郁期 \quad B.愤怒期 \quad C.否认期 \quad D.接受期 \quad E.协议期
+    \item 临终患者经历的心理反应第三期是（E）\\
+    A.忧郁期 \quad B.愤怒期 \quad C.否认期 \quad D.接受期 \quad E.协议期
+    \item 护理处于愤怒期的临终患者，不妥的一项是（A）\\
+    A.可适当回避患者 \quad B.尽量让患者表达其愤怒，发泄内心的不快 \quad C.理解患者的痛苦 \quad D.给予安慰和疏导 \quad E.多陪伴患者
+    \item 下列不符合协议期临终患者表现的是（C）\\
+    A.患者的愤怒渐渐消退 \quad B.患者很和善、很合作 \quad C.患者有侥幸心理，希望是误诊 \quad D.患者认为做善事可以死里逃生 \quad E.患者开始接受自己患绝症的现实
+    \item 郭女士，70岁，脑出血，目前处于昏迷状态，心跳减弱，反应迟钝，肌张力丧失，呼吸微弱。此患者属于（A）\\
+    A.濒死期 \quad B.愤怒期 \quad C.临床死亡期 \quad D.接受期 \quad E.生物学死亡期
+    \item 王先生，69岁，诊断为肝癌，病情日趋恶化，患者出现悲哀、情绪低落，要求见一些亲朋好友，并急于交代后事，此时患者心理反应处于（A）\\
+    A.忧郁期 \quad B.愤怒期 \quad C.协议期 \quad D.接受期 \quad E.否认期
+\end{enumerate}
+\end{examplebox}
+
+\begin{tipsbox}{填空题}
+\begin{enumerate}
+    \item 临终关怀是从以（治愈）为主的治疗转变为以对症为主的（照料）。
+    \item 死亡过程一般分为三个阶段，即（濒死）期、（临床死亡）期和（生物学死亡）期。
+    \item 临终患者的心理反应经历了五个阶段，即否认期、（愤怒）期、协议期、（忧郁）期、（接受）期。
+    \item 临床死亡期的特征是（心跳）、（呼吸）完全停止，各种（反射）消失。
+    \item 哈佛大学脑死亡的标准包括无感受性和反应性、无运动和无呼吸、（无反射）、（脑电波平坦）。
+    \item 随着生物学死亡期的进展，相继出现尸冷、尸斑、（尸僵）及（尸体腐败）等现象。
+    \item 若患者死亡时为侧卧位，应将其转为（仰卧）位，目的是防止（面部淤血）变色。
+\end{enumerate}
+\end{tipsbox}
+
+\section{第十九章 法规与护理管理}
+\subsection{护士执业注册相关的法律法规}
+《护士条例》2008年5月12日开始实施。本条例对护士执业注册，护士的权利和义务，医疗机构的职责，护士执业的法律责任等内容进行了详细的规定。护士必须经执业注册取得护士执业证书，依照本条例规定从事护理活动。
+
+\begin{examplebox}{考题举例}
+\begin{enumerate}
+    \item 某护生在一所二级甲等医院完成毕业实习后，但未通过护士执业资格考试。护理部考虑其平时无护理差错，且普外科护士严重短缺，因此聘用其任普外科护士，护理部的做法违反的是（A）\\
+    A.护士条例 \quad B.侵权责任法 \quad C.民法通则 \quad D.医疗机构管理办法 \quad E.医疗事故处理条例
+    \item 某护士受聘于一家医院，其尚未取得护士执业证书，目前她不能从事的工作是（E）\\
+    A.清洁出院患者的床单位 \quad B.协助卧床患者变换体位 \quad C.协助患者进食 \quad D.协助患者如厕 \quad E.为尿潴留患者导尿
+    \item 患者女，因甲状腺功能亢进行甲状腺大部切除术。术后10小时护士发现病人明显呼吸困难发绀，伤口左侧明显肿胀、皮肤张力大。护士如采取下列哪项措施将违反《护士条例》规定（B）\\
+    A.安慰病人 \quad B.未立即报告医生 \quad C.给病人吸氧 \quad D.拆除缝线，去除血肿 \quad E.安置半卧位
+\end{enumerate}
+\end{examplebox}
+
+\subsection{与临床护理工作相关的法律法规——传染病防治法}
+列入的法定传染病共40种。
+\begin{itemize}
+    \item \textbf{甲类2种}：鼠疫、霍乱（2小时内报告）。
+    \item \textbf{乙类26+1种}：新型冠状病毒肺炎、传染性非典型肺炎、人感染性高致病性禽流感、肺炭疽、艾滋病、病毒性肝炎、脊髓灰质炎、H7N9禽流感、麻疹等。
+    \item \textbf{丙类11种}：流行性感冒（H1N1）、流行性腮腺炎、风疹、急性出血性结膜炎、麻风病、流行性和地方性斑疹伤寒、黑热病、包虫病、手足口病等（24小时内报告）。
+\end{itemize}
+
+\begin{examplebox}{典型考题}
+\begin{enumerate}
+    \item 属于甲类传染病的是（E）\\
+    A.疟疾 \quad B.炭疽 \quad C.艾滋病 \quad D.黑热病 \quad E.鼠疫
+\end{enumerate}
+\end{examplebox}
+
+\textbf{报告时限}：
+\begin{itemize}
+    \item 甲类传染病和乙类传染病中的肺炭疽、新型冠状病毒肺炎、传染性非典型肺炎、脊髓灰质炎应于2小时内报告。
+    \item H7N9禽流感纳入法定乙类传染病；将甲型H1N1流感从乙类调整为丙类。
+    \item 对其他乙、丙类传染病病人、疑似病人和规定报告的传染病病原携带者在诊断后，应于24小时内报告。
+\end{itemize}
+
+\subsection{医疗事故处理条例}
+\subsubsection{医疗事故的构成要素}
+\begin{enumerate}
+    \item 主体是医疗机构及其医务人员。
+    \item 行为的违法性——这是最好的判断标准。
+    \item 过失造成患者人身损害——过失行为和后果之间存在因果关系。
+\end{enumerate}
+提醒：考试此类题目，请同学思考是否有导致过失的原因：违反有关规章制度（查对、执行医嘱、交接班、值班）；违反操作规程。过失行为无严重后果是差错！
+
+\subsubsection{医疗事故的分级}
+\begin{itemize}
+    \item \textbf{一级事故}：造成患者死亡、重度残疾的。
+    \item \textbf{二级事故}：造成患者中度残疾、器官组织损伤导致严重功能障碍的。
+    \item \textbf{三级事故}：造成患者轻度残疾、器官组织损伤导致一般功能障碍的。
+    \item \textbf{四级事故}：造成患者明显人身损害的其他后果。
+    （记忆口诀：一二三重中轻）
+\end{itemize}
+
+\begin{examplebox}{典型考题}
+\begin{enumerate}
+    \item 护士在给甲床输液的患者更换液体时，错将乙床患者的青霉素钠盐换给甲床患者，造成甲床患者过敏死亡。按照《医疗事故处理》规定，该医疗事故定级别为（D）\\
+    A.四级医疗事故 \quad B.三级医疗事故 \quad C.二级医疗事故 \quad D.一级医疗事故 \quad E.一般差错
+    \item 某患者因牙痛到医院就医，医生诊断后为其拔除了牙齿。术后患者仍感患处肿痛，再次就诊发现医生拔错了牙齿。遂将医院告上法庭。法院经调查发现医院存在过失，负全部责任。该事件属于（E）\\
+    A.一级医疗事故 \quad B.二级医疗事故 \quad C.三级医疗事故 \quad D.不构成医疗事故 \quad E.四级医疗事故
+    \item 某护士根据注射单给患者输液。当她在操作后查对时，发现误将邻床患者的液体误输给该患者。她立即停止输液并更换了正确的液体，未给该患者造成任何不良后果。该种情况属于（E）\\
+    A.四级医疗事故 \quad B.三级医疗事故 \quad C.二级医疗事故 \quad D.一级医疗事故 \quad E.不属于医疗事故
+\end{enumerate}
+\end{examplebox}
+
+\subsubsection{医疗事故的责任}
+\begin{enumerate}
+    \item 完全责任：指医疗事故损害后果完全由医疗过失行为造成。
+    \item 主要责任：指医疗事故损害后果主要由医疗过失行为造成，其他因素起次要作用。
+    \item 次要责任：指医疗事故损害后果主要由其他因素造成，医疗过失行为起次要作用。
+    \item 轻微责任：指医疗事故损害后果绝大部分由其他因素造成，医疗过失行为起轻微作用。
+\end{enumerate}
+
+\begin{examplebox}{典型考题}
+\begin{enumerate}
+    \item 某值班护士在23:00行药物治疗时，由于患者已入睡，护士未叫醒患者，错将患者甲的药物输给患者乙，导致患者乙出现皮肤过敏反应，此事件中，该护士应承担（E）\\
+    A.无责任 \quad B.轻微责任 \quad C.次要责任 \quad D.一半责任 \quad E.主要责任
+\end{enumerate}
+\end{examplebox}
+
+\subsection{护理管理的组织结构}
+\subsubsection{五种不同的护理工作模式}
+\begin{enumerate}
+    \item \textbf{个案护理}：专人负责实施个体化护理。
+    \item \textbf{功能制护理}：是以工作中心为主的护理方式。
+    \item \textbf{小组护理}：是将护理人员和患者分成若干小组。
+    \item \textbf{责任制护理}：由责任护士和相应辅助护士对患者进行有计划有目的的整体护理。
+    \item \textbf{系统性整体护理}：是责任制护理的进一步完善。
+\end{enumerate}
+（记忆要点：一对一，组对组，公认（谐音：功任））
+
+\begin{examplebox}{考题举例}
+\begin{enumerate}
+    \item 对于危重症患者或大手术后需要特殊护理的患者宜采用的护理工作模式是（A）\\
+    A.个案护理 \quad B.小组护理 \quad C.功能制护理 \quad D.责任制护理 \quad E.系统性整体护理
+    \item 护士小张和小王在同一个病房工作，病房护理人员分为两组，每组3人，她们分别为组长，带领护士为患者提供服务，护士们互相配合完成工作。这种工作模式是（D）\\
+    A.个案护理 \quad B.功能制护理 \quad C.责任制护理 \quad D.小组护理 \quad E.临床路径
+    \item 小张、小王、小刘、小李均是医院综合内科的护士，小张是处理医嘱的主班护士，小王是治疗护士，小李是药疗护士，小刘是生活护理护士。她们每隔一段时间就会由护士长安排进行调换岗位。这种工作方式被称为（B）\\
+    A.个案护理 \quad B.功能制护理 \quad C.责任制护理 \quad D.小组护理 \quad E.临床路径
+    \item 由责任护士和其辅助护士负责一定数量患者从入院到出院，以护理计划为内容，包括入院教育、各种治疗、基础护理和专科护理、护理病历书写、观察病情变化、心理护理、健康教育、出院指导。这种形式的护理方式是（C）\\
+    A.个案护理 \quad B.功能制护理 \quad C.责任制护理 \quad D.小组护理 \quad E.临床路径
+\end{enumerate}
+\end{examplebox}
+
+\subsubsection{五种不同的护理工作模式各自特点}
+\begin{enumerate}
+    \item \textbf{个案护理}：护理人员责任明确，责任心较强；护理人员轮班所需要的人力较大，成本高。
+    \item \textbf{功能制护理}：护士分工明确，工作效率高，所需护理人员较少，易于组织管理；护理缺乏整体性概念。
+    \item \textbf{小组护理}：互相配合，维持良好工作氛围；护理人员能够获得较为满意的结果；护士责任感受到影响。
+    \item \textbf{责任制护理}：特点有：一是整体性，二是连续性，三是协调性，四是个体化。
+    \item \textbf{系统性整体护理}：护理服务示范医院活动倡导的护理工作模式。
+\end{enumerate}
+
+\begin{examplebox}{考题举例}
+\begin{enumerate}
+    \item 责任制护理的特点不包括（C）\\
+    A.连续性 \quad B.整体性 \quad C.独立性 \quad D.协调性 \quad E.个体化
+    \item 以下对临床护理工作模式描述正确的是（D）\\
+    A.个案护理节省人力、经费、设备、时间 \quad B.功能制护理的优点是护士职责明确，责任心增强 \quad C.小组护理的优点是工作效率高，分工明确 \quad D.责任制护理的优点是护士工作的独立性增强 \quad E.小组护理护士的工作满意度降低
+\end{enumerate}
+\end{examplebox}
+
+\subsection{医院护理质量缺陷及管理}
+\begin{examplebox}{考题举例}
+\begin{enumerate}
+    \item PDCA循环中的D代表（C）\\
+    A.计划 \quad B.检查 \quad C.实施 \quad D.循环 \quad E.处理
+\end{enumerate}
+（解析：P代表计划，D代表实施，C代表检查，A代表处理即总结经验教训，存在问题转入下个管理循环中。）
+\end{examplebox}
+
+\section{第二十章 护理伦理}
+\subsection{护士执业中的伦理具体原则}
+\begin{itemize}
+    \item \textbf{尊重}：尊重病人自我选择、自主行动、自我管理和决策。
+    \item \textbf{不伤害}：不给病人带来可以避免的肉体和精神上的痛苦、损伤、疾病、死亡。
+    \item \textbf{公正}：平等对待病人，合理分配医疗资源。
+    \item \textbf{有利}：对病人直接或间接履行仁慈善良和有利的行为。
+\end{itemize}
+% \ocrimage{https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/general-layout-parsing-v3//18a5f6d0-29c7-491e-8686-a7ff957e85d6/markdown_3/imgs/img_in_image_box_379_326_1516_982.jpg}
+
+\section{第二十一章 人际沟通}
+\subsection{概述}
+\subsubsection{人际沟通的基本概念}
+\begin{itemize}
+    \item \textbf{沟通}：信息传递的过程。
+    \item \textbf{人际沟通}：人与人之间的信息交流。
+\end{itemize}
+
+\subsubsection{人际沟通的类型}
+\begin{itemize}
+    \item \textbf{语言沟通}：以语言文字为媒介的一种准确、有效、广泛的沟通形式。（35\%）
+    \begin{itemize}
+        \item 口头语言沟通
+        \item 书面语言沟通
+    \end{itemize}
+    \item \textbf{非语言沟通}：表情、眼神、手势、姿势、动作等类语言。（65\%）
+\end{itemize}
+温馨提示：考生应学会区分语言沟通与非语言沟通。除语言和文字属于语言沟通外，其余均属于非语言沟通。
+
+\begin{examplebox}{考题举例}
+\begin{enumerate}
+    \item 护士的非语言交流技巧不包括（B）\\
+    A.微笑 \quad B.医疗文件书写 \quad C.面部表情 \quad D.沉默 \quad E.皮肤接触
+    \item 语言沟通的主要媒介是（C）\\
+    A.表情 \quad B.眼神 \quad C.文字 \quad D.手势 \quad E.姿势
+\end{enumerate}
+\end{examplebox}
+
+\subsubsection{人际沟通的影响因素——环境因素}
+\begin{itemize}
+    \item \textbf{噪声}：嘈杂的环境将影响沟通的顺利进行。
+    \item \textbf{距离}：沟通者之间的距离不仅会影响沟通者的参与程度，还会影响沟通过程中的气氛。
+    \begin{itemize}
+        \item 亲密距离：0 - 0.5m（护理病人时或护士与儿童的距离）。
+        \item 个人距离：0.5 - 1.2m（护患交谈时）。
+        \item 社会距离：1.2 - 3.7m（讨论病案时）。
+        \item 公众距离：> 3.7m（演讲授课时）。
+    \end{itemize}
+\end{itemize}
+
+\subsection{护理工作中的人际关系}
+\subsubsection{人际关系的认知效应}
+认知效应：心理学将人际认知方面具有一定规律性的相互作用称为人际认知效应。
+\begin{enumerate}
+    \item \textbf{首因效应}：第一印象（陌生人之间）。
+    \item \textbf{近因效应}：喜新厌旧（熟人之间）。
+    \item \textbf{社会固定印象}：刻板效应（对群体印象）。
+    \item \textbf{晕轮效应}：以偏概全（月晕效应或光环效应）。
+    \item \textbf{先礼效应}：先礼后兵。
+    \item \textbf{免疫效应}：先入为主。
+\end{enumerate}
+
+\begin{examplebox}{考题举例}
+\begin{enumerate}
+    \item 刚毕业的某护士接到明天到市人民医院面试的通知，她准备在着装方面体现护士的职业特点，以便给各位专家留下良好的印象，这体现了认知效应中的（C）\\
+    A.近因效应 \quad B.社会固定印象 \quad C.首因效应 \quad D.晕轮效应 \quad E.先礼效应
+    \item 新护士小李，今天第一天来上班。她微笑地面对每个人，耐心地解答患者的问题，为人处事都非常有礼貌，她想给大家留下一个好印象。小李护士运用的人际认知效应是（B）\\
+    A.近因效应 \quad B.首因效应 \quad C.晕轮效应 \quad D.免疫效应 \quad E.先礼效应
+    \item 在探视期间，来了5名家属探望一患儿，护士看到后，主动走出去与家属打招呼，并耐心解答他们的疑惑，然后恳请他们尽快离开病房让患儿休息。几位家属接受劝告，此护士较好作用了认知效应中的（B）\\
+    A.首因效应 \quad B.先礼效应 \quad C.免疫效应 \quad D.晕轮效应 \quad E.近因效应
+    \item 患者女，22岁。某大学三年级学生，护士在与患者沟通过程中，根据自己与大学生交往经验，以坦率、热情又亲切的态度与患者进行沟通，此护士的行为属于认知效应中的（D）\\
+    A.晕轮效应 \quad B.免疫效应 \quad C.近因效应 \quad D.刻板印象 \quad E.首因效应
+    \item 护士A是科里相貌气质最佳的护士，而且能歌善舞，护士长B非常欣赏。某次医院组织品管圈大赛，护士长B派出护士A参加，结果其成绩却是全组最低。护士长B认为护士A气质最佳，学习工作能力也应当最佳，这属于（D）\\
+    A.社会刻板效应 \quad B.投射效应 \quad C.优先效应 \quad D.光环效应 \quad E.新近效应
+\end{enumerate}
+\end{examplebox}
+
+\subsubsection{护患关系的三个基本模式}
+\begin{table}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.4} % 适当增加行间距，提升阅读体验
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+\textbf{类型} & \textbf{特点} & \textbf{适用对象} \\
+\midrule
+主动-被动型 & 完全由护士决定治疗护理方案 “母亲与婴儿”（保护者） & 昏迷、休克、痴呆、精神病患者 \\
+\addlinespace % 增加一行微小的间距，代替横线分隔的作用
+指导-合作型 & 主要由护士决定，患者接受指导并与其合作 “母亲与儿童”（指导者） & 急性病患者、术后恢复期患者 \\
+\addlinespace
+共同参与型 & 共同决定治疗护理方案 “成人与成人”（同盟者） & 具有一定文化层次的慢性病患者 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{examplebox}{考题举例}
+\begin{enumerate}
+    \item 患者男，30岁，半小时前因汽车撞伤头部入院，入院时已昏迷，对于此患者应采取的护患关系模式是（C）\\
+    A.主动—主动型 \quad B.被动—被动型 \quad C.主动—被动型 \quad D.指导—合作型 \quad E.共同参与型
+    \item 患者男性，38岁，二尖瓣置换术后第四天，各项生命体征正常，神智清醒，语词清晰，情绪平稳，应采用的护患关系基本模式是（B）\\
+    A.主动-被动型 \quad B.指导-合作型 \quad C.指导-被动型 \quad D.被动-主动型 \quad E.共同参与型
+    \item 病人，男，67岁，患高血压15年，本次因血压控制不好入院。护士应采取的护患关系模式是（E）\\
+    A.主动-被动型 \quad B.指导-合作型 \quad C.指导-被动型 \quad D.被动-主动型 \quad E.共同参与型
+\end{enumerate}
+\end{examplebox}
+
+\subsubsection{护患关系发展过程的3个期}
+\begin{enumerate}
+    \item \textbf{初始期}：亦称熟悉期，是护士与患者的初识阶段，也是护患之间开始建立信任关系的时期（主要任务）。
+    \item \textbf{工作期}：是护士实施治疗护理的阶段，也是护士完成各项护理任务、患者接受治疗和护理的主要时期（落实护理措施）。
+    \item \textbf{结束期}：经过治疗和护理，患者病情好转或基本康复，已达到预期目标，可以出院休养，护患关系即转入结束期（出院指导）。
+\end{enumerate}
+
+\begin{examplebox}{考题举例}
+\begin{enumerate}
+    \item 患者男，35岁。中学教师。以“胰岛素依赖型糖尿病”1小时前入院治疗。护士王某为其责任护士。此时护患关系发展的主要任务是（D）\\
+    A.收集病人资料 \quad B.明确病人的健康问题 \quad C.为病人制定护理计划 \quad D.与病人建立信任关系 \quad E.解决病人的健康问题
+    \item 护患关系中初始期的开始时间为（A）\\
+    A.初次见面时 \quad B.患者入院24小时内 \quad C.护患双方自我介绍时 \quad D.正式评估患者收集资料时 \quad E.护患双方知道彼此的姓名之后
+    \item 护患关系发展到工作期的主要任务是（C）\\
+    A.与患者建立相互信任的关系 \quad B.为患者收集健康的资料 \quad C.采取措施解决患者健康问题 \quad D.护患密切协作达到预定目标 \quad E.对护患关系进行整体评价
+    \item 一位护士正在为一位即将出院的术后患者进行出院前的健康指导。此时护患关系处于（D）\\
+    A.准备期 \quad B.初始期 \quad C.工作期 \quad D.结束期 \quad E.熟悉期
+\end{enumerate}
+\end{examplebox}
+
+\subsubsection{患者角色适应不良的类型}
+\begin{enumerate}
+    \item \textbf{角色行为缺如}：未能进入患者角色，往往否定自己有病。
+    \item \textbf{角色行为冲突}：意识到自己有病，但不能接受病人的角色。
+    \item \textbf{角色行为减退}：已进入患者的角色，又重新承担起原来扮演的其他角色。
+    \item \textbf{角色行为强化}：表现为依赖性增强，害怕出院，“小病大养”。
+    \item \textbf{角色行为异常}：患者受病痛折磨感到悲观、失望等不良心境的影响导致行为异常，如对医务人员的攻击性言行，病态固执、抑郁、厌世、以致自杀等。
+\end{enumerate}
+
+\begin{examplebox}{考题举例}
+\begin{enumerate}
+    \item 患者，男，52岁，因肥厚型心肌病住院治疗出院后，患者仍十分紧张，整日卧床，不敢随意活动。该患者出现了（C）\\
+    A.角色行为冲突 \quad B.角色行为减退 \quad C.角色行为强化 \quad D.角色行为缺如 \quad E.角色行为恐惧
+    \item 张先生，诊断肺炎，住院后经治疗稍有好转，但这时他的妻子意外骨折，他立即出院去照顾妻子和女儿，他的这种行为是（B）\\
+    A.角色行为冲突 \quad B.角色行为减退 \quad C.角色行为强化 \quad D.角色行为缺如 \quad E.角色行为恐惧
+    \item 病人，女性，40岁。因“近日肝区疼痛，尤以进食油腻食物后疼痛加剧，大便呈陶土色”入院。病人自觉病情轻，要求白天请假回家治疗，对医生护士的嘱咐依从性较差。这种病人属于（C）\\
+    A.角色行为冲突 \quad B.角色行为模糊 \quad C.角色行为缺如 \quad D.角色行为强化 \quad E.角色行为消退
+\end{enumerate}
+\end{examplebox}
+
+\begin{center}
+    \Huge \bfseries 星光不问赶路人，时光不负升本人。关关难过关关过，我们顶峰相见！\textbf{大家终将上岸！}
+\end{center}
+
+\end{document}

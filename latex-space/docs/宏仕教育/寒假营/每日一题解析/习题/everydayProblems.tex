@@ -1,0 +1,989 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{enumerate}
+\usepackage{geometry}
+
+% 页面设置
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+
+% 【核心设置】强制所有数学符号上下限垂直排列（标准打印格式）
+\everymath{\displaystyle}
+
+% 标题设置
+\title{2026年湖南省弘仕专升本高等数学每日练习}
+\author{湖南弘仕专升本}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    \textbf{说明：本练习共20天，每天包含选择题12道、填空题4道、解答题6道，总分150分。}
+\end{center}
+
+\newpage
+
+% ================= Day 1 =================
+\section*{第 1 天：极限与连续、导数基础}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 函数 $f(x) = \frac{\sqrt{4-x^2}}{\ln(x-1)}$ 的定义域为（ ）。 \\
+    A. $(1, 2]$ \quad B. $[1, 2]$ \quad C. $(1, 2)$ \quad D. $[1, 2) \cup (2, +\infty)$
+    \item 当 $x \to 0$ 时，$1 - \cos(2x)$ 是 $x \sin x$ 的（ ）。 \\
+    A. 高阶无穷小 \quad B. 低阶无穷小 \quad C. 等价无穷小 \quad D. 同阶但不等价无穷小
+    \item 设 $f(x)$ 在 $x=0$ 处可导且 $f'(0)=2$，则 $\lim_{h \to 0} \frac{f(2h) - f(0)}{h} = $（ ）。 \\
+    A. 1 \quad B. 2 \quad C. 4 \quad D. 0
+    \item 曲线 $y = \frac{x+1}{x-1}$ 的渐近线条数为（ ）。 \\
+    A. 0 \quad B. 1 \quad C. 2 \quad D. 3
+    \item 若 $f(x)$ 在 $x_0$ 处连续，则 $f(x)$ 在 $x_0$ 处（ ）。 \\
+    A. 必可导 \quad B. 必有极限 \quad C. 必不可导 \quad D. 导数必存在
+    \item 设 $y = e^{2x} + \sin x$，则 $y'' = $（ ）。 \\
+    A. $2e^{2x} + \cos x$ \quad B. $4e^{2x} - \sin x$ \quad C. $4e^{2x} + \sin x$ \quad D. $e^{2x} - \cos x$
+    \item 函数 $f(x) = x^3 - 3x$ 的单调递减区间是（ ）。 \\
+    A. $(-\infty, -1)$ \quad B. $(-1, 1)$ \quad C. $(1, +\infty)$ \quad D. $(-\infty, +\infty)$
+    \item $\int \frac{1}{x \ln x} dx = $（ ）。 \\
+    A. $\ln|x| + C$ \quad B. $\ln|\ln x| + C$ \quad C. $\frac{1}{(\ln x)^2} + C$ \quad D. $\ln x + C$
+    \item 定积分 $\int_{-1}^{1} (x^3 + \cos x) dx = $（ ）。 \\
+    A. $2\sin 1$ \quad B. 0 \quad C. $\sin 1$ \quad D. $2$
+    \item 过点 $(1, 1, 1)$ 且平行于平面 $x - 2y + 3z - 5 = 0$ 的平面方程为（ ）。 \\
+    A. $x - 2y + 3z - 2 = 0$ \quad B. $x - 2y + 3z + 2 = 0$ \quad C. $x + 2y + 3z - 6 = 0$ \quad D. $x - 2y - 3z + 4 = 0$
+    \item 级数 $\sum_{n=1}^{\infty} \frac{1}{n^p}$ 收敛的条件是（ ）。 \\
+    A. $p < 1$ \quad B. $p \le 1$ \quad C. $p > 1$ \quad D. $p \ge 1$
+    \item 微分方程 $y' - y = 0$ 的通解为（ ）。 \\
+    A. $y = Ce^x$ \quad B. $y = e^x + C$ \quad C. $y = C \sin x$ \quad D. $y = Cx$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] $\lim_{x \to \infty} (1 + \frac{2}{x})^x = \underline{\hspace{2cm}}$.
+    \item[14.] 设 $z = x^2 y + \sin(xy)$，则 $\frac{\partial z}{\partial x} = \underline{\hspace{2cm}}$.
+    \item[15.] 曲线 $y = \sqrt{x}$ 在点 $(4, 2)$ 处的切线斜率为 \underline{\hspace{2cm}}.
+    \item[16.] 定积分 $\int_{0}^{1} \frac{1}{1+x^2} dx = \underline{\hspace{2cm}}$.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{e^x - e^{-x} - 2x}{x - \sin x}$.
+    \item[18.] 求不定积分 $\int x e^{-x} dx$.
+    \item[19.] 设 $z = f(x+y, xy)$，其中 $f$ 具有二阶连续偏导数，求 $\frac{\partial z}{\partial x}$ 和 $\frac{\partial^2 z}{\partial x \partial y}$.
+    \item[20.] 求微分方程 $y' + \frac{1}{x}y = \frac{\sin x}{x}$ 满足 $y(\pi) = 1$ 的特解.
+    \item[21.] 计算二重积分 $\iint_{D} (x+y) dA$，其中 $D$ 是由 $y=x, y=0$ 及 $x=1$ 所围成的闭区域.
+    \item[22.] 求函数 $f(x) = x + \frac{4}{x}$ 在区间 $[1, 4]$ 上的最大值与最小值.
+\end{enumerate}
+
+\newpage
+
+% ================= Day 2 =================
+\section*{第 2 天：导数应用与一元积分}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 设 $f(x) = \begin{cases} x \sin \frac{1}{x} & x \neq 0 \\ 0 & x = 0 \end{cases}$，则 $f(x)$ 在 $x=0$ 处（ ）。 \\
+    A. 连续且可导 \quad B. 连续但不可导 \quad C. 不连续 \quad D. 极限不存在
+    \item $\lim_{x \to 0} \frac{\ln(1+x)}{x} = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $e$ \quad D. $\infty$
+    \item 若 $f(x)$ 的一个原函数是 $\sin x$，则 $\int f'(x) dx = $（ ）。 \\
+    A. $\sin x + C$ \quad B. $\cos x + C$ \quad C. $-\sin x + C$ \quad D. $-\cos x + C$
+    \item 曲线 $y = x^3 - 3x^2 + 1$ 的拐点坐标是（ ）。 \\
+    A. $(0, 1)$ \quad B. $(1, -1)$ \quad C. $(2, -3)$ \quad D. $(1, 0)$
+    \item 设 $f(x)$ 在 $[a, b]$ 上连续，则 $\frac{d}{dx} \int_{a}^{x} f(t) dt = $（ ）。 \\
+    A. $f(x)$ \quad B. $f(t)$ \quad C. $f(x) - f(a)$ \quad D. $f'(x)$
+    \item 下列级数中绝对收敛的是（ ）。 \\
+    A. $\sum_{n=1}^{\infty} \frac{(-1)^n}{n}$ \quad B. $\sum_{n=1}^{\infty} \frac{(-1)^n}{n^2}$ \quad C. $\sum_{n=1}^{\infty} \frac{1}{\sqrt{n}}$ \quad D. $\sum_{n=1}^{\infty} (-1)^n$
+    \item 向量 $\vec{a} = (1, 2, -1)$ 与 $\vec{b} = (2, -1, 0)$ 的数量积 $\vec{a} \cdot \vec{b} = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. -1 \quad D. 4
+    \item 微分方程 $y'' - 3y' + 2y = 0$ 的特征根为（ ）。 \\
+    A. 1, 2 \quad B. -1, -2 \quad C. 1, -2 \quad D. -1, 2
+    \item 设 $y = \ln(1+x^2)$，则 $dy = $（ ）。 \\
+    A. $\frac{1}{1+x^2} dx$ \quad B. $\frac{2x}{1+x^2} dx$ \quad C. $\frac{x}{1+x^2} dx$ \quad D. $2x \ln(1+x^2) dx$
+    \item 函数 $f(x) = \arctan x$ 的导数是（ ）。 \\
+    A. $\frac{1}{1+x^2}$ \quad B. $-\frac{1}{1+x^2}$ \quad C. $\frac{1}{\sqrt{1-x^2}}$ \quad D. $\sec^2 x$
+    \item 设 $D$ 为 $x^2 + y^2 \le 1$，则 $\iint_D 1 dA = $（ ）。 \\
+    A. 1 \quad B. $\pi$ \quad C. $2\pi$ \quad D. $\pi/2$
+    \item $\int_{0}^{\pi} \sin x dx = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. 2 \quad D. -2
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] 若 $\lim_{x \to 0} \frac{\sin ax}{x} = 3$，则 $a = \underline{\hspace{2cm}}$.
+    \item[14.] 设 $y = x^x$，则 $y' = \underline{\hspace{2cm}}$.
+    \item[15.] 微分方程 $y' = 2y$ 满足 $y(0)=2$ 的解为 \underline{\hspace{2cm}}.
+    \item[16.] 幂级数 $\sum_{n=0}^{\infty} \frac{x^n}{n!}$ 的收敛半径 $R = \underline{\hspace{2cm}}$.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 1} \frac{x^3 - 1}{x^2 - 1}$.
+    \item[18.] 求不定积分 $\int \frac{dx}{1 + \sqrt{x}}$.
+    \item[19.] 设方程 $e^z - xyz = 0$ 确定了隐函数 $z=z(x, y)$，求 $\frac{\partial z}{\partial x}$ 和 $\frac{\partial z}{\partial y}$.
+    \item[20.] 求曲线 $y = \ln x$ 与直线 $y=0, x=e$ 所围图形的面积.
+    \item[21.] 计算二重积分 $\iint_D e^{x^2+y^2} dA$，其中 $D$ 是圆域 $x^2+y^2 \le 1$.
+    \item[22.] 某厂家生产某种产品 $Q$ 个单位的总成本为 $C(Q) = 100 + 2Q + 0.05Q^2$，求产量 $Q$ 为多少时，平均成本最小？
+\end{enumerate}
+
+\newpage
+
+% ================= Day 3 =================
+\section*{第 3 天：多元微分与中值定理}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 函数 $f(x, y) = \sqrt{x-y}$ 的定义域为（ ）。 \\
+    A. $x > y$ \quad B. $x \ge y$ \quad C. $x < y$ \quad D. $x \le y$
+    \item $\lim_{x \to 0} \frac{x - \tan x}{x^3} = $（ ）。 \\
+    A. $1/3$ \quad B. $-1/3$ \quad C. 0 \quad D. $\infty$
+    \item 下列函数在指定区间内满足罗尔定理条件的是（ ）。 \\
+    A. $f(x) = |x|, [-1, 1]$ \quad B. $f(x) = x^2, [0, 1]$ \quad C. $f(x) = x^2-x, [0, 1]$ \quad D. $f(x) = 1/x, [-1, 1]$
+    \item 设 $z = \sin(x^2+y^2)$，则 $\frac{\partial z}{\partial y} = $（ ）。 \\
+    A. $2y \cos(x^2+y^2)$ \quad B. $2x \cos(x^2+y^2)$ \quad C. $\cos(x^2+y^2)$ \quad D. $-2y \cos(x^2+y^2)$
+    \item $\int \cos^2 x dx = $（ ）。 \\
+    A. $\frac{x}{2} + \frac{\sin 2x}{4} + C$ \quad B. $\frac{x}{2} - \frac{\sin 2x}{4} + C$ \quad C. $\frac{\sin^3 x}{3} + C$ \quad D. $\sin 2x + C$
+    \item 设 $f(x)$ 可导，则 $[f(\sin x)]' = $（ ）。 \\
+    A. $f'(\sin x)$ \quad B. $f'(\sin x) \cos x$ \quad C. $f'(\cos x)$ \quad D. $\cos x$
+    \item 平面 $x+y+z=1$ 与直线 $\frac{x}{1} = \frac{y}{1} = \frac{z}{1}$ 的位置关系是（ ）。 \\
+    A. 平行 \quad B. 垂直 \quad C. 直线在平面内 \quad D. 相交但不垂直
+    \item 级数 $\sum_{n=1}^{\infty} \frac{1}{n(n+1)}$ 的和为（ ）。 \\
+    A. 1 \quad B. 2 \quad C. $1/2$ \quad D. 发散
+    \item 微分方程 $y'' + y = 0$ 的通解为（ ）。 \\
+    A. $y = C_1 e^x + C_2 e^{-x}$ \quad B. $y = C_1 \cos x + C_2 \sin x$ \quad C. $y = C e^x$ \quad D. $y = C \cos x$
+    \item 设 $f(x) = \int_0^x \sqrt{1+t^2} dt$，则 $f'(1) = $（ ）。 \\
+    A. $\sqrt{2}$ \quad B. 1 \quad C. 0 \quad D. $\frac{1}{\sqrt{2}}$
+    \item 曲线 $y = x^2$ 在点 $(1, 1)$ 处的法线斜率为（ ）。 \\
+    A. 2 \quad B. -2 \quad C. $1/2$ \quad D. $-1/2$
+    \item 二重积分 $\iint_D dA$ 的值在数值上等于 $D$ 的（ ）。 \\
+    A. 体积 \quad B. 面积 \quad C. 质量 \quad D. 密度
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] 设 $f(x) = 2x+3$，则 $f(f(x)) = \underline{\hspace{2cm}}$.
+    \item[14.] $\int_{-a}^{a} x^2 \sin x dx = \underline{\hspace{2cm}}$.
+    \item[15.] 设 $z = x^y$，则 $dz = \underline{\hspace{2cm}}$.
+    \item[16.] 直线 $\frac{x-1}{2} = \frac{y+2}{1} = \frac{z}{-1}$ 的方向向量为 \underline{\hspace{2cm}}.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} (1 - \sin x)^{1/x}$.
+    \item[18.] 求不定积分 $\int \frac{1}{x^2+2x+5} dx$.
+    \item[19.] 设 $u = \ln(x^2+y^2+z^2)$，求 $\frac{\partial^2 u}{\partial x^2}$.
+    \item[20.] 求微分方程 $y' - 2xy = e^{x^2}$ 的通解.
+    \item[21.] 计算 $\iint_D x dA$，其中 $D$ 是由 $y=x^2$ 和 $y=x$ 所围成的区域.
+    \item[22.] 证明方程 $x^5 + x - 1 = 0$ 在 $(0, 1)$ 内至少有一个实根.
+\end{enumerate}
+
+\newpage
+
+% ================= Day 4 =================
+\section*{第 4 天：重积分与一元微积分综合}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item $\lim_{x \to 0^+} x \ln x = $（ ）。 \\
+    A. 0 \quad B. $-\infty$ \quad C. -1 \quad D. 1
+    \item 设 $f(x)$ 为偶函数，且 $\int_0^1 f(x) dx = 2$，则 $\int_{-1}^1 f(x) dx = $（ ）。 \\
+    A. 0 \quad B. 2 \quad C. 4 \quad D. -4
+    \item 下列微分方程中为可分离变量的是（ ）。 \\
+    A. $y' + xy = 1$ \quad B. $y' = x+y$ \quad C. $y' = xy$ \quad D. $y'' + y = 0$
+    \item 设 $z = \arctan(y/x)$，则 $\frac{\partial z}{\partial x} = $（ ）。 \\
+    A. $\frac{y}{x^2+y^2}$ \quad B. $-\frac{y}{x^2+y^2}$ \quad C. $\frac{x}{x^2+y^2}$ \quad D. $-\frac{x}{x^2+y^2}$
+    \item 若级数 $\sum u_n$ 收敛，则 $\lim_{n \to \infty} u_n = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $\infty$ \quad D. 不确定
+    \item 向量 $\vec{a}=(1, 0, 1)$ 与 $\vec{b}=(0, 1, 1)$ 的夹角为（ ）。 \\
+    A. $\pi/6$ \quad B. $\pi/4$ \quad C. $\pi/3$ \quad D. $\pi/2$
+    \item $\int \frac{1}{\sqrt{1-4x^2}} dx = $（ ）。 \\
+    A. $\arcsin(2x) + C$ \quad B. $\frac{1}{2}\arcsin(2x) + C$ \quad C. $\arctan(2x) + C$ \quad D. $2\arcsin(2x) + C$
+    \item 函数 $f(x) = \ln x$ 在 $x=1$ 处的泰勒展开式的第一项是（ ）。 \\
+    A. $x$ \quad B. $x-1$ \quad C. 1 \quad D. 0
+    \item 设 $y = \cos(2x)$，则 $y^{(n)} = $（ ）。 \\
+    A. $2^n \cos(2x + \frac{n\pi}{2})$ \quad B. $2^n \sin(2x)$ \quad C. $\cos(2x)$ \quad D. $-2^n \cos(2x)$
+    \item 若 $\int f(x) dx = F(x) + C$，则 $\int f(2x) dx = $（ ）。 \\
+    A. $F(2x) + C$ \quad B. $2F(2x) + C$ \quad C. $\frac{1}{2}F(2x) + C$ \quad D. $\frac{1}{2}F(x) + C$
+    \item 抛物线 $y^2 = 2x$ 与直线 $x=2$ 围成图形绕 $x$ 轴旋转一周的体积为（ ）。 \\
+    A. $2\pi$ \quad B. $4\pi$ \quad C. $8\pi$ \quad D. $16\pi$
+    \item 点 $(1, 2, 3)$ 到平面 $x=0$ 的距离是（ ）。 \\
+    A. 1 \quad B. 2 \quad C. 3 \quad D. $\sqrt{14}$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] 设 $f(x) = \begin{cases} x+a & x < 0 \\ e^x & x \ge 0 \end{cases}$ 在 $x=0$ 处连续，则 $a = \underline{\hspace{2cm}}$.
+    \item[14.] $\int_1^e \frac{1}{x} dx = \underline{\hspace{2cm}}$.
+    \item[15.] 二阶常系数齐次线性微分方程 $y'' - 4y = 0$ 的通解为 \underline{\hspace{2cm}}.
+    \item[16.] 级数 $\sum_{n=1}^{\infty} \frac{1}{n^2}$ 是 \underline{\hspace{2cm}}（收敛或发散）.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{x - \sin x}{x^3}$.
+    \item[18.] 计算不定积分 $\int x^2 \ln x dx$.
+    \item[19.] 设 $z = x^2 + xy + y^2$，求在点 $(1, 2)$ 处的全微分 $dz$.
+    \item[20.] 求微分方程 $y'' - 5y' + 6y = 0$ 满足 $y(0)=0, y'(0)=1$ 的特解.
+    \item[21.] 利用极坐标计算 $\iint_D \sqrt{x^2+y^2} dA$，其中 $D$ 是圆环 $1 \le x^2+y^2 \le 4$.
+    \item[22.] 将长为 $L$ 的铁丝分成两段，一段围成正方形，一段围成圆形，问如何分法使两者面积之和最小？
+\end{enumerate}
+
+\newpage
+
+% ================= Day 5 =================
+\section*{第 5 天：综合训练（一）}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 函数 $y = \sqrt{\sin x}$ 的定义域的一个区间是（ ）。 \\
+    A. $[0, \pi]$ \quad B. $[\pi, 2\pi]$ \quad C. $[-\pi, 0]$ \quad D. $[\pi/2, 3\pi/2]$
+    \item $\lim_{n \to \infty} \frac{2n^2 + 1}{3n^2 - n} = $（ ）。 \\
+    A. 0 \quad B. $2/3$ \quad C. $1/3$ \quad D. $\infty$
+    \item 设 $f(x) = |x-1|$，则 $f(x)$ 在 $x=1$ 处（ ）。 \\
+    A. 不连续 \quad B. 可导 \quad C. 连续但不可导 \quad D. 导数为 0
+    \item $\int e^{-2x} dx = $（ ）。 \\
+    A. $-2e^{-2x} + C$ \quad B. $-\frac{1}{2}e^{-2x} + C$ \quad C. $\frac{1}{2}e^{-2x} + C$ \quad D. $e^{-2x} + C$
+    \item 函数 $f(x) = x - \ln x$ 的极小值点是（ ）。 \\
+    A. $x=1$ \quad B. $x=e$ \quad C. $x=0$ \quad D. 不存在
+    \item 下列向量中与向量 $(1, 1, 1)$ 垂直的是（ ）。 \\
+    A. $(1, 1, 0)$ \quad B. $(1, -1, 0)$ \quad C. $(1, 0, 1)$ \quad D. $(0, 0, 0)$
+    \item 设 $z = x^y$，则 $\frac{\partial z}{\partial y} = $（ ）。 \\
+    A. $yx^{y-1}$ \quad B. $x^y \ln x$ \quad C. $x^y$ \quad D. $y \ln x$
+    \item 级数 $\sum_{n=1}^{\infty} \frac{n}{2^n}$ 的敛散性为（ ）。 \\
+    A. 收敛 \quad B. 发散 \quad C. 条件收敛 \quad D. 无法判定
+    \item 微分方程 $y' = y^2$ 的通解为（ ）。 \\
+    A. $y = \frac{1}{C-x}$ \quad B. $y = e^x + C$ \quad C. $y = x^2 + C$ \quad D. $y = \ln(x+C)$
+    \item 定积分 $\int_0^1 x e^x dx = $（ ）。 \\
+    A. 1 \quad B. $e$ \quad C. $e-1$ \quad D. 0
+    \item 曲线 $y = x^2 - 4x + 3$ 的顶点坐标为（ ）。 \\
+    A. $(2, -1)$ \quad B. $(-2, 1)$ \quad C. $(2, 1)$ \quad D. $(0, 3)$
+    \item 设 $f(x)$ 在 $[a, b]$ 上连续，且 $\int_a^b f(x) dx = 0$，则（ ）。 \\
+    A. $f(x)$ 恒为 0 \quad B. 在 $(a, b)$ 内至少有一点 $\xi$ 使 $f(\xi)=0$ \quad C. $f(x)$ 必有正有负 \quad D. 以上都不对
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] $\lim_{x \to 0} \frac{\sqrt{1+x}-1}{x} = \underline{\hspace{2cm}}$.
+    \item[14.] 设 $f(x) = \int_1^{x^2} \ln t dt$，则 $f'(x) = \underline{\hspace{2cm}}$.
+    \item[15.] 若平面经过原点且法向量为 $(1, 2, 3)$，则其方程为 \underline{\hspace{2cm}}.
+    \item[16.] 设 $D$ 是由 $0 \le x \le 1, 0 \le y \le 1$ 确定的正方形区域，则 $\iint_D xy dA = \underline{\hspace{2cm}}$.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \left( \frac{1}{x} - \frac{1}{e^x-1} \right)$.
+    \item[18.] 求不定积分 $\int \frac{\ln x}{x^2} dx$.
+    \item[19.] 设 $z = f(x/y) + g(xy)$，其中 $f, g$ 可导，求 $\frac{\partial z}{\partial x}$ 和 $\frac{\partial z}{\partial y}$.
+    \item[20.] 求微分方程 $y' + y \tan x = \cos x$ 的通解.
+    \item[21.] 计算 $\iint_D y dA$，其中 $D$ 是由 $y = \sqrt{x}, y=x^2$ 所围成的区域.
+    \item[22.] 要做一个容积为 $V$ 的圆柱形有盖罐头盒，问底半径 $r$ 和高 $h$ 为多少时，所用材料最省？
+\end{enumerate}
+
+\newpage
+
+% ================= Day 6 =================
+\section*{第 6 天：函数连续性与一元微分学深化}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 函数 $f(x) = \frac{x^2-1}{x^2-3x+2}$ 的间断点个数为（ ）。 \\
+    A. 0 \quad B. 1 \quad C. 2 \quad D. 3
+    \item $\lim_{n \to \infty} \left( 1 - \frac{1}{n} \right)^n = $（ ）。 \\
+    A. $e$ \quad B. $e^{-1}$ \quad C. 1 \quad D. 0
+    \item 设 $f(x)$ 在 $x=a$ 处可导，则 $\lim_{h \to 0} \frac{f(a+h) - f(a-h)}{h} = $（ ）。 \\
+    A. $f'(a)$ \quad B. $2f'(a)$ \quad C. 0 \quad D. 不存在
+    \item 曲线 $y = x^3$ 在点 $(1,1)$ 处的法线方程为（ ）。 \\
+    A. $y = 3x-2$ \quad B. $x+3y-4=0$ \quad C. $3x+y-4=0$ \quad D. $x-3y+2=0$
+    \item 下列函数中，在 $(-\infty, +\infty)$ 内单调增加的是（ ）。 \\
+    A. $y = e^{-x}$ \quad B. $y = x^2$ \quad C. $y = x + \sin x$ \quad D. $y = \cos x$
+    \item 若 $f''(x) < 0$，则曲线 $y=f(x)$ 是（ ）。 \\
+    A. 凹的 \quad B. 凸的 \quad C. 单调增加 \quad D. 单调减少
+    \item $\frac{d}{dx} \int_0^{x^2} \sin(t^2) dt = $（ ）。 \\
+    A. $\sin(x^2)$ \quad B. $2x \sin(x^4)$ \quad C. $\sin(x^4)$ \quad D. $2x \sin(x^2)$
+    \item 设 $f(x) = \ln(1+x)$，则 $f^{(n)}(0) = $（ ）。 \\
+    A. $(n-1)!$ \quad B. $(-1)^{n-1}(n-1)!$ \quad C. $n!$ \quad D. $(-1)^n n!$
+    \item 若 $\int f(x) dx = x^2 e^x + C$，则 $f(x) = $（ ）。 \\
+    A. $2xe^x$ \quad B. $(x^2+2x)e^x$ \quad C. $x^2 e^x$ \quad D. $2e^x$
+    \item 向量 $\vec{a}=(2,1,2)$ 的单位向量为（ ）。 \\
+    A. $(\frac{2}{3}, \frac{1}{3}, \frac{2}{3})$ \quad B. $(1, \frac{1}{2}, 1)$ \quad C. $(\frac{2}{5}, \frac{1}{5}, \frac{2}{5})$ \quad D. $(2,1,2)$
+    \item 级数 $\sum_{n=1}^{\infty} \frac{1}{n^2+1}$ 的敛散性为（ ）。 \\
+    A. 发散 \quad B. 绝对收敛 \quad C. 条件收敛 \quad D. 无法判定
+    \item 微分方程 $y'' - 4y' + 4y = 0$ 的通解为（ ）。 \\
+    A. $y = (C_1+C_2 x)e^{2x}$ \quad B. $y = C_1 e^{2x} + C_2 e^{-2x}$ \quad C. $y = C_1 e^{2x}$ \quad D. $y = e^{2x}$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] 曲线 $y = \frac{x^2}{x-1}$ 的垂直渐近线方程为 \underline{\hspace{2cm}}.
+    \item[14.] 设 $y = \sin(2x+1)$，则 $dy = \underline{\hspace{2cm}}$.
+    \item[15.] $\int_0^1 \sqrt{1-x^2} dx = \underline{\hspace{2cm}}$.
+    \item[16.] 幂级数 $\sum_{n=1}^{\infty} \frac{x^n}{n}$ 的收敛区间为 \underline{\hspace{2cm}}.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{\ln(1+x) - x}{\cos x - 1}$.
+    \item[18.] 求不定积分 $\int \frac{1}{x(1+\ln^2 x)} dx$.
+    \item[19.] 设参数方程 $\begin{cases} x = t - \sin t \\ y = 1 - \cos t \end{cases}$，求 $\frac{dy}{dx}$ 及 $\frac{d^2y}{dx^2}$.
+    \item[20.] 求由曲线 $y=x^2$ 与直线 $y=2-x$ 所围图形的面积.
+    \item[21.] 计算二重积分 $\iint_D x^2 dA$，其中 $D$ 是由直线 $y=x, y=2x$ 及 $x=1$ 所围区域.
+    \item[22.] 在半轴 $x \ge 0, y \ge 0$ 上求一点，使该点到坐标原点的距离与到直线 $x+y=1$ 的距离之平方和最小.
+\end{enumerate}
+
+\newpage
+
+% ================= Day 7 =================
+\section*{第 7 天：一元积分学与空间解析几何基础}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 下列极限中结果为 1 的是（ ）。 \\
+    A. $\lim_{x \to 0} \frac{\sin x}{x^2}$ \quad B. $\lim_{x \to \infty} \frac{\sin x}{x}$ \quad C. $\lim_{x \to 0} \frac{e^x-1}{x}$ \quad D. $\lim_{x \to 1} \frac{\ln x}{x}$
+    \item 设 $f(x)$ 的导函数为 $\cos x$，则 $f(x)$ 的一个原函数是（ ）。 \\
+    A. $\sin x$ \quad B. $-\sin x$ \quad C. $-\cos x$ \quad D. $\cos x$
+    \item 若 $\int_a^b f(x) dx = \int_a^c f(x) dx + \int_c^b f(x) dx$，则（ ）。 \\
+    A. 必有 $a < c < b$ \quad B. $c$ 必须在 $[a,b]$ 之外 \quad C. 对任意实数 $c$ 均成立 \quad D. 仅对 $c=0$ 成立
+    \item 曲线 $y = x e^x$ 的凹区间是（ ）。 \\
+    A. $(-\infty, -2)$ \quad B. $(-2, +\infty)$ \quad C. $(-\infty, 0)$ \quad D. $(0, +\infty)$
+    \item $\int \frac{d(x^2)}{1+x^4} = $（ ）。 \\
+    A. $\arctan(x^2) + C$ \quad B. $2x \arctan(x^2) + C$ \quad C. $\frac{1}{2} \arctan(x^2) + C$ \quad D. $\arctan x + C$
+    \item 点 $M(1, 2, -3)$ 关于 $xOy$ 面中心对称的点为（ ）。 \\
+    A. $(1, 2, 3)$ \quad B. $(-1, -2, -3)$ \quad C. $(-1, -2, 3)$ \quad D. $(1, 2, 0)$
+    \item 平面 $2x - y + 2z - 6 = 0$ 到原点的距离为（ ）。 \\
+    A. 1 \quad B. 2 \quad C. 3 \quad D. 6
+    \item 下列级数中发散的是（ ）。 \\
+    A. $\sum_{n=1}^{\infty} \frac{1}{n^2}$ \quad B. $\sum_{n=1}^{\infty} \frac{1}{\sqrt{n}}$ \quad C. $\sum_{n=1}^{\infty} (\frac{1}{2})^n$ \quad D. $\sum_{n=1}^{\infty} \frac{(-1)^n}{n}$
+    \item 设 $z = e^{xy}$，则 $\frac{\partial^2 z}{\partial x \partial y} = $（ ）。 \\
+    A. $e^{xy}(1+xy)$ \quad B. $xy e^{xy}$ \quad C. $e^{xy}$ \quad D. $x e^{xy}$
+    \item 微分方程 $y' = \frac{y}{x} + 1$ 的通解形式为（ ）。 \\
+    A. $y = x \ln x + Cx$ \quad B. $y = \ln x + C$ \quad C. $y = e^{x/y}$ \quad D. $y = x^2 + C$
+    \item $\int_0^{\infty} e^{-x} dx = $（ ）。 \\
+    A. 1 \quad B. 0 \quad C. $\infty$ \quad D. $-1$
+    \item 已知 $\vec{a} \cdot \vec{b} = 0$，则向量 $\vec{a}$ 与 $\vec{b}$（ ）。 \\
+    A. 平行 \quad B. 垂直 \quad C. 夹角为 $\pi/4$ \quad D. 方向相同
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] $\lim_{x \to 0} (1+3x)^{2/x} = \underline{\hspace{2cm}}$.
+    \item[14.] 设 $f(x)$ 满足 $f'(x_0) = 0$ 且 $f''(x_0) > 0$，则 $x_0$ 是 $f(x)$ 的 \underline{\hspace{2cm}} 点（填极大/极小值）。
+    \item[15.] 经过点 $(1,0,1)$ 且方向向量为 $(2,1,-1)$ 的直线方程为 \underline{\hspace{2cm}}.
+    \item[16.] 幂级数 $\sum_{n=0}^{\infty} \frac{(x-1)^n}{2^n}$ 的收敛半径为 \underline{\hspace{2cm}}.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 计算 $\lim_{x \to 0} \frac{x - \arcsin x}{x^3}$.
+    \item[18.] 求 $\int \frac{1}{\sqrt{x}(1+x)} dx$.
+    \item[19.] 设 $z = z(x,y)$ 是由 $z^3 - 3xyz = a^3$ 所确定的隐函数，求 $\frac{\partial z}{\partial x}$ 和 $\frac{\partial z}{\partial y}$.
+    \item[20.] 求曲线 $y = \sin x$ 在 $[0, \pi]$ 上与 $x$ 轴所围图形绕 $x$ 轴旋转一周所得旋转体的体积.
+    \item[21.] 计算 $\iint_D (x^2+y^2) dA$，其中 $D$ 是圆域 $x^2+y^2 \le 2x$.
+    \item[22.] 求一曲线，该曲线上任一点 $(x,y)$ 处的切线斜率等于该点横坐标的两倍，且曲线经过点 $(1,2)$.
+\end{enumerate}
+
+\newpage
+
+% ================= Day 8 =================
+\section*{第 8 天：多元函数微分学与重积分应用}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 设 $f(x,y) = \ln(x^2+y)$，则 $f(1, e-1) = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $e$ \quad D. $\ln 2$
+    \item $\lim_{x \to 0} \frac{\int_0^x \sin(t^2) dt}{x^3} = $（ ）。 \\
+    A. 0 \quad B. $1/3$ \quad C. 1 \quad D. $\infty$
+    \item 设 $z = f(u)$，$u = x^2+y^2$，则 $\frac{\partial z}{\partial x} = $（ ）。 \\
+    A. $f'(u)$ \quad B. $2x f'(u)$ \quad C. $2y f'(u)$ \quad D. $x^2 f'(u)$
+    \item 函数 $z = x^2 + y^2 - 2x + 4y + 5$ 的极小值是（ ）。 \\
+    A. 0 \quad B. 5 \quad C. -1 \quad D. 10
+    \item 二重积分 $\iint_D f(x,y) dA$ 在极坐标下表示为（ ）。 \\
+    A. $\int \int f(r\cos\theta, r\sin\theta) dr d\theta$ \quad B. $\int \int f(r\cos\theta, r\sin\theta) r dr d\theta$ \\
+    C. $\int \int f(r, \theta) r dr d\theta$ \quad D. $\int \int f(r\cos\theta, r\sin\theta) r^2 dr d\theta$
+    \item 向量 $\vec{a}=(1,2,3)$ 与 $\vec{b}=(2,4,6)$ 的关系是（ ）。 \\
+    A. 垂直 \quad B. 平行 \quad C. 夹角为 $\pi/3$ \quad D. 以上都不对
+    \item 级数 $\sum_{n=1}^{\infty} (-1)^{n-1} \frac{1}{n}$ 是（ ）。 \\
+    A. 绝对收敛 \quad B. 条件收敛 \quad C. 发散 \quad D. 无法确定
+    \item 微分方程 $y'' + 4y = \sin x$ 的一个特解形式为（ ）。 \\
+    A. $A \sin x$ \quad B. $A \cos x$ \quad C. $A \sin x + B \cos x$ \quad D. $x(A \sin x + B \cos x)$
+    \item $\int_1^2 \frac{dx}{x^2} = $（ ）。 \\
+    A. $1/2$ \quad B. 1 \quad C. $-1/2$ \quad D. 2
+    \item 设 $f(x)$ 连续，则 $\int_a^b f(x) dx + \int_b^a f(x) dx = $（ ）。 \\
+    A. $2\int_a^b f(x) dx$ \quad B. 0 \quad C. $f(b)-f(a)$ \quad D. 不确定
+    \item 空间点 $(2, -3, 5)$ 到 $z$ 轴的距离为（ ）。 \\
+    A. $\sqrt{13}$ \quad B. 5 \quad C. $\sqrt{38}$ \quad D. $\sqrt{29}$
+    \item 设 $u = x/y$，则 $du = $（ ）。 \\
+    A. $\frac{1}{y} dx - \frac{x}{y^2} dy$ \quad B. $\frac{1}{y} dx + \frac{x}{y^2} dy$ \quad C. $\frac{dx}{dy}$ \quad D. $dx - dy$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] 设 $f(x) = \sin x$，则 $f^{(50)}(0) = \underline{\hspace{2cm}}$.
+    \item[14.] 曲线 $y = x^3 - 3x$ 的单调减少区间为 \underline{\hspace{2cm}}.
+    \item[15.] 若 $\vec{a}=(1,m,2)$ 与 $\vec{b}=(2,-1,1)$ 垂直，则 $m = \underline{\hspace{2cm}}$.
+    \item[16.] 交换积分次序 $\int_0^1 dx \int_x^1 f(x,y) dy = \underline{\hspace{2cm}}. $
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{1 - \cos x}{x \sin x}$.
+    \item[18.] 求不定积分 $\int e^{\sqrt{x}} dx$.
+    \item[19.] 设 $z = f(x^2-y^2, e^{xy})$，其中 $f$ 可微，求 $\frac{\partial z}{\partial x}$ 和 $\frac{\partial z}{\partial y}$.
+    \item[20.] 求微分方程 $y' + y = e^{-x}$ 满足 $y(0)=1$ 的特解.
+    \item[21.] 计算 $\iint_D y \sin(xy) dA$，其中 $D$ 是矩形区域 $[0, 1] \times [0, \pi]$.
+    \item[22.] 证明方程 $x \cdot 2^x = 1$ 在 $(0, 1)$ 内至少有一个实根.
+\end{enumerate}
+
+\newpage
+
+% ================= Day 9 =================
+\section*{第 9 天：微分方程与无穷级数基础}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 若 $\lim_{x \to x_0} f(x) = A$，则下列说法正确的是（ ）。 \\
+    A. $f(x_0) = A$ \quad B. $f(x)$ 在 $x_0$ 处连续 \quad C. $f(x)$ 在 $x_0$ 的某去心邻域内有界 \quad D. $f'(x_0)$ 存在
+    \item $\int_{-1}^1 (x^5 + x^2) dx = $（ ）。 \\
+    A. 0 \quad B. $2/3$ \quad C. $1/3$ \quad D. $2/5$
+    \item 微分方程 $y' = y$ 的通解是（ ）。 \\
+    A. $y = x+C$ \quad B. $y = Ce^x$ \quad C. $y = e^x + C$ \quad D. $y = Cx$
+    \item 级数 $\sum_{n=1}^{\infty} \frac{1}{n^p}$ 在 $p=1$ 时（ ）。 \\
+    A. 收敛 \quad B. 发散 \quad C. 绝对收敛 \quad D. 无法判定
+    \item 设 $z = x^2 y^3$，则 $dz|_{(1,1)} = $（ ）。 \\
+    A. $2dx + 3dy$ \quad B. $dx + dy$ \quad C. $3dx + 2dy$ \quad D. $6dx dy$
+    \item 下列平面中经过原点的是（ ）。 \\
+    A. $x+y+z=1$ \quad B. $x+2y-z=0$ \quad C. $x=1$ \quad D. $y+z=2$
+    \item 向量 $\vec{a}=(1,1,0)$ 与 $\vec{b}=(0,1,1)$ 的数量积为（ ）。 \\
+    A. 0 \quad B. 1 \quad C. 2 \quad D. $\sqrt{2}$
+    \item 设 $f(x)$ 在 $[a,b]$ 上连续，且 $F(x) = \int_a^x f(t) dt$，则 $F'(x) = $（ ）。 \\
+    A. $f(x)$ \quad B. $f(x)-f(a)$ \quad C. $F(b)$ \quad D. $f'(x)$
+    \item 曲线 $y = \frac{1}{x}$ 在 $x=1$ 处的切线方程为（ ）。 \\
+    A. $x+y-2=0$ \quad B. $x-y=0$ \quad C. $x+y=0$ \quad D. $y=1$
+    \item 设 $\sum u_n$ 收敛，则 $\sum (u_n + 1)$（ ）。 \\
+    A. 必收敛 \quad B. 必发散 \quad C. 可能收敛 \quad D. 无法判断
+    \item 二阶常系数齐次线性微分方程的特征方程有两相等实根 $r_1=r_2=r$，则通解为（ ）。 \\
+    A. $y = C_1 e^{rx} + C_2 e^{rx}$ \quad B. $y = (C_1+C_2 x)e^{rx}$ \quad C. $y = C_1 \cos rx$ \quad D. $y = C_1 e^{rx}$
+    \item $\int \frac{1}{x+1} dx = $（ ）。 \\
+    A. $\ln(x+1) + C$ \quad B. $\ln|x+1| + C$ \quad C. $\frac{1}{(x+1)^2} + C$ \quad D. $x+1 + C$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] $\lim_{x \to \infty} \frac{2x^2+x}{x^2-1} = \underline{\hspace{2cm}}$.
+    \item[14.] 设 $f(x,y) = x^y$，则 $\frac{\partial f}{\partial x} = \underline{\hspace{2cm}}$.
+    \item[15.] 微分方程 $dy = x dx$ 满足 $y(0)=1$ 的特解为 \underline{\hspace{2cm}}.
+    \item[16.] 向量 $\vec{a}=(1,0,1)$ 与 $\vec{b}=(1,1,0)$ 的夹角余弦值为 \underline{\hspace{2cm}}.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 1} (2-x)^{\tan(\frac{\pi x}{2})}$.
+    \item[18.] 求不定积分 $\int \frac{x^2}{1+x^2} dx$.
+    \item[19.] 设 $y = y(x)$ 是由 $x^2 + 2xy - y^2 = 1$ 确定的隐函数，求 $y'$ 及 $y'|_{x=1,y=0}$.
+    \item[20.] 求曲线 $y = e^x$ 与直线 $x=0, x=1, y=0$ 所围图形的面积.
+    \item[21.] 计算 $\iint_D (x+y) dA$，其中 $D$ 是由 $y=x^2$ 和 $y=\sqrt{x}$ 所围成的区域.
+    \item[22.] 某种产品的成本 $C$ 与产量 $Q$ 的关系为 $C = Q^2 + 2Q + 5$，单价 $P$ 与产量 $Q$ 的关系为 $P = 20 - Q$，问产量 $Q$ 为多少时利润最大？
+\end{enumerate}
+
+\newpage
+
+% ================= Day 10 =================
+\section*{第 10 天：综合复习与考纲冲刺}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 设 $f(x) = \begin{cases} \frac{\sin x}{x} & x < 0 \\ a+x & x \ge 0 \end{cases}$ 在 $x=0$ 处连续，则 $a = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $\sin 1$ \quad D. $e$
+    \item 若 $f'(x_0)$ 存在，则 $\lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0 - \Delta x)}{2\Delta x} = $（ ）。 \\
+    A. $f'(x_0)$ \quad B. $2f'(x_0)$ \quad C. 0 \quad D. $1/2 f'(x_0)$
+    \item $\int \frac{1}{\cos^2 x} dx = $（ ）。 \\
+    A. $\tan x + C$ \quad B. $-\tan x + C$ \quad C. $\cot x + C$ \quad D. $\sec x + C$
+    \item 设 $f(x) = \int_0^x (t-1)(t-2) dt$，则 $f(x)$ 的极小值点是（ ）。 \\
+    A. $x=1$ \quad B. $x=2$ \quad C. $x=0$ \quad D. $x=1.5$
+    \item 下列级数中绝对收敛的是（ ）。 \\
+    A. $\sum \frac{(-1)^n}{n}$ \quad B. $\sum \frac{(-1)^n}{n^2}$ \quad C. $\sum \frac{1}{n}$ \quad D. $\sum (-1)^n$
+    \item 平面 $x+y=0$ 的法向量可取为（ ）。 \\
+    A. $(1,1,1)$ \quad B. $(1,1,0)$ \quad C. $(1,0,0)$ \quad D. $(0,0,1)$
+    \item 设 $z = \sin(xy)$，则 $\frac{\partial z}{\partial x} = $（ ）。 \\
+    A. $\cos(xy)$ \quad B. $y\cos(xy)$ \quad C. $x\cos(xy)$ \quad D. $-y\cos(xy)$
+    \item 微分方程 $y' + y = 0$ 满足 $y(0)=1$ 的特解是（ ）。 \\
+    A. $y=e^x$ \quad B. $y=e^{-x}$ \quad C. $y=x+1$ \quad D. $y=1-x$
+    \item $\int_{-a}^a \sqrt{a^2-x^2} dx = $（ ）。 \\
+    A. $\pi a^2$ \quad B. $\frac{1}{2} \pi a^2$ \quad C. $\frac{1}{4} \pi a^2$ \quad D. 0
+    \item 若 $f(x)$ 为奇函数且连续，则 $\int_{-1}^1 f(x) dx = $（ ）。 \\
+    A. 0 \quad B. $2\int_0^1 f(x) dx$ \quad C. 1 \quad D. 不确定
+    \item 设 $\vec{a} \times \vec{b} = \vec{0}$，则 $\vec{a}$ 与 $\vec{b}$（ ）。 \\
+    A. 平行 \quad B. 垂直 \quad C. 模相等 \quad D. 以上都不对
+    \item $\lim_{x \to 0} (1-x)^x = $（ ）。 \\
+    A. 1 \quad B. $e$ \quad C. $e^{-1}$ \quad D. 0
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] 设 $y = \ln(\cos x)$，则 $y' = \underline{\hspace{2cm}}$.
+    \item[14.] $\int_1^2 (2x-1) dx = \underline{\hspace{2cm}}$.
+    \item[15.] 经过点 $(1,1,1)$ 且与平面 $x-y+z=0$ 平行的平面方程为 \underline{\hspace{2cm}}.
+    \item[16.] 级数 $\sum_{n=1}^{\infty} ar^{n-1}$ 在 $|r|<1$ 时的和为 \underline{\hspace{2cm}}.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{e^x - 1 - x}{x^2}$.
+    \item[18.] 计算 $\int \frac{x}{(1+x^2)^2} dx$.
+    \item[19.] 设 $z = \ln(x + \sqrt{x^2+y^2})$，验证 $x \frac{\partial z}{\partial x} + y \frac{\partial z}{\partial y} = 1$.
+    \item[20.] 求微分方程 $y'' - 3y' + 2y = e^{3x}$ 的通解.
+    \item[21.] 利用极坐标计算 $\iint_D \frac{1}{\sqrt{x^2+y^2}} dA$，其中 $D$ 是由 $x^2+y^2=1$ 和 $x^2+y^2=4$ 围成的圆环区域.
+    \item[22.] 欲做一个底面为正方形的无盖水池，容积为 $32 m^3$，问底边长和深各为多少时，所用材料最省？
+\end{enumerate}
+
+\newpage
+
+% ================= Day 11 =================
+\section*{第 11 天：极限运算与微分中值定理应用}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 函数 $f(x) = \frac{\sqrt{x}}{x-2}$ 的连续区间是（ ）。 \\
+    A. $[0, 2) \cup (2, +\infty)$ \quad B. $(0, 2) \cup (2, +\infty)$ \quad C. $[0, +\infty)$ \quad D. $(-\infty, 2) \cup (2, +\infty)$
+    \item 当 $x \to 0$ 时，$\sqrt{1+x^2} - 1$ 是 $x^2$ 的（ ）。 \\
+    A. 高阶无穷小 \quad B. 低阶无穷小 \quad C. 等价无穷小 \quad D. 同阶但不等价无穷小
+    \item 设 $f(x)$ 在 $[a, b]$ 上连续且 $f(a) \cdot f(b) < 0$，则方程 $f(x)=0$ 在 $(a, b)$ 内（ ）。 \\
+    A. 至少有一个实根 \quad B. 只有一个实根 \quad C. 没有实根 \quad D. 根的个数不确定
+    \item 曲线 $y = x^2 - \ln x$ 的极值点个数为（ ）。 \\
+    A. 0 \quad B. 1 \quad C. 2 \quad D. 3
+    \item 若 $F(x)$ 是 $f(x)$ 的一个原函数，则 $\int f(2x) dx = $（ ）。 \\
+    A. $F(2x) + C$ \quad B. $2F(2x) + C$ \quad C. $\frac{1}{2}F(2x) + C$ \quad D. $F(x) + C$
+    \item 设向量 $\vec{a}=(1, -1, 2)$，$\vec{b}=(2, 1, 0)$，则 $\vec{a} \times \vec{b} = $（ ）。 \\
+    A. $(-2, 4, 3)$ \quad B. $(2, -4, 3)$ \quad C. $(-2, 4, -3)$ \quad D. $(2, 4, 3)$
+    \item 幂级数 $\sum_{n=0}^{\infty} \frac{x^n}{n!}$ 的收敛域为（ ）。 \\
+    A. $(-1, 1)$ \quad B. $[-1, 1]$ \quad C. $(-\infty, +\infty)$ \quad D. $\{0\}$
+    \item 微分方程 $y'' - y = 0$ 的通解为（ ）。 \\
+    A. $y = C_1 e^x + C_2 e^{-x}$ \quad B. $y = C_1 \cos x + C_2 \sin x$ \quad C. $y = (C_1+C_2x)e^x$ \quad D. $y = C e^x$
+    \item 设 $z = x^y$，则 $\frac{\partial z}{\partial x} = $（ ）。 \\
+    A. $y x^{y-1}$ \quad B. $x^y \ln x$ \quad C. $y \ln x$ \quad D. $x^{y-1}$
+    \item 定积分 $\int_{-1}^1 |x| dx = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. 2 \quad D. $1/2$
+    \item 设 $f(x)$ 在 $x=0$ 处可导且 $f(0)=0$，则 $\lim_{x \to 0} \frac{f(x)}{x} = $（ ）。 \\
+    A. $f'(0)$ \quad B. 0 \quad C. 1 \quad D. 不存在
+    \item 平面 $x - 2y + z - 4 = 0$ 的一个法向量为（ ）。 \\
+    A. $(1, -2, 1)$ \quad B. $(1, 2, 1)$ \quad C. $(1, -2, -4)$ \quad D. $(1, 0, 0)$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] $\lim_{x \to 0} \frac{\sin(5x)}{\tan(2x)} = \underline{\hspace{2cm}}$.
+    \item[14.] 设 $f(x) = e^{2x}$，则 $f^{(n)}(x) = \underline{\hspace{2cm}}$.
+    \item[15.] 经过点 $(1, 2, 3)$ 且垂直于 $z$ 轴的平面方程为 \underline{\hspace{2cm}}.
+    \item[16.] 设 $D$ 为 $x^2+y^2 \le R^2$，则 $\iint_D dA = \underline{\hspace{2cm}}. $
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} (1 + \sin x)^{\frac{1}{x}}$.
+    \item[18.] 求不定积分 $\int \frac{dx}{x^2 - 4}$.
+    \item[19.] 设 $z = f(u, v)$，$u = x+y$，$v = xy$，求 $\frac{\partial z}{\partial x}$ 和 $\frac{\partial^2 z}{\partial x^2}$.
+    \item[20.] 求微分方程 $y' + y = \cos x$ 的通解.
+    \item[21.] 计算 $\iint_D \frac{y}{x} dA$，其中 $D$ 是由直线 $y=x$，$y=0$，$x=1$ 所围成的区域.
+    \item[22.] 证明：当 $x > 0$ 时，$x > \ln(1+x)$.
+\end{enumerate}
+
+\newpage
+
+% ================= Day 12 =================
+\section*{第 12 天：一元积分技巧与偏导数应用}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 函数 $y = \frac{1}{\sqrt{x^2-1}}$ 的定义域是（ ）。 \\
+    A. $(-\infty, -1) \cup (1, +\infty)$ \quad B. $[-1, 1]$ \quad C. $(-\infty, -1] \cup [1, +\infty)$ \quad D. $(1, +\infty)$
+    \item $\lim_{x \to 0} \frac{\cos x - 1}{x^2} = $（ ）。 \\
+    A. $1/2$ \quad B. $-1/2$ \quad C. 0 \quad D. 1
+    \item 设 $f(x)$ 是连续函数，且 $\int_0^x f(t) dt = \sin x$，则 $f(\pi) = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. -1 \quad D. $\pi$
+    \item 曲线 $y = \frac{x+1}{x}$ 的水平渐近线为（ ）。 \\
+    A. $y=0$ \quad B. $y=1$ \quad C. $x=0$ \quad D. 没有
+    \item 若 $\int f(x) dx = \arctan x + C$，则 $f(x) = $（ ）。 \\
+    A. $\frac{1}{1+x^2}$ \quad B. $\tan x$ \quad C. $\frac{1}{\sqrt{1-x^2}}$ \quad D. $\sec^2 x$
+    \item 下列级数中收敛的是（ ）。 \\
+    A. $\sum_{n=1}^{\infty} \frac{1}{\sqrt{n}}$ \quad B. $\sum_{n=1}^{\infty} \frac{n}{n+1}$ \quad C. $\sum_{n=1}^{\infty} \frac{1}{n^2}$ \quad D. $\sum_{n=1}^{\infty} 1$
+    \item 设 $z = \ln(x^2+y^2)$，则 $dz = $（ ）。 \\
+    A. $\frac{2x}{x^2+y^2}dx + \frac{2y}{x^2+y^2}dy$ \quad B. $\frac{1}{x^2+y^2}(dx+dy)$ \quad C. $2x dx + 2y dy$ \quad D. $\frac{x}{x^2+y^2}dx$
+    \item 二阶常系数齐次线性微分方程 $y'' - 5y' + 6y = 0$ 的通解为（ ）。 \\
+    A. $y = C_1 e^{2x} + C_2 e^{3x}$ \quad B. $y = C_1 e^{-2x} + C_2 e^{-3x}$ \quad C. $y = C_1 e^{x} + C_2 e^{6x}$ \quad D. $y = e^{2x} + e^{3x}$
+    \item 直线 $\frac{x-1}{1} = \frac{y}{2} = \frac{z+1}{-1}$ 的方向向量是（ ）。 \\
+    A. $(1, 2, -1)$ \quad B. $(1, 0, -1)$ \quad C. $(1, 2, 1)$ \quad D. $(-1, 0, 1)$
+    \item $\int_0^1 \frac{1}{\sqrt{1-x^2}} dx = $（ ）。 \\
+    A. $\pi/2$ \quad B. $\pi$ \quad C. 1 \quad D. $\pi/4$
+    \item 设 $f(x)$ 为偶函数，则 $\int_{-a}^a f(x) dx = $（ ）。 \\
+    A. 0 \quad B. $\int_0^a f(x) dx$ \quad C. $2\int_0^a f(x) dx$ \quad D. $f(a)-f(-a)$
+    \item 设 $u = xy + yz + zx$，则 $\frac{\partial u}{\partial z} = $（ ）。 \\
+    A. $y+x$ \quad B. $x+z$ \quad C. $y+z$ \quad D. $x+y+z$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] $\lim_{x \to \infty} \frac{3x^2+1}{2x^2-5} = \underline{\hspace{2cm}}$.
+    \item[14.] 曲线 $y = x^2$ 在点 $(1, 1)$ 处的法线斜率为 \underline{\hspace{2cm}}.
+    \item[15.] 若级数 $\sum_{n=1}^{\infty} aq^{n-1}$ 收敛，则 $|q|$ 必须满足 \underline{\hspace{2cm}}.
+    \item[16.] 积分 $\int_0^1 dx \int_0^x dy = \underline{\hspace{2cm}}. $
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{x - \ln(1+x)}{x^2}$.
+    \item[18.] 求不定积分 $\int \frac{x}{1+\sqrt{x}} dx$.
+    \item[19.] 设 $z = \sin(x^2+y)$，求 $\frac{\partial^2 z}{\partial x \partial y}$.
+    \item[20.] 求微分方程 $y' = y^2 \sin x$ 满足 $y(0)=1$ 的特解.
+    \item[21.] 计算 $\iint_D (x+2y) dA$，其中 $D$ 是由 $y=x$ 和 $y=x^2$ 所围成的区域.
+    \item[22.] 某厂家生产 $x$ 单位产品的总成本为 $C(x) = 100+5x+0.1x^2$，单价为 $P(x)=25-0.1x$，求利润最大时的产量.
+\end{enumerate}
+
+\newpage
+
+% ================= Day 13 =================
+\section*{第 13 天：微分应用与二重积分计算}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 设 $f(x) = e^x$，则 $f'(0) = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $e$ \quad D. $\infty$
+    \item $\lim_{x \to 0} \frac{\int_0^x \cos(t^2) dt}{x} = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $\pi$ \quad D. 不存在
+    \item 设 $z = \sqrt{x^2+y^2}$，则 $\frac{\partial z}{\partial x} = $（ ）。 \\
+    A. $\frac{x}{\sqrt{x^2+y^2}}$ \quad B. $\frac{y}{\sqrt{x^2+y^2}}$ \quad C. $\frac{1}{\sqrt{x^2+y^2}}$ \quad D. $x$
+    \item 曲线 $y = x^3 - 3x^2 + 2$ 的凹区间是（ ）。 \\
+    A. $(-\infty, 1)$ \quad B. $(1, +\infty)$ \quad C. $(-\infty, 0)$ \quad D. $(0, +\infty)$
+    \item $\int \frac{1}{x+2} dx = $（ ）。 \\
+    A. $\ln|x+2| + C$ \quad B. $\frac{1}{(x+2)^2} + C$ \quad C. $\ln(x+2)$ \quad D. $x+2 + C$
+    \item 级数 $\sum_{n=1}^{\infty} \frac{(-1)^n}{n}$ 是（ ）。 \\
+    A. 绝对收敛 \quad B. 条件收敛 \quad C. 发散 \quad D. 无法判断
+    \item 微分方程 $y' - y = e^x$ 的通解形式为（ ）。 \\
+    A. $y = (x+C)e^x$ \quad B. $y = Ce^x$ \quad C. $y = e^x + C$ \quad D. $y = x e^x$
+    \item 向量 $\vec{a} = (1, 1, 1)$ 的模为（ ）。 \\
+    A. 1 \quad B. 2 \quad C. $\sqrt{3}$ \quad D. 3
+    \item $\int_0^\pi \sin x dx = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. 2 \quad D. -2
+    \item 设 $z = f(x+y)$，则 $\frac{\partial z}{\partial x} - \frac{\partial z}{\partial y} = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $f'(x+y)$ \quad D. $2f'(x+y)$
+    \item $\lim_{n \to \infty} \frac{n^2+n}{2n^2-1} = $（ ）。 \\
+    A. 0 \quad B. $1/2$ \quad C. 1 \quad D. $\infty$
+    \item 平面 $x+y+z-1=0$ 与 $x+y+z-2=0$ 的位置关系是（ ）。 \\
+    A. 平行 \quad B. 垂直 \quad C. 重合 \quad D. 相交但不垂直
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] $\lim_{x \to 0} (1-2x)^{1/x} = \underline{\hspace{2cm}}$.
+    \item[14.] 函数 $y = x - \ln x$ 的极小值为 \underline{\hspace{2cm}}.
+    \item[15.] 若 $\vec{a} \cdot \vec{b} = 2$，则 $\vec{a}$ 在 $\vec{b}$ 方向上的投影为（设 $|\vec{b}|=1$） \underline{\hspace{2cm}}.
+    \item[16.] 设 $D: 0 \le x \le 1, 0 \le y \le x$，则 $\iint_D dx dy = \underline{\hspace{2cm}}. $
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{e^{x^2} - \cos x}{x^2}$.
+    \item[18.] 求不定积分 $\int x^2 e^x dx$.
+    \item[19.] 设 $z = \arctan(y/x)$，验证 $\frac{\partial^2 z}{\partial x^2} + \frac{\partial^2 z}{\partial y^2} = 0$.
+    \item[20.] 求微分方程 $y'' + 4y = 0$ 满足 $y(0)=1, y'(0)=2$ 的特解.
+    \item[21.] 计算 $\iint_D y^2 dA$，其中 $D$ 是圆域 $x^2+y^2 \le 1$.
+    \item[22.] 在半径为 $R$ 的圆内接矩形中，求面积最大的矩形的边长.
+\end{enumerate}
+
+\newpage
+
+% ================= Day 14 =================
+\section*{第 14 天：多元函数极值与常微分方程}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 设 $f(x) = |x|$，则 $f(x)$ 在 $x=0$ 处（ ）。 \\
+    A. 不连续 \quad B. 可导 \quad C. 连续但不可导 \quad D. 极限不存在
+    \item $\lim_{x \to 0} \frac{\tan x - \sin x}{x^3} = $（ ）。 \\
+    A. 0 \quad B. $1/2$ \quad C. 1 \quad D. $\infty$
+    \item $\int \frac{dx}{\sqrt{1-x^2}} = $（ ）。 \\
+    A. $\arcsin x + C$ \quad B. $\arccos x + C$ \quad C. $\arctan x + C$ \quad D. $\ln|x| + C$
+    \item 设 $z = x^2 y$，则 $dz = $（ ）。 \\
+    A. $2xy dx + x^2 dy$ \quad B. $x^2 dx + 2xy dy$ \quad C. $2x dx + dy$ \quad D. $x^2 y dx$
+    \item 下列方程中为一阶线性齐次方程的是（ ）。 \\
+    A. $y' + xy = 0$ \quad B. $y' + y^2 = 0$ \quad C. $y'' + y = 0$ \quad D. $y' = x+y+1$
+    \item $\int_1^e \ln x dx = $（ ）。 \\
+    A. 1 \quad B. $e$ \quad C. 0 \quad D. $e-1$
+    \item 幂级数 $\sum_{n=1}^{\infty} n x^n$ 的收敛半径为（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $\infty$ \quad D. 2
+    \item 向量 $\vec{a} = (1, 2, -1)$ 与 $\vec{b} = (-2, -4, 2)$ 的关系是（ ）。 \\
+    A. 平行 \quad B. 垂直 \quad C. 夹角为 $\pi/4$ \quad D. 不确定
+    \item 设 $f(x)$ 在 $[a, b]$ 上连续，则 $\int_a^b f(x) dx + \int_b^a f(x) dx = $（ ）。 \\
+    A. 0 \quad B. $2\int_a^b f(x) dx$ \quad C. $f(b)-f(a)$ \quad D. 不确定
+    \item 函数 $z = x^2 + y^2$ 在点 $(0,0)$ 处（ ）。 \\
+    A. 取得极大值 \quad B. 取得极小值 \quad C. 无极值 \quad D. 连续但不可偏导
+    \item $\lim_{x \to \infty} (1 - \frac{1}{x})^x = $（ ）。 \\
+    A. $e$ \quad B. $e^{-1}$ \quad C. 1 \quad D. 0
+    \item 过点 $(1, 1, 1)$ 且平行于 $x$ 轴的直线方程为（ ）。 \\
+    A. $\frac{x-1}{1} = \frac{y-1}{0} = \frac{z-1}{0}$ \quad B. $\frac{x-1}{0} = \frac{y-1}{1} = \frac{z-1}{1}$ \quad C. $x=1$ \quad D. $y=1, z=1$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] $\lim_{x \to 0} \frac{x^2}{1-\cos x} = \underline{\hspace{2cm}}$.
+    \item[14.] 设 $f(x, y) = e^x \sin y$，则 $\frac{\partial^2 f}{\partial x^2} = \underline{\hspace{2cm}}$.
+    \item[15.] 微分方程 $y' = 3y$ 的通解为 \underline{\hspace{2cm}}.
+    \item[16.] 抛物线 $y = x^2$ 与直线 $y=1$ 所围图形的面积为 \underline{\hspace{2cm}}.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{\int_0^x \ln(1+t) dt}{x^2}$.
+    \item[18.] 求不定积分 $\int \frac{dx}{1 + \cos x}$.
+    \item[19.] 设 $z = z(x,y)$ 由 $x+y+z = e^z$ 确定，求 $\frac{\partial z}{\partial x}$ 和 $\frac{\partial z}{\partial y}$.
+    \item[20.] 求微分方程 $y' + \frac{1}{x}y = x$ 满足 $y(1)=0$ 的特解.
+    \item[21.] 计算 $\iint_D (x^2+y^2) dA$，其中 $D$ 是圆域 $x^2+y^2 \le a^2$ ($a>0$).
+    \item[22.] 求曲线 $y = x^2$ 上距离点 $(0, 1.5)$ 最近的点.
+\end{enumerate}
+
+\newpage
+
+% ================= Day 15 =================
+\section*{第 15 天：综合模拟练习（二）}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 设 $f(x) = \sin(x^2)$，则 $f'(x) = $（ ）。 \\
+    A. $\cos(x^2)$ \quad B. $2x\cos(x^2)$ \quad C. $-2x\cos(x^2)$ \quad D. $2\sin x \cos x$
+    \item $\lim_{x \to \infty} \frac{\sin x}{x} = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $\infty$ \quad D. 不存在
+    \item 下列函数中在 $x=0$处不连续的是（ ）。 \\
+    A. $y = x^2$ \quad B. $y = e^x$ \quad C. $y = \frac{\sin x}{x}$（定义 $f(0)=1$） \quad D. $y = \frac{1}{x}$
+    \item $\int_0^1 x^n dx = $（ ）。 \\
+    A. $\frac{1}{n}$ \quad B. $\frac{1}{n+1}$ \quad C. $n$ \quad D. 1
+    \item 函数 $y = \ln(x^2+1)$ 的增区间是（ ）。 \\
+    A. $(-\infty, 0)$ \quad B. $(0, +\infty)$ \quad C. $(-\infty, +\infty)$ \quad D. $(-1, 1)$
+    \item 若级数 $\sum u_n$ 收敛，则 $\lim_{n \to \infty} u_n = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $C \neq 0$ \quad D. 不确定
+    \item 设 $z = xy^2 + yx^2$，则 $\frac{\partial^2 z}{\partial x \partial y} = $（ ）。 \\
+    A. $2y+2x$ \quad B. $y+x$ \quad C. $2y$ \quad D. $2x$
+    \item 微分方程 $y'' + y = 0$ 的特征方程为（ ）。 \\
+    A. $r^2+1=0$ \quad B. $r^2-1=0$ \quad C. $r+1=0$ \quad D. $r^2+r=0$
+    \item 经过点 $(0,0,0)$ 且法向量为 $(1, 1, 1)$ 的平面方程为（ ）。 \\
+    A. $x+y+z=0$ \quad B. $x+y+z=1$ \quad C. $x=0$ \quad D. $x+y=0$
+    \item $\int e^x \sin e^x dx = $（ ）。 \\
+    A. $-\cos e^x + C$ \quad B. $\cos e^x + C$ \quad C. $e^x \cos e^x + C$ \quad D. $\sin e^x + C$
+    \item 设 $f(x)$ 满足 $f'(x) = g(x)$，则 $\int g(x) dx = $（ ）。 \\
+    A. $f(x)+C$ \quad B. $g'(x)+C$ \quad C. $f'(x)+C$ \quad D. $g(x)$
+    \item $\lim_{x \to 0} (1+x)^{1/x} = $（ ）。 \\
+    A. 1 \quad B. $e$ \quad C. 0 \quad D. $\infty$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] $\lim_{x \to 0} \frac{\ln(1+3x)}{x} = \underline{\hspace{2cm}}$.
+    \item[14.] 设 $z = x^2 + 3xy + y^2$，则 $dz = \underline{\hspace{2cm}}$.
+    \item[15.] 微分方程 $y' = 2x$ 满足 $y(0)=3$ 的特解为 \underline{\hspace{2cm}}.
+    \item[16.] 级数 $\sum_{n=1}^{\infty} \frac{1}{n^p}$ 在 $p > 1$ 时 \underline{\hspace{2cm}}（填收敛/发散）。
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{x - \sin x}{e^x - 1 - x}$.
+    \item[18.] 求不定积分 $\int \frac{dx}{x^2+x}$.
+    \item[19.] 设 $z = f(x^2y, x+y^2)$，求 $\frac{\partial z}{\partial x}$ 和 $\frac{\partial z}{\partial y}$.
+    \item[20.] 求由曲线 $y=x^2$ 与直线 $y=x$ 所围图形绕 $x$ 轴旋转一周所得旋转体的体积.
+    \item[21.] 计算 $\iint_D e^{x+y} dA$，其中 $D$ 是矩形区域 $[0, 1] \times [0, 1]$.
+    \item[22.] 证明方程 $x^3 - 3x + 1 = 0$ 在 $(0, 1)$ 内至少有一个实根.
+\end{enumerate}
+
+\newpage
+
+% ================= Day 16 =================
+\section*{第 16 天：分部积分与链式法则}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 函数 $f(x) = \ln(x-1) + \frac{1}{\sqrt{4-x}}$ 的定义域是（ ）。 \\
+    A. $(1, 4)$ \quad B. $[1, 4]$ \quad C. $(1, 4]$ \quad D. $(-\infty, 4)$
+    \item 设 $f(x)$ 为可导函数，且 $\lim_{x \to 0} \frac{f(x)}{x} = 2$，则 $f'(0) = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. 2 \quad D. 4
+    \item 当 $x \to 0$ 时，$\sin(x^2)$ 是 $x$ 的（ ）。 \\
+    A. 高阶无穷小 \quad B. 低阶无穷小 \quad C. 等价无穷小 \quad D. 同阶但不等价无穷小
+    \item 曲线 $y = x^2 e^x$ 的极小值点为（ ）。 \\
+    A. $x=0$ \quad B. $x=-2$ \quad C. $x=2$ \quad D. $x=1$
+    \item 若 $\int f(x) dx = \cos x + C$，则 $\int f(2x) dx = $（ ）。 \\
+    A. $\cos(2x) + C$ \quad B. $\frac{1}{2}\cos(2x) + C$ \quad C. $2\cos(2x) + C$ \quad D. $-\frac{1}{2}\sin(2x) + C$
+    \item 下列平面方程中，与 $z$ 轴平行的是（ ）。 \\
+    A. $x+y=1$ \quad B. $z=1$ \quad C. $x+z=1$ \quad D. $y+z=1$
+    \item 设 $z = \sin(x+2y)$，则 $\frac{\partial^2 z}{\partial x \partial y} = $（ ）。 \\
+    A. $-2\sin(x+2y)$ \quad B. $-\sin(x+2y)$ \quad C. $2\cos(x+2y)$ \quad D. $-4\sin(x+2y)$
+    \item 级数 $\sum_{n=1}^{\infty} \frac{1}{n(n+1)}$ 的和为（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $1/2$ \quad D. $\infty$
+    \item 微分方程 $y' + 2y = 0$ 的通解为（ ）。 \\
+    A. $y = Ce^{-2x}$ \quad B. $y = Ce^{2x}$ \quad C. $y = e^{-2x} + C$ \quad D. $y = 2x + C$
+    \item 设 $f(x)$ 连续，且 $\int_0^1 f(x) dx = 3$，则 $\int_0^1 [2f(x) - 1] dx = $（ ）。 \\
+    A. 5 \quad B. 6 \quad C. 4 \quad D. 7
+    \item 空间点 $(1, 2, 3)$ 关于原点对称的点为（ ）。 \\
+    A. $(-1, -2, -3)$ \quad B. $(1, 2, -3)$ \quad C. $(-1, 2, 3)$ \quad D. $(1, -2, 3)$
+    \item $\lim_{x \to 0} \frac{e^x - 1}{\sin x} = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $e$ \quad D. $\infty$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] $\lim_{x \to 0} (1-x)^{2/x} = \underline{\hspace{2cm}}$.
+    \item[14.] 设 $z = x^2 y^3$，则 $dz|_{(1,1)} = \underline{\hspace{2cm}}$.
+    \item[15.] 定积分 $\int_0^1 \frac{1}{1+x} dx = \underline{\hspace{2cm}}$.
+    \item[16.] 幂级数 $\sum_{n=0}^{\infty} x^{2n}$ 的收敛半径 $R = \underline{\hspace{2cm}}$.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{x \cos x - \sin x}{x^3}$.
+    \item[18.] 计算不定积分 $\int x \ln x dx$.
+    \item[19.] 设 $z = f(x^2-y, \sin x)$，其中 $f$ 具有二阶连续偏导数，求 $\frac{\partial z}{\partial x}$。
+    \item[20.] 求微分方程 $y' - \frac{y}{x} = x \sin x$ 的通解。
+    \item[21.] 计算二重积分 $\iint_D (x^2+y) dA$，其中 $D$ 是由 $y=x^2$ 与 $y=1$ 所围成的区域。
+    \item[22.] 某长方体无盖盒子的体积为 $32 cm^3$，问长、宽、高各为多少时，其表面积最小？
+\end{enumerate}
+
+\newpage
+
+% ================= Day 17 =================
+\section*{第 17 天：洛必达法则与隐函数}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 若 $f(x)$ 在 $x_0$ 处取得极值，且 $f'(x_0)$ 存在，则必有（ ）。 \\
+    A. $f'(x_0) = 0$ \quad B. $f''(x_0) > 0$ \quad C. $f''(x_0) < 0$ \quad D. $f'(x_0) > 0$
+    \item $\lim_{x \to 1} \frac{\ln x}{x-1} = $（ ）。 \\
+    A. 0 \quad B. 1 \quad C. $e$ \quad D. $\infty$
+    \item 曲线 $y = \frac{1}{1+x^2}$ 的凹区间是（ ）。 \\
+    A. $(-\infty, +\infty)$ \quad B. $(-\frac{1}{\sqrt{3}}, \frac{1}{\sqrt{3}})$ \quad C. $(-\infty, -\frac{1}{\sqrt{3}})$ \quad D. $(0, +\infty)$
+    \item 若 $F(x)$ 为 $f(x)$ 的原函数，则 $\int f(ax+b) dx = $（ ）。 \\
+    A. $F(ax+b) + C$ \quad B. $\frac{1}{a}F(ax+b) + C$ \quad C. $aF(ax+b) + C$ \quad D. $F(ax) + C$
+    \item 向量 $\vec{a}=(1,0,1)$ 与 $\vec{b}=(1,1,0)$ 的数量积为（ ）。 \\
+    A. 0 \quad B. 1 \quad C. 2 \quad D. $\sqrt{2}$
+    \item 设 $z = e^{x/y}$，则 $\frac{\partial z}{\partial x} = $（ ）。 \\
+    A. $\frac{1}{y} e^{x/y}$ \quad B. $e^{x/y}$ \quad C. $-\frac{x}{y^2} e^{x/y}$ \quad D. $y e^{x/y}$
+    \item 微分方程 $y'' + 4y = 0$ 的通解是（ ）。 \\
+    A. $y = C_1 \cos 2x + C_2 \sin 2x$ \quad B. $y = C_1 e^{2x} + C_2 e^{-2x}$ \quad C. $y = C \sin x$ \quad D. $y = C_1 + C_2 x$
+    \item 下列级数中，发散的是（ ）。 \\
+    A. $\sum_{n=1}^{\infty} \frac{1}{n^2}$ \quad B. $\sum_{n=1}^{\infty} \frac{1}{n}$ \quad C. $\sum_{n=1}^{\infty} \frac{1}{2^n}$ \quad D. $\sum_{n=1}^{\infty} \frac{(-1)^n}{n^2}$
+    \item 定积分 $\int_0^{\pi/2} \sin^2 x dx = $（ ）。 \\
+    A. $\pi/2$ \quad B. $\pi/4$ \quad C. 1 \quad D. 0
+    \item 设 $f(x)$ 在 $[a,b]$ 上连续，且 $\int_a^b f(x) dx = 0$，则（ ）。 \\
+    A. $f(x)$ 必恒为 0 \quad B. 在 $(a,b)$ 内至少有一点 $\xi$ 使 $f(\xi)=0$ \quad C. $f(a)=f(b)=0$ \quad D. 以上都不对
+    \item 直线 $\frac{x}{1} = \frac{y}{-1} = \frac{z}{0}$ 的方向向量为（ ）。 \\
+    A. $(1, -1, 0)$ \quad B. $(1, 1, 0)$ \quad C. $(0, 0, 1)$ \quad D. $(1, 0, 0)$
+    \item $\lim_{n \to \infty} \frac{3n+1}{2n-1} = $（ ）。 \\
+    A. 1 \quad B. $3/2$ \quad C. 0 \quad D. $\infty$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] 曲线 $y = \frac{x^2}{x+1}$ 的斜渐近线方程为 \underline{\hspace{2cm}}.
+    \item[14.] 设 $f(x) = \begin{cases} x+1 & x \le 0 \\ e^x & x > 0 \end{cases}$，则 $f'(0^-) = \underline{\hspace{2cm}}. $
+    \item[15.] 若 $\int_0^a x dx = 2$ ($a>0$)，则 $a = \underline{\hspace{2cm}}$.
+    \item[16.] 向量 $\vec{a}=(2,1,2)$ 的长度为 \underline{\hspace{2cm}}.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{e^x - \sin x - 1}{1 - \cos x}$.
+    \item[18.] 求不定积分 $\int \frac{1}{x \sqrt{1+\ln x}} dx$.
+    \item[19.] 设方程 $z + \ln z = x + y$ 确定了隐函数 $z = z(x,y)$，求 $\frac{\partial z}{\partial x}$ 和 $\frac{\partial z}{\partial y}$。
+    \item[20.] 求由曲线 $y=x^2$ 与直线 $x=1, y=0$ 所围图形绕 $y$ 轴旋转一周所得旋转体的体积。
+    \item[21.] 利用极坐标计算 $\iint_D \sqrt{x^2+y^2} dA$，其中 $D$ 为圆域 $x^2+y^2 \le x$。
+    \item[22.] 证明：方程 $x^3 - 4x + 1 = 0$ 在区间 $(0, 1)$ 内至少有一个实根。
+\end{enumerate}
+
+\newpage
+
+% ================= Day 18 =================
+\section*{第 18 天：微分方程与空间解析几何}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item $\lim_{x \to 0} \frac{\int_0^x (e^{t^2}-1) dt}{x^3} = $（ ）。 \\
+    A. 0 \quad B. $1/3$ \quad C. 1 \quad D. $\infty$
+    \item 函数 $f(x,y) = \sqrt{1-x^2-y^2}$ 的定义域是（ ）。 \\
+    A. $x^2+y^2 < 1$ \quad B. $x^2+y^2 \le 1$ \quad C. $x^2+y^2 > 1$ \quad D. 全平面
+    \item 下列函数中，在 $x=0$ 处不可导的是（ ）。 \\
+    A. $y = x^2$ \quad B. $y = |x|$ \quad C. $y = \sin x$ \quad D. $y = e^x$
+    \item $\int \frac{dx}{x^2+4} = $（ ）。 \\
+    A. $\frac{1}{2}\arctan\frac{x}{2} + C$ \quad B. $\arctan\frac{x}{2} + C$ \quad C. $\frac{1}{2}\arcsin\frac{x}{2} + C$ \quad D. $\ln|x^2+4| + C$
+    \item 二阶常系数齐次线性微分方程 $y'' - 4y = 0$ 的通解为（ ）。 \\
+    A. $y = C_1 e^{2x} + C_2 e^{-2x}$ \quad B. $y = C_1 \cos 2x + C_2 \sin 2x$ \quad C. $y = (C_1+C_2 x)e^{2x}$ \quad D. $y = C_1 e^{2x}$
+    \item 点 $(1, 2, 3)$ 到平面 $2x+y-2z+1=0$ 的距离为（ ）。 \\
+    A. $1/3$ \quad B. 1 \quad C. 2 \quad D. 0
+    \item 设 $z = y^x$，则 $\frac{\partial z}{\partial x} = $（ ）。 \\
+    A. $y^x \ln y$ \quad B. $x y^{x-1}$ \quad C. $y^x$ \quad D. $x \ln y$
+    \item 级数 $\sum_{n=1}^{\infty} (-1)^n \frac{1}{\sqrt{n}}$ 是（ ）。 \\
+    A. 绝对收敛 \quad B. 条件收敛 \quad C. 发散 \quad D. 无法判定
+    \item 若 $\vec{a} \parallel \vec{b}$，且 $\vec{a}=(1,2,3)$，$\vec{b}=(2,x,y)$，则 $x+y = $（ ）。 \\
+    A. 6 \quad B. 10 \quad C. 5 \quad D. 4
+    \item $\int_0^1 x e^x dx = $（ ）。 \\
+    A. 1 \quad B. $e$ \quad C. $e-1$ \quad D. 0
+    \item 设 $f(x)$ 连续，则 $\frac{d}{dx} \int_a^x f(t) dt = $（ ）。 \\
+    A. $f(x)$ \quad B. $f(x)-f(a)$ \quad C. $f'(x)$ \quad D. $F(x)$
+    \item $\lim_{x \to 0} \frac{\sin x - x}{x^3} = $（ ）。 \\
+    A. 1 \quad B. 0 \quad C. $-1/6$ \quad D. $1/6$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] 设 $y = \ln(x + \sqrt{1+x^2})$，则 $y' = \underline{\hspace{2cm}}$.
+    \item[14.] 二重积分的几何意义是求空间柱体的 \underline{\hspace{2cm}}.
+    \item[15.] 经过点 $(1,1,1)$ 且平行于平面 $x+y+z=0$ 的平面方程为 \underline{\hspace{2cm}}.
+    \item[16.] 设 $f(x) = \sin x$，则 $f^{(4)}(x) = \underline{\hspace{2cm}}$.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} (1 - \cos x) \cot^2 x$.
+    \item[18.] 求不定积分 $\int \frac{1}{x^2-1} dx$.
+    \item[19.] 设 $z = f(x, y)$ 是由 $x^2+y^2+z^2-3xyz=0$ 确定的隐函数，求 $\frac{\partial z}{\partial x}$。
+    \item[20.] 求微分方程 $y'' - 5y' + 6y = e^x$ 的通解。
+    \item[21.] 计算 $\iint_D e^{x^2+y^2} dA$，其中 $D$ 是由圆 $x^2+y^2=1$ 所围成的区域。
+    \item[22.] 求曲线 $y = x^2$ 与直线 $y=x$ 所围图形的面积。
+\end{enumerate}
+
+\newpage
+
+% ================= Day 19 =================
+\section*{第 19 天：中值定理与多元极值}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item 设 $f(x)$ 在 $[a,b]$ 上连续且可导，$f(a)=f(b)$，则在 $(a,b)$ 内至少存在一点 $\xi$ 使（ ）。 \\
+    A. $f(\xi)=0$ \quad B. $f'(\xi)=0$ \quad C. $f'(\xi)>0$ \quad D. $f(\xi)=a$
+    \item $\lim_{x \to 0} \frac{\tan x - x}{x - \sin x} = $（ ）。 \\
+    A. 1 \quad B. 2 \quad C. $1/2$ \quad D. 0
+    \item 曲线 $y = x^3 - 3x^2$ 的拐点是（ ）。 \\
+    A. $(0,0)$ \quad B. $(1,-2)$ \quad C. $(2,-4)$ \quad D. $(1,0)$
+    \item $\int \frac{1}{x \ln x} dx = $（ ）。 \\
+    A. $\ln|\ln x| + C$ \quad B. $\ln|x| + C$ \quad C. $\frac{1}{\ln x} + C$ \quad D. $e^x + C$
+    \item 设 $z = \arctan(x/y)$，则 $\frac{\partial z}{\partial x} = $（ ）。 \\
+    A. $\frac{y}{x^2+y^2}$ \quad B. $\frac{1}{1+(x/y)^2}$ \quad C. $-\frac{y}{x^2+y^2}$ \quad D. $\frac{x}{x^2+y^2}$
+    \item 微分方程 $y' = e^{-y}$ 的通解为（ ）。 \\
+    A. $y = \ln(x+C)$ \quad B. $y = e^x + C$ \quad C. $y = -\ln(C-x)$ \quad D. $y = \ln x + C$
+    \item 下列级数中，收敛的是（ ）。 \\
+    A. $\sum_{n=1}^{\infty} \frac{n}{n+1}$ \quad B. $\sum_{n=1}^{\infty} \frac{1}{\sqrt{n}}$ \quad C. $\sum_{n=1}^{\infty} \frac{1}{n^2}$ \quad D. $\sum_{n=1}^{\infty} 2^n$
+    \item 向量 $\vec{a}=(1,1,1)$ 在向量 $\vec{b}=(1,0,0)$ 上的投影为（ ）。 \\
+    A. 1 \quad B. 2 \quad C. $\sqrt{3}$ \quad D. 0
+    \item 定积分 $\int_{-1}^1 (x^2 + \sin x) dx = $（ ）。 \\
+    A. 2/3 \quad B. 0 \quad C. 1 \quad D. 1/3
+    \item 若 $f(x)$ 在 $x=0$ 处连续，则 $\lim_{x \to 0} f(x) = $（ ）。 \\
+    A. $f(0)$ \quad B. 0 \quad C. 1 \quad D. 不存在
+    \item 平面 $x+y+z=0$ 的法向量是（ ）。 \\
+    A. $(1, 1, 1)$ \quad B. $(1, 0, 0)$ \quad C. $(0, 1, 0)$ \quad D. $(1, 1, 0)$
+    \item $\lim_{n \to \infty} (1 + \frac{1}{n})^n = $（ ）。 \\
+    A. 1 \quad B. $e$ \quad C. 0 \quad D. $\infty$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] 设 $f(x,y) = e^x \sin y$，则 $f_{xx} + f_{yy} = \underline{\hspace{2cm}}$.
+    \item[14.] $\int_0^{\pi} \sin x dx = \underline{\hspace{2cm}}$.
+    \item[15.] 幂级数 $\sum_{n=0}^{\infty} \frac{x^n}{n!}$ 的和函数为 \underline{\hspace{2cm}}.
+    \item[16.] 曲线 $y = x^2$ 在点 $(1,1)$ 处的切线方程为 \underline{\hspace{2cm}}.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{\ln(1+x^2)}{\cos x - 1}$.
+    \item[18.] 计算 $\int x^2 \sin x dx$。
+    \item[19.] 求函数 $f(x,y) = x^3 + y^3 - 3x - 3y$ 的极值。
+    \item[20.] 求微分方程 $y' + \frac{2}{x}y = \frac{1}{x^2}$ 满足 $y(1)=1$ 的特解。
+    \item[21.] 计算 $\iint_D x dA$，其中 $D$ 是由直线 $x=y, x=1, y=0$ 所围成的区域。
+    \item[22.] 证明：当 $x > 0$ 时，$e^x > 1 + x$。
+\end{enumerate}
+
+\newpage
+
+% ================= Day 20 =================
+\section*{第 20 天：全真模拟与综合冲刺}
+\subsection*{一、选择题（每小题 5 分，共 60 分）}
+\begin{enumerate}
+    \item $\lim_{x \to 0} \frac{\sin 2x}{x} = $（ ）。 \\
+    A. 1 \quad B. 2 \quad C. 0 \quad D. $1/2$
+    \item 设 $y = \arctan e^x$，则 $dy = $（ ）。 \\
+    A. $\frac{e^x}{1+e^{2x}} dx$ \quad B. $\frac{1}{1+e^{2x}} dx$ \quad C. $\frac{e^x}{1+e^x} dx$ \quad D. $e^x dx$
+    \item 曲线 $y = \frac{1}{x}$ 在 $x=1$ 处的切线斜率为（ ）。 \\
+    A. 1 \quad B. -1 \quad C. 0 \quad D. 不存在
+    \item $\int_0^1 \frac{dx}{1+x^2} = $（ ）。 \\
+    A. $\pi/4$ \quad B. $\pi/2$ \quad C. 1 \quad D. $\pi$
+    \item 函数 $z = x^2 + xy + y^2$ 在点 $(0,0)$ 处（ ）。 \\
+    A. 取得极小值 \quad B. 取得极大值 \quad C. 无极值 \quad D. 不连续
+    \item 向量 $\vec{a}=(1,2,2)$ 的方向余弦 $\cos \alpha = $（ ）。 \\
+    A. $1/3$ \quad B. $2/3$ \quad C. 1 \quad D. $1/5$
+    \item 微分方程 $y'' - 3y' + 2y = 0$ 的特征根为（ ）。 \\
+    A. 1, 2 \quad B. -1, -2 \quad C. 1, -2 \quad D. 0, 1
+    \item 级数 $\sum_{n=1}^{\infty} \frac{1}{n^p}$ 收敛，则（ ）。 \\
+    A. $p > 1$ \quad B. $p \ge 1$ \quad C. $p < 1$ \quad D. $p \le 1$
+    \item 设 $f(x)$ 为连续的奇函数，则 $\int_{-a}^a f(x) dx = $（ ）。 \\
+    A. 0 \quad B. $2\int_0^a f(x) dx$ \quad C. $a$ \quad D. 1
+    \item 若 $\lim_{x \to x_0} f(x) = A, \lim_{x \to x_0} g(x) = B$，则 $\lim_{x \to x_0} [f(x)+g(x)] = $（ ）。 \\
+    A. $A+B$ \quad B. $A-B$ \quad C. $AB$ \quad D. $A/B$
+    \item 平面 $x=1$ 与平面 $x=2$ 的位置关系是（ ）。 \\
+    A. 平行 \quad B. 垂直 \quad C. 相交 \quad D. 重合
+    \item $\lim_{x \to \infty} \frac{2x^2+1}{x^2-1} = $（ ）。 \\
+    A. 2 \quad B. 1 \quad C. 0 \quad D. $\infty$
+\end{enumerate}
+\subsection*{二、填空题（每小题 5 分，共 20 分）}
+\begin{enumerate}
+    \item[13.] 设 $z = \ln(x^2+y^2)$，则 $\frac{\partial z}{\partial x} = \underline{\hspace{2cm}}$.
+    \item[14.] $\int \cos(2x) dx = \underline{\hspace{2cm}}$.
+    \item[15.] 经过点 $(1,2,3)$ 且垂直于平面 $x+y+z=0$ 的直线线方程为 \underline{\hspace{2cm}}.
+    \item[16.] 设 $f(x) = e^x$，则 $\lim_{h \to 0} \frac{f(h)-1}{h} = \underline{\hspace{2cm}}$.
+\end{enumerate}
+\subsection*{三、计算题（共 70 分）}
+\begin{enumerate}
+    \item[17.] 求极限 $\lim_{x \to 0} \frac{\sqrt{1+x^2} - 1}{x^2}$。
+    \item[18.] 求 $\int \frac{dx}{x(1+\ln^2 x)}$。
+    \item[19.] 设 $z = f(x/y, y/x)$，求 $x \frac{\partial z}{\partial x} + y \frac{\partial z}{\partial y}$。
+    \item[20.] 求微分方程 $y' + y = e^{-x}$ 的通解。
+    \item[21.] 利用极坐标计算 $\iint_D (x^2+y^2) dA$，其中 $D$ 是由 $x^2+y^2=1$ 和 $x^2+y^2=4$ 围成的环形区域。
+    \item[22.] 用铁丝围成一个面积为 $S$ 的扇形，问半径 $r$ 和弧长 $l$ 为多少时，所用铁丝最短？
+\end{enumerate}
+
+\end{document}

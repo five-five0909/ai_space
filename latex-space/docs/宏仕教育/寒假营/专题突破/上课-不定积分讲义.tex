@@ -1,0 +1,313 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+%==================== 导言区：宏包加载 ====================
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage{geometry}                 % 页面设置
+\usepackage{xcolor}                   % 颜色支持
+\usepackage{tikz}                     % 绘图支持
+\usetikzlibrary{calc, positioning, shapes.geometric, shadows}
+\usepackage[many]{tcolorbox}          % 精美文本框
+\usepackage{enumitem}                 % 列表定制
+\usepackage{pifont}                   % 特殊符号
+\usepackage{setspace}                 % 行距设置
+\usepackage{tabularx}                 % 表格排版
+
+%==================== 页面布局设置 ====================
+\geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm}
+\setstretch{1.4} % 1.4倍行距，呼吸感更强
+
+%==================== 自定义UI组件 (保姆级高颜值设计) ====================
+
+% 1. 大标题：知识点模块
+\newcommand{\KnowledgeTitle}[1]{
+    \vspace{1em}
+    \begin{center}
+        \begin{tikzpicture}
+            \node[fill=purple!70!black, text=white, font=\LARGE\bfseries\heiti, rounded corners=3pt, inner sep=10pt, drop shadow] (title) {#1};
+            \draw[ultra thick, purple!70!black] (title.south west) -- (title.south east);
+        \end{tikzpicture}
+    \end{center}
+    \vspace{1em}
+}
+
+% 2. 武器库框（放公式用的）
+\newtcolorbox{WeaponBox}[1]{
+    enhanced, arc=5pt, boxrule=2pt,
+    colframe=purple!60!blue, colback=purple!2!white,
+    title=\textbf{\ding{118} #1},
+    coltitle=white, fonttitle=\Large\bfseries\sffamily,
+    attach title to upper=\par, space to upper=0.5em
+}
+
+% 3. 避坑警告框
+\newtcolorbox{WarningBox}{
+    enhanced, arc=5pt, boxrule=1.5pt,
+    colframe=red!80!black, colback=red!5!white,
+    title=\textbf{\ding{55} 考场致命雷区（千万别踩）：},
+    coltitle=white, fonttitle=\sffamily\bfseries,
+    drop fuzzy shadow
+}
+
+% 4. 高仿截图的“考点标题”宏
+\newcommand{\KaoDian}[2]{
+    \vspace{2.5em}
+    \noindent
+    \begin{tikzpicture}
+        % 左侧蓝色竖条
+        \fill[cyan!60!blue, rounded corners=2pt] (0, -0.4) rectangle (0.1, 0.4);
+        % 考点文字
+        \node[anchor=west, font=\Large\bfseries\heiti, text=black!80] at (0.3, 0) {#1：#2};
+        % 右侧“考点课”小药丸标签
+        % \node[anchor=west, fill=cyan!60!blue, text=white, rounded corners=1ex, inner sep=3pt, font=\small\bfseries\sffamily] at (8.5, 0) {考点课};
+    \end{tikzpicture}
+    \par\vspace{0.5em}
+    \noindent\textcolor{cyan!20}{\rule{\textwidth}{1pt}}
+    \vspace{0.5em}
+}
+
+% 5. 老师悄悄话（思路点拨）
+\newtcolorbox{TeacherNote}{
+    enhanced, arc=5pt, boxrule=0pt, leftrule=4pt,
+    colframe=orange!80!black, colback=orange!5!white,
+    title=\textbf{\ding{45} 老师的大白话翻译机：},
+    coltitle=black, fonttitle=\sffamily\bfseries,
+    attach title to upper=\par, space to upper=0.5em
+}
+
+% 6. 傻瓜式拆解（保姆计算）
+\newtcolorbox{StepByStep}{
+    enhanced, arc=5pt, boxrule=1pt,
+    colframe=green!50!black, colback=green!2!white,
+    title=\textbf{\ding{170} 跟着老师一步步写（千万别跳步）：},
+    coltitle=white, fonttitle=\sffamily\bfseries
+}
+
+% 7. 选项排版宏
+\newcommand{\choicesFour}[4]{
+    \vspace{0.5em}
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=0pt, labelsep=0.5em]
+        \begin{minipage}{0.24\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.24\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.24\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.24\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+    \vspace{0.5em}
+}
+
+%==================== 文档开始 ====================
+\begin{document}
+
+\begin{center}
+    {\Huge \textbf{\heiti 第三章 不定积分（全能通关讲义）}}\\[1em]
+    {\Large \textbf{\kaishu —— 从零基础扫盲 到 核心考点拿捏}}\\[1.5em]
+\end{center}
+
+%========================================================================
+%                             课前扫盲：知识点模块
+%========================================================================
+\KnowledgeTitle{第一部分：课前扫盲（必须背熟的救命药）}
+
+\begin{TeacherNote}
+    \textbf{什么是“不定积分”？} \\
+    简单来说：\textbf{求导是“生孩子”，积分就是“找妈妈”！}\\
+    如果 $F(x)$ 求导变成了 $f(x)$，那么 $f(x)$ 的不定积分就是找回原配 $F(x)$。\\
+    但是！常数求导等于0（比如 $x^2+3$ 和 $x^2+5$ 求导都是 $2x$），所以找回来的妈妈不唯一，必须加上一个\textbf{盲盒常数 $\mathbf{+ C}$}！
+\end{TeacherNote}
+
+\begin{WarningBox}
+    1. 考试最后一步，\textbf{绝对不能漏写 $\mathbf{+ C}$}！漏写直接扣大分！\\
+    2. \textbf{加减法可以拆开积}：$\int (A \pm B) dx = \int A dx \pm \int B dx$（各回各家，各找各妈）。\\
+    3. \textbf{乘除法绝对不能直接拆开积！！！} $\int (A \times B) dx \neq \int A dx \times \int B dx$（这是微积分里的杀头大罪，遇到乘除法，必须用后面学的“换元法”或“分部积分法”！）
+\end{WarningBox}
+
+\vspace{1em}
+\begin{WeaponBox}{核心武器库：大傻瓜必备积分公式表}
+    \textit{不要死记硬背，把它当成求导公式倒着念即可！}
+    
+    \renewcommand{\arraystretch}{1.8} % 撑开表格行距
+    \begin{tabularx}{\textwidth}{X X}
+        \textbf{1. 幂函数（指数加1，再除以新指数）} & \textbf{2. 唯一的刺客（$x^{-1}$不能用幂法则）} \\
+        $\displaystyle \int x^a \, dx = \frac{1}{a+1}x^{a+1} + C \quad (a \neq -1)$ & $\displaystyle \int \frac{1}{x} \, dx = \ln|x| + C$ （必须加绝对值！） \\
+        & \\
+        \textbf{3. 指数家族（最顽固的钉子户）} & \textbf{4. 反三角函数的专属马甲} \\
+        $\displaystyle \int e^x \, dx = e^x + C$ （积完还是它自己） & $\displaystyle \int \frac{1}{1+x^2} \, dx = \arctan x + C$ \\
+        $\displaystyle \int a^x \, dx = \frac{a^x}{\ln a} + C$ & $\displaystyle \int \frac{1}{\sqrt{1-x^2}} \, dx = \arcsin x + C$ \\
+        & \\
+        \textbf{5. 三角函数基础款（注意正负号！）} & \textbf{6. 三角函数进阶款} \\
+        $\displaystyle \int \cos x \, dx = \sin x + C$ & $\displaystyle \int \frac{1}{\cos^2 x} \, dx = \int \sec^2 x \, dx = \tan x + C$ \\
+        $\displaystyle \int \sin x \, dx = \mathbf{-\cos x} + C$ \textcolor{red}{(带负号！)} & $\displaystyle \int \frac{1}{\sin^2 x} \, dx = \int \csc^2 x \, dx = -\cot x + C$ \\
+    \end{tabularx}
+\end{WeaponBox}
+
+\newpage
+%========================================================================
+%                             考点实战演练模块
+%========================================================================
+\KnowledgeTitle{第二部分：核心考点实战演练}
+
+%------------------------------------------------------------------------
+% 考点 3-1：第一换元法
+%------------------------------------------------------------------------
+\KaoDian{考点3-1}{不定积分的计算——第一换元法}
+
+\begin{TeacherNote}
+    \textbf{通俗翻译：这就是“凑微分（找卧底法）”。} \\
+    当你看到一个复杂的式子里，\textbf{某一部分的导数，刚好就站在它旁边乘着}！这时候，直接把外面的东西“吸进”后面的 $d$ 里面去，给它套上马甲，化繁为简。
+\end{TeacherNote}
+
+\textbf{【经典真题】}（原卷题目5）\\
+计算：$ \displaystyle\int xf(x^{2})f'(x^{2})dx = $ \underline{\hspace{2cm}}。
+\choicesFour{$ \frac{1}{2}f(x^{2})+C $}{$ \frac{1}{2}f^{2}(x^{2})+C $}{$ \frac{1}{4}f^{2}(x^{2})+C $}{$ \frac{1}{4}x^{2}f^{2}(x^{2})+C $}
+
+\begin{StepByStep}
+    \textbf{第一步：找“卧底”（谁是谁的导数？）} \\
+    观察括号里是 $x^2$，它的导数是 $2x$。刚好外面站着一个 $x$！\\
+    我们知道 $d(x^2) = (x^2)'dx = 2x dx$。\\
+    因为题目里只有 $x dx$，所以我们把常数2移过去：$\textcolor{blue}{x dx = \frac{1}{2} d(x^2)}$。
+
+    \textbf{第二步：脱掉第一层马甲} \\
+    原式 $= \int f(x^2) f'(x^2) \cdot \textcolor{blue}{\frac{1}{2} d(x^2)}$。\\
+    为了看得爽，我们令 $u = x^2$，式子瞬间清爽：
+    $= \frac{1}{2} \int f(u) f'(u) du$
+
+    \textbf{第三步：脱掉第二层马甲（俄罗斯套娃）} \\
+    现在式子里有 $f(u)$，旁边刚好站着它的导数 $f'(u)$！\\
+    同理，$f'(u) du = d(f(u))$。我们令 $v = f(u)$：\\
+    $= \frac{1}{2} \int v \, dv$
+
+    \textbf{第四步：套基础公式并穿回衣服} \\
+    基础积分：$\frac{1}{2} \int v^1 dv = \frac{1}{2} \cdot \left( \frac{1}{2}v^2 \right) + C = \frac{1}{4}v^2 + C$。\\
+    把 $v$ 换回 $x$：$v = f(u) = f(x^2)$，答案是：$\mathbf{\frac{1}{4}f^2(x^2) + C}$。（选 C）
+\end{StepByStep}
+
+%------------------------------------------------------------------------
+% 考点 3-2：第二换元法
+%------------------------------------------------------------------------
+\KaoDian{考点3-2}{不定积分的计算——第二换元法}
+
+\begin{TeacherNote}
+    \textbf{通俗翻译：这就是“强行换血法（拔根号）”。} \\
+    遇到令人作呕的根号，外面又没有它的导数，没法凑微分怎么办？\\
+    \textbf{口诀：见根号，挖根号！} 直接令整个根号等于 $t$，把带有根号的恶心世界，强行变成全部是 $t$ 的清爽世界。
+\end{TeacherNote}
+
+\textbf{【经典真题】}（原卷题目14）\\
+求不定积分 $ \displaystyle\int\frac{dx}{\sqrt{2x-3}+1} $。
+
+\begin{StepByStep}
+    \textbf{第一步：令整个根号等于 $t$} \\
+    令 $t = \sqrt{2x-3}$。
+
+    \textbf{第二步：反解出 $x$，并求出 $dx$} （90\%的学生死在忘记求$dx$）\\
+    两边同时平方：$t^2 = 2x - 3$ \\
+    解出 $x$：$2x = t^2 + 3 \implies x = \frac{1}{2}t^2 + \frac{3}{2}$ \\
+    两边同时求导加 $d$：$dx = (\frac{1}{2} \cdot 2t) dt \implies \textcolor{blue}{dx = t \, dt}$。
+
+    \textbf{第三步：把原式全面替换成 $t$} \\
+    分母的 $\sqrt{2x-3}+1$ 变成了 $\textcolor{red}{t+1}$。分子的 $dx$ 变成了 $\textcolor{blue}{t \, dt}$。\\
+    原式 $= \int \frac{\textcolor{blue}{t}}{\textcolor{red}{t+1}} dt$。
+
+    \textbf{第四步：初中代数技巧——分子分母凑一样（+1再-1）} \\
+    $\frac{t}{t+1} = \frac{(t+1)-1}{t+1} = \frac{t+1}{t+1} - \frac{1}{t+1} = 1 - \frac{1}{t+1}$。\\
+    所以积分变成：$\int (1 - \frac{1}{t+1}) dt = t - \ln|t+1| + C$。
+
+    \textbf{第五步：把 $t$ 换回 $x$} \\
+    代回 $t = \sqrt{2x-3}$，因为根号肯定是正数，加1后绝对值可直接去掉：\\
+    最终答案：$\mathbf{\sqrt{2x-3} - \ln(\sqrt{2x-3}+1) + C}$。
+\end{StepByStep}
+
+\newpage
+%------------------------------------------------------------------------
+% 考点 3-3：分部积分法
+%------------------------------------------------------------------------
+\KaoDian{考点3-3}{不定积分的计算——分部积分法}
+
+\begin{TeacherNote}
+    当两个完全不搭噶的家族（比如多项式和三角函数）相乘，换元法失效时，必须用大招：\textbf{分部积分法}！\\
+    硬背公式：$\int u \, dv = uv - \int v \, du$\\
+    \textbf{怎么决定谁当 $u$？} 牢记神级口诀：\textbf{“反对幂三指”}。\\
+    反(三角) $\rightarrow$ 对(数) $\rightarrow$ 幂(多项式$x^n$) $\rightarrow$ 三(角) $\rightarrow$ 指(数)。排在越前面的，越优先当 $u$！
+\end{TeacherNote}
+
+\textbf{【经典真题】}（原卷题目13）\\
+求不定积分 $ \displaystyle\int(x+1)\sin x \, dx $。
+
+\begin{StepByStep}
+    \textbf{第一步：按“反对幂三指”选 $u$} \\
+    式子里有 $(x+1)$ 是“幂”，$\sin x$ 是“三”。\\
+    “幂”在“三”前面，所以让 $\textcolor{red}{u = x+1}$，剩下的全是 $dv$：$\textcolor{blue}{dv = \sin x \, dx}$。
+
+    \textbf{第二步：对 $u$ 求导，对 $dv$ 积分} \\
+    求导（降维打击）：$du = (x+1)'dx = dx$。（爽！$x$不见了）\\
+    积分（找原配）：$v = \int \sin x dx = -\cos x$。（别漏了负号）
+
+    \textbf{第三步：闭着眼睛套公式 $\int u dv = uv - \int v du$} \\
+    原式 $= (x+1)(-\cos x) - \int (-\cos x) dx$
+
+    \textbf{第四步：化简收尾} \\
+    负负得正：$= -(x+1)\cos x + \int \cos x dx$\\
+    再积最后一次：$= \mathbf{-(x+1)\cos x + \sin x + C}$。
+\end{StepByStep}
+
+%------------------------------------------------------------------------
+% 考点 3-4：分式函数
+%------------------------------------------------------------------------
+\KaoDian{考点3-4}{不定积分的计算——分式函数}
+
+\begin{TeacherNote}
+    \textbf{通俗翻译：这就是“劈腿法（裂项法）”。} \\
+    只要看到分母是两个式子相乘，不要犹豫，直接把它们劈成两半，变成分数相减！分母相乘积不出，分母相减秒出对数。
+\end{TeacherNote}
+
+\textbf{【经典真题】}（原卷题目1）\\
+不定积分 $ \displaystyle\int\frac{dx}{x(x+1)} $ 的结果为 \underline{\hspace{2cm}}。
+\choicesFour{$ \ln|\frac{x+1}{x}|+C $}{$ \ln|\frac{x}{x+1}|+C $}{$ \ln\frac{x+1}{x}+C $}{$ \ln\frac{x}{x+1}+C $}
+
+\begin{StepByStep}
+    \textbf{第一步：暴力拆解分母（裂项）} \\
+    记住初中常识：相邻两项相乘，直接等于它们分别做分母的差。\\
+    $\frac{1}{x(x+1)} = \frac{1}{x} - \frac{1}{x+1}$。（在草稿纸上通分验算一下，刚好对得上！）
+
+    \textbf{第二步：分别套用 $\ln$ 公式} \\
+    原式 $= \int (\frac{1}{x} - \frac{1}{x+1}) dx = \int \frac{1}{x} dx - \int \frac{1}{x+1} dx$ \\
+    $= \ln|x| - \ln|x+1| + C$
+
+    \textbf{第三步：合并对数（对数相减 = 真数相除）} \\
+    $= \mathbf{\ln \left| \frac{x}{x+1} \right| + C}$。（选 B）\\
+    \textit{注：因为不能确定正负，绝对值一定要带！所以C和D是错的。}
+\end{StepByStep}
+
+%------------------------------------------------------------------------
+% 考点 3-5：变上限积分
+%------------------------------------------------------------------------
+\KaoDian{考点3-5}{一种特殊的定积分：变上限定积分与积分求导}
+
+\begin{TeacherNote}
+    \textbf{通俗翻译：这就是“同归于尽法则”。} \\
+    考的是一个宇宙级真理（微积分基本定理）：\textbf{求导和积分是死对头！}\\
+    当你看到一个函数“被积了分”，外面又套着一个“求导（$d/dx$或撇）”时，它们俩会\textbf{互相抵消}，里面的原函数直接裸奔跑出来！
+\end{TeacherNote}
+
+\textbf{【经典真题】}（原卷题目3，这题专考这种抵消关系！）\\
+若 $ \displaystyle\int f(x)dx = x^{2}e^{2x} + C $ ，则 $ f(x) = $ \underline{\hspace{2cm}}。
+\choicesFour{$ 2xe^{x} $}{$ 2x^{2}e^{2x} $}{$ xe^{2x} $}{$ 2xe^{2x}(1+x) $}
+
+\begin{StepByStep}
+    \textbf{第一步：召唤“照妖镜”（两边同时求导）} \\
+    左边是一坨积分，想把 $f(x)$ 救出来，就在等号两边同时求导！\\
+    左边求导：$(\int f(x)dx)' = f(x)$。（积分号被求导干掉了，裸奔成功）\\
+    右边求导：$(x^{2}e^{2x} + C)' = (x^{2}e^{2x})' + 0$。
+
+    \textbf{第二步：对右边认真求导（乘法法则：前导后不导 + 前不导后导）} \\
+    $f(x) = (x^2)' \cdot e^{2x} + x^2 \cdot (e^{2x})'$ \\
+    $(x^2)' = 2x$ \\
+    $(e^{2x})' = e^{2x} \cdot 2 = 2e^{2x}$ （注意复合函数求导，指数上的 $2x$ 也要单独拿下来求导！）
+
+    \textbf{第三步：组装并提取公因式} \\
+    $f(x) = 2x e^{2x} + x^2 (2e^{2x})$ \\
+    大家都有 $2xe^{2x}$，提出来：\\
+    $= \mathbf{2xe^{2x}(1+x)}$。（选 D）
+\end{StepByStep}
+
+
+\end{document}

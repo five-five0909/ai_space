@@ -1,0 +1,101 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{graphicx}       % 图片支持
+\usepackage{fancyhdr}       % 页眉页脚
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 使用方法：\choices{选项A}{选项B}{选项C}{选项D}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+
+\title{\textbf{《高等数学》必刷习题——基础版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第三章 连续（基础）}
+
+\begin{enumerate}
+    \item 函数 $ f(x) $ 在 $\mathbb{R}$ 上连续， $x=2$ 是 $ f(x)=\frac{x^{2}-4}{x-2} $ 的 \underline{\hspace{1cm}}。
+    \choicesFour{可去间断点}{跳跃间断点}{无穷间断点}{连续点}
+
+    \item $ x \rightarrow 0^{+} $ 时，下列函数 \underline{\hspace{1cm}} 是无穷小量。
+    \choicesFour{$ e^{\frac{1}{x}} $}{$ x\sin\frac{1}{x} $}{$ \ln x $}{$ \frac{1}{x}\sin x $}
+
+    \item 当 $ x \rightarrow 0 $ 时，与 $ x + x^{3} $ 等价的无穷小量为 \underline{\hspace{1cm}}。
+    \choicesFour{$ \frac{1}{x} $}{1}{$ x $}{$ x^{2} $}
+
+    \item 函数 $ f(x)=\lim_{n\to\infty}\frac{1+x}{1+x^{2n}} $ 的间断点情况是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {不存在间断点}
+    {存在间断点 $ x = 1 $}
+    {存在间断点 $ x = 0 $}
+    {存在间断点 $ x = -1 $}
+
+    \item 设 $ x_{n}=\frac{n}{2}[1+(-1)^{n}] $ ，则 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \{x_{n}\} $ 有界}
+    {$ \{x_{n}\} $ 无界}
+    {$ \{x_{n}\} $ 单调增加}
+    {$ n\to\infty $ 时， $ \{x_{n}\} $ 为无穷大}
+
+    \item $ x = 0 $ 是函数 $ f(x) = \frac{\tan x}{x} $ 的第 \underline{\hspace{1cm}} 类间断点。
+
+    \item $ f(x)=\begin{cases}x\sin\frac{1}{x}, & x\neq0,\\ k, & x=0\end{cases} $ 在 $x=0$ 处连续,则常数 $k=$ \underline{\hspace{2cm}}。
+
+    \item 已知当 $ x \to 0 $ 时， $ (1 + ax^{2})^{3} - 1 $ 与 $ 1 - \cos x $ 是等价无穷小，则常数 $ a = $ \underline{\hspace{2cm}}。
+
+    \item $ f(x)=\begin{cases}(1-x)^{\frac{1}{x}}, & x<0,\\ 2^{x}+k, & x\geq0\end{cases} $ 在 $ x=0 $ 处连续,则常数 $ k= $ \underline{\hspace{2cm}}。
+
+    \item 函数 $ y=\frac{x}{\tan x} $ 的间断点为 \underline{\hspace{2cm}}。
+
+    \item 已知函数 $ f(x)=\begin{cases}(1+ax)^{\frac{1}{x}}, & x>0\\ 2b-e, & x=0\\ b+\ln(1+x^{2}), & x<0\end{cases} $ 在 $x=0$ 处连续，求实数 $a$ 和 $b$ 的值。
+
+    \item 当 $ a, b $ 为何值时， $ \lim_{x \to 0} \frac{\sin x}{a - e^{x}} (b - \cos x) = 2 $。
+
+    \item $ f(x) = \begin{cases} \frac{\cos x}{x+2}, & x \geq 0 \\ \frac{\sqrt{a} - \sqrt{a - x}}{x}, & x < 0 \quad (a > 0) \end{cases} $
+    \begin{enumerate}
+        \item 当 $a$ 为何值时， $x=0$ 是 $ f(x) $ 的连续点？
+        \item 当 $a$ 为何值时， $x=0$ 是 $ f(x) $ 的间断点？是什么类型的间断点？
+    \end{enumerate}
+
+    \item 讨论极限 $ \lim_{x \to 0} \frac{1 - 2^{\frac{1}{x}}}{1 + 2^{\frac{1}{x}}} $ 是否存在？
+
+    \item 研究函数 $ f(x)=\lim_{n\to\infty}\frac{1-x^{2n}}{1+x^{2n}}x $ 的连续性，并画出图形。
+\end{enumerate}
+
+
+\end{document}

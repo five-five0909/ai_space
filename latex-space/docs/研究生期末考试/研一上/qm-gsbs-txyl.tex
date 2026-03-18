@@ -1,0 +1,157 @@
+\documentclass[11pt,a4paper]{ctexart} % 使用ctexart处理中文更专业
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{left=1.8cm,right=1.8cm,top=2.5cm,bottom=2.5cm}
+
+\usepackage{amsmath, amssymb, amsfonts, bm}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[most]{tcolorbox} % 用于制作精美的公式框
+\usepackage{hyperref}
+
+% --- 颜色定义 ---
+\definecolor{MainBlue}{RGB}{0, 51, 102}
+\definecolor{LightBlue}{RGB}{235, 245, 255}
+\definecolor{Crimson}{RGB}{150, 0, 0}
+\definecolor{TableGray}{RGB}{245, 245, 245}
+
+% --- 样式设置 ---
+\titleformat{\section}{\large\bfseries\color{MainBlue}}{\thesection}{1em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{MainBlue!80!black}}{\thesubsection}{1em}{}
+
+% 自定义提示框
+\newtcolorbox{formulaBox}[1]{
+    colback=LightBlue,
+    colframe=MainBlue!50,
+    fonttitle=\bfseries,
+    title=#1,
+    boxrule=0.5pt,
+    arc=2pt,
+    left=5pt, right=5pt, top=5pt, bottom=5pt
+}
+
+\newtcolorbox{warningBox}{
+    colback=red!5!white,
+    colframe=red!75!black,
+    boxrule=0.5pt,
+    arc=2pt,
+    left=5pt, right=5pt,
+    fontupper=\small\bfseries\color{red!75!black}
+}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 通信原理核心知识点汇总}
+\fancyhead[R]{\small 2025年版}
+\fancyfoot[C]{\thepage}
+
+% 列表间距优化
+\setlist{nosep, font=\small, leftmargin=1.5em, topsep=2pt}
+
+\begin{document}
+
+\begin{center}
+    {\huge \bfseries \color{MainBlue} 通信原理核心公式与知识点汇总} \\
+    \vspace{0.3cm}
+    {\small 适用考试、考研复习及工程速查}
+\end{center}
+
+\section{一、 通用准则与单位转换}
+\begin{enumerate}
+    \item \textbf{单位换算：} $km \to 10^3 m$；$ms/\mu s \to 10^{-3}/10^{-6} s$；$^\circ C \to K (T = t + 273.15)$；$pW/mW \to 10^{-12}/10^{-3} W$。
+    \item \textbf{dB 与倍数：} $SNR_{dB} = 10 \log_{10}(S/N) \implies S/N = 10^{(dB/10)}$。
+    \item \textbf{对数换底：} $\log_2(X) = \frac{\ln(X)}{\ln(2)} \approx 1.44 \ln(X)$。
+\end{enumerate}
+
+\begin{warningBox}
+    💡 决策逻辑：
+    问“速率/容量” $\to$ 香农公式；问“功率/距离” $\to$ 链路预算；问“杂音/电压” $\to$ 热噪声公式。
+\end{warningBox}
+
+\section{二、 信息论基础（速度、容量与时间）}
+\begin{formulaBox}{核心公式}
+    \begin{itemize}
+        \item \textbf{信源熵：} $H(X) = -\sum P_i \log_2 P_i \quad \text{(bit/symbol)}$
+        \item \textbf{信息速率 (秒容量)：} $R_b = R_B \cdot \log_2 M \quad \text{(bit/s)}$
+        \item \textbf{香农公式：} $C = B \log_2 (1 + \frac{S}{N}) = B \log_2 (1 + \frac{S}{n_0 B}) \quad \text{(bit/s)}$
+    \end{itemize}
+\end{formulaBox}
+
+\section{三、 电磁波传播与信道噪声}
+\begin{itemize}
+    \item \textbf{视距简化公式：} $D \approx \sqrt{50h} \quad \text{(D: km, h: m)}$
+    \item \textbf{波长公式：} $\lambda = c/f \quad (c = 3 \times 10^8 m/s)$
+    \item \textbf{链路预算 (Friis)：} $P_R = \frac{P_T G_T G_R \lambda^2}{(4\pi d)^2} \implies P_T = \frac{16\pi^2 d^2 P_R}{\lambda^2 G_T G_R}$
+    \item \textbf{热噪声电压：} $V = \sqrt{4kTRB} \quad (k = 1.38 \times 10^{-23} J/K)$
+\end{itemize}
+
+\section{四、 基带编码规则}
+\subsection{1. HDB3 码 (三阶高密度双极性码)}
+\begin{itemize}
+    \item \textbf{连零替换：} 4个连0换成 $000V$ 或 $B00V$。
+    \item \textbf{选码逻辑：} 相邻 $V$ 脉冲间有奇数个1选 $000V$；有偶数个1选 $B00V$。
+    \item \textbf{极性：} $1$ 和 $B$ 与前一非零脉冲\textbf{相反}；$V$ 与前一非零脉冲\textbf{相同}。
+\end{itemize}
+
+\subsection{2. 曼彻斯特码与 CMI 码}
+\begin{itemize}
+    \item \textbf{双相码 (Manchester)：} “0” $\to$ 01 (高跳低)；“1” $\to$ 10 (低跳高)。\textbf{中心必有跳变}。
+    \item \textbf{CMI 码：} “0” $\to$ 固定 01；“1” $\to$ 00 与 11 交替。
+\end{itemize}
+
+\section{五、 基带传输无码间串扰 (ISI)}
+\begin{formulaBox}{奈奎斯特判据}
+    $\sum H(\omega + k\omega_s) = T_B = \text{常数} \quad (\omega_s = 2\pi R_B)$
+\end{formulaBox}
+\begin{itemize}
+    \item \textbf{最小带宽：} $f_N = R_B/2 \quad (B_{min} = f_N)$
+    \item \textbf{实际带宽 (滚降)：} $B = (1+\alpha)f_N = (1+\alpha)\frac{R_B}{2} \quad (0 \le \alpha \le 1)$
+    \item \textbf{频带利用率：} $\eta = \frac{R_B}{B} = \frac{2}{1+\alpha} \quad \text{(Baud/Hz)}$
+\end{itemize}
+
+\section{六、 数字带通调制系统}
+\renewcommand{\arraystretch}{1.3} % 增加行高
+\begin{table}[h]
+\centering
+\rowcolors{2}{TableGray}{white} % 奇偶行背景色
+\begin{tabularx}{\textwidth}{l|c|c|l}
+\toprule
+\textbf{调制方式} & \textbf{带宽 $B$ (Hz)} & \textbf{效率 $\eta$ (Baud/Hz)} & \textbf{抗噪性能 (由优到劣)} \\ \midrule
+2ASK / 2PSK & $2R_B$ & $1/2$ & 2PSK (最佳) \\
+2FSK & $|f_2 - f_1| + 2R_B$ & $< 1/2$ & 2DPSK \\
+M-ary PSK & $(1+\alpha) \frac{R_b}{\log_2 M}$ & $\frac{\log_2 M}{1+\alpha}$ & 2FSK \\
+MSK & $1.5R_B$ (主瓣) & $2/3$ & 2ASK (最差) \\ \bottomrule
+\end{tabularx}
+\end{table}
+
+\section{七、 误码率 $P_e$ 与信噪比 $r$ (2PSK, 2FSK等)}
+\begin{itemize}
+    \item \textbf{2PSK (相干)：} $P_e = Q(\sqrt{2r})$ \quad (最优性能)
+    \item \textbf{2DPSK (非相干)：} $P_e = \frac{1}{2} e^{-r}$
+    \item \textbf{2FSK (非相干)：} $P_e = \frac{1}{2} e^{-r/2}$
+    \item \textbf{2ASK (相干)：} $P_e = Q(\sqrt{r/2})$
+\end{itemize}
+
+\section{八、 MSK (最小频移键控)}
+\begin{itemize}
+    \item \textbf{核心特征：} 调制指数 $h = 0.5$；相位在一个码元内偏移 $\pm \pi/2$。
+    \item \textbf{频率间隔：} $\Delta f = |f_1 - f_0| = \frac{1}{2T_s}$。
+\end{itemize}
+
+\section{九、 绘图要领 (必杀技)}
+\begin{formulaBox}{💡 绘图判卷核心}
+\begin{itemize}
+    \item \textbf{2PSK 波形：} 切换码元时相位若改变，必须画出波形的“突跳/折断”。
+    \item \textbf{ISI 判定图：} 曲线必须经过 $(\pi R_B, 0.5)$ 点，且关于该点呈中心对称（奇对称）。
+    \item \textbf{MSK 相位：} 必须是平滑连贯的折线（斜率 $\pm \frac{\pi}{2T_s}$），纵坐标在码元结束处应为 $\pi/2$ 的倍数。
+    \item \textbf{2FSK 频谱：} 必须画出两个载波频率点处的垂直向上箭头（离散谱线）。
+\end{itemize}
+\end{formulaBox}
+
+\end{document}

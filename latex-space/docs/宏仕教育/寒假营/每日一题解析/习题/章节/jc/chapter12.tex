@@ -1,0 +1,105 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{graphicx}       % 图片支持
+\usepackage{fancyhdr}       % 页眉页脚
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 使用方法：\choices{选项A}{选项B}{选项C}{选项D}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+
+\title{\textbf{《高等数学》必刷习题——基础版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第十二章 无穷级数（基础）}
+
+\begin{enumerate}
+    \item 级数 $ \sum_{n=1}^{\infty}\frac{1}{n(n+1)} $ 的前 $n$ 项部分和 $ s_{n} $ 满足 $ \lim_{n\to\infty}s_{n}= $ \underline{\hspace{1cm}}。
+    \choicesFour{1}{$ \infty $}{$ \frac{1}{2} $}{0}
+
+    \item 如果级数 $ \sum_{n=1}^{\infty}u_{n}(u_{n}\neq0) $ 收敛，则必有 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \sum_{n=1}^{\infty}\frac{1}{u_{n}} $ 发散}
+    {$ \sum_{n=1}^{\infty}\left(\frac{1}{n}+u_{n}\right) $ 收敛}
+    {$ \sum_{n=1}^{\infty}|u_{n}| $ 收敛}
+    {$ \sum_{n=1}^{\infty}(-1)^{n}u_{n} $ 收敛}
+
+    \item 若级数 $ \sum_{n=1}^{\infty} a_{n} $ 收敛，下列结论正确的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \sum_{n=1}^{\infty}|a_{n}| $ 收敛}
+    {$ \sum_{n=1}^{\infty}(-1)^{n}a_{n} $ 收敛}
+    {$ \sum_{n=1}^{\infty}a_{n}a_{n+1} $ 收敛}
+    {$ \sum_{n=1}^{\infty}\frac{a_{n}+a_{n+1}}{2} $ 收敛}
+
+    \item 下列级数中收敛的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \sum_{n=1}^{+\infty}\left(\frac{1}{\sqrt[3]{n^{2}}}+1\right) $}
+    {$ \sum_{n=1}^{+\infty}\left(\frac{1}{n^{3}}+1\right) $}
+    {$ \sum_{n=1}^{+\infty}(-1)^{n}\frac{n}{n+4} $}
+    {$ \sum_{n=1}^{+\infty}\left(\frac{1}{\sqrt{n^{3}}}+\frac{1}{3^{n}}\right) $}
+
+    \item 以下级数收敛的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \sum_{n=1}^{\infty}\frac{n^{2}+1}{n^{3}+2n^{2}} $}
+    {$ \sum_{n=1}^{\infty}\sin\frac{n\pi}{3} $}
+    {$ \sum_{n=1}^{\infty}\ln\left(1+\frac{1}{n^{2}}\right) $}
+    {$ \sum_{n=1}^{\infty}\frac{3^{n}}{2^{n}+1} $}
+
+    \item 当 $ n \to \infty $ 时， $ \lim_{n \to \infty} n \sin \frac{1}{n} = 1 $ ，根据比较审敛法，可以判定级数 $ \sum_{n=1}^{\infty} \sin \frac{1}{n} $ \underline{\hspace{2cm}}。(收敛还是发散)
+
+    \item 判别级数的收敛性，级数是 $ \sum_{n=1}^{\infty}(1-\cos\frac{\pi}{n}) $ \underline{\hspace{2cm}}。(收敛还是发散)
+
+    \item 判别级数的收敛性，级数是 $ \sum_{n=1}^{\infty}\frac{n!}{10^{n}} $ \underline{\hspace{2cm}}。(收敛还是发散)
+
+    \item 幂级数 $ \sum_{n=1}^{\infty}\frac{3^{n}}{n(n+1)}x^{n} $ 的收敛半径是 \underline{\hspace{2cm}}。
+
+    \item 如果幂级数 $ \sum_{n=0}^{\infty} a_{n} x^{n} $ 的收敛半径为 2, 则幂级数 $ (x-1)^{n-1} $ 的收敛区间为 \underline{\hspace{2cm}}。
+
+    \item 求幂级数 $ \sum_{n=0}^{\infty} (-1)^{n} \frac{x^{n}}{\sqrt{n}} $ 的收敛域。
+
+    \item 求幂级数 $ \sum_{n=1}^{\infty} \frac{(x-1)^{n}}{2^{n} \cdot n} $ 的收敛区间。
+
+    \item 把 $ y = \frac{1}{2-x} $ 展开为 $x$ 的幂级数。
+
+    \item 求幂级数 $ \sum_{n=1}^{\infty} \frac{3^{n} + 5^{n}}{n} x^{n} $ 的收敛域。
+
+    \item 求幂级数 $ \sum_{n=1}^{\infty} \frac{x^{n+1}}{n(n+1)} $ 的收敛域及和函数。
+\end{enumerate}
+
+
+\end{document}

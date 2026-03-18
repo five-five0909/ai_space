@@ -1,0 +1,387 @@
+\documentclass[10pt, a3paper, landscape, twocolumn]{article}
+
+%----------------------------------------------------------------------------------------
+%	宏包引入
+%----------------------------------------------------------------------------------------
+\usepackage[UTF8]{ctex}       % 中文支持
+\usepackage{geometry}         % 页面设置
+\usepackage{amsmath, amssymb} % 数学公式
+\usepackage{graphicx}         % 图片
+\usepackage{fancyhdr}         % 页眉页脚
+\usepackage{tabularx}         % 自动宽度表格
+\usepackage{tikz}             % 绘图（用于密封线）
+\usepackage{eso-pic}          % 背景图
+\usepackage{enumitem}         % 列表定制
+\usepackage{lastpage}         % 用于计算总页数
+\usepackage{calc}             % 用于页码计算
+\usepackage{xcolor}           % 颜色支持（用于红色解析）
+
+%----------------------------------------------------------------------------------------
+%	页面设置 (A3 横向 双栏)
+%----------------------------------------------------------------------------------------
+\geometry{
+    left=40mm,      % 左侧留出装订线空间
+    right=15mm,     
+    top=20mm,       
+    bottom=25mm,    % 下边距稍微加大，给页码留空间
+    columnsep=20mm  % 中缝宽度
+}
+
+%----------------------------------------------------------------------------------------
+%	背景绘制：装订线 + 中缝线
+%----------------------------------------------------------------------------------------
+\AddToShipoutPictureBG{%
+    \begin{tikzpicture}[remember picture, overlay]
+        % 1. 左侧密封线
+        \draw[dashed, thick] ([xshift=25mm, yshift=-10mm]current page.north west) -- ([xshift=25mm, yshift=10mm]current page.south west);
+        \node[rotate=90, anchor=center, align=center, text width=20cm] at ([xshift=15mm]current page.west) {
+            \small \kaishu 
+            考生姓名\underline{\hspace{3cm}} \hspace{1cm} 
+            学号\underline{\hspace{3cm}} \hspace{1cm} 
+            \dots\dots\dots\dots 装 \dots\dots\dots\dots 订 \dots\dots\dots\dots 线 \dots\dots\dots\dots
+        };
+        % 2. 中间分隔线
+        \draw[dashed, help lines] (current page.north) -- (current page.south);
+    \end{tikzpicture}
+}
+
+%----------------------------------------------------------------------------------------
+%	页眉页脚设置
+%----------------------------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{} % 清空默认设置
+
+% --- 页眉 ---
+\fancyhead[C]{\Large\bfseries 弘仕专升本教育 2025-2026 学年高等数学课程考核试卷（含解析）}
+
+% --- 页脚 (实现左右分栏独立页码) ---
+\fancyfoot[C]{%
+    % 左栏页码容器
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        第 \the\numexpr\value{page}*2-1\relax\ 页 \ / \ 共 4 页
+    \end{minipage}%
+    \hfill 
+    % 右栏页码容器
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        第 \the\numexpr\value{page}*2\relax\ 页 \ / \ 共 4 页
+    \end{minipage}%
+}
+
+\renewcommand{\headrulewidth}{0pt}
+
+%----------------------------------------------------------------------------------------
+%	列表与表格配置
+%----------------------------------------------------------------------------------------
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, itemsep=0.5em, leftmargin=*}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	试卷抬头
+%----------------------------------------------------------------------------------------
+
+\noindent
+\textbf{试卷}：A \quad \textbf{方式}：闭卷 \quad \textbf{时间}：120 分钟 \quad
+
+\vspace{0.1cm}
+
+\begin{center}
+    \large \textbf{入营测试 -《高等数学》课程考核试卷}
+\end{center}
+
+\vspace{0.1cm}
+
+% --- 考生须知框 ---
+\begin{center}
+    \fbox{%
+        \parbox{\dimexpr 0.9\linewidth - 2\fboxsep - 2\fboxrule \relax}{
+            \centering\textbf{考生须知}
+            \begin{enumerate}[label=\arabic*., nosep, leftmargin=2em, labelsep=0.5em]
+                \small
+                % \item 考生需携带有效身份证件参加考试，无证件者须到所在学院开具证明。
+                \item 迟到 30 分钟以上者不准进入考场；考核开始 30 分钟后，考生方可交卷离场。
+                \item 禁止携带手机等与考试无关的违禁物品进入考场。
+                \item 严格遵守考核纪律，违者按学校相关规定处理。
+            \end{enumerate}
+        }%
+    }
+\end{center}
+
+\vspace{0.2cm}
+
+% --- 评分栏 ---
+\begin{center}
+    \begin{tabularx}{0.9\linewidth}{| *{6}{>{\centering\arraybackslash}X|} }
+        \hline
+        题号 & 一 & 二 & 三 & 总分 & 复核 \\
+        \hline
+        分值 & 60 & 20 & 70 & 150 & \\
+        \hline
+        得分 & & & & & \\
+        \hline
+    \end{tabularx}
+\end{center}
+
+\vspace{0.2cm}
+
+%----------------------------------------------------------------------------------------
+%	一、选择题
+%----------------------------------------------------------------------------------------
+
+\section*{一、选择题：本大题共 12 小题，每小题 5 分，共 60 分.}
+
+\begin{enumerate}
+    % Q1
+    \item 函数 $f(x) = \arcsin \frac{x+1}{2} + \frac{1}{\sqrt{x^2-1}}$ 的定义域为 ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} *{4}{X} @{}}
+        A. $[-3,-1]$ & B. $(-3,-1]$ & C. $[-3,-1)$ & D. $(-3,-1)$
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} 由 $-1 \le \frac{x+1}{2} \le 1$ 得 $-3 \le x \le 1$；由 $x^2-1 > 0$ 得 $x>1$ 或 $x<-1$。取交集得 $[-3, -1)$。选 C。}
+
+    % Q2
+    \item 当 $x \to 0$ 时，与 $x$ 等价的无穷小量是 ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} *{2}{X} @{}}
+        A. $\sqrt[3]{x} + x$ & B. $1 - e^{x^2}$ \\
+        C. $\sin x$        & D. $2(1-\cos x)$
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} 当 $x \to 0$ 时，$\sin x \sim x$；$\sqrt[3]{x}$ 阶数更低；$1-e^{x^2} \sim -x^2$；$2(1-\cos x) \sim x^2$。选 C。}
+
+    % Q3
+    \item 设 $f'(x_0)$ 存在，则下列 4 个式子中等于 $f'(x_0)$ 的是 ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} X @{}}
+        A. $\lim\limits_{n \to \infty} n \left[ f\left(x_0 - \frac{1}{n}\right) - f(x_0) \right]$ \\
+        B. $\lim\limits_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}$ \\
+        C. $\lim\limits_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0 - \Delta x)}{\Delta x}$ \\
+        D. $\lim\limits_{\Delta x \to 0} \frac{f(x_0 + 2\Delta x) - f(x_0 - 3\Delta x)}{\Delta x}$
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} 根据导数定义 $f'(x_0) = \lim_{x \to x_0} \frac{f(x)-f(x_0)}{x-x_0}$。C 选项极限为 $2f'(x_0)$，D 选项极限为 $5f'(x_0)$。选 B。}
+    % Q4
+    \item 设函数 
+    $f(x) = \begin{cases} 
+    \frac{2019}{x} \sin x + x \sin \frac{2020}{x}, & x < 0 \\
+    a - 1, & x = 0 \\
+    (1 - x)^{\frac{b}{x}}, & x > 0
+    \end{cases}$ 
+    在 $(-\infty, +\infty)$ 内连续，则 $a+b = $ ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} *{1}{X} @{}}
+        A. $2021 + \ln 2020$ \\
+        B. $2021 - \ln 2020$ \\
+        C. $2020 + \ln 2019$ \\
+        D. $2020 - \ln 2019$
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} 函数在 $x=0$ 处连续，需满足左极限、右极限与函数值相等。左极限：$\lim\limits_{x \to 0^-} f(x) = 2019 \cdot \frac{\sin x}{x} + x \sin \frac{2020}{x} = 2019$。
+    \newline 右极限：$\lim\limits_{x \to 0^+} (1-x)^{b/x} = e^{-b}$。函数值：$f(0)=a-1$。由 $a-1=2019$ 得 $a=2020$，由 $e^{-b}=2019$ 得 $b=-\ln 2019$。
+    \newline 故 $a+b = 2020 - \ln 2019$，对应选项 D。因此选 D。}
+    % Q5
+    \item 下列结论错误的是 ( \quad ) \\
+    \begin{enumerate}[label=\Alph{enumii}., leftmargin=2em]
+        \item 如果函数 $f(x)$ 在 $x=x_0$ 处连续，则 $f(x)$ 在 $x=x_0$ 处可微
+        \item 如果函数 $f(x)$ 在 $x=x_0$ 处不连续，则 $f(x)$ 在 $x=x_0$ 处不可微
+        \item 如果函数 $f(x)$ 在 $x=x_0$ 处可微，则 $f(x)$ 在 $x=x_0$ 处连续
+        \item 如果函数 $f(x)$ 在 $x=x_0$ 处不可微，则 $f(x)$ 在 $x=x_0$ 处也可能连续
+    \end{enumerate}
+    {\color{red} \footnotesize \textbf{解析：} 连续不一定可微（如 $y=|x|$ 在 $x=0$），可微必连续。故 A 错误。选 A。}
+
+    % Q6
+    \item 设函数 $f(x) = x + \frac{4}{x}$，其单调递增的区间 ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} *{2}{X} @{}}
+        A. $(-\infty,-2),(2,+\infty)$ & B. $(-2,0) \cup (0,2)$ \\
+        C. $(-\infty,0),(0,+\infty)$  & D. $(-2,0),(0,2)$
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} $f'(x) = 1 - 4/x^2 > 0 \Rightarrow x^2 > 4$，即 $x>2$ 或 $x<-2$。选 A。}
+
+    % Q7
+    \item 设函数 $f(x) = x^3 - 6x^2 + 9x + 2$ 的拐点是 ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} *{4}{X} @{}}
+        A. $(1,6)$ & B. $(2,3)$ & C. $(2,4)$ & D. $(3,2)$
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} $f'(x)=3x^2-12x+9, f''(x)=6x-12$。令 $f''(x)=0 \Rightarrow x=2$。$f(2)=8-24+18+2=4$。选 C。}
+
+    % Q8
+    \item 设 $f(x) = e^{-2x}$，则 $\int \frac{f'(\ln x)}{x} dx =$ ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} *{2}{X} @{}}
+        A. $2x + C$ & B. $-2x + C$ \\
+        C. $\frac{1}{x^2} + C$ & D. $-\frac{1}{x^2} + C$
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} 令 $u=\ln x$，原式 $= \int f'(u) du = f(u)+C = e^{-2\ln x}+C = x^{-2}+C$。选 C。}
+
+    % Q9
+    \item $\int_{-1}^{1} (|x| + \sin x \cos^2 x) dx =$ ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} *{4}{X} @{}}
+        A. $1$ & B. $2$ & C. $-1$ & D. $-2$
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} $|x|$ 为偶函数，积分 $= 2\int_0^1 x dx = 1$；$\sin x \cos^2 x$ 为奇函数，积分为0。总和为1。选 A。}
+
+    % Q10
+    \item 过点 $P_0(4,3,1)$ 且与平面 $3x+2y+5z-1=0$ 垂直的直线方程为 ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} X @{}}
+        A. $\frac{x-4}{3} = \frac{y-3}{2} = \frac{z-1}{5}$ \\
+        B. $3x+2y+5z-23=0$ \\
+        C. $\frac{x-4}{-3} = \frac{y-3}{17} = \frac{z-1}{-5}$ \\
+        D. $3x-17y+5z+34=0$
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} 直线方向向量即为平面法向量 $\vec{n}=(3,2,5)$。选 A。}
+
+    % Q11
+    \item 下列所给级数中：
+    (1) $\sum\limits_{n=1}^\infty \frac{n}{n+1}$, \quad
+    (2) $\sum\limits_{n=1}^\infty \frac{(-1)^n}{n}$, \quad
+    (3) $\sum\limits_{n=1}^\infty \ln^n 2$, \quad
+    (4) $\sum\limits_{n=1}^\infty \frac{n+1}{2^n}$ \\
+    收敛级数的个数为 ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} *{4}{X} @{}}
+        A. 1 & B. 2 & C. 3 & D. 4
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} (1)通项极限不为0，发散；(2)交错级数，收敛；(3)公比 $\ln 2 < 1$，收敛；(4)比值法极限 $1/2$，收敛。共3个。选 C。}
+
+    % Q12
+    \item 微分方程 $y' - y\sin x = e^{-\cos x}$ 的通解为 ( \quad ) \\
+    \begin{tabularx}{\linewidth}{@{} *{1}{X} @{}}
+        A. $y = e^{\cos x}(x+C)$ \\
+        B. $y = e^{-\cos x}(x+C)$ \\
+        C. $y = e^{\cos x}(-x+C)$ \\
+        D. $y = e^{-\cos x}(-x+C)$
+    \end{tabularx}
+    {\color{red} \footnotesize \textbf{解析：} 通解公式 $y=e^{\int \sin x dx}(\int e^{-\cos x}e^{-\int \sin x dx}dx + C) = e^{-\cos x}(\int 1 dx + C)$。选 B。}
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+%	二、填空题
+%----------------------------------------------------------------------------------------
+\section*{二、填空题: 每小题 5 分, 共 20 分.}
+
+\begin{enumerate}[start=13]
+    \item 设 $y = f(x)$ 满足 $\ln y + \frac{x}{y} = 1$，则 $dy = \underline{\hspace{2cm}}$. \\
+    {\color{red} \footnotesize \textbf{解析：} 两边微分：$\frac{1}{y}dy + \frac{y dx - x dy}{y^2} = 0 \Rightarrow y dy + y dx - x dy = 0 \Rightarrow (y-x)dy = -y dx \Rightarrow dy = \frac{y}{x-y}dx$。}
+    
+    \item 幂级数 $\sum\limits_{n=1}^\infty \frac{(-1)^n}{\sqrt{n}}(x-5)^n$ 的收敛域为 $\underline{\hspace{2cm}}$. \\
+    {\color{red} \footnotesize \textbf{解析：} $R=1$，区间 $(4,6)$。$x=6$ 交错级数收敛；$x=4$ p级数($p=1/2$)发散。收敛域 $(4,6]$。}
+    
+    \item 椭圆抛物面 $z = 2x^2 + 3y^2 - 5$ 在点 $(2,-1,6)$ 处的法线方程为 $\underline{\hspace{2cm}}$. \\
+    {\color{red} \footnotesize \textbf{解析：} 令 $F=2x^2+3y^2-z-5=0$，$\vec{n}=(4x,6y,-1)|_{(2,-1,6)} = (8,-6,-1)$。法线 $\frac{x-2}{8}=\frac{y+1}{-6}=\frac{z-6}{-1}$。}
+    
+    \item 定积分 $\int_{-1}^{1} (x^6 - x^2 + 2x^3\sqrt{1-x^2} + 1) dx = \underline{\hspace{2cm}}$. \\
+    {\color{red} \footnotesize \textbf{解析：} 奇函数项 $2x^3\sqrt{1-x^2}$ 积分为0。偶函数部分 $= 2\int_0^1(x^6-x^2+1)dx = 2[\frac{1}{7}-\frac{1}{3}+1] = \frac{34}{21}$。}
+\end{enumerate}
+
+% 强制换栏（从这里开始是 A3 纸的右半部分，即逻辑上的“第 2 页”）
+\newpage 
+
+%----------------------------------------------------------------------------------------
+%	三、计算题
+%----------------------------------------------------------------------------------------
+\section*{三、计算题：共 70 分. 须写出计算过程.}
+
+\begin{enumerate}[start=17]
+    % Q17
+    \item (5分) 求极限 $\lim\limits_{x \to 0} \frac{e^x - e^{-x} - 2x}{x - \sin x}$. \\
+    {\color{red} \small \textbf{解析：} 
+    原式属 $\frac{0}{0}$ 型，应用洛必达法则：
+    $$ = \lim_{x\to 0} \frac{e^x + e^{-x} - 2}{1 - \cos x} \quad (\text{仍为 } \frac{0}{0}) $$
+    $$ = \lim_{x\to 0} \frac{e^x - e^{-x}}{\sin x} \quad (\text{仍为 } \frac{0}{0}) $$
+    $$ = \lim_{x\to 0} \frac{e^x + e^{-x}}{\cos x} = \frac{1+1}{1} = 2 $$
+    }
+    \vspace{2cm}
+
+    % Q18
+    \item (10分) 求不定积分 $\int x \tan^2 x \, dx$. \\
+    {\color{red} \small \textbf{解析：} 
+    利用 $\tan^2 x = \sec^2 x - 1$：
+    $$ \int x(\sec^2 x - 1)dx = \int x d(\tan x) - \int x dx $$
+    $$ = x \tan x - \int \tan x dx - \frac{1}{2}x^2 \quad (\text{分部积分}) $$
+    $$ = x \tan x + \ln|\cos x| - \frac{1}{2}x^2 + C $$
+    }
+    \vspace{2cm}
+
+    % Q19
+    \item (15分) 设 $z = x^2 f\left(\frac{y}{x}, x+y\right)$，其中 $f$ 具有连续的二阶偏导数，求 $\frac{\partial z}{\partial x}, \frac{\partial^2 z}{\partial x \partial y}$. \\
+    {\color{red} \small \textbf{解析：} 
+    设 $u = \frac{y}{x}, v = x+y$。
+    $$ \frac{\partial z}{\partial x} = 2xf + x^2[f_1'(-\frac{y}{x^2}) + f_2' \cdot 1] = 2xf - yf_1' + x^2f_2' $$
+    $$ \frac{\partial^2 z}{\partial x \partial y} = \frac{\partial}{\partial y}(2xf - yf_1' + x^2f_2') $$
+    $$ = 2x(f_1'\frac{1}{x} + f_2') - [f_1' + y(f_{11}''\frac{1}{x} + f_{12}'')] + x^2(f_{21}''\frac{1}{x} + f_{22}'') $$
+    整理得：$f_1' + 2xf_2' - \frac{y}{x}f_{11}'' + (x-y)f_{12}'' + x^2f_{22}''$ (假定 $f_{12}''=f_{21}''$)。
+    }
+    \vspace{3cm}
+
+    % Q20
+    \item (10分) 求微分方程 $y' + 2xy = 4x$ 满足 $y|_{x=0} = 1$ 时的特解. \\
+    {\color{red} \small \textbf{解析：} 
+    一阶线性微分方程，积分因子 $e^{\int 2x dx} = e^{x^2}$。
+    \newline 通解 $y = e^{-x^2}(\int 4x e^{x^2} dx + C) = e^{-x^2}(2e^{x^2} + C) = 2 + Ce^{-x^2}$。
+    \newline 代入初始条件 $y(0)=1 \Rightarrow 1 = 2 + C \Rightarrow C = -1$。
+    \newline 特解为 $y = 2 - e^{-x^2}$。
+    }
+    \vspace{3cm}
+
+% Q21 (高颜值配图版)
+    \item (15分) 计算二重积分 $\iint_{D} (a - \sqrt{x^2+y^2}) \, d\sigma$，其中积分区域 $D$ 由 $x^2 + y^2 = a^2 \, (a > 0)$ 所围成. \\
+    {\color{red} 
+    \begin{minipage}[t]{0.55\linewidth} % 文字部分
+        \small \textbf{解析：} \\
+        \textbf{1. 几何意义分析：} \\
+        被积函数 $z = a - \sqrt{x^2+y^2}$ 表示顶点在 $(0,0,a)$，底面在 $xOy$ 平面上的圆锥面。该积分本质上是在计算此圆锥体的体积。
+        
+        \textbf{2. 极坐标计算：} \\
+        积分区域 $D$ 为圆域，使用极坐标变换：
+        $$ \begin{cases} x = r\cos\theta \\ y = r\sin\theta \end{cases} $$
+        区域 $D$ 的范围：$0 \le r \le a, \quad 0 \le \theta \le 2\pi$。
+        \begin{align*}
+            \text{原式} &= \int_0^{2\pi} d\theta \int_0^a (a - r) \cdot r \, dr \\
+            &= 2\pi \int_0^a (ar - r^2) dr \\
+            &= 2\pi \left[ \frac{1}{2}ar^2 - \frac{1}{3}r^3 \right]_0^a \\
+            &= 2\pi \left( \frac{a^3}{2} - \frac{a^3}{3} \right) = \frac{\pi a^3}{3}
+        \end{align*}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.4\linewidth} % 绘图部分
+        \centering
+        \vspace{0pt}
+        % --- 图1：积分区域 D (精细版) ---
+        \begin{tikzpicture}[>=stealth, scale=0.8]
+            % 填充区域
+            \fill[cyan!10] (0,0) circle (1.5);
+            
+            % 坐标轴
+            \draw[->, thick] (-2,0) -- (2.2,0) node[right] {$x$};
+            \draw[->, thick] (0,-2) -- (0,2.2) node[above] {$y$};
+            
+            % 圆周
+            \draw[thick, blue!80!black] (0,0) circle (1.5);
+            
+            % 标注刻度 a 和 -a
+            \draw (1.5, 0.1) -- (1.5, -0.1) node[below=2pt] {\footnotesize $a$};
+            \draw (-1.5, 0.1) -- (-1.5, -0.1) node[below=2pt] {\footnotesize $-a$};
+            \draw (0.1, 1.5) -- (-0.1, 1.5) node[left=2pt] {\footnotesize $a$};
+            
+            % 标签
+            \node[below left] at (0,0) {\footnotesize $O$};
+            \node[blue!80!black] at (0.6, 0.6) {\textbf{\textit{D}}};
+            \node[below=0.5cm] at (0,-2) {\footnotesize \textbf{图1：积分区域}};
+        \end{tikzpicture}
+        
+        \vspace{0.5cm}
+    \end{minipage}
+    }
+    \vspace{4cm}
+
+    % Q22
+    \item (15分) 要制作一个体积为 $576 \, \text{cm}^3$ 的长方体带盖的盒子，其底面长宽之比为 $2:1$，问长、宽、高各取何值时，才能使盒子的表面积最小？ \\
+    {\color{red} \small \textbf{解析：} 
+    设宽为 $x$，则长为 $2x$，高为 $h$。
+    体积 $V = 2x \cdot x \cdot h = 2x^2h = 576 \Rightarrow h = \frac{288}{x^2}$。
+    \newline
+    表面积 $S = 2(2x^2 + 2xh + xh) = 4x^2 + 6xh = 4x^2 + \frac{1728}
+    {x}$。
+    \newline
+    求导：$S' = 8x - \frac{1728}{x^2}$。令 $S'=0$ 得 $8x^3 = 1728 \Rightarrow x^3 = 216 \Rightarrow x = 6$。
+    \newline
+    此时长 $12$，高 $h = \frac{288}{36} = 8$。
+    答：长12cm，宽6cm，高8cm时表面积最小。
+    }
+    \vspace{4cm}
+\end{enumerate}
+
+\end{document}

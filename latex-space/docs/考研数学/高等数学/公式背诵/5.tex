@@ -1,0 +1,215 @@
+\documentclass[a4paper,12pt]{ctexart}
+
+% ------------------- 宏包引入 -------------------
+\usepackage{geometry}           % 页面布局
+\usepackage{amsmath, amssymb}   % 数学公式与符号
+\usepackage{graphicx}           % 图片支持
+\usepackage{xcolor}             % 颜色支持
+\usepackage{float}              % 浮动体控制
+\usepackage{enumitem}           % 列表定制
+\usepackage{tcolorbox}          % 彩色文本框
+\usepackage{tikz}               % 绘图
+\usetikzlibrary{patterns}       % TikZ 填充图案
+
+% ------------------- 页面设置 -------------------
+\geometry{left=2.0cm, right=2.0cm, top=2.5cm, bottom=2.5cm}
+\linespread{1.5} % 行间距 1.5 倍
+
+% ------------------- 颜色定义 -------------------
+\definecolor{boxpurple}{RGB}{128, 0, 128}
+\definecolor{notepurple}{RGB}{230, 230, 250}
+\definecolor{highlightred}{RGB}{200, 30, 30}
+\definecolor{myblue}{RGB}{0, 114, 189}
+
+% ------------------- 自定义环境 -------------------
+
+% 紫色定义框：用于定理、定义
+\newenvironment{purplebox}
+  {\begin{tcolorbox}[colback=white, colframe=boxpurple, boxrule=1pt, sharp corners, title=\textbf{定义/定理}]}
+  {\end{tcolorbox}}
+
+% 红色手写笔记框：用于技巧、补充
+\newenvironment{rednote}
+  {\begin{tcolorbox}[colback=notepurple, colframe=highlightred, boxrule=1pt, title=\textbf{易错点/技巧}]}
+  {\end{tcolorbox}}
+
+% ------------------- 文档信息 -------------------
+\title{\textbf{考研数学 - 高数总结 (二重积分)}}
+\author{复习笔记}
+\date{\today}
+
+% ------------------- 正文开始 -------------------
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{二重积分的性质}
+
+\subsection{基本性质}
+\begin{enumerate}
+    \item \textbf{线性性质：} $\iint_D [k_1 f(x,y) + k_2 g(x,y)] d\sigma = k_1 \iint_D f(x,y) d\sigma + k_2 \iint_D g(x,y) d\sigma$。
+    \item \textbf{积分区域的可加性：} 若闭区域 $D$ 被分割为两个不重叠的区域 $D_1$ 和 $D_2$ ($D = D_1 \cup D_2$)，则
+    \[ \iint_D f(x,y) d\sigma = \iint_{D_1} f(x,y) d\sigma + \iint_{D_2} f(x,y) d\sigma \]
+    \item \textbf{面积的计算：} $\iint_D 1 d\sigma = S_D$，其中 $S_D$ 表示区域 $D$ 的面积。
+    \item \textbf{保序性（估值定理）：} 
+    \begin{itemize}
+        \item 若在 $D$ 上 $f(x,y) \le g(x,y)$，则 $\iint_D f(x,y) d\sigma \le \iint_D g(x,y) d\sigma$。
+        \item 特别地：$|\iint_D f(x,y) d\sigma| \le \iint_D |f(x,y)| d\sigma$。
+        \item 若 $m \le f(x,y) \le M$，则 $m S_D \le \iint_D f(x,y) d\sigma \le M S_D$。
+    \end{itemize}
+\end{enumerate}
+
+\begin{purplebox}
+    \textbf{二重积分中值定理：} \\
+    设 $f(x,y)$ 在有界闭区域 $D$ 上连续，$S_D$ 为区域面积，则在 $D$ 上至少存在一点 $(\xi, \eta)$，使得：
+    \[ \iint_D f(x,y) d\sigma = f(\xi, \eta) \cdot S_D \]
+\end{purplebox}
+
+\subsection{二重积分的对称性 (核心考点)}
+
+\begin{rednote}
+    \textbf{技巧：} 对称性判定遵循“区域对称 + 函数奇偶”。
+    \begin{itemize}
+        \item 先看区域 $D$ 关于谁对称。
+        \item 再看被积函数关于对应变量的奇偶性。
+    \end{itemize}
+\end{rednote}
+
+\subsubsection{1. 普通对称性 (奇偶对称)}
+\begin{enumerate}
+    \item \textbf{关于 $y$ 轴对称：} 若积分区域 $D$ 关于 $y$ 轴对称（即 $(x,y) \in D \Leftrightarrow (-x,y) \in D$）：
+    \[ \iint_D f(x,y) d\sigma = \begin{cases} 2 \iint_{D_{\text{右}}} f(x,y) d\sigma, & \text{若 } f(-x,y) = f(x,y) \text{ (关于 } x \text{ 为偶)} \\ 0, & \text{若 } f(-x,y) = -f(x,y) \text{ (关于 } x \text{ 为奇)} \end{cases} \]
+    
+    \item \textbf{关于 $x$ 轴对称：} 若积分区域 $D$ 关于 $x$ 轴对称：
+    \[ \iint_D f(x,y) d\sigma = \begin{cases} 2 \iint_{D_{\text{上}}} f(x,y) d\sigma, & \text{若 } f(x,-y) = f(x,y) \text{ (关于 } y \text{ 为偶)} \\ 0, & \text{若 } f(x,-y) = -f(x,y) \text{ (关于 } y \text{ 为奇)} \end{cases} \]
+\end{enumerate}
+
+\subsubsection{2. 轮换对称性}
+若积分区域 $D$ 关于直线 $y=x$ 对称，则 $x, y$ 地位等同，可互换：
+\[ \iint_D f(x,y) dxdy = \iint_D f(y,x) dxdy \]
+\textbf{推论：} $\iint_D f(x) dxdy = \iint_D f(y) dxdy$。
+
+\section{计算方法与技巧}
+
+\subsection{直角坐标与极坐标的计算}
+\begin{enumerate}
+    \item \textbf{直角坐标系 (X型与Y型)：}
+    \begin{itemize}
+        \item X型区域（穿针引线法，先y后x）：$\int_a^b dx \int_{\varphi_1(x)}^{\varphi_2(x)} f(x,y) dy$
+        \item Y型区域（先x后y）：$\int_c^d dy \int_{\psi_1(y)}^{\psi_2(y)} f(x,y) dx$
+    \end{itemize}
+    \item \textbf{极坐标系：}
+    \begin{itemize}
+        \item 变换公式：$x = r\cos\theta, \quad y = r\sin\theta, \quad dxdy = r dr d\theta$。
+        \item 核心：$\iint_D f(x,y) dxdy = \int_\alpha^\beta d\theta \int_{r_1(\theta)}^{r_2(\theta)} f(r\cos\theta, r\sin\theta) \cdot r dr$。
+        \item \textbf{注意：} 不要漏掉极径 $r$！
+    \end{itemize}
+\end{enumerate}
+
+\subsection{极坐标交换积分次序 (难点)}
+\textbf{例题模型：} 交换积分次序 $I = \int_{-\frac{\pi}{4}}^{\frac{\pi}{2}} d\theta \int_0^{2a\cos\theta} f(r) r dr$。
+
+\textbf{分析：}
+1. $r = 2a\cos\theta$ 是一个圆心在 $(a,0)$，半径为 $a$ 的圆。
+2. 积分区域覆盖了圆的一部分（角度从 $-\pi/4$ 到 $\pi/2$）。
+3. 交换次序意味着先积 $r$，再积 $\theta$ $\to$ 先积 $\theta$ (看作常数 $r$)，再积 $r$。
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    % 坐标轴
+    \draw[->] (-1,0) -- (3,0) node[right] {$x$};
+    \draw[->] (0,-1.5) -- (0,2.5) node[above] {$y$};
+    
+    % 圆 r = 2a cos(theta) => (x-a)^2 + y^2 = a^2
+    \draw[thick, blue] (1,0) circle (1);
+    \node at (2.2, 0.8) {$r=2a\cos\theta$};
+    
+    % 射线
+    \draw[dashed] (0,0) -- (2, -2) node[right] {$\theta = -\frac{\pi}{4}$};
+    \draw[dashed] (0,0) -- (0, 2) node[above left] {$\theta = \frac{\pi}{2}$};
+    
+    % 辅助线
+    \draw[red, thick] (0,0) -- (1.414, -1.414); % r = sqrt(2)a at -pi/4?? No, r=2a*cos(-pi/4) = 2a * sqrt(2)/2 = sqrt(2)a
+    \node at (1.6, -1.2) {交点 $r=\sqrt{2}a$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{结果：} 需分段积分。
+\[ I = \int_0^{\sqrt{2}a} r dr \int_{-\frac{\pi}{4}}^{\frac{\pi}{2}} f(r) d\theta + \int_{\sqrt{2}a}^{2a} r dr \int_{-\arccos\frac{r}{2a}}^{\arccos\frac{r}{2a}} f(r) d\theta \]
+*(注：具体上下限需根据原题区域的精确范围确定，此处仅展示分段思路)*
+
+\subsection{常用质心与形心公式}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{2.0}
+\begin{tabular}{|c|c|c|}
+\hline
+& \textbf{质心 (考虑密度 $\rho$)} & \textbf{形心 (几何中心, $\rho=1$)} \\ 
+\hline
+\textbf{细棒 (一重积分)} & $\bar{x} = \frac{\int_a^b x \rho(x) dx}{\int_a^b \rho(x) dx}$ & $\bar{x} = \frac{a+b}{2}$ \\ 
+\hline
+\textbf{平面薄板 (二重积分)} & $\bar{x} = \frac{\iint_D x \rho(x,y) d\sigma}{\iint_D \rho(x,y) d\sigma}$ & $\bar{x} = \frac{\iint_D x d\sigma}{S_D}, \quad \bar{y} = \frac{\iint_D y d\sigma}{S_D}$ \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\section{二重积分的技巧与反三角函数}
+
+\subsection{常见反函数区间}
+在确定积分限时，常遇到三角函数的反函数：
+\begin{itemize}
+    \item \textbf{$y = \sin x$} ($x \in [0, 2\pi]$):
+    \begin{itemize}
+        \item $x \in [0, \frac{\pi}{2}]$: $x = \arcsin y$
+        \item $x \in [\frac{\pi}{2}, \frac{3\pi}{2}]$: $x = \pi - \arcsin y$
+        \item $x \in [\frac{3\pi}{2}, 2\pi]$: $x = 2\pi + \arcsin y$
+    \end{itemize}
+    \item \textbf{$y = \cos x$}: 根据象限判定符号，通常 $x = \arccos y$ 或 $2\pi - \arccos y$。
+\end{itemize}
+
+\subsection{常见二次曲面与平面曲线}
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+    % 圆
+    \draw[thick, blue] (0,0) circle (1.5);
+    \node at (0,-2) {圆: $x^2 + y^2 = r^2$};
+    
+    % 椭圆
+    \draw[thick, red] (5,0) ellipse (2 and 1.2);
+    \node at (5,-2) {椭圆: $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$};
+    
+    % 抛物线
+    \draw[thick, green] (9,-1) plot[domain=-1.5:1.5] (\x, {\x*\x});
+    \node at (9,-2) {抛物线: $y = x^2$};
+    
+    % 双曲线
+    \draw[thick, purple] (13,-1) plot[domain=-1:1] ({cosh(\x)}, {sinh(\x)});
+    \draw[thick, purple] (13,-1) plot[domain=-1:1] ({-cosh(\x)}, {sinh(\x)});
+    \node at (13,-2) {双曲线: $x^2 - y^2 = 1$};
+\end{tikzpicture}
+\end{center}
+
+\section{二重积分计算总结}
+
+\begin{rednote}
+    \textbf{做题四步法：}
+    \begin{enumerate}
+        \item \textbf{画图：} 准确画出积分区域 $D$。
+        \item \textbf{定系：} 观察区域形状和被积函数。
+        \begin{itemize}
+            \item 圆形、扇形、或 $x^2+y^2$ 形式 $\to$ \textbf{极坐标}。
+            \item 矩形、平行四边形或简单函数 $\to$ \textbf{直角坐标}。
+        \end{itemize}
+        \item \textbf{对称性：} 优先使用奇偶对称性和轮换对称性简化（如奇函数积分为0）。
+        \item \textbf{定序：}
+        \begin{itemize}
+            \item “后积先定限，限内画条线，先交下限写，后交上限见”。
+            \item 注意：二次积分的下限必须小于上限！如果转化后不满足，需调整并变号。
+        \end{itemize}
+    \end{enumerate}
+\end{rednote}
+
+\end{document}

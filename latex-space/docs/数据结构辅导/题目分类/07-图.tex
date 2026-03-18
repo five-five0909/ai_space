@@ -1,0 +1,606 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据结构习题集}
+\lhead{分类整理}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{第七章 图}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 在一个图中，所有顶点的度数之和等于所有边数的（ ）倍。
+	      \begin{enumerate}
+		      \item[A.] 1/2
+		      \item[B.] 1
+		      \item[C.] 2
+		      \item[D.] 4
+	      \end{enumerate}
+
+	\item 在一个有向图中，所有顶点的入度之和等于所有顶点的出度之和的（ ）倍。
+	      \begin{enumerate}
+		      \item[A.] 1/2
+		      \item[B.] 1
+		      \item[C.] 2
+		      \item[D.] 4
+	      \end{enumerate}
+
+	\item 在一个无向图中，所有顶点的度数之和等于所有边数的（ ）倍。
+	      \begin{enumerate}
+		      \item[A.] $1/2$
+		      \item[B.] 1
+		      \item[C.] 2
+		      \item[D.] 4
+	      \end{enumerate}
+
+	\item 一个有 n 个顶点的无向图最多有（ ）条边。
+	      \begin{enumerate}
+		      \item[A.] $n$
+		      \item[B.] $n(n-1)$
+		      \item[C.] $n(n-1)/2$
+		      \item[D.] $2n$
+	      \end{enumerate}
+
+	\item 具有 4 个顶点的无向完全图有（ ）条边。
+	      \begin{enumerate}
+		      \item[A.] 6
+		      \item[B.] 12
+		      \item[C.] 16
+		      \item[D.] 20
+	      \end{enumerate}
+
+	\item 具有 6 个顶点的无向图至少应有（ ）条边才能确保是一个连通图。
+	      \begin{enumerate}
+		      \item[A.] 5
+		      \item[B.] 6
+		      \item[C.] 7
+		      \item[D.] 8
+	      \end{enumerate}
+
+	\item 在一个具有 n 个顶点的无向图中，要连通全部顶点至少需要（ ）条边。
+	      \begin{enumerate}
+		      \item[A.] $n$
+		      \item[B.] $n+1$
+		      \item[C.] $n-1$
+		      \item[D.] $n/2$
+	      \end{enumerate}
+
+	\item 具有 n 个结点的连通图至少有（ ）条边。
+	      \begin{enumerate}
+		      \item[A.] $n-1$
+		      \item[B.] $n$
+		      \item[C.] $n(n-1)/2$
+		      \item[D.] $2n$
+	      \end{enumerate}
+
+	\item 有 8 个结点的无向连通图最少有（ ）条边。
+	      \begin{enumerate}
+		      \item[A.] 5
+		      \item[B.] 6
+		      \item[C.] 7
+		      \item[D.] 8
+	      \end{enumerate}
+
+	\item 对于一个具有 n 个顶点的无向图，若采用邻接矩阵表示，则该矩阵的大小是（ ）
+	      \begin{enumerate}
+		      \item[A.] $n$
+		      \item[B.] $(n-1)*(n-1)$
+		      \item[C.] $n-1$
+		      \item[D.] $n^2$
+	      \end{enumerate}
+
+	\item 对于一个具有 n 个顶点和 e 条边的无向图，若采用邻接表表示，则表头向量的大小为（①），邻接表中的结点总数是（②）。
+	      \begin{enumerate}
+		      \item[①] A. $n$ \quad B. $n+1$ \quad C. $n-1$ \quad D. $n+e$
+		      \item[②] A. $e/2$ \quad B. $e$ \quad C. $2e$ \quad D. $n+e$
+	      \end{enumerate}
+
+	\item 对某个无向图的邻接矩阵来说，（ ）
+	      \begin{enumerate}
+		      \item[A.] 第 i 行上的非零元素个数和第 i 列上的非零元素个数一定相等
+		      \item[B.] 矩阵中的非零元素个数等于图中的边数
+		      \item[C.] 在第 i 行，第 i 列上非零元素总数等于顶点 $v_i$ 的度数
+		      \item[D.] 矩阵中非全零行的行数等于图中的顶点数
+	      \end{enumerate}
+
+	\item 任何一个无向连通图的最小生成树（ ）
+	      \begin{enumerate}
+		      \item[A.] 有一棵或多棵
+		      \item[B.] 只有一棵
+		      \item[C.] 一定有多棵
+		      \item[D.] 可能不存在
+	      \end{enumerate}
+
+	\item 以下说法中不正确的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 无向图中的极大连通子图称为连通分量
+		      \item[B.] 连通图的广度优先搜索中一般要采用队列来暂存刚访问过的顶点
+		      \item[C.] 图的深度优先搜索中一般要采用栈来暂存刚访问过的顶点
+		      \item[D.] 有向图的遍历不可采用广度优先搜索方法
+	      \end{enumerate}
+
+	\item 判定一个有向图是否存在回路除了可以利用拓扑排序法外，还可以用（ ）
+	      \begin{enumerate}
+		      \item[A.] 求关键路径的方法
+		      \item[B.] 求最短路径的方法
+		      \item[C.] 广度优先遍历法
+		      \item[D.] 深度优先遍历
+	      \end{enumerate}
+
+	\item 关键路径是事件结点网络中（ ）
+	      \begin{enumerate}
+		      \item[A.] 从源点到汇点的最长路径
+		      \item[B.] 从源点到汇点的最短路径
+		      \item[C.] 最长的回路
+		      \item[D.] 最短的回路
+	      \end{enumerate}
+
+	\item 下面不正确的说法是（ ）
+	      \begin{enumerate}
+		      \item[(1)] 在 AOE 网中，减小任一关键活动上的权值后，整个工期也就相应减小
+		      \item[(2)] AOE 网工程工期为关键活动上的权之和
+		      \item[(3)] 在关键路径上的活动都是关键活动，而关键活动也必须在关键路径上
+		      \item[A.] (1)
+		      \item[B.] (2)
+		      \item[C.] (3)
+		      \item[D.] (1) (2)
+	      \end{enumerate}
+
+	\item 下面不正确的说法是（ ）
+	      \begin{enumerate}
+		      \item[A.] 关键活动不按期完成就会影响整个工程的完成时间
+		      \item[B.] 任何一个关键活动提前完成，将使整个工程提前完成
+		      \item[C.] 所有关键活动都提前完成，则整个工程提前完成
+		      \item[D.] 某些关键活动若提前完成，将可能使整个工程提前完成
+	      \end{enumerate}
+
+	\item 图中有关路径的定义是（ ）
+	      \begin{enumerate}
+		      \item[A.] 由顶点和相邻顶点序偶构成的边所形成的序列
+		      \item[B.] 由不同顶点所形成的序列
+		      \item[C.] 由不同边所形成的序列
+		      \item[D.] 上述定义都不是
+	      \end{enumerate}
+
+	\item 一个有 n 个结点的图，最少有（ ）个连通分量，最多有（ ）个连通分量。
+	      \begin{enumerate}
+		      \item[A.] 0
+		      \item[B.] 1
+		      \item[C.] $n-1$
+		      \item[D.] $n$
+	      \end{enumerate}
+
+	\item 下面结构中最适于表示稀疏无向图的是（ ），适于表示稀疏有向图的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 邻接矩阵
+		      \item[B.] 逆邻接表
+		      \item[C.] 邻接多重表
+		      \item[D.] 十字链表
+		      \item[E.] 邻接表
+	      \end{enumerate}
+
+	\item 下列哪一种图的邻接矩阵是对称矩阵？（ ）
+	      \begin{enumerate}
+		      \item[A.] 有向图
+		      \item[B.] 无向图
+		      \item[C.] AOV 网
+		      \item[D.] AOE 网
+	      \end{enumerate}
+
+	\item 下列说法不正确的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 图的遍历是从给定的源点出发每一个顶点仅被访问一次
+		      \item[B.] 遍历的基本算法有两种：深度遍历和广度遍历
+		      \item[C.] 图的深度遍历不适用于有向图
+		      \item[D.] 图的深度遍历是个递归过程
+	      \end{enumerate}
+
+	\item 已知有向图 $G=(V,E)$，其中 $V=\{V_1, V_2, V_3, V_4, V_5, V_6, V_7\}$，$E=\{<V_1, V_2>, <V_1, V_3>, <V_1, V_4>, <V_2, V_5>, <V_3, V_5>, <V_3, V_6>, <V_4, V_6>, <V_5, V_7>, <V_6, V_7>\}$，G 的拓扑序列是（ ）
+	      \begin{enumerate}
+		      \item[A.] $V_1, V_3, V_4, V_6, V_2, V_5, V_7$
+		      \item[B.] $V_1, V_3, V_2, V_6, V_4, V_5, V_7$
+		      \item[C.] $V_1, V_3, V_4, V_5, V_2, V_6, V_7$
+		      \item[D.] $V_1, V_2, V_5, V_3, V_4, V_6, V_7$
+	      \end{enumerate}
+
+	\item 一个有向无环图的拓扑排序序列（ ）是唯一的。
+	      \begin{enumerate}
+		      \item[A.] 一定
+		      \item[B.] 不一定
+	      \end{enumerate}
+
+	\item 在有向图 G 的拓扑序列中，若顶点 $V_i$ 在顶点 $V_j$ 之前，则下列情形不可能出现的是（ ）
+	      \begin{enumerate}
+		      \item[A.] G 中有弧 $<V_i, V_j>$
+		      \item[B.] G 中有一条从 $V_i$ 到 $V_j$ 的路径
+		      \item[C.] G 中没有弧 $<V_i, V_j>$
+		      \item[D.] G 中有一条从 $V_j$ 到 $V_i$ 的路径
+	      \end{enumerate}
+
+	\item m 个顶点的无向完全图有（ ）个边。
+	      \begin{enumerate}
+		      \item[A.] $m(m-1)/2$
+		      \item[B.] $m(m-1)$
+		      \item[C.] $m^2$
+		      \item[D.] $2m$
+	      \end{enumerate}
+
+	\item n 个顶点的无向连通网的最小生成树，至少有（ ）个边。
+	      \begin{enumerate}
+		      \item[A.] $n$
+		      \item[B.] $(n-1)/2$
+		      \item[C.] $n-1$
+		      \item[D.] $n(n-1)/2$
+	      \end{enumerate}
+
+	\item m 个顶点的连通无向图，至少有（ ）个边。
+	      \begin{enumerate}
+		      \item[A.] $m$
+		      \item[B.] $m(m-1)/2$
+		      \item[C.] $m-1$
+		      \item[D.] $m(m-1)$
+	      \end{enumerate}
+
+	\item 采用邻接表存储的图的深度优先遍历算法类似于二叉树的（ ）
+	      \begin{enumerate}
+		      \item[A.] 先序遍历
+		      \item[B.] 中序遍历
+		      \item[C.] 后序遍历
+		      \item[D.] 按层遍历
+	      \end{enumerate}
+
+	\item 采用邻接表存储的图的广度优先遍历算法类似于二叉树的（ ）
+	      \begin{enumerate}
+		      \item[A.] 先序遍历
+		      \item[B.] 中序遍历
+		      \item[C.] 后序遍历
+		      \item[D.] 按层遍历
+	      \end{enumerate}
+
+	\item 已知一个图，如图所示，若从顶点 a 出发按深度搜索法进行遍历，则可能得到的一种顶点序列为（ ）；按广度搜索法进行遍历，则可能得到的一种顶点序列为（ ）
+	      \begin{enumerate}
+		      \item[(1)]
+		      \item a, b, e, c, d, f
+		      \item a, c, f, e, b, d
+		      \item a, e, b, c, f, d
+		      \item a, e, d, f, c, b
+		      \item[(2)]
+		      \item a, b, c, e, d, f
+		      \item a, b, c, e, f, d
+		      \item a, e, b, c, f, d
+		      \item a, c, f, d, e, b
+	      \end{enumerate}
+
+	\item 下面叙述错误的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 在无向图的邻接矩阵中每行 1 的个数等于对应的顶点度
+		      \item[B.] 借助于队列可以实现对二叉树的层遍历
+		      \item[C.] 对于单链表进行插入操作过程中不会发生上溢现象
+		      \item[D.] 栈的特点是先进后出
+	      \end{enumerate}
+
+	\item 下面叙述错误的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 有向图的邻接矩阵一定是对称的
+		      \item[B.] 具有相同的叶子个数和具有相同的叶子权值的赫夫曼树不是唯一的
+		      \item[C.] 顺序表是借助物理单元相邻表示数据元素之间的逻辑关系
+		      \item[D.] 对于空队列进行出队操作过程中发生下溢现象
+	      \end{enumerate}
+
+	\item 在 n 个顶点的无向图中，若边数 $>n-1$，则该图必是连通图，此断言是（ ）的。
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 图的深度优先搜索序列和广度优先搜索序列不是惟一的，此断言是（ ）的。
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 若一个有向图的邻接矩阵中对角线以下元素均为零，则该图的拓扑有序序列必定存在，此断言是（ ）的。
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 强连通图的各顶点间均可达。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 对于任意一个图，从它的某个结点进行一次深度或广度优先遍历可以访问到该图的每个顶点。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 拓扑排序是按 AOE 网中每个结点事件的最早发生时间对结点进行排序。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 如果含 n 个顶点的图形成一个环，则它有（ ）棵生成树。
+	      \begin{enumerate}
+		      \item[A.] n
+		      \item[B.] n-1
+		      \item[C.] n+1
+		      \item[D.] 1
+	      \end{enumerate}
+
+	\item 对 n 个顶点的连通图来说，它的生成树一定有（ ）条边。
+	      \begin{enumerate}
+		      \item[A.] n
+		      \item[B.] n-1
+		      \item[C.] n+1
+		      \item[D.] 2n
+	      \end{enumerate}
+
+	\item 设图 G 有 n 个顶点和 e 条边，采用邻接矩阵存储，则拓扑排序算法的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n)$
+		      \item[B.] $O(n+e)$
+		      \item[C.] $O(n^2)$
+		      \item[D.] $O(e)$
+	      \end{enumerate}
+
+	\item 在 n 个顶点的无向图中，若边数 $>n-1$，则该图必是连通图。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item n 个顶点的连通图至少（ ）条边。
+	      \begin{enumerate}
+		      \item[A.] n-1
+		      \item[B.] n
+		      \item[C.] n+1
+		      \item[D.] 2n
+	      \end{enumerate}
+
+	\item 在无向图 G 的邻接矩阵 A 中，若 $A[i][j]=1$，则 $A[j][i]=$（ ）
+	      \begin{enumerate}
+		      \item[A.] 0
+		      \item[B.] 1
+		      \item[C.] 2
+		      \item[D.] 不确定
+	      \end{enumerate}
+
+	\item 一个图的（ ）表示法是惟一的，而（ ）表示法是不惟一的。
+	      \begin{enumerate}
+		      \item[A.] 邻接矩阵 邻接表
+		      \item[B.] 邻接表 邻接矩阵
+		      \item[C.] 十字链表 邻接表
+		      \item[D.] 邻接多重表 邻接表
+	      \end{enumerate}
+
+	\item G 是一个非连通无向图，共有 28 条边，则该图至少有（ ）个顶点。
+	      \begin{enumerate}
+		      \item[A.] 6
+		      \item[B.] 7
+		      \item[C.] 8
+		      \item[D.] 9
+	      \end{enumerate}
+
+	\item 具有 10 个顶点的无向图，边的总数最多为（ ）
+	      \begin{enumerate}
+		      \item[A.] 45
+		      \item[B.] 50
+		      \item[C.] 55
+		      \item[D.] 60
+	      \end{enumerate}
+
+	\item 在有 n 个顶点的有向图中，每个顶点的度最大可达（ ）
+	      \begin{enumerate}
+		      \item[A.] n-1
+		      \item[B.] n
+		      \item[C.] 2(n-1)
+		      \item[D.] 2n
+	      \end{enumerate}
+
+	\item 有向图 G 的强连通分量是指（ ）
+	      \begin{enumerate}
+		      \item[A.] 多个顶点之间相互可达
+		      \item[B.] 极大强连通子图
+		      \item[C.] 极小强连通子图
+		      \item[D.] 连通分量
+	      \end{enumerate}
+
+	\item 一个连通图的（ ）是一个极小连通子图。
+	      \begin{enumerate}
+		      \item[A.] 最小生成树
+		      \item[B.] 生成树
+		      \item[C.] 强连通分量
+		      \item[D.] 关键路径
+	      \end{enumerate}
+
+	\item 在有 n 个顶点的有向图中，若要使任意两点间可以互相到达，则至少需要（ ）条弧。
+	      \begin{enumerate}
+		      \item[A.] n
+		      \item[B.] n-1
+		      \item[C.] n(n-1)
+		      \item[D.] n(n-1)/2
+	      \end{enumerate}
+
+	\item Prim（普里姆）算法适用于求（ ）的网的最小生成树；Kruskal（克鲁斯卡尔）算法适用于求（ ）的网的最小生成树。
+	      \begin{enumerate}
+		      \item[A.] 稠密图 稀疏图
+		      \item[B.] 稀疏图 稠密图
+		      \item[C.] 稠密图 稠密图
+		      \item[D.] 稀疏图 稀疏图
+	      \end{enumerate}
+
+	\item AOV 网中，结点表示（ ），边表示（ ）。AOE 网中，结点表示（ ），边表示（ ）
+	      \begin{enumerate}
+		      \item[A.] 活动 活动之间的制约关系 事件 活动
+		      \item[B.] 事件 活动 活动 事件
+		      \item[C.] 活动 事件 事件 活动
+		      \item[D.] 事件 活动之间的制约关系 事件 活动
+	      \end{enumerate}
+
+	\item 在 AOE 网中，从源点到汇点路径上各活动时间总和最长的路径称为（ ）
+	      \begin{enumerate}
+		      \item[A.] 关键路径
+		      \item[B.] 最短路径
+		      \item[C.] 最小生成树
+		      \item[D.] 拓扑排序
+	      \end{enumerate}
+
+	\item 右图中的强连通分量的个数为（ ）个。
+	      \begin{enumerate}
+		      \item[A.] 1
+		      \item[B.] 2
+		      \item[C.] 3
+		      \item[D.] 4
+	      \end{enumerate}
+
+	\item 已知一个图用邻接矩阵表示，计算第 i 个结点的入度的方法是（ ）
+	      \begin{enumerate}
+		      \item[A.] 遍历第 i 行
+		      \item[B.] 遍历第 i 列
+		      \item[C.] 遍历第 i 行和第 i 列
+		      \item[D.] 遍历整个矩阵
+	      \end{enumerate}
+
+	\item 已知一个图用邻接矩阵表示，删除所有从第 i 个结点出发的边的方法是（ ）
+	      \begin{enumerate}
+		      \item[A.] 将第 i 行全部置为 0
+		      \item[B.] 将第 i 列全部置为 0
+		      \item[C.] 将第 i 行和第 i 列全部置为 0
+		      \item[D.] 将第 i 行和第 i 列全部置为无穷大
+	      \end{enumerate}
+\end{enumerate}
+
+\section*{填空题}
+
+\begin{enumerate}
+	\item 在 n 个顶点的无向图中，若边数 $>n-1$，则该图必是连通图，此断言是（ ）的。
+	\item n 个顶点的连通图至少（ ）条边。
+	\item 在无向图 G 的邻接矩阵 A 中，若 $A[i][j]=1$，则 $A[j][i]=$（ ）。
+	\item 一个图的（ ）表示法是惟一的，而（ ）表示法是不惟一的。
+	\item G 是一个非连通无向图，共有 28 条边，则该图至少有（ ）个顶点。
+	\item 具有 10 个顶点的无向图，边的总数最多为（ ）。
+	\item 在有 n 个顶点的有向图中，每个顶点的度最大可达（ ）。
+	\item 已知一个图用邻接矩阵表示，计算第 i 个结点的入度的方法是（ ）。
+	\item 已知一个图用邻接矩阵表示，删除所有从第 i 个结点出发的边的方法是（ ）。
+	\item 图的深度优先搜索序列和广度优先搜索序列不是惟一的，此断言是（ ）的。
+	\item 如果含 n 个顶点的图形成一个环，则它有（ ）棵生成树。
+	\item 对 n 个顶点的连通图来说，它的生成树一定有（ ）条边。
+	\item 设图 G 有 n 个顶点和 e 条边，采用邻接矩阵存储，则拓扑排序算法的时间复杂度为（ ）。
+	\item 若一个有向图的邻接矩阵中对角线以下元素均为零，则该图的拓扑有序序列必定存在，此断言是（ ）的。
+	\item 图的存储方法主要有（ ）和（ ），图的遍历方法主要有（ ）和（ ）。
+	\item 有向图 G 的强连通分量是指（ ）。
+	\item 一个连通图的（ ）是一个极小连通子图。
+	\item 在有 n 个顶点的有向图中，若要使任意两点间可以互相到达，则至少需要（ ）条弧。
+	\item 右图中的强连通分量的个数为（ ）个。
+	\item Prim（普里姆）算法适用于求（ ）的网的最小生成树；Kruskal（克鲁斯卡尔）算法适用于求（ ）的网的最小生成树。
+	\item AOV 网中，结点表示（ ），边表示（ ）。AOE 网中，结点表示（ ），边表示（ ）。
+	\item 在 AOE 网中，从源点到汇点路径上各活动时间总和最长的路径称为（ ）。
+	\item 已知图 G 的邻接表如图所示，其从顶点 v1 出发的深度优先搜索序列为 \underline{v1 v2 v3 v6 v5 v4}，其从顶点 v1 出发的广度优先搜索序列为 \underline{v1 v2 v5 v4 v3 v6}。
+	\item 索引是为了加快检索速度而引进的一种数据结构。一个索引隶属于某个数据记录集，它由若干索引项组成，索引项的结构为 \underline{关键字} 和 \underline{关键字对应记录的地址}。
+	\item Prim 算法生成一个最小生成树每一步选择都要满足 \underline{边的总数不超过 n-1}，\underline{当前选择的边的权值是候选边中最小的}，\underline{选中的边加入树中不产生回路} 三项原则。
+	\item 在一棵 m 阶 B 树中，除根结点外，每个结点最多有 \underline{m-1} 棵子树，最少有 \underline{$\lceil m/2 \rceil$} 棵子树。
+	\item 具有 10 个顶点的无向图，边的总数最多为 \underline{45}。
+	\item 在各种查找方法中，平均查找长度与结点个数 n 无关的查找方法是 \underline{散列查找法}。
+	\item 在分块索引查找方法中，首先查找 \underline{索引表}，然后查找相应的块表。
+	\item 一个无序序列可以通过构造一棵 \underline{二叉排序树} 而变成一个有序序列，构造树的过程即为对无序序列进行排序的过程。
+\end{enumerate}
+
+\section*{判断题}
+
+\begin{enumerate}
+	\item 在 AOE 网中，减小任一关键活动上的权值后，整个工期也就相应减小。（ ）
+	\item AOE 网工程工期为关键活动上的权之和。（ ）
+	\item 在关键路径上的活动都是关键活动，而关键活动也必须在关键路径上。（ ）
+	\item 关键活动不按期完成就会影响整个工程的完成时间。（ ）
+	\item 任何一个关键活动提前完成，将使整个工程提前完成。（ ）
+	\item 所有关键活动都提前完成，则整个工程提前完成。（ ）
+	\item 某些关键活动若提前完成，将可能使整个工程提前完成。（ ）
+	\item 拓扑排序是按 AOE 网中每个结点事件的最早发生时间对结点进行排序。（ ）
+	\item 强连通图的各顶点间均可达。（ ）
+	\item 对于任意一个图，从它的某个结点进行一次深度或广度优先遍历可以访问到该图的每个顶点。（ ）
+	\item 无向图的邻接矩阵一定是对称的。（ ）
+	\item 有向图的邻接矩阵不一定是对称的。（ ）
+	\item 邻接表表示法适于表示稀疏图。（ ）
+	\item 邻接矩阵表示法适于表示稠密图。（ ）
+	\item 图的遍历就是按某种次序访问图中的所有顶点。（ ）
+	\item 深度优先搜索可以用于检测环。（ ）
+	\item 广度优先搜索可以用于求最短路径。（ ）
+\end{enumerate}
+
+\section*{应用题}
+
+\begin{enumerate}
+	\item 解答问题。设有数据逻辑结构为：$B=(K, R)$，$K=\{k_1, k_2, \dots, k_9\}$，$R=\{<k_1, k_3>, <k_1, k_8>, <k_2, k_3>, <k_2, k_4>, <k_2, k_5>, <k_3, k_9>, <k_5, k_6>, <k_8, k_9>, <k_9, k_7>, <k_4, k_7>, <k_4, k_6>\}$
+	      \begin{enumerate}
+		      \item 画出这个逻辑结构的图示。
+		      \item 画出其邻接矩阵存储结构。
+		      \item 分别画出该逻辑结构的正向邻接表和逆向邻接表。
+	      \end{enumerate}
+
+	\item 将如下图所示的无向图给出其存储结构的邻接矩阵和邻接表表示，并写出对其分别进行深度，广度优先遍历的结果。
+
+	\item 以顶点①为出发点，画出所图所示的图的深度优先生成树和广度优先生成树。
+
+	\item 已知一个无向图如下图所示，要求分别用 Prim 和 Kruskal 算法生成最小生成树，试画出构造过程。
+
+	\item 试写出用克鲁斯卡尔 (Kruskal) 算法构造下图的一棵最小支撑 (或生成) 树的过程。
+
+	\item 已知一图如下图所示：
+	      \begin{enumerate}
+		      \item 写出该图的邻接矩阵；
+		      \item 写出全部拓扑排序序列；
+		      \item 以 $v_1$ 为源点，以 $v_8$ 为终点，给出所有事件允许发生的最早时间和最晚时间，并给出关键路径；
+		      \item 求 $V_1$ 结点到各点的最短距离。
+	      \end{enumerate}
+
+	\item 下表给出了某工程各工序之间的优先关系和各工序所需时间
+	      \begin{center}
+		      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+			      \hline
+			      工序代号 & A  & B  & C   & D & E   & F  & G  & H   & I   & J  & K   & L     & M  & N  \\ \hline
+			      所需时间 & 15 & 10 & 50  & 8 & 15  & 40 & 30 & 15  & 120 & 60 & 15  & 30    & 20 & 40 \\ \hline
+			      先驱工作 & -- & -- & A,B & B & C,D & B  & E  & G,I & E   & I  & F,I & H,J,K & L  & G  \\ \hline
+		      \end{tabular}
+	      \end{center}
+	      \begin{enumerate}
+		      \item 画出相应的 AOE 网
+		      \item 列出各事件的最早发生时间，最迟发生时间
+		      \item 找出关键路径并指明完成该工程所需最短时间。
+	      \end{enumerate}
+
+	\item 对于稠密图和稀疏图，采用邻接矩阵和邻接表哪个更好些？
+
+	\item 请回答下列关于图的一些问题：
+	      \begin{enumerate}
+		      \item 有 n 个顶点的有向强连通图最多有多少条边？最少有多少条边？
+		      \item 表示一个有 1000 个顶点，1000 条边的有向图的邻接矩阵有多少个矩阵元素？是否为稀疏矩阵？
+		      \item 对于一个有向图，不用拓扑排序，如何判断图中是否存在环？
+	      \end{enumerate}
+\end{enumerate}
+
+\end{document}

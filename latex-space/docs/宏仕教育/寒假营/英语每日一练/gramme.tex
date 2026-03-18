@@ -1,0 +1,4760 @@
+\documentclass[11pt, a4paper]{article}
+
+% ==========================================
+% 宏包与设置
+% ==========================================
+
+% 页面边距设置
+\usepackage{geometry}
+\geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm}
+
+% 中文支持 (必须使用 XeLaTeX 编译)
+\usepackage{xeCJK}
+% 设置主字体为宋体 (Windows下通常为 SimSun，Mac下可改为 STSong 或 PingFang SC)
+\setCJKmainfont[AutoFakeBold=true]{SimSun}
+
+% 列表与选项排版
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+
+\definecolor{explanationbg}{RGB}{245,245,245}
+\definecolor{explanationframe}{RGB}{100,100,100}
+\definecolor{explanationtitle}{RGB}{0,51,102}
+
+\newtcolorbox{solutionbox}{
+    colback=explanationbg,
+    colframe=explanationframe,
+    coltitle=white,
+    title=\textbf{答案与详细解析},
+    fonttitle=\bfseries,
+    boxrule=0.5mm,
+    arc=1mm,
+    left=2mm, right=2mm, top=2mm, bottom=2mm,
+    breakable
+}
+
+\newcommand{\analysis}[4]{
+    \begin{solutionbox}
+        \textbf{答案：#1}
+        
+        \textbf{【翻译】} #2
+        
+        \textbf{【详细解析】}
+        #3
+        
+        \textbf{【重点词汇】}
+        #4
+    \end{solutionbox}
+}
+
+% 自定义下划线命令
+\newcommand{\blank}{\underline{\hspace{1.5cm}}}
+
+% 设置题目列表样式
+\newlist{questions}{enumerate}{1}
+\setlist[questions]{label=\arabic*., leftmargin=*, itemsep=0.8em, parsep=0pt}
+
+% 设置选项样式 (A, B, C, D)
+\settasks{
+    label=\Alph*., 
+    label-offset=0.5em, 
+    label-width=1.5em, 
+    item-indent=1.5em, 
+    column-sep=1em,
+    after-item-skip=0.2em
+}
+
+% 标题设置
+\title{\textbf{语法选择题专项练习 (Day 1 \& Day 5-14)}}
+\date{}
+
+\begin{document}
+
+\maketitle
+% ======================================================================
+% Day 1
+% ======================================================================
+\section*{Day 1}
+\begin{questions}
+    \item There is no \blank trying to persuade her. She will never change her mind.
+    \begin{tasks}(4)
+        \task use \task sense \task good \task point
+    \end{tasks}
+    \analysis{A}{尝试说服她是没有用的。她永远不会改变主意。}{
+        \begin{itemize}
+            \item \textbf{考点}：固定句型 (Fixed Pattern)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 识别句型结构：\texttt{There is no ... doing sth.}。
+                    \item 应用规则：固定搭配 \textbf{There is no use doing sth.} 意为“做某事是没用的/无益的”。类似的还有 \texttt{It is no use doing sth.}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. use：正确答案。
+                    \item B. sense：常用 \texttt{There is no sense in doing sth.} (做某事没道理)。\texttt{doing} 前少了个 \texttt{in}。
+                    \item C. good：常用 \texttt{It's no good doing sth.}。
+                    \item D. point：常用 \texttt{There is no point (in) doing sth.}。虽然point也通，但习语搭配中point常加in，而use常直接接doing。本题优选use。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{persuade} [pə'sweɪd] (v.) 说服
+            \item \texttt{change one's mind} 改变主意
+        \end{itemize}
+    }
+
+    \item There was a choice between \blank on the plane.
+    \begin{tasks}(2)
+        \task chickens or fish \task chicken and fishes
+        \task chicken or fish \task chickens and fish
+    \end{tasks}
+    \analysis{C}{在飞机上有鸡肉和鱼肉可以做选择。}{
+        \begin{itemize}
+            \item \textbf{考点}：名词单复数/不可数名词 (Uncountable Nouns)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 判断词性：\texttt{chicken}（鸡肉）和 \texttt{fish}（鱼肉）作为食物时，通常是\textbf{不可数名词}。
+                    \item \texttt{chicken} 作“小鸡”讲是可数，作“鸡肉”讲不可数；\texttt{fish} 作“鱼的种类”讲可数，作“鱼肉”讲不可数。这里指飞机餐，显然是肉。
+                    \item 搭配：\texttt{choice between A and/or B}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. chickens：复数，指活鸡。
+                    \item B. fishes：复数，指鱼的种类。
+                    \item C. chicken or fish：正确答案，均为不可数用法。
+                    \item D. chickens：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{choice} [tʃɔɪs] (n.) 选择
+        \end{itemize}
+    }
+
+    \item I felt excited when I looked in the \blank of the sea.
+    \begin{tasks}(4)
+        \task way \task distance \task case \task direction
+    \end{tasks}
+    \analysis{D}{当我望向大海的方向时，感到很兴奋。}{
+        \begin{itemize}
+            \item \textbf{考点}：名词辨析 (Noun Distinction)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语义搭配：\texttt{look in the ... of}。
+                    \item 解析：朝……方向看，用 \textbf{direction}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. way：路，方式。\texttt{in the way of} (妨碍)。
+                    \item B. distance：距离。\texttt{in the distance} (在远处)，通常不接of the sea。
+                    \item C. case：箱子，情况。\texttt{in the case of} (就……而言)。
+                    \item D. direction：正确答案。\texttt{in the direction of} (朝……方向)。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{direction} [dɪ'rekʃn] (n.) 方向
+        \end{itemize}
+    }
+
+    \item Criticism from coaches, and other teammates, as well as \blank to win can create an excessive amount of anxiety for young athletes.
+    \begin{tasks}(4)
+        \task pressure \task reputation \task standard \task permission
+    \end{tasks}
+    \analysis{A}{来自教练和其他队友的批评，以及获胜的压力，会给年轻运动员造成过度的焦虑。}{
+        \begin{itemize}
+            \item \textbf{考点}：名词辨析 (Noun Distinction)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语境分析：前面提到了 \texttt{Criticism} (批评) 和 \texttt{anxiety} (焦虑)，这是一些负面的、有压迫感的因素。
+                    \item 搭配逻辑：\texttt{... to win} (为了赢的……)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. pressure：压力。获胜的压力 (\texttt{pressure to win}) 导致焦虑，符合语境。
+                    \item B. reputation：名声。
+                    \item C. standard：标准。
+                    \item D. permission：许可。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{excessive} [ɪk'sesɪv] (adj.) 过度的
+            \item \texttt{anxiety} [æŋ'zaɪəti] (n.) 焦虑
+        \end{itemize}
+    }
+
+    \item He went to the bookstore and bought \blank.
+    \begin{tasks}(2)
+        \task dozen books \task dozens books
+        \task dozen of books \task dozens of books
+    \end{tasks}
+    \analysis{D}{他去书店买了几十本书。}{
+        \begin{itemize}
+            \item \textbf{考点}：数量词用法 (Quantifiers)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 规则：\texttt{dozen} (一打，十二个) 的用法遵循“确数无s无of，概数有s有of”。
+                    \item 确数：数词 + dozen + 名词 (e.g., \texttt{two dozen eggs})。
+                    \item 概数：\textbf{dozens of} + 名词 (e.g., \texttt{dozens of people} 几十人，许多人)。
+                    \item 本题没有具体数字，表示“许多、几十本”，属概数用法。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. dozen books：前面缺数词，且dozen单数不表复数概念。
+                    \item B. dozens books：缺of。
+                    \item C. dozen of books：用法错误。
+                    \item D. dozens of books：正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{dozen} ['dʌzn] (n.) 一打，十二个
+        \end{itemize}
+    }
+
+    \item ----When he was a small child he had a(n) \blank for knowledge. \\
+    ---No wonder he knows so much.
+    \begin{tasks}(4)
+        \task wish \task appetite \task touch \task study
+    \end{tasks}
+    \analysis{B}{——当他还是个小孩的时候，他对知识有着强烈的渴求。\\——难怪他知道得这么多。}{
+        \begin{itemize}
+            \item \textbf{考点}：名词辨析 (Noun Distinction)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语义推导：后面说“难怪他知道这么多”，说明他小时候很爱学习/求知欲强。
+                    \item 搭配：\texttt{have an appetite for} 本意是“对……有胃口”，引申为“对……有强烈的欲望/渴求”。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. wish：希望。\texttt{a wish for}，语义较平淡。
+                    \item B. appetite：正确答案。形象地表达了“渴求”。
+                    \item C. touch：感觉，接触。
+                    \item D. study：学习。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{appetite} ['æpɪtaɪt] (n.) 胃口，欲望
+            \item \texttt{no wonder} 难怪
+        \end{itemize}
+    }
+
+    \item At the meeting they discussed three different \blank to the study of mathematics.
+    \begin{tasks}(4)
+        \task approaches \task means \task methods \task ways
+    \end{tasks}
+    \analysis{A}{在会议上，他们讨论了三种不同的数学研究方法。}{
+        \begin{itemize}
+            \item \textbf{考点}：名词定语搭配 (Preposition Collocations)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关键词：空格后面有介词 \textbf{to}。
+                    \item 辨析：
+                        \begin{itemize}
+                            \item \texttt{approach to ...} (……的方法/途径)。
+                            \item \texttt{means of ...} (……的手段)。
+                            \item \texttt{method of ...} (……的方法)。
+                            \item \texttt{way to do / way of doing} (做某事的方法)。
+                        \end{itemize}
+                    \item 只有 \texttt{approach} 习惯搭配 \texttt{to}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. approaches：正确答案。
+                    \item B. means：搭配of。
+                    \item C. methods：搭配of。
+                    \item D. ways：搭配of/to do。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{approach} [ə'prəʊtʃ] (n.) 方法，途径
+        \end{itemize}
+    }
+
+    \item The \blank on his face told me that he was angry.
+    \begin{tasks}(4)
+        \task impression \task sight \task appearance \task expression
+    \end{tasks}
+    \analysis{D}{他脸上的表情告诉我他生气了。}{
+        \begin{itemize}
+            \item \textbf{考点}：名词辨析 (Noun Distinction)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语境：\texttt{on his face} (在他的脸上)，且能看出他生气。
+                    \item 含义：脸上的“神情/表情”。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. impression：印象。
+                    \item B. sight：视力，景象。
+                    \item C. appearance：外貌，出现。
+                    \item D. expression：表情，表达。正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{expression} [ɪk'spreʃn] (n.) 表情
+        \end{itemize}
+    }
+
+    \item It is said that dogs will keep you \blank for as long as you want when you are feeling lonely.
+    \begin{tasks}(4)
+        \task safety \task company \task house \task friend
+    \end{tasks}
+    \analysis{B}{据说当你感到孤独时，狗狗会一直陪伴着你，你想待多久都行。}{
+        \begin{itemize}
+            \item \textbf{考点}：固定搭配 (Fixed Phrase)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关键词：\texttt{keep you ...}，语境是 \texttt{feeling lonely} (感到孤独)。
+                    \item 搭配：\textbf{keep sb. company} 意为“陪伴某人”。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. safety：安全。
+                    \item B. company：陪伴，公司。正确答案。
+                    \item C. house：房子。
+                    \item D. friend：朋友。虽然意思通，但 \texttt{keep you friend} 语法不对（应为 be your friend），固定搭配 keep sb. company 最地道。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{keep sb. company} 陪伴某人
+            \item \texttt{lonely} ['ləʊnli] (adj.) 孤独的
+        \end{itemize}
+    }
+
+    \item School children must be taught how to deal with dangerous \blank.
+    \begin{tasks}(4)
+        \task states \task conditions \task situations \task positions
+    \end{tasks}
+    \analysis{C}{必须教会学童如何应对危险的情况。}{
+        \begin{itemize}
+            \item \textbf{考点}：名词辨析 (Noun Distinction)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语境：面对危险的“境遇/情况”。
+                    \item 辨析：
+                        \begin{itemize}
+                            \item \texttt{situation}：通常指人所处的环境、局势或遭遇的情况。
+                            \item \texttt{condition}：通常指由于环境影响而产生的状况（如健康状况、居住条件），常用复数表示环境。
+                            \item \texttt{state}：状态（如固态、液态、精神状态）。
+                            \item \texttt{position}：位置，职位。
+                        \end{itemize}
+                    \item 这里的“危险情况”用 \texttt{situations} 最合适。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. states：状态。
+                    \item B. conditions：条件。
+                    \item C. situations：正确答案。
+                    \item D. positions：位置。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{deal with} 处理
+            \item \texttt{situation} [ˌsɪtʃu'eɪʃn] (n.) 情况，局势
+        \end{itemize}
+    }
+
+    \item The lawyer advised Tom to drop the \blank since he had little chance to win.
+    \begin{tasks}(4)
+        \task affair \task case \task incident \task event
+    \end{tasks}
+    \analysis{B}{律师建议汤姆放弃这个案子，因为他胜诉的机会很小。}{
+        \begin{itemize}
+            \item \textbf{考点}：名词辨析 (Noun Distinction)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关键词：\texttt{lawyer} (律师)，\texttt{win} (赢)。
+                    \item 语境：法律相关的“案件”，英语用 \textbf{case}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. affair：事务，绯闻。
+                    \item B. case：案件，案例。正确答案。
+                    \item C. incident：事件（通常指小插曲或冲突）。
+                    \item D. event：大事，活动。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{drop the case} 撤销案件，放弃官司
+            \item \texttt{chance} [tʃɑːns] (n.) 机会
+        \end{itemize}
+    }
+
+    \item She usually buys a \blank on Sunday morning.
+    \begin{tasks}(2)
+        \task Sunday paper \task Sunday's Paper
+        \task Paper of Sunday \task paper of Sunday's
+    \end{tasks}
+    \analysis{A}{她通常在周日早上买一份周日报纸。}{
+        \begin{itemize}
+            \item \textbf{考点}：名词作定语 (Noun as Adjective)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 规则：在英语中，表示类别、时间、地点的名词常可以直接修饰另一个名词，不需要用所有格 \texttt{'s}。
+                    \item 搭配：\texttt{Sunday paper} (周日报纸)，类似的还有 \texttt{evening paper}, \texttt{morning news}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Sunday paper：正确答案。
+                    \item B. Sunday's Paper：所有格形式通常表示“属于周日的”，不如直接作定语常用，且Paper一般小写（除非特指报名）。
+                    \item C. Paper of Sunday：啰嗦。
+                    \item D. paper of Sunday's：双重所有格，不对。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{paper} (n.) 报纸
+        \end{itemize}
+    }
+
+    \item Today, CCTV offers a great \blank of programmes to meet the different needs and \blank.
+    \begin{tasks}(2)
+        \task variety, tastes \task many; interests
+        \task deal; likes \task numbers; habits
+    \end{tasks}
+    \analysis{A}{如今，央视提供了种类繁多的节目以满足不同的需求和口味。}{
+        \begin{itemize}
+            \item \textbf{考点}：固定搭配与词义辨析
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 第一空：\texttt{a great ... of} 修饰 \texttt{programmes}。
+                        \begin{itemize}
+                            \item \texttt{a great variety of} (各种各样的)，修饰可数/不可数均可。
+                            \item \texttt{a great many} 后直接接名词，不加of。
+                            \item \texttt{a great deal of} 只能修饰不可数名词 (programmes是复数，不能用)。
+                            \item \texttt{a great number of} 可以修饰可数，但D选项是numbers（复数），通常用 \texttt{a number of} 或 \texttt{large numbers of}，形式稍有出入。
+                        \end{itemize}
+                    \item 第二空：\texttt{meet needs and ...} (满足需求和……)。\texttt{tastes} (口味/品味) 是常用搭配。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. variety, tastes：正确答案。
+                    \item B. many; interests：many语法不对。
+                    \item C. deal; likes：deal修饰不可数，错。
+                    \item D. numbers; habits：number与variety均可，但A的搭配更常见，且tastes比habits更符合语境（电视节目的口味）。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{a variety of} 各种各样的
+            \item \texttt{taste} [teɪst] (n.) 口味，品味
+        \end{itemize}
+    }
+
+    \item If you live in the country or have ever visited there, \blank are that you have heard birds singing to welcome the new day.
+    \begin{tasks}(4)
+        \task situations \task facts \task chances \task possibilities
+    \end{tasks}
+    \analysis{C}{如果你住在乡下或者去过那里，你很可能听过鸟儿歌唱迎接新的一天。}{
+        \begin{itemize}
+            \item \textbf{考点}：固定句型 (Fixed Pattern)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\textbf{Chances are (that) ...} 意为“很可能……”。
+                    \item 等同于：\texttt{It is likely that ...}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. situations：情况。
+                    \item B. facts：事实。
+                    \item C. chances：正确答案。
+                    \item D. possibilities：可能性。常用 \texttt{There is a possibility that...}，不常直接作主语说 \texttt{Possibilities are that...}。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{chances are that...} 很有可能……
+        \end{itemize}
+    }
+
+    \item Everyone fails now and then It is how you react that makes a \blank in life.
+    \begin{tasks}(4)
+        \task development \task difference \task progress \task point
+    \end{tasks}
+    \analysis{B}{每个人都会时不时失败。正是你应对失败的方式决定了你人生的不同。}{
+        \begin{itemize}
+            \item \textbf{考点}：固定短语 (Fixed Phrase)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\textbf{make a difference} (产生影响，起作用，使变得不同)。
+                    \item 语境：如何反应会让你的人生有所不同。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. development：发展。
+                    \item B. difference：正确答案。
+                    \item C. progress：进步 (make progress)。
+                    \item D. point：点，意义。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{react} [ri'ækt] (v.) 反应
+            \item \texttt{make a difference} 产生影响，至关重要
+        \end{itemize}
+    }
+
+    \item The Forbidden City is a great tourist \blank, drawing millions of visitors every year.
+    \begin{tasks}(2)
+        \task attention \task attraction
+        \task appointment \task arrangement
+    \end{tasks}
+    \analysis{B}{紫禁城是一个著名的旅游景点，每年吸引数百万游客。}{
+        \begin{itemize}
+            \item \textbf{考点}：名词辨析 (Noun Distinction)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\textbf{tourist attraction} 意为“旅游景点/胜地”。
+                    \item 语境：故宫吸引游客。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. attention：注意。tourist attention 不常用。
+                    \item B. attraction：吸引，有吸引力的事物（景点）。正确答案。
+                    \item C. appointment：任命，约会。
+                    \item D. arrangement：安排。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{tourist attraction} 旅游景点
+            \item \texttt{The Forbidden City} 紫禁城（故宫）
+        \end{itemize}
+    }
+
+    \item I'd appreciate \blank if you would like to teach me how to use the computer.
+    \begin{tasks}(4)
+        \task that \task it \task this \task you
+    \end{tasks}
+    \analysis{B}{如果你愿意教我如何使用电脑，我会非常感激。}{
+        \begin{itemize}
+            \item \textbf{考点}：固定句型 (Specific Sentence Structure)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\textbf{I'd appreciate it if ...} (如果……我会很感激)。
+                    \item 词法：\texttt{appreciate} 后面不能直接接 if 从句，需要用形式宾语 \textbf{it} 占位。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. that：that不能作形式宾语代替if从句。
+                    \item B. it：正确答案。
+                    \item C. this：指代不明。
+                    \item D. you：appreciate后接人通常表示“赏识某人”，但这里意思是“感激这件事”。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{appreciate} [ə'priːʃieɪt] (v.) 感激；欣赏
+        \end{itemize}
+    }
+
+    \item This area experienced \blank heaviest rainfall in \blank month of May.
+    \begin{tasks}(4)
+        \task /; a \task a; the \task the; the \task the; a
+    \end{tasks}
+    \analysis{C}{这个地区在五月份经历了最大的降雨量。}{
+        \begin{itemize}
+            \item \textbf{考点}：冠词用法 (Articles)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 第一空：\texttt{heaviest} 是形容词最高级，前面通常加定冠词 \textbf{the}。
+                    \item 第二空：\texttt{month of May}。特指“五月这个月份”，用 \textbf{the}。结构 \texttt{the + 名词 + of ...} 通常表示特指。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. /; a
+                    \item B. a; the
+                    \item C. the; the：正确答案。
+                    \item D. the; a
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{rainfall} ['reɪnfɔːl] (n.) 降雨量
+        \end{itemize}
+    }
+
+    \item You will find as you read this book that you just can't keep some of these will \blank want to share them with a friend.
+    \begin{tasks}(4)
+        \task itself \task yourself \task himself \task themselves
+    \end{tasks}
+    \analysis{B}{你会发现当你读这本书时，你简直无法将其中一些内容仅仅留给自己（独享），你会想和朋友分享它们。}{
+        \begin{itemize}
+            \item \textbf{考点}：反身代词 (Reflexive Pronouns)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句意理解：原文可能存在录入错误，推测原句结构为 \texttt{keep some of these to \blank}。
+                    \item 逻辑：主语是 \texttt{You}，所以反身代词用 \textbf{yourself}。
+                    \item 搭配：\texttt{keep sth. to oneself} (保守秘密，不分享)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. itself：它自己。
+                    \item B. yourself：正确答案。
+                    \item C. himself：他自己。
+                    \item D. themselves：他们自己。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{keep...to oneself} 独占；保守秘密
+        \end{itemize}
+    }
+
+    \item I prefer a flat in Nerviness to \blank in Perth, because I want to live near my Mom's.
+    \begin{tasks}(4)
+        \task one \task that \task it \task this
+    \end{tasks}
+    \analysis{A}{我比起珀斯的公寓更喜欢Nerviness的公寓，因为我想住得离我妈妈近一点。}{
+        \begin{itemize}
+            \item \textbf{考点}：代词辨析 (Pronouns: one/that/it)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 替代对象：\texttt{a flat} (一套公寓，同类用于泛指)。
+                    \item 规则：
+                        \begin{itemize}
+                            \item \textbf{one}：替代可数名词单数，表示泛指（同类异物）。
+                            \item \textbf{that}：替代特指的单数名词或不可数名词，常带后置定语（\texttt{that of ...}）。这里如果用that通常指代不可数或特指（the flat），但前面是a flat，one更自然表示“（另外）一套”。
+                            \item \textbf{it}：替代上文提到的同一个事物。
+                        \end{itemize}
+                    \item 语境：Perth的“一套公寓”，用one。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. one：正确答案。
+                    \item B. that：通常用于比较结构 \texttt{The climate of A is better than that of B}。
+                    \item C. it：同一事物，错。
+                    \item D. this：这个。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{prefer A to B} 喜欢A胜过B
+        \end{itemize}
+    }
+
+    \item His words remind me \blank we did together during the past holiday.
+    \begin{tasks}(4)
+        \task that \task of that \task what \task of what
+    \end{tasks}
+    \analysis{D}{他的话让我想起了在过去的假期里我们一起做过的事情。}{
+        \begin{itemize}
+            \item \textbf{考点}：宾语从句与介词搭配 (Noun Clause \& Preposition)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{remind sb. \textbf{of} sth.} (使某人想起……)。所以空格处需要一个 \textbf{of}。
+                    \item 从句：\texttt{of} 后面接宾语从句。从句中 \texttt{we did} 缺少宾语（做了什么），所以用连接代词 \textbf{what}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. that：缺of。
+                    \item B. of that：that引导宾语从句时不充当成分，但we did缺宾语，且that引导介词宾语从句较少见。
+                    \item C. what：缺of。
+                    \item D. of what：正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{remind sb. of ...} 提醒某人；使某人想起
+        \end{itemize}
+    }
+
+    \item The population of our village today is 70 percent as much as \blank before liberation.
+    \begin{tasks}(4)
+        \task these \task those \task them \task that
+    \end{tasks}
+    \analysis{D}{我们村今天的人口是解放前的70%。}{
+        \begin{itemize}
+            \item \textbf{考点}：代词辨析 (it/that/one)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 替代对象：\texttt{The population} (人口)。
+                    \item 规则：为避免重复，替代前文出现的特指的单数名词或不可数名词，用 \textbf{that}。
+                    \item 复数用 \textbf{those}。
+                    \item Population是单数概念（人口总数），所以用that。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. these：复数。
+                    \item B. those：复数。
+                    \item C. them：人称代词宾格，不用于替代比较对象中的名词。
+                    \item D. that：正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{population} [ˌpɒpju'leɪʃn] (n.) 人口
+            \item \texttt{liberation} [ˌlɪbə'reɪʃn] (n.) 解放
+        \end{itemize}
+    }
+
+    \item I sent invitations to 90 people, \blank have replied.
+    \begin{tasks}(2)
+        \task of whom only 30 of them \task of whom only 30
+        \task only 30 of those who \task only 30 who
+    \end{tasks}
+    \analysis{B}{我给90个人发了邀请，其中只有30个人回复了。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句 (Relative Clause)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构分析：逗号隔开，后面是一个非限制性定语从句。
+                    \item 介词+关系代词：\texttt{90 people} 是先行词，\texttt{only 30} 属于这90人中的一部分，用 \texttt{of whom}。
+                    \item  redundancy：\texttt{of whom} 已经指代了人，后面不能再加 \texttt{of them}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. of whom only 30 of them：重复了them，错。
+                    \item B. of whom only 30：正确答案。（= and only 30 of them have replied）。
+                    \item C. only 30 of those who：结构混乱，变成“只有30个那些……的人”，且句子缺少连词（逗号不能连接两个独立句子，除非是从句）。
+                    \item D. only 30 who：同样缺乏连接词，导致run-on sentence。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{invitation} [ˌɪnvɪ'teɪʃn] (n.) 邀请
+            \item \texttt{reply} [rɪ'plaɪ] (v.) 回复
+        \end{itemize}
+    }
+
+    \item \blank ought to be no trouble because he knew the answers.
+    \begin{tasks}(4)
+        \task It \task There \task One \task That
+    \end{tasks}
+    \analysis{B}{应该不会有什么麻烦，因为他知道答案。}{
+        \begin{itemize}
+            \item \textbf{考点}：There be 句型 (There be Pattern)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构：\texttt{There is no trouble} (没有麻烦)。
+                    \item 加入情态动词：\texttt{There ought to be no trouble}。
+                    \item 类似：\texttt{There must be...}, \texttt{There used to be...}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. It：It usually acts as formal subject for adj/noun, e.g., It is no trouble to do sth. 但句意是“存在”没有麻烦，用There be更自然。
+                    \item B. There：正确答案。
+                    \item C. One：代词。
+                    \item D. That：那个。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{ought to} 应该
+        \end{itemize}
+    }
+
+    \item ---What do you see when you think of \blank forest? \\
+    ---Of course \blank trees.
+    \begin{tasks}(4)
+        \task a,/ \task the the \task /,/ \task a the
+    \end{tasks}
+    \analysis{A}{——当你想到森林时你会看到什么？\\——当然是树。}{
+        \begin{itemize}
+            \item \textbf{考点}：冠词用法 (Articles)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 第一空：\texttt{think of ... forest}。泛指“一座森林”，用不定冠词 \textbf{a}。
+                    \item 第二空：\texttt{trees}。泛指“树木”（复数名词表泛指），不加冠词，即零冠词 \textbf{/}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. a, /：正确答案。
+                    \item B. the, the：特指这片森林和这些树。
+                    \item C. /, /：Forest是可数单数，不能裸奔。
+                    \item D. a, the：The trees表示特指。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{forest} ['fɒrɪst] (n.) 森林
+        \end{itemize}
+    }
+
+    \item \blank page of the book is torn and \blank cover looks very old.
+    \begin{tasks}(4)
+        \task The the \task A a \task A,the \task The;a
+    \end{tasks}
+    \analysis{C}{书的一页撕破了，而且封面看起来很旧。}{
+        \begin{itemize}
+            \item \textbf{考点}：冠词用法 (Articles)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 第一空：\texttt{page}。书有很多页，这里指“（其中）一页”，用不定冠词 \textbf{A}。
+                    \item 第二空：\texttt{cover}。一本书通常只有一个封面，所以是特指“那个封面”，用定冠词 \textbf{the}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. The, the：The page暗示特定的一页（如第5页），也通，但A page更符合“有一页破了”的描述。
+                    \item B. A, a：封面通常是唯一的，用a不合适。
+                    \item C. A, the：正确答案。
+                    \item D. The, a：逻辑反了。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{torn} [tɔːn] (v-pp.) 被撕破的 (tear的过去分词)
+            \item \texttt{cover} ['kʌvə(r)] (n.) 封面
+        \end{itemize}
+    }
+
+    \item Don't worry if you can't come to \blank party. \\
+    ---I will save \blank cake for you.
+    \begin{tasks}(4)
+        \task the some \task a much \task the; any \task a; little
+    \end{tasks}
+    \analysis{A}{——如果你不能来参加（这次）派对也没关系。\\——我会给你留些蛋糕的。}{
+        \begin{itemize}
+            \item \textbf{考点}：冠词与代词 (Articles \& Quantifiers)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 第一空：说话双方都知道的派对，用定冠词 \textbf{the} 表示特指。
+                    \item 第二空：\texttt{cake}。留“一些”蛋糕，肯定句用 \textbf{some}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. the, some：正确答案。
+                    \item B. a, much：a party（泛指一场派对）语境不太对（通常指特定的那场）。much cake（许多蛋糕）有点夸张。
+                    \item C. the, any：any常用于否定或疑问，肯定句用some。
+                    \item D. a, little：little表示“几乎没有”，语义不通。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{save} (v.) 留给；节省
+        \end{itemize}
+    }
+
+    \item In \blank review of 44 studies, American researchers found that men and women who ate six key foods daily cut the risk of \blank heart disease by 76\%.
+    \begin{tasks}(4)
+        \task a the \task the a \task a/ \task /a
+    \end{tasks}
+    \analysis{C}{在对44项研究的一项综述中，美国研究人员发现……能降低76\%的心脏病风险。}{
+        \begin{itemize}
+            \item \textbf{考点}：冠词用法 (Articles)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 第一空：\texttt{review}。第一次提到，“一项综述”，用 \textbf{a}。
+                    \item 第二空：\texttt{heart disease} (心脏病)。泛指疾病名称，通常零冠词 \textbf{/}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. a, the
+                    \item B. the, a
+                    \item C. a, /：正确答案。
+                    \item D. /, a
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{review} [rɪ'vjuː] (n.) 回顾，综述
+            \item \texttt{risk} (n.) 风险
+        \end{itemize}
+    }
+
+    \item Everywhere man has cut down \blank forests in order to grow crops, or to use \blank wood as fuel or as building material.
+    \begin{tasks}(4)
+        \task the the \task the / \task / the \task //
+    \end{tasks}
+    \analysis{D}{在各地，人类砍伐森林以种植庄稼，或者使用木材作为燃料或建筑材料。}{
+        \begin{itemize}
+            \item \textbf{考点}：冠词用法 (Zero Article)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 第一空：\texttt{forests} (森林)。复数名词表示泛指（任何森林），用零冠词 \textbf{/}。
+                    \item 第二空：\texttt{wood} (木材)。不可数名词表示泛指（物质名词），用零冠词 \textbf{/}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. the, the
+                    \item B. the, /
+                    \item C. /, the
+                    \item D. /, /：正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{cut down} 砍伐
+            \item \texttt{fuel} ['fjuːəl] (n.) 燃料
+        \end{itemize}
+    }
+
+    \item ---I knocked over my coffee cup It went right over \blank keyboard. \\
+    ---You should not put drinks near \blank computer.
+    \begin{tasks}(4)
+        \task the/ \task the;a \task a/ \task a;a
+    \end{tasks}
+    \analysis{B}{——我也不小心打翻了咖啡杯，咖啡正好洒在键盘上。\\——你不应该把饮料放在电脑旁边。}{
+        \begin{itemize}
+            \item \textbf{考点}：冠词用法 (Articles)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 第一空：\texttt{keyboard}。指的是打翻咖啡的那台特定电脑的键盘，特指，用 \textbf{the}。
+                    \item 第二空：\texttt{computer}。泛指建议：“任何电脑”旁边都不要放，相当于 pan-generic，用 \textbf{a} 或 plural。选项中只有a。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. the, /：computer是可数名词单数，不能裸奔。
+                    \item B. the, a：正确答案。
+                    \item C. a, /
+                    \item D. a, a：a keyboard指“一个键盘”，不如特指洒在那个键盘上贴切。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{knock over} 打翻
+        \end{itemize}
+    }
+\end{questions}
+
+% ======================================================================
+% Day 5
+% ======================================================================
+\section*{Day 5}
+\begin{questions}
+    \item If I \blank you, I would take this opportunity.
+    \begin{tasks}(4)
+        \task am \task was \task were \task be
+    \end{tasks}
+    \analysis{C}{如果我是你，我会利用这次机会。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (Subjunctive Mood)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{If I were you...} (与现在事实相反的假设)。
+                    \item 规则：在虚拟条件句中，be动词不管人称通常都用 \textbf{were}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. am：陈述语气，错。
+                    \item B. was：口语中可用，但考试标准答案选were。
+                    \item C. were：正确答案。
+                    \item D. be：原形，错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{opportunity} [ˌɒpə'tjuːnəti] (n.) 机会
+        \end{itemize}
+    }
+
+    \item She enjoys \blank to classical music while studying.
+    \begin{tasks}(4)
+        \task to listen \task listening \task listen \task listened
+    \end{tasks}
+    \analysis{B}{她喜欢一边学习一边听古典音乐。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词搭配 (Verb Patterns)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关键词：\textbf{enjoy}。
+                    \item 搭配：\texttt{enjoy doing sth.} (喜欢做某事)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. to listen：不定式，错。
+                    \item B. listening：正确答案。
+                    \item C. listen：原形，错。
+                    \item D. listened：过去式，错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{classical music} 古典音乐
+        \end{itemize}
+    }
+
+    \item By the time he arrived, the meeting \blank.
+    \begin{tasks}(4)
+        \task has begun \task had begun \task begins \task began
+    \end{tasks}
+    \analysis{B}{等他到达时，会议已经开始了。}{
+        \begin{itemize}
+            \item \textbf{考点}：过去完成时 (Past Perfect)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关键词：\texttt{By the time he arrived} (arrived是过去时)。
+                    \item 逻辑：会议开始发生在“他到达”这个过去动作\textbf{之前}。
+                    \item 结构：\texttt{had + done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. has begun：现在完成时，错。
+                    \item B. had begun：正确答案。
+                    \item C. begins：一般现在时。
+                    \item D. began：一般过去时，不能体现“过去的过去”。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{by the time} 等到……的时候
+        \end{itemize}
+    }
+
+    \item Neither Tom nor his brothers \blank interested in sports.
+    \begin{tasks}(4)
+        \task is \task are \task was \task has
+    \end{tasks}
+    \analysis{B}{汤姆和他的兄弟们对运动都不感兴趣。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致 (Subject-Verb Agreement)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\textbf{Neither ... nor ...} (既不……也不……)。
+                    \item 规则：\textbf{就近原则} (Proximity Rule)。谓语动词的单复数取决于\textbf{最靠近它}的主语。
+                    \item 判断：靠近谓语的主语是 \texttt{his brothers} (复数)，所以用 \textbf{are}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. is：Tom是单数，但离谓语远。
+                    \item B. are：正确答案。
+                    \item C. was：这是过去式，一般陈述事实用一般现在时。
+                    \item D. has：has interested 需接宾语，此处是 be interested in。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{neither ... nor ...} 既不……也不……
+        \end{itemize}
+    }
+
+    \item This is the book \blank I told you about yesterday.
+    \begin{tasks}(4)
+        \task what \task who \task which \task whose
+    \end{tasks}
+    \analysis{C}{这就是我昨天跟你说的那本书。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句 (Relative Clause)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 先行词：\texttt{the book} (物)。
+                    \item 从句成分：I told you about \blank (缺介词宾语，指代书)。
+                    \item 关系词：指物用 \textbf{which} 或 that。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. what：不能引导定语从句。
+                    \item B. who：指人。
+                    \item C. which：正确答案。
+                    \item D. whose：指所属关系。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{tell sb. about sth.} 告诉某人关于某事
+        \end{itemize}
+    }
+
+    \item He suggested that we \blank earlier next time.
+    \begin{tasks}(4)
+        \task start \task started \task will start \task starting
+    \end{tasks}
+    \analysis{A}{他建议我们下次早点出发。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (Subjunctive Mood)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关键词：\textbf{suggested} (建议)。
+                    \item 规则：suggest后接宾语从句时，谓语动词用 \textbf{(should) + 动词原形}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. start：正确答案。
+                    \item B. started：过去式，错。
+                    \item C. will start：错。
+                    \item D. starting：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{suggest} (v.) 建议
+        \end{itemize}
+    }
+    \analysis{A}{他建议我们下次早点出发。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (Subjunctive Mood)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关键词：\textbf{suggested} (建议)。
+                    \item 规则：suggest后接宾语从句时，谓语动词用 \textbf{(should) + 动词原形}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. start：正确答案。
+                    \item B. started：过去式，错。
+                    \item C. will start：错。
+                    \item D. starting：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{suggest} (v.) 建议
+        \end{itemize}
+    }
+
+    \item The harder you work, \blank you will succeed.
+    \begin{tasks}(4)
+        \task the more likely \task likely \task more likely \task the likely
+    \end{tasks}
+    \analysis{A}{你工作越努力，你越可能成功。}{
+        \begin{itemize}
+            \item \textbf{考点}：比较级句型
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\textbf{The + 比较级 ..., the + 比较级 ...} (越……，就越……)。
+                    \item 分析：前半句 \texttt{The harder}，后半句也需要 \texttt{the + 比较级}。
+                    \item 比较级：\texttt{likely} 的比较级是 \texttt{more likely}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. the more likely：正确答案。
+                    \item B. likely：原级。
+                    \item C. more likely：缺the。
+                    \item D. the likely：缺more。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{likely} (adj.) 可能的
+        \end{itemize}
+    }
+    \analysis{A}{你工作越努力，你越可能成功。}{
+        \begin{itemize}
+            \item \textbf{考点}：比较级句型
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\textbf{The + 比较级 ..., the + 比较级 ...} (越……，就越……)。
+                    \item 分析：前半句 \texttt{The harder}，后半句也需要 \texttt{the + 比较级}。
+                    \item 比较级：\texttt{likely} 的比较级是 \texttt{more likely}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. the more likely：正确答案。
+                    \item B. likely：原级。
+                    \item C. more likely：缺the。
+                    \item D. the likely：缺more。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{likely} (adj.) 可能的
+        \end{itemize}
+    }
+
+    \item It's high time we \blank measures to protect the environment.
+    \begin{tasks}(4)
+        \task take \task took \task will take \task are taking
+    \end{tasks}
+
+    \item She is used to \blank early in the morning.
+    \begin{tasks}(4)
+        \task get up \task getting up \task got up \task gets up
+    \end{tasks}
+
+    \item The news \blank shocking to everyone in the room.
+    \begin{tasks}(4)
+        \task was \task were \task are \task have been
+    \end{tasks}
+    \analysis{A}{这个消息令房间里的每一个人都感到震惊。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致 (Subject-Verb Agreement)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 主语：\texttt{The news} (消息)。
+                    \item 数性：\texttt{News} 是\textbf{不可数名词}，作单数处理。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. was：正确答案。单数。
+                    \item B. were：复数。
+                    \item C. are：复数。
+                    \item D. have been：复数。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{shocking} (adj.) 令人震惊的
+        \end{itemize}
+    }
+
+    \item If it \blank tomorrow, we will cancel the picnic.
+    \begin{tasks}(4)
+        \task rains \task will rain \task rained \task is raining
+    \end{tasks}
+    \analysis{A}{如果明天下雨，我们就取消野餐。}{
+        \begin{itemize}
+            \item \textbf{考点}：主将从现 (First Conditional)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：If引导的真实条件状语从句。
+                    \item 规则：主句用将来时 (will cancel)，从句用\textbf{一般现在时}表将来。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. rains：正确答案。
+                    \item B. will rain：条件句通常不用will。
+                    \item C. rained：虚拟语气才用。
+                    \item D. is raining：进行时，强调正在下，不如rains通用。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{cancel} ['kænsl] (v.) 取消
+            \item \texttt{picnic} ['pɪknɪk] (n.) 野餐
+        \end{itemize}
+    }
+
+    \item He asked me \blank I could help him with his homework.
+    \begin{tasks}(4)
+        \task that \task if \task what \task which
+    \end{tasks}
+    \analysis{B}{他问我能否帮他做作业。}{
+        \begin{itemize}
+            \item \textbf{考点}：宾语从句 (Noun Clause)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 动词：\texttt{asked} (问)。
+                    \item 逻辑：带有疑问性质，意为“是否”。
+                    \item 词汇：\textbf{if} (或whether)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. that：用于确定的陈述，与asked矛盾。
+                    \item B. if：正确答案。
+                    \item C. what：缺少宾语成分，help him with homework结构完整，不需要what作成分。
+                    \item D. which：哪一个。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{homework} (n.) 家庭作业
+        \end{itemize}
+    }
+
+    \item Not only \blank finish the task, but he also helped others.
+    \begin{tasks}(4)
+        \task he did \task did he \task he does \task does he
+    \end{tasks}
+    \analysis{B}{他不仅完成了任务，还帮助了别人。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句 (Inversion)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\textbf{Not only} 位于句首。
+                    \item 规则：前一分句（Not only分句）需用\textbf{部分倒装}（助动词提至主语前）。
+                    \item 时态：后半句 \texttt{helped} 是过去时，所以前面也应是过去时。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. he did：未倒装。
+                    \item B. did he：正确答案。
+                    \item C. he does：未倒装且时态错。
+                    \item D. does he：时态错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{not only ... but also} 不仅……而且
+        \end{itemize}
+    }
+
+    \item I have never been to Beijing, \blank?
+    \begin{tasks}(4)
+        \task have I \task haven't I \task do I \task don't I
+    \end{tasks}
+    \analysis{A}{我以前从未去过北京，是吗？}{
+        \begin{itemize}
+            \item \textbf{考点}：反义疑问句 (Tag Question)
+            \item \textbf{解题思路}：
+                \begin{itemize}
+                    \item 规则：\textbf{“前否后肯”}。
+                    \item 前句：\texttt{I have never been...} 含有否定词 \textbf{never}。所以前句是否定的。
+                    \item 后句：必须用肯定形式。
+                    \item 助动词：have been，助动词是have。
+                \end{itemize}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. have I：正确答案。
+                    \item B. haven't I：前肯后否才用，但前句已有never。
+                    \item C. do I：助动词不对。
+                    \item D. don't I：助动词不对。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{have been to} 去过（某地）
+        \end{itemize}
+    }
+
+    \item The children \blank by their grandparents when their parents are away.
+    \begin{tasks}(2)
+        \task take care of \task are taken care of
+        \task taken care of \task are taking care of
+    \end{tasks}
+    \analysis{B}{当父母不在时，孩子们由祖父母照顾。}{
+        \begin{itemize}
+            \item \textbf{考点}：被动语态 (Passive Voice)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 主语：\texttt{The children}。
+                    \item 动作：\texttt{take care of} (照顾)。
+                    \item 关系：孩子们是“被”照顾的。
+                    \item 标志：\texttt{by their grandparents}。
+                    \item 结构：\texttt{be taken care of}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. take care of：主动，错。
+                    \item B. are taken care of：正确答案。
+                    \item C. taken care of：缺be动词。
+                    \item D. are taking care of：进行时主动，错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{take care of} 照顾
+        \end{itemize}
+    }
+\end{questions}
+
+% ======================================================================
+% Day 6
+% ======================================================================
+\section*{Day 6}
+\begin{questions}
+    \item She \blank here since 2010.
+    \begin{tasks}(4)
+        \task lives \task lived \task has lived \task is living
+    \end{tasks}
+    \analysis{C}{自2010年以来，她一直住在这里。}{
+        \begin{itemize}
+            \item \textbf{考点}：现在完成时 (Present Perfect)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\textbf{since 2010} (自从2010年).
+                    \item 用法：表示动作从过去开始持续到现在。应用现在完成时。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. lives：一般现在时。
+                    \item B. lived：一般过去时。
+                    \item C. has lived：正确答案。
+                    \item D. is living：现在进行时。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{since} (prep./conj.) 自从
+        \end{itemize}
+    }
+
+    \item It is important \blank a balanced diet.
+    \begin{tasks}(4)
+        \task to have \task having \task have \task had
+    \end{tasks}
+    \analysis{A}{拥有均衡的饮食很重要。}{
+        \begin{itemize}
+            \item \textbf{考点}：不定式作主语 (Infinitives as Subject)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\textbf{It is + adj. + to do sth.}
+                    \item 这里的It是形式主语，真正的主语是不定式 \texttt{to have...}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. to have：正确答案。
+                    \item B. having：动名词作主语亦可，但It作为形式主语时习惯接不定式。
+                    \item C. have：原形不能作主语。
+                    \item D. had：过去式错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{balanced diet} 均衡饮食
+        \end{itemize}
+    }
+
+    \item The movie was \blank boring that I fell asleep.
+    \begin{tasks}(4)
+        \task such \task so \task very \task too
+    \end{tasks}
+    \analysis{B}{这部电影如此无聊，以至于我睡着了。}{
+        \begin{itemize}
+            \item \textbf{考点}：结果状语从句 (Result Clause)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构：\texttt{... that I fell asleep}。
+                    \item 搭配：\textbf{so + adj. + that} 或 \textbf{such + noun + that}。
+                    \item 词性：\texttt{boring} 是形容词，所以用so。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. such：接名词。
+                    \item B. so：正确答案。
+                    \item C. very：very... that 不成结构。
+                    \item D. too：too... to...
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{fall asleep} 入睡
+            \item \texttt{boring} (adj.) 无聊的
+        \end{itemize}
+    }
+
+    \item If he \blank harder, he would have passed the exam.
+    \begin{tasks}(4)
+        \task studied \task had studied \task studies \task has studied
+    \end{tasks}
+    \analysis{B}{如果他当时更努力学习，他就通过考试了。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (Third Conditional - Past)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 主句：\texttt{would have passed} (would have done)。
+                    \item 规则：这是对**过去**事实的虚拟。从句应使用**过去完成时** (had done)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. studied：一般过去时（对现在的虚拟）。
+                    \item B. had studied：正确答案。
+                    \item C. studies：一般现在时。
+                    \item D. has studied：现在完成时。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{pass the exam} 通过考试
+        \end{itemize}
+    }
+
+    \item This is \blank interesting novel I have ever read.
+    \begin{tasks}(4)
+        \task a \task an \task the most \task most
+    \end{tasks}
+    \analysis{C}{这是我读过的最有趣的小说。}{
+        \begin{itemize}
+            \item \textbf{考点}：最高级 (Superlative)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 线索：\texttt{I have ever read} (我曾经读过的)，暗示范围之广，用最高级。
+                    \item 形式：\texttt{interesting} 是多音节词，最高级前加 \textbf{the most}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. a：泛指。
+                    \item B. an：泛指。
+                    \item C. the most：正确答案。
+                    \item D. most：缺the。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{novel} (n.) 小说
+        \end{itemize}
+    }
+
+    \item He avoided \blank his manager about the problem.
+    \begin{tasks}(4)
+        \task to tell \task telling \task tell \task told
+    \end{tasks}
+    \analysis{B}{他避免把这个问题告诉经理。}{
+        \begin{itemize}
+            \item \textbf{考点}：非谓语动词 (Fixed Phrase)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关键词：\textbf{avoid} (避免)。
+                    \item 搭配：\texttt{avoid doing sth.} (避免做某事)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. to tell：不定式，错。
+                    \item B. telling：正确答案。
+                    \item C. tell：原形，错。
+                    \item D. told：过去式，错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{avoid} [ə'vɔɪd] (v.) 避免
+            \item \texttt{manager} (n.) 经理
+        \end{itemize}
+    }
+
+    \item The teacher, along with her students, \blank going on a field trip.
+    \begin{tasks}(4)
+        \task is \task are \task were \task have been
+    \end{tasks}
+
+    \item By next year, she \blank her degree.
+    \begin{tasks}(2)
+        \task completes \task will complete
+        \task will have completed \task completed
+    \end{tasks}
+    \analysis{C}{到明年为止，她将已经完成了她的学位。}{
+        \begin{itemize}
+            \item \textbf{考点}：将来完成时 (Future Perfect)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\textbf{By next year} (到明年为止)。
+                    \item 规则：\texttt{By + 将来时间}，用将来完成时 \texttt{will have done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. completes：一般现在时。
+                    \item B. will complete：一般将来时。
+                    \item C. will have completed：正确答案。
+                    \item D. completed：过去时。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{degree} [dɪ'ɡriː] (n.) 学位
+        \end{itemize}
+    }
+
+    \item She is the girl \blank father is a famous scientist.
+    \begin{tasks}(4)
+        \task who \task whom \task whose \task which
+    \end{tasks}
+    \analysis{C}{她就是那个父亲是著名科学家的女孩。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句 (Relative Clause)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关系：女孩\textbf{的}父亲。
+                    \item 关系代词：表示所属关系用 \textbf{whose}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. who：主格。
+                    \item B. whom：宾格。
+                    \item C. whose：正确答案。
+                    \item D. which：指物。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{scientist} (n.) 科学家
+        \end{itemize}
+    }
+
+    \item Hardly \blank home when it started to rain.
+    \begin{tasks}(4)
+        \task had I left \task I had left \task did I leave \task I left
+    \end{tasks}
+    \analysis{A}{我刚一离家，天就开始下雨了。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句 (Inversion)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\textbf{Hardly ... when ...} (一……就……)。
+                    \item 规则：Hardly位于句首，主句用部分倒装，且用过去完成时。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. had I left：正确答案。
+                    \item B. I had left：未倒装。
+                    \item C. did I leave：时态错。
+                    \item D. I left：时态语序均错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{hardly ... when ...} 刚……就……
+        \end{itemize}
+    }
+
+    \item You had better \blank your homework now.
+    \begin{tasks}(4)
+        \task do \task to do \task doing \task did
+    \end{tasks}
+    \analysis{A}{你现在最好做你的家庭作业。}{
+        \begin{itemize}
+            \item \textbf{考点}：情态动词短语 (Modal Phrase)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 短语：\textbf{had better (not) do sth.} (最好做/不做某事)。
+                    \item 规则：接动词原形。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. do：正确答案。
+                    \item B. to do：错。
+                    \item C. doing：错。
+                    \item D. did：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{had better} 最好
+        \end{itemize}
+    }
+
+    \item I wish I \blank more time to travel.
+    \begin{tasks}(4)
+        \task have \task had \task will have \task have had
+    \end{tasks}
+    \analysis{B}{我希望我有更多的时间去旅行。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (Subjunctive with Wish)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关键词：\textbf{wish}。
+                    \item 规则：wish后接宾语从句，对现在的虚拟用\textbf{过去式}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. have：现在时。
+                    \item B. had：正确答案。
+                    \item C. will have：将来时。
+                    \item D. have had：现在完成时。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{wish} (v.) 希望
+        \end{itemize}
+    }
+
+    \item The report must \blank by the end of this week.
+    \begin{tasks}(4)
+        \task finish \task be finished \task finished \task finishing
+    \end{tasks}
+    \analysis{B}{这份报告必须在本周末前完成。}{
+        \begin{itemize}
+            \item \textbf{考点}：被动语态 (Passive Voice)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 主语：\texttt{The report}。
+                    \item 结构：\texttt{must} (情态动词) + \texttt{be done} (被动)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. finish：主动。
+                    \item B. be finished：正确答案。
+                    \item C. finished：缺be。
+                    \item D. finishing：主动。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{by the end of} 到……末为止
+        \end{itemize}
+    }
+
+    \item He is not only a good writer but also \blank a good speaker.
+    \begin{tasks}(4)
+        \task is \task being \task be \task /
+    \end{tasks}
+    \analysis{D}{他不仅是一位好的作家，而且是一位好的演讲家。}{
+        \begin{itemize}
+            \item \textbf{考点}：平行结构 (Parallelism)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构：\texttt{He is not only ... but also ...}
+                    \item 平衡：\texttt{He is [not only a good writer] but also [a good speaker]}。谓语动词is共用，后面不需要重复。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. is：重复，虽口语可能出现，但书面语避免啰嗦。
+                    \item B. being：错。
+                    \item C. be：错。
+                    \item D. /：正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{speaker} (n.) 演讲者
+        \end{itemize}
+    }
+
+    \item She is looking forward \blank from you soon.
+    \begin{tasks}(4)
+        \task to hear \task hearing \task to hearing \task hear
+    \end{tasks}
+    \analysis{C}{她期待着很快收到你的来信。}{
+        \begin{itemize}
+            \item \textbf{考点}：固定搭配 (Fixed Phrase)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\textbf{look forward to doing sth.} (期待做某事)。
+                    \item 注意：to是介词，接动名词。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. to hear：不定式结构，错。
+                    \item B. hearing：缺to(look forward to)。
+                    \item C. to hearing：正确答案。
+                    \item D. hear：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{look forward to} 期待
+            \item \texttt{hear from} 收到……的来信
+        \end{itemize}
+    }
+\end{questions}
+
+% ======================================================================
+% Day 7
+% ======================================================================
+\section*{Day 7}
+\begin{questions}
+    \item My brother, together with his friends, \blank planning a trip to Tibet next month.
+    \begin{tasks}(4)
+        \task is \task are \task were \task have been
+    \end{tasks}
+    \analysis{A}{我的哥哥，连同他的朋友们，正计划下个月去西藏旅行。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致 (Subject-Verb Agreement)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 规则：\textbf{“就远原则”}。当主语后面跟有 \texttt{together with} 等插入语成分时，谓语动词由前面的核心词决定。
+                    \item 核心词 \texttt{My brother} 是单数，所以谓语用单数。
+                    \item \texttt{planning} 暗示这是进行时表将来。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. is：正确答案。
+                    \item B. are：错。
+                    \item C. were：错。
+                    \item D. have been：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{together with} 连同
+        \end{itemize}
+    }
+
+    \item By the end of last semester, we \blank over 3,000 English words.
+    \begin{tasks}(2)
+        \task learned \task have learned
+        \task had learned \task would learn
+    \end{tasks}
+    \analysis{C}{到上学期期末为止，我们已经学习了超过3000个英语单词。}{
+        \begin{itemize}
+            \item \textbf{考点}：过去完成时 (Past Perfect)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{By the end of last semester} (过去的过去)。
+                    \item 结构：\texttt{had + done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. learned：一般过去时。
+                    \item B. have learned：现在完成时。
+                    \item C. had learned：正确答案。
+                    \item D. would learn：过去将来时。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{semester} [sɪ'mestə(r)] (n.) 学期
+        \end{itemize}
+    }
+
+    \item It was in the library \blank I first met Professor Li, who later became my mentor.
+    \begin{tasks}(4)
+        \task that \task where \task which \task when
+    \end{tasks}
+    \analysis{A}{正是在图书馆里，我第一次遇见了李教授，他后来成为了我的导师。}{
+        \begin{itemize}
+            \item \textbf{考点}：强调句型 (Emphasis)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构验证：去掉 \texttt{It was ... \blank} 后，\texttt{in the library I first met...} 是完整句子。
+                    \item 规则：强调句用 \textbf{that} 连接。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. that：正确答案。
+                    \item B. where：错（那是定语从句）。
+                    \item C. which：错。
+                    \item D. when：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{mentor} ['mentɔː(r)] (n.) 导师
+        \end{itemize}
+    }
+
+    \item The manager insisted that the report \blank finished by 5 PM today.
+    \begin{tasks}(4)
+        \task is \task be \task was \task would be
+    \end{tasks}
+    \analysis{B}{经理坚持要求这份报告必须在今天下午5点前完成。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (Subjunctive)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关键词：\textbf{insisted} (坚持要求)。
+                    \item 规则：\texttt{(should) + do}。这里是被动语态 \texttt{(should) be finished}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. is：错。
+                    \item B. be：正确答案。
+                    \item C. was：错。
+                    \item D. would be：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{insist} (v.) 坚持要求
+        \end{itemize}
+    }
+
+    \item \blank you have any questions, please don't hesitate to contact me.
+    \begin{tasks}(4)
+        \task Would \task Should \task Could \task Might
+    \end{tasks}
+    \analysis{B}{万一你有任何问题，请随时联系我。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气倒装 (Inversion)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 原句：\texttt{If you \textbf{should} have any questions...} (万一)。
+                    \item 倒装：省略If，将Should提至句首。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Would
+                    \item B. Should：正确答案。
+                    \item C. Could
+                    \item D. Might
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{hesitate} ['hezɪteɪt] (v.) 犹豫
+        \end{itemize}
+    }
+
+    \item The new policy will benefit not only the company but also \blank employees.
+    \begin{tasks}(4)
+        \task it \task its \task it's \task itself
+    \end{tasks}
+    \analysis{B}{新政策不仅将造福公司，也将造福其员工。}{
+        \begin{itemize}
+            \item \textbf{考点}：代词 (Pronouns)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 指代：\texttt{the company} (单数)。
+                    \item 成分：修饰 \texttt{employees}，用形容词性物主代词。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. it：宾格。
+                    \item B. its：正确答案。
+                    \item C. it's：it is。
+                    \item D. itself：反身代词。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{benefit} (v.) 有益于
+        \end{itemize}
+    }
+
+    \item Hardly \blank the office when the phone started ringing.
+    \begin{tasks}(2)
+        \task I entered \task had I entered
+        \task I had entered \task did I enter
+    \end{tasks}
+    \analysis{B}{我刚走进办公室，电话就响了。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句 (Inversion)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\textbf{Hardly} 位于句首。
+                    \item 规则：部分倒装 + 过去完成时。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. I entered：未倒装。
+                    \item B. had I entered：正确答案。
+                    \item C. I had entered：未倒装。
+                    \item D. did I enter：时态不准。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{hardly ... when} 一……就
+        \end{itemize}
+    }
+
+    \item The movie was \blank interesting that I watched it twice.
+    \begin{tasks}(4)
+        \task so \task such \task too \task very
+    \end{tasks}
+    \analysis{A}{这部电影是如此有趣，以至于我看了两遍。}{
+        \begin{itemize}
+            \item \textbf{考点}：结果状语从句 (Result Clause)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构：\texttt{so ... that}。
+                    \item 修饰：\texttt{interesting} (形容词)，用so。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. so：正确答案。
+                    \item B. such：修饰名词。
+                    \item C. too：接to do。
+                    \item D. very：无此连词用法。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{twice} (adv.) 两次
+        \end{itemize}
+    }
+
+    \item If I \blank more time yesterday, I would have helped you with your project.
+    \begin{tasks}(4)
+        \task had \task have had \task had had \task would have
+    \end{tasks}
+    \analysis{C}{如果我昨天有更多时间，我就帮你做项目了。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (Third Conditional)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{yesterday} (过去)。
+                    \item 规则：对过去的虚拟，从句用过去完成时 \texttt{had done}。
+                    \item 动词：have (有)。had + had = had had。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. had：一般过去时。
+                    \item B. have had：现在完成时。
+                    \item C. had had：正确答案。
+                    \item D. would have：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{project} (n.) 项目
+        \end{itemize}
+    }
+
+    \item By this time next year, she \blank for the company for twenty years.
+    \begin{tasks}(2)
+        \task will work \task will have worked
+        \task has worked \task will be working
+    \end{tasks}
+    \analysis{B}{到明年这个时候，她将已经为这家公司工作二十年了。}{
+        \begin{itemize}
+            \item \textbf{考点}：将来完成时 (Future Perfect)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{By this time next year}。
+                    \item 结构：\texttt{will have done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. will work
+                    \item B. will have worked：正确答案。
+                    \item C. has worked
+                    \item D. will be working
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{company} (n.) 公司
+        \end{itemize}
+    }
+
+    \item The teacher asked the students \blank they had understood the grammar point.
+    \begin{tasks}(4)
+        \task if \task that \task what \task which
+    \end{tasks}
+    \analysis{A}{老师问学生们是否理解了这个语法点。}{
+        \begin{itemize}
+            \item \textbf{考点}：宾语从句 (Noun Clause)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 动词：\texttt{asked}。
+                    \item 含义：是否。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. if：正确答案。
+                    \item B. that：错。
+                    \item C. what：错。
+                    \item D. which：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{point} (n.) 要点
+        \end{itemize}
+    }
+
+    \item No sooner \blank the presentation than the audience began asking questions.
+    \begin{tasks}(2)
+        \task he finished \task did he finish
+        \task had he finished \task he had finished
+    \end{tasks}
+    \analysis{C}{他刚做完演讲，观众就开始提问了。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句 (Inversion)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\textbf{No sooner ... than ...}。
+                    \item 规则：前倒后不倒，前过完后一过。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. he finished：未倒装。
+                    \item B. did he finish：时态错。
+                    \item C. had he finished：正确答案。
+                    \item D. he had finished：未倒装。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{presentation} (n.) 演讲
+        \end{itemize}
+    }
+
+    \item The book \blank on the desk belongs to our English teacher.
+    \begin{tasks}(4)
+        \task lay \task lain \task laying \task lying
+    \end{tasks}
+    \analysis{D}{放/躺在桌上的那本书是我们英语老师的。}{
+        \begin{itemize}
+            \item \textbf{考点}：非谓语动词 (Participle)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 逻辑：书“位于”（lie）桌子上，主动持续状态。
+                    \item 形式：现在分词 \textbf{lying} (ie变y+ing)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. lay：过去式/放置。不通。
+                    \item B. lain：过去分词。
+                    \item C. laying：放置（及物），缺宾语。
+                    \item D. lying：正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{lie} (v.) 位于
+        \end{itemize}
+    }
+
+    \item It's essential that every student \blank the safety regulations.
+    \begin{tasks}(4)
+        \task obey \task obeys \task obeyed \task has obeyed
+    \end{tasks}
+    \analysis{A}{极其重要的是，每个学生都必须遵守安全规则。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (Subjunctive)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It's essential that ...}
+                    \item 规则：从句用 \texttt{(should) + do}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. obey：正确答案。
+                    \item B. obeys：三单，错。
+                    \item C. obeyed：错。
+                    \item D. has obeyed：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{regulation} (n.) 规则
+        \end{itemize}
+    }
+
+    \item He is used to \blank early and going for a run before breakfast.
+    \begin{tasks}(4)
+        \task get up \task getting up \task got up \task gets up
+    \end{tasks}
+    \analysis{B}{他习惯了早起并在早饭前去跑步。}{
+        \begin{itemize}
+            \item \textbf{考点}：固定搭配 (Fixed Phrase)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{be used to sth./doing sth.}。
+                    \item 平行：and后面是 \texttt{going}，前面也应是 \texttt{getting}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. get up
+                    \item B. getting up：正确答案。
+                    \item C. got up
+                    \item D. gets up
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{be used to} 习惯于
+        \end{itemize}
+    }
+\end{questions}
+
+% ======================================================================
+% Day 8
+% ======================================================================
+\section*{Day 8}
+\begin{questions}
+    \item Not until last week \blank the importance of time management.
+    \begin{tasks}(2)
+        \task did I realize \task I realized
+        \task had I realized \task I had realized
+    \end{tasks}
+    \analysis{A}{直到上周，我才意识到时间管理的重要性。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句 (Inversion)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\textbf{Not until} 位于句首。
+                    \item 规则：主句部分倒装。时间 \texttt{last week} 用一般过去时。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. did I realize：正确答案。
+                    \item B. I realized：未倒装。
+                    \item C. had I realized：过去完成时不必要。
+                    \item D. I had realized：未倒装。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{time management} 时间管理
+        \end{itemize}
+    }
+
+    \item The company is considering \blank a new branch in Shanghai next year.
+    \begin{tasks}(4)
+        \task open \task to open \task opening \task opened
+    \end{tasks}
+    \analysis{C}{这家公司正在考虑明年在上海开一家新分店。}{
+        \begin{itemize}
+            \item \textbf{考点}：非谓语动词 (Fixed Phrase)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 词汇：\textbf{consider} (考虑) 后接动名词 \texttt{doing}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. open
+                    \item B. to open：consider sb. to be (认为)，不符。
+                    \item C. opening：正确答案。
+                    \item D. opened
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{branch} (n.) 分店
+        \end{itemize}
+    }
+
+    \item By the time you receive this letter, I \blank for New York.
+    \begin{tasks}(2)
+        \task will leave \task will have left
+        \task have left \task am leaving
+    \end{tasks}
+    \analysis{B}{等你收到这封信的时候，我就已经出发去纽约了。}{
+        \begin{itemize}
+            \item \textbf{考点}：将来完成时 (Future Perfect)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{By the time...} (将来时间点)。
+                    \item 结构：\texttt{will have done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. will leave
+                    \item B. will have left：正确答案。
+                    \item C. have left
+                    \item D. am leaving
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{receive} (v.) 收到
+        \end{itemize}
+    }
+
+    \item It was in 2020 \blank he started his own business.
+    \begin{tasks}(4)
+        \task when \task which \task that \task what
+    \end{tasks}
+    \analysis{C}{正是在2020年，他开始了自己的事业。}{
+        \begin{itemize}
+            \item \textbf{考点}：强调句型 (Emphasis)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It was ... that ...}。
+                    \item 验证：去掉It was/that后句子完整。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. when：定语从句干扰项。
+                    \item B. which
+                    \item C. that：正确答案。
+                    \item D. what
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{business} (n.) 事业
+        \end{itemize}
+    }
+
+    \item The teacher suggested that the students \blank a study group for the final exam.
+    \begin{tasks}(4)
+        \task form \task formed \task would form \task forming
+    \end{tasks}
+    \analysis{A}{老师建议学生们为了期末考试组建一个学习小组。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (Subjunctive)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 词汇：\textbf{suggested}。
+                    \item 规则：\texttt{(should) + do}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. form：正确答案。
+                    \item B. formed
+                    \item C. would form
+                    \item D. forming
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{study group} 学习小组
+        \end{itemize}
+    }
+
+    \item \blank from the top of the mountain, the city looks magnificent.
+    \begin{tasks}(4)
+        \task Seeing \task Seen \task Having seen \task To see
+    \end{tasks}
+    \analysis{B}{从山顶上看，这座城市看起来很壮观。}{
+        \begin{itemize}
+            \item \textbf{考点}：非谓语动词 (Participle as Adverbial)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 逻辑主语：\texttt{the city}。
+                    \item 关系：城市“被看” (Seen)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Seeing：主动。
+                    \item B. Seen：正确答案。
+                    \item C. Having seen：主动完成。
+                    \item D. To see：目的。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{magnificent} (adj.) 壮丽的
+        \end{itemize}
+    }
+
+    \item I would rather you \blank me the truth yesterday.
+    \begin{tasks}(4)
+        \task tell \task told \task had told \task would tell
+    \end{tasks}
+    \analysis{C}{我宁愿你昨天告诉我真相。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (would rather)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{yesterday} (过去)。
+                    \item 规则：\texttt{would rather} 后接从句，对过去的虚拟用过去完成时。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. tell
+                    \item B. told
+                    \item C. had told：正确答案。
+                    \item D. would tell
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{truth} (n.) 真相
+        \end{itemize}
+    }
+
+    \item The harder you practice, \blank progress you will make.
+    \begin{tasks}(4)
+        \task the greater \task greater \task the more greater \task more greater
+    \end{tasks}
+    \analysis{A}{你练习得越努力，你取得的进步就越大。}{
+        \begin{itemize}
+            \item \textbf{考点}：比较级句型
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{The + comp, the + comp}。
+                    \item 比较级：\texttt{progress} 需用 \texttt{greater} 修饰 (great progress)，前面加the。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. the greater：正确答案。
+                    \item B. greater：缺the。
+                    \item C. the more greater：more重复。
+                    \item D. more greater：错。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{progress} (n.) 进步
+        \end{itemize}
+    }
+
+    \item This is the first time I \blank such a beautiful sunset.
+    \begin{tasks}(4)
+        \task see \task saw \task have seen \task had seen
+    \end{tasks}
+    \analysis{C}{这是我第一次看到如此美丽的日落。}{
+        \begin{itemize}
+            \item \textbf{考点}：固定句型
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\textbf{This is the first time (that) ...}
+                    \item 规则：从句用现在完成时 \texttt{have done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. see
+                    \item B. saw
+                    \item C. have seen：正确答案。
+                    \item D. had seen
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{sunset} (n.) 日落
+        \end{itemize}
+    }
+
+    \item If it \blank tomorrow, the sports meet will be postponed.
+    \begin{tasks}(4)
+        \task rains \task will rain \task rained \task would rain
+    \end{tasks}
+    \analysis{A}{如果明天下雨，运动会将延期。}{
+        \begin{itemize}
+            \item \textbf{考点}：主将从现
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：If条件句。
+                    \item 规则：主句将来时，从句一般现在时。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. rains：正确答案。
+                    \item B. will rain
+                    \item C. rained
+                    \item D. would rain
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{postpone} (v.) 推迟
+        \end{itemize}
+    }
+    \analysis{A}{如果明天下雨，运动会将延期。}{
+        \begin{itemize}
+            \item \textbf{考点}：主将从现 (First Conditional)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：If条件句。
+                    \item 规则：主句将来时，从句一般现在时。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. rains：正确答案。
+                    \item B. will rain
+                    \item C. rained
+                    \item D. would rain
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{postpone} (v.) 推迟
+        \end{itemize}
+    }
+
+    \item The book \blank on the table belongs to the library.
+    \begin{tasks}(4)
+        \task lies \task lay \task lain \task lying
+    \end{tasks}
+    \analysis{D}{放/躺在桌上的那本书是图书馆的。}{
+        \begin{itemize}
+            \item \textbf{考点}：非谓语动词 (Participle)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 逻辑：书“位于”桌上，主动。
+                    \item 形式：\texttt{lying}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. lies：动词，冲突。
+                    \item B. lay：过去式，冲突。
+                    \item C. lain：过去分词。
+                    \item D. lying：正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{belong to} 属于
+        \end{itemize}
+    }
+
+    \item By next month, he \blank in this company for ten years.
+    \begin{tasks}(2)
+        \task will work \task will have worked
+        \task has worked \task is working
+    \end{tasks}
+    \analysis{B}{到下个月，他就要在这个公司工作十年了。}{
+        \begin{itemize}
+            \item \textbf{考点}：将来完成时 (Future Perfect)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{By next month}。
+                    \item 结构：\texttt{will have done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. will work
+                    \item B. will have worked：正确答案。
+                    \item C. has worked
+                    \item D. is working
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{company} (n.) 公司
+        \end{itemize}
+    }
+
+    \item She speaks English \blank she were a native speaker.
+    \begin{tasks}(4)
+        \task even if \task as if \task so that \task in case
+    \end{tasks}
+    \analysis{B}{她说英语像个母语者一样（但她不是）。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (as if)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{were} (虚拟)。
+                    \item 词汇：\texttt{as if} (好像)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. even if：即使。
+                    \item B. as if：正确答案。
+                    \item C. so that：以便。
+                    \item D. in case：以防。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{native speaker} 母语者
+        \end{itemize}
+    }
+
+    \item No sooner \blank the meeting than he received an urgent call.
+    \begin{tasks}(2)
+        \task he had started \task had he started
+        \task he started \task did he start
+    \end{tasks}
+    \analysis{B}{会议刚一开始，他就接到了一个紧急电话。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句 (Inversion)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\textbf{No sooner}。
+                    \item 结构：\texttt{No sooner + had + S + done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. he had started
+                    \item B. had he started：正确答案。
+                    \item C. he started
+                    \item D. did he start
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{urgent} (adj.) 紧急的
+        \end{itemize}
+    }
+
+    \item It's high time we \blank measures to protect the environment.
+    \begin{tasks}(4)
+        \task take \task took \task will take \task are taking
+    \end{tasks}
+\end{questions}
+
+% ======================================================================
+% Day 9
+% ======================================================================
+\section*{Day 9}
+\begin{questions}
+    \item It was not until she arrived at the station \blank she realized she had forgotten her ticket.
+    \begin{tasks}(4)
+        \task when \task then \task that \task which
+    \end{tasks}
+    \analysis{C}{直到她到达车站，她才意识到忘了带票。}{
+        \begin{itemize}
+            \item \textbf{考点}：强调句型 (Not until)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It was not until ... that ...}
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. when
+                    \item B. then
+                    \item C. that：正确答案。
+                    \item D. which
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{realize} (v.) 意识到
+        \end{itemize}
+    }
+
+    \item The president, along with his advisers, \blank to attend the international conference next week.
+    \begin{tasks}(4)
+        \task is \task are \task were \task have been
+    \end{tasks}
+    \analysis{A}{总统将在顾问们的陪同下出席下周的国际会议。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致 (Subject-Verb Agreement)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 规则：\texttt{along with} 连接主语时，谓语动词由前面的词决定。
+                    \item 主语：\texttt{The president} (单数)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. is：正确答案。
+                    \item B. are
+                    \item C. were
+                    \item D. have been
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{conference} (n.) 会议
+        \end{itemize}
+    }
+
+    \item By the time he retires, my father \blank for the company for forty years.
+    \begin{tasks}(2)
+        \task will work \task will have worked
+        \task has worked \task had worked
+    \end{tasks}
+    \analysis{B}{到他退休时，我父亲将已经为这家公司工作四十年了。}{
+        \begin{itemize}
+            \item \textbf{考点}：将来完成时
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{By the time he retires} (retires是将来动作)。
+                    \item 结构：\texttt{will have done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. will work
+                    \item B. will have worked：正确答案。
+                    \item C. has worked
+                    \item D. had worked
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{retire} (v.) 退休
+        \end{itemize}
+    }
+
+    \item Had I known about the traffic jam, I \blank a different route.
+    \begin{tasks}(2)
+        \task would take \task took
+        \task would have taken \task had taken
+    \end{tasks}
+    \analysis{C}{如果如果你早知道堵车，我就会走另一条路了。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (倒装)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 原句：\texttt{If I had known...}
+                    \item 主句：\texttt{would have done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. would take
+                    \item B. took
+                    \item C. would have taken：正确答案。
+                    \item D. had taken
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{traffic jam} 堵车
+        \end{itemize}
+    }
+
+    \item The proposal put forward by the committee \blank worth considering carefully.
+    \begin{tasks}(4)
+        \task is \task are \task were \task have been
+    \end{tasks}
+    \analysis{A}{委员会提出的建议值得仔细考虑。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 主语：\texttt{The proposal} (单数)。\texttt{put forward...} 是分词定语。
+                    \item 谓语：单数 \texttt{is}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. is：正确答案。
+                    \item B. are
+                    \item C. were
+                    \item D. have been
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{proposal} (n.) 提议
+        \end{itemize}
+    }
+
+    \item \blank from his expression, he was not satisfied with the result.
+    \begin{tasks}(4)
+        \task Judging \task Judged \task Having judged \task To judge
+    \end{tasks}
+    \analysis{A}{从他的表情来看，他对结果不满意。}{
+        \begin{itemize}
+            \item \textbf{考点}：固定短语
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 短语：\textbf{Judging from/by} (从……来看)。固定用现在分词形式。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Judging：正确答案。
+                    \item B. Judged
+                    \item C. Having judged
+                    \item D. To judge
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{expression} (n.) 表情
+        \end{itemize}
+    }
+
+    \item It's high time we \blank serious measures to address climate change.
+    \begin{tasks}(4)
+        \task take \task took \task will take \task are taking
+    \end{tasks}
+    \analysis{B}{是时候我们采取严厉措施应对气候变化了。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It's high time ...} 用过去式。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. take
+                    \item B. took：正确答案。
+                    \item C. will take
+                    \item D. are taking
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{address} (v.) 应对，处理
+        \end{itemize}
+    }
+
+    \item Never before \blank such a beautiful sunrise in this city.
+    \begin{tasks}(4)
+        \task I have seen \task have I seen \task I saw \task did I see
+    \end{tasks}
+    \analysis{B}{我以前从未在这个城市见过如此美丽的日出。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{Never before} 位于句首。
+                    \item 规则：部分倒装。have提前。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. I have seen
+                    \item B. have I seen：正确答案。
+                    \item C. I saw
+                    \item D. did I see
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{sunrise} (n.) 日出
+        \end{itemize}
+    }
+
+    \item The new regulation requires that all employees \blank safety training annually.
+    \begin{tasks}(4)
+        \task receive \task receives \task received \task will receive
+    \end{tasks}
+    \analysis{A}{新规要求所有员工每年接受安全培训。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 词汇：\textbf{require}。
+                    \item 规则：从句用 \texttt{(should) + do}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. receive：正确答案。
+                    \item B. receives
+                    \item C. received
+                    \item D. will receive
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{annually} (adv.) 每年地
+        \end{itemize}
+    }
+
+    \item She is one of those students who \blank always willing to help others.
+    \begin{tasks}(4)
+        \task is \task are \task was \task were
+    \end{tasks}
+    \analysis{B}{她是那些总是乐于助人的学生之一。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句主谓一致
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构：\texttt{one of + 复数名词 + who...}
+                    \item 先行词：\texttt{students} (复数)。
+                    \item 谓语：复数 \texttt{are}。
+                    \item 注意：如果是 "the only one of ... who"，则用单数。这里没有the only。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. is
+                    \item B. are：正确答案。
+                    \item C. was
+                    \item D. were
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{willing} (adj.) 乐意的
+        \end{itemize}
+    }
+\end{questions}
+
+% ======================================================================
+% Day 10
+% ======================================================================
+\section*{Day 10}
+\begin{questions}
+    \item My sister works as a nurse, and she \blank in the hospital for five years.
+    \begin{tasks}(4)
+        \task works \task worked \task has worked \task is working
+    \end{tasks}
+    \analysis{C}{我姐姐是一名护士，她已经在这家医院工作五年了。}{
+        \begin{itemize}
+            \item \textbf{考点}：现在完成时
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{for five years} (持续至今)。
+                    \item 时态：\texttt{works} (现在) -> \texttt{has worked} (至今)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. works
+                    \item B. worked
+                    \item C. has worked：正确答案。
+                    \item D. is working
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{nurse} (n.) 护士
+        \end{itemize}
+    }
+
+    \item It is important for students \blank time wisely when preparing for exams.
+    \begin{tasks}(4)
+        \task use \task to use \task using \task used
+    \end{tasks}
+    \analysis{B}{对学生来说，备考时明智地利用时间很重要。}{
+        \begin{itemize}
+            \item \textbf{考点}：不定式
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It is + adj. + for sb. + to do}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. use
+                    \item B. to use：正确答案。
+                    \item C. using
+                    \item D. used
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{wisely} (adv.) 明智地
+        \end{itemize}
+    }
+
+    \item \blank the weather is bad, we will still go camping this weekend.
+    \begin{tasks}(4)
+        \task Although \task Because \task If \task When
+    \end{tasks}
+    \analysis{A}{虽然天气不好，我们这周末还是会去露营。}{
+        \begin{itemize}
+            \item \textbf{考点}：状语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 逻辑：天气不好 vs 依然去 (让步关系)。
+                    \item 词汇：\texttt{Although} (虽然)。If (如果... 我们将...，通常指好天气才去，或者如果不好就不去；这里是“still go”，暗示逆境)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Although：正确答案。
+                    \item B. Because
+                    \item C. If
+                    \item D. When
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{camping} (n.) 露营
+        \end{itemize}
+    }
+
+    \item This is the novel \blank I borrowed from the library last week.
+    \begin{tasks}(4)
+        \task who \task where \task which \task what
+    \end{tasks}
+    \analysis{C}{这就是我上周从图书馆借的那本小说。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 先行词：\texttt{novel} (物)。
+                    \item 关系词：\texttt{which} 或 that。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. who
+                    \item B. where
+                    \item C. which：正确答案。
+                    \item D. what
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{borrow} (v.) 借
+        \end{itemize}
+    }
+
+    \item By the time we arrive at the station, the train \blank.
+    \begin{tasks}(4)
+        \task has left \task will have left \task left \task is leaving
+    \end{tasks}
+    \analysis{B}{等我们到达车站时，火车将已经离开了。}{
+        \begin{itemize}
+            \item \textbf{考点}：将来完成时
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{By the time...} (arrive是一般现在时表将来)。
+                    \item 结构：\texttt{will have done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. has left
+                    \item B. will have left：正确答案。
+                    \item C. left
+                    \item D. is leaving
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{station} (n.) 车站
+        \end{itemize}
+    }
+
+    \item A number of students \blank already finished their homework.
+    \begin{tasks}(4)
+        \task has \task have \task is \task are
+    \end{tasks}
+    \analysis{B}{许多学生已经完成了他们的家庭作业。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 短语：\texttt{A number of} (许多) + 复数名词 -> 复数谓语。
+                    \item 区别：\texttt{The number of} (……的数量) -> 单数谓语。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. has
+                    \item B. have：正确答案。
+                    \item C. is
+                    \item D. are
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{finish} (v.) 完成
+        \end{itemize}
+    }
+
+    \item If I \blank enough money, I would buy a new laptop for my study.
+    \begin{tasks}(4)
+        \task have \task had \task will have \task would have
+    \end{tasks}
+    \analysis{B}{如果我有足够的钱，我会买一台新笔记本电脑学习。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气 (Present)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 主句：\texttt{would buy} (would + do)。
+                    \item 从句：对现在的虚拟，用过去式。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. have
+                    \item B. had：正确答案。
+                    \item C. will have
+                    \item D. would have
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{laptop} (n.) 笔记本电脑
+        \end{itemize}
+    }
+
+    \item The little boy \blank by his mother when he crossed the street carelessly.
+    \begin{tasks}(4)
+        \task was stopped \task stopped \task stops \task is stopping
+    \end{tasks}
+    \analysis{A}{当那个小男孩粗心地过马路时，被他妈妈拦住了。}{
+        \begin{itemize}
+            \item \textbf{考点}：被动语态
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关系：男孩“被”拦住。
+                    \item 标志：\textbf{by his mother}。
+                    \item 时态：crossed是过去，用一般过去时被动。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. was stopped：正确答案。
+                    \item B. stopped
+                    \item C. stops
+                    \item D. is stopping
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{carelessly} (adv.) 粗心地
+        \end{itemize}
+    }
+
+    \item She asked me \blank I had seen her English book or not.
+    \begin{tasks}(4)
+        \task that \task if \task whether \task what
+    \end{tasks}
+    \analysis{C}{她问我是否看到了她的英语书。}{
+        \begin{itemize}
+            \item \textbf{考点}：宾语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{whether ... or not}。
+                    \item if通常不与or not紧密连用（if ... or not 有时可接受，但whether ... or not最标准）。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. that
+                    \item B. if
+                    \item C. whether：正确答案。
+                    \item D. what
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{ask} (v.) 询问
+        \end{itemize}
+    }
+
+    \item The girl \blank hair is black won the first prize in the English competition.
+    \begin{tasks}(4)
+        \task whose \task which \task who \task whom
+    \end{tasks}
+    \analysis{A}{那个黑头发的女孩在英语比赛中获得了一等奖。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关系：女孩\textbf{的}头发。
+                    \item 词汇：\textbf{whose}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. whose：正确答案。
+                    \item B. which
+                    \item C. who
+                    \item D. whom
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{competition} (n.) 比赛
+        \end{itemize}
+    }
+
+    \item Not only \blank he speak English fluently, but also he can speak French.
+    \begin{tasks}(4)
+        \task do \task does \task is \task was
+    \end{tasks}
+    \analysis{B}{他不仅英语说得流利，而且还会说法语。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\textbf{Not only}。
+                    \item 动词：\texttt{speak} (实义动词)。
+                    \item 助动词：\texttt{he} (三单) -> \textbf{does}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. do
+                    \item B. does：正确答案。
+                    \item C. is
+                    \item D. was
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{fluently} (adv.) 流利地
+        \end{itemize}
+    }
+
+    \item It was in the park \blank we met our old teacher yesterday.
+    \begin{tasks}(4)
+        \task that \task where \task which \task when
+    \end{tasks}
+    \analysis{A}{昨天我们正是在公园里遇见了我们的老师。}{
+        \begin{itemize}
+            \item \textbf{考点}：强调句型
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It was ... that ...}
+                    \item 去掉结构后：In the park we met our old teacher yesterday. (完整)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. that：正确答案。
+                    \item B. where
+                    \item C. which
+                    \item D. when
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{meet} (v.) 遇见
+        \end{itemize}
+    }
+
+    \item I suggest \blank a meeting to discuss the study plan next week.
+    \begin{tasks}(4)
+        \task to hold \task holding \task hold \task held
+    \end{tasks}
+    \analysis{B}{我建议下周开个会讨论学习计划。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词搭配
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 词汇：\textbf{suggest}。
+                    \item 搭配：\texttt{suggest doing sth.}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. to hold
+                    \item B. holding：正确答案。
+                    \item C. hold
+                    \item D. held
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{discuss} (v.) 讨论
+        \end{itemize}
+    }
+
+    \item The teacher told us that the earth \blank around the sun.
+    \begin{tasks}(4)
+        \task moves \task moved \task has moved \task was moving
+    \end{tasks}
+    \analysis{A}{老师告诉我们地球绕着太阳转。}{
+        \begin{itemize}
+            \item \textbf{考点}：时态 (客观真理)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 规则：客观真理永远用**一般现在时**，不受主句过去时影响。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. moves：正确答案。
+                    \item B. moved
+                    \item C. has moved
+                    \item D. was moving
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{earth} (n.) 地球
+        \end{itemize}
+    }
+
+    \item \blank tired after a long walk, she still kept working on her project.
+    \begin{tasks}(4)
+        \task Though \task As \task Since \task Because
+    \end{tasks}
+    \analysis{A}{虽然走了很长一段路很累，她还是继续做她的项目。}{
+        \begin{itemize}
+            \item \textbf{考点}：状语/省略
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构：\texttt{(Being) tired...} 或者连词+形容词 \texttt{Though tired...}。
+                    \item 语境：累 vs 继续工作 (转折)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Though：正确答案。(Though she was tired -> Though tired)。
+                    \item B. As
+                    \item C. Since
+                    \item D. Because
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{project} (n.) 项目
+        \end{itemize}
+    }
+\end{questions}
+
+% ======================================================================
+% Day 11
+% ======================================================================
+\section*{Day 11}
+\begin{questions}
+    \item Tom \blank his homework when his friend called him yesterday.
+    \begin{tasks}(4)
+        \task does \task did \task was doing \task is doing
+    \end{tasks}
+    \analysis{C}{昨天朋友给他打电话时，汤姆正在做作业。}{
+        \begin{itemize}
+            \item \textbf{考点}：过去进行时
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语境：过去某个时间点（friend called）正在进行的动作。
+                    \item 结构：\texttt{was/were doing}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. does
+                    \item B. did
+                    \item C. was doing：正确答案。
+                    \item D. is doing
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{homework} (n.) 作业
+        \end{itemize}
+    }
+
+    \item This is the best movie \blank I have ever watched this year.
+    \begin{tasks}(4)
+        \task which \task that \task who \task whom
+    \end{tasks}
+    \analysis{B}{这是我今年看过的最好的一部电影。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句 (that предпочтительно)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 先行词：\texttt{movie}，被最高级 \texttt{the best} 修饰。
+                    \item 规则：先行词受最高级修饰时，关系代词常用 \textbf{that}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. which
+                    \item B. that：正确答案。
+                    \item C. who
+                    \item D. whom
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{ever} (adv.) 曾经
+        \end{itemize}
+    }
+
+    \item If it \blank tomorrow, we will stay at home and watch TV.
+    \begin{tasks}(4)
+        \task rains \task rained \task will rain \task has rained
+    \end{tasks}
+    \analysis{A}{如果明天下雨，我们就待在家里看电视。}{
+        \begin{itemize}
+            \item \textbf{考点}：主将从现
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：If条件句。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. rains：正确答案。
+                    \item B. rained
+                    \item C. will rain
+                    \item D. has rained
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{stay at home} 待在家
+        \end{itemize}
+    }
+
+    \item The teacher asked us \blank late for class again.
+    \begin{tasks}(4)
+        \task not be \task not to be \task to not be \task be not
+    \end{tasks}
+    \analysis{B}{老师要求我们上课不要再迟到了。}{
+        \begin{itemize}
+            \item \textbf{考点}：不定式否定
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{ask sb. (not) to do sth.}。
+                    \item 否定：not放在to之前。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. not be
+                    \item B. not to be：正确答案。
+                    \item C. to not be
+                    \item D. be not
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{late for class} 上课迟到
+        \end{itemize}
+    }
+
+    \item By the time we arrived, the meeting \blank.
+    \begin{tasks}(4)
+        \task has started \task had started \task started \task starts
+    \end{tasks}
+    \analysis{B}{等我们到达时，会议已经开始了。}{
+        \begin{itemize}
+            \item \textbf{考点}：过去完成时
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{By the time... arrived} (过去)。
+                    \item 结构：\texttt{had done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. has started
+                    \item B. had started：正确答案。
+                    \item C. started
+                    \item D. starts
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{meeting} (n.) 会议
+        \end{itemize}
+    }
+
+    \item A number of students \blank interested in the new course.
+    \begin{tasks}(4)
+        \task is \task are \task was \task were
+    \end{tasks}
+    \analysis{B}{许多学生对这门新课程感兴趣。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 短语：\texttt{A number of} + 复数名词 -> 复数谓语。
+                    \item 时态：通常一般现在时(is/are)，除非指过去。这里无过去标志。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. is
+                    \item B. are：正确答案。
+                    \item C. was
+                    \item D. were
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{course} (n.) 课程
+        \end{itemize}
+    }
+
+    \item The girl \blank father is a doctor studies very hard.
+    \begin{tasks}(4)
+        \task whose \task who \task whom \task which
+    \end{tasks}
+    \analysis{A}{那位父亲是医生的女孩学习非常努力。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关系：女孩\textbf{的}父亲。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. whose：正确答案。
+                    \item B. who
+                    \item C. whom
+                    \item D. which
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{study hard} 努力学习
+        \end{itemize}
+    }
+
+    \item It is important for us \blank English every day.
+    \begin{tasks}(4)
+        \task practice \task to practice \task practicing \task practiced
+    \end{tasks}
+    \analysis{B}{对我们来说，每天练习英语很重要。}{
+        \begin{itemize}
+            \item \textbf{考点}：不定式
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It is + adj. + for sb. + to do}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. practice
+                    \item B. to practice：正确答案。
+                    \item C. practicing
+                    \item D. practiced
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{practice} (v.) 练习
+        \end{itemize}
+    }
+
+    \item Not only my brother but also I \blank good at swimming.
+    \begin{tasks}(4)
+        \task am \task is \task are \task be
+    \end{tasks}
+    \analysis{A}{不仅我哥哥，就连我也擅长游泳。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致 (就近原则)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构：\texttt{Not only A but also B}。
+                    \item 规则：谓语动词与\textbf{B} (I) 一致。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. am：Correct (matches 'I').
+                    \item B. is
+                    \item C. are
+                    \item D. be
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{be good at} 擅长
+        \end{itemize}
+    }
+
+    \item The book \blank I bought last week is very popular among students.
+    \begin{tasks}(4)
+        \task what \task which \task who \task whom
+    \end{tasks}
+    \analysis{B}{我上周买的那本书在学生中很受欢迎。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 先行词：\texttt{book} (物)。
+                    \item 关系词：\textbf{which} 或 that。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. what
+                    \item B. which：正确答案。
+                    \item C. who
+                    \item D. whom
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{popular} (adj.) 受欢迎的
+        \end{itemize}
+    }
+
+    \item If I \blank you, I \blank take this chance to study abroad.
+    \begin{tasks}(4)
+        \task am; will \task were; would \task was; will \task are; would
+    \end{tasks}
+    \analysis{B}{如果我是你，我会抓住这次出国留学的机会。}{
+        \begin{itemize}
+            \item \textbf{考点}：虚拟语气
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{If I were you}。
+                    \item 主句：\texttt{would + do}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. am; will
+                    \item B. were; would：正确答案。
+                    \item C. was; will
+                    \item D. are; would
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{study abroad} 出国留学
+        \end{itemize}
+    }
+
+    \item It was in 2020 \blank he graduated from high school.
+    \begin{tasks}(4)
+        \task that \task when \task which \task where
+    \end{tasks}
+    \analysis{A}{正是在2020年，他从高中毕业。}{
+        \begin{itemize}
+            \item \textbf{考点}：强调句型
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It was ... that ...}
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. that：正确答案。
+                    \item B. when
+                    \item C. which
+                    \item D. where
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{graduate} (v.) 毕业
+        \end{itemize}
+    }
+
+    \item The students \blank to finish the project in two weeks.
+    \begin{tasks}(4)
+        \task require \task are required \task required \task are requiring
+    \end{tasks}
+    \analysis{B}{学生们被要求在两周内完成这个项目。}{
+        \begin{itemize}
+            \item \textbf{考点}：被动语态
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{require sb. to do sth.} -> \texttt{sb. be required to do sth.}。
+                    \item 语境：被要求。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. require
+                    \item B. are required：正确答案。
+                    \item C. required
+                    \item D. are requiring
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{project} (n.) 项目
+        \end{itemize}
+    }
+
+    \item She suggested \blank a meeting to discuss the problem.
+    \begin{tasks}(4)
+        \task to hold \task holding \task hold \task held
+    \end{tasks}
+    \analysis{B}{她建议开个会讨论这个问题。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词搭配
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{suggest doing sth.}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. to hold
+                    \item B. holding：正确答案。
+                    \item C. hold
+                    \item D. held
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{discuss} (v.) 讨论
+        \end{itemize}
+    }
+
+    \item \blank he is young, he has a lot of experience in teaching.
+    \begin{tasks}(4)
+        \task Although \task Because \task Since \task As
+    \end{tasks}
+    \analysis{A}{虽然他年轻，但他有丰富的教学经验。}{
+        \begin{itemize}
+            \item \textbf{考点}：状语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 逻辑：年轻 vs 经验丰富 (转折)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Although：正确答案。
+                    \item B. Because
+                    \item C. Since
+                    \item D. As：As作“虽然”讲需倒装 (Young as he is)。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{experience} (n.) 经验
+        \end{itemize}
+    }
+\end{questions}
+
+% ======================================================================
+% Day 12
+% ======================================================================
+\section*{Day 12}
+\begin{questions}
+    \item By the end of last month, she \blank on this research paper for three weeks.
+    \begin{tasks}(2)
+        \task worked \task has worked
+        \task had been working \task was working
+    \end{tasks}
+    \analysis{C}{到上个月底为止，她已经在这个研究论文上工作了三周了。}{
+        \begin{itemize}
+            \item \textbf{考点}：过去完成进行时
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{By the end of last month} (过去时间点) + \texttt{for three weeks} (持续时间)。
+                    \item 含义：在过去某个时间点之前一直持续的动作。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. worked
+                    \item B. has worked
+                    \item C. had been working：正确答案。
+                    \item D. was working
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{research paper} 研究论文
+        \end{itemize}
+    }
+
+    \item I can't forget the small town \blank I spent my childhood with my grandparents.
+    \begin{tasks}(4)
+        \task which \task where \task that \task whose
+    \end{tasks}
+    \analysis{B}{我忘不了那个我和祖父母一起度过童年的小镇。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 先行词：\texttt{small town} (地点)。
+                    \item 从句：I spent my childhood [in it]。缺地点状语。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. which
+                    \item B. where：正确答案。
+                    \item C. that
+                    \item D. whose
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{childhood} (n.) 童年
+        \end{itemize}
+    }
+
+    \item If you \blank my advice last week, you \blank in trouble now.
+    \begin{tasks}(1)
+        \task took; wouldn’t be
+        \task had taken; wouldn’t be
+        \task took; wouldn’t have been
+        \task had taken; wouldn’t have been
+    \end{tasks}
+    \analysis{B}{如果你上周听了我的建议，你现在就不会有麻烦了。}{
+        \begin{itemize}
+            \item \textbf{考点}：错综时间虚拟语气 (Mixed Conditional)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 从句：\texttt{last week} (过去) -> 过去完成时 \texttt{had taken}。
+                    \item 主句：\texttt{now} (现在) -> 过去将来时 \texttt{wouldn't be}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. took ...
+                    \item B. had taken; wouldn’t be：正确答案。
+                    \item C. took ...
+                    \item D. had taken; wouldn’t have been (若主句也是过去时才选此)。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{advice} (n.) 建议
+        \end{itemize}
+    }
+
+    \item Only when you finish all the homework \blank to watch the live match.
+    \begin{tasks}(2)
+        \task you are allowed \task are you allowed
+        \task you will allow \task will you allow
+    \end{tasks}
+    \analysis{B}{只有当你完成所有作业时，你才被允许看直播比赛。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句/被动
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{Only + 状语从句} 位于句首 -> 主句倒装。
+                    \item 语态：你“被”允许。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. you are allowed
+                    \item B. are you allowed：正确答案。
+                    \item C. you will allow
+                    \item D. will you allow
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{live match} 直播比赛
+        \end{itemize}
+    }
+
+    \item \blank the map carefully, we found the shortest route to the museum successfully.
+    \begin{tasks}(4)
+        \task Having studied \task Studying \task Studied \task To study
+    \end{tasks}
+    \analysis{A}{仔细研究了地图之后，我们成功找到了去博物馆的最近路线。}{
+        \begin{itemize}
+            \item \textbf{考点}：非谓语动词 (Perfect Participle)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关系：We与study是主动关系。
+                    \item 时间：“研究地图”发生在“找到路线”之前。用完成式 \texttt{Having studied}。
+                    \item Studying (表示同时进行) 逻辑上不如 Having studied 精确。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Having studied：正确答案。
+                    \item B. Studying
+                    \item C. Studied
+                    \item D. To study
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{route} (n.) 路线
+        \end{itemize}
+    }
+
+    \item The number of people invited to the party \blank fifty, but a number of them \blank absent for different reasons.
+    \begin{tasks}(4)
+        \task were; was \task was; was \task was; were \task were; were
+    \end{tasks}
+    \analysis{C}{被邀请参加聚会的人数是50，但其中一些人因不同原因缺席了。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 第一空：\texttt{The number of} (……的数量) -> 单数 (was)。
+                    \item 第二空：\texttt{a number of} (许多) -> 复数 (were)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. were; was
+                    \item B. was; was
+                    \item C. was; were：正确答案。
+                    \item D. were; were
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{absent} (adj.) 缺席的
+        \end{itemize}
+    }
+
+    \item The ground is all wet. It \blank rained heavily last night.
+    \begin{tasks}(4)
+        \task should have \task must have \task would have \task could have
+    \end{tasks}
+    \analysis{B}{地面全湿了。昨晚肯定下大雨了。}{
+        \begin{itemize}
+            \item \textbf{考点}：情态动词表推测
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 证据：\texttt{The ground is all wet}。
+                    \item 结论：推测昨晚情况，语气肯定。用 \textbf{must have done} (肯定已经)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. should have：本应该。
+                    \item B. must have：正确答案。
+                    \item C. would have
+                    \item D. could have：可能。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{heavily} (adv.) 猛烈地
+        \end{itemize}
+    }
+
+    \item It was not until she failed the exam \blank she realized the importance of taking notes in class.
+    \begin{tasks}(4)
+        \task When \task that \task which \task what
+    \end{tasks}
+    \analysis{B}{直到她考试不及格，她才意识到上课记笔记的重要性。}{
+        \begin{itemize}
+            \item \textbf{考点}：强调句型 (Not until)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It was not until ... that ...}
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. When
+                    \item B. that：正确答案。
+                    \item C. which
+                    \item D. what
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{take notes} 记笔记
+        \end{itemize}
+    }
+
+    \item \blank difficult the task may be, we will try our best to complete it on time.
+    \begin{tasks}(4)
+        \task No matter \task Although \task As \task However
+    \end{tasks}
+    \analysis{D}{无论任务多么困难，我们都会尽力按时完成。}{
+        \begin{itemize}
+            \item \textbf{考点}：让步状语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构：\texttt{\blank + adj. + S + may be}。
+                    \item 搭配：\textbf{However} / No matter how + adj.
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. No matter：No matter how才对。
+                    \item B. Although：不接倒装adj。
+                    \item C. As：Difficult as...
+                    \item D. However：正确答案。(However difficult = No matter how difficult).
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{complete} (v.) 完成
+        \end{itemize}
+    }
+
+    \item --- Who is in the classroom now? \\
+    --- \blank. All the students have gone to the playground for PE class.
+    \begin{tasks}(4)
+        \task Someone \task No one \task Anyone \task Everyone
+    \end{tasks}
+    \analysis{B}{——现在谁在教室里？\\——没人。所有学生都去操场上体育课了。}{
+        \begin{itemize}
+            \item \textbf{考点}：不定代词
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语境：后句说“所有人都去操场了”，说明教室里“没人”。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Someone
+                    \item B. No one：正确答案。
+                    \item C. Anyone
+                    \item D. Everyone
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{playground} (n.) 操场
+        \end{itemize}
+    }
+
+    \item After graduation, he decided to \blank painting as his lifelong career because of his deep love for art.
+    \begin{tasks}(4)
+        \task take up \task take off \task take in \task take over
+    \end{tasks}
+    \analysis{A}{毕业后，因为对艺术的热爱，他决定从事绘画作为终身事业。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词短语辨析
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 含义：从事，开始（爱好/职业）。
+                    \item 词汇：\textbf{take up}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. take up：开始从事。正确答案。
+                    \item B. take off：起飞。
+                    \item C. take in：吸收，欺骗。
+                    \item D. take over：接管。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{career} (n.) 事业
+        \end{itemize}
+    }
+
+    \item It is \blank for young people to master some basic skills to adapt to the society.
+    \begin{tasks}(4)
+        \task Essential \task effective \task elegant \task endless
+    \end{tasks}
+    \analysis{A}{对年轻人来说，掌握一些基本技能以适应社会是至关重要的。}{
+        \begin{itemize}
+            \item \textbf{考点}：形容词辨析
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语境：掌握技能适应社会 -> 很重要/必要。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Essential：必不可少的，至关重要的。正确答案。
+                    \item B. effective：有效的。
+                    \item C. elegant：优雅的。
+                    \item D. endless：无止境的。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{essential} [ɪ'senʃl] (adj.) 必要的
+        \end{itemize}
+    }
+
+    \item This kind of plant is \blank to the south of China and can’t grow in cold areas.
+    \begin{tasks}(4)
+        \task unique \task familiar \task native \task similar
+    \end{tasks}
+    \analysis{C}{这种植物是中国南方特有的，不能在寒冷地区生长。}{
+        \begin{itemize}
+            \item \textbf{考点}：形容词搭配
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{be native to...} (原产于……/是……特有的)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. unique：unique to 也是“特有的”，但 native to 强调原产地/土生土长，更贴切植物语境。(unique ok, but native is standard for flora/fauna).
+                    \item B. familiar
+                    \item C. native：正确答案。
+                    \item D. similar
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{native} (adj.) 本土的
+        \end{itemize}
+    }
+
+    \item The manager asked his secretary to keep him \blank of the latest sales data every week.
+    \begin{tasks}(4)
+        \task informed \task reminded \task warned \task accused
+    \end{tasks}
+    \analysis{A}{经理要求秘书每周让他了解最新的销售数据。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词短语
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\textbf{keep sb. informed of sth.} (让某人随时了解某事)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. informed：正确答案。
+                    \item B. reminded
+                    \item C. warned
+                    \item D. accused
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{inform} (v.) 通知
+        \end{itemize}
+    }
+
+    \item My parents always \blank me to be honest and brave when I face difficulties in life.
+    \begin{tasks}(4)
+        \task encourage \task persuade \task suggest \task forbid
+    \end{tasks}
+    \analysis{A}{父母总是鼓励我在面对生活困难时要诚实和勇敢。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词辨析
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{encourage sb. to do sth.}。
+                    \item 语境：积极的教导。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. encourage：正确答案。
+                    \item B. persuade：说服。
+                    \item C. suggest：suggest doing (不能接sb to do)。
+                    \item D. forbid：禁止。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{encourage} (v.) 鼓励
+        \end{itemize}
+    }
+\end{questions}
+
+% ======================================================================
+% Day 13
+% ======================================================================
+\section*{Day 13}
+\begin{questions}
+    \item Mr. Li \blank in this school for 20 years by the summer of next year, and he has no plan to leave.
+    \begin{tasks}(2)
+        \task will work \task works
+        \task will have worked \task has worked
+    \end{tasks}
+    \analysis{C}{到明年夏天，李老师将在这所学校工作满20年了，而且他不打算离开。}{
+        \begin{itemize}
+            \item \textbf{考点}：将来完成时
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{by the summer of next year} (将来时间点) + \texttt{for 20 years}。
+                    \item 结构：\texttt{will have done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. will work
+                    \item B. works
+                    \item C. will have worked：正确答案。
+                    \item D. has worked
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{leave} (v.) 离开
+        \end{itemize}
+    }
+
+    \item This is the company \blank we signed an important contract last month.
+    \begin{tasks}(4)
+        \task with which \task which \task that \task whose
+    \end{tasks}
+    \analysis{A}{这就是上个月我们与之签订重要合同的那家公司。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句 (介词+关系代词)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{sign contract with sb.} (与某人签合同)。
+                    \item 结构：\texttt{with} 提前 -> \texttt{with which}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. with which：正确答案。
+                    \item B. which：缺介词。
+                    \item C. that：介词后不能跟that。
+                    \item D. whose
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{contract} (n.) 合同
+        \end{itemize}
+    }
+
+    \item Without your timely help, we \blank the tough task on schedule last week.
+    \begin{tasks}(2)
+        \task couldn’t finish \task couldn’t have finished
+        \task can’t finish \task can’t have finished
+    \end{tasks}
+    \analysis{B}{如果没有你及时的帮助，我们上周就不可能按时完成这项艰巨的任务。}{
+        \begin{itemize}
+            \item \textbf{考点}：含蓄虚拟语气
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{Without...} (= If it hadn't been for...)。
+                    \item 时间：\texttt{last week} (过去)。
+                    \item 结构：主句用 \texttt{couldn't have done}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. couldn’t finish
+                    \item B. couldn’t have finished：正确答案。
+                    \item C. can’t finish
+                    \item D. can’t have finished
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{timely} (adj.) 及时的
+        \end{itemize}
+    }
+
+    \item Not a single mistake \blank in the test paper after he checked it carefully twice.
+    \begin{tasks}(4)
+        \task he made \task did he make \task he makes \task does he make
+    \end{tasks}
+    \analysis{B}{在他仔细检查了两遍后，试卷里没有出现任何一个错误。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{Not a single...} (否定词) 位于句首。
+                    \item 规则：部分倒装。\texttt{checked} 是过去时，助动词用 \textbf{did}。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. he made
+                    \item B. did he make：正确答案。
+                    \item C. he makes
+                    \item D. does he make
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{check} (v.) 检查
+        \end{itemize}
+    }
+
+    \item The report \blank by the research group has been widely praised by experts in this field.
+    \begin{tasks}(4)
+        \task writing \task wrote \task written \task to write
+    \end{tasks}
+    \analysis{C}{由研究小组撰写的这份报告受到了该领域专家的广泛赞扬。}{
+        \begin{itemize}
+            \item \textbf{考点}：非谓语动词 (过去分词)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 关系：报告“被写” (Passive)。
+                    \item 形式：过去分词 \textbf{written} 作后置定语。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. writing
+                    \item B. wrote
+                    \item C. written：正确答案。
+                    \item D. to write
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{widely} (adv.) 广泛地
+        \end{itemize}
+    }
+
+    \item A large quantity of food and water \blank to the disaster area since the earthquake happened.
+    \begin{tasks}(2)
+        \task has been sent \task have been sent
+        \task is sending \task are sending
+    \end{tasks}
+    \analysis{A}{自从地震发生以来，大量的食物和水被送往灾区。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 短语：\texttt{A large quantity of ...} + 谓语单数 (quantity是中心词)。(注意：Quantities of... 用复数)。
+                    \item 时态：\texttt{since...} -> 现在完成时被动。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. has been sent：正确答案。
+                    \item B. have been sent
+                    \item C. is sending
+                    \item D. are sending
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{disaster area} 灾区
+        \end{itemize}
+    }
+
+    \item — The light in Jack’s office is still on at 11 p.m. \\
+    — He \blank be working on the urgent project. He always takes his job seriously.
+    \begin{tasks}(4)
+        \task need \task must \task would \task might
+    \end{tasks}
+    \analysis{B}{——晚上11点了，杰克办公室的灯还亮着。\\——他肯定是在做那个紧急项目。他工作一向很认真。}{
+        \begin{itemize}
+            \item \textbf{考点}：情态动词推测
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 依据：灯还亮着，工作认真。
+                    \item 结论：推测把握很大，肯定语气。
+                    \item 词汇：\textbf{must} (肯定)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. need
+                    \item B. must：正确答案。
+                    \item C. would
+                    \item D. might：可能（语气弱）。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{seriously} (adv.) 认真地
+        \end{itemize}
+    }
+
+    \item It is the sense of responsibility \blank makes him an excellent team leader in the company.
+    \begin{tasks}(4)
+        \task which \task who \task what \task that
+    \end{tasks}
+    \analysis{D}{正是责任感使他成为了公司里一名优秀的团队领导。}{
+        \begin{itemize}
+            \item \textbf{考点}：强调句型
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It is ... that ...}
+                    \item 强调部分：\texttt{the sense of responsibility} (物)。强调句通常用that。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. which：强调句通常不用which (虽然有时指物可用，但that更通用且是考试标准)。
+                    \item B. who
+                    \item C. what
+                    \item D. that：正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{responsibility} (n.) 责任
+        \end{itemize}
+    }
+
+    \item \blank tired he was, he still stayed up late to help his roommate with his homework.
+    \begin{tasks}(4)
+        \task As \task Although \task However \task Because
+    \end{tasks}
+    \analysis{C}{无论他有多累，他还是熬夜帮室友做作业。}{
+        \begin{itemize}
+            \item \textbf{考点}：让步状语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 结构：\texttt{\blank + adj./adv. + S + V}。
+                    \item 词汇：\textbf{However} (=No matter how)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. As：Tired as he was (语序不同)。
+                    \item B. Although：Although he was tired (语序不同)。
+                    \item C. However：正确答案。
+                    \item D. Because
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{stay up} 熬夜
+        \end{itemize}
+    }
+
+    \item — Would you like some more tea or coffee? \\
+    — \blank. I’ve had enough and I need to leave now.
+    \begin{tasks}(4)
+        \task Either \task Both \task None \task Neither
+    \end{tasks}
+    \analysis{D}{——这也再来点茶或者咖啡吗？\\——都不要了。我喝够了，现在得走了。}{
+        \begin{itemize}
+            \item \textbf{考点}：不定代词
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语境：I've had enough (受够了/喝够了) -> 拒绝。
+                    \item 对象：tea or coffee (两者)。
+                    \item 词汇：\textbf{Neither} (两者都不)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Either
+                    \item B. Both
+                    \item C. None：三者以上。
+                    \item D. Neither：正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{enough} (adv.) 足够
+        \end{itemize}
+    }
+
+    \item It is unwise to \blank small problems, which may turn into big troubles sooner or later.
+    \begin{tasks}(4)
+        \task put aside \task put away \task put off \task put up
+    \end{tasks}
+    \analysis{A}{无视小问题是不明智的，迟早它们会变成大麻烦。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词短语辨析
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语境：不理会小问题 -> 酿成大祸。
+                    \item 词汇：\textbf{put aside} (搁置，不理会)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. put aside：正确答案。
+                    \item B. put away：收起来。
+                    \item C. put off：推迟。
+                    \item D. put up：张贴，搭建。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{unwise} (adj.) 不明智的
+        \end{itemize}
+    }
+
+    \item People who are \blank to computer games are more likely to suffer from poor eyesight.
+    \begin{tasks}(4)
+        \task addicted \task attracted \task accustomed \task related
+    \end{tasks}
+    \analysis{A}{沉迷于电脑游戏的人更容易视力下降。}{
+        \begin{itemize}
+            \item \textbf{考点}：形容词搭配
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\textbf{be addicted to} (沉迷于，上瘾)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. addicted：正确答案。
+                    \item B. attracted：被吸引。
+                    \item C. accustomed：习惯于。
+                    \item D. related：相关的。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{eyesight} (n.) 视力
+        \end{itemize}
+    }
+
+    \item After years of hard work, she finally \blank a good command of English and French.
+    \begin{tasks}(4)
+        \task required \task acquired \task inquired \task requested
+    \end{tasks}
+    \analysis{B}{经过多年的努力，她终于掌握了英语和通过。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词辨析
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\textbf{acquire a good command of} (掌握/习得)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. required：要求。
+                    \item B. acquired：获得，习得。正确答案。
+                    \item C. inquired：询问。
+                    \item D. requested：请求。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{command} (n.) 掌握
+        \end{itemize}
+    }
+
+    \item \blank of cost, this new type of machine is more suitable for small factories.
+    \begin{tasks}(4)
+        \task In terms \task In case \task In need \task In favor
+    \end{tasks}
+    \analysis{A}{就成本而言，这种新型机器更适合小工厂。}{
+        \begin{itemize}
+            \item \textbf{考点}：介词短语
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语境：讨论机器的某个方面(cost)。
+                    \item 词汇：\textbf{In terms of} (在……方面，就……而言)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. In terms：正确答案。
+                    \item B. In case：万一。
+                    \item C. In need：需要。
+                    \item D. In favor：赞同。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{suitable} (adj.) 合适的
+        \end{itemize}
+    }
+
+    \item Due to the bad weather, the outdoor concert has been \blank until next weekend.
+    \begin{tasks}(4)
+        \task canceled \task postponed \task stopped \task rejected
+    \end{tasks}
+    \analysis{B}{由于天气不好，户外音乐会已被推迟到下周末。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词辨析
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 语境：until next weekend (直到下周末)。
+                    \item 含义：改期/推迟。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. canceled：取消（通常不接until next weekend，而是直接取消）。
+                    \item B. postponed：推迟。正确答案。
+                    \item C. stopped：停止。
+                    \item D. rejected：拒绝。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{concert} (n.) 音乐会
+        \end{itemize}
+    }
+\end{questions}
+
+% ======================================================================
+% Day 14
+% ======================================================================
+\section*{Day 14}
+\begin{questions}
+    \item She \blank in the library for the whole morning, and she still hasn’t finished her paper.
+    \begin{tasks}(4)
+        \task studied \task has studied \task has been studying \task is studying
+    \end{tasks}
+    \analysis{C}{她整个上午都在图书馆学习，但她还没写完论文。}{
+        \begin{itemize}
+            \item \textbf{考点}：现在完成进行时
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\texttt{for the whole morning} + \texttt{still hasn't finished} (动作持续且可能继续)。
+                    \item 强调：动作的持续性。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. studied
+                    \item B. has studied
+                    \item C. has been studying：正确答案。
+                    \item D. is studying
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{paper} (n.) 论文
+        \end{itemize}
+    }
+
+    \item This is the magazine \blank I referred to in my speech yesterday.
+    \begin{tasks}(4)
+        \task which \task to which \task what \task to that
+    \end{tasks}
+    \analysis{A}{这就是我昨天演讲中提到的那本杂志。}{
+        \begin{itemize}
+            \item \textbf{考点}：定语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{refer to} (介词 \texttt{to} 在句末)。
+                    \item 关系词：\textbf{which} 或 that。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. which：正确答案。
+                    \item B. to which：介词重复 (referred to to which X)。
+                    \item C. what
+                    \item D. to that
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{speech} (n.) 演讲
+        \end{itemize}
+    }
+
+    \item If it \blank rain tomorrow, we \blank go camping by the lake as planned.
+    \begin{tasks}(2)
+        \task shouldn’t; would \task wouldn’t; will
+        \task doesn’t; will \task won’t; would
+    \end{tasks}
+    \analysis{C}{如果明天下不下雨，我们将按计划去湖边露营。}{
+        \begin{itemize}
+            \item \textbf{考点}：主将从现
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 逻辑：不去露营的前提是下雨 ->“如果不下雨”。
+                    \item 句型：If真实条件句，从句一般现在时 (doesn't rain)，主句将来时 (will)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. shouldn’t...
+                    \item B. wouldn’t...
+                    \item C. doesn’t; will：正确答案。
+                    \item D. won’t...
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{as planned} 按计划
+        \end{itemize}
+    }
+
+    \item Only in this way \blank the complex problem step by step.
+    \begin{tasks}(2)
+        \task we can solve \task can we solve
+        \task we solve \task do we solve
+    \end{tasks}
+    \analysis{B}{只有用这种方法，我们才能一步步解决这个复杂的问题。}{
+        \begin{itemize}
+            \item \textbf{考点}：倒装句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 标志：\textbf{Only + 状语} 位于句首 -> 主句部分倒装。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. we can solve
+                    \item B. can we solve：正确答案。
+                    \item C. we solve
+                    \item D. do we solve
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{complex} (adj.) 复杂的
+        \end{itemize}
+    }
+
+    \item \blank more about the history of this city, he went to the local library to borrow some reference books.
+    \begin{tasks}(4)
+        \task To learn \task Learning \task Learned \task Learn
+    \end{tasks}
+    \analysis{A}{为了了解更多关于这座城市的历史，他去了当地图书馆借阅参考书。}{
+        \begin{itemize}
+            \item \textbf{考点}：非谓语动词 (Purpose)
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 逻辑：去图书馆的“目的”。
+                    \item 形式：\textbf{To do} (不定式) 表目的。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. To learn：正确答案。
+                    \item B. Learning
+                    \item C. Learned
+                    \item D. Learn
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{reference book} 参考书
+        \end{itemize}
+    }
+
+    \item Large quantities of soil \blank washed away by the heavy rain last night.
+    \begin{tasks}(4)
+        \task was \task were \task is \task has been
+    \end{tasks}
+    \analysis{B}{昨晚的大雨冲走了大量的土壤。}{
+        \begin{itemize}
+            \item \textbf{考点}：主谓一致
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 短语：\texttt{Large quantities of ...} + 复数谓语 (quantities决定)。
+                    \item 时态：\texttt{last night} -> 过去时。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. was
+                    \item B. were：正确答案。
+                    \item C. is
+                    \item D. has been
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{wash away} 冲走
+        \end{itemize}
+    }
+
+    \item The witness said he \blank seen the suspect near the scene of the crime, but he was not sure.
+    \begin{tasks}(4)
+        \task must have \task should have \task may have \task need have
+    \end{tasks}
+    \analysis{C}{目击者说他可能在案发现场附近见过嫌疑人，但他不确定。}{
+        \begin{itemize}
+            \item \textbf{考点}：情态动词推测
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 线索：\texttt{but he was not sure} (不确定)。
+                    \item 词汇：\textbf{may/might have done} (可能已经)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. must have：肯定。
+                    \item B. should have
+                    \item C. may have：正确答案。
+                    \item D. need have
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{suspect} (n.) 嫌疑人
+        \end{itemize}
+    }
+
+    \item It is the hard work and perseverance \blank lead her to achieve great success in her career.
+    \begin{tasks}(4)
+        \task who \task whom \task which \task that
+    \end{tasks}
+    \analysis{D}{正是努力和毅力使她在事业上取得了巨大成功。}{
+        \begin{itemize}
+            \item \textbf{考点}：强调句型
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 句型：\texttt{It is ... that ...}
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. who
+                    \item B. whom
+                    \item C. which
+                    \item D. that：正确答案。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{perseverance} (n.) 毅力
+        \end{itemize}
+    }
+
+    \item \blank he is very busy, he always spares some time to accompany his family on weekends.
+    \begin{tasks}(4)
+        \task As if \task Even if \task As long as \task As soon as
+    \end{tasks}
+    \analysis{B}{即使他很忙，通过周末他也总是抽出时间陪家人。}{
+        \begin{itemize}
+            \item \textbf{考点}：状语从句
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 逻辑：忙 vs 陪家人 (转折/让步)。
+                    \item 词汇：\textbf{Even if} (即使/虽然)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. As if：好像。
+                    \item B. Even if：正确答案。
+                    \item C. As long as：只要。
+                    \item D. As soon as：一……就。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{accompany} (v.) 陪伴
+        \end{itemize}
+    }
+
+    \item \blank of the two books is suitable for middle school students, so let's buy both for our kids.
+    \begin{tasks}(4)
+        \task Both \task All \task Either \task Neither
+    \end{tasks}
+    \analysis{C}{这两本书任一本都适合中学生，所以两本都买给孩子吧。}{
+        \begin{itemize}
+            \item \textbf{考点}：不定代词
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 谓语：\texttt{is} (单数)。排除Both (复数)。
+                    \item 逻辑：\texttt{let's buy both} (都买)。暗示两者都好。
+                    \item 词汇：\textbf{Either} (两者中的任何一个)。"Either is suitable" = 这本也行那本也行 -> 都行。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. Both：接are。
+                    \item B. All：三者以上。
+                    \item C. Either：正确答案。
+                    \item D. Neither：都不适合。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{suitable} (adj.) 合适的
+        \end{itemize}
+    }
+
+    \item All the students are looking forward to \blank the international exchange program this summer vacation.
+    \begin{tasks}(4)
+        \task take part in \task taking part in \task take part \task taking part
+    \end{tasks}
+    \analysis{B}{所有学生都期待参加今年暑假的国际交换项目。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词搭配
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\texttt{look forward to doing sth.}。
+                    \item 词汇：\texttt{take part in} (参加)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. take part in
+                    \item B. taking part in：正确答案。
+                    \item C. take part
+                    \item D. taking part
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{exchange program} 交换项目
+        \end{itemize}
+    }
+
+    \item When making a decision, we should \blank all possible outcomes into account to avoid mistakes.
+    \begin{tasks}(4)
+        \task take \task make \task turn \task bring
+    \end{tasks}
+    \analysis{A}{做决定时，我们应该考虑到所有可能的结果以避免犯错。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词短语
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\textbf{take ... into account} (考虑)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. take：正确答案。
+                    \item B. make
+                    \item C. turn
+                    \item D. bring
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{outcome} (n.) 结果
+        \end{itemize}
+    }
+
+    \item Hard work can \blank for the lack of natural talent in most cases.
+    \begin{tasks}(4)
+        \task make up \task make out \task make up for \task make off
+    \end{tasks}
+    \analysis{C}{在大多数情况下，努力工作可以弥补天赋的不足。}{
+        \begin{itemize}
+            \item \textbf{考点}：动词短语
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 词汇：\textbf{make up for} (弥补)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. make up：组成，化妆。
+                    \item B. make out：辨认出。
+                    \item C. make up for：正确答案。
+                    \item D. make off：逃跑。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{natural talent} 天赋
+        \end{itemize}
+    }
+
+    \item \blank of the bad traffic condition, we had to change our plan and take the subway instead of taking a car.
+    \begin{tasks}(4)
+        \task In spite \task In view \task In case \task In terms
+    \end{tasks}
+    \analysis{B}{鉴于交通状况糟糕，我们不得不改变计划，改坐地铁而不是开车。}{
+        \begin{itemize}
+            \item \textbf{考点}：介词短语
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 逻辑：交通不好 -> 改变计划 (因果)。
+                    \item 词汇：\textbf{In view of} (鉴于/考虑到)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. In spite (of)：尽管。
+                    \item B. In view (of)：正确答案。
+                    \item C. In case (of)：万一。
+                    \item D. In terms (of)：就……而言。
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{traffic condition} 交通状况
+        \end{itemize}
+    }
+
+    \item The monitor will attend the meeting \blank of the whole class next week.
+    \begin{tasks}(4)
+        \task on behalf \task in behalf \task by behalf \task for behalf
+    \end{tasks}
+    \analysis{A}{班长下周将代表全班参加会议。}{
+        \begin{itemize}
+            \item \textbf{考点}：介词短语
+            \item \textbf{解题思路}：
+                \begin{enumerate}
+                    \item 搭配：\textbf{on behalf of} (代表)。
+                \end{enumerate}
+            \item \textbf{选项分析}：
+                \begin{itemize}
+                    \item A. on behalf：正确答案。
+                    \item B. in behalf
+                    \item C. by behalf
+                    \item D. for behalf
+                \end{itemize}
+        \end{itemize}
+    }{
+        \begin{itemize}
+            \item \texttt{monitor} (n.) 班长
+        \end{itemize}
+    }
+\end{questions}
+
+\end{document}

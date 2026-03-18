@@ -1,0 +1,2710 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本《数据结构》试题全集}
+\lhead{整理版}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{专升本《数据结构》试题全集}}
+\author{整理自上传文档}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section*{第一部分：章节练习题 (源自《数据结构(专升本).pdf》)}
+
+\section{第一章 概述}
+
+\subsection*{一、选择题}
+\begin{enumerate}
+    \item 以下哪种数据结构中任何两个结点之间都没有逻辑关系（ ）。
+    \begin{enumerate}
+        \item[A.] 树形结构
+        \item[B.] 集合
+        \item[C.] 图形结构
+        \item[D.] 线性结构
+    \end{enumerate}
+    
+    \item 要求同一逻辑结构的所有数据元素具有相同的性质，这意味着（ ）。
+    \begin{enumerate}
+        \item[A.] 数据元素具有同一的特点
+        \item[B.] 不仅数据元素包含的数据项的个数相同，而且对应数据项的类型要一致
+        \item[C.] 每个数据元素都一样
+        \item[D.] 数据元素所包含的数据项的个数要相等
+    \end{enumerate}
+    
+    \item 以下说法正确的是（ ）。
+    \begin{enumerate}
+        \item[A.] 数据元素是数据的最小单位
+        \item[B.] 数据项是数据的基本单位
+        \item[C.] 数据结构是带有结构的各数据项的集合
+        \item[D.] 数据结构是带有结构的数据元素的集合
+    \end{enumerate}
+    
+    \item 下面的叙述不是算法的特性的是（ ）。
+    \begin{enumerate}
+        \item[A.] 有穷性
+        \item[B.] 输入性
+        \item[C.] 可行性
+        \item[D.] 可读性
+    \end{enumerate}
+    
+    \item 下面的叙述中（ ）不是设计一个好的算法应达到的目标。
+    \begin{enumerate}
+        \item[A.] 健壮性
+        \item[B.] 可读性
+        \item[C.] 高存储量
+        \item[D.] 正确性
+    \end{enumerate}
+    
+    \item 下面运算中（ ）不是数据结构所具备的基本运算。
+    \begin{enumerate}
+        \item[A.] 插入
+        \item[B.] 排序
+        \item[C.] 退出
+        \item[D.] 删除
+    \end{enumerate}
+    
+    \item 数据结构是一门研究非数值计算的程序设计问题中计算机的（1）以及它们之间的（2）和运算等的学科。
+    \begin{enumerate}
+        \item[(1)] A. 数据元素 \quad B. 计算方法 \quad C. 逻辑存储 \quad D. 算法
+        \item[(2)] A. 结构 \quad B. 关系 \quad C. 运算 \quad D. 数据映像
+    \end{enumerate}
+    
+    \item 数据结构被形式地定义为 $(K, R)$，其中 $K$ 是（1）的有限集，$R$ 是 $K$ 上的（2）的有限集。
+    \begin{enumerate}
+        \item[(1)] A. 算法 \quad B. 数据元素 \quad C. 数据操作 \quad D. 逻辑结构
+        \item[(2)] A. 操作 \quad B. 映像 \quad C. 存储 \quad D. 关系
+    \end{enumerate}
+    
+    \item 在数据结构中，从逻辑上可以把数据结构分成（ ）。
+    \begin{enumerate}
+        \item[A.] 动态结构和静态结构
+        \item[B.] 紧凑结构和非紧凑结构
+        \item[C.] 线性结构和非线性结构
+        \item[D.] 内部结构和外部结构
+    \end{enumerate}
+    
+    \item 数据结构在计算机内存中的表示是指（ ）。
+    \begin{enumerate}
+        \item[A.] 数据的存储结构
+        \item[B.] 数据结构
+        \item[C.] 数据的逻辑结构
+        \item[D.] 数据元素之间的关系
+    \end{enumerate}
+    
+    \item 在数据结构中，与所使用的计算机无关的是数据的（ ）结构。
+    \begin{enumerate}
+        \item[A.] 逻辑
+        \item[B.] 存储
+        \item[C.] 逻辑和存储
+        \item[D.] 物理
+    \end{enumerate}
+    
+    \item 算法分析的目的是（1），算法分析的两个主要方面是（2）。
+    \begin{enumerate}
+        \item[(1)] A. 找出数据结构的合理性 \quad B. 研究算法中的输入和输出的关系 \quad C. 分析算法的效率以求改进 \quad D. 分析算法的易懂性和文档性
+        \item[(2)] A. 空间复杂度和时间复杂度 \quad B. 正确性和简明性 \quad C. 可读性和文档性 \quad D. 数据复杂性和程序复杂性
+    \end{enumerate}
+    
+    \item 计算机算法指的是（1），它必须具备输入、输出和（2）等 5 个特性。
+    \begin{enumerate}
+        \item[(1)] A. 计算方法 \quad B. 排序方法 \quad C. 解决问题的有限运算序列 \quad D. 调度方法
+        \item[(2)] A. 可行性、可移植性和可扩充性 \quad B. 可行性、确定性和有穷性 \quad C. 确定性、有穷性和稳定性 \quad D. 易读性、稳定性和安全性
+    \end{enumerate}
+    
+    \item 在以下的叙述中，正确的是（ ）。
+    \begin{enumerate}
+        \item[A.] 线性表的顺序存储结构优于链式存储结构
+        \item[B.] 二维数组是其数据元素为线性表的线性表
+        \item[C.] 栈的操作方式是先进先出
+        \item[D.] 队列的操作方式是先进后出
+    \end{enumerate}
+    
+    \item 在决定选取何种存储结构时，一般不考虑（ ）。
+    \begin{enumerate}
+        \item[A.] 各结点的值如何
+        \item[B.] 结点个数的多少
+        \item[C.] 对数据有哪些运算
+        \item[D.] 所用编程语言实现这种结构是否方便
+    \end{enumerate}
+    
+    \item 在存储数据时，通常不仅要存储各数据元素的值，而且还要存储（ ）。
+    \begin{enumerate}
+        \item[A.] 数据的处理方法
+        \item[B.] 数据元素的类型
+        \item[C.] 数据元素之间的关系
+        \item[D.] 数据的存储方法
+    \end{enumerate}
+    
+    \item 下面说法错误的是（ ）。
+    \begin{enumerate}
+        \item[(1)] 算法原地工作的含义是指不需要任何额外的辅助空间。
+        \item[(2)] 在相同的规模 $n$ 下，复杂度 $O(n)$ 的算法在时间上总是优于复杂度 $O(2^n)$ 的算法。
+        \item[(3)] 所谓时间复杂度是指最坏情况下，估计算法执行时间的一个上界。
+        \item[(4)] 同一个算法，实现语句的级别越高，执行效率越低。
+        \item[A.] (1)
+        \item[B.] (1) (2)
+        \item[C.] (1) (4)
+        \item[D.] (3)
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{二、填空题}
+\begin{enumerate}
+    \item 一个数据结构在计算机中的（ ）称为存储结构。
+    \item 数据的逻辑结构包括（ ）、（ ）和（ ）三种结构，树形结构和图形结构合称为（ ）。
+    \item 在线性结构中，第一个结点（ ）前驱结点，其余每个结点有且只有（ ）个前驱结点；最后一个结点（ ）后继结点，其余每个结点有且只有（ ）个后继结点。
+    \item 在树形结构中，根结点没有（ ）结点，其余每个结点有且只有（ ）个前驱结点，叶子结点没有（ ）结点，其余每个结点的后继结点可以（ ）。
+    \item 在图形结构中，每个结点的前驱结点数和后继结点数可以（ ）。
+    \item 线性结构中元素之间存在（ ）关系，树形结构中元素之间存在（ ）关系，图形结构中元素之间存在（ ）关系。
+    \item 算法的 5 个重要特性是（ ）、（ ）、（ ）、（ ）和（ ）。
+    \item 算法可以用不同的语言描述，如果用 C 语言或 PASCAL 语言等高级语言来描述，则算法实现上就是程序了。这种说法是（ ）的。
+    \item 算法效率分析可分为（ ）分析和（ ）分析。
+    \item 数据结构的存储方式有（ ）、（ ）、（ ）和（ ）4 种。
+    \item 数据结构包括（ ）、（ ）、（ ）三个组成部分。
+    \item 数据对象是性质相同的（ ）的集合。
+\end{enumerate}
+
+\subsection*{三、判断题}
+\begin{enumerate}
+    \item 顺序存储方式只能用于存储线性结构。（ ）
+    \item 数据元素是数据的最小单位。（ ）
+    \item 数据结构、数据元素、数据项在计算机中的映像（或表示）分别称为存储结构、结点、数据域。（ ）
+    \item 数据的物理结构是指数据在计算机内实际的存储形式。（ ）
+    \item 数据的逻辑结构是对数据元素之间关系的描述，它与数据元素之间的相对位置无关。（ ）
+\end{enumerate}
+
+\section{第二章 线性表}
+
+\subsection*{一、选择题}
+\begin{enumerate}
+    \item 链表不具备的特点是（ ）。
+    \begin{enumerate}
+        \item[A.] 可随机访问任一结点
+        \item[B.] 插入删除不需要移动元素
+        \item[C.] 不必事先估计存储空间
+        \item[D.] 所需空间与其长度成正比
+    \end{enumerate}
+    
+    \item 不带头结点的单链表 head 为空的判定条件是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{head == NULL}
+        \item[B.] \texttt{head->next == NULL}
+        \item[C.] \texttt{head->next == head}
+        \item[D.] \texttt{head != NULL}
+    \end{enumerate}
+    
+    \item 带头结点的单链表 head 为空的判定条件是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{head == NULL}
+        \item[B.] \texttt{head->next == NULL}
+        \item[C.] \texttt{head->next == head}
+        \item[D.] \texttt{head != NULL}
+    \end{enumerate}
+    
+    \item 带头结点的双循环链表 L 为空表的条件是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{L == NULL}
+        \item[B.] \texttt{L->next == NULL}
+        \item[C.] \texttt{L->prior == NULL}
+        \item[D.] \texttt{L->next == L}
+    \end{enumerate}
+    
+    \item 非空的循环单链表 head 的尾结点（由 p 所指向）满足（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{p->next == NULL}
+        \item[B.] \texttt{p == NULL}
+        \item[C.] \texttt{p->next == head}
+        \item[D.] \texttt{p == head}
+    \end{enumerate}
+    
+    \item 在循环双链表的 p 所指结点之前插入 s 所指结点的操作是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{p->prior=s; s->next=p; p->prior->next=s; s->prior=p->prior;}
+        \item[B.] \texttt{p->prior=s; p->prior->next=s; s->next=p; s->prior=p->prior;}
+        \item[C.] \texttt{s->next=p; s->prior=p->prior; p->prior=s; p->right->next=s;}
+        \item[D.] \texttt{s->next=p; s->prior=p->prior; p->prior->next=s; p->prior=s;}
+    \end{enumerate}
+    
+    \item 若某表最常用的操作是在最后一个结点之后插入一个结点或删除最后一个结点，则采用（ ）存储方式最节省运算时间。
+    \begin{enumerate}
+        \item[A.] 单链表
+        \item[B.] 给出表头指针的单循环链表
+        \item[C.] 双链表
+        \item[D.] 带头结点的双循环链表
+    \end{enumerate}
+    
+    \item 某线性表最常用的操作是在最后一个结点之后插入一个结点或删除第一个结点，故采用（ ）存储方式最节省运算时间。
+    \begin{enumerate}
+        \item[A.] 单链表
+        \item[B.] 仅有头结点的单循环链表
+        \item[C.] 双链表
+        \item[D.] 仅有尾指针的单循环链表
+    \end{enumerate}
+    
+    \item 如果最常用的操作是取第 i 个结点及其前驱，则采用（ ）存储方式最节省时间。
+    \begin{enumerate}
+        \item[A.] 单链表
+        \item[B.] 双链表
+        \item[C.] 单循环链表
+        \item[D.] 顺序表
+    \end{enumerate}
+    
+    \item 在一个具有 n 个结点的有序单链表中插入一个新结点并仍然保持有序的时间复杂度是（ ）。
+    \begin{enumerate}
+        \item[A.] $O(1)$
+        \item[B.] $O(n)$
+        \item[C.] $O(n^2)$
+        \item[D.] $O(n \log n)$
+    \end{enumerate}
+    
+    \item 在一个长度为 $n (n>1)$ 的单链表上，设有头和尾两个指针，执行（ ）操作与链表长度有关。
+    \begin{enumerate}
+        \item[A.] 删除单链表中的第一个元素
+        \item[B.] 删除单链表中的最后一个元素
+        \item[C.] 在单链表第一个元素前插入一个新元素
+        \item[D.] 在单链表最后一个元素后插入一个新元素
+    \end{enumerate}
+    
+    \item 设线性表有 n 个元素，以下算法中，（ ）在顺序表上实现比在链表上实现效率更高。
+    \begin{enumerate}
+        \item[A.] 输出第 $i (0 \le i \le n-1)$ 个元素值
+        \item[B.] 交换第 0 个元素与第 1 个元素的值
+        \item[C.] 顺序输出这 n 个元素的值
+        \item[D.] 输出与给定值 x 相等的元素在线性表中的序号
+    \end{enumerate}
+    
+    \item 设线性表中有 2n 个元素，算法（ ），在单链表上实现比在顺序表上实现效率更高。
+    \begin{enumerate}
+        \item[A.] 删除所有值为 x 的元素
+        \item[B.] 在最后一个元素的后面插入一个新元素
+        \item[C.] 顺序输出前 k 个元素
+        \item[D.] 交换第 i 个元素和第 $2n-i-1$ 个元素的值 ($i=0, 1, \dots, n-1$)
+    \end{enumerate}
+    
+    \item 与单链表相比，双链表的优点之一是（ ）。
+    \begin{enumerate}
+        \item[A.] 插入、删除操作更简单
+        \item[B.] 可以进行随机访问
+        \item[C.] 可以省略表头指针或表尾指针
+        \item[D.] 顺序访问相邻结点更灵活
+    \end{enumerate}
+    
+    \item 如果对线性表的运算只有 4 种，即删除第一个元素，删除最后一个元素，在第一个元素前面插入新元素，在最后一个元素的后面插入新元素，则最好使用（ ）。
+    \begin{enumerate}
+        \item[A.] 只有表尾指针没有表头指针的循环单链表
+        \item[B.] 只有表尾指针没有表头指针的非循环双链表
+        \item[C.] 只有表头指针没有表尾指针的循环双链表
+        \item[D.] 既有表头指针也有表尾指针的循环单链表
+    \end{enumerate}
+    
+    \item 如果对线性表的运算只有 2 种，即删除第一个元素，在最后一个元素的后面插入新元素，则最好使用（ ）。
+    \begin{enumerate}
+        \item[A.] 只有表头指针没有表尾指针的循环单链表
+        \item[B.] 只有表尾指针没有表头指针的循环单链表
+        \item[C.] 非循环双链表
+        \item[D.] 循环双链表
+    \end{enumerate}
+    
+    \item 设有两个长度为 n 的单链表，结点类型相同，若以 h1 为表头指针的链表是非循环的，以 h2 为表头指针的链表是循环的，则（ ）。
+    \begin{enumerate}
+        \item[A.] 对于两个链表来说，删除第一个结点的操作，其时间复杂度都是 $O(1)$
+        \item[B.] 对于两个链表来说，删除最后一个结点的操作，其时间复杂度都是 $O(n)$
+        \item[C.] 循环链表要比非循环链表占用更多的内存空间
+        \item[D.] h1 和 h2 是不同类型的变量
+    \end{enumerate}
+    
+    \item 在长度为 n 的（ ）上，删除第一个元素，其算法的时间复杂度为 $O(n)$。
+    \begin{enumerate}
+        \item[A.] 只有表头指针的不带表头结点的循环单链表
+        \item[B.] 只有表尾指针的不带表头结点的循环单链表
+        \item[C.] 只有表尾指针的带表头结点的循环单链表
+        \item[D.] 只有表头指针的带表头结点的循环单链表
+    \end{enumerate}
+    
+    \item 线性表是（ ）。
+    \begin{enumerate}
+        \item[A.] 一个有限序列，可以为空
+        \item[B.] 一个有限序列，不能为空
+        \item[C.] 一个无限序列，可以为空
+        \item[D.] 一个无限序列，不能为空
+    \end{enumerate}
+    
+    \item 设单链表中指针 p 指向结点 M，指针 f 指向将要插入的新结点 X：
+    \begin{enumerate}
+        \item[(1)] 当 X 插在链表中两个数据元素 M 和 N 之间时，只要先修改（ ）后修改（ ）即可。
+        \item[(2)] 当 X 插在链表中最后一个结点 M 之后时，只要先修改（ ）后修改（ ）即可。
+        \item[A.] \texttt{p->next=f}
+        \item[B.] \texttt{p->next=p->next->next}
+        \item[C.] \texttt{p->next=f->next}
+        \item[D.] \texttt{f->next=p->next}
+        \item[E.] \texttt{f->next=NULL}
+        \item[F.] \texttt{f->next=p}
+    \end{enumerate}
+    
+    \item 在单循环链表中指针 p 指向结点 A，若要删除 A 之后的结点，则指针的操作方式为（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{p->next = p->next->next}
+        \item[B.] \texttt{p = p->next}
+        \item[C.] \texttt{p = p->next->next}
+        \item[D.] \texttt{p->next = p}
+    \end{enumerate}
+    
+    \item 给定有 n 个元素的向量，建立一个有序单链表的时间复杂度为（ ）。
+    \begin{enumerate}
+        \item[A.] $O(1)$
+        \item[B.] $O(n)$
+        \item[C.] $O(n^2)$
+        \item[D.] $O(n \log n)$
+    \end{enumerate}
+    
+    \item 线性表采用链式存储时，其地址（ ）。
+    \begin{enumerate}
+        \item[A.] 必须是连续的
+        \item[B.] 一定是不连续的
+        \item[C.] 部分地址必须是连续的
+        \item[D.] 连续与否均可以
+    \end{enumerate}
+    
+    \item 从一个具有 n 个结点的单链表中查找其值等于 x 的结点时，在查找成功的情况下，需平均比较（ ）个元素。
+    \begin{enumerate}
+        \item[A.] $n/2$
+        \item[B.] $n$
+        \item[C.] $(n+1)/2$
+        \item[D.] $(n-1)/2$
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{二、填空题}
+\begin{enumerate}
+    \item 在单链表中，要删除某一指定的结点，必须找到该结点的（ ）结点。
+    \item 访问单链表中的结点，必须沿着（ ）依次进行。
+    \item 在双链表中，每个结点都有两个指针域，一个指向（ ），另一个指向（ ）。
+    \item 在（ ）链表上，删除最后一个结点，其算法的时间复杂度为 $O(1)$。
+    \item 在非循环的（ ）链表中，可以用表尾指针代替表头指针。
+    \item 在一个单链表中的 p 所指结点之前插入一个 s 所指结点时，可执行如下操作：
+    (1) \texttt{s->next=( )}; (2) \texttt{p->next=s}; (3) \texttt{t=p->data}; (4) \texttt{p->data=( )}; (5) \texttt{s->data=( )};
+    \item 在一个单链表中删除 p 所指结点时，应执行以下操作：
+    \texttt{q=p->next; p->data=p->next->data; p->next=( ); free(q);}
+    \item 在一个单链表中 p 所指结点之后插入一个 s 所指结点时，应执行 \texttt{s->next=( )} 和 \texttt{p->next=( )} 的操作。
+    \item 对于一个具有 n 个结点的单链表，在*p 结点后插入一个新的结点的时间复杂度是（ ），在给定值为 x 的结点后插入一个新结点的时间复杂度是（ ）。
+    \item 在一个长度为 n 的顺序表的第 $i (1 \le i \le n)$ 个元素之前插入一个元素需向后移动（ ）个元素。
+    \item 在长度为 n 的顺序表中，删除第 $i (1 \le i \le n)$ 个元素，需向前移动（ ）个元素。
+    \item 线性表常用的存储结构有（ ）和（ ）。
+    \item 线性表的逻辑结构是（ ），其所含结点的个数称为线性表的（ ）。
+    \item 当对一个线性表经常进行存取操作，而很少进行插入和删除操作时，则采用（ ）存储结构为宜，当经常进行的是插入删除操作时，则采用（ ）存储结构为宜。
+\end{enumerate}
+
+\subsection*{三、判断题}
+\begin{enumerate}
+    \item 顺序存储的线性表可以随机存取。（ ）
+    \item 线性表中的元素可以是各种类型的，但同一线性表中的数据元素具有相同的性质，因此属于同一数据对象。（ ）
+    \item 在线性表的顺序存储结构中，逻辑上相邻的两个元素在物理位置上并不一定是相邻的。（ ）
+    \item 线性表的链式存储结构优于顺序存储结构。（ ）
+    \item 在线性表的顺序存储结构中，插入和删除元素时，移动元素的个数与该元素的位置有关。（ ）
+    \item 顺序存储方式只能用于存储线性结构。（ ）
+    \item 链表的每个结点中都恰好包含一个指针。（ ）
+\end{enumerate}
+
+\subsection*{四、简答题}
+\begin{enumerate}
+    \item 头指针、头结点和首结点的区别是什么？
+    \item 线性表的两种存储结构各有哪些优缺点？
+    \item 对链表设置头结点的作用是什么？
+\end{enumerate}
+
+\subsection*{五、算法题}
+\begin{enumerate}
+    \item 建立一个由 n 个结点构成的单链表 $L=(1, 2, 3, \dots, n)$。
+    \item 求单链表中数据域为 x 的结点个数。
+    \item 求某一循环单链表的表长。
+    \item 在头指针为 head 的单链表中查找值为 x 的元素。
+    \item 复制一个单链表（依次查找头指针为 head1 的单链表中的每个结点，对每个结点复制一个新结点并链接到头指针为 head2 的单链表中）。
+    \item 将单链表中所有值为 x 的元素替换成 y。
+    \item 编写函数，通过一次遍历确定单链表中值最大的结点，返回其地址。
+    \item 编写函数将一个带头结点的单链表中的所有结点逆置。
+    \item 编写函数删除单链表中第 i 个结点。
+    \item 在长度大于 1 的循环单链表中，既无头结点也无头指针，p 指向链表中某一结点，编写算法删除该结点的前驱结点。
+    \item 在单链表中删除值为 x 的所有元素。
+    \item 已知带头结点的单链表中的元素按递增顺序排列，编写函数删除表中所有值大于 min 且小于 max 的元素。
+    \item 已知带头结点的单链表中的元素是无序的，编写函数删除表中所有值大于 min 且小于 max 的元素。
+    \item 编写函数，对一单链表反复找出表中最小元素，并在输出该元素后删除它，直到表为空时结束。
+    \item 有一个单链表，其结点的元素值以递增有序排列，编写函数删除该单链表中多余的元素值相同的结点。
+    \item 试写出一个在不带头结点的单链表的第 i 个元素之前插入一个新元素 x 的算法。
+    \item 有一个有序单链表，表头指针为 head，编写函数向该单链表中插入一个元素为 x 的结点，使插入后该链表仍然有序。
+    \item 设 A, B 是两个线性表，其表中元素递增有序，长度分别为 m 和 n，试写算法分别以顺序存储和链式存储将 A 和 B 归并成一个仍按元素值递增有序的线性表 C。
+    \item 编写一个算法将一个头结点指针为 pa 的单链表 A 分解成两个单链表 A 和 B，其头结点指针分别为 pa 和 pb，使得 A 链表中含有原链表 A 中序号为奇数的元素，而 B 链表中含有原链表 A 中序号为偶数的元素，且保持原来的相对顺序。
+    \item 有一个循环双链表，每个结点由两个指针（prior 和 next）以及 data 三个域构成，p 指向其中某一结点，编写函数删除 P 所指结点。
+    \item 设有个循环双链表，其中有一结点的指针为 p，编写一个算法将 p 与其后继结点进行交换。
+\end{enumerate}
+
+\section{第三章 栈和队列}
+
+\subsection*{一、选择题}
+\begin{enumerate}
+    \item 栈和队列的共同点是（ ）。
+    \begin{enumerate}
+        \item[A.] 都是先进后出
+        \item[B.] 都是先进先出
+        \item[C.] 只允许在端点处插入和删除元素
+        \item[D.] 没有共同点
+    \end{enumerate}
+    
+    \item 一个栈的进栈序列是 a, b, c, d, e，则栈的不可能的输出序列是（ ）。
+    \begin{enumerate}
+        \item[A.] edcba
+        \item[B.] decba
+        \item[C.] dceab
+        \item[D.] abcde
+    \end{enumerate}
+    
+    \item 若已知一个栈的进栈序列是 $1, 2, 3, \dots, n$，其输出序列为 $p_1, p_2, p_3, \dots, p_n$，若 $p_1=n$，则 $p_i (1 \le i < n)$ 为（ ）。
+    \begin{enumerate}
+        \item[A.] $i$
+        \item[B.] $n-i$
+        \item[C.] $n-i+1$
+        \item[D.] 不确定
+    \end{enumerate}
+    
+    \item 若已知一个栈的进栈序列是 $1, 2, 3, \dots, n$，其输出序列为 $p_1, p_2, p_3, \dots, p_n$，若 $p_n=n$，则 $p_i (1 \le i < n)$ 为（ ）。
+    \begin{enumerate}
+        \item[A.] $i$
+        \item[B.] $n-i$
+        \item[C.] $n-i+1$
+        \item[D.] 不确定
+    \end{enumerate}
+    
+    \item 若已知一个栈的进栈序列是 $1, 2, 3, \dots, n$，其输出序列为 $p_1, p_2, p_3, \dots, p_n$，若 $p_1=3$，则 $p_2$ 为（ ）。
+    \begin{enumerate}
+        \item[A.] 可能是 2
+        \item[B.] 一定是 2
+        \item[C.] 可能是 1
+        \item[D.] 一定是 1
+    \end{enumerate}
+    
+    \item 若已知一个栈的进栈序列是 $1, 2, 3, \dots, n$，其输出序列为 $1, 2, 3, \dots, n$，若 $p_i=1$，则 $p_{i+1}$ 为（ ）。
+    \begin{enumerate}
+        \item[A.] 可能是 2
+        \item[B.] 一定是 2
+        \item[C.] 不可能是 2
+        \item[D.] 不可能是 3
+    \end{enumerate}
+    
+    \item 判定一个栈 ST（最多元素为 MaxSize）为空的条件是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{ST->top != -1}
+        \item[B.] \texttt{ST->top == -1}
+        \item[C.] \texttt{ST->top != MaxSize-1}
+        \item[D.] \texttt{ST->top == MaxSize-1}
+    \end{enumerate}
+    
+    \item 判定一个栈 ST（最多元素为 MaxSize）为栈满的条件是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{ST->top != -1}
+        \item[B.] \texttt{ST->top == -1}
+        \item[C.] \texttt{ST->top != MaxSize-1}
+        \item[D.] \texttt{ST->top == MaxSize-1}
+    \end{enumerate}
+    
+    \item 最不适合用作链栈的链表是（ ）。
+    \begin{enumerate}
+        \item[A.] 只有表头指针没有表尾指针的循环双链表
+        \item[B.] 只有表尾指针没有表头指针的循环双链表
+        \item[C.] 只有表尾指针没有表头指针的循环单链表
+        \item[D.] 只有表头指针没有表尾指针的循环单链表
+    \end{enumerate}
+    
+    \item 向一个栈顶指针为 HS 的链栈中插入一个 s 所指结点时，则执行（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{HS->next=s;}
+        \item[B.] \texttt{s->next=HS->next; HS->next=s;}
+        \item[C.] \texttt{s->next=HS; HS=s;}
+        \item[D.] \texttt{s->next=HS; HS=HS->next;}
+    \end{enumerate}
+    
+    \item 从一个栈顶指针为 HS 的链栈中删除一个结点时，用 x 保存被删除结点的值，则执行（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{x=HS; HS=HS->next;}
+        \item[B.] \texttt{x=HS->data;}
+        \item[C.] \texttt{HS=HS->next; x=HS->data;}
+        \item[D.] \texttt{x=HS->data; HS=HS->next;}
+    \end{enumerate}
+    
+    \item 一个队列的入队序列是 1, 2, 3, 4，则队列的输出序列是（ ）。
+    \begin{enumerate}
+        \item[A.] 4, 3, 2, 1
+        \item[B.] 1, 2, 3, 4
+        \item[C.] 1, 4, 3, 2
+        \item[D.] 3, 2, 4, 1
+    \end{enumerate}
+    
+    \item 判定一个队列 QU（最多元素为 MaxSize）为空的条件是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{QU->rear - QU->front == MaxSize}
+        \item[B.] \texttt{QU->rear - QU->front - 1 == MaxSize}
+        \item[C.] \texttt{QU->front == QU->rear}
+        \item[D.] \texttt{QU->front == QU->rear + 1}
+    \end{enumerate}
+    
+    \item 循环顺序队列中是否可以插入下一个元素，（ ）。
+    \begin{enumerate}
+        \item[A.] 与队头指针和队尾指针的值有关
+        \item[B.] 只与队尾指针的值有关，与队头指针的值无关
+        \item[C.] 只与数组大小有关，与队首指针和队尾指针的值无关
+        \item[D.] 与曾经进行过多少次插入操作有关
+    \end{enumerate}
+    
+    \item 判定一个循环队列 QU（最多元素为 MaxSize）为空的条件是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{QU->front == QU->rear}
+        \item[B.] \texttt{QU->front != QU->rear}
+        \item[C.] \texttt{QU->front == (QU->rear+1)\%MaxSize}
+        \item[D.] \texttt{QU->front != (QU->rear+1)\%MaxSize}
+    \end{enumerate}
+    
+    \item 判定一个循环队列 QU（最多元素为 MaxSize）为满队列的条件是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{QU->front == QU->rear}
+        \item[B.] \texttt{QU->front != QU->rear}
+        \item[C.] \texttt{QU->front == (QU->rear+1)\%MaxSize}
+        \item[D.] \texttt{QU->front != (QU->rear+1)\%MaxSize}
+    \end{enumerate}
+    
+    \item 循环队列用数组 $A[0, m-1]$ 存放其元素值，已知其头尾指针分别是 front 和 rear，则当前队列中的元素个数是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{(rear-front+m)\%m}
+        \item[B.] \texttt{rear-front+1}
+        \item[C.] \texttt{rear-front-1}
+        \item[D.] \texttt{rear-front}
+    \end{enumerate}
+    
+    \item 若用一个大小为 6 的一维数组来实现循环队列，且当前 rear 和 front 的值分别为 0 和 3。当从队列中删除一个元素，再加入两个元素后，rear 和 front 的值分别是（ ）。
+    \begin{enumerate}
+        \item[A.] 1 和 5
+        \item[B.] 2 和 4
+        \item[C.] 4 和 2
+        \item[D.] 5 和 1
+    \end{enumerate}
+    
+    \item 最不适合用作链队列的链表是（ ）。
+    \begin{enumerate}
+        \item[A.] 只有队头指针的非循环双链表
+        \item[B.] 只有队头指针的循环双链表
+        \item[C.] 只有队尾指针的循环双链表
+        \item[D.] 只有队尾指针的循环单链表
+    \end{enumerate}
+    
+    \item 在一个链队列中，假设 f 和 r 分别为队头和队尾指针，则插入 s 所指结点的运算是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{f->next=s; f=s;}
+        \item[B.] \texttt{r->next=s; r=s;}
+        \item[C.] \texttt{s->next=r; r=s;}
+        \item[D.] \texttt{s->next=f; f=s;}
+    \end{enumerate}
+    
+    \item 在一个链队列中，假设 f 和 r 分别为队头和队尾指针，则删除一个结点的运算是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{r=f->next;}
+        \item[B.] \texttt{r=r->next;}
+        \item[C.] \texttt{f=f->next;}
+        \item[D.] \texttt{f=r->next;}
+    \end{enumerate}
+    
+    \item 设有个顺序栈 S，元素的入栈顺序是 $S_1, S_2, S_3, S_4, S_5, S_6$，如果 6 个元素出栈的顺序是 $S_2, S_4, S_3, S_6, S_5, S_1$，则栈的容量至少应该是（ ）。
+    \begin{enumerate}
+        \item[A.] 2
+        \item[B.] 3
+        \item[C.] 5
+        \item[D.] 6
+    \end{enumerate}
+    
+    \item 和顺序栈相比，链栈比较明显的优势是（ ）。
+    \begin{enumerate}
+        \item[A.] 通常不会出现栈满的情况
+        \item[B.] 通常不会出现栈空的情况
+        \item[C.] 插入操作更容易实现
+        \item[D.] 删除操作更容易实现
+    \end{enumerate}
+    
+    \item 如果以链表作为栈的存储结构，则退栈操作时（ ）。
+    \begin{enumerate}
+        \item[A.] 必须判别栈是否满
+        \item[B.] 判别栈元素类型
+        \item[C.] 必须判别栈是否空
+        \item[D.] 对栈不作任何判别
+    \end{enumerate}
+    
+    \item 设 C 语言定义数组 \texttt{data[m+1]} 作为循环队列的存储空间，front, rear 分别为队头，队尾指针，则执行出队操作的语句是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{front=front+1}
+        \item[B.] \texttt{front=(front+1)\%m}
+        \item[C.] \texttt{front=(front+1)\%(m+1)}
+        \item[D.] \texttt{rear=(rear+1)\%m}
+    \end{enumerate}
+    
+    \item 输入序列为 ABC，可以变为 CBA 时，经过的栈操作为（ ）。
+    \begin{enumerate}
+        \item[A.] push, pop, push, pop, push, pop
+        \item[B.] push, push, push, pop, pop, pop
+        \item[C.] push, push, pop, pop, push, pop
+        \item[D.] push, pop, push, push, pop, pop
+    \end{enumerate}
+    
+    \item 若一个栈以向量存储，初始栈顶指针 top 为 $n+1$，则下面进栈的正确操作是（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{top=top+1; V[top]=x}
+        \item[B.] \texttt{V[top]=x; top=top+1}
+        \item[C.] \texttt{top=top-1; V[top]=x}
+        \item[D.] \texttt{V[top]=x; top=top-1}
+    \end{enumerate}
+    
+    \item 栈在（ ）中应用。
+    \begin{enumerate}
+        \item[A.] 递归调用
+        \item[B.] 子程序调用
+        \item[C.] 表达式求值
+        \item[D.] A, B, C
+    \end{enumerate}
+    
+    \item 表达式 $a*(b+c)-d$ 的后缀表达式是（ ）。
+    \begin{enumerate}
+        \item[A.] abcd*+-
+        \item[B.] abc+*d-
+        \item[C.] abc*+d-
+        \item[D.] -+*abcd
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{二、填空题}
+\begin{enumerate}
+    \item 栈的特点是（ ），队列的特点是（ ）。
+    \item 设栈采用顺序存储结构，若已知 $i-1$ 个元素进栈，则将第 $i$ 个元素进栈时，进栈算法的时间复杂度为（ ）。
+    \item 若用不带头结点的单链表来表示链栈 S，则创建一个空栈所要执行的操作是（ ）。
+    \item 在具有 n 个单元循环队列中，队满时共有（ ）个元素。
+    \item 循环队列的引进目的是为了解决（ ）问题。
+    \item 在队列中，新插入的结点只能添加到（ ）。
+    \item （ ）可以作为实现递归函数调用的一种数据结构。
+    \item 通常元素进栈的操作方式是（ ）。
+    \item 通常元素退栈的操作方式是（ ）。
+    \item 一个栈的输入序列是 12345，则栈的输出序列 43512 是（ ）。
+    \item 在作进栈运算时应先判别栈是否（满）；在作退栈运算时应先判别栈是否（ ），当栈中元素为 n 个，作进栈运算时发生上溢，则说明该栈的最大容量为（ ）。
+\end{enumerate}
+
+\subsection*{三、简答题}
+\begin{enumerate}
+    \item 用栈实现将中缀表达式 $8-(3+5)*(5-6/2)$ 转换成后缀表达式，画出栈的变化过程图。
+    \item 栈和队列的共同点和区别是什么？
+    \item 怎样判定循环队列的空和满？
+    \item 画出后缀表达式 $ABC*D/-E-$，求值时操作数栈和运算符栈的变化过程。
+    \item 在一个循环队列中只有尾指针（记为 rear，结点结构为数据域 data，指针域 next），请给出这种队列的入队和出队操作的实现过程。
+\end{enumerate}
+
+\subsection*{四、算法题}
+\begin{enumerate}
+    \item 分别写出顺序栈、链栈，顺序队列、链队列的进栈，出栈，入队列、出队列的算法。
+    \item 利用栈和队列的特点，编写算法判断一个字符串是否为回文。
+    \item 编写算法将一个十进制数转换成二进制。
+\end{enumerate}
+
+\section{第四章 串}
+
+\subsection*{一、选择题}
+\begin{enumerate}
+    \item 空串与空格串是相同的，这种说法（ ）。
+    \begin{enumerate}
+        \item[A.] 正确
+        \item[B.] 不正确
+    \end{enumerate}
+    
+    \item 串是一种特殊的线性表，其特殊性体现在（ ）。
+    \begin{enumerate}
+        \item[A.] 可以顺序存储
+        \item[B.] 数据元素是一个字符
+        \item[C.] 可以链式存储
+        \item[D.] 数据元素可以是多个字符
+    \end{enumerate}
+    
+    \item 设有两个串 p 和 q，求 q 在 p 中首次出现的位置的运算称作（ ）。
+    \begin{enumerate}
+        \item[A.] 连接
+        \item[B.] 模式匹配
+        \item[C.] 求子串
+        \item[D.] 求串长
+    \end{enumerate}
+    
+    \item 有串 $s1=$"ABCDEFG", $s2=$"PQRST"，假设函数 con(x, y) 返回 x 和 y 串的连接串，subs(s, i, j) 返回串 s 从序号 i 字符开始的 j 个字符组成的子串，len(s) 返回串 s 的长度，则 con(subs(s1, 2, len(s2)), subs(s1, len(s2), 2)) 的结果是（ ）。
+    \begin{enumerate}
+        \item[A.] BCDEF
+        \item[B.] BCDEFG
+        \item[C.] BCPQRST
+        \item[D.] CDEFGFG
+    \end{enumerate}
+    
+    \item 已知 $t=$"abcaabbcabcaabdab"，该模式串的 next 数组值为（ ）。
+    \begin{enumerate}
+        \item[A.] -1, 0, 0, 0, 1, 1, 2, 0, 0, 1, 2, 3, 4, 5, 6, 0, 1
+        \item[B.] 0, 1, 0, 0, 1, 1, 2, 0, 0, 1, 2, 3, 4, 5, 6, 0, 1
+        \item[C.] -1, 0, 0, 0, 1, 1, 2, 0, 0, 1, 2, 3, 4, 5, 6, 7, 1
+        \item[D.] -1, 0, 0, 0, 1, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 0, 1
+    \end{enumerate}
+    
+    \item 若串 $s=$"software"，其子串的个数是（ ）。
+    \begin{enumerate}
+        \item[A.] 8
+        \item[B.] 37
+        \item[C.] 36
+        \item[D.] 9
+    \end{enumerate}
+    
+    \item KMP 算法的特点是在模式匹配时指示主串的指针不会变小，这种说法（ ）。
+    \begin{enumerate}
+        \item[A.] 正确
+        \item[B.] 错误
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{二、填空题}
+\begin{enumerate}
+    \item 串的两种最基本的存储方式是（ ）。
+    \item 两个串相等的充分必要条件是（ ）。
+    \item 空串的长度等于（ ），空格串的长度等于（ ）。
+    \item 设 $s=$"I AM A TEACHER" 其长度是（ ）。
+    \item 设 $s1=$"GOOD"，$s2=$""，$s3=$"BYE!" 则 s1, s2, s3 连接后的结果是（ ）。
+    \item BF 算法的时间复杂度为（ ），KMP 算法的时间复杂度为（ ）。
+\end{enumerate}
+
+\section{第五章 数组和广义表}
+
+\subsection*{一、选择题}
+\begin{enumerate}
+    \item 一维数组和线性表的区别是（ ）。
+    \begin{enumerate}
+        \item[A.] 前者长度固定，后者长度可变
+        \item[B.] 后者长度固定，前者长度可变
+        \item[C.] 两者长度均固定
+        \item[D.] 两者长度均可变
+    \end{enumerate}
+    
+    \item 二维数组 M 的成员是 6 个字符组成的串，行下标 i 的范围从 0 到 8，列下标 j 的范围从 1 到 10，则存放 M 至少需要（①）个字节，M 的第 8 列和第 5 行共占（②）个字节，若 M 按行优先方式存储，元素 M[8][5] 的起始地址与当 M 按列优先方式存储时元素（③）的起始地址一致。
+    \begin{enumerate}
+        \item[①] A. 90 \quad B. 180 \quad C. 240 \quad D. 540
+        \item[②] A. 108 \quad B. 114 \quad C. 54 \quad D. 60
+        \item[③] A. M[8][5] \quad B. M[3][10] \quad C. M[5][8] \quad D. M[0][9]
+    \end{enumerate}
+    
+    \item 二维数组 M 的元素是 4 个字符（每个字符占一个存储单元）组成的串，行下标 i 范围从 0 到 4，列下标 j 的范围从 0 到 5，M 按行优先存储时元素 M[3][5] 的起始地址与 M 按列优先存储时元素（ ）的起始地址相同。
+    \begin{enumerate}
+        \item[A.] M[2][4]
+        \item[B.] M[3][4]
+        \item[C.] M[4][3]
+        \item[D.] M[5][2]
+    \end{enumerate}
+    
+    \item 数组 A 中，每个元素 A 的长度为 3 个字节，行下标 i 从 1 到 8，列下标 j 从 1 到 10，从首地址 SA 开始连续存放在存储器内，存放该数组至少需要的单元数是（ ）。
+    \begin{enumerate}
+        \item[A.] 80
+        \item[B.] 100
+        \item[C.] 240
+        \item[D.] 270
+    \end{enumerate}
+    
+    \item 数组 A 中每个元素的长度为 3 个字节，行下标 i 从 1 到 8，列下标 j 从 1 到 10，从首地址 SA 开始连续存放在存储器内，该数组按行存放时，元素 A[8][5] 的起始地址为（ ）。
+    \begin{enumerate}
+        \item[A.] SA+141
+        \item[B.] SA+144
+        \item[C.] SA+222
+        \item[D.] SA+225
+    \end{enumerate}
+    
+    \item 数组 A 中每个元素的长度为 3 个字节，行下标 i 从 1 到 8，列下标 j 从 1 到 10，从首地址 SA 开始连续存放在存储器内，该数组按列存放时，A[5][8] 的起始地址为（ ）。
+    \begin{enumerate}
+        \item[A.] SA+141
+        \item[B.] SA+180
+        \item[C.] SA+222
+        \item[D.] SA+225
+    \end{enumerate}
+    
+    \item 设有一个 10 阶的对称矩阵 A，采用压缩存储方式，以行序为主存储，$a_{1,1}$ 为第一个元素，其存储地址为 1，每个元素占 1 个地址空间，则 $a_{8,5}$ 的地址为（ ）。
+    \begin{enumerate}
+        \item[A.] 13
+        \item[B.] 33
+        \item[C.] 18
+        \item[D.] 40
+    \end{enumerate}
+    
+    \item 一个 $n \times n$ 的对称矩阵，如果以行或列为主序放入内存，则容量为（ ）。
+    \begin{enumerate}
+        \item[A.] $n \times n$
+        \item[B.] $n \times n / 2$
+        \item[C.] $n \times (n+1) / 2$
+        \item[D.] $(n+1) \times (n+1) / 2$
+    \end{enumerate}
+    
+    \item 稀疏矩阵一般的压缩存储方法有两种，即（ ）。
+    \begin{enumerate}
+        \item[A.] 二维数组和三维数组
+        \item[B.] 三元组和散列
+        \item[C.] 三元组和十字链表
+        \item[D.] 散列和十字链表
+    \end{enumerate}
+    
+    \item 若采用三元组压缩技术存储稀疏矩阵，只要把每个元素的行下标和列下标互换，就完成了对该矩阵的转置运算，这种观点（ ）。
+    \begin{enumerate}
+        \item[A.] 正确
+        \item[B.] 错误
+    \end{enumerate}
+    
+    \item 数组 $A[0..5, 0..6]$ 的每个元素占五个字节，将其按列优先次序存储在起始地址为 1000 的内存单元中，则元素 A[5, 5] 的地址是（ ）。
+    \begin{enumerate}
+        \item[A.] 1175
+        \item[B.] 1180
+        \item[C.] 1205
+        \item[D.] 1210
+    \end{enumerate}
+    
+    \item 将一个 $A[1..100, 1..100]$ 的三对角矩阵，按行优先存入一维数组 $B[1..298]$ 中，A 中元素 $A_{66,65}$ (即该元素下标 $i=66, j=65$)，在 B 数组中的位置 K 为（ ）。
+    \begin{enumerate}
+        \item[A.] 198
+        \item[B.] 195
+        \item[C.] 197
+        \item[D.] 201
+    \end{enumerate}
+    
+    \item 有一个 $100 \times 90$ 的稀疏矩阵，非 0 元素有 10 个，设每个整型数据占 2 个字节，则用三元组表示该矩阵时，所需的字节数是（ ）。
+    \begin{enumerate}
+        \item[A.] 60
+        \item[B.] 66
+        \item[C.] 18000
+        \item[D.] 33
+    \end{enumerate}
+    
+    \item 数组 $A[0..4, -1..-3, 5..7]$ 中含有元素的个数（ ）。
+    \begin{enumerate}
+        \item[A.] 55
+        \item[B.] 45
+        \item[C.] 36
+        \item[D.] 16
+    \end{enumerate}
+    
+    \item 对数组经常进行的操作有（ ）。
+    \begin{enumerate}
+        \item[A.] 建立与删除
+        \item[B.] 索引与修改
+        \item[C.] 查找与修改
+        \item[D.] 查找与索引
+    \end{enumerate}
+    
+    \item 下面说法不正确的是（ ）。
+    \begin{enumerate}
+        \item[A.] 广义表的表头总是一个广义表
+        \item[B.] 广义表的表尾总是一个广义表
+        \item[C.] 广义表难以用顺序存储结构
+        \item[D.] 广义表可以是一个多层次的结构
+    \end{enumerate}
+    
+    \item 广义表 $((a), a)$ 的表头是（ ），表尾是（ ）。
+    \begin{enumerate}
+        \item[A.] a
+        \item[B.] b
+        \item[C.] (a)
+        \item[D.] ((a))
+    \end{enumerate}
+    
+    \item 广义表 $((a))$ 的表头是（ ），表尾是（ ）。
+    \begin{enumerate}
+        \item[A.] a
+        \item[B.] (a)
+        \item[C.] ()
+        \item[D.] ((a))
+    \end{enumerate}
+    
+    \item 广义表 $((a,b),c,d)$ 的表头是（ ），表尾是（ ）。
+    \begin{enumerate}
+        \item[A.] a
+        \item[B.] b
+        \item[C.] (a, b)
+        \item[D.] (c, d)
+    \end{enumerate}
+    
+    \item 广义表 $(a,b,c,d)$ 的表头是（ ），表尾是（ ）。
+    \begin{enumerate}
+        \item[A.] a
+        \item[B.] b
+        \item[C.] (a, b)
+        \item[D.] (b, c, d)
+    \end{enumerate}
+    
+    \item 一个广义表的表头总是一个广义表，这个断言是（ ）。
+    \begin{enumerate}
+        \item[A.] 正确的
+        \item[B.] 错误的
+    \end{enumerate}
+    
+    \item 一个广义表的表尾总是一个广义表，这个断言是（ ）。
+    \begin{enumerate}
+        \item[A.] 正确的
+        \item[B.] 错误的
+    \end{enumerate}
+    
+    \item 已知广义表 $L=((x, y, z), (u, t, w))$，从 L 表中取出原子 t 的运算是（ ）。
+    \begin{enumerate}
+        \item[A.] head(tail(tail(L)))
+        \item[B.] tail(head(head(tail(L))))
+        \item[C.] head(tail(head(tail(L))))
+        \item[D.] head(head(tail(tail(L))))
+    \end{enumerate}
+    
+    \item 若广义表 $A=(a,b,(c,d),(e,(f,g)))$，则下面式子的值为（ ）：Head(tail(head(tail(tail(A)))))。
+    \begin{enumerate}
+        \item[A.] (g)
+        \item[B.] (d)
+        \item[C.] (c)
+        \item[D.] d
+    \end{enumerate}
+    
+    \item 若广义表 A 满足 Head(A)=Tail(A)，则 A 为（ ）。
+    \begin{enumerate}
+        \item[A.] ()
+        \item[B.] (())
+        \item[C.] ((),())
+        \item[D.] ((),(),())
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{二、填空题}
+\begin{enumerate}
+    \item 当广义表中的每个元素都是原子（ ）时，广义表便成了（ ）。
+    \item 广义表 $(a, (a,b), d, e, ((i, j), k))$ 的长度是（ ），深度是（ ）。
+    \item 一维数组的存储结构是（ ），逻辑结构是（ ），对二维数组来说分（ ）和（ ）两种不同的存储方式。
+    \item 已知二维数组采用行为主方式存储，每个元素占 k 个存储单元，并且第一个元素的存储地址是 LOC(A[0][0])，则 A[i][j] 的地址是（ ）。
+    \item 二维数组 A[10][20] 采用以列为主方式存储，每个元素占一个存储单元，并且 A[0][0] 的存储地址是 200，则 A[6][12] 的地址是（ ）。
+    \item 二维数组 A[10..20][5..10] 采用行为主方式存储，每个元素占四个存储单元，并且 A[10][5] 的存储地址是 1000，则 A[18][9] 的地址是（ ）。
+    \item 有一个 10 阶对称矩阵 A，采用压缩存储方式 (以行序为主存储且 A[0][0]=1)，则 A[8][5] 的地址是（ ）。
+    \item 设 n 行 n 列的下三角矩阵 A 已压缩到一维数组 $S[1..n*(n+1)/2+1]$ 中，若按行序为主存储，当 $i \ge j$ 时，A[i][j] 对应的 S 中的存储位置是（ ）。
+    \item 一个对称矩阵，采用压缩存储方式存储其容量为（ ），若不采用压缩存储则容量为（ ）；三角矩阵压缩存储时其容量为（ ）。
+\end{enumerate}
+
+\subsection*{三、判断题}
+\begin{enumerate}
+    \item 若一个广义表的表头为空表，则此广义表也为空表。（ ）
+    \item 广义表是线性表的推广，是一类线性结构。（ ）
+    \item 一个稀疏矩阵采用三元组形式表示，若把三元组中行下标和列下标的值互换，则完成了矩阵的转置运算。（ ）
+    \item 数组是一种复杂的数据结构，数组元素之间的关系既不是线性的，也不是树型的。（ ）
+    \item 线性表可以看成是广义表的特例，如果广义表中的每个元素都是原子，则广义表便成为线性表。（ ）
+    \item 广义表中原子的个数即为广义表的长度。（ ）
+    \item 稀疏矩阵压缩存储后，必会失去随机存取功能。（ ）
+\end{enumerate}
+
+\subsection*{四、应用题}
+\begin{enumerate}
+    \item 已知广义表 $L=((((a))), ((b)), (c), d)$，试利用 head 和 tail 运算把原子项 c 从 L 中分离出来。
+    \item 画出下列广义表的两种存储结构图：$(O, A, (B, (C, D)), (E, F))$。
+    \item 已知广义表 $A=(((b,c),d),(a),((a),((b,c),d)),e,())$
+    \begin{enumerate}
+        \item 画出其一种存储结构图；
+        \item 写出表的长度与深度，表头与表尾。
+    \end{enumerate}
+    \item 稀疏矩阵 A 如图所示，画出以下各种表示法：（1）行优先三元组表示法；（2）列优先三元组表示法；（3）伪地址表示法；（4）十字链表示法。
+    \[
+    \begin{pmatrix}
+    15 & 0 & 0 & 22 & 0 & -15 \\
+    0 & 13 & 3 & 0 & 0 & 0 \\
+    0 & 0 & 0 & -6 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 91 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 2 & 8 & 0 & 0
+    \end{pmatrix}
+    \]
+\end{enumerate}
+
+\section{第六章 树}
+
+\subsection*{一、选择题}
+\begin{enumerate}
+    \item 树最适合用来表示（ ）。
+    \begin{enumerate}
+        \item[A.] 有序数据元素
+        \item[B.] 无序数据元素
+        \item[C.] 元素之间具有分支层次关系的数据
+        \item[D.] 元素之间无联系的数据
+    \end{enumerate}
+    
+    \item 树的后根遍历序列与其对应的二叉树的后序遍历序列相同。（ ）
+    \begin{enumerate}
+        \item[A.] 正确
+        \item[B.] 错误
+    \end{enumerate}
+    
+    \item 树的先根遍历序列与其对应的二叉树的中序遍历序列相同。（ ）
+    \begin{enumerate}
+        \item[A.] 正确
+        \item[B.] 错误
+    \end{enumerate}
+    
+    \item 按照二叉树的定义，具有 3 个结点的二叉树有（ ）种。
+    \begin{enumerate}
+        \item[A.] 3
+        \item[B.] 4
+        \item[C.] 5
+        \item[D.] 6
+    \end{enumerate}
+    
+    \item 深度为 5 的二叉树至多有（ ）个结点。
+    \begin{enumerate}
+        \item[A.] 16
+        \item[B.] 32
+        \item[C.] 31
+        \item[D.] 10
+    \end{enumerate}
+    
+    \item 在一棵非空二叉树的中序遍历序列中，根结点的右边（ ）。
+    \begin{enumerate}
+        \item[A.] 只有右子树上的所有结点
+        \item[B.] 只有右子树上的部分结点
+        \item[C.] 只有左子树上的部分结点
+        \item[D.] 只有左子树上的所有结点
+    \end{enumerate}
+    
+    \item 任何一棵二叉树的叶子结点在先序，中序和后序遍历序列中的相对次序（ ）。
+    \begin{enumerate}
+        \item[A.] 不发生改变
+        \item[B.] 发生改变
+        \item[C.] 不能确定
+    \end{enumerate}
+    
+    \item 对一个满二叉树，m 个树叶，n 个结点，深度为 h，则（ ）。
+    \begin{enumerate}
+        \item[A.] $n=h+m$
+        \item[B.] $h+m=2n$
+        \item[C.] $m=h-1$
+        \item[D.] $n=2^h-1$
+    \end{enumerate}
+    
+    \item 设 n, m 为一棵二叉树上的两个结点，在中序遍历时，n 在 m 前的条件是（ ）。
+    \begin{enumerate}
+        \item[A.] n 在 m 右方
+        \item[B.] n 是 m 祖先
+        \item[C.] n 在 m 左方
+        \item[D.] n 是 m 子孙
+    \end{enumerate}
+    
+    \item 线索二叉树是一种（ ）结构。
+    \begin{enumerate}
+        \item[A.] 逻辑
+        \item[B.] 逻辑和存储
+        \item[C.] 物理
+        \item[D.] 线性结构
+    \end{enumerate}
+    
+    \item 根据使用频率，为 5 个字符设计的哈夫曼编码不可能的是（ ）。
+    \begin{enumerate}
+        \item[A.] 111, 110, 10, 01, 00
+        \item[B.] 000, 001, 010, 011, 1
+        \item[C.] 100, 11, 10, 1, 0
+        \item[D.] 001, 000, 01, 11, 10
+    \end{enumerate}
+    
+    \item 根据使用频率，为 5 个字符设计的哈夫曼编码不可能的是（ ）。
+    \begin{enumerate}
+        \item[A.] 000, 001, 010, 011, 1
+        \item[B.] 0000, 0001, 001, 01, 1
+        \item[C.] 000, 001, 01, 10, 11
+        \item[D.] 00, 100, 101, 110, 111
+    \end{enumerate}
+    
+    \item 已知一算术表达式的中缀形式为 $A+B*C-D/E$，后缀形式为 $ABC*+DE/-$，其前缀形式为（ ）。
+    \begin{enumerate}
+        \item[A.] $-A+B*C/DE$
+        \item[B.] $-A+B*CD/E$
+        \item[C.] $-+*ABC/DE$
+        \item[D.] $-+A*BC/DE$
+    \end{enumerate}
+    
+    \item 设有一表示算术表达式的二叉树（见下图），它所表示的算术表达式是（ ）。
+    \begin{enumerate}
+        \item[A.] $A*B+C/(D*E)+(F-G)$
+        \item[B.] $(A*B+C)/(D*E)+(F-G)$
+        \item[C.] $(A*B+C)/(D*E+(F-G))$
+        \item[D.] $A*B+C/D*E+F-G$
+    \end{enumerate}
+    
+    \item 在下述结论中，正确的是（ ）。
+    \begin{enumerate}
+        \item[①] 只有一个结点的二叉树的度为 0;
+        \item[②] 二叉树的度为 2；
+        \item[③] 二叉树的左右子树可任意交换;
+        \item[④] 深度为 K 的完全二叉树的结点个数小于或等于深度相同的满二叉树。
+        \item[A.] ①②③
+        \item[B.] ②③④
+        \item[C.] ②④
+        \item[D.] ①④
+    \end{enumerate}
+    
+    \item 设森林 F 对应的二叉树为 B，它有 m 个结点，B 的根为 p，p 的右子树结点个数为 n，森林 F 中第一棵树的结点个数是（ ）。
+    \begin{enumerate}
+        \item[A.] $m-n$
+        \item[B.] $m-n-1$
+        \item[C.] $n+1$
+        \item[D.] 条件不足，无法确定
+    \end{enumerate}
+    
+    \item 对于有 n 个结点的二叉树，其高度为（ ）。
+    \begin{enumerate}
+        \item[A.] $n \log n$
+        \item[B.] $\log n$
+        \item[C.] $\lfloor \log n \rfloor + 1$
+        \item[D.] 不确定
+    \end{enumerate}
+    
+    \item 深度为 h 的满 m 叉树的第 k 层有（ ）个结点。($1 \le k \le h$)
+    \begin{enumerate}
+        \item[A.] $m^{k-1}$
+        \item[B.] $m^k-1$
+        \item[C.] $m^{h-1}$
+        \item[D.] $m^k$
+    \end{enumerate}
+    
+    \item 在下列存储形式中，哪一个不是树的存储形式？（ ）
+    \begin{enumerate}
+        \item[A.] 双亲表示法
+        \item[B.] 孩子链表表示法
+        \item[C.] 孩子兄弟表示法
+        \item[D.] 顺序存储表示法
+    \end{enumerate}
+    
+    \item 引入二叉线索树的目的是（ ）。
+    \begin{enumerate}
+        \item[A.] 加快查找结点的前驱或后继的速度
+        \item[B.] 为了能在二叉树中方便的进行插入与删除
+        \item[C.] 为了能方便的找到双亲
+        \item[D.] 使二叉树的遍历结果唯一
+    \end{enumerate}
+    
+    \item 在叶子数目和权值相同的所有二叉树中，最优二叉树一定是完全二叉树，该说法（ ）。
+    \begin{enumerate}
+        \item[A.] 正确
+        \item[B.] 错误
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{二、填空题}
+\begin{enumerate}
+    \item 二叉树由（ ），（ ），（ ）三个基本单元组成。
+    \item 树在计算机内的表示方式有（ ），（ ），（ ）。
+    \item 在二叉树中，指针 p 所指结点为叶子结点的条件是（ ）。
+    \item 中缀式 $a+b*3+4*(c-d)$ 对应的前缀式为（ ），若 $a=1, b=2, c=3, d=4$，则后缀式 $db/cc*a-b*+$ 的运算结果为（ ）。
+    \item 二叉树中某一结点左子树的深度减去右子树的深度称为该结点的（ ）。
+    \item 具有 256 个结点的完全二叉树的深度为（ ）。
+    \item 已知一棵度为 3 的树有 2 个度为 1 的结点，3 个度为 2 的结点，4 个度为 3 的结点，则该树有（ ）个叶子结点。
+    \item 深度为 k 的完全二叉树至少有（ ）个结点，至多有（ ）个结点。
+    \item 在完全二叉树中，编号为 i 和 j 的两个结点处于同一层的条件是（ ）。
+    \item 假设根结点的层数为 1，具有 n 个结点的二叉树的最大高度是（ ）。
+    \item 在一棵二叉树中，度为零的结点的个数为 $N_0$，度为 2 的结点的个数为 $N_2$，则有 $N_0=$（ ）。
+    \item 设有 N 个结点的完全二叉树顺序存放在向量 A[1:N] 中，其下标值最大的分支结点为（ ）。
+    \item 高度为 K 的完全二叉树至少有（ ）个叶子结点。
+    \item 已知二叉树有 50 个叶子结点，则该二叉树的总结点数至少是（ ）。
+    \item 如果结点 A 有 3 个兄弟，而且 B 是 A 的双亲，则 B 的度是（ ）。
+    \item 对于一个具有 n 个结点的二叉树，当它为一棵（ ）二叉树时具有最小高度，当它为一棵（ ）时，具有最大高度。
+    \item 具有 N 个结点的二叉树，采用二叉链表存储，共有（ ）个空链域。
+    \item 含 4 个度为 2 的结点和 5 个叶子结点的二叉树，可有（ ）个度为 1 的结点。
+    \item 二叉树结点的中序序列为 A, B, C, D, E, F, G，后序序列为 B, D, C, A, F, G, E，则该二叉树结点的前序序列为（ ），则该二叉树对应的树林包括（ ）棵树。
+    \item 现有按中序遍历二叉树的结果为 abc，问有（ ）种不同的二叉树可以得到这一遍历结果，这些二叉树分别是（ ）。
+    \item 若一个二叉树的叶子结点是某子树的中序遍历序列中的最后一个结点，则它必是该子树的（ ）序列中的最后一个结点。
+    \item 先根次序周游树林正好等同于按（ ）周游对应的二叉树；后根次序周游树林正好等同于（ ）周游对应的二叉树。
+    \item 具有 n 个结点的满二叉树，其叶子结点的个数是（ ），分支结点数是（ ）。
+    \item 线索二叉树的左线索指向其（ ），右线索指向其（ ）。
+    \item 哈夫曼树是（ ）。
+    \item 若以 $\{4, 5, 6, 7, 8\}$ 作为叶子结点的权值构造哈夫曼树，则其带权路径长度是（ ）。
+    \item 设 n 为哈夫曼树的叶子结点数目，则该哈夫曼树共有（ ）个结点。
+\end{enumerate}
+
+\subsection*{三、应用题}
+\begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item[①] 试找出满足下列条件的二叉树：
+        1) 先序序列与后序序列相同
+        2) 中序序列与后序序列相同
+        3) 先序序列与中序序列相同
+        4) 中序序列与层次遍历序列相同
+        5) 先序序列与中序序列相反
+        \item[②] 已知一棵二叉树的中序序列和后序序列分别为 DBEAFIHCG 和 DEBHIFGCA，画出这棵二叉树，并求该二叉树的先序序列。
+    \end{enumerate}
+    
+    \item 将下列由三棵树组成的森林转换为二叉树。（只要求给出转换结果）
+    \[ O \quad A \quad X \]
+    
+    \item 先序遍历序列：A B D F C E G H；中序遍历序列：B F D A G E H C
+    \begin{enumerate}
+        \item 画出这棵二叉树。
+        \item 画出这棵二叉树的后序线索树。
+        \item 将这棵二叉树转换成对应的树（或森林）。
+    \end{enumerate}
+    
+    \item 一棵二叉树的先序、中序、后序序列如下，其中部分未标出，请构造出该二叉树。
+    \begin{itemize}
+        \item 先序序列：\_\_ C D E \_\_ G H I \_\_ K
+        \item 中序序列：C B \_\_ F A \_\_ J K I G
+        \item 后序序列：\_ E F D B \_\_ J
+    \end{itemize}
+    
+    \item 设二叉树的存储结构如下：
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+     & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+    Lchild & 0 & 0 & 0 & 9 & 4 & 0 & 0 & 0 & 0 & 0 \\ \hline
+    Data & J & I & H & A & G & E & D & B & C & F \\ \hline
+    Rchild & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+    \end{tabular}
+    \end{center}
+    其中 BT 为树根结点的指针，其值为 6，Lchild, Rchild 分别为结点的左、右孩子指针域，Data 为结点的数据域。试完成下列各题：
+    \begin{enumerate}
+        \item 画出二叉树 BT 的逻辑结构；
+        \item 写出按前序、中序、后序遍历该二叉树所得到的结点序列；
+        \item 画出二叉树的中序线索树。
+    \end{enumerate}
+    
+    \item 设有正文 AADBAACACCDACACAAD，字符集为 A, B, C, D，设计一套二进制编码，使得上述正文的编码最短。
+    
+    \item 试构造一棵二叉树，包含权为 1, 4, 9, 16, 25, 36, 49, 64, 81, 100 等 10 个终端结点，且具有最小的加权路径长度 WPL。
+    
+    \item 以数据集 $\{2, 5, 7, 9, 13\}$ 为权值构造一棵哈夫曼树，并计算其带权路径长度。（请按左子树根结点的权小于等于右子树根结点的权的次序构造）
+    
+    \item 树和二叉树之间有什么样的区别与联系？
+\end{enumerate}
+
+\subsection*{四、算法题}
+\begin{enumerate}
+    \item 二叉树用链式方式存储，编写对二叉树进行先序，中序，后序遍历算法。
+    \item 二叉树用链式方式存储，设计一个按层次顺序遍历二叉树的算法。
+    \item 设计一个算法，判断一棵二叉树是否为完全二叉树。
+    \item 计算一棵二叉树中的叶子结点数。
+    \item 计算一棵二叉树中的单分支结点数。
+    \item 求一棵二叉树的高度。
+    \item 一棵二叉树，指针 t 指向根结点，求该二叉树中结点 n 的双亲结点。（若 n 无双亲，输出相应信息，若有，输出其双亲的值）
+    \item 编写一个将二叉树中每个结点的左右孩子互换的算法。
+    \item 写出在二叉树中查找值为 x 的结点的算法。
+\end{enumerate}
+
+\section{第七章 图}
+
+\subsection*{一、选择题}
+\begin{enumerate}
+    \item 在一个图中，所有顶点的度数之和等于所有边数的（ ）倍。
+    \begin{enumerate}
+        \item[A.] 1/2
+        \item[B.] 1
+        \item[C.] 2
+        \item[D.] 4
+    \end{enumerate}
+    
+    \item 在一个有向图中，所有顶点的入度之和等于所有顶点的出度之和的（ ）倍。
+    \begin{enumerate}
+        \item[A.] 1/2
+        \item[B.] 1
+        \item[C.] 2
+        \item[D.] 4
+    \end{enumerate}
+    
+    \item 一个有 n 个顶点的无向图最多有（ ）条边。
+    \begin{enumerate}
+        \item[A.] $n$
+        \item[B.] $n(n-1)$
+        \item[C.] $n(n-1)/2$
+        \item[D.] $2n$
+    \end{enumerate}
+    
+    \item 具有 4 个顶点的无向完全图有（ ）条边。
+    \begin{enumerate}
+        \item[A.] 6
+        \item[B.] 12
+        \item[C.] 16
+        \item[D.] 20
+    \end{enumerate}
+    
+    \item 具有 6 个顶点的无向图至少应有（ ）条边才能确保是一个连通图。
+    \begin{enumerate}
+        \item[A.] 5
+        \item[B.] 6
+        \item[C.] 7
+        \item[D.] 8
+    \end{enumerate}
+    
+    \item 在一个具有 n 个顶点的无向图中，要连通全部顶点至少需要（ ）条边。
+    \begin{enumerate}
+        \item[A.] $n$
+        \item[B.] $n+1$
+        \item[C.] $n-1$
+        \item[D.] $n/2$
+    \end{enumerate}
+    
+    \item 对于一个具有 n 个顶点的无向图，若采用邻接矩阵表示，则该矩阵的大小是（ ）。
+    \begin{enumerate}
+        \item[A.] $n$
+        \item[B.] $(n-1)*(n-1)$
+        \item[C.] $n-1$
+        \item[D.] $n^2$
+    \end{enumerate}
+    
+    \item 对于一个具有 n 个顶点和 e 条边的无向图，若采用邻接表表示，则表头向量的大小为（①），邻接表中的结点总数是（②）。
+    \begin{enumerate}
+        \item[①] A. $n$ \quad B. $n+1$ \quad C. $n-1$ \quad D. $n+e$
+        \item[②] A. $e/2$ \quad B. $e$ \quad C. $2e$ \quad D. $n+e$
+    \end{enumerate}
+    
+    \item 对某个无向图的邻接矩阵来说，（ ）。
+    \begin{enumerate}
+        \item[A.] 第 i 行上的非零元素个数和第 i 列上的非零元素个数一定相等
+        \item[B.] 矩阵中的非零元素个数等于图中的边数
+        \item[C.] 在第 i 行，第 i 列上非零元素总数等于顶点 $v_i$ 的度数
+        \item[D.] 矩阵中非全零行的行数等于图中的顶点数
+    \end{enumerate}
+    
+    \item 任何一个无向连通图的最小生成树（ ）。
+    \begin{enumerate}
+        \item[A.] 有一棵或多棵
+        \item[B.] 只有一棵
+        \item[C.] 一定有多棵
+        \item[D.] 可能不存在
+    \end{enumerate}
+    
+    \item 以下说法中不正确的是（ ）。
+    \begin{enumerate}
+        \item[A.] 无向图中的极大连通子图称为连通分量
+        \item[B.] 连通图的广度优先搜索中一般要采用队列来暂存刚访问过的顶点
+        \item[C.] 图的深度优先搜索中一般要采用栈来暂存刚访问过的顶点
+        \item[D.] 有向图的遍历不可采用广度优先搜索方法
+    \end{enumerate}
+    
+    \item 判定一个有向图是否存在回路除了可以利用拓扑排序法外，还可以用（ ）。
+    \begin{enumerate}
+        \item[A.] 求关键路径的方法
+        \item[B.] 求最短路径的方法
+        \item[C.] 广度优先遍历法
+        \item[D.] 深度优先遍历
+    \end{enumerate}
+    
+    \item 关键路径是事件结点网络中（ ）。
+    \begin{enumerate}
+        \item[A.] 从源点到汇点的最长路径
+        \item[B.] 从源点到汇点的最短路径
+        \item[C.] 最长的回路
+        \item[D.] 最短的回路
+    \end{enumerate}
+    
+    \item 下面不正确的说法是（ ）。
+    \begin{enumerate}
+        \item[(1)] 在 AOE 网中，减小任一关键活动上的权值后，整个工期也就相应减小
+        \item[(2)] AOE 网工程工期为关键活动上的权之和
+        \item[(3)] 在关键路径上的活动都是关键活动，而关键活动也必须在关键路径上
+        \item[A.] (1)
+        \item[B.] (2)
+        \item[C.] (3)
+        \item[D.] (1) (2)
+    \end{enumerate}
+    
+    \item 下面不正确的说法是（ ）。
+    \begin{enumerate}
+        \item[A.] 关键活动不按期完成就会影响整个工程的完成时间
+        \item[B.] 任何一个关键活动提前完成，将使整个工程提前完成
+        \item[C.] 所有关键活动都提前完成，则整个工程提前完成
+        \item[D.] 某些关键活动若提前完成，将可能使整个工程提前完成
+    \end{enumerate}
+    
+    \item 图中有关路径的定义是（ ）。
+    \begin{enumerate}
+        \item[A.] 由顶点和相邻顶点序偶构成的边所形成的序列
+        \item[B.] 由不同顶点所形成的序列
+        \item[C.] 由不同边所形成的序列
+        \item[D.] 上述定义都不是
+    \end{enumerate}
+    
+    \item 一个有 n 个结点的图，最少有（ ）个连通分量，最多有（ ）个连通分量。
+    \begin{enumerate}
+        \item[A.] 0
+        \item[B.] 1
+        \item[C.] $n-1$
+        \item[D.] $n$
+    \end{enumerate}
+    
+    \item 下面结构中最适于表示稀疏无向图的是（ ），适于表示稀疏有向图的是（ ）。
+    \begin{enumerate}
+        \item[A.] 邻接矩阵
+        \item[B.] 逆邻接表
+        \item[C.] 邻接多重表
+        \item[D.] 十字链表
+        \item[E.] 邻接表
+    \end{enumerate}
+    
+    \item 下列哪一种图的邻接矩阵是对称矩阵？（ ）
+    \begin{enumerate}
+        \item[A.] 有向图
+        \item[B.] 无向图
+        \item[C.] AOV 网
+        \item[D.] AOE 网
+    \end{enumerate}
+    
+    \item 下列说法不正确的是（ ）。
+    \begin{enumerate}
+        \item[A.] 图的遍历是从给定的源点出发每一个顶点仅被访问一次
+        \item[B.] 遍历的基本算法有两种：深度遍历和广度遍历
+        \item[C.] 图的深度遍历不适用于有向图
+        \item[D.] 图的深度遍历是个递归过程
+    \end{enumerate}
+    
+    \item 已知有向图 $G=(V,E)$，其中 $V=\{V_1, V_2, V_3, V_4, V_5, V_6, V_7\}$，$E=\{<V_1, V_2>, <V_1, V_3>, <V_1, V_4>, <V_2, V_5>, <V_3, V_5>, <V_3, V_6>, <V_4, V_6>, <V_5, V_7>, <V_6, V_7>\}$，G 的拓扑序列是（ ）。
+    \begin{enumerate}
+        \item[A.] $V_1, V_3, V_4, V_6, V_2, V_5, V_7$
+        \item[B.] $V_1, V_3, V_2, V_6, V_4, V_5, V_7$
+        \item[C.] $V_1, V_3, V_4, V_5, V_2, V_6, V_7$
+        \item[D.] $V_1, V_2, V_5, V_3, V_4, V_6, V_7$
+    \end{enumerate}
+    
+    \item 一个有向无环图的拓扑排序序列（ ）是唯一的。
+    \begin{enumerate}
+        \item[A.] 一定
+        \item[B.] 不一定
+    \end{enumerate}
+    
+    \item 在有向图 G 的拓扑序列中，若顶点 $V_i$ 在顶点 $V_j$ 之前，则下列情形不可能出现的是（ ）。
+    \begin{enumerate}
+        \item[A.] G 中有弧 $<V_i, V_j>$
+        \item[B.] G 中有一条从 $V_i$ 到 $V_j$ 的路径
+        \item[C.] G 中没有弧 $<V_i, V_j>$
+        \item[D.] G 中有一条从 $V_j$ 到 $V_i$ 的路径
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{二、填空题}
+\begin{enumerate}
+    \item 在 n 个顶点的无向图中，若边数 $>n-1$，则该图必是连通图，此断言是（ ）的。
+    \item n 个顶点的连通图至少（ ）条边。
+    \item 在无向图 G 的邻接矩阵 A 中，若 $A[i][j]=1$，则 $A[j][i]=$（ ）。
+    \item 一个图的（ ）表示法是惟一的，而（ ）表示法是不惟一的。
+    \item G 是一个非连通无向图，共有 28 条边，则该图至少有（ ）个顶点。
+    \item 具有 10 个顶点的无向图，边的总数最多为（ ）。
+    \item 在有 n 个顶点的有向图中，每个顶点的度最大可达（ ）。
+    \item 已知一个图用邻接矩阵表示，计算第 i 个结点的入度的方法是（ ）。
+    \item 已知一个图用邻接矩阵表示，删除所有从第 i 个结点出发的边的方法是（ ）。
+    \item 图的深度优先搜索序列和广度优先搜索序列不是惟一的，此断言是（ ）的。
+    \item 如果含 n 个顶点的图形成一个环，则它有（ ）棵生成树。
+    \item 对 n 个顶点的连通图来说，它的生成树一定有（ ）条边。
+    \item 设图 G 有 n 个顶点和 e 条边，采用邻接矩阵存储，则拓扑排序算法的时间复杂度为（ ）。
+    \item 若一个有向图的邻接矩阵中对角线以下元素均为零，则该图的拓扑有序序列必定存在，此断言是（ ）的。
+    \item 图的存储方法主要有（ ）和（ ），图的遍历方法主要有（ ）和（ ）。
+    \item 有向图 G 的强连通分量是指（ ）。
+    \item 一个连通图的（ ）是一个极小连通子图。
+    \item 在有 n 个顶点的有向图中，若要使任意两点间可以互相到达，则至少需要（ ）条弧。
+    \item 右图中的强连通分量的个数为（ ）个。
+    \item Prim（普里姆）算法适用于求（ ）的网的最小生成树；Kruskal（克鲁斯卡尔）算法适用于求（ ）的网的最小生成树。
+    \item AOV 网中，结点表示（ ），边表示（ ）。AOE 网中，结点表示（ ），边表示（ ）。
+    \item 在 AOE 网中，从源点到汇点路径上各活动时间总和最长的路径称为（ ）。
+\end{enumerate}
+
+\subsection*{三、应用题}
+\begin{enumerate}
+    \item 解答问题。设有数据逻辑结构为：$B=(K, R)$，$K=\{k_1, k_2, \dots, k_9\}$，$R=\{<k_1, k_3>, <k_1, k_8>, <k_2, k_3>, <k_2, k_4>, <k_2, k_5>, <k_3, k_9>, <k_5, k_6>, <k_8, k_9>, <k_9, k_7>, <k_4, k_7>, <k_4, k_6>\}$
+    \begin{enumerate}
+        \item 画出这个逻辑结构的图示。
+        \item 画出其邻接矩阵存储结构。
+        \item 分别画出该逻辑结构的正向邻接表和逆向邻接表。
+    \end{enumerate}
+    
+    \item 将如下图所示的无向图给出其存储结构的邻接矩阵和邻接表表示，并写出对其分别进行深度，广度优先遍历的结果。
+    
+    \item 以顶点①为出发点，画出所图所示的图的深度优先生成树和广度优先生成树。
+    
+    \item 已知一个无向图如下图所示，要求分别用 Prim 和 Kruskal 算法生成最小生成树，试画出构造过程。
+    
+    \item 试写出用克鲁斯卡尔 (Kruskal) 算法构造下图的一棵最小支撑 (或生成) 树的过程。
+    
+    \item 已知一图如下图所示：
+    \begin{enumerate}
+        \item 写出该图的邻接矩阵；
+        \item 写出全部拓扑排序序列；
+        \item 以 $v_1$ 为源点，以 $v_8$ 为终点，给出所有事件允许发生的最早时间和最晚时间，并给出关键路径；
+        \item 求 $V_1$ 结点到各点的最短距离。
+    \end{enumerate}
+    
+    \item 下表给出了某工程各工序之间的优先关系和各工序所需时间
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    工序代号 & A & B & C & D & E & F & G & H & I & J & K & L & M & N \\ \hline
+    所需时间 & 15 & 10 & 50 & 8 & 15 & 40 & 30 & 15 & 120 & 60 & 15 & 30 & 20 & 40 \\ \hline
+    先驱工作 & -- & -- & A,B & B & C,D & B & E & G,I & E & I & F,I & H,J,K & L & G \\ \hline
+    \end{tabular}
+    \end{center}
+    \begin{enumerate}
+        \item 画出相应的 AOE 网
+        \item 列出各事件的最早发生时间，最迟发生时间
+        \item 找出关键路径并指明完成该工程所需最短时间。
+    \end{enumerate}
+    
+    \item 对于稠密图和稀疏图，采用邻接矩阵和邻接表哪个更好些？
+    
+    \item 请回答下列关于图的一些问题：
+    \begin{enumerate}
+        \item 有 n 个顶点的有向强连通图最多有多少条边？最少有多少条边？
+        \item 表示一个有 1000 个顶点，1000 条边的有向图的邻接矩阵有多少个矩阵元素？是否为稀疏矩阵？
+        \item 对于一个有向图，不用拓扑排序，如何判断图中是否存在环？
+    \end{enumerate}
+\end{enumerate}
+
+\section{第八章 查找}
+
+\subsection*{一、选择题}
+\begin{enumerate}
+    \item 分块查找的时间效率（ ）。
+    \begin{enumerate}
+        \item[A.] 高于二分查找
+        \item[B.] 高于顺序查找而低于二分查找
+        \item[C.] 低于顺序查找
+        \item[D.] 高于顺序查找且高于二分查找
+    \end{enumerate}
+    
+    \item 设有一个按元素的值排好序的线性表且长度大于 2，对给定的值 K，分别用顺序查找法和二分查找法查找一个与 K 相等的元素，比较次数分别是 s 和 b；在查找不成功的情况下，正确的数量关系是（ ）。
+    \begin{enumerate}
+        \item[A.] 总有 $s=b$
+        \item[B.] 总有 $s>b$
+        \item[C.] 总有 $s<b$
+        \item[D.] 与 K 值大小有关
+    \end{enumerate}
+    
+    \item 有数据 $(53, 30, 37, 12, 45, 24, 96)$ 从空二叉树开始逐个插入数据来形成二叉排序树，若希望高度最小，则应该选择下面哪个序列插入（ ）。
+    \begin{enumerate}
+        \item[A.] 45, 24, 53, 12, 37, 96, 30
+        \item[B.] 37, 24, 12, 30, 53, 45, 96
+        \item[C.] 12, 24, 30, 37, 45, 53, 96
+        \item[D.] 30, 24, 12, 37, 45, 96, 53
+    \end{enumerate}
+    
+    \item 利用逐点插入法建立序列 $(50, 72, 43, 85, 75, 20, 35, 45, 65, 30)$ 对应的二叉排序树以后，查找元素 35 要进行（ ）次元素间的比较。
+    \begin{enumerate}
+        \item[A.] 4
+        \item[B.] 5
+        \item[C.] 7
+        \item[D.] 10
+    \end{enumerate}
+    
+    \item 顺序查找法适合于存储结构为（ ）的线性表。
+    \begin{enumerate}
+        \item[A.] 散列存储
+        \item[B.] 顺序存储或链式存储
+        \item[C.] 压缩存储
+        \item[D.] 索引存储
+    \end{enumerate}
+    
+    \item 对线性表进行折半查找时，要求线性表必须（ ）。
+    \begin{enumerate}
+        \item[A.] 以顺序方式存储
+        \item[B.] 以链式方式存储
+        \item[C.] 以顺序方式存储，且结点按关键字有序
+        \item[D.] 以链式方式存储，且结点按关键字有序
+    \end{enumerate}
+    
+    \item 采用顺序查找法查找长度为 n 的线性表时，每个元素的平均查找长度为（ ）。
+    \begin{enumerate}
+        \item[A.] $n$
+        \item[B.] $n/2$
+        \item[C.] $(n+1)/2$
+        \item[D.] $(n-1)/2$
+    \end{enumerate}
+    
+    \item 采用折半查找法查找长度为 n 的线性表时，查找元素的时间复杂度为（ ）。
+    \begin{enumerate}
+        \item[A.] $O(n^2)$
+        \item[B.] $O(n \log n)$
+        \item[C.] $O(n)$
+        \item[D.] $O(\log n)$
+    \end{enumerate}
+    
+    \item 有一个长度为 12 的有序表，按折半查找法对该表进行查找，在表内各元素等概率情况下查找成功所需的平均比较次数为（ ）。
+    \begin{enumerate}
+        \item[A.] 35/12
+        \item[B.] 37/12
+        \item[C.] 39/12
+        \item[D.] 43/12
+    \end{enumerate}
+    
+    \item 有一个有序表为 $(1, 3, 9, 12, 32, 41, 45, 62, 75, 77, 82, 95, 100)$ 当折半查找值为 82 的结点时，（ ）次比较后查找成功。
+    \begin{enumerate}
+        \item[A.] 1
+        \item[B.] 2
+        \item[C.] 4
+        \item[D.] 8
+    \end{enumerate}
+    
+    \item 对有 18 个元素的有序表作折半查找，则查找 A[3] 的比较序列的下标为（ ）。
+    \begin{enumerate}
+        \item[A.] 1, 2, 3
+        \item[B.] 9, 5, 2, 3
+        \item[C.] 9, 5, 3
+        \item[D.] 9, 4, 2, 3
+    \end{enumerate}
+    
+    \item 如图所示的二叉排序树，其查找失败时的平均查找长度是（ ）。
+    \begin{enumerate}
+        \item[A.] 21/7
+        \item[B.] 28/7
+        \item[C.] 15/6
+        \item[D.] 21/6
+    \end{enumerate}
+    
+    \item 如果要求一个线性表既能较快地查找，又能适应动态变化的要求，可以采用（ ）查找方法。
+    \begin{enumerate}
+        \item[A.] 分块
+        \item[B.] 顺序
+        \item[C.] 折半
+        \item[D.] 散列
+    \end{enumerate}
+    
+    \item 采用分块查找时，若线性表中共有 625 个元素，查找每个元素的概率相同，假设采用顺序查找来确定结点所在的块时，每块应分（ ）个结点最佳。
+    \begin{enumerate}
+        \item[A.] 10
+        \item[B.] 25
+        \item[C.] 6
+        \item[D.] 625
+    \end{enumerate}
+    
+    \item 二叉树为二叉排序树的充分必要条件是其任一结点的值均大于其左孩子的值、小于其右孩子的值，这种说法（ ）。
+    \begin{enumerate}
+        \item[A.] 正确
+        \item[B.] 错误
+    \end{enumerate}
+    
+    \item 在关键字随机分布的情况下，用二叉排序树的方法进行查找，其查找长度与（ ）量级相当。
+    \begin{enumerate}
+        \item[A.] 顺序查找
+        \item[B.] 折半查找
+        \item[C.] 前两者均不正确
+    \end{enumerate}
+    
+    \item 假定有 k 个关键字互为同义词，若用线性探测法把这 k 个关键字存入散列表中，至少要进行（ ）次探测。
+    \begin{enumerate}
+        \item[A.] $k-1$
+        \item[B.] $k$
+        \item[C.] $k+1$
+        \item[D.] $k*(k+1)/2$
+    \end{enumerate}
+    
+    \item 以下说法错误的是（ ）。
+    \begin{enumerate}
+        \item[A.] 散列法存储的基本思想是由关键码值决定数据的存储地址
+        \item[B.] 散列表的结点中只包含数据元素自身的信息，不包含任何指针
+        \item[C.] 装填因子是散列法的一个重要参数，它反映了散列表的装填程度
+        \item[D.] 散列表的查找效率主要取决于散列表造表时选取的散列函数和处理冲突的方法
+    \end{enumerate}
+    
+    \item 散列表的平均查找长度（ ）。
+    \begin{enumerate}
+        \item[A.] 与处理冲突方法有关而与表的长度无关
+        \item[B.] 与处理冲突方法无关而与表的长度有关
+        \item[C.] 与处理冲突方法有关且与表的长度有关
+        \item[D.] 与处理冲突方法无关且与表的长度无关
+    \end{enumerate}
+    
+    \item 设散列表长 $m=14$，散列函数 $H(key)=key \% 11$，表中已有 4 个结点：addr(15)=4, addr(38)=5, addr(61)=6, addr(84)=7，其余地址为空，如用二次探测再散列处理冲突，关键字为 49 的结点的地址是（ ）。
+    \begin{enumerate}
+        \item[A.] 8
+        \item[B.] 3
+        \item[C.] 5
+        \item[D.] 9
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{二、填空题}
+\begin{enumerate}
+    \item 在各种查找方法中，平均查找长度与结点个数 n 无关的查找方法是（ ）。
+    \item 若一个待哈希存储的线性表长度为 n，哈希表的长度为 m，则 m 应（ ）n，装填因子为（ ）。
+    \item 在哈希存储中，装填因子的值越大，存取元素时发生冲突的可能性（ ），装填因子的值越小，存取元素时发生冲突的可能性（ ）。
+    \item 对于二叉排序树的查找，若根结点的值大于被查元素的值，则应该在二叉排序树的（ ）上继续查找。
+    \item 二叉排序树的查找效率与树的形态有关，当二叉排序树为单支树时，查找算法变为（ ），其平均查找长度为（ ）。
+    \item 顺序查找 n 个元素的线性表，若查找成功，则比较关键字的次数最多为（ ）次。
+    \item 在 n 个记录的有序顺序表中进行折半查找，最大的比较次数是（ ）。
+    \item 折半查找的存储结构仅限于（ ），且是（ ）；而分块查找要求将待查找的表均匀地分成若干块且块中诸记录的顺序可以是任意的，但块与块之间必须（ ）。
+    \item 分块查找中，若索引表各块内均用顺序查找，则有 900 个元素的线性表分成（ ）块最好，若分成 25 块，其平均查找长度为（ ）。
+    \item 在分块查找方法中，首先查找（ ），然后再查找相应的（ ）。
+    \item 在散列函数 $H(key)=key \% m$ 中，m 应取（ ）。
+    \item 已知有序表为 $(12, 18, 24, 35, 47, 50, 62, 83, 90, 115, 134)$，当用折半法查找 90 时，需进行（ ）次查找可确定成功；查找 100 时，需进行（ ）次查找才能确定不成功。
+    \item 对一棵二叉排序树进行（ ）遍历，可得到一个递增有序序列。
+    \item 用二叉排序树查找，在最坏情况下，平均查找长度 (时间复杂度) 为（ ），在最好情况下，平均查找长度 (时间复杂度) 为（ ）。
+\end{enumerate}
+
+\subsection*{三、判断题}
+\begin{enumerate}
+    \item 采用线性探测法处理冲突，当从哈希表中删除一个记录时，不应将这个记录的所在位置置空，因为这会影响以后的查找。（ ）
+    \item 散列函数越复杂越好，因为这样随机性好，冲突概率小。（ ）
+    \item Hash 表的平均查找长度与处理冲突的方法无关。（ ）
+    \item 负载因子 (装填因子) 是散列表的一个重要参数，它反映散列表的装满程度。（ ）
+    \item 散列法的平均检索长度不随表中结点数目的增加而增加，而是随负载因子的增大而增大。（ ）
+    \item 查找相同结点的效率折半查找总比顺序查找高。（ ）
+    \item 用向量和单链表表示的有序表均可使用折半查找方法来提高查找速度。（ ）
+    \item 在索引顺序表中，实现分块查找，在等概率查找情况下，其平均查找长度不仅与表中元素个数有关，而且与每块中元素个数有关。（ ）
+    \item 对大小均为 n 的有序表和无序表分别进行顺序查找，在等概率查找的情况下，对于查找成功，它们的平均查找长度是相同的，而对于查找失败，它们的平均查找长度是不同的。（ ）
+    \item 在查找树 (二叉排序树) 中插入一个新结点，总是插入到叶结点下面。（ ）
+    \item 对一棵二叉排序树按前序方法遍历得出的结点序列是从小到大的序列。（ ）
+    \item N 个结点的二叉排序树有多种，其中树高最小的二叉排序树是最佳的。（ ）
+    \item 在任意一棵非空二叉排序树中，删除某结点后又将其插入，则所得二叉排序树与原二叉排序树相同。（ ）
+\end{enumerate}
+
+\subsection*{四、应用题}
+\begin{enumerate}
+    \item 设有一组关键字 $\{9, 01, 23, 14, 55, 20, 84, 27\}$，采用哈希函数：$H(key)=key \mod 7$，表长为 10，用开放地址法的二次探测再散列方法解决冲突。要求：对该关键字序列构造哈希表，并计算查找成功时的平均查找长度。
+    
+    \item 对下面的关键字集 $\{30, 15, 21, 40, 25, 26, 36, 37\}$ 若查找表的装填因子为 0.8，采用线性探测再散列法解决冲突，
+    \begin{enumerate}
+        \item 设计哈希函数；
+        \item 画出哈希表；
+        \item 计算查找成功和查找失败的平均查找长度。
+    \end{enumerate}
+    
+    \item 采用哈希函数 $H(k)=3*k \mod 13$ 并用线性探测法处理冲突，在散列地址空间 $[0..12]$ 中对关键字序列 $22, 41, 53, 46, 30, 13, 1, 67, 51$
+    \begin{enumerate}
+        \item 构造哈希表；
+        \item 计算查找成功和不成功的平均查找长度。
+    \end{enumerate}
+    
+    \item 设哈希 (Hash) 表的地址范围为 $0 \sim 17$，哈希函数为：$H(K)=K \mod 16$，K 为关键字，用线性探测再散列法处理冲突，输入关键字序列：$(10, 24, 32, 17, 31, 30, 46, 47, 40, 63, 49)$ 造出哈希表，试回答下列问题：
+    \begin{enumerate}
+        \item 画出哈希表示意图；
+        \item 若查找关键字 63，需要依次与哪些关键字比较？
+        \item 若查找关键字 60，需要依次与哪些关键字比较？
+        \item 假定每个关键字的查找概率相等，求查找成功时的平均查找长度。
+    \end{enumerate}
+    
+    \item 已知长度为 11 的表 (xal, wan, wil, zol, yo, xul, yum, wen, wim, zi, yon)，按表中元素顺序依次插入一棵初始为空的二叉排序树中，画出插入完成后的二叉排序树，并求其在等概率的情况下查找成功的平均查找长度。
+    
+    \item 用序列 $(46, 88, 45, 39, 70, 58, 101, 10, 66, 34)$ 建立一个排序二叉树，画出该树，并求在等概率情况下查找成功的平均查找长度。
+    
+    \item 一棵二叉排序树结构如下，各结点的值从小到大依次为 1-9，请标出各结点的值。
+    
+    \item 假定对有序表：$(3, 4, 5, 7, 24, 30, 42, 54, 63, 72, 87, 95)$ 进行折半查找，试回答下列问题：
+    \begin{enumerate}
+        \item 画出描述折半查找过程的判定树；
+        \item 若查找元素 54，需依次与那些元素比较？
+        \item 若查找元素 90，需依次与那些元素比较？
+        \item 假定每个元素的查找概率相等，求查找成功时的平均查找长度。
+    \end{enumerate}
+\end{enumerate}
+
+\section{第九章 排序}
+
+\subsection*{一、选择题}
+\begin{enumerate}
+    \item 排序方法中，从未排序序列中依次取出元素与已排序序列 (初始时为空) 中的元素进行比较，将其放入已排序序列的正确位置上的方法称为（ ）。
+    \begin{enumerate}
+        \item[A.] 希尔排序
+        \item[B.] 冒泡排序
+        \item[C.] 插入排序
+        \item[D.] 选择排序
+    \end{enumerate}
+    
+    \item 在待排序的元素序列基本有序的前提下，效率最高的排序方法是（ ）。
+    \begin{enumerate}
+        \item[A.] 插入排序
+        \item[B.] 选择排序
+        \item[C.] 快速排序
+        \item[D.] 归并排序
+    \end{enumerate}
+    
+    \item 在下列算法中，（ ）算法可能出现下列情况，在最后一趟开始之前，所有的元素都不在其最终的位置上。
+    \begin{enumerate}
+        \item[A.] 堆排序
+        \item[B.] 冒泡排序
+        \item[C.] 插入排序
+        \item[D.] 快速排序
+    \end{enumerate}
+    
+    \item 对记录的关键字为 $(50, 26, 38, 80, 70, 90, 8, 30, 40, 20)$ 进行排序，各趟排序结束时的结果为：其使用的排序方法是（ ）。
+    \begin{itemize}
+        \item 50, 26, 38, 80, 70, 90, 8, 30, 40, 20
+        \item 50, 8, 30, 40, 20, 90, 26, 38, 80, 70
+        \item 26, 8, 30, 40, 20, 80, 50, 38, 90, 70
+        \item 8, 20, 26, 30, 38, 40, 50, 70, 80, 90
+    \end{itemize}
+    \begin{enumerate}
+        \item[A.] 希尔排序
+        \item[B.] 归并排序
+        \item[C.] 插入排序
+        \item[D.] 选择排序
+    \end{enumerate}
+    
+    \item 对给出的一组关键字 $(14, 5, 19, 20, 11, 19)$，若按关键字非递减排序，第一趟排序结果为 $(14, 5, 19, 20, 11, 19)$，采用的排序方法是（ ）。
+    \begin{enumerate}
+        \item[A.] 选择排序
+        \item[B.] 快速排序
+        \item[C.] 希尔排序
+        \item[D.] 归并排序
+    \end{enumerate}
+    
+    \item 在对 n 个元素进行冒泡排序的过程中，最好情况下的时间复杂度为（ ）。
+    \begin{enumerate}
+        \item[A.] $O(1)$
+        \item[B.] $O(\log n)$
+        \item[C.] $O(n)$
+        \item[D.] $O(n^2)$
+    \end{enumerate}
+    
+    \item 一组记录的关键码为 $(46, 79, 56, 38, 40, 84)$，则选用快速排序的方法，以第一个记录为基准得到的一次划分结果为（ ）。
+    \begin{enumerate}
+        \item[A.] 38, 40, 46, 56, 79, 84
+        \item[B.] 40, 38, 46, 79, 56, 84
+        \item[C.] 40, 38, 46, 56, 79, 84
+        \item[D.] 40, 38, 46, 84, 56, 79
+    \end{enumerate}
+    
+    \item 用某种排序方法对线性表 $(25, 84, 21, 47, 15, 27, 68, 35, 20)$ 进行排序时，元素序列的变化情况如下：则采用的排序方法是（ ）。
+    \begin{itemize}
+        \item 25, 84, 21, 47, 15, 27, 68, 35, 20
+        \item 20, 15, 21, 25, 47, 27, 68, 35, 84
+        \item 15, 20, 21, 25, 35, 27, 47, 68, 84
+        \item 15, 20, 21, 25, 27, 35, 47, 68, 84
+    \end{itemize}
+    \begin{enumerate}
+        \item[A.] 选择排序
+        \item[B.] 希尔排序
+        \item[C.] 归并排序
+        \item[D.] 快速排序
+    \end{enumerate}
+    
+    \item 快速排序方法在（ ）情况下最不利于发挥其长处。
+    \begin{enumerate}
+        \item[A.] 要排序的数据量太大
+        \item[B.] 要排序的数据中含有多个相同值
+        \item[C.] 要排序的数据已基本有序
+        \item[D.] 要排序的数据个数为奇数
+    \end{enumerate}
+    
+    \item 快速排序在最坏情况下时间复杂度是 $O(n^2)$，比（ ）性能差。
+    \begin{enumerate}
+        \item[A.] 堆排序
+        \item[B.] 冒泡排序
+        \item[C.] 选择排序
+    \end{enumerate}
+    
+    \item 采用直接选择排序，比较的次数与移动次数的时间复杂度分别是（ ）。
+    \begin{enumerate}
+        \item[A.] $O(n)$, $O(\log n)$
+        \item[B.] $O(\log n)$, $O(n)$
+        \item[C.] $O(n^2)$, $O(n)$
+        \item[D.] $O(n \log n)$, $O(n)$
+    \end{enumerate}
+    
+    \item 如果对 n 个元素进行直接选择排序，则进行任一趟排序的过程中，为寻找最小值元素所需要的时间复杂度为（ ）。
+    \begin{enumerate}
+        \item[A.] $O(1)$
+        \item[B.] $O(\log n)$
+        \item[C.] $O(n)$
+        \item[D.] $O(n^2)$
+    \end{enumerate}
+    
+    \item 在所有排序方法中，关键字比较的次数与记录的初始排列次序无关的是（ ）。
+    \begin{enumerate}
+        \item[A.] 希尔排序
+        \item[B.] 快速排序
+        \item[C.] 插入排序
+        \item[D.] 选择排序
+    \end{enumerate}
+    
+    \item 排序方法中，从未排序序列中挑选元素，并将其依次放入已排序序列的一端的方法称为（ ）。
+    \begin{enumerate}
+        \item[A.] 希尔排序
+        \item[B.] 归并排序
+        \item[C.] 插入排序
+        \item[D.] 选择排序
+    \end{enumerate}
+    
+    \item 在对 n 个元素的序列进行排序时，堆排序所需要的附加存储空间是（ ）。
+    \begin{enumerate}
+        \item[A.] $O(1)$
+        \item[B.] $O(\log n)$
+        \item[C.] $O(n \log n)$
+        \item[D.] $O(n)$
+    \end{enumerate}
+    
+    \item 一组记录的排序码为 $(46, 79, 56, 38, 40, 84)$，则利用堆排序 (建立大根堆) 的方法建立的初始堆为（ ）。
+    \begin{enumerate}
+        \item[A.] 79, 46, 56, 38, 40, 80
+        \item[B.] 84, 79, 56, 38, 40, 46
+        \item[C.] 84, 79, 56, 46, 40, 38
+        \item[D.] 84, 56, 79, 40, 46, 38
+    \end{enumerate}
+    
+    \item 设有 1000 个无序的元素，希望用最快的速度挑选出其中前 10 个最大的元素，最好选用（ ）排序方法。
+    \begin{enumerate}
+        \item[A.] 冒泡排序
+        \item[B.] 快速排序
+        \item[C.] 堆排序
+        \item[D.] 基数排序
+    \end{enumerate}
+    
+    \item 以下序列不是堆的是（ ）。
+    \begin{enumerate}
+        \item[A.] 100, 85, 98, 77, 80, 60, 82, 40, 20, 10, 66
+        \item[B.] 100, 98, 85, 82, 80, 77, 66, 60, 40, 20, 10
+        \item[C.] 10, 20, 40, 60, 66, 77, 80, 82, 85, 98, 100
+        \item[D.] 100, 85, 40, 77, 80, 60, 66, 98, 82, 10, 20
+    \end{enumerate}
+    
+    \item 一组记录的排序码为 $(25, 48, 16, 35, 79, 82, 23, 40, 36, 72)$，其中含有 5 个长度为 2 的有序表，按归并排序的方法对该序列进行一趟归并后的结果为（ ）。
+    \begin{enumerate}
+        \item[A.] 16 25 35 48 23 40 79 82 36 72
+        \item[B.] 16 25 35 48 79 82 23 36 40 72
+        \item[C.] 16 25 48 35 79 82 23 36 40 72
+        \item[D.] 16 25 35 48 79 23 36 40 72 82
+    \end{enumerate}
+    
+    \item 将两个各有 n 个元素的有序表归并成一个有序表，其最少的比较次数是（ ）。
+    \begin{enumerate}
+        \item[A.] $n$
+        \item[B.] $2n-1$
+        \item[C.] $2n$
+        \item[D.] $n-1$
+    \end{enumerate}
+    
+    \item 就排序方法所用的辅助空间而言，堆排序、快速排序、归并排序的关系是（ ）。
+    \begin{enumerate}
+        \item[A.] 堆排序 < 快速排序 < 归并排序
+        \item[B.] 堆排序 < 归并排序 < 快速排序
+        \item[C.] 堆排序 > 快速排序 > 归并排序
+        \item[D.] 堆排序 > 归并排序 > 快速排序
+    \end{enumerate}
+    
+    \item 下述几种排序方法中，要求内存量最大的是（ ）。
+    \begin{enumerate}
+        \item[A.] 插入排序
+        \item[B.] 选择排序
+        \item[C.] 快速排序
+        \item[D.] 归并排序
+    \end{enumerate}
+    
+    \item 若对 n 个元素进行插入排序，则进行任一趟排序的过程中，为寻找插入位置而需要的时间复杂度为（ ）。
+    \begin{enumerate}
+        \item[A.] $O(1)$
+        \item[B.] $O(n)$
+        \item[C.] $O(n^2)$
+        \item[D.] $O(\log n)$
+    \end{enumerate}
+    
+    \item 在对 n 个元素进行插入排序的过程中，共需要进行（ ）趟。
+    \begin{enumerate}
+        \item[A.] $n$
+        \item[B.] $n+1$
+        \item[C.] $n-1$
+        \item[D.] $2n$
+    \end{enumerate}
+    
+    \item 在对 n 个元素进行冒泡排序的过程中，第一趟排序至多需要进行（ ）对相邻元素之间的交换。
+    \begin{enumerate}
+        \item[A.] $n$
+        \item[B.] $n-1$
+        \item[C.] $n+1$
+        \item[D.] $n/2$
+    \end{enumerate}
+    
+    \item 在对 n 个元素进行快速排序的过程中，第一次划分最多需要移动（ ）次元素，包括开始把基准数移动到临时变量的一次在内。
+    \begin{enumerate}
+        \item[A.] $n/2$
+        \item[B.] $n-1$
+        \item[C.] $n$
+        \item[D.] $n+1$
+    \end{enumerate}
+    
+    \item 在对 n 个元素进行快速排序的过程中，最好情况下需要进行（ ）趟排序完成。
+    \begin{enumerate}
+        \item[A.] $n$
+        \item[B.] $n/2$
+        \item[C.] $\log n$
+        \item[D.] $2n$
+    \end{enumerate}
+    
+    \item 在对 n 个元素进行快速排序的过程中，最坏情况下需要进行（ ）趟排序完成。
+    \begin{enumerate}
+        \item[A.] $n$
+        \item[B.] $n-1$
+        \item[C.] $\log n$
+        \item[D.] $n/2$
+    \end{enumerate}
+    
+    \item 若要对 1000 个元素排序，要求既快又稳定，则最好采用（ ）方法。
+    \begin{enumerate}
+        \item[A.] 直接插入排序
+        \item[B.] 归并排序
+        \item[C.] 堆排序
+        \item[D.] 快速排序
+    \end{enumerate}
+    
+    \item 若要对 1000 个元素排序，要求既快又节省空间，则最好采用（ ）方法。
+    \begin{enumerate}
+        \item[A.] 直接插入排序
+        \item[B.] 归并排序
+        \item[C.] 堆排序
+        \item[D.] 快速排序
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{二、填空题}
+\begin{enumerate}
+    \item 在对一组记录 $(54, 38, 96, 23, 15, 72, 60, 45, 83)$ 进行直接插入排序时，当把第 7 个记录 60 插入到有序表时，为寻找插入位置需比较（ ）次。
+    \item 每次从无序表中取出一个元素把它插入到有序子表中的适当位置，此种排序方法叫做（ ）排序；每次从无序表中挑选出一个最小或最大元素，把它交换到有序表的一端，此种排序方法叫做（ ）排序。
+    \item 每次直接或通过基准元素间接比较两个元素，若出现逆序排列时就交换它们的位置，此种排序方法叫做（ ）排序；每次使两个相邻的有序表合并成一个有序表的排序方法叫做（ ）排序。
+    \item （ ）排序方法采用的是二分法的思想，（ ）排序方法其数据的组织采用完全二叉树结构。
+    \item 对 n 个记录的表进行直接选择排序，所需进行的关键字间的比较次数为（ ）。
+    \item 在利用快速排序方法对一组记录 $(54, 38, 96, 23, 15, 72, 60, 45, 83)$ 进行快速排序时，递归调用所使用的栈所能达到的最大深度为（ ），共需递归调用的次数为（ ），其中第二次递归调用是对（ ）一组记录进行快速排序。
+    \item 在堆排序和快速排序中，若原始记录接近正序或反序，则选用（ ）排序；若原始记录无序，则最好选用（ ）排序。
+    \item 在插入和选择排序中，若初始数据基本正序，则选用（ ）；若初始数据基本反序，则选用（ ）。
+    \item 设有关键码序列 $(Q, H, C, Y, Q, A, M, S, R, D, F, X)$ 要按照关键码值递增的次序进行排序，若采用初始步长为 4 的希尔排序法，则一趟扫描的结果是（ ）；若采用以第一个元素为分界元素的快速排序法，则一趟扫描的结果是（ ）。
+    \item 对 n 个元素进行冒泡排序时，最少的比较次数是（ ）。
+    \item 在堆排序、快速排序和归并排序中，若只从存储空间考虑，则应首先选取（ ）方法，其次选取（ ）方法，最后选取（ ）方法；若只从排序结果的稳定性考虑，则应选取（ ）方法；若只从平均情况下排序最快考虑，则应选取（ ）方法；若只从最坏情况下排序最快并且要节省内存考虑，则应选取（ ）方法。
+    \item 对于关键字序列 $(12, 13, 11, 18, 60, 15, 7, 20, 25, 10)$，用筛选法建堆，必须从键值为（ ）的关键字开始筛选。
+    \item 在插入、希尔、选择、快速、堆、归并和基数排序中，排序是不稳定的有（ ）。
+    \item （ ）排序不需要进行记录关键字间的比较。
+    \item 快速排序在平均情况下的时间复杂度为（ ），在最坏情况下的时间复杂度为（ ）。
+    \item 假定一组记录为 $(46, 79, 56, 38, 40, 80)$，对其进行快速排序的过程中，共需要（ ）趟排序。
+    \item 直接插入排序最好情况下的时间复杂度为（ ），最坏情况下的时间复杂度为（ ）。
+\end{enumerate}
+
+\subsection*{三、应用题}
+\begin{enumerate}
+    \item 请写出应填入下列叙述中（ ）内的正确答案。
+    设一数组中原有数据如下：15, 13, 20, 18, 12, 60，下面是一组由不同排序方法进行一趟排序后的结果。
+    \begin{itemize}
+        \item （ ）排序的结果为：12, 13, 15, 18, 20, 60
+        \item （ ）排序的结果为：13, 15, 18, 12, 20, 60
+        \item （ ）排序的结果为：13, 15, 20, 18, 12, 60
+        \item （ ）排序的结果为：12, 13, 20, 18, 15, 60
+    \end{itemize}
+    
+    \item 判别以下序列是否是堆（大根堆），如果不是，则把它调整为堆。
+    $(12, 70, 33, 65, 24, 56, 48, 92, 86, 33)$
+    
+    \item 已知一组记录为 $(46, 74, 53, 14, 26, 38, 86, 65, 27, 34)$ 给出采用下列排序方法进行排序时的前三趟结果。
+    \begin{enumerate}
+        \item 直接插入排序
+        \item 希尔排序
+        \item 冒泡排序
+        \item 快速排序
+        \item 选择排序
+        \item 堆排序
+        \item 归并排序
+        \item 基数排序
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{四、算法题}
+\begin{enumerate}
+    \item 写出所有内部排序的算法。
+    \item 用单链表实现选择排序。
+    \item 编写一个双向起泡的排序算法，即相邻两趟向相反方向起泡。
+\end{enumerate}
+
+\section*{第二部分：精选试题与答案 (源自《最全版专升本《数据结构》试题答案.pdf》)}
+
+\subsection*{单选题}
+\begin{enumerate}
+    \item n 个顶点的无向连通网的最小生成树，至少有（ ）个边。
+    \begin{enumerate}
+        \item[A.] $n$
+        \item[B.] $(n-1)/2$
+        \item[C.] $n-1$
+        \item[D.] $n(n-1)/2$
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item m 个顶点的连通无向图，至少有（ ）个边。
+    \begin{enumerate}
+        \item[A.] $m$
+        \item[B.] $m(m-1)/2$
+        \item[C.] $m-1$
+        \item[D.] $m(m-1)$
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item 空串的长度是（ ）。
+    \begin{enumerate}
+        \item[A.] 0
+        \item[B.] 1
+        \item[C.] 2
+        \item[D.] 不确定
+    \end{enumerate}
+    \textbf{答案: A}
+
+    \item 假设以数组 $A[0..n-1]$ 存放循环队列的元素，其头指针 front 指向队头元素、尾指针 rear 指向队尾元素下一个，则在少用一个元素空间的前提下，队列空的判定条件为（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{(front+1)\%n == rear}
+        \item[B.] \texttt{(rear+1)\%n == front}
+        \item[C.] \texttt{rear+1 == front}
+        \item[D.] \texttt{rear == front}
+    \end{enumerate}
+    \textbf{答案: D}
+
+    \item 可以采用（ ）这种数据结构，实现二叉树的层次遍历运算。
+    \begin{enumerate}
+        \item[A.] 集合
+        \item[B.] 栈
+        \item[C.] 队列
+        \item[D.] 树
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item 线性表的顺序存储结构是一种（ ）的存储结构。
+    \begin{enumerate}
+        \item[A.] 随机存取
+        \item[B.] 顺序存取
+        \item[C.] 索引存取
+        \item[D.] 散列存取
+    \end{enumerate}
+    \textbf{答案: A}
+
+    \item 采用带头结点双向链表存储的线性表，在删除一个元素时，需要修改指针（ ）次。
+    \begin{enumerate}
+        \item[A.] 1
+        \item[B.] 2
+        \item[C.] 3
+        \item[D.] 4
+    \end{enumerate}
+    \textbf{答案: D}
+
+    \item 队列的出队操作是指（ ）操作。
+    \begin{enumerate}
+        \item[A.] 队头删除
+        \item[B.] 队尾删除
+        \item[C.] 队头插入
+        \item[D.] 队尾插入
+    \end{enumerate}
+    \textbf{答案: A}
+
+    \item 在关键字序列 $(10, 15, 20, 25, 30)$ 中，采用折半法查找 25，关键字之间比较需要（ ）次。
+    \begin{enumerate}
+        \item[A.] 1
+        \item[B.] 2
+        \item[C.] 3
+        \item[D.] 4
+    \end{enumerate}
+    \textbf{答案: B}
+
+    \item 下列关于串的叙述中，正确的是（ ）。
+    \begin{enumerate}
+        \item[A.] 2 个串的长度相等，则 2 个串相等
+        \item[B.] 替换操作可以实现字符的删除
+        \item[C.] 空串至少包含一个空格
+        \item[D.] 一个串的长度至少是 1
+    \end{enumerate}
+    \textbf{答案: B}
+
+    \item 若二叉树对应的二叉链表共有 n 个非空链域，则该二叉树有（ ）个结点。
+    \begin{enumerate}
+        \item[A.] $n+1$
+        \item[B.] $n$
+        \item[C.] $n-1$
+        \item[D.] $2n$
+    \end{enumerate}
+    \textbf{答案: D} (注：原文答案可能有误，通常非空链域数 = $n-1$ 或 $n+1$ 取决于具体定义，此处依原文答案 D 整理，但标准理论通常为 $n-1$ 若指孩子指针，或 $2n$ 总指针域减空指针。根据常见题库，若 n 为非空链域，结点数应为 $n+1$。此处保留原文逻辑：若答案为 D，则题目意指总链域或其他定义。修正：根据常见题，n 个结点的二叉树有 $n+1$ 个空链域，非空链域为 $n-1$。若题目问非空链域为 n，则结点为 $n+1$。原文答案 D 存疑，建议核对。此处按原文档显示的答案整理。)
+    \textit{更正：根据标准数据结构知识，n 个结点的二叉树有 $2n$ 个指针域，其中 $n-1$ 个非空（指向孩子），$n+1$ 个为空。若题目说非空链域为 n，则结点数为 $n+1$。原文档答案标记为 D ($n+1$ 的选项位置可能不同)。在此处我们依据标准知识修正为：若有 n 个非空链域，结点数为 $n+1$。}
+    \textbf{修正答案: A (对应 $n+1$)}
+
+    \item 下面叙述错误的是（ ）。
+    \begin{enumerate}
+        \item[A.] 在无向图的邻接矩阵中每行 1 的个数等于对应的顶点度
+        \item[B.] 借助于队列可以实现对二叉树的层遍历
+        \item[C.] 对于单链表进行插入操作过程中不会发生上溢现象
+        \item[D.] 栈的特点是先进后出
+    \end{enumerate}
+    \textbf{答案: C} (单链表虽动态分配，但若内存耗尽也会失败，不过相对于顺序表不易“上溢”，此题意在考察顺序表与链表区别，通常认为 C 是相对正确的描述，但若选错误项，可能是其他选项有更明显错误。原文档选 C，可能意指链表也会满？或者题目语境特殊。通常 C 被认为是链表优点。若必须选错，可能是 A/B/D 中有陷阱。但在标准教学中，C 是链表优点。此处依原文档答案 C 整理，可能原题意指“绝对不会”太绝对。)
+
+    \item 算法是对某一类问题求解步骤的有限序列。其中，（ ）是算法具有的 5 个特性之一。
+    \begin{enumerate}
+        \item[A.] 可读性
+        \item[B.] 有穷性
+        \item[C.] 正确性
+        \item[D.] 健壮性
+    \end{enumerate}
+    \textbf{答案: B}
+
+    \item 队列的入队操作是在（ ）进行的。
+    \begin{enumerate}
+        \item[A.] 任意位置
+        \item[B.] 指定位置
+        \item[C.] 队尾
+        \item[D.] 队头
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item 在关键字序列 $(10, 15, 20, 25, 30)$ 中采用折半法查找 20，依次与（ ）关键字进行了比较。
+    \begin{enumerate}
+        \item[A.] 20
+        \item[B.] 15, 20
+        \item[C.] 20, 10, 20 (逻辑不通)
+        \item[D.] 20, 25
+    \end{enumerate}
+    \textbf{答案: C} (原文选项表述可能有误，标准过程是先比 20，一次成功。若序列不同可能多次。依原文答案 C 整理，实际应为直接命中 20)
+
+    \item 线性表采用带头结点单链表实现，head 为头指针，则判断表空的条件为（ ）。
+    \begin{enumerate}
+        \item[A.] \texttt{head == NULL}
+        \item[B.] \texttt{head->next != NULL}
+        \item[C.] \texttt{head != NULL}
+        \item[D.] \texttt{head->next == NULL}
+    \end{enumerate}
+    \textbf{答案: D}
+
+    \item 队列采用循环队列存储的优点是（ ）。
+    \begin{enumerate}
+        \item[A.] 便于增加队列存储空间
+        \item[B.] 防止队列溢出
+        \item[C.] 便于随机存取
+        \item[D.] 避免数据元素的移动
+    \end{enumerate}
+    \textbf{答案: D} (通常优点是克服假溢出，充分利用空间。原文档选 D，可能指相对于顺序队列移动元素的优化，或者是避免“假溢出”导致的频繁移动/重置。标准答案通常是“克服假溢出”。)
+
+    \item 在一个长度为 n 的链式栈中出栈实现算法的时间复杂度为（ ）。
+    \begin{enumerate}
+        \item[A.] $O(1)$
+        \item[B.] $O(n)$
+        \item[C.] $O(\log n)$
+        \item[D.] $O(n^2)$
+    \end{enumerate}
+    \textbf{答案: A}
+
+    \item 在关键字序列 $(149, 138, 165, 197, 176, 113, 127)$ 中采用最低位优先排序 (LSD 基数排序)，第一趟之后所得结果为（ ）。
+    \begin{enumerate}
+        \item[A.] 149, 138, 165, 197, 176, 113, 127
+        \item[B.] 113, 149, 165, 197, 113, 127, 176 (重复/错误)
+        \item[C.] 113, 149, 165, 197, 113, 176, 127 (重复/错误)
+        \item[D.] 113, 127, 138, 149, 165, 176, 197
+    \end{enumerate}
+    \textbf{答案: C} (原文选项可能有误，按个位排序：113(3), 127(7), 138(8), 149(9), 165(5), 176(6), 197(7)。顺序应为 165, 113, 176, 127, 138, 149, 197? 或者是稳定排序。依原文答案 C 整理。)
+
+    \item （ ）是数据的逻辑结构。
+    \begin{enumerate}
+        \item[A.] 链表
+        \item[B.] 线性表
+        \item[C.] 十字链表
+        \item[D.] 顺序表
+    \end{enumerate}
+    \textbf{答案: B}
+
+    \item 数据的基本单位是（ ）。
+    \begin{enumerate}
+        \item[A.] 数据元素
+        \item[B.] 记录
+        \item[C.] 数据项
+        \item[D.] 数据对象
+    \end{enumerate}
+    \textbf{答案: A}
+
+    \item 在一个长度为 n 的链式队列中入队实现算法的时间复杂度为（ ）。
+    \begin{enumerate}
+        \item[A.] $O(n^2)$
+        \item[B.] $O(\log n)$
+        \item[C.] $O(1)$
+        \item[D.] $O(n)$
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item 以下与数据的存储结构无关的术语是（ ）。
+    \begin{enumerate}
+        \item[A.] 循环队列
+        \item[B.] 哈希表
+        \item[C.] 双向链表
+        \item[D.] 数组
+    \end{enumerate}
+    \textbf{答案: D} (数组既是逻辑也是存储，但通常作为逻辑概念提及，而其他三项强烈依赖具体存储实现。原文档选 D)
+
+    \item 基于数据的逻辑关系，数据的逻辑结构划分为（ ）基本结构。
+    \begin{enumerate}
+        \item[A.] 4 类
+        \item[B.] 3 类
+        \item[C.] 2 类
+        \item[D.] 5 类
+    \end{enumerate}
+    \textbf{答案: A} (集合、线性、树、图)
+
+    \item 以下数据结构中，（ ）是线性结构。
+    \begin{enumerate}
+        \item[A.] 栈
+        \item[B.] 特殊矩阵
+        \item[C.] 二维数组
+        \item[D.] 二叉树
+    \end{enumerate}
+    \textbf{答案: A}
+
+    \item 某二叉树的前序遍历序列和中序遍历序列分别为 abc 和 bca，该二叉树的后序遍历序列是（ ）。
+    \begin{enumerate}
+        \item[A.] cba
+        \item[B.] abc
+        \item[C.] acb
+        \item[D.] bca
+    \end{enumerate}
+    \textbf{答案: A}
+
+    \item 若已知一个栈的入栈序列是 1、2、3、4，其出栈序列不可能为（ ）。
+    \begin{enumerate}
+        \item[A.] 4、3、2、1
+        \item[B.] 3、4、1、2
+        \item[C.] 2、3、4、1
+        \item[D.] 1、4、3、2
+    \end{enumerate}
+    \textbf{答案: B}
+
+    \item 队列的出队操作是在（ ）进行的。
+    \begin{enumerate}
+        \item[A.] 指定位置
+        \item[B.] 任意位置
+        \item[C.] 队头
+        \item[D.] 队尾
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item n 个结点的二叉树，其对应的二叉链表共有（ ）个非空链域。
+    \begin{enumerate}
+        \item[A.] $n+1$
+        \item[B.] $n-1$
+        \item[C.] $2n$
+        \item[D.] $n$
+    \end{enumerate}
+    \textbf{答案: B}
+
+    \item 下面叙述错误的是（ ）。
+    \begin{enumerate}
+        \item[A.] 树的结点度是指结点的分支数
+        \item[B.] 对矩阵进行压缩存储后无法实现对其元素进行随机访问
+        \item[C.] 空串的长度为零
+        \item[D.] 借助于栈可以实现对图的深度优先遍历
+    \end{enumerate}
+    \textbf{答案: B} (压缩存储如三元组也可以随机访问，只是效率或方式不同，或者直接寻址公式。说“无法”太绝对。)
+
+    \item 采用带头结点双向链表存储的线性表，在插入一个元素时，需要修改指针（ ）次。
+    \begin{enumerate}
+        \item[A.] 1
+        \item[B.] 2
+        \item[C.] 3
+        \item[D.] 4
+    \end{enumerate}
+    \textbf{答案: D}
+
+    \item 如果一个 huffman 树含有 n 个叶子，则该树必有（ ）的结点。
+    \begin{enumerate}
+        \item[A.] $2n$
+        \item[B.] $2n-1$
+        \item[C.] $n+1$
+        \item[D.] $n-1$
+    \end{enumerate}
+    \textbf{答案: B}
+
+    \item 深度为 h 的二叉树，第 h 层至少有（ ）个结点。
+    \begin{enumerate}
+        \item[A.] 1
+        \item[B.] 0
+        \item[C.] 2
+        \item[D.] $2^{h-1}$
+    \end{enumerate}
+    \textbf{答案: A}
+
+    \item 数组 a[1..256] 采用顺序存储，a 的首地址为 10，每个元素占 2 字节，则 a[21] 的地址是（ ）。
+    \begin{enumerate}
+        \item[A.] 10
+        \item[B.] 70
+        \item[C.] 50
+        \item[D.] 30
+    \end{enumerate}
+    \textbf{答案: C} ($10 + (21-1)*2 = 50$)
+
+    \item （ ）不是算法具有的 5 个特性之一。
+    \begin{enumerate}
+        \item[A.] 可行性
+        \item[B.] 正确性
+        \item[C.] 有穷性
+        \item[D.] 确定性
+    \end{enumerate}
+    \textbf{答案: B} (五大特性：有穷性、确定性、可行性、输入、输出。正确性是目标而非特性定义)
+
+    \item 深度为 n 的完全二叉树最多有（ ）个结点。
+    \begin{enumerate}
+        \item[A.] $2^n$
+        \item[B.] $2^{n-1}$
+        \item[C.] $2^n-1$
+        \item[D.] $2^{n+1}-1$
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item 在关键字序列 $(35, 10, 15, 20, 25)$ 中采用最低位优先排序 (LSD 基数排序)，第一趟之后所得结果为（ ）。
+    \begin{enumerate}
+        \item[A.] 10, 20, 35, 25, 15
+        \item[B.] 20, 10, 35, 15, 25
+        \item[C.] 10, 20, 15, 25, 35
+        \item[D.] 20, 10, 35, 25, 15
+    \end{enumerate}
+    \textbf{答案: C} (按个位：10(0), 20(0), 15(5), 25(5), 35(5)。稳定排序后：10, 20, 15, 25, 35)
+
+    \item 线性表采用顺序存储的优点是（ ）。
+    \begin{enumerate}
+        \item[A.] 便于删除
+        \item[B.] 避免数据元素的移动
+        \item[C.] 便于随机存取
+        \item[D.] 便于插入
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item 可以采用（ ）这种数据结构，实现表达式中左右括号是否配对出现判别的运算。
+    \begin{enumerate}
+        \item[A.] 队列
+        \item[B.] 栈
+        \item[C.] 集合
+        \item[D.] 树
+    \end{enumerate}
+    \textbf{答案: B}
+
+    \item 某二叉树的后序遍历序列和中序遍历序列分别为 cba 和 bca，该二叉树的前序遍历序列是（ ）。
+    \begin{enumerate}
+        \item[A.] abc
+        \item[B.] cba
+        \item[C.] acb
+        \item[D.] bca
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item 算法的空间复杂度是对算法（ ）的度量。
+    \begin{enumerate}
+        \item[A.] 空间效率
+        \item[B.] 时间效率
+        \item[C.] 健壮性
+        \item[D.] 可读性
+    \end{enumerate}
+    \textbf{答案: A}
+
+    \item 深度为 h 的二叉树，第 h 层最多有（ ）个结点。
+    \begin{enumerate}
+        \item[A.] $h$
+        \item[B.] $2h$
+        \item[C.] $2^{h-1}$
+        \item[D.] $2^h$
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item 在具有 k 个度数为 2 的二叉树中，必有（ ）个叶子结点。
+    \begin{enumerate}
+        \item[A.] $k$
+        \item[B.] $k+1$
+        \item[C.] $k-1$
+        \item[D.] $2k$
+    \end{enumerate}
+    \textbf{答案: B}
+
+    \item 串的长度是指串中所含（ ）的个数。
+    \begin{enumerate}
+        \item[A.] 相同字符
+        \item[B.] 不同字符
+        \item[C.] 不同字母
+        \item[D.] 所有字符
+    \end{enumerate}
+    \textbf{答案: D}
+
+    \item m 个结点的二叉树，其对应的二叉链表共有（ ）个非空链域。
+    \begin{enumerate}
+        \item[A.] $m+1$
+        \item[B.] $2m$
+        \item[C.] $m-1$
+        \item[D.] $m$
+    \end{enumerate}
+    \textbf{答案: C}
+
+    \item （ ）是数据的不可分割的最小单位。
+    \begin{enumerate}
+        \item[A.] 数据类型
+        \item[B.] 数据项
+        \item[C.] 数据元素
+        \item[D.] 数据对象
+    \end{enumerate}
+    \textbf{答案: B} (数据项是数据的最小单位，数据元素是基本单位。题目问不可分割最小，通常指数据项)
+
+    \item 数组 a[1..m] 采用顺序存储，a[1] 和 a[m] 地址分别为 1024 和 1150，每个元素占 2 字节，则 m 是（ ）。
+    \begin{enumerate}
+        \item[A.] 63
+        \item[B.] 64
+        \item[C.] 65
+        \item[D.] 66
+    \end{enumerate}
+    \textbf{答案: B} ($(1150-1024)/2 + 1 = 63+1=64$)
+
+    \item 下面叙述错误的是（ ）。
+    \begin{enumerate}
+        \item[A.] 有向图的邻接矩阵一定是对称的
+        \item[B.] 具有相同的叶子个数和具有相同的叶子权值的赫夫曼树不是唯一的
+        \item[C.] 顺序表是借助物理单元相邻表示数据元素之间的逻辑关系
+        \item[D.] 对于空队列进行出队操作过程中发生下溢现象
+    \end{enumerate}
+    \textbf{答案: A}
+\end{enumerate}
+
+\subsection*{多选题}
+\begin{enumerate}
+    \item 在下列排序方法中，（ ）的空间复杂度为 $O(n)$。其中，n 为参加排序的元素个数。
+    \begin{enumerate}
+        \item[A.] 归并排序
+        \item[B.] 冒泡排序
+        \item[C.] 选择排序
+        \item[D.] 快速排序 (平均 $O(\log n)$, 最坏 $O(n)$)
+    \end{enumerate}
+    \textbf{答案: A, D} (注：快速排序栈空间最坏 $O(n)$，归并排序需 $O(n)$ 辅助空间)
+
+    \item 十字链表适合于（ ）选作存储结构。
+    \begin{enumerate}
+        \item[A.] 二叉树
+        \item[B.] 队列
+        \item[C.] 稀疏矩阵
+        \item[D.] 边或弧数较少的图
+    \end{enumerate}
+    \textbf{答案: C, D}
+
+    \item 设哈希 (Hash) 函数为 $H(k)= k \% 17$，其中 k 为关键字，关键字（ ）是同义词。
+    \begin{enumerate}
+        \item[A.] 44, 5, 15
+        \item[B.] 6, 57, 125 ($6\%17=6, 57\%17=6, 125\%17=6$)
+        \item[C.] 28, 45, 62 ($28\%17=11, 45\%17=11, 62\%17=11$)
+        \item[D.] 201, 31, 48 ($201\%17=14, 31\%17=14, 48\%17=14$)
+    \end{enumerate}
+    \textbf{答案: B, C, D}
+
+    \item 下列各项键值（ ）序列不是堆的。
+    \begin{enumerate}
+        \item[A.] \{94, 16, 68, 23, 5\}
+        \item[B.] \{94, 68, 23, 16, 5\}
+        \item[C.] \{94, 23, 68, 5, 16\}
+        \item[D.] \{94, 16, 68, 23, 5\} (重复 A?)
+    \end{enumerate}
+    \textbf{答案: A, D} (检查堆性质：父>=子。A 中 16<23, 16<5? 23>16. 94>16, 94>68. 16 的孩子是 23, 5? 索引 2 的孩子是 4, 5. $A[2]=16$, $A[4]=23$, $16<23$ 违反大顶堆)
+
+    \item 二叉链表适合作为（ ）的存储结构。
+    \begin{enumerate}
+        \item[A.] 队列
+        \item[B.] 二叉树
+        \item[C.] 树
+        \item[D.] 森林
+    \end{enumerate}
+    \textbf{答案: B, C, D}
+
+    \item 下列术语表示的数据中，（ ）是同义语。
+    \begin{enumerate}
+        \item[A.] 顶点
+        \item[B.] 结点
+        \item[C.] 数据项
+        \item[D.] 数据元素
+    \end{enumerate}
+    \textbf{答案: A, B, D} (在图论和树中顶点/结点常混用，数据元素是基本单位。严格来说数据项不同。原文档选 ABD)
+
+    \item 构造哈希 (Hash) 函数的方法有（ ）等。
+    \begin{enumerate}
+        \item[A.] 平方取中法
+        \item[B.] 折叠法
+        \item[C.] 除留余数法
+        \item[D.] 开放寻址法 (这是处理冲突方法)
+    \end{enumerate}
+    \textbf{答案: A, B, C}
+
+    \item 若已知一个栈的入栈序列是 (1, 2, 3, 4)，其可能出栈序列为（ ）。
+    \begin{enumerate}
+        \item[A.] (3, 1, 2, 4)
+        \item[B.] (4, 3, 1, 2)
+        \item[C.] (1, 2, 3, 4)
+        \item[D.] (4, 3, 2, 1)
+    \end{enumerate}
+    \textbf{答案: C, D}
+
+    \item 在下列排序方法中，（ ）的最坏时间复杂度为 $O(n^2)$。其中，n 为参加排序的元素个数。
+    \begin{enumerate}
+        \item[A.] 选择排序
+        \item[B.] 冒泡排序
+        \item[C.] 快速排序
+        \item[D.] 归并排序
+    \end{enumerate}
+    \textbf{答案: A, B, C}
+
+    \item 下列各项键值（ ）序列是堆的。
+    \begin{enumerate}
+        \item[A.] \{5, 23, 68, 16, 94\}
+        \item[B.] \{5, 23, 16, 68, 94\}
+        \item[C.] \{5, 94, 16, 23, 68\}
+        \item[D.] \{5, 16, 23, 68, 94\}
+    \end{enumerate}
+    \textbf{答案: B, D} (小顶堆检查)
+
+    \item 下列逻辑结构中，（ ）为线性结构。
+    \begin{enumerate}
+        \item[A.] 队列
+        \item[B.] 栈
+        \item[C.] 二叉树
+        \item[D.] 串
+    \end{enumerate}
+    \textbf{答案: A, B, D}
+
+    \item 数组通常采用顺序存储的优点是（ ）。
+    \begin{enumerate}
+        \item[A.] 便于增加存储空间
+        \item[B.] 防止下标溢出
+        \item[C.] 避免数据元素的移动
+        \item[D.] 便于依据下标进行随机存取
+    \end{enumerate}
+    \textbf{答案: D}
+
+    \item 深度为 3 的二叉树可能的结点个数是（ ）。
+    \begin{enumerate}
+        \item[A.] 2
+        \item[B.] 3
+        \item[C.] 1
+        \item[D.] 4
+    \end{enumerate}
+    \textbf{答案: B, D} (深度 3 至少 3 个结点，最多 7 个。2 和 1 不可能深度为 3)
+
+    \item 下列（ ）是限制了插入和删除操作的特殊线性表。
+    \begin{enumerate}
+        \item[A.] 栈
+        \item[B.] 串
+        \item[C.] 数组
+        \item[D.] 队列
+    \end{enumerate}
+    \textbf{答案: A, D}
+
+    \item 下列各项键值（ ）序列是大顶堆的。
+    \begin{enumerate}
+        \item[A.] \{94, 16, 68, 23, 5\}
+        \item[B.] \{94, 68, 23, 16, 5\}
+        \item[C.] \{94, 23, 68, 16, 5\}
+        \item[D.] \{23, 68, 94, 16, 5\}
+    \end{enumerate}
+    \textbf{答案: B, C} (原文答案可能有误，需仔细验证堆性质。B: 94>68, 94>23; 68>16, 68>5. OK. C: 94>23, 94>68; 23>16, 23>5. OK.)
+
+    \item 对一棵二叉排序树，用（ ）方法进行遍历，不一定得到各结点键值的有序序列。
+    \begin{enumerate}
+        \item[A.] 后根遍历
+        \item[B.] 先根遍历
+        \item[C.] 中根遍历
+        \item[D.] 层次遍历
+    \end{enumerate}
+    \textbf{答案: A, B, D} (只有中序遍历是有序的)
+\end{enumerate}
+
+\end{document}

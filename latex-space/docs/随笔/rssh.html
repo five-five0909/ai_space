@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随笔：且去温习那场暴雨</title>
+    
+    <!-- 引入霞鹜文楷在线字体 (LXGW WenKai Screen) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-web/style.css" />
+
+    <style>
+        /* ==============================
+           全局变量与重置
+           ============================== */
+        :root {
+            /* 颜色定义 (对应 LaTeX \definecolor) */
+            --deep-blue: #191970;   /* DeepBlue */
+            --gray-text: #505050;   /* GrayText */
+            --accent-red: #A03232;  /* AccentRed */
+            --bg-color: #f0f2f5;    /* 网页背景色 */
+            --paper-color: #ffffff; /* 纸张颜色 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            /* 默认字体：宋体风格 + 备用衬线 */
+            font-family: "LXGW WenKai Screen", "Kaiti SC", "STKaiti", "KaiTi", "Microsoft YaHei", serif;
+            color: #333;
+            line-height: 1.8; /* 对应 linespread 1.5 */
+            font-size: 16px;  /* 对应 12pt */
+            padding: 20px;
+        }
+
+        /* ==============================
+           A4 纸张模拟 (对应 geometry)
+           ============================== */
+        .paper {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--paper-color);
+            margin: 0 auto;
+            /* 上下左右边距 (HTML padding 模拟 margins) */
+            padding: 3.0cm 2.5cm; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* ==============================
+           页眉样式 (对应 fancyhdr)
+           ============================== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 0.5pt solid black; /* headrulewidth */
+            padding-bottom: 5px;
+            margin-bottom: 30px;
+            font-family: "LXGW WenKai Screen", cursive; /* 楷体 */
+            font-size: 0.9em;
+            color: var(--gray-text);
+        }
+
+        /* ==============================
+           排版元素
+           ============================== */
+        
+        /* 标题区 */
+        .title-section {
+            text-align: center;
+            margin-bottom: 1.0cm;
+        }
+        
+        h1{
+            font-size: 24pt; /* Huge */
+            font-weight: bold;
+            color: var(--deep-blue);
+            margin-bottom: 0.5cm;
+        }
+
+        .title-rule {
+            width: 10cm; /* rule 10cm */
+            height: 1px; /* 0.4pt approx */
+            background-color: black;
+            margin: 0 auto;
+            border: none;
+        }
+
+        /* 段落 */
+        p {
+            text-indent: 2em; /* 首行缩进 */
+            margin-bottom: 1em;
+            text-align: justify; /* 两端对齐 */
+        }
+
+        /* 强调文字样式 (对应 \thought) */
+        .thought {
+            font-family: "LXGW WenKai Screen", cursive;
+            font-weight: bold;
+            color: var(--deep-blue);
+        }
+        
+        /* 蓝色加粗 (对应 \textbf{\color{DeepBlue}}) */
+        .highlight-blue {
+            font-weight: bold;
+            color: var(--deep-blue);
+        }
+
+        /* 普通加粗 */
+        strong {
+            font-weight: bold;
+        }
+
+        /* 底部强调色文字 */
+        .accent-text {
+            color: var(--accent-red);
+            font-style: italic;
+        }
+
+        /* ==============================
+           图文绕排 (对应 wrapfig)
+           ============================== */
+        
+        /* 图片容器通用样式 */
+        .wrap-fig {
+            margin-bottom: 10px;
+            background: #fff;
+        }
+        
+        .wrap-fig img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 2px;
+        }
+
+        .caption {
+            font-size: 0.85em; /* small */
+            color: var(--gray-text);
+            text-align: right; /* raggedleft */
+            margin-top: 5px;
+            font-family: "LXGW WenKai Screen", cursive;
+        }
+
+        /* 右侧绕排 (wrapfigure{r}) */
+        .wrap-right {
+            float: right;
+            width: 45%; /* 0.45\textwidth */
+            margin-left: 20px;
+            margin-bottom: 15px;
+            margin-top: 5px; /* 微调对齐 */
+        }
+
+        /* 左侧绕排 (wrapfigure{l}) */
+        .wrap-left {
+            float: left;
+            width: 40%; /* 0.4\textwidth */
+            margin-right: 20px;
+            margin-bottom: 15px;
+            margin-top: 5px;
+        }
+
+        /* 结尾 */
+        .end-mark {
+            text-align: center;
+            color: var(--gray-text);
+            font-style: italic;
+            margin-top: 2cm;
+            font-size: 0.9em;
+        }
+
+        /* 页脚页码模拟 */
+        .footer-page {
+            position: absolute;
+            bottom: 3cm;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        /* 打印优化 */
+        @media print {
+            body { background: none; padding: 0; }
+            .paper { width: 100%; box-shadow: none; margin: 0; padding: 0mm 2.5cm; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="paper">
+        <!-- 页眉 -->
+        <div class="header">
+            <span>且去温习那场暴雨</span>
+            <span>生命感悟</span>
+        </div>
+
+        <!-- 标题 -->
+        <div class="title-section">
+            <div style="height: 0.5cm;"></div>
+            <h1>随笔：周期性课题守恒律</h1>
+            <div style="height: 0.5cm;"></div>
+            <hr class="title-rule">
+            <div style="height: 1.0cm;"></div>
+        </div>
+
+        <!-- 正文内容 -->
+        
+        <!-- 图1：右侧绕排 -->
+        <div class="wrap-fig wrap-right">
+            <!-- 注意：请确保图片路径正确，或替换为网络图片 -->
+            <img src="../../images/sw/rssh/people-7707981_1920.jpg" alt="Life Spiral">
+            <div class="caption">生命螺旋，周而复始</div>
+        </div>
+
+        <p>今天在赶了几篇课设论文时候，我脑子里对于一个一直指导我人生的思想逐渐明朗，在这一下，想要分享给大家的这个欲望一下子涨起来了。首先我给今天我要分享的观点命名一下，我把它命名为：<span class="highlight-blue">“周期性课题守恒律”</span>。这是我在接触斯多葛学派的坚忍、阿德勒心理学的勇气，以及马克思辩证唯物主义的发展观之后，基于我自己的一些日常事宜以及经历的感受，把他们融合在一起的一个概念。</p>
+
+        <p>首先，我眼中的人生——也就是我们每个人这几十年的所见、所闻、所感，它绝不是一段无序的随机漫步，而是一个<strong>分阶段、有规律、螺旋式上升</strong>的动态过程。在这里呢，我要特别澄清一点：我并非在鼓吹宿命论，也不是说所有人都要活成同一个模子或者是说大家都会是同种感悟。每个人的人生剧本都是独一无二的，那些自己经历的悲欢离合、那些每一次让你大哭或者大笑的瞬间，这都属于你自己，这也一定是不可复制至其他人的。</p>
+
+        <p>但我真正想要表达的是：<span class="thought">“虽然我们的‘体验形式’以及‘过程’千差万别，但在生命的螺旋进程里，那些必须面对的‘课题’却是不可逾越的，必然是守恒的。”</span></p>
+
+        <p>人这一辈子，是分周期的。在特定的年龄段，或者说在那个特定的螺旋层级上，命运一定会给你派发特定的考卷。无论你是谁，关于自我接纳、关于亲密关系、关于责任承担、关于生老病死，这些课题都会准时的在你的人生周期降临。这便是我所说的关于人生的“<strong>必然体验</strong>”。</p>
+
+        <!-- 图2：左侧绕排 -->
+        <div class="wrap-fig wrap-left">
+            <!-- 注意：请确保图片路径正确 -->
+            <img src="../../images/sw/rssh/dog-9830833_1280.jpg" alt="Inevitable">
+            <div class="caption">不可逃避的体验</div>
+        </div>
+
+        <p>面对这些必然降临的挑战，人们大多数都会试图逃避，这与我们几万年的进化中“省力”是对应一致的。可是我们大家都知道的事，一些你不愿意直接面对的事情，譬如“工作受阻”、“家庭关系不和睦”、“学业不顺利”等等，这些你没有在当下阶段解决的课题，那它一定会重新出现在你后续的其他阶段，这是无法逃避的。</p>
+
+        <p>人生中必须经历的体验总是守恒的。那些你此刻因为恐惧而试图绕过的课题、那些你想要逃避的责任，它们并不会凭空消失，也不会被岁月冲淡。它们只是暂时让你觉得安好，但其实这个就像高息借贷，这些“体验债务”会一直积压在你人生的账户里，并且在后续让你付出更高的代价。</p>
+
+        <p>也就是说：如果你现在不全身心、勇敢地去经历它、去克服它、去感受那份痛苦或磨砺，那么在未来的某一个人生周期，这些未完成的课题终将以更猛烈的程度复现。</p>
+
+        <div style="margin: 1em 0;">
+            <p style="text-indent: 0; padding-left: 2em; margin-bottom: 0.5em;" class="accent-text">
+                二十岁逃避的磨练，三十岁会变成危机；
+            </p>
+            <p style="text-indent: 0; padding-left: 2em;" class="accent-text">
+                三十岁逃避的责任，四十岁会变成崩塌。
+            </p>
+        </div>
+
+        <p>所以，这就是我在本文中想要对自己，也对所有人分享的话：<span class="thought">“面对人生那些必然的课题，请全身心地去‘体验’吧。既然不可逾越，那就正面硬刚；既然守恒存在，那就当下结清。”</span></p>
+
+        <p>唯有彻底地面对、经历它，我们才能真正翻过这一页，去迎接生命螺旋中的下一次上升。</p>
+
+        <!-- 结尾 -->
+        <div class="end-mark">
+            —— end ——
+        </div>
+
+        <!-- 模拟页码 -->
+        <div class="footer-page">1</div>
+    </div>
+
+</body>
+</html>

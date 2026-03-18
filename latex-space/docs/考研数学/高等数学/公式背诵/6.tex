@@ -1,0 +1,161 @@
+\documentclass[a4paper,12pt]{ctexart}
+
+% ------------------- 宏包引入 -------------------
+\usepackage{geometry}           % 页面布局
+\usepackage{amsmath, amssymb}   % 数学公式与符号
+\usepackage{graphicx}           % 图片支持
+\usepackage{xcolor}             % 颜色支持
+\usepackage{float}              % 浮动体控制
+\usepackage{enumitem}           % 列表定制
+\usepackage{tcolorbox}          % 彩色文本框
+\usepackage{tikz}               % 绘图
+
+% ------------------- 页面设置 -------------------
+\geometry{left=2.0cm, right=2.0cm, top=2.5cm, bottom=2.5cm}
+\linespread{1.5} % 行间距 1.5 倍
+
+% ------------------- 颜色定义 -------------------
+\definecolor{boxpurple}{RGB}{128, 0, 128}
+\definecolor{notepurple}{RGB}{230, 230, 250}
+\definecolor{highlightred}{RGB}{200, 30, 30}
+\definecolor{myblue}{RGB}{0, 114, 189}
+
+% ------------------- 自定义环境 -------------------
+
+% 紫色定义框：用于公式、定理
+\newenvironment{purplebox}
+  {\begin{tcolorbox}[colback=white, colframe=boxpurple, boxrule=1pt, sharp corners, title=\textbf{核心公式}]}
+  {\end{tcolorbox}}
+
+% 红色手写笔记框：用于技巧、易错点
+\newenvironment{rednote}
+  {\begin{tcolorbox}[colback=notepurple, colframe=highlightred, boxrule=1pt, title=\textbf{重点/技巧}]}
+  {\end{tcolorbox}}
+
+% ------------------- 文档信息 -------------------
+\title{\textbf{考研数学 - 高数总结 (常微分方程)}}
+\author{复习笔记}
+\date{\today}
+
+% ------------------- 正文开始 -------------------
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{一阶微分方程}
+
+\subsection{1. 可分离变量的微分方程}
+\textbf{形式：} $f_1(x)dx = f_2(y)dy$ 或 $g(y)dy = f(x)dx$。
+
+\textbf{解法：} 两边同时求不定积分，一边加上任意常数 $C$。
+\[ \int f_1(x) dx = \int f_2(y) dy + C \]
+
+\subsection{2. 齐次微分方程}
+\textbf{形式：} $\frac{dy}{dx} = f\left(\frac{y}{x}\right)$。
+
+\textbf{解法：}
+令 $u = \frac{y}{x}$，则 $y = ux$，推导 $y' = u + x u'$。
+代入原方程得：
+\[ u + x \frac{du}{dx} = f(u) \Rightarrow \frac{du}{f(u) - u} = \frac{dx}{x} \]
+分离变量积分求解。
+
+\subsection{3. 一阶线性微分方程 (必考)}
+
+\begin{purplebox}
+    \textbf{1. 一阶线性齐次：} $y' + P(x)y = 0$
+    \[ \text{通解：} \quad y = C e^{-\int P(x) dx} \]
+
+    \textbf{2. 一阶线性非齐次：} $y' + P(x)y = Q(x)$
+    \[ \text{通解：} \quad y = e^{-\int P(x) dx} \left[ \int Q(x) e^{\int P(x) dx} dx + C \right] \]
+\end{purplebox}
+
+\textbf{记忆口诀：} \textbf{非齐解 = 齐通解 + 非齐特解}。
+
+\section{可降阶的高阶微分方程}
+
+\subsection{1. $y^{(n)} = f(x)$ 型}
+\textbf{解法：} 连续积分 $n$ 次。
+
+\subsection{2. 缺 $y$ 型：$y'' = f(x, y')$}
+\textbf{解法：} 令 $y' = p$，则 $y'' = p'$。
+原方程化为一阶方程：$p' = f(x, p)$。解出 $p(x)$ 后，再积分一次求 $y$。
+
+\subsection{3. 缺 $x$ 型：$y'' = f(y, y')$}
+\textbf{解法：} 令 $y' = p$，则 $y'' = \frac{dp}{dx} = \frac{dp}{dy} \cdot \frac{dy}{dx} = p \frac{dp}{dy}$。
+原方程化为：$p \frac{dp}{dy} = f(y, p)$。
+这是一阶方程，解出 $p(y)$，即 $\frac{dy}{dx} = p(y)$，分离变量求解。
+
+\section{二阶常系数线性微分方程}
+
+\subsection{齐次方程 $y'' + py' + qy = 0$}
+特征方程：$\lambda^2 + p\lambda + q = 0$。
+
+\begin{enumerate}
+    \item \textbf{不等实根} $\Delta > 0 (\lambda_1 \neq \lambda_2)$：
+    \[ y = C_1 e^{\lambda_1 x} + C_2 e^{\lambda_2 x} \]
+    \item \textbf{相等实根} $\Delta = 0 (\lambda_1 = \lambda_2 = \lambda)$：
+    \[ y = (C_1 + C_2 x) e^{\lambda x} \]
+    \item \textbf{共轭复根} $\Delta < 0 (\lambda_{1,2} = \alpha \pm i\beta)$：
+    \[ y = e^{\alpha x} (C_1 \cos \beta x + C_2 \sin \beta x) \]
+\end{enumerate}
+
+\subsection{非齐次方程 $y'' + py' + qy = f(x)$}
+\textbf{特解 $y^*$ 的设法（待定系数法）：}
+
+\begin{rednote}
+    \textbf{类型 I：} $f(x) = P_n(x) e^{kx}$
+    设 $y^* = x^m Q_n(x) e^{kx}$，其中 $Q_n(x)$ 是与 $P_n(x)$ 同次的多项式。
+    \begin{itemize}
+        \item $k$ 不是特征根 $\Rightarrow m=0$
+        \item $k$ 是单特征根 $\Rightarrow m=1$
+        \item $k$ 是重特征根 $\Rightarrow m=2$
+    \end{itemize}
+
+    \textbf{类型 II：} $f(x) = e^{\alpha x} [P_l(x) \cos \beta x + P_s(x) \sin \beta x]$
+    设 $y^* = x^m e^{\alpha x} [H_N(x) \cos \beta x + K_N(x) \sin \beta x]$，其中 $N = \max(l, s)$。
+    \begin{itemize}
+        \item $\alpha \pm i\beta$ 不是特征根 $\Rightarrow m=0$
+        \item $\alpha \pm i\beta$ 是特征根 $\Rightarrow m=1$
+    \end{itemize}
+\end{rednote}
+
+\section{线性微分方程解的结构}
+
+\begin{enumerate}
+    \item \textbf{叠加原理：} 若 $y_1, y_2$ 分别是 $L(y)=f_1(x), L(y)=f_2(x)$ 的解，则 $y_1+y_2$ 是 $L(y)=f_1(x)+f_2(x)$ 的解。
+    \item \textbf{齐次解组合：} 齐次方程解的线性组合仍是齐次方程的解。
+    \item \textbf{非齐次性质：}
+    \begin{itemize}
+        \item 非齐解 - 非齐解 = 齐次解。
+        \item 非齐解 + 齐次解 = 非齐解。
+    \end{itemize}
+    \item \textbf{通解结构：}
+    \begin{itemize}
+        \item 齐次通解：$C_1 y_1 + C_2 y_2$ ($y_1, y_2$ 线性无关)。
+        \item 非齐次通解：$C_1 y_1 + C_2 y_2 + y^*$。
+    \end{itemize}
+\end{enumerate}
+
+\section{微分方程的几何与物理应用}
+
+\subsection{常用几何量}
+\begin{itemize}
+    \item \textbf{切线方程：} $Y - y = y'(X - x)$
+    \item \textbf{法线方程：} $Y - y = -\frac{1}{y'}(X - x)$
+    \item \textbf{X 轴截距：} 令 $Y=0 \Rightarrow X = x - \frac{y}{y'}$
+    \item \textbf{Y 轴截距：} 令 $X=0 \Rightarrow Y = y - x y'$
+    \item \textbf{弧长微分：} $ds = \sqrt{1 + (y')^2} dx$
+    \item \textbf{曲率：} $K = \frac{|y''|}{(1 + y'^2)^{3/2}}$
+\end{itemize}
+
+\subsection{物理应用模型}
+\begin{itemize}
+    \item \textbf{牛顿第二定律：} $F = ma = m \frac{d^2s}{dt^2}$
+    \item \textbf{变力做功：} $W = \int F(x) dx$
+    \item \textbf{衰变/增长模型：} $\frac{dy}{dt} = ky \Rightarrow y = y_0 e^{kt}$
+    \item \textbf{冷却定律：} $\frac{dT}{dt} = -k(T - T_{\text{env}})$
+\end{itemize}
+
+\end{document}

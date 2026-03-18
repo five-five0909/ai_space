@@ -1,0 +1,188 @@
+\documentclass[a4paper,12pt]{ctexart}
+
+% ------------------- 宏包引入 -------------------
+\usepackage{geometry}           % 页面布局
+\usepackage{amsmath, amssymb}   % 数学公式与符号
+\usepackage{graphicx}           % 图片支持
+\usepackage{xcolor}             % 颜色支持
+\usepackage{float}              % 浮动体控制
+\usepackage{enumitem}           % 列表定制
+\usepackage{tcolorbox}          % 彩色文本框
+\usepackage{tikz}               % 绘图
+\usepackage{pgfplots}           % 数据绘图
+
+% ------------------- 页面设置 -------------------
+\geometry{left=2.0cm, right=2.0cm, top=2.5cm, bottom=2.5cm}
+\pgfplotsset{compat=1.18}
+\linespread{1.5} % 行间距 1.5 倍
+
+% ------------------- 颜色定义 -------------------
+\definecolor{boxpurple}{RGB}{128, 0, 128}
+\definecolor{notepurple}{RGB}{230, 230, 250}
+\definecolor{highlightred}{RGB}{200, 30, 30}
+\definecolor{myblue}{RGB}{0, 114, 189}
+
+% ------------------- 自定义环境 -------------------
+
+% 紫色定义框：用于定理、定义
+\newenvironment{purplebox}
+  {\begin{tcolorbox}[colback=white, colframe=boxpurple, boxrule=1pt, sharp corners, title=\textbf{定义/定理}]}
+  {\end{tcolorbox}}
+
+% 红色手写笔记框：用于技巧、补充
+\newenvironment{rednote}
+  {\begin{tcolorbox}[colback=notepurple, colframe=highlightred, boxrule=1pt, title=\textbf{重点/技巧}]}
+  {\end{tcolorbox}}
+
+% ------------------- 文档信息 -------------------
+\title{\textbf{考研数学 - 高数总结 (一元函数积分学)}}
+\author{复习笔记}
+\date{\today}
+
+% ------------------- 正文开始 -------------------
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{一元函数积分学}
+
+\subsection{原函数与不定积分的概念}
+\begin{purplebox}
+    \textbf{原函数}：若在区间 $I$ 上 $F'(x) = f(x)$，则称 $F(x)$ 是 $f(x)$ 的一个原函数。 \\
+    \textbf{不定积分}：$f(x)$ 的所有原函数的全体，记为 $\int f(x) dx = F(x) + C$。
+\end{purplebox}
+
+\subsection{不定积分的计算方法}
+\begin{enumerate}
+    \item \textbf{基本积分公式}（必须牢记）。
+    \item \textbf{换元积分法}：
+    \begin{itemize}
+        \item 第一类换元法（凑微分法）：$f(\varphi(x))\varphi'(x)dx = f(u)du$。
+        \item 第二类换元法（变量替换法）：令 $x = \psi(t)$，常用于去根号。
+    \end{itemize}
+    \item \textbf{分部积分法}：$\int u dv = uv - \int v du$（口诀：反、对、幂、指、三）。
+    \item \textbf{有理函数积分}：拆分为部分分式之和。
+    \item \textbf{三角函数有理式积分}：万能公式代换或特殊性质凑微分。
+    \item \textbf{无理函数积分}：通过代换转化为有理函数积分。
+\end{enumerate}
+
+\subsection{定积分的概念与性质}
+\begin{purplebox}
+    \textbf{定积分的定义}：$\int_a^b f(x) dx = \lim_{\lambda \to 0} \sum_{i=1}^n f(\xi_i) \Delta x_i$ \\
+    \textbf{几何意义}：曲边梯形的面积（$x$ 轴上方为正，下方为负）。
+\end{purplebox}
+
+\subsection{定积分的计算方法}
+\begin{enumerate}
+    \item \textbf{牛顿-莱布尼茨公式}：$\int_a^b f(x) dx = F(b) - F(a)$。
+    \item \textbf{换元积分法}：\textbf{换元必换限}，且需注意单调性。
+    \item \textbf{分部积分法}：注意边界值的代入。
+    \item \textbf{利用奇偶性、周期性}：
+    \begin{itemize}
+        \item 对称区间上的奇函数积分为 0，偶函数积分为 2 倍一半。
+        \item 周期函数在任意一个周期长度上的积分相等：$\int_a^{a+T} f(x) dx = \int_0^T f(x) dx$。
+    \end{itemize}
+    \item \textbf{几何意义法}：利用圆、椭圆面积公式。
+    \item \textbf{华里士公式 (点火公式)}：$\int_0^{\frac{\pi}{2}} \sin^n x dx = \int_0^{\frac{\pi}{2}} \cos^n x dx$ 的递推结果。
+\end{enumerate}
+
+\subsection{变限积分与原函数存在定理}
+\begin{purplebox}
+    \textbf{变限积分}：$\Phi(x) = \int_a^x f(t) dt$ \\
+    \textbf{原函数存在定理}：若 $f(x)$ 在 $[a, b]$ 上连续，则 $\Phi(x)$ 在 $[a, b]$ 上可导，且 $\Phi'(x) = f(x)$。
+\end{purplebox}
+
+\begin{rednote}
+    \textbf{关于连续性与可导性的提升：}
+    \begin{itemize}
+        \item $f(x)$ 连续 $\Rightarrow \int_a^x f(t) dt$ 可导。
+        \item $f(x)$ 可积（可能有间断点） $\Rightarrow \int_a^x f(t) dt$ 连续。
+    \end{itemize}
+\end{rednote}
+
+\subsection{反常积分 (广义积分)}
+
+\textbf{1. 敛散性判别步骤：}
+\begin{enumerate}
+    \item 找到所有\textbf{瑕点}（包括无穷远点和函数无定义趋于无穷的点）。
+    \item 分割积分区间，使每个子区间仅含一个瑕点。
+    \item 判断每个瑕点处的敛散性：
+    \begin{itemize}
+        \item 若为 $p$-积分形式，直接用结论。
+        \item 若不是，找瑕点处的\textbf{等价无穷小}进行比较。
+        \item 出现 $\sin \infty$ 或 $\cos \infty$ 时，考虑狄利克雷判别法或阿贝尔判别法（通常考研考察绝对收敛）。
+    \end{itemize}
+    \item \textbf{结论}：所有部分收敛 $\Rightarrow$ 收敛；只要有一个部分发散 $\Rightarrow$ 发散。
+\end{enumerate}
+
+\textbf{2. 常用结论 (p-积分，必须背诵)}
+\begin{tcolorbox}[colback=white, colframe=myblue, title=\textbf{P-积分敛散性结论}]
+    \begin{enumerate}
+        \item \textbf{无穷区间} (看 $x \to +\infty$，次数要大)：
+        \[ \int_a^{+\infty} \frac{1}{x^p} dx \quad (a>0) \quad \begin{cases} \text{收敛}, & p > 1 \\ \text{发散}, & p \le 1 \end{cases} \]
+        
+        \item \textbf{瑕点区间} (看 $x \to a^+$，次数要小)：
+        \[ \int_a^b \frac{1}{(x-a)^p} dx \quad \begin{cases} \text{收敛}, & p < 1 \\ \text{发散}, & p \ge 1 \end{cases} \]
+    \end{enumerate}
+    \textbf{记忆口诀}：大 $1$ 收敛（无穷远），小 $1$ 收敛（瑕点）。
+\end{tcolorbox}
+
+\subsection{存在性定理总结}
+\begin{enumerate}
+    \item \textbf{原函数存在定理（不定积分存在）：}
+    \begin{itemize}
+        \item \textbf{连续}函数必有原函数。
+        \item 含有\textbf{第一类间断点}（跳跃、可去）的函数在包含该点的区间内\textbf{没有}原函数（导数介值定理）。
+        \item 含有无穷间断点的函数无原函数。
+        \item 含有振荡间断点的函数\textbf{可能}有原函数（如 $x^2 \sin \frac{1}{x}$ 的导数）。
+    \end{itemize}
+    \item \textbf{定积分存在定理（可积）：}
+    \begin{itemize}
+        \item \textbf{连续}函数必可积。
+        \item \textbf{单调}有界函数必可积。
+        \item 有界且只有\textbf{有限个}间断点的函数必可积。
+        \item 可积函数必\textbf{有界}（必要条件）。
+    \end{itemize}
+\end{enumerate}
+
+\subsection{定积分的应用}
+
+\textbf{1. 平面图形的面积}
+\begin{itemize}
+    \item \textbf{直角坐标} ($y=f(x), y=g(x), f \ge g$)：
+    \[ S = \int_a^b [f(x) - g(x)] dx \]
+    \item \textbf{极坐标} ($r = r(\theta), \alpha \le \theta \le \beta$)：
+    \[ S = \frac{1}{2} \int_\alpha^\beta r^2(\theta) d\theta \]
+\end{itemize}
+
+\textbf{2. 旋转体体积}
+\begin{itemize}
+    \item \textbf{绕 $x$ 轴旋转} (圆盘法/切片法)：
+    \[ V_x = \pi \int_a^b f^2(x) dx \]
+    \item \textbf{绕 $y$ 轴旋转} (柱壳法)：
+    \[ V_y = 2\pi \int_a^b |x| \cdot f(x) dx \]
+    \item \textbf{绕一般直线 $ax+by+c=0$ 旋转} (古尔丁定理/二重积分)：
+    \[ V = 2\pi \iint_D r(x,y) d\sigma, \quad r(x,y) = \frac{|ax+by+c|}{\sqrt{a^2+b^2}} \]
+\end{itemize}
+
+\textbf{3. 曲线弧长 $s$}
+\begin{itemize}
+    \item 直角坐标 $y=y(x)$：
+    \[ s = \int_a^b \sqrt{1+y'^2} dx \]
+    \item 参数方程 $x=x(t), y=y(t)$：
+    \[ s = \int_\alpha^\beta \sqrt{x'^2(t)+y'^2(t)} dt \]
+    \item 极坐标 $r=r(\theta)$：
+    \[ s = \int_\alpha^\beta \sqrt{r^2(\theta) + [r'(\theta)]^2} d\theta \]
+\end{itemize}
+
+\textbf{4. 旋转体侧面积 $S$}
+\begin{itemize}
+    \item 绕 $x$ 轴旋转 ($y=f(x)$)：
+    \[ S_x = 2\pi \int_a^b |f(x)| \sqrt{1+f'^2(x)} dx \]
+    \item 参数方程绕 $x$ 轴：
+    \[ S_x = 2\pi \int_\alpha^\beta |y(t)| \sqrt{x'^2(t)+y'^2(t)} dt \]
+\end{itemize}
+
+\end{document}

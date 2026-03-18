@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python test_parse.py)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

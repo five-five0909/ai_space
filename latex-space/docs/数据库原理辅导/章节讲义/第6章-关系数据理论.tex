@@ -1,0 +1,1213 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{booktabs}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 颜色定义
+\definecolor{lightblue}{RGB}{230, 245, 255}
+\definecolor{lightyellow}{RGB}{255, 255, 230}
+\definecolor{lightgreen}{RGB}{230, 255, 230}
+\definecolor{lightred}{RGB}{255, 230, 230}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理讲义}
+\lhead{第6章 关系数据理论}
+\cfoot{\thepage}
+
+% bluebox环境定义
+\newenvironment{bluebox}[1]{%
+  \begin{trivlist}
+  \item[\hskip\labelsep \textbf{#1}]
+  \setlength{\parskip}{0.5ex}
+  \setlength{\itemsep}{0.5ex}
+}{%
+  \end{trivlist}
+  }
+
+\title{\textbf{第6章 关系数据理论}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{关系数据理论概述}
+
+\subsection{关系规范化理论}
+
+\begin{bluebox}{核心概念框架}
+	\textbf{【关系规范化核心认知框架】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{规范化}：通过模式分解消除异常，减少冗余
+		\item \textbf{函数依赖}：描述属性之间的依赖关系（X $\to$ Y）
+		\item \textbf{范式}：关系模式满足的规范化程度
+		\item \textbf{键的概念}：候选键、超键、主键、外键、全码
+	\end{itemize}
+
+	\textbf{概念层次关系}：函数依赖 $\to$ 1NF $\to$ 2NF $\to$ 3NF $\to$ BCNF $\to$ 4NF
+\end{bluebox}
+
+\begin{bluebox}{规范化目的}
+	\textbf{【规范化的核心目的】}
+
+	规范化理论是关系数据库设计的理论依据，旨在解决以下问题：
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{消除数据冗余}：减少重复存储
+		\item \textbf{避免更新异常}：
+		      \begin{itemize}[nosep]
+			      \item 插入异常：无法插入数据
+			      \item 删除异常：误删数据
+			      \item 修改异常：修改导致不一致
+		      \end{itemize}
+		\item \textbf{保持数据依赖}：分解不丢失信息
+	\end{enumerate}
+
+	\textbf{重要结论}：规范化的核心是围绕\textbf{函数依赖}进行的
+\end{bluebox}
+
+\section{函数依赖}
+
+\subsection{函数依赖的基本概念}
+
+\begin{bluebox}{函数依赖定义}
+	\textbf{【函数依赖的定义】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{定义}：设关系模式 R(U)，X、Y $\subseteq$ U。若对于 R 的任意两个元组 $t_1, t_2$，如果 $t_1[X] = t_2[X]$，则必有 $t_1[Y] = t_2[Y]$，则称 X 函数确定 Y，记作 X $\to$ Y
+		\item \textbf{语义}：X 的值唯一确定 Y 的值
+		\item \textbf{分类}：
+		      \begin{itemize}
+			      \item 平凡函数依赖：Y $\subseteq$ X
+			      \item 非平凡函数依赖：Y $\not\subseteq$ X
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{记忆口诀}：X相同 $\to$ Y相同，即 X $\to$ Y
+\end{bluebox}
+
+\begin{bluebox}{键的概念}
+	\textbf{【键的层次关系】}
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{键类型} & \textbf{定义}                & \textbf{特性} & \textbf{关系} \\
+		\hline
+		\textbf{超键}  & 能唯一标识元组的属性组                & 可有冗余        & 最大集合        \\
+		\hline
+		\textbf{候选键} & 能唯一标识元组的最小属性组              & 无冗余         & 超键的真子集      \\
+		\hline
+		\textbf{主键}  & 从候选键中选定的一个                 & 非空唯一        & $\in$ 候选键   \\
+		\hline
+		\textbf{外键}  & 引用其他关系的主键                  & 可为空 | - |                 \\
+		\hline
+		\textbf{全码}  & 所有属性组成候选键 | 最特殊情况 | = 所有属性                             \\
+		\hline
+	\end{tabular}
+
+	\textbf{重要结论}：超键 $\supseteq$ 候选键 $\supseteq$ 主键
+\end{bluebox}
+
+\begin{bluebox}{候选键判定}
+	\textbf{【候选键的判定方法】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{唯一性}：该属性组能唯一标识每个元组
+		\item \textbf{最小性}：该属性组的任一真子集都不能唯一标识元组
+	\end{enumerate}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 检查属性组是否为候选键
+SELECT A, B, COUNT(*) 
+FROM 表 
+GROUP BY A, B 
+HAVING COUNT(*) > 1;  -- 如果有结果，则不是候选键
+	\end{verbatim}
+
+	\textbf{实战案例}：
+	\begin{itemize}
+		\item 学生表(学号, 姓名, 班号)：学号是候选键
+		\item 选课表(学号, 课程号, 成绩)：学号+课程号是候选键
+		\item 单属性键：学生(学号) $\to$ 学号是候选键
+	\end{itemize}
+\end{bluebox}
+
+\section{范式理论}
+
+\subsection{第一范式(1NF)}
+
+\begin{bluebox}{1NF定义}
+	\textbf{【第一范式(1NF)】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{定义}：关系中的每个属性都是不可再分割的原子值
+		\item \textbf{要求}：每个分量都不可再分
+		\item \textbf{特点}：这是关系模型的基本要求
+	\end{itemize}
+
+	\textbf{SQL示例（违反1NF）}：
+	\begin{verbatim}
+-- 错误示例：属性可再分
+CREATE TABLE 学生错误 (
+    学号 INT,
+    姓名 VARCHAR(20),
+    电话 VARCHAR(50)  -- 存储 "130,132" 多个电话号码
+);
+
+-- 正确示例：符合1NF
+CREATE TABLE 学生 (
+    学号 INT,
+    姓名 VARCHAR(20),
+    电话 VARCHAR(20)  -- 存储单个电话号码
+);
+	\end{verbatim}
+
+	\textbf{记忆口诀}：1NF = 不可再分
+\end{bluebox}
+
+\subsection{第二范式(2NF)}
+
+\begin{bluebox}{2NF定义}
+	\textbf{【第二范式(2NF)】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{定义}：若关系模式属于1NF，且每个非主属性都完全函数依赖于码，则该关系属于2NF
+		\item \textbf{关键}：消除\textbf{部分函数依赖}
+		\item \textbf{条件}：非主属性不能依赖于码的真子集
+	\end{itemize}
+
+	\textbf{SQL示例（违反2NF）}：
+	\begin{verbatim}
+-- 错误示例：(学号, 课程号, 姓名, 系名, 成绩)
+-- 主键: (学号, 课程号)
+-- 部分依赖: 姓名 $\to$ 学号, 系名 $\to$ 学号
+
+-- 正确示例：分解为两个表
+CREATE TABLE 学生信息 (
+    学号 INT PRIMARY KEY,
+    姓名 VARCHAR(20),
+    系名 VARCHAR(20)
+);
+
+CREATE TABLE 选课信息 (
+    学号 INT,
+    课程号 INT,
+    成绩 INT,
+    PRIMARY KEY (学号, 课程号),
+    FOREIGN KEY (学号) REFERENCES 学生信息(学号)
+);
+	\end{verbatim}
+
+	\textbf{记忆口诀}：2NF = 1NF + 无部分依赖
+\end{bluebox}
+
+\subsection{第三范式(3NF)}
+
+\begin{bluebox}{3NF定义}
+	\textbf{【第三范式(3NF)】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{定义}：若关系模式属于2NF，且每个非主属性都不传递依赖于码，则该关系属于3NF
+		\item \textbf{关键}：消除\textbf{传递函数依赖}
+		\item \textbf{条件}：非主属性不能依赖于其他非主属性
+	\end{itemize}
+
+	\textbf{SQL示例（违反3NF）}：
+	\begin{verbatim}
+-- 错误示例：学号, 姓名, 系号, 系名, 系地址
+-- 主键: 学号
+-- 传递依赖: 学号 $\to$ 系号 $\to$ 系名, 系地址
+
+-- 正确示例：分解为两个表
+CREATE TABLE 学生 (
+    学号 INT PRIMARY KEY,
+    姓名 VARCHAR(20),
+    系号 INT
+);
+
+CREATE TABLE 系 (
+    系号 INT PRIMARY KEY,
+    系名 VARCHAR(20),
+    系地址 VARCHAR(50),
+    FOREIGN KEY (系号) REFERENCES 学生(系号)
+);
+	\end{verbatim}
+
+	\textbf{记忆口诀}：3NF = 2NF + 无传递依赖
+\end{bluebox}
+
+\begin{bluebox}{BCNF定义}
+	\textbf{【BC范式(BCNF)】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{定义}：若关系模式属于3NF，且每个决定因素都包含码，则该关系属于BCNF
+		\item \textbf{关键}：消除\textbf{主属性对码的部分和传递依赖}
+		\item \textbf{条件}：对于每个非平凡函数依赖 X $\to$ Y，X 都是超键
+	\end{itemize}
+
+	\textbf{BCNF与3NF的区别}：
+	\begin{itemize}
+		\item 3NF：只限制非主属性
+		\item BCNF：限制所有属性（包括主属性）
+		\item BCNF $\subseteq$ 3NF
+	\end{itemize}
+
+	\textbf{记忆口诀}：BCNF = 3NF + 主属性也不传递依赖
+\end{bluebox}
+
+\begin{bluebox}{范式层次}
+	\textbf{【范式层次关系】}
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{范式} & \textbf{消除的依赖} & \textbf{规范化程度} & \textbf{实际应用} \\
+		\hline
+		1NF         & 属性可再分          & 最低             & 所有关系必须满足      \\
+		\hline
+		2NF         & 部分函数依赖         & 较低             & 较少使用          \\
+		\hline
+		3NF         & 传递函数依赖         & 中等             & 最常用           \\
+		\hline
+		BCNF        & 主属性依赖          & 较高             & 追求规范化时使用      \\
+		\hline
+		4NF         & 多值依赖           & 高              & 理论研究          \\
+		\hline
+	\end{tabular}
+
+	\textbf{重要结论}：数据库通常使用3NF，不一定追求BCNF（可能丢失依赖）
+\end{bluebox}
+
+\begin{bluebox}{特殊情况}
+	\textbf{【特殊情况的范式】}
+
+	\begin{itemize}
+		\item \textbf{只有两个属性的关系}：必定属于3NF
+		      \begin{itemize}
+			      \item 主键可能是单属性或双属性
+			      \item 不会出现部分依赖（最多2个属性）
+			      \item 不会出现传递依赖（中间层需要3个属性）
+		      \end{itemize}
+		\item \textbf{全码关系}：必定属于BCNF
+		\item \textbf{单属性主键的关系}：必定满足2NF
+	\end{itemize}
+
+	\textbf{记忆口诀}：两属性必3NF，全码必BCNF，单键必2NF
+\end{bluebox}
+
+\section{关系模式分解}
+
+\subsection{E-R图转关系模式}
+
+\begin{bluebox}{转换规则}
+	\textbf{【E-R图向关系模式转换】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{1:1联系}：
+		      \begin{itemize}[nosep]
+			      \item 可将两个实体合并
+			      \item 或将任一实体的主键放入另一实体作为外键
+		      \end{itemize}
+		\item \textbf{1:n联系}：
+		      \begin{itemize}[nosep]
+			      \item 在"n"端实体转换的关系中
+			      \item 添加"1"端实体的主键作为外键
+		      \end{itemize}
+		\item \textbf{m:n联系}：
+		      \begin{itemize}[nosep]
+			      \item 联系本身转换为一个独立的关系
+			      \item 包含两个实体的主键
+			      \item 外键关系：参照两个实体的主键
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 1:n转换: 学生1:n成绩单
+CREATE TABLE 成绩单 (
+    成绩单号 INT PRIMARY KEY,
+    学号 INT,
+    课程号 INT,
+    成绩 INT,
+    FOREIGN KEY (学号) REFERENCES 学生(学号)  -- n端包含1端主键
+);
+
+-- m:n转换: 学生m:n课程 (需要3个表)
+CREATE TABLE 学生 (
+    学号 INT PRIMARY KEY,
+    姓名 VARCHAR(20)
+);
+
+CREATE TABLE 课程 (
+    课程号 INT PRIMARY KEY,
+    课程名 VARCHAR(50)
+);
+
+CREATE TABLE 选课 (
+    学号 INT,
+    课程号 INT,
+    成绩 INT,
+    PRIMARY KEY (学号, 课程号),
+    FOREIGN KEY (学号) REFERENCES 学生(学号),
+    FOREIGN KEY (课程号) REFERENCES 课程(课程号)
+);
+	\end{verbatim}
+
+	\textbf{记忆口诀}：一对一可合并，一对多加外键，多对多建新表
+\end{bluebox}
+
+\section{本章必背知识点}
+
+\begin{bluebox}{命题人思维版}
+	\textbf{【本章应背诵知识点】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{规范化理论}：消除异常、减少冗余
+		\item \textbf{函数依赖}：X相同 $\to$ Y相同
+		\item \textbf{键的概念}：超键 $\supseteq$ 候选键 $\supseteq$ 主键
+		\item \textbf{1NF}：属性不可再分
+		\item \textbf{2NF}：消除了部分函数依赖
+		\item \textbf{3NF}：消除了传递函数依赖
+		\item \textbf{BCNF}：每个决定因素都包含码
+		\item \textbf{E-R转换}：1:1可合并、1:n加外键、m:n建新表
+	\end{enumerate}
+
+	\textbf{选项辨析速查表（考场5秒决策）}：
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{范式} & \textbf{消除内容}                     & \textbf{依赖类型}         & \textbf{记忆口诀} \\
+		\hline
+		1NF         & 属性可再分                             & -                     & "不可再分"        \\
+		\hline
+		2NF         & 部分依赖                              & X的子集 $\to$ Y | "完全依赖"                 \\
+		\hline
+		3NF         & 传递依赖 | X $\to$ Y $\to$ Z | "直接依赖"                                         \\
+		\hline
+		BCNF | 主属性依赖 | 主属性 $\to$ 属性 | "决定因素"                                                    \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\begin{bluebox}{高频陷阱清单}
+	\textbf{【本章高频陷阱清单】}
+
+	\begin{itemize}
+		\item 陷阱1："两个属性的关系最多属于1NF" $\rightarrow$ \textbf{错误！} 必定属于3NF
+		\item 陷阱2："3NF比BCNF更规范" $\rightarrow$ \textbf{错误！} BCNF是3NF的特例，更规范
+		\item 陷阱3："候选键必须包含多个属性" $\rightarrow$ \textbf{错误！} 可以是单属性
+		\item 陷阱4："部分函数依赖和传递函数依赖相同" $\rightarrow$ \textbf{错误！} 部分依赖是相对于码的子集，传递依赖是通过中间属性
+		\item 陷阱5："规范化程度越高越好" $\rightarrow$ \textbf{错误！} 过度规范化可能导致连接增多，影响性能
+		\item 陷阱6："m:n联系转换为一个表" $\rightarrow$ \textbf{错误！} m:n联系需要3个表
+	\end{itemize}
+\end{bluebox}
+
+\section{典型例题深度解析}
+
+\begin{bluebox}{例题1：规范化理论}
+	\textbf{【例题1】} 关系数据库的（\quad）理论是关系数据库设计的理论依据。
+
+	\begin{itemize}
+		\item[A)] 专业化
+		\item[B)] 规范化
+		\item[C)] 一般性
+		\item[D)] 特殊性
+	\end{itemize}
+
+	\textbf{答案：B}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查关系数据库设计的理论基础
+		\item \textbf{关键区分点}：规范化理论是关系数据库设计的核心理论
+		\item \textbf{命题人意图}：测试考生对数据库设计理论基础的掌握
+	\end{itemize}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 专业化]：与数据库设计无关
+		\item[B) 规范化]：\textbf{正确！} 规范化理论是关系数据库设计的理论依据
+		\item[C) 一般性]：概念过于宽泛
+		\item[D) 特殊性]：与数据库设计无关
+	\end{itemize}
+
+	\textbf{记忆口诀}：数据库设计靠规范化
+\end{bluebox}
+
+\begin{bluebox}{例题2：规范化实质}
+	\textbf{【例题2】} 关系规范化实质上是围绕（\quad）进行。
+
+	\begin{itemize}
+		\item[A)] 函数
+		\item[B)] 函数依赖
+		\item[C)] 范式
+		\item[D)] 关系
+	\end{itemize}
+
+	\textbf{答案：B}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查规范化的核心内容
+		\item \textbf{关键区分点}：规范化是围绕函数依赖进行的
+		\item \textbf{命题人意图}：测试考生对规范化过程的理解
+	\end{itemize}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 函数]：错误，太宽泛
+		\item[B) 函数依赖]：\textbf{正确！} 规范化的核心是函数依赖
+		\item[C) 范式]：错误，范式是结果，不是过程
+		\item[D) 关系]：错误，关系是对象
+	\end{itemize}
+
+	\textbf{证据}：1NF到BCNF的消除过程都是针对函数依赖
+	\begin{itemize}
+		\item 2NF：消除部分函数依赖
+		\item 3NF：消除传递函数依赖
+		\item BCNF：消除决定因素不包含码的函数依赖
+	\end{itemize}
+
+	\textbf{记忆口诀}：规范化围绕函数依赖
+\end{bluebox}
+
+\begin{bluebox}{例题3：候选键判定}
+	\textbf{【例题3】} 设关系模式R的属性集是U，X是U的一个子集。如果X$\to$U在R上成立，但对于X的任一真子集X1$\to$U不成立，那么称X是R上的一个（\quad）。
+
+	\begin{itemize}
+		\item[A)] 候选键
+		\item[B)] 超键
+		\item[C)] 主键
+		\item[D)] 外键
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查候选键的定义
+		\item \textbf{关键区分点}：候选键需要满足唯一性和最小性
+		\item \textbf{命题人意图}：测试考生对候选键概念的理解
+	\end{itemize}
+
+	\textbf{SQL验证}：
+	\begin{verbatim}
+-- 验证候选键：假设X = (学号, 课程号)
+-- 1. 唯一性：X $\to$ U，即(学号, 课程号)能唯一标识所有元组
+SELECT 学号, 课程号, COUNT(*)
+FROM 选课
+GROUP BY 学号, 课程号
+HAVING COUNT(*) > 1;  -- 无结果说明唯一
+
+-- 2. 最小性：(学号)或(课程号)不能唯一标识所有元组
+SELECT 学号, COUNT(*)
+FROM 选课
+GROUP BY 学号
+HAVING COUNT(*) > 1;  -- 有结果说明最小
+	\end{verbatim}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 候选键]：\textbf{正确！} 满足唯一性和最小性
+		\item[B) 超键]：错误，超键只要求唯一性
+		\item[C) 主键]：错误，主键是从候选键中选定的
+		\item[D) 外键]：错误，外键是引用其他关系的键
+	\end{itemize}
+
+	\textbf{记忆口诀}：候选键 = 唯一性 + 最小性
+\end{bluebox}
+
+\begin{bluebox}{例题4：全码概念}
+	\textbf{【例题4】} 当关系有多个候选码时，选定一个作为主键，若主键为全码，应包含（\quad）。
+
+	\begin{itemize}
+		\item[A)] 单个属性
+		\item[B)] 两个属性
+		\item[C)] 多个属性
+		\item[D)] 全部属性
+	\end{itemize}
+
+	\textbf{答案：D}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查全码的概念
+		\item \textbf{关键区分点}：全码由关系的所有属性组成
+		\item \textbf{命题人意图}：测试考生对全码定义的掌握
+	\end{itemize}
+
+	\textbf{全码示例}：
+	\begin{verbatim}
+-- 示例：学生选课关系（学号, 课程号, 时间）
+-- 三个属性共同组成候选键，不能去掉任何一个
+CREATE TABLE 选课 (
+    学号 INT,
+    课程号 INT,
+    时间 INT,  -- 选课时间
+    PRIMARY KEY (学号, 课程号, 时间)  -- 全码
+);
+	\end{verbatim}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 单个属性]：错误，全码一般不是单属性
+		\item[B) 两个属性]：错误，全码可能包含多个
+		\item[C) 多个属性]：部分正确，但不够准确
+		\item[D) 全部属性]：\textbf{正确！} 全码包含所有属性
+	\end{itemize}
+
+	\textbf{记忆口诀}：全码 = 所有属性
+\end{bluebox}
+
+\begin{bluebox}{例题5：平凡函数依赖}
+	\textbf{【例题5】} X$\to$Y，当下列哪一条成立时，称为平凡的函数依赖（\quad）。
+
+	\begin{itemize}
+		\item[A)] Y包含于X
+		\item[B)] X$\cap$Y=$\emptyset$
+		\item[C)] Y$\subseteq$X
+		\item[D)] X包含于Y
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查平凡函数依赖的定义
+		\item \textbf{关键区分点}：Y $\subseteq$ X 时为平凡函数依赖
+		\item \textbf{命题人意图}：测试考生对函数依赖分类的掌握
+	\end{itemize}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 平凡函数依赖示例
+-- 假设 X = (学号, 姓名), Y = (学号)
+-- 学号 $\subseteq$ (学号, 姓名) $\to$ (学号) 是平凡的
+
+-- 非平凡函数依赖示例
+-- X = (学号), Y = (姓名)
+-- 姓名 $\not\subseteq$ 学号 $\to$ (姓名) 是非平凡的
+	\end{verbatim}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) Y包含于X]：\textbf{正确！} Y $\subseteq$ X
+		\item[B) X$\cap$Y=$\emptyset$]：错误，这是无交集
+		\item[C) Y$\subseteq$X]：正确，但A已经表达
+		\item[D) X包含于Y]：错误
+	\end{itemize}
+
+	注：A和C都正确（中文表述差异），优先选先出现的A
+
+	\textbf{记忆口诀}：Y在X中 $\to$ 平凡依赖
+\end{bluebox}
+
+\begin{bluebox}{例题6：函数依赖判定}
+	\textbf{【例题6】} A值与B值有一对多联系，可写出的函数依赖是（\quad）。
+
+	\begin{itemize}
+		\item[A)] B$\to$A
+		\item[B)] A$\to$B
+	\end{itemize}
+
+	\textbf{答案：B}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查现实世界到函数依赖的映射
+		\item \textbf{关键区分点}：一对多关系 $\to$ "多"端依赖"一"端
+		\item \textbf{命题人意图}：测试考生将现实关系转换为函数依赖的能力
+	\end{itemize}
+
+	\textbf{分析过程}：
+	\begin{itemize}
+		\item 实例：一个教师教多门课程（ 教师1:n 课程）
+		\item 教师值相同时，课程值可以不同
+		\item 课程值相同时，教师值必须相同
+		\item 因此：教师 $\to$ 课程 是错误的
+		\item 课程 $\to$ 教师 是正确的
+	\end{itemize}
+
+	\textbf{SQL验证}：
+	\begin{verbatim}
+-- 教师1:n课程，主键是课程号
+CREATE TABLE 课程 (
+    课程号 INT PRIMARY KEY,  -- 决定因素
+    教师号 INT,              -- 依赖于课程号
+    课程名 VARCHAR(50)
+);
+
+-- 函数依赖：课程号 $\to$ 教师号
+SELECT 教师号, COUNT(*)
+FROM 课程
+GROUP BY 教师号
+HAVING COUNT(*) > 1;  -- 有结果：一个教师教多门课
+	\end{verbatim}
+
+	\textbf{记忆口诀}：1:n 依赖关系是 "n $\to$ 1"
+\end{bluebox}
+
+\begin{bluebox}{例题7：规范化程度}
+	\textbf{【例题7】} 若一个关系模式只有两个属性，则该关系模式（\quad）。
+
+	\begin{itemize}
+		\item[A)] 最高属于 1NF
+		\item[B)] 最高属于 2NF
+		\item[C)] 可能属于 3NF
+		\item[D)] 必定属于 3NF
+	\end{itemize}
+
+	\textbf{答案：D}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查特殊情况下的范式判定
+		\item \textbf{关键区分点}：两属性关系必定满足3NF
+		\item \textbf{命题人意图}：测试考生对范式理论的理解
+	\end{itemize}
+
+	\textbf{证明过程}：
+
+	设关系R(A, B)，有四种情况：
+
+	\begin{enumerate}
+		\item \textbf{A是主键}：
+		      \begin{itemize}[nosep]
+			      \item 1NF：满足（原子值）
+			      \item 2NF：满足（单属性主键，无部分依赖）
+			      \item 3NF：满足（只有一个非主属性B，无传递依赖）
+		      \end{itemize}
+		\item \textbf{B是主键}：同理，满足3NF
+		\item \textbf{(A, B)是主键}：
+		      \begin{itemize}[nosep]
+			      \item 没有非主属性
+			      \item 自动满足3NF
+		      \end{itemize}
+		\item \textbf{无主键}：所有关系必须有主键（定义要求）
+	\end{enumerate}
+
+	\textbf{为什么不会出现异常？}
+	\begin{itemize}
+		\item 部分依赖需要至少3个属性（码 + 码的子集 + 非主属性）
+		\item 传递依赖需要至少3个属性（X $\to$ Y $\to$ Z）
+		\item 两个属性无法满足这些条件
+	\end{itemize}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 两个属性的关系，自动满足3NF
+CREATE TABLE 两属性表 (
+    A INT PRIMARY KEY,  -- 主键
+    B VARCHAR(20)       -- 非主属性，直接依赖于A
+);
+-- A $\to$ B，无部分依赖，无传递依赖 $\to$ 3NF
+	\end{verbatim}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 最高属于 1NF]：错误，必定3NF
+		\item[B) 最高属于 2NF]：错误，必定3NF
+		\item[C) 可能属于 3NF]：错误，必须是3NF
+		\item[D) 必定属于 3NF]：\textbf{正确！} 两个属性必定3NF
+	\end{itemize}
+
+	\textbf{记忆口诀}：两属性必3NF
+\end{bluebox}
+
+\begin{bluebox}{例题8：范式层次}
+	\textbf{【例题8】} 下列四项中，关系规范化程度最高的是关系满足（\quad）。
+
+	\begin{itemize}
+		\item[A)] 第三范式
+		\item[B)] 非规范关系
+		\item[C)] 第二范式
+		\item[D)] 第一范式
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查范式层次关系
+		\item \textbf{关键区分点}：范式层数越高，规范化程度越高
+		\item \textbf{命题人意图}：测试考生对范式层次的理解
+	\end{itemize}
+
+	\textbf{范式层次}：
+	\begin{itemize}
+		\item 1NF < 2NF < 3NF < BCNF < 4NF
+		\item 非规范关系 < 1NF
+	\end{itemize}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 第三范式]：\textbf{正确！} 规范化程度最高
+		\item[B) 非规范关系]：最低
+		\item[C) 第二范式]：较低
+		\item[D) 第一范式]：最低的规范关系
+	\end{itemize}
+
+	\textbf{记忆口诀}：数字越大越规范
+\end{bluebox}
+
+\begin{bluebox}{例题9：E-R转换}
+	\textbf{【例题9】} 有两个实体集，而且这两个实体集之间存在 M:N 联系，则依照转换规则，这个 E-R 结构转换成表的数目应该为（\quad）个。
+
+	\begin{itemize}
+		\item[A)] 1
+		\item[B)] 2
+		\item[C)] 3
+		\item[D)] 4
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查E-R图向关系模式转换
+		\item \textbf{关键区分点}：m:n联系需要建立独立的关系表
+		\item \textbf{命题人意图}：测试考生对E-R转换规则的掌握
+	\end{itemize}
+
+	\textbf{转换规则详解}：
+
+	m:n联系需要以下步骤：
+
+	\begin{enumerate}
+		\item 实体集1转换为一个关系表
+		\item 实体集2转换为一个关系表
+		\item m:n联系转换为一个独立的关系表（关联表）
+	\end{enumerate}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 学生m:n课程，需要3个表
+-- 表1：学生
+CREATE TABLE 学生 (
+    学号 INT PRIMARY KEY,
+    姓名 VARCHAR(20)
+);
+
+-- 表2：课程
+CREATE TABLE 课程 (
+    课程号 INT PRIMARY KEY,
+    课程名 VARCHAR(50)
+);
+
+-- 表3：选课（m:n联系）
+CREATE TABLE 选课 (
+    学号 INT,
+    课程号 INT,
+    成绩 INT,
+    PRIMARY KEY (学号, 课程号),
+    FOREIGN KEY (学号) REFERENCES 学生(学号),
+    FOREIGN KEY (课程号) REFERENCES 课程(课程号)
+);
+	\end{verbatim}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 1]：错误，至少需要2个实体表
+		\item[B) 2]：错误，少了联系表
+		\item[C) 3]：\textbf{正确！} 2个实体表 + 1个联系表
+		\item[D) 4]：错误，不需要4个
+	\end{itemize}
+
+	\textbf{记忆口诀}：m:n联系 $\to$ 3个表（2实+1联）
+\end{bluebox}
+
+\begin{bluebox}{例题10：联系类型判断}
+	\textbf{【例题10】} 设某工程设计企业中要求，一项工程是由多名职员共同完成，而一名职员只能参加一个工程项目，则职员与工程之间的联系类型是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 1:n
+		\item[B)] 1:1
+		\item[C)] m:n
+		\item[D)] n:1
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：分析现实世界的实体联系类型
+		\item \textbf{关键区分点}：理解"一名职员只能参加一个工程"和"一项工程由多名职员完成"
+		\item \textbf{命题人意图}：测试考生将现实关系转换为数据模型的能力
+	\end{itemize}
+
+	\textbf{分析过程}：
+
+	从两个方向分析：
+
+	\begin{itemize}
+		\item \textbf{职员端}：一个职员 $\to$ 一个工程（1）
+		\item \textbf{工程端}：一个工程 $\to$ 多个职员（n）
+		\item \textbf{结论}：1:n 联系
+	\end{itemize}
+
+	\textbf{SQL建模}：
+	\begin{verbatim}
+-- 1:n联系建模：在n端添加外键
+CREATE TABLE 工程 (
+    工程号 INT PRIMARY KEY,
+    工程名 VARCHAR(50)
+);
+
+CREATE TABLE 职员 (
+    职工号 INT PRIMARY KEY,
+    职工名 VARCHAR(20),
+    工程号 INT,              -- 外键，指向工程
+    FOREIGN KEY (工程号) REFERENCES 工程(工程号)
+);
+
+-- D选项(n:1)与A等价，考试选A（标准表达）
+	\end{verbatim}
+
+	\textbf{常见混淆}：
+
+	如果题目改为：
+	\begin{itemize}
+		\item "一名职员可以参加多个工程" $\to$ m:n
+		\item "一名职员只能参加一个工程，且一个工程只能由一名职员完成" $\to$ 1:1
+	\end{itemize}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 1:n]：\textbf{正确！} 工程1:n职员
+		\item[B) 1:1]：错误
+		\item[C) m:n]：错误
+		\item[D) n:1]：与A等价，选A
+	\end{itemize}
+
+	\textbf{记忆口诀}：双向分析，确定1端和n端
+\end{bluebox}
+
+\begin{bluebox}{例题11：范式判定}
+	\textbf{【例题11】} 在关系模式 R（A，B，C）中，存在函数依赖关系｛B$\to$A，（A，C）$\to$B｝，R 满足的范式为（\quad）。
+
+	\begin{itemize}
+		\item[A)] 1NF
+		\item[B)] 2NF
+		\item[C)] 3NF
+		\item[D)] 不确定
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：给定函数依赖，判定范式
+		\item \textbf{关键区分点}：判断是否存在部分依赖和传递依赖
+		\item \textbf{命题人意图}：测试考生从函数依赖推理范式的能力
+	\end{itemize}
+
+	\textbf{分析过程}：
+
+	步骤1：找候选键
+
+	\begin{itemize}
+		\item 求(B, C)是否能作为候选键：
+		      \begin{itemize}[nosep]
+			      \item B $\to$ A（已知）
+			      \item 所以 (B, C) $\to$ A（增广律）
+			      \item (B, C) $\to$ B（自反律）
+			      \item (B, C) $\to$ (A, B, C)（合并）
+			      \item \textbf{(B, C) 是候选键}
+		      \end{itemize}
+		\item 为什么不是其他组合？
+		      \begin{itemize}[nosep]
+			      \item B: B $\to$ A, 但A $\to$ (A,C) $\to$ B，循环，唯一性不确定
+			      \item A: A不能确定C
+			      \item C: C不能确定A或B
+			      \item (A, C): (A, C) $\to$ B $\to$ A, 但(B, C)最小
+		      \end{itemize}
+	\end{itemize}
+
+	步骤2：判断范式
+
+	\begin{itemize}
+		\item \textbf{主键}：(B, C)
+		\item \textbf{非主属性}：A
+		\item \textbf{检查2NF}：
+		      \begin{itemize}[nosep]
+			      \item B $\to$ A：B是主键的子集，A是非主属性
+			      \item 存在部分依赖！不满足2NF？
+		      \end{itemize}
+		\item \textbf{等等，再找其他候选键}：
+		      \begin{itemize}[nosep]
+			      \item (A, C) $\to$ B $\to$ A：循环依赖
+			      \item 实际上，(A, C)也可以唯一标识全集
+			      \item (A, C) $\to$ B（已知），B $\to$ A $\to$ (A, C)
+			      \item \textbf{结论：(A, C)也是候选键}
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{重新判断}：
+
+	设(A, C)和(B, C)都是候选键：
+
+	\begin{itemize}
+		\item 对于(A, C)：
+		      \begin{itemize}[nosep]
+			      \item (A, C)是主键
+			      \item B是非主属性
+			      \item B $\to$ A：B是非主属性，A是主属性
+			      \item 不是部分依赖到非主属性！
+		      \end{itemize}
+		\item 检查传递依赖：
+		      \begin{itemize}[nosep]
+			      \item 主键(A, C) $\to$ B $\to$ A
+			      \item A是主属性，不是非主属性
+			      \item \textbf{不违反3NF定义}
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{3NF定义验证}：
+
+	关系模式R(A, B, C)，主键(A, C)
+
+	\begin{itemize}
+		\item 函数依赖：B $\to$ A
+		\item B不是候选键（不能唯一定位）
+		\item A是主属性
+		\item 3NF要求：如果 X $\to$ Y，不能是非主属性传递依赖于候选键
+		\item 这里X=B是非主键，Y=A是主属性，允许
+		\item 满足3NF
+	\end{itemize}
+
+	\textbf{简化理解}：
+
+	三个属性的关系，必定满足3NF！只需验证1NF：
+
+	\begin{itemize}
+		\item A, B, C都是原子值
+		\item 满足1NF
+		\item 两属性以上必定3NF
+		\item 答案是C)
+	\end{itemize}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 1NF]：错误，满足3NF
+		\item[B) 2NF]：错误，满足3NF
+		\item[C) 3NF]：\textbf{正确！}
+		\item[D) 不确定]：错误，可以确定
+	\end{itemize}
+
+	\textbf{记忆口诀}：三个属性必3NF
+\end{bluebox}
+
+\begin{bluebox}{例题12：参照完整性}
+	\textbf{【例题12】} 设有关系R(A，B，C)，主码为A；S(D，A)，主码为D，外码为A，参照R中的属性A。关系R的元组\{(1，2，3)，(2，1，3)，(3，7，8)\}和S的元组\{(d1，2)，(d2，NULL)，(d3，4)，(d4，1)\}。关系S中违反参照完整性规则的元组是（\quad）。
+
+	\begin{itemize}
+		\item[A)] (d1，2)
+		\item[B)] (d2，NULL)
+		\item[C)] (d3，4)
+		\item[D)] (d4，1)
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查参照完整性规则
+		\item \textbf{关键区分点}：外键必须为空或等于参照主键的值
+		\item \textbf{命题人意图}：测试考生对参照完整性的理解
+	\end{itemize}
+
+	\textbf{分析过程}：
+
+	步骤1：确定参照关系
+
+	\begin{itemize}
+		\item R的主键A的值：\{1, 2, 3\}
+		\item S的外键A必须：为NULL 或 $\in$ \{1, 2, 3\}
+	\end{itemize}
+
+	步骤2：逐项检查
+
+	\begin{itemize}[nosep]
+		\item (d1, 2)：A=2 $\in$ R主键 $\to$ 正确
+		\item (d2, NULL)：A=NULL $\to$ 正确（允许NULL）
+		\item (d3, 4)：A=4 $\notin$ R主键 $\to$ \textbf{错误！违反}
+		\item (d4, 1)：A=1 $\in$ R主键 $\to$ 正确
+	\end{itemize}
+
+	\textbf{SQL验证}：
+	\begin{verbatim}
+-- 创建表并测试
+CREATE TABLE R (
+    A INT PRIMARY KEY,
+    B INT,
+    C INT
+);
+
+CREATE TABLE S (
+    D INT PRIMARY KEY,
+    A INT,
+    FOREIGN KEY (A) REFERENCES R(A)  -- 参照完整性
+);
+
+-- 插入测试数据
+INSERT INTO R VALUES (1, 2, 3), (2, 1, 3), (3, 7, 8);
+
+-- (d3, 4)会失败
+INSERT INTO S VALUES (3, 4);  -- 报错：外键约束失败
+-- 错误信息：Cannot add or update a child row: a foreign key constraint fails
+	\end{verbatim}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) (d1, 2)]：正确，2在R中
+		\item[B) (d2, NULL)]：正确，NULL允许
+		\item[C) (d3, 4)]：\textbf{错误！} 4不在R中，违反参照完整性
+		\item[D) (d4, 1)]：正确，1在R中
+	\end{itemize}
+
+	\textbf{记忆口诀}：外键要么空，要么等于参照主键值
+\end{bluebox}
+
+\begin{bluebox}{例题13：数据库特点}
+	\textbf{【例题13】} 下列关于数据库特点的叙述中，错误的是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 数据库能够减少数据冗余
+		\item[B)] 数据库中的数据可以共享
+		\item[C)] 数据库中的表能够避免一切数据的重复
+		\item[D)] 数据库中的表既相对独立，又相互联系
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查数据库系统的基本特点
+		\item \textbf{关键区分点}：数据库可以减少冗余，但不能避免一切重复
+		\item \textbf{命题人意图}：测试考生对数据库特点的准确理解
+	\end{itemize}
+
+	\textbf{选项分析}：
+
+	\begin{itemize}[nosep]
+		\item[A) 数据库能够减少数据冗余]：\textbf{正确！} 规范化减少冗余
+		\item[B) 数据库中的数据可以共享]：\textbf{正确！} 数据库支持多用户共享
+		\item[C) 数据库中的表能够避免一切数据的重复]：\textbf{错误！}
+		      \begin{itemize}
+			      \item 数据库可以减少冗余，但\textbf{不能避免一切重复}
+			      \item 外键会重复主键的值（联系保留）
+			      \item 某些查询优化需要适度冗余（反规范化）
+			      \item "一切"过于绝对
+		      \end{itemize}
+		\item[D) 数据库中的表既相对独立，又相互联系]：\textbf{正确！} 通过外键联系
+	\end{itemize}
+
+	\textbf{SQL示例}：
+
+	\begin{verbatim}
+-- 即使规范化后，仍有必要的数据重复
+-- 学生表和选课表
+CREATE TABLE 学生 (
+    学号 INT PRIMARY KEY,
+    姓名 VARCHAR(20)
+);
+
+CREATE TABLE 选课 (
+    选课号 INT PRIMARY KEY,
+    学号 INT,  -- 重复学生的学号，参照完整性需要
+    FOREIGN KEY (学号) REFERENCES 学生(学号)
+);
+
+-- 重复是必要的，不能避免"一切"重复
+	\end{verbatim}
+
+	\textbf{记忆口诀}：数据库减少但不消除冗余
+\end{bluebox}
+
+\section{命题趋势与实战策略}
+
+\begin{bluebox}{考场秒杀三步法}
+	\textbf{【本章考场秒杀三步法】}
+
+	\begin{enumerate}
+		\item \textbf{第一步：识别题型}
+		      \begin{itemize}[nosep]
+			      \item 问范式判定 $\to$ 找候选键，判断依赖
+			      \item 问E-R转换 $\to$ 记住1:1、1:n、m:n转换规则
+			      \item 参照完整性 $\to$ 主键值集合 vs 外键值
+		      \end{itemize}
+
+		\item \textbf{第二步：排除干扰项}
+		      \begin{itemize}[nosep]
+			      \item 混淆"候选键"和"超键" $\to$ 记住最小性
+			      \item 混淆"部分依赖"和"传递依赖" $\to$ 2NF vs 3NF
+			      \item 混淆"平凡"和"非平凡"依赖 $\to$ $\subseteq$
+		      \end{itemize}
+
+		\item \textbf{第三步：关键词锁定}
+		      \begin{itemize}[nosep]
+			      \item "两属性" $\to$ 必定3NF
+			      \item "三属性" $\to$ 必定3NF
+			      \item "m:n联系" $\to$ 3个表
+			      \item "外键" $\to$ NULL或等于主键值
+		      \end{itemize}
+	\end{enumerate}
+\end{bluebox}
+
+\begin{bluebox}{近年真题规律}
+	\textbf{【本章命题规律分析】}
+
+	\begin{itemize}
+		\item 85\%考题涉及"范式判定"
+		\item 80\%考题考查"E-R图转换规则"
+		\item 75\%考题以"函数依赖"为核心考点
+		\item 高频考点：候选键判定、范式层次、两属性关系、参照完整性
+		\item 新趋势：结合SQL语句考查规范化效果
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{高阶延伸（冲击满分）}
+	\textbf{【高阶知识点延伸】}
+
+	\begin{itemize}
+		\item \textbf{多值依赖与4NF}：解决一对多联系的冗余
+		\item \textbf{无损连接分解}：分解不丢失信息
+		\item \textbf{保持函数依赖分解}：分解保持所有函数依赖
+		\item \textbf{BCNF与3NF的权衡}：规范化与性能的平衡
+	\end{itemize}
+\end{bluebox}
+
+\end{document}

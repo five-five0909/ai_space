@@ -1,0 +1,417 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据结构习题集}
+\lhead{分类整理}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{第五章 数组和广义表}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 一维数组和线性表的区别是（ ）
+	      \begin{enumerate}
+		      \item[A.] 前者长度固定，后者长度可变
+		      \item[B.] 后者长度固定，前者长度可变
+		      \item[C.] 两者长度均固定
+		      \item[D.] 两者长度均可变
+	      \end{enumerate}
+
+	\item 二维数组 M 的成员是 6 个字符组成的串，行下标 i 的范围从 0 到 8，列下标 j 的范围从 1 到 10，则存放 M 至少需要（①）个字节，M 的第 8 列和第 5 行共占（②）个字节，若 M 按行优先方式存储，元素 M[8][5] 的起始地址与当 M 按列优先方式存储时元素（③）的起始地址一致。
+	      \begin{enumerate}
+		      \item[①] A. 90 \quad B. 180 \quad C. 240 \quad D. 540
+		      \item[②] A. 108 \quad B. 114 \quad C. 54 \quad D. 60
+		      \item[③] A. M[8][5] \quad B. M[3][10] \quad C. M[5][8] \quad D. M[0][9]
+	      \end{enumerate}
+
+	\item 二维数组 M 的元素是 4 个字符（每个字符占一个存储单元）组成的串，行下标 i 范围从 0 到 4，列下标 j 的范围从 0 到 5，M 按行优先存储时元素 M[3][5] 的起始地址与 M 按列优先存储时元素（ ）的起始地址相同。
+	      \begin{enumerate}
+		      \item[A.] M[2][4]
+		      \item[B.] M[3][4]
+		      \item[C.] M[4][3]
+		      \item[D.] M[5][2]
+	      \end{enumerate}
+
+	\item 数组 A 中，每个元素 A 的长度为 3 个字节，行下标 i 从 1 到 8，列下标 j 从 1 到 10，从首地址 SA 开始连续存放在存储器内，存放该数组至少需要的单元数是（ ）
+	      \begin{enumerate}
+		      \item[A.] 80
+		      \item[B.] 100
+		      \item[C.] 240
+		      \item[D.] 270
+	      \end{enumerate}
+
+	\item 数组 A 中每个元素的长度为 3 个字节，行下标 i 从 1 到 8，列下标 j 从 1 到 10，从首地址 SA 开始连续存放在存储器内，该数组按行存放时，元素 A[8][5] 的起始地址为（ ）
+	      \begin{enumerate}
+		      \item[A.] SA+141
+		      \item[B.] SA+144
+		      \item[C.] SA+222
+		      \item[D.] SA+225
+	      \end{enumerate}
+
+	\item 数组 A 中每个元素的长度为 3 个字节，行下标 i 从 1 到 8，列下标 j 从 1 到 10，从首地址 SA 开始连续存放在存储器内，该数组按列存放时，A[5][8] 的起始地址为（ ）
+	      \begin{enumerate}
+		      \item[A.] SA+141
+		      \item[B.] SA+180
+		      \item[C.] SA+222
+		      \item[D.] SA+225
+	      \end{enumerate}
+
+	\item 设有有一个 10 阶的对称矩阵 A，采用压缩存储方式，以行序为主存储，$a_{1,1}$ 为第一个元素，其存储地址为 1，每个元素占 1 个地址空间，则 $a_{8,5}$ 的地址为（ ）
+	      \begin{enumerate}
+		      \item[A.] 13
+		      \item[B.] 33
+		      \item[C.] 18
+		      \item[D.] 40
+	      \end{enumerate}
+
+	\item 一个 $n \times n$ 的对称矩阵，如果以行或列为主序放入内存，则容量为（ ）
+	      \begin{enumerate}
+		      \item[A.] $n \times n$
+		      \item[B.] $n \times n / 2$
+		      \item[C.] $n \times (n+1) / 2$
+		      \item[D.] $(n+1) \times (n+1) / 2$
+	      \end{enumerate}
+
+	\item 稀疏矩阵一般的压缩存储方法有两种，即（ ）
+	      \begin{enumerate}
+		      \item[A.] 二维数组和三维数组
+		      \item[B.] 三元组和散列
+		      \item[C.] 三元组和十字链表
+		      \item[D.] 散列和十字链表
+	      \end{enumerate}
+
+	\item 若采用三元组压缩技术存储稀疏矩阵，只要把每个元素的行下标和列下标互换，就完成了对该矩阵的转置运算，这种观点（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 数组 $A[0..5, 0..6]$ 的每个元素占五个字节，将其按列优先次序存储在起始地址为 1000 的内存单元中，则元素 A[5, 5] 的地址是（ ）
+	      \begin{enumerate}
+		      \item[A.] 1175
+		      \item[B.] 1180
+		      \item[C.] 1205
+		      \item[D.] 1210
+	      \end{enumerate}
+
+	\item 将一个 $A[1..100, 1..100]$ 的三对角矩阵，按行优先存入一维数组 $B[1..298]$ 中，A 中元素 $A_{66,65}$ (即该元素下标 $i=66, j=65$)，在 B 数组中的位置 K 为（ ）
+	      \begin{enumerate}
+		      \item[A.] 198
+		      \item[B.] 195
+		      \item[C.] 197
+		      \item[D.] 201
+	      \end{enumerate}
+
+	\item 有一个 $100 \times 90$ 的稀疏矩阵，非 0 元素有 10 个，设每个整型数据占 2 个字节，则用三元组表示该矩阵时，所需的字节数是（ ）
+	      \begin{enumerate}
+		      \item[A.] 60
+		      \item[B.] 66
+		      \item[C.] 18000
+		      \item[D.] 33
+	      \end{enumerate}
+
+	\item 数组 $A[0..4, -1..-3, 5..7]$ 中含有元素的个数（ ）
+	      \begin{enumerate}
+		      \item[A.] 55
+		      \item[B.] 45
+		      \item[C.] 36
+		      \item[D.] 16
+	      \end{enumerate}
+
+	\item 对数组经常进行的操作有（ ）
+	      \begin{enumerate}
+		      \item[A.] 建立与删除
+		      \item[B.] 索引与修改
+		      \item[C.] 查找与修改
+		      \item[D.] 查找与索引
+	      \end{enumerate}
+
+	\item 下面说法不正确的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 广义表的表头总是一个广义表
+		      \item[B.] 广义表的表尾总是一个广义表
+		      \item[C.] 广义表难以用顺序存储结构
+		      \item[D.] 广义表可以是一个多层次的结构
+	      \end{enumerate}
+
+	\item 广义表 $((a), a)$ 的表头是（ ），表尾是（ ）
+	      \begin{enumerate}
+		      \item[A.] a
+		      \item[B.] b
+		      \item[C.] (a)
+		      \item[D.] ((a))
+	      \end{enumerate}
+
+	\item 广义表 $((a))$ 的表头是（ ），表尾是（ ）
+	      \begin{enumerate}
+		      \item[A.] a
+		      \item[B.] (a)
+		      \item[C.] ()
+		      \item[D.] ((a))
+	      \end{enumerate}
+
+	\item 广义表 $((a,b),c,d)$ 的表头是（ ），表尾是（ ）
+	      \begin{enumerate}
+		      \item[A.] a
+		      \item[B.] b
+		      \item[C.] (a, b)
+		      \item[D.] (c, d)
+	      \end{enumerate}
+
+	\item 广义表 $(a,b,c,d)$ 的表头是（ ），表尾是（ ）
+	      \begin{enumerate}
+		      \item[A.] a
+		      \item[B.] b
+		      \item[C.] (a, b)
+		      \item[D.] (b, c, d)
+	      \end{enumerate}
+
+	\item 一个广义表的表头总是一个广义表，这个断言是（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确的
+		      \item[B.] 错误的
+	      \end{enumerate}
+
+	\item 一个广义表的表尾总是一个广义表，这个断言是（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确的
+		      \item[B.] 错误的
+	      \end{enumerate}
+
+	\item 已知广义表 $L=((x, y, z), (u, t, w))$，从 L 表中取出原子 t 的运算是（ ）
+	      \begin{enumerate}
+		      \item[A.] head(tail(tail(L)))
+		      \item[B.] tail(head(head(tail(L))))
+		      \item[C.] head(tail(head(tail(L))))
+		      \item[D.] head(head(tail(tail(L))))
+	      \end{enumerate}
+
+	\item 若广义表 $A=(a,b,(c,d),(e,(f,g)))$，则下面式子的值为（ ）：Head(tail(head(tail(tail(A)))))
+	      \begin{enumerate}
+		      \item[A.] (g)
+		      \item[B.] (d)
+		      \item[C.] (c)
+		      \item[D.] d
+	      \end{enumerate}
+
+	\item 若广义表 A 满足 Head(A)=Tail(A)，则 A 为（ ）
+	      \begin{enumerate}
+		      \item[A.] ()
+		      \item[B.] (())
+		      \item[C.] ((),())
+		      \item[D.] ((),(),())
+	      \end{enumerate}
+
+	\item 一个向量第一个元素的存储地址是 100，每个元素的长度为 2，则第 5 个元素的地址是（ ）
+	      \begin{enumerate}
+		      \item[A.] 110
+		      \item[B.] 108
+		      \item[C.] 100
+		      \item[D.] 120
+	      \end{enumerate}
+
+	\item 数据在计算机存储器内表示时，物理地址与逻辑地址相同并且是连续的，称之为（ ）
+	      \begin{enumerate}
+		      \item[A.] 存储结构
+		      \item[B.] 逻辑结构
+		      \item[C.] 顺序存储结构
+		      \item[D.] 链式存储结构
+	      \end{enumerate}
+
+	\item 对矩阵进行压缩存储是为了（ ）
+	      \begin{enumerate}
+		      \item[A.] 方便运算
+		      \item[B.] 方便存储
+		      \item[C.] 提高运算速度
+		      \item[D.] 减少存储空间
+	      \end{enumerate}
+
+	\item 数组 A 中，每个元素的长度为 3 个字节，行下标 i 从 1 到 8，列下标 j 从 1 到 10，从首地址 SA 开始连续存放的存储器内，该数组按行存放，元素 A[8][5] 的起始地址为（ ）
+	      \begin{enumerate}
+		      \item[A.] SA+141
+		      \item[B.] SA+144
+		      \item[C.] SA+222
+		      \item[D.] SA+225
+	      \end{enumerate}
+
+	\item 数组 A 中，每个元素的长度为 3 个字节，行下标 i 从 1 到 8，列下标 j 从 1 到 10，从首地址 SA 开始连续存放的存储器内，该数组按行存放，元素 A[8][5] 的起始地址为（ ）
+	      \begin{enumerate}
+		      \item[A.] SA+141
+		      \item[B.] SA+144
+		      \item[C.] SA+222
+		      \item[D.] SA+225
+	      \end{enumerate}
+
+	\item 设二维数组 $A[1..m, 1..n]$ 按行存储在数组 B 中，则二维数组元素 $A[i, j]$ 在一维数组 B 中的下标为（ ）
+	      \begin{enumerate}
+		      \item[A.] $n \times (i-1) + j$
+		      \item[B.] $n \times (i-1) + j - 1$
+		      \item[C.] $i \times (j-1)$
+		      \item[D.] $j \times m + i - 1$
+	      \end{enumerate}
+
+	\item 若声明一个浮点数数组如下：float average[]=new float[30]；假设该数组的内存起始位置为 200，average[15] 的内存地址是（ ）
+	      \begin{enumerate}
+		      \item[A.] 214
+		      \item[B.] 215
+		      \item[C.] 260
+		      \item[D.] 256
+	      \end{enumerate}
+
+	\item 字符数组 $a[1..100]$ 采用顺序存储，$a[6]$ 地址是 517，那么 a 的首地址为（ ）
+	      \begin{enumerate}
+		      \item[A.] 510
+		      \item[B.] 512
+		      \item[C.] 514
+		      \item[D.] 516
+	      \end{enumerate}
+
+	\item 数组 a[1..256] 采用顺序存储，a 的首地址为 10，每个元素占 2 字节，则 a[21] 的地址是（ ）
+	      \begin{enumerate}
+		      \item[A.] 10
+		      \item[B.] 70
+		      \item[C.] 50
+		      \item[D.] 30
+	      \end{enumerate}
+
+	\item 数组 a[1..m] 采用顺序存储，a[1] 和 a[m] 地址分别为 1024 和 1150，每个元素占 2 字节，则 m 是（ ）
+	      \begin{enumerate}
+		      \item[A.] 63
+		      \item[B.] 64
+		      \item[C.] 65
+		      \item[D.] 66
+	      \end{enumerate}
+
+	\item 设有一个 10 阶的对称矩阵 A，采用压缩存储方式，以行序为主存储，$a_{1,1}$ 为第一个元素，其存储地址为 1，每个元素占 1 个地址空间，则 $a_{8,5}$ 的地址为（ ）
+	      \begin{enumerate}
+		      \item[A.] 13
+		      \item[B.] 33
+		      \item[C.] 18
+		      \item[D.] 40
+	      \end{enumerate}
+
+	\item 下面关于 B 树和 B+ 树的叙述中，不正确的结论是（ ）
+	      \begin{enumerate}
+		      \item[A.] B 树和 B+ 树都能有效的支持顺序查找
+		      \item[B.] B 树和 B+ 树都能有效的支持随机查找
+		      \item[C.] B 树和 B+ 树都是平衡的多叉树
+		      \item[D.] B 树和 B+ 树都可用于文件索引结构
+	      \end{enumerate}
+
+	\item 下面叙述错误的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 对矩阵进行压缩存储后无法实现对其元素进行随机访问
+		      \item[B.] 空串的长度为零
+		      \item[C.] 借助于栈可以实现对图的深度优先遍历
+	      \end{enumerate}
+
+	\item 对称矩阵压缩存储时，需要存储的元素个数为（ ）
+	      \begin{enumerate}
+		      \item[A.] $n \times n$
+		      \item[B.] $n \times (n+1) / 2$
+		      \item[C.] $n \times (n-1) / 2$
+		      \item[D.] $n \times n / 2$
+	      \end{enumerate}
+
+	\item 下面关于压缩存储的叙述中，正确的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 稀疏矩阵必须采用三元组存储
+		      \item[B.] 对称矩阵可以采用压缩存储
+		      \item[C.] 三角矩阵不能采用压缩存储
+		      \item[D.] 稀疏矩阵不能用数组存储
+	      \end{enumerate}
+\end{enumerate}
+
+\section*{填空题}
+
+\begin{enumerate}
+	\item 当广义表中的每个元素都是原子（ ）时，广义表便成了（ ）。
+	\item 广义表 $(a, (a,b), d, e, ((i, j), k))$ 的长度是（ ），深度是（ ）。
+	\item 一维数组的存储结构是（ ），逻辑结构是（ ），对二维数组来说分（ ）和（ ）两种不同的存储方式。
+	\item 已知二维数组采用行为主方式存储，每个元素占 k 个存储单元，并且第一个元素的存储地址是 LOC(A[0][0])，则 A[i][j] 的地址是（ ）。
+	\item 二维数组 A[10][20] 采用以列为主方式存储，每个元素占一个存储单元，并且 A[0][0] 的存储地址是 200，则 A[6][12] 的地址是（ ）。
+	\item 二维数组 A[10..20][5..10] 采用行为主方式存储，每个元素占四个存储单元，并且 A[10][5] 的存储地址是 1000，则 A[18][9] 的地址是（ ）。
+	\item 有一个 10 阶对称矩阵 A，采用压缩存储方式 (以行序为主存储且 A[0][0]=1)，则 A[8][5] 的地址是（ ）。
+	\item 设 n 行 n 列的下三角矩阵 A 已压缩到一维数组 $S[1..n*(n+1)/2+1]$ 中，若按行序为主存储，当 $i \ge j$ 时，A[i][j] 对应的 S 中的存储位置是（ ）。
+	\item 一个对称矩阵，采用压缩存储方式存储其容量为（ ），若不采用压缩存储则容量为（ ）；三角矩阵压缩存储时其容量为（ ）。
+	\item 二维数组 M 的每个元素是 6 个字符组成的串，行下标 i 的范围从 0 到 8，列下标 j 的范围从 1 到 10，则存放 M 至少需要 \underline{540} 个字节；M 的第 8 列和第 5 行共占 \underline{108} 个字节。
+	\item 稀疏矩阵一般的压缩存储方法有两种，即 \underline{三元组表} 和 \underline{十字链表}。
+	\item 广义表 $((a), ((b), c), (((d))))$ 的长度是 \underline{3}，深度是 \underline{4}。
+	\item 一维数组的存储结构是顺序存储，逻辑结构是线性结构，对二维数组来说分行优先和列优先两种不同的存储方式。
+	\item 已知二维数组采用行为主方式存储，每个元素占 $k$ 个存储单元，并且第一个元素的存储地址是 $\text{LOC}(A[0][0])$，则 $A[i][j]$ 的地址是 $\text{LOC}(A[0][0]) + (i \times n + j) \times k$。
+
+	\item 二维数组 $A[10][20]$ 采用以列为主方式存储，每个元素占一个存储单元，并且 $A[0][0]$ 的存储地址是 $200$，则 $A[6][12]$ 的地址是 $200 + 12 \times 10 + 6 = 326$。
+
+	\item 二维数组 $A[10..20][5..10]$ 采用行为主方式存储，每个元素占四个存储单元，并且 $A[10][5]$ 的存储地址是 $1000$，则 $A[18][9]$ 的地址是 $1000 + ((18-10) \times 6 + (9-5)) \times 4 = 1000 + (8 \times 6 + 4) \times 4 = 1000 + 52 \times 4 = 1208$。
+
+	\item 有一个 10 阶对称矩阵 $A$，采用压缩存储方式（以行序为主存储且 $A[0][0]=1$），则 $A[8][5]$ 的地址是 $33$。
+	\item 设 n 行 n 列的下三角矩阵 A 已压缩到一维数组 $S[1..n*(n+1)/2+1]$ 中，若按行序为主存储，当 $i \ge j$ 时，A[i][j] 对应的 S 中的存储位置是 i(i-1)/2 + j。
+	\item 一个对称矩阵，采用压缩存储方式存储其容量为 $n(n+1)/2$，若不采用压缩存储则容量为 $n^2$；三角矩阵压缩存储时其容量为 $n(n+1)/2$。
+\end{enumerate}
+
+\section*{判断题}
+
+\begin{enumerate}
+	\item 若一个广义表的表头为空表，则此广义表也为空表。（ ）
+	\item 广义表是线性表的推广，是一类线性结构。（ ）
+	\item 一个稀疏矩阵采用三元组形式表示，若把三元组中行下标和列下标的值互换，则完成了矩阵的转置运算。（ ）
+	\item 数组是一种复杂的数据结构，数组元素之间的关系既不是线性的，也不是树型的。（ ）
+	\item 线性表可以看成是广义表的特例，如果广义表中的每个元素都是原子，则广义表便成为线性表。（ ）
+	\item 广义表中原子的个数即为广义表的长度。（ ）
+	\item 稀疏矩阵压缩存储后，必会失去随机存取功能。（ ）
+	\item 数组元素的下标值越大，存取时间越长。（ ）
+	\item 用邻接矩阵法存储一个图时，在不考虑压缩存储的情况下，所占用的存储空间大小只与图中结点个数有关，而与图的边数无关。（ ）
+	\item 一个广义表的表头总是一个广义表。（ ）
+	\item 一个广义表的表尾总是一个广义表。（ ）
+	\item 广义表 $(((a), b), c)$ 的表头是 $((a), b)$，表尾是 $(c)$。（ ）
+	\item 数组是一种复杂的数据结构。（ ）
+	\item 稀疏矩阵一般采用压缩存储。（ ）
+	\item 广义表可以递归定义。（ ）
+	\item 二维数组是其数据元素为线性表的线性表。（ ）
+\end{enumerate}
+
+\section*{应用题}
+
+\begin{enumerate}
+	\item 已知广义表 $L=((((a))), ((b)), (c), d)$，试利用 head 和 tail 运算把原子项 c 从 L 中分离出来。
+	\item 画出下列广义表的两种存储结构图：$(O, A, (B, (C, D)), (E, F))$。
+	\item 已知广义表 $A=(((b,c),d),(a),((a),((b,c),d)),e,())$
+	      \begin{enumerate}
+		      \item 画出其一种存储结构图；
+		      \item 写出表的长度与深度，表头与表尾。
+	      \end{enumerate}
+	\item 稀疏矩阵 A 如图所示，画出以下各种表示法：（1）行优先三元组表示法；（2）列优先三元组表示法；（3）伪地址表示法；（4）十字链表示法。
+	      \[
+		      \begin{pmatrix}
+			      15 & 0  & 0 & 22 & 0  & -15 \\
+			      0  & 13 & 3 & 0  & 0  & 0   \\
+			      0  & 0  & 0 & -6 & 0  & 0   \\
+			      0  & 0  & 0 & 0  & 91 & 0   \\
+			      0  & 0  & 0 & 0  & 0  & 0   \\
+			      0  & 0  & 2 & 8  & 0  & 0
+		      \end{pmatrix}
+	      \]
+\end{enumerate}
+
+\end{document}

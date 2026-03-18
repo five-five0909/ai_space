@@ -1,0 +1,2888 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库系统专升本考试练习题}
+\lhead{整理版}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{数据库系统专升本考试练习题及答案}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{单选题}
+
+\begin{enumerate}[label=\arabic*.]
+
+\item 对于数据库系统，负责定义数据库内容，决定存储结构和存储策略及安全授权等工作的是()。
+\begin{itemize}
+    \item[A)] 数据库管理员
+    \item[B)] 应用程序开发人员
+    \item[C)] 终端用户
+    \item[D)] 数据库管理系统的软件设计人员
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：数据库管理员 (DBA) 负责全面管理和控制数据库系统。}
+
+\item 当UPDATE触发器涉及对触发表自身的更新操作时，只能使用()触发器。
+\begin{itemize}
+    \item[A)] BEFORE UPDATE
+    \item[B)] AFTER UPDATE
+    \item[C)] ALTER UPDATE
+    \item[D)] OLD
+\end{itemize}
+\textbf{答案：A}
+
+\item 视图用于查询检索，主要体现的应用中不包括()
+\begin{itemize}
+    \item[A)] 简化检索步骤
+    \item[B)] 利用视图简化复杂的表连接
+    \item[C)] 使用视图重新格式化检索出的数据
+    \item[D)] 使用视图过滤不想要的数据
+\end{itemize}
+\textbf{答案：A} 
+
+\item 飞机的座位和乘客之间的联系是
+\begin{itemize}
+    \item[A)] 1:1
+    \item[B)] 1:N
+    \item[C)] M:N
+    \item[D)] N:l
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：特定航班中，一个座位对应一个乘客，一个乘客对应一个座位。}
+
+\item 数据库系统具有的特点不包括()
+\begin{itemize}
+    \item[A)] 数据冗余高
+    \item[B)] 减少应用程序开发与维护的工作量
+    \item[C)] 数据一致性
+    \item[D)] 实施统一管理与控制
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：数据库系统的特点是数据冗余小，而不是高。}
+
+\item 下列关于数据库系统特点的叙述中，正确的一项是()
+\begin{itemize}
+    \item[A)] 数据库系统的存储模式如有改变，概念模式无需改动
+    \item[B)] 各类用户程序均可随意地使用数据库中的各种数据
+    \item[C)] 数据库系统中概念模式改变，只需将与其有关的子模式做相应改变，不用改写应用程序
+    \item[D)] 数据一致性是指数据库中数据类型的一致
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：体现了物理独立性。C选项描述的是逻辑独立性，但表述略有不同，通常逻辑独立性是指模式改变，外模式不变，应用程序不变。A选项准确描述了物理独立性。}
+
+\item 下面哪一个不是数据库复制的方式??()
+\begin{itemize}
+    \item[A)] 镜像复制
+    \item[B)] 对等复制
+    \item[C)] 级联复制
+    \item[D)] 主从复制
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：通常分为快照复制、事务复制、合并复制等，或者主从、对等、级联。镜像通常指磁盘镜像或数据库镜像（高可用），不完全等同于数据复制方式分类中的术语，或者在某些分类中不被列为基本复制方式。}
+
+\item 当关系有多个候选码时，选定一个作为主键，若主键为全码，应包含()
+\begin{itemize}
+    \item[A)] 单个属性
+    \item[B)] 两个属性
+    \item[C)] 多个属性
+    \item[D)] 全部属性
+\end{itemize}
+\textbf{答案：D} \\
+\textit{解析：全码是指关系模式的所有属性组构成候选码。}
+
+\item ()是数据库中的一个对象，它是数据库管理系统提供给用户的以多种角度观察数据库中数据的一种重要机制。
+\begin{itemize}
+    \item[A)] 符号
+    \item[B)] 视图
+    \item[C)] 信号
+    \item[D)] 域值
+\end{itemize}
+\textbf{答案：B}
+
+\item ()是存储在计算机内结构化的数据的集合。
+\begin{itemize}
+    \item[A)] 数据库
+    \item[B)] 数据库系统
+    \item[C)] 数据库管理系统
+    \item[D)] 数据结构
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库系统依靠()支持了数据独立性。
+\begin{itemize}
+    \item[A)] 模式分级、各级之间有映像机制
+    \item[B)] 抽象数据模型，具有封装机制
+    \item[C)] 定义完整性约束条件
+    \item[D)] DDL语言和DML
+\end{itemize}
+\textbf{答案：A}
+
+\item 设关系模式R的属性集是U，X是U的一个子集。如果X$\to$U在R上成立，但对于X的任一真子集X1$\to$U不成立，那么称X是R上的一个()
+\begin{itemize}
+    \item[A)] 候选键
+    \item[B)] 超键
+    \item[C)] 主键
+    \item[D)] 外键
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：这是候选键的定义（最小超键）。}
+
+\item 事务并发中出现的主要问题是()
+\begin{itemize}
+    \item[A)] 三个选项都正确
+    \item[B)] 丢失更新
+    \item[C)] 不一致的分析
+    \item[D)] 对未提交更新的依赖
+\end{itemize}
+\textbf{答案：A}
+
+\item 要限制宏命令的操作范围，在创建宏时应定义的是()。
+\begin{itemize}
+    \item[A)] 宏操作对象
+    \item[B)] 宏操作目标
+    \item[C)] 宏条件表达式
+    \item[D)] 窗体或报表控件属性
+\end{itemize}
+\textbf{答案：C}
+
+\item 在数据库三级模式结构中，描述数据库中全体数据的全局逻辑结构和特性的是()。
+\begin{itemize}
+    \item[A)] 模式
+    \item[B)] 外模式
+    \item[C)] 内模式
+    \item[D)] 存储模式
+\end{itemize}
+\textbf{答案：A}
+
+\item SQL的GRANT和REVOKE语句是用来维护数据库的()的。
+\begin{itemize}
+    \item[A)] 安全性
+    \item[B)] 完整性
+    \item[C)] 并发控制
+    \item[D)] 恢复
+\end{itemize}
+\textbf{答案：A}
+
+\item 在进行数据库物理设计时，为了保证系统性能，需要综合考虑所选择的数据库管理系统的特性及软硬件具体情况。下列关于数据库物理设计的说法，错误的是()
+\begin{itemize}
+    \item[A)] 为了提高写入性能，数据库一般应尽量避免存储在RAID10的磁盘存储系统中，而应当采用RAID5的磁盘存储系统。
+    \item[B)] 如果系统中存在频繁的多表连接操作，可以考虑将这些基本表组织为聚集文件，以提高查询效率
+    \item[C)] 在一张表的某列上需要频繁执行精确匹配查询时，可以考虑为此列建立哈希索引。
+    \item[D)] 在频繁执行插入、修改和删除操作的表上建立索引可能会降低系统整体性能。
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：RAID 10通常提供更好的写入性能和可靠性，RAID 5由于校验计算写入性能较差。故A说法错误。}
+
+\item 取出关系中的某些列，并消去重复元组的关系代数运算称为()。
+\begin{itemize}
+    \item[A)] 投影运算
+    \item[B)] 去列运算
+    \item[C)] 连接运算
+    \item[D)] 选择运算
+\end{itemize}
+\textbf{答案：A}
+
+\item 在MySQL中，可以使用()语句来创建视图。
+\begin{itemize}
+    \item[A)] CREATE SELECT
+    \item[B)] REPLACE VIEW
+    \item[C)] CREATE VIEW
+    \item[D)] CREATE FUNCTION
+\end{itemize}
+\textbf{答案：C}
+
+\item 属性的值都能用来唯一标识其关系的元组，则称这些属性为该关系的()
+\begin{itemize}
+    \item[A)] 码或键
+    \item[B)] 参照关系
+    \item[C)] 记录
+    \item[D)] 分量
+\end{itemize}
+\textbf{答案：A}
+
+\item 在SQL的算术表达式中，如果其中有空值，则表达式()。
+\begin{itemize}
+    \item[A)] 结果为空值
+    \item[B)] 空值按0计算
+    \item[C)] 由用户确定空值内容再计算结果
+    \item[D)] 指出运算错误，终止执行
+\end{itemize}
+\textbf{答案：A}
+
+\item 使用()子句来限制被SELECT语句返回的行数。
+\begin{itemize}
+    \item[A)] ORDER BY
+    \item[B)] LIMIT
+    \item[C)] HAVING
+    \item[D)] GROUP BY
+\end{itemize}
+\textbf{答案：B}
+
+\item 关于关系的数据结构，一个关系逻辑上对应()
+\begin{itemize}
+    \item[A)] 一行
+    \item[B)] 一列
+    \item[C)] 一张二维表
+    \item[D)] 一个元组
+\end{itemize}
+\textbf{答案：C}
+
+\item 不属于需求分析报告内容的是()
+\begin{itemize}
+    \item[A)] 数据库的应用功能目标
+    \item[B)] 数据字典
+    \item[C)] 数据约束
+    \item[D)] 数据分类表
+\end{itemize}
+\textbf{答案：D} 
+
+\item 关系数据库模型的所谓"关系"即是指()。
+\begin{itemize}
+    \item[A)] 表
+    \item[B)] 元组
+    \item[C)] 约束
+    \item[D)] 属性
+\end{itemize}
+\textbf{答案：A}
+
+\item SQL语句中用于数据检索的命令是()。
+\begin{itemize}
+    \item[A)] SELECT
+    \item[B)] DELETE
+    \item[C)] INSERT
+    \item[D)] UPDATE
+\end{itemize}
+\textbf{答案：A}
+
+\item 在数据系统中，对存取权限的定义称为())。
+\begin{itemize}
+    \item[A)] 授权
+    \item[B)] 命令
+    \item[C)] 定义
+    \item[D)] 审计
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列数据库对象中，不能施加完整性约束条件的是()
+\begin{itemize}
+    \item[A)] 触发器
+    \item[B)] 列
+    \item[C)] 元组
+    \item[D)] 表
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：触发器是实现完整性的手段，而不是施加约束的对象（对象是列、元组、表）。}
+
+\item 假定学生关系是S(S\#，SNAME，SEX，AGE)，课程关系是C(C\#，CNAME，TEACHER)，学生选课关系是SC(S\#,C\#,GRADE)。要查找选修"COMPUTER"课程的"女"学生姓名，将涉及到关系()。
+\begin{itemize}
+    \item[A)] S，C，SC
+    \item[B)] S
+    \item[C)] SC，C
+    \item[D)] S，SC
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：需要S表取姓名和性别，C表取课程名，SC表连接两者。}
+
+\item 在第一个事务以S封锁方式读数据A时，第二个事务对数据A的读方式会遭到失败的是()。
+\begin{itemize}
+    \item[A)] 实现X封锁的读
+    \item[B)] 实现S封锁的读
+    \item[C)] 不加封锁的读
+    \item[D)] 实现共享型封锁的读
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：S锁（共享锁）与X锁（排他锁）互斥。}
+
+\item 关系数据库的()理论是关系数据库设计的理论依据。
+\begin{itemize}
+    \item[A)] 专业化
+    \item[B)] 规范化
+    \item[C)] 一般性
+    \item[D)] 特殊性
+\end{itemize}
+\textbf{答案：B}
+
+\item 在DBS中，最接近于物理存储设备一级的结构，称为()。
+\begin{itemize}
+    \item[A)] 内模式
+    \item[B)] 外模式
+    \item[C)] 概念模式
+    \item[D)] 用户模式
+\end{itemize}
+\textbf{答案：A}
+
+\item 在MySQL中，用于表示列值非空的语句是()
+\begin{itemize}
+    \item[A)] NOT EMPTY
+    \item[B)] NOT UNIQUE
+    \item[C)] NOT NULL
+    \item[D)] NOT EXISTS
+\end{itemize}
+\textbf{答案：C}
+
+\item 在数据库中，与"属性"同义的术语是()
+\begin{itemize}
+    \item[A)] 列
+    \item[B)] 行
+    \item[C)] 元组
+    \item[D)] 记录
+\end{itemize}
+\textbf{答案：A}
+
+\item SQLServer2000的主要工具中，执行ToSQL的最佳轻量级工具是 (注：题目可能有误，应为T-SQL或查询工具)
+\begin{itemize}
+    \item[A)] 查询分析器
+    \item[B)] 服务管理器
+    \item[C)] 企业管理器
+    \item[D)] 事件探查器
+\end{itemize}
+\textbf{答案：A}
+
+\item 以下哪一个不是关系的基本运算??()
+\begin{itemize}
+    \item[A)] 扫描
+    \item[B)] 投影
+    \item[C)] 选择
+    \item[D)] 连接
+\end{itemize}
+\textbf{答案：A}
+
+\item 若关系R和S分别包含r和s个属性，分别含有m和n个元组，则R$\times$S()。
+\begin{itemize}
+    \item[A)] 包含r+s个属性和m$\times$n个元组
+    \item[B)] 包含r+s个属性和m+n个元组
+    \item[C)] 包含r$\times$s个属性和m+n个元组
+    \item[D)] 包含r$\times$s个属性和m$\times$n个元组
+\end{itemize}
+\textbf{答案：A}
+
+\item X$\to$Y，当下列哪一条成立时，称为平凡的函数依赖()。
+\begin{itemize}
+    \item[A)] Y包含于X
+    \item[B)] X$\cap$Y=$\emptyset$
+    \item[C)] X$\cap$Y=$\emptyset$ (选项重复或排版错误，通常为Y$\subseteq$X)
+    \item[D)] X包含于Y
+\end{itemize}
+\textbf{答案：A}
+
+\item SQL中用于删除基本表的命令是()。
+\begin{itemize}
+    \item[A)] DROP
+    \item[B)] DELETE
+    \item[C)] UPDATE
+    \item[D)] ZAP
+\end{itemize}
+\textbf{答案：A} (具体为 DROP TABLE)
+
+\item 当修改基表数据时，视图()。
+\begin{itemize}
+    \item[A)] 可以看到修改结果
+    \item[B)] 需要重建
+    \item[C)] 无法看到修改结果
+    \item[D)] 不许修改带视图的基表
+\end{itemize}
+\textbf{答案：A}
+
+\item E-R模型是数据库的设计工具之一，它一般适用于建立数据库的()
+\begin{itemize}
+    \item[A)] 概念模型
+    \item[B)] 逻辑模型
+    \item[C)] 物理模型
+    \item[D)] 关系模型
+\end{itemize}
+\textbf{答案：A}
+
+\item 在使用GRANT语句给新建的MySQL用户授权时，下列权限级别中，最有效率的权限是() 
+\begin{itemize}
+    \item[A)] 表权限
+    \item[B)] 列权限
+    \item[C)] 数据库权限
+    \item[D)] 用户权限 (全局权限)
+\end{itemize}
+\textbf{答案：D} (推测指全局权限管理最高效，或题目原意为“最高级别”)
+
+\item 在MySQL中，通常用来指定一个已有数据库作为当前工作数据库的语句是()
+\begin{itemize}
+    \item[A)] GET
+    \item[B)] SHOW
+    \item[C)] DROP
+    \item[D)] USE
+\end{itemize}
+\textbf{答案：D}
+
+\item 设有两个实体集A、B，两个实体型之间的联系不能出现的类型是()
+\begin{itemize}
+    \item[A)] 一对一联系
+    \item[B)] 一对多联系
+    \item[C)] 多对多联系
+    \item[D)] 多对一联系
+\end{itemize}
+\textbf{答案：D} \\
+\textit{解析：多对一本质上是一对多，通常分类为1:1, 1:N, M:N三种。}
+
+\item 数据库保护不包括数据的()
+\begin{itemize}
+    \item[A)] 安全性
+    \item[B)] 冗余控制
+    \item[C)] 故障恢复
+    \item[D)] 并发控制
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：数据库保护包括安全性、完整性、并发控制、恢复。冗余控制是设计目标，不属于保护机制范畴。}
+
+\item 数据库管理系统具有对数据的统一管理和控制功能，不包括()
+\begin{itemize}
+    \item[A)] 数据的并发控制
+    \item[B)] 控制数据冗余
+    \item[C)] 数据的完整性
+    \item[D)] 数据的故障恢复
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：同上，DBMS通过设计减少冗余，但“控制数据冗余”不是其运行时的管理控制功能（如安全、完整、并发、恢复）。}
+
+\item 在SELECT语句中，允许使用()子句，将结果集中的数据行根据选择列的值进行逻辑分组，以便能汇总表内容的子集。
+\begin{itemize}
+    \item[A)] GROUP BY
+    \item[B)] ORDER BY
+    \item[C)] HAVING
+    \item[D)] LIMIT
+\end{itemize}
+\textbf{答案：A}
+
+\item 下面关于数据库设计过程，排序正确的是()
+\begin{itemize}
+    \item[A)] 概念结构设计，逻辑结构设计，物理设计
+    \item[B)] 概念结构设计，物理设计，逻辑结构设计
+    \item[C)] 逻辑结构设计，概念结构设计，物理设计
+    \item[D)] 物理设计，逻辑结构设计，概念结构设计
+\end{itemize}
+\textbf{答案：A}
+
+\item 在关系模型中，元组个数称为
+\begin{itemize}
+    \item[A)] 元数
+    \item[B)] 基数
+    \item[C)] 度数
+    \item[D)] 目数
+\end{itemize}
+\textbf{答案：B}
+
+\item 关系模型中，候选码()。
+\begin{itemize}
+    \item[A)] 可由一个或多个其值能唯一标识该关系模式中任何元组的属性组成
+    \item[B)] 可由多个任意属性组成
+    \item[C)] 至多由一个属性组成
+    \item[D)] 以上都不是
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列关于存储函数的调用说法中错误的是()
+\begin{itemize}
+    \item[A)] 成功创建存储函数后才能调用
+    \item[B)] 和调用系统内置函数的方法一样
+    \item[C)] 使用关键字SELECT对其进行调用
+    \item[D)] 其语法格式是：CALL sp\_name([func\_parameter[,\dots]])
+\end{itemize}
+\textbf{答案：D} \\
+\textit{解析：存储函数使用SELECT调用，存储过程才用CALL。}
+
+\item 将收集的数据进行适当的构造，这称为()
+\begin{itemize}
+    \item[A)] 数据存储
+    \item[B)] 数据组织
+    \item[C)] 数据构造
+    \item[D)] 以上答案都不对
+\end{itemize}
+\textbf{答案：B}
+
+\item 在Access中要显示"教师表"中姓名和职称的信息，应采用的关系运算是()。
+\begin{itemize}
+    \item[A)] 选择
+    \item[B)] 投影
+    \item[C)] 连接
+    \item[D)] 关联
+\end{itemize}
+\textbf{答案：B}
+
+\item 每次用户要求进入系统时，系统都将对该用户进行鉴定以确定用户的()，判断是否能进入到下一步操作。
+\begin{itemize}
+    \item[A)] 可接受性
+    \item[B)] 合理性
+    \item[C)] 合法性
+    \item[D)] 目标性
+\end{itemize}
+\textbf{答案：C}
+
+\item 要求主表中没有相关记录时就不能将记录添加到相关表中，则应该在表关系中设置()。
+\begin{itemize}
+    \item[A)] 参照完整性
+    \item[B)] 有效性规则
+    \item[C)] 输入掩码
+    \item[D)] 级联更新相关字段
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列关于数据库特点的叙述中，错误的是()。
+\begin{itemize}
+    \item[A)] 数据库能够减少数据冗余
+    \item[B)] 数据库中的数据可以共享
+    \item[C)] 数据库中的表能够避免一切数据的重复
+    \item[D)] 数据库中的表既相对独立，又相互联系
+\end{itemize}
+\textbf{答案：C} \\
+\textit{解析：不能避免“一切”重复，有时为了性能会保留适当冗余。}
+
+\item 在关系数据结构中，()表示属性的取值范围。
+\begin{itemize}
+    \item[A)] 信号
+    \item[B)] 字符
+    \item[C)] 域
+    \item[D)] 数据模拟
+\end{itemize}
+\textbf{答案：C}
+
+\item 数据定义语言中，()语句用于对数据库或数据库对象进行修改。
+\begin{itemize}
+    \item[A)] REPEAT
+    \item[B)] ALTER
+    \item[C)] DROP
+    \item[D)] CREATE
+\end{itemize}
+\textbf{答案：B}
+
+\item 关系数据库中的投影操作是指从关系中()
+\begin{itemize}
+    \item[A)] 抽出特定列
+    \item[B)] 抽出特定记录
+    \item[C)] 建立相应的影像
+    \item[D)] 建立相应的图形
+\end{itemize}
+\textbf{答案：A}
+
+\item SQL是介于关系代数和()之间的结构化查询语言。
+\begin{itemize}
+    \item[A)] 数据模型
+    \item[B)] 关系演算
+    \item[C)] 数据系统
+    \item[D)] 关系演变
+\end{itemize}
+\textbf{答案：B}
+
+\item 以下关于触发器的说法中错误的是()
+\begin{itemize}
+    \item[A)] 是用户定义在关系表上的一类由事件驱动的数据库对象
+    \item[B)] 触发器定义后.须用户调用来激活相应的触发器
+    \item[C)] 其主要作用是实现主键和外键不能保证的复杂的参照完整性和数据的一致性
+    \item[D)] 是一种保证数据完整性的方法
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：触发器自动激活，无需用户调用。}
+
+\item 在MySQL中，主键列必须遵守的规则中说法错误的是()
+\begin{itemize}
+    \item[A)] 每一个表可以定义多个主键，由多个列组合而成的主键称为复合主键
+    \item[B)] 主键的值，也称为键值，必须能够唯一标志表中的每一行记录，且不能为NULL
+    \item[C)] 复合主键不能包含不必要的多余列
+    \item[D)] 一个列名在复合主键的列表中只能出现一次
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：一个表只能有一个主键（可以是复合的）。}
+
+\item 若事务T对数据R已加X锁，则其他事务对数据R()。
+\begin{itemize}
+    \item[A)] 不能加任何锁
+    \item[B)] 可以加S锁不能加X锁
+    \item[C)] 不能加S锁可以加X锁
+    \item[D)] 可以加S锁也可以加X锁
+\end{itemize}
+\textbf{答案：A}
+
+\item 在数据库系统中，视图可以提供数据的()
+\begin{itemize}
+    \item[A)] 安全性
+    \item[B)] 完整性
+    \item[C)] 并发性
+    \item[D)] 可恢复性
+\end{itemize}
+\textbf{答案：A}
+
+\item 层次型、网状型和关系型数据库的划分原则是()。
+\begin{itemize}
+    \item[A)] 记录长度
+    \item[B)] 文件的大小
+    \item[C)] 联系的复杂程度
+    \item[D)] 数据之间的联系方式
+\end{itemize}
+\textbf{答案：D}
+
+\item 存取路径分为主存取路径与辅助存取路径，主存取路径主要用于
+\begin{itemize}
+    \item[A)] 安全检测
+    \item[B)] 主键索引
+    \item[C)] 终端用户
+    \item[D)] 辅助键索引
+\end{itemize}
+\textbf{答案：B}
+
+\item E-R图中，用椭圆形表示的是()
+\begin{itemize}
+    \item[A)] 实体
+    \item[B)] 属性
+    \item[C)] 联系
+    \item[D)] 关系
+\end{itemize}
+\textbf{答案：B}
+
+\item 对存储过程的调用，需要使用()语句
+\begin{itemize}
+    \item[A)] RETURN
+    \item[B)] CALL
+    \item[C)] OPEN
+    \item[D)] SELECT
+\end{itemize}
+\textbf{答案：B}
+
+\item 已知关系R(A，B，C)、S(E，F，G)和T(M，N，A，E，O，P)，其中R的主码是A，S的主码是E，T的主码是M，T与R、S彼此间存在着属性的引用。关系T被称为()。
+\begin{itemize}
+    \item[A)] 参照关系
+    \item[B)] 被参照关系
+    \item[C)] 主要关系
+    \item[D)] 次要关系
+\end{itemize}
+\textbf{答案：A}
+
+\item 有这样的三个表即学生表S、课程表C和学生选课表SC，它们的结构如下：S(S\#，SN，SEX，AGE，DEPT) C(C\#，CN) SC (S\#,C\#, GRADE)... 检索学生姓名及其所选修课程的课程号和成绩。正确的SELECT语句是()。
+\begin{itemize}
+    \item[A)] SELECT S.SN，SC.C\#，SC.GRADE FROM S，SC WHERE S.S\#=SC.S\#
+    \item[B)] SELECT S.SN，SC.C\#，SC.GRADE FROM S WHERE S.S\#=SC.S\#
+    \item[C)] SELECT S.SN，SC.C\#，SC.GRADE FROM SC WHERE S.S\#=SC.GRADE
+    \item[D)] SELECT S.SN，SC.C\#，SC.GRADE FROM S.SC
+\end{itemize}
+\textbf{答案：A}
+
+\item 在对关系R和关系S进行自然连接时，只把R中原该舍弃的元组保存到新关系中，这种操作称为()。
+\begin{itemize}
+    \item[A)] 左外连接
+    \item[B)] 全外连接
+    \item[C)] 内连接
+    \item[D)] 右外连接
+\end{itemize}
+\textbf{答案：A}
+
+\item 若两个实体之间的联系是1：m，则实现1：m联系的方法是()
+\begin{itemize}
+    \item[A)] 在"m"端实体转换的关系中加入"1"端的实体转换关系的码
+    \item[B)] 将"m"端实体转换关系的码加入到"1"端的关系
+    \item[C)] 在两个实体转换的关系中，分别加入另一个关系码
+    \item[D)] 将两个实体转换成一个关系
+\end{itemize}
+\textbf{答案：A}
+
+\item 颁布SQL3的年份是
+\begin{itemize}
+    \item[A)] 1986年
+    \item[B)] 1987年
+    \item[C)] 1989年
+    \item[D)] 1999年
+\end{itemize}
+\textbf{答案：D}
+
+\item 数据的逻辑结构与用户视图之间的独立性称为数据的()。
+\begin{itemize}
+    \item[A)] 逻辑独立性
+    \item[B)] 结构独立性
+    \item[C)] 物理独立性
+    \item[D)] 分布独立性
+\end{itemize}
+\textbf{答案：A}
+
+\item A值与B值有一对多联系，可写出的函数依赖是()。
+\begin{itemize}
+    \item[A)] B$\to$A
+    \item[B)] A$\to$B
+    \item[C)] A$\to$B (选项重复)
+    \item[D)] B$\to$A (选项重复)
+\end{itemize}
+\textbf{答案：B} 
+
+\item 数据收集与分析工作从动态结构方面展开时，用以描述任务和数据之间的关系的是()
+\begin{itemize}
+    \item[A)] 数据分类表
+    \item[B)] 数据元素表
+    \item[C)] 任务分类表
+    \item[D)] 数据操作特征表
+\end{itemize}
+\textbf{答案：D}
+
+\item 数据库中"元组"对应的的术语是()
+\begin{itemize}
+    \item[A)] 行
+    \item[B)] 列
+    \item[C)] 属性
+    \item[D)] 字段
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列关于数据库管理系统(DBMS)的描述错误的是()
+\begin{itemize}
+    \item[A)] 数据库管理系统是位于用户和应用系统之间的一层数据管理软件。
+    \item[B)] 数据库管理系统是指负责数据库存取、维护和管理的系统软件。
+    \item[C)] 数据库管理系统的基本功能包含：数据定义功能、数据操作功能。
+    \item[D)] 数据库管理系统负责数据库的运行管理和数据库的建立、维护功能。
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：DBMS位于用户/应用程序与操作系统/数据库之间。A选项表述“用户和应用系统之间”略显奇怪，通常是“用户/应用”与“数据库/OS”之间。但相比其他选项，BCD均正确。可能A的表述被认为不准确，因为用户直接使用应用系统，应用系统使用DBMS。或者A的意思是DBMS在用户和应用之间？不对，DBMS支撑应用。可能是指DBMS位于“应用系统”和“操作系统/数据”之间。若A说“用户和应用系统之间”，那是错的，用户和应用之间没有DBMS。故选A。}
+
+\item 有关系R(A，B，C)，主码为A；S(D，A)，主码为D，外码为A，参照R中的属性A。关系R的元组\{(1，2，3)，(2，1，3)，(3，7，8)\}和S的元组\{(d1，2)，(d2，NULL)，(d3，4)，(d4，1)\}。关系S中违反参照完整性规则的元组是()
+\begin{itemize}
+    \item[A)] (d1，2)
+    \item[B)] (d2，NULL)
+    \item[C)] (d3，4)
+    \item[D)] (d4，1)
+\end{itemize}
+\textbf{答案：C} \\
+\textit{解析：S中的A值必须在R的A中存在或为NULL。R中A有\{1,2,3\}。S中(d3, 4)的4不在R中，违反。}
+
+\item SQL语言中，条件"年龄BETWEEN 20 AND 30"表示年龄在20至30之间，且()
+\begin{itemize}
+    \item[A)] 包括20岁和30岁
+    \item[B)] 不包括20岁和30岁
+    \item[C)] 包括20岁但不包括30岁
+    \item[D)] 包括30岁但不包括20岁
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库系统的数据独立性是指()
+\begin{itemize}
+    \item[A)] 不会因为系统数据存储结构与数据逻辑结构的变化而影响应用程序
+    \item[B)] 不会因为数据的变化而影响应用程序
+    \item[C)] 不会因为存储策略的变化而影响存储结构.
+    \item[D)] 不会因为某些存储结构的变化而影响其他的存储结构
+\end{itemize}
+\textbf{答案：A}
+
+\item ER图中的主要元素是()
+\begin{itemize}
+    \item[A)] 实体、联系和属性
+    \item[B)] 结点、记录和文件
+    \item[C)] 记录、文件和表
+    \item[D)] 记录、表、属性
+\end{itemize}
+\textbf{答案：A}
+
+\item 以下关于命名完整性约束的说法中错误的是()
+\begin{itemize}
+    \item[A)] 语法格式是CONSTRAINT [symbol]...
+    \item[B)] 约束名字在数据库里必须是唯一的。
+    \item[C)] 只能给基于列的完整性约束指定名字.而无法给基于表的完整性约束指定名字
+    \item[D)] 倘若没有明确给出约束的名字.则MySQL自动创建一个约束名字。
+\end{itemize}
+\textbf{答案：C} \\
+\textit{解析：可以给表级约束命名。}
+
+\item 设关系R有r个元组，关系S有s个元组，则R$\times$S有()个元组。
+\begin{itemize}
+    \item[A)] r$\times$s
+    \item[B)] r
+    \item[C)] s
+    \item[D)] r+s
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据模型是()。
+\begin{itemize}
+    \item[A)] 记录及其联系的集合
+    \item[B)] 文件的集合
+    \item[C)] 记录的集合
+    \item[D)] 数据的集合
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库三级模式体系结构的划分，有利于保持数据库的()
+\begin{itemize}
+    \item[A)] 数据独立性
+    \item[B)] 结构规范化
+    \item[C)] 数据安全性
+    \item[D)] 操作可行性
+\end{itemize}
+\textbf{答案：A}
+
+\item 用于删除一个或多个MySQL账户，并消除其权限的语句是
+\begin{itemize}
+    \item[A)] DROP USERS
+    \item[B)] DROP USER
+    \item[C)] ALTER USERS
+    \item[D)] ALTER USER
+\end{itemize}
+\textbf{答案：B}
+
+\item ER图是数据库设计工具之一，它适用于建立数据库的
+\begin{itemize}
+    \item[A)] 概念模型
+    \item[B)] 逻辑模型
+    \item[C)] 结构模型
+    \item[D)] 物理模型
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库物理存储方式的描述称为()
+\begin{itemize}
+    \item[A)] 内模式
+    \item[B)] 外模式
+    \item[C)] 概念模式
+    \item[D)] 逻辑模式
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库系统实现整体数据的结构化，主要表现在以下几个方面，除了()
+\begin{itemize}
+    \item[A)] 数据库和应用程序一一对应。
+    \item[B)] 数据可以变长。
+    \item[C)] 数据的最小存取单位是数据项。
+    \item[D)] 数据的结构用数据模型描述，无需程序定义和解释。
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：数据库实现了数据与程序的独立，不是一一对应。}
+
+\item MySQL提供的支持语言不包括()
+\begin{itemize}
+    \item[A)] 数据定义语言
+    \item[B)] 数据标准语言
+    \item[C)] 数据操纵语言
+    \item[D)] 数据控制语言
+\end{itemize}
+\textbf{答案：B}
+
+\item 下列实体类型的联系中，属于多对多联系的是()
+\begin{itemize}
+    \item[A)] 学生与课程之间的联系
+    \item[B)] 学校与教师之间的联系
+    \item[C)] 商品条形码与商品之间的联系
+    \item[D)] 班级与班长之间的联系
+\end{itemize}
+\textbf{答案：A}
+
+\item 已知R(A，B，C)、S(A，B)，则R-S的属性为()。
+\begin{itemize}
+    \item[A)] C
+    \item[B)] A，B，C
+    \item[C)] A
+    \item[D)] A，B
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：差运算要求同构，结果属性集与原关系相同。若R和S结构不同（S少C），则不能直接做差。但题目问R-S的属性，隐含假设兼容或题目有误。若S是R的投影，则差运算结果属性仍为R的属性集A,B,C。故选B。}
+
+\item 两个事务T1、T2，并发操作如下所示，则()。 (注：题目缺少具体的操作图示，根据常见题库，若T1读，T2写，T1再读，为不可重复读；若T1写，T2写，为丢失修改；若T1读未提交数据，为读脏数据。无图无法确切判断，但通常此类题考丢失修改或脏读。根据文档答案A)
+\begin{itemize}
+    \item[A)] 丢失修改
+    \item[B)] 不存在任何问题
+    \item[C)] 不可重复读
+    \item[D)] 读脏数据
+\end{itemize}
+\textbf{答案：A} (基于常见题库推断)
+
+\item 一个关系中只能有一个()。
+\begin{itemize}
+    \item[A)] 主码
+    \item[B)] 候选码
+    \item[C)] 外码
+    \item[D)] 超码
+\end{itemize}
+\textbf{答案：A}
+
+\item 在数据库管理系统中，创建唯一性索引时，通常使用的关键字是()
+\begin{itemize}
+    \item[A)] INDEX
+    \item[B)] UNIQUE
+    \item[C)] DISTINCT
+    \item[D)] INSERT
+\end{itemize}
+\textbf{答案：B}
+
+\item 在关系模型中，关系的"基数"(Cardinality)是指()。
+\begin{itemize}
+    \item[A)] 行数
+    \item[B)] 列数
+    \item[C)] 属性个数
+    \item[D)] 关系个数
+\end{itemize}
+\textbf{答案：A}
+
+\item 在数据库系统中，对数据操作的最小单位是()。
+\begin{itemize}
+    \item[A)] 数据项
+    \item[B)] 字节
+    \item[C)] 记录
+    \item[D)] 字符
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库的()是指数据的正确性和相容性。
+\begin{itemize}
+    \item[A)] 安全性
+    \item[B)] 完整性
+    \item[C)] 并发
+    \item[D)] 恢复
+\end{itemize}
+\textbf{答案：B}
+
+\item 在MySQL中，使用()语句修改一个或多个已经存在的MySQL用户账号。
+\begin{itemize}
+    \item[A)] UPDATE USER
+    \item[B)] DROP USER
+    \item[C)] ALERT USER (拼写错误，应为ALTER)
+    \item[D)] RENAME USER
+\end{itemize}
+\textbf{答案：D} (注：修改账号名称用RENAME USER，修改属性用ALTER USER。题目若指改名选D，若指属性选C(修正后)。文档答案选D，可能特指改名或题目语境。) *修正：文档第100题答案为D。*
+
+\item 事务的原子性是指()。
+\begin{itemize}
+    \item[A)] 事务中包括的所有操作要么都做，要么都不做
+    \item[B)] 事务一旦提交，对数据库的改变时永久的
+    \item[C)] 一个事务内部的操作及使用的数据对并发的其他事务是隔离的
+    \item[D)] 事务必须使数据库从一个一致性状态变到另一个一致性状态
+\end{itemize}
+\textbf{答案：A}
+
+\item 设关系R和S具有相同的关系模式，则与 $R \cup S$ 等价的是 (注：题目显示不全，根据选项推测)
+\begin{itemize}
+    \item[A)] ...
+    \item[B)] ...
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：(题目不完整，跳过)}
+
+\item 如果关系模式设计的不好，会出现()。
+\begin{itemize}
+    \item[A)] 数据冗余
+    \item[B)] 函数依赖
+    \item[C)] 多值依赖
+    \item[D)] 关键码
+\end{itemize}
+\textbf{答案：A}
+
+\item 在SQL语句中，()用于创建数据库或数据库对象。
+\begin{itemize}
+    \item[A)] ALLO (拼写错误，应为ALL?)
+    \item[B)] DROP
+    \item[C)] ALTER
+    \item[D)] CREATE
+\end{itemize}
+\textbf{答案：D}
+
+\item 事务的原子性是指 (重复题)
+\begin{itemize}
+    \item[A)] 事务中包括的所有操作，要么都做，要么都不做
+    \item[B)] ...
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：A}
+
+\item 将相关数据集中存放的物理存储技术是
+\begin{itemize}
+    \item[A)] 非聚集
+    \item[B)] 聚集
+    \item[C)] 授权
+    \item[D)] 回收
+\end{itemize}
+\textbf{答案：B}
+
+\item 在数据库设计中，用E-R图来描述信息结构，但不涉及信息在计算机中的表示，它属于数据库设计的()阶段。
+\begin{itemize}
+    \item[A)] 概念设计
+    \item[B)] 逻辑设计
+    \item[C)] 物理设计
+    \item[D)] 需求分析
+\end{itemize}
+\textbf{答案：A}
+
+\item 以下不能作为关系数据库的关系的是()。
+\begin{itemize}
+    \item[A)] M(学号，姓名，简历) (简历可能非原子)
+    \item[B)] N(学号，班主任，专业)
+    \item[C)] S(学号，系，宿舍号)
+    \item[D)] T(学号，班级，系)
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：简历可能包含多值或非原子数据，违反1NF。}
+
+\item 在Access数据库对象中，体现数据库设计目的的对象是()。
+\begin{itemize}
+    \item[A)] 报表
+    \item[B)] 模块
+    \item[C)] 查询
+    \item[D)] 表
+\end{itemize}
+\textbf{答案：D} (表是核心，存储数据) 或 A (报表体现输出目的)? 通常表是基础。文档答案未明示，一般选表。但若指“最终呈现给用户的设计目的”，可能是报表。根据常规，表是数据存储核心。暂选D。*修正：有些观点认为查询或报表体现目的。但表是根本。*
+
+\item 关于人工管理阶段的特点，描述错误的是()
+\begin{itemize}
+    \item[A)] 数据面向应用
+    \item[B)] 数据集成
+    \item[C)] 数据不保存
+    \item[D)] 应用程序管理数据
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：人工管理阶段数据不集成，冗余大。}
+
+\item SQL语句中，用于修改表结构的命令是()。
+\begin{itemize}
+    \item[A)] ALTER
+    \item[B)] CREATE
+    \item[C)] UPDATE
+    \item[D)] DROP
+\end{itemize}
+\textbf{答案：A}
+
+\item 若在数据库表的某个字段中存放演示文稿数据，则该字段的数据类型应是()。
+\begin{itemize}
+    \item[A)] 文本型
+    \item[B)] 备注型
+    \item[C)] 超链接型
+    \item[D)] OLE对象型
+\end{itemize}
+\textbf{答案：D}
+
+\item 如果采用关系数据库来实现应用，在数据库设计的()阶段将关系模式进行规范化处理。
+\begin{itemize}
+    \item[A)] 逻辑结构设计阶段
+    \item[B)] 需求分析阶段
+    \item[C)] 概念结构设计阶段
+    \item[D)] 物理结构设计阶段
+\end{itemize}
+\textbf{答案：A}
+
+\item 保护数据库，防止未经授权的或不合法的使用造成的数据泄漏、更改破坏。这是指数据的()
+\begin{itemize}
+    \item[A)] 安全性
+    \item[B)] 完整性
+    \item[C)] 并发控制
+    \item[D)] 恢复
+\end{itemize}
+\textbf{答案：A}
+
+\item 在数据管理技术发展过程中，关于数据库阶段描述错误的是()
+\begin{itemize}
+    \item[A)] 数据集成是数据库管理系统的主要目的
+    \item[B)] 数据共享性低
+    \item[C)] 数据冗余小
+    \item[D)] 减少应用程序开发与维护的工作量
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：数据库阶段共享性高。}
+
+\item 将E-R图转换为关系模式时，实体和联系都可以表示为()。
+\begin{itemize}
+    \item[A)] 属性
+    \item[B)] 键
+    \item[C)] 关系
+    \item[D)] 域
+\end{itemize}
+\textbf{答案：C}
+
+\item 对于实体集A中的每一个实体，实体集B中有N个实体与之联系，反之，对于实体集B中的每一个实体，实体集A中也有M个实体与之联系，则实体集A与实体集B之间的联系是()
+\begin{itemize}
+    \item[A)] 1:1
+    \item[B)] 1:M
+    \item[C)] M:N
+    \item[D)] 1:N
+\end{itemize}
+\textbf{答案：C}
+
+\item 两个子查询的结果()时，可以执行并、交、差操作。
+\begin{itemize}
+    \item[A)] 结构完全一致
+    \item[B)] 结构完全不一致
+    \item[C)] 结构部分一致
+    \item[D)] 主键一致
+\end{itemize}
+\textbf{答案：A}
+
+\item 在Access的数据库中已建立了"Book"表，若查找"图书ID"是"TP132.54"和"TP138.98"的记录，应在查询设计视图的准则行中输入()。
+\begin{itemize}
+    \item[A)] "TP132...
+    \item[B)] NOT("TP132...
+    \item[C)] NOT IN("TP132...
+    \item[D)] IN("TP132...
+\end{itemize}
+\textbf{答案：D}
+
+\item 在DELETE触发器代码内，关于OLD的说法中正确的是()
+\begin{itemize}
+    \item[A)] 部分是只读的，部分是可写的
+    \item[B)] 全部是只读的，能被更新的
+    \item[C)] 全部都是可写的，能被更新
+    \item[D)] 全部是只读的，不能被更新
+\end{itemize}
+\textbf{答案：D}
+
+\item 假设某数据库表中有一个"学生编号"字段查找编号第3、4个字符为"03"的记录的准则是() (注：题目选项缺失，通常是 Like "*03*" 或 Mid函数)
+\begin{itemize}
+    \item[A)] Mid...
+    \item[B)] ...
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：(选项不全，略)}
+
+\item 数据库的并发操作可能带来的一个问题是()。
+\begin{itemize}
+    \item[A)] 丢失修改
+    \item[B)] 非法用户使用
+    \item[C)] 增加数据冗余
+    \item[D)] 提高数据独立性
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据管理技术的发展经历了人工管理、文件系统和()三个阶段。
+\begin{itemize}
+    \item[A)] 数据描述阶段
+    \item[B)] 应用程序系统
+    \item[C)] 编译系统
+    \item[D)] 数据库系统
+\end{itemize}
+\textbf{答案：D}
+
+\item 下面对属性的类型定义中，哪种方式最适合定义固定10个字符长度??()
+\begin{itemize}
+    \item[A)] CHAR(10)
+    \item[B)] VARCHAR(10)
+    \item[C)] TEXT(10)
+    \item[D)] STRING(10)
+\end{itemize}
+\textbf{答案：A}
+
+\item 设关系R和S的结构相同且各有100个元组，则R和S的并操作结果的元组数为()。
+\begin{itemize}
+    \item[A)] 小于等于200
+    \item[B)] 100
+    \item[C)] 200
+    \item[D)] 小于等于100
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：若有重复元组，并集会去重，故$\le$200。}
+
+\item ()对应到数据库中的概念就是视图。
+\begin{itemize}
+    \item[A)] 模式
+    \item[B)] 内模式
+    \item[C)] 外模式
+    \item[D)] 逻辑模式
+\end{itemize}
+\textbf{答案：C}
+
+\item 在面向对象技术中，相同元素的有序集合，并且允许有重复的元素的复合数据类型是
+\begin{itemize}
+    \item[A)] 行类型
+    \item[B)] 数组类型
+    \item[C)] 列表类型
+    \item[D)] 集合类型
+\end{itemize}
+\textbf{答案：C} (列表有序可重复，集合无序不重复，数组通常定长)
+
+\item 数据库进行需求分析时，需要编写需求分析报告，用来存储和检索各种数据描述的是()
+\begin{itemize}
+    \item[A)] 数据字典
+    \item[B)] 数据流程图
+    \item[C)] 任务分类表
+    \item[D)] 数据约束
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库的概念模型独立于()
+\begin{itemize}
+    \item[A)] 具体的机器和DBMS
+    \item[B)] E-R图
+    \item[C)] 信息世界
+    \item[D)] 现实世界
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列统计函数中不能忽略空值(NULL)的是()。
+\begin{itemize}
+    \item[A)] SUM
+    \item[B)] AVG
+    \item[C)] MAX
+    \item[D)] COUNT
+\end{itemize}
+\textbf{答案：D} (注：COUNT(*)不忽略，COUNT(col)忽略。若题目指COUNT(*)，则选D。若指COUNT(col)，则也忽略。通常考点是COUNT(*)与其他聚合函数的区别。SUM, AVG, MAX, MIN都忽略NULL。COUNT(*)不忽略。故选D，特指COUNT(*))
+
+\item 元组比较操作(a1，a2)>=(b1，b2)的意义是()
+\begin{itemize}
+    \item[A)] (a1>b1) OR ((a1=b1) AND(a2>=b2))
+    \item[B)] (a1>=b1)AND (a2>=b2)
+    \item[C)] (a1>=b1)OR ((a1=b1) AND(a2>=b2))
+    \item[D)] (a1>b1) AND((a1=b1) AND (a2>=b2))
+\end{itemize}
+\textbf{答案：A}
+
+\item 规范化理论是关系数据库进行逻辑设计的理论依据，根据这个理论，关系数据库中的关系必须满足：其每一属性都是()。
+\begin{itemize}
+    \item[A)] 不可分解的
+    \item[B)] 互不相关的
+    \item[C)] 长度可变的
+    \item[D)] 互相关联的
+\end{itemize}
+\textbf{答案：A}
+
+\item 在数据库系统中，描述全部数据的整体逻辑结构的是()
+\begin{itemize}
+    \item[A)] 外模式
+    \item[B)] 概念模式
+    \item[C)] 内模式
+    \item[D)] 存储模式
+\end{itemize}
+\textbf{答案：B}
+
+\item 如若需要删除数据库中已存在的表，可以通过使用()语句来实现。
+\begin{itemize}
+    \item[A)] ALTER
+    \item[B)] DROP TABLE
+    \item[C)] REPEAT
+    \item[D)] RETAL
+\end{itemize}
+\textbf{答案：B}
+
+\item 在一个关系R中，若每个数据项都是不可再分割的，那么关系R：一定属于()。
+\begin{itemize}
+    \item[A)] 1NF
+    \item[B)] 3NF
+    \item[C)] BCNF
+    \item[D)] 2NF
+\end{itemize}
+\textbf{答案：A}
+
+\item 物理结构设计阶段得到的结果是()。
+\begin{itemize}
+    \item[A)] 包括存储结构和存取方法的物理结构
+    \item[B)] 某个DBMS所支持的数据逻辑结构
+    \item[C)] E-R图表示的概念模型
+    \item[D)] 数据字典描述的数据需求
+\end{itemize}
+\textbf{答案：A}
+
+\item 在关系数据库设计中，设计关系模式是()的任务。
+\begin{itemize}
+    \item[A)] 逻辑设计阶段
+    \item[B)] 需求分析阶段
+    \item[C)] 概念设计阶段
+    \item[D)] 物理设计阶段
+\end{itemize}
+\textbf{答案：A}
+
+\item 在Access中，可用于设计输入界面的对象是()。
+\begin{itemize}
+    \item[A)] 窗体
+    \item[B)] 报表
+    \item[C)] 查询
+    \item[D)] 表
+\end{itemize}
+\textbf{答案：A}
+
+\item 输入掩码字符"\&"的含义是()。
+\begin{itemize}
+    \item[A)] 必须输入字母或数字
+    \item[B)] 可以选择输入字母或数字
+    \item[C)] 必须输入一个任意的字符或一个空格
+    \item[D)] 可以选择输入任意的字符或一个空格
+\end{itemize}
+\textbf{答案：A} 
+\item 下列()是对触发器的描述。
+\begin{itemize}
+    \item[A)] 当用户修改数据时，一种特殊形式的存储过程被自动执行
+    \item[B)] 定义了一个有相关列和行的集合
+    \item[C)] SQL语句的预编译集合
+    \item[D)] 它根据一或多列的值，提供对数据库表的行的快速访问
+\end{itemize}
+\textbf{答案：A}
+
+\item 在T-SQL语言中，由用户定义和维护的变量是
+\begin{itemize}
+    \item[A)] 全局变量
+    \item[B)] 静态变量
+    \item[C)] 局部变量
+    \item[D)] 系统变量
+\end{itemize}
+\textbf{答案：C}
+
+\item 设有一个关系模式图书(图书编号，书名，作者，出版社，单价)，查询价格在50到60元之间的图书，结果按出版社及单价升序排列，则下列用于排列的是()
+\begin{itemize}
+    \item[A)] GROUP BY
+    \item[B)] ORDER BY
+    \item[C)] HAVING
+    \item[D)] LIMIT
+\end{itemize}
+\textbf{答案：B}
+
+\item 把数据按照相似性归纳成若干类别的是
+\begin{itemize}
+    \item[A)] 概念描述
+    \item[B)] 关联分析
+    \item[C)] 分类
+    \item[D)] 聚类
+\end{itemize}
+\textbf{答案：D} (聚类是无监督分类)
+
+\item 下列哪一条不是概念模型应具备的性质?()
+\begin{itemize}
+    \item[A)] 在计算机中实现的效率高
+    \item[B)] 易于向各种数据模型转换
+    \item[C)] 易于交流和理解
+    \item[D)] 有丰富的语义表达能力
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：概念模型关注语义和沟通，不关注计算机实现效率（那是物理模型的事）。}
+
+\item 若用SELECT语句查询多个列时，则各个列名之间需要用()进行分隔。
+\begin{itemize}
+    \item[A)] 逗号
+    \item[B)] 顿号
+    \item[C)] 破折号
+    \item[D)] 分号
+\end{itemize}
+\textbf{答案：A}
+
+\item 授权数据对象的()，则授权子系统的越灵活。
+\begin{itemize}
+    \item[A)] 粒度越小
+    \item[B)] 粒度越大
+    \item[C)] 约束越少
+    \item[D)] 约束越多
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库的数据完整性是指数据库中数据的正确性、()和一致性。
+\begin{itemize}
+    \item[A)] 目标性
+    \item[B)] 相容性
+    \item[C)] 服务性
+    \item[D)] 完美性
+\end{itemize}
+\textbf{答案：B}
+
+\item 在Access中，如果不想显示数据表中的某些字段，可以使用的命令是()。
+\begin{itemize}
+    \item[A)] 隐藏
+    \item[B)] 删除
+    \item[C)] 冻结
+    \item[D)] 筛选
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库的特点之一是数据的共享，严格地讲，这里的数据共享是指()。
+\begin{itemize}
+    \item[A)] 多种应用、多种语言、多个用户互相覆盖地使用数据集合
+    \item[B)] 同一个应用中的多个程序共享一个数据集合
+    \item[C)] 多个用户、同一种语言共享数据
+    \item[D)] 多个用户共享一个数据文件
+\end{itemize}
+\textbf{答案：A}
+
+\item 在ER图中，用长方形表示，用椭圆表示示。() (注：题目语序混乱，应为“长方形表示实体，椭圆表示属性”)
+\begin{itemize}
+    \item[A)] 实体、属性
+    \item[B)] 联系、属性
+    \item[C)] 属性、实体
+    \item[D)] 实体、联系
+\end{itemize}
+\textbf{答案：A}
+
+\item 关系表中的列，也称作
+\begin{itemize}
+    \item[A)] 元组
+    \item[B)] 记录
+    \item[C)] 字段
+    \item[D)] 数组
+\end{itemize}
+\textbf{答案：C}
+
+\item 以下不是SQL内置函数的是()。
+\begin{itemize}
+    \item[A)] HAVING
+    \item[B)] SUM
+    \item[C)] COUNT
+    \item[D)] AVG
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：HAVING是子句，不是函数。}
+
+\item 数据库的系统故障发生时，已提交的事务对数据库的更新还留在缓冲区未写入数据库，则系统故障的恢复需要进行()处理。
+\begin{itemize}
+    \item[A)] REDO
+    \item[B)] UNDO
+    \item[C)] COMMIT
+    \item[D)] ROLLBACK
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列四项中，关系规范化程度最高的是关系满足()。
+\begin{itemize}
+    \item[A)] 第三范式
+    \item[B)] 非规范关系
+    \item[C)] 第二范式
+    \item[D)] 第一范式
+\end{itemize}
+\textbf{答案：A} (在给定选项中3NF最高，虽有BCNF/4NF等，但选项里3NF最高)
+
+\item 使用()语句，可以独立地删除完整性约束，而不会删除表本身。
+\begin{itemize}
+    \item[A)] DROP TABLE
+    \item[B)] DELETE TABLE
+    \item[C)] CREATE TABLE
+    \item[D)] ALTER TABLE
+\end{itemize}
+\textbf{答案：D} (使用 ALTER TABLE ... DROP CONSTRAINT)
+
+\item 在使用ALTER TABLE语句来更新与列或表有关的各种约束时，需要注意的内容中正确的是()
+\begin{itemize}
+    \item[A)] 完整性约束能直接被修改
+    \item[B)] 若要修改某个约束.实际上是用ALTER TABLE语句先删除该约束，然后再增加一个与该约束同名的新约束。
+    \item[C)] 使用DROP TABLE语句.可以独立地删除完整性约束，而不会删除表本身
+    \item[D)] 使用ALTER TABLE语句删除一个表.则表中所有的完整性约束都会自动被删除
+\end{itemize}
+\textbf{答案：B}
+
+\item 在SQL查询语句select中，用来指定表中全部字段的参量是()。
+\begin{itemize}
+    \item[A)] *
+    \item[B)] *.*
+    \item[C)] All
+    \item[D)] Every
+\end{itemize}
+\textbf{答案：A}
+
+\item 关于三级模式之间的两层映像，描述错误的是()
+\begin{itemize}
+    \item[A)] 映像指出映像双方是如何进行转换的
+    \item[B)] 外模式/模式映像定义了各个外模式与概念模式之间的映像关系
+    \item[C)] 模式/内模式映像定义了数据库全局逻辑结构与物理存储之间的对应关系
+    \item[D)] 模式/内模式映像不是唯一的
+\end{itemize}
+\textbf{答案：D} \\
+\textit{解析：模式/内模式映像是唯一的。}
+
+\item 在关系数据库中，下列说法错误的是()
+\begin{itemize}
+    \item[A)] 表中的行，也称作记录
+    \item[B)] 表中的数据是按列存储的
+    \item[C)] 表中的一行数据即为一个元组
+    \item[D)] 每行由若干字段值组成
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：关系模型逻辑上是二维表，物理存储可按行或列，但传统关系数据库多按行存储（堆文件）。且逻辑上行列无序。说“按列存储”绝对化是错误的，或者指列式数据库，但通用说法是行。}
+
+\item 用二维表来表示实体及实体之间联系的数据模型是()
+\begin{itemize}
+    \item[A)] 关系模型
+    \item[B)] 层次模型
+    \item[C)] 实体-联系模型
+    \item[D)] 网状模型
+\end{itemize}
+\textbf{答案：A}
+
+\item 有一个学生关系模式STUDENT(学号，姓名，出生日期，系名，班号，宿舍号)，其候选键为()。
+\begin{itemize}
+    \item[A)] 学号
+    \item[B)] (学号，姓名)
+    \item[C)] (学号，班号)
+    \item[D)] (学号，宿舍号)
+\end{itemize}
+\textbf{答案：A}
+
+\item 要实现报表按某字段分组统计输出，需要设置的是()。
+\begin{itemize}
+    \item[A)] 报表页脚
+    \item[B)] 该字段的组页脚
+    \item[C)] 主体
+    \item[D)] 页面页脚
+\end{itemize}
+\textbf{答案：B}
+
+\item 在INSERT触发器代码内，可引用一个名为()的虚拟表，来访问被插入的行。
+\begin{itemize}
+    \item[A)] OLD
+    \item[B)] NEW
+    \item[C)] BEFORE
+    \item[D)] AFTER
+\end{itemize}
+\textbf{答案：B}
+
+\item 作为一种数据模型，关系模型的三个要素不包括()
+\begin{itemize}
+    \item[A)] 关系数据结构
+    \item[B)] 关系操作集合
+    \item[C)] 关系概念结构
+    \item[D)] 关系完整性约束
+\end{itemize}
+\textbf{答案：C} \\
+\textit{解析：三要素是数据结构、操作、完整性约束。}
+
+\item 数据库管理系统通常提供授权功能来控制不同用户访问数据的权限，这主要是为了实现数据库的()。
+\begin{itemize}
+    \item[A)] 安全性
+    \item[B)] 可靠性
+    \item[C)] 一致性
+    \item[D)] 完整性
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库系统的特点是()、数据独立、减少数据冗余、避免数据不一致和加强了数据保护。
+\begin{itemize}
+    \item[A)] 数据共享
+    \item[B)] 数据存储
+    \item[C)] 数据应用
+    \item[D)] 数据保密
+\end{itemize}
+\textbf{答案：A}
+
+\item Power Builder9.0中，用于生成可执行文件、动态链接库、组件和代理对象的画板是
+\begin{itemize}
+    \item[A)] 结构画板
+    \item[B)] 函数画板
+    \item[C)] 查询画板
+    \item[D)] 工程画板
+\end{itemize}
+\textbf{答案：D}
+
+\item 关于约束叙述正确的是()。
+\begin{itemize}
+    \item[A)] 每个约束可以作用到多个表的多个列
+    \item[B)] 每个约束只能作用于一个列上
+    \item[C)] 每个约束可以作用多个列，但是必须在一个表里
+    \item[D)] 以上都不对
+\end{itemize}
+\textbf{答案：C} (表级约束可作用于多列，但限于本表)
+
+\item 下列关于数据(Data)的概念或描述，错误的是()
+\begin{itemize}
+    \item[A)] 数据与语义无关。
+    \item[B)] 数据有多种表现形式，如声音、图像等。
+    \item[C)] 数据是用于描述现实世界事物的符号记录。
+    \item[D)] 数据是信息的符号表示。
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：数据是有语义的。}
+
+\item 在WHERE语句的条件表达式中，与零个或多个字符进行匹配的通配符是()。
+\begin{itemize}
+    \item[A)] \%
+    \item[B)] *
+    \item[C)] ?
+    \item[D)] \_
+\end{itemize}
+\textbf{答案：A} (SQL标准是\%，Access是*)
+
+\item 对话框在关闭前，不能继续执行应用程序的其他部分，这种对话框称为()。
+\begin{itemize}
+    \item[A)] 输入对话框
+    \item[B)] 输出对话框
+    \item[C)] 模式对话框
+    \item[D)] 非模式对话框
+\end{itemize}
+\textbf{答案：C}
+
+\item 一名教师可讲授多门课程，一门课程可由多名教师讲授。则实体教师和课程间的联系是()。
+\begin{itemize}
+    \item[A)] 1:1
+    \item[B)] 1:N
+    \item[C)] M:1
+    \item[D)] M:N
+\end{itemize}
+\textbf{答案：D}
+
+\item 在Access数据库中使用向导创建查询，其数据可以来自()。
+\begin{itemize}
+    \item[A)] 多个表
+    \item[B)] 一个表
+    \item[C)] 一个表的一部分
+    \item[D)] 表或查询
+\end{itemize}
+\textbf{答案：D}
+
+\item 关系数据库中的码是指()。
+\begin{itemize}
+    \item[A)] 能唯一标识元组的属性或属性集合
+    \item[B)] 能唯一决定关系的字段
+    \item[C)] 不可改动的专用保留字
+    \item[D)] 关键的很重要的字段
+\end{itemize}
+\textbf{答案：A}
+
+\item 设关系模式职工(职工号，姓名，性别，年龄)，下列有关查询年龄不在19至55岁之间的语句中正确的是()
+\begin{itemize}
+    \item[A)] BETWEEN 19 AND 55
+    \item[B)] NOT BETWEEN 19 AND 55
+    \item[C)] BETWEEN NOT 19 AND 55
+    \item[D)] NOT BETWEEN 18 AND 54
+\end{itemize}
+\textbf{答案：B}
+
+\item 设有关系模式R(A，B，C，D)，F=\{AD$\to$C，C$\to$B\}，则R的所有候选码为()。
+\begin{itemize}
+    \item[A)] AD
+    \item[B)] ADC
+    \item[C)] AC
+    \item[D)] AD，AC
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：AD能推出C，C推出B，故AD$\to$ABCD。AD是候选码。}
+
+\item 在MySQL中，使用DROP TRIGGER从数据库中删除触发器，关于其语法格式的说法中错误的是()
+\begin{itemize}
+    \item[A)] 其语法格式是：DROP TRIGGER trigger\_name [IF EXISTS][schema\_name]
+    \item[B)] 语法项"trigger name"指定要删除的触发器名称
+    \item[C)] 关键字"IF EXISTS"用于避免在没有触发器的情况下删除触发器
+    \item[D)] 语法项"schema name"用于指定触发器所在的数据库的名称
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：语法顺序通常是 DROP TRIGGER [IF EXISTS] schema\_name.trigger\_name。A选项顺序可能有误，或者schema\_name的位置不对。}
+
+\item 下面关于数据库设计中需求分析阶段的叙述，错误的是()
+\begin{itemize}
+    \item[A)] 需求分析的阶段成果是要编写包含数据流图、ER图等内容的系统需求说明书。
+    \item[B)] 需求分析的任务是通过详细调查现实世界要处理的对象...
+    \item[C)] 需求分析确定的新系统必须充分考虑今后可能的扩充和改变...
+    \item[D)] 需求分析的重点是调查、收集与分析用户在数据管理中的信息要求...
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：ER图是概念设计阶段的产物，不是需求分析阶段的直接产物（需求分析产出DFD、数据字典等）。}
+
+\item 在关系数据库中，表中属性的个数称为关系的()或度。
+\begin{itemize}
+    \item[A)] 元
+    \item[B)] 源
+    \item[C)] 表
+    \item[D)] 量
+\end{itemize}
+\textbf{答案：A} (元数)
+
+\item 数据库概念设计的ER图中，用属性描述实体的特征，属性在ER图中用【】表示。
+\begin{itemize}
+    \item[A)] 矩形
+    \item[B)] 四边形
+    \item[C)] 菱形
+    \item[D)] 椭圆形
+\end{itemize}
+\textbf{答案：D}
+
+\item 下面的()SQL语句表示删除学生表(STU)的结构。
+\begin{itemize}
+    \item[A)] DROP TABLE STU；
+    \item[B)] DELETE TABLE STU；
+    \item[C)] REMOVE TABLE STU；
+    \item[D)] DELETE FROM STU；
+\end{itemize}
+\textbf{答案：A}
+
+\item 在一个关系中如果有这样一个属性存在，它的值能惟一地标识关系中的每一个元组，称这个属性为()。
+\begin{itemize}
+    \item[A)] 候选码
+    \item[B)] 数据项
+    \item[C)] 主码
+    \item[D)] 主属性的值
+\end{itemize}
+\textbf{答案：A} (若被选中则是主码，未选中是候选码，题目描述符合候选码定义)
+
+\item 如果关系模式设计的不好，会出现() (重复题)
+\begin{itemize}
+    \item[A)] 数据冗余
+    \item[B)] ...
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：A}
+
+\item 以下哪个SQL命令用于修改已有的数据?(
+\begin{itemize}
+    \item[A)] UPDATE...SET
+    \item[B)] ALTER
+    \item[C)] CHECK
+    \item[D)] DELETE
+\end{itemize}
+\textbf{答案：A}
+
+\item 关系R和S如下表，则关系T是R和S的 (缺图)
+\begin{itemize}
+    \item[A)] 自然连接
+    \item[B)] 除
+    \item[C)] 交
+    \item[D)] 并
+\end{itemize}
+\textbf{答案：(缺图，略)}
+
+\item 在关系代数运算中，专门的关系运算是()
+\begin{itemize}
+    \item[A)] 选择、投影、连接和除
+    \item[B)] 并、差和交
+    \item[C)] 并、差、交、选择、投影和连接
+    \item[D)] 并、差、交和乘积
+\end{itemize}
+\textbf{答案：A}
+
+\item 关于数据库系统的特点，描述错误的是()
+\begin{itemize}
+    \item[A)] 数据共享性高
+    \item[B)] 数据冗余小
+    \item[C)] 数据不一致
+    \item[D)] 数据集成
+\end{itemize}
+\textbf{答案：C}
+
+\item 在查询操作中，五种基本操作为()
+\begin{itemize}
+    \item[A)] 并、差、选择、投影、自然连接
+    \item[B)] 并、差、交、选择、投影
+    \item[C)] 并、差、选择、投影、笛卡尔积
+    \item[D)] 并、差、交、选择、乘积
+\end{itemize}
+\textbf{答案：A} (通常指：并、差、笛卡尔积、选择、投影，或者并、差、交、选择、投影。C选项包含笛卡尔积，是基本集合运算+专门运算的组合。若指Codd的5种基本运算：并、差、笛卡尔积、选择、投影。故选C更准确，但A中的自然连接可由基本运算导出。文档答案选A，可能教材定义不同。) *修正：文档第188题答案为A。*
+
+\item 有这样的三个表... 检索选修课程"C2"的学生中成绩最高的学生的学号。正确的SELECT语句是()。
+\begin{itemize}
+    \item[A)] SELECT S\# FROM SC WHERE C\#='C2' AND GRADE>=ALL (SELECT GRADE FROM SC WHERE C\#='C2')
+    \item[B)] ...
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：A}
+
+\item 在使用DROP FUNCTION语句来实现删除存储函数的语法格式中，说法错误的是()
+\begin{itemize}
+    \item[A)] 语法项"sp name"指定要删除的存储函数的名称
+    \item[B)] 在删除之前，必须确认该存储函数没有任何依赖关系
+    \item[C)] 为防止因删除不存在的存储函数而引发的错误，可在DROP FUNCTION语句中添加关键字"IF EXISTS"
+    \item[D)] 其语法格式是：DROP FUNCTION sp\_name([func\_parameter[,\dots]])
+\end{itemize}
+\textbf{答案：D} \\
+\textit{解析：删除函数不需要参数列表。}
+
+\item 一个关系的候选码或候选键是这个关系的()
+\begin{itemize}
+    \item[A)] 最小超码
+    \item[B)] 最大超键
+    \item[C)] 主码
+    \item[D)] 主键
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库的特点之一是数据的共享，这里的数据共享是指() (重复题)
+\begin{itemize}
+    \item[A)] 多种应用、多种语言、多个用户相互覆盖地使用数据集合
+    \item[B)] ...
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：A}
+
+\item 关系R(A，B)、S(B，C)中分别有10个和15个元组，则R$\bowtie$S中元组个数的范围是()。
+\begin{itemize}
+    \item[A)] (0，150)
+    \item[B)] (10，25)
+    \item[C)] (15，25)
+    \item[D)] (10，50)
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：最少0个（无匹配），最多10*15=150个（若B值全同）。}
+
+\item 一名教师可讲授多门课程... (重复题)
+\begin{itemize}
+    \item[A)] 1:1
+    \item[B)] 1:N
+    \item[C)] M:1
+    \item[D)] M:N
+\end{itemize}
+\textbf{答案：D}
+
+\item 数据系统中，DBA表示()。
+\begin{itemize}
+    \item[A)] 数据库管理员
+    \item[B)] 应用程序设计者
+    \item[C)] 数据库使用者
+    \item[D)] 数据库结构
+\end{itemize}
+\textbf{答案：A}
+
+\item 如果某个属性包含在候选键中，则它称为()
+\begin{itemize}
+    \item[A)] 非主属性
+    \item[B)] 关键属性
+    \item[C)] 复合属性
+    \item[D)] 主属性
+\end{itemize}
+\textbf{答案：D}
+
+\item 关系模式的主码可以有()。
+\begin{itemize}
+    \item[A)] 一个
+    \item[B)] 0个
+    \item[C)] 一个或多个
+    \item[D)] 多个
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：一个关系只能有一个主码。}
+
+\item 在MySQL中，以下不属于子查询分类的是()
+\begin{itemize}
+    \item[A)] 表子查询
+    \item[B)] 标量子查询
+    \item[C)] 行子查询
+    \item[D)] 字段子查询
+\end{itemize}
+\textbf{答案：D}
+
+\item 在MySQL中，使用()语句，来修改已被创建的数据库的相关参数。
+\begin{itemize}
+    \item[A)] ALTER DATABASE
+    \item[B)] DROP DATABASE
+    \item[C)] USE DATABASE
+    \item[D)] CREATE DATABASE
+\end{itemize}
+\textbf{答案：A}
+
+\item 关于数据的逻辑模型，下面叙述错误的是()
+\begin{itemize}
+    \item[A)] 逻辑层是数据抽象的中间层
+    \item[B)] 逻辑模型表达了数据的整体逻辑结构
+    \item[C)] 逻辑模型是从用户的观点出发.对数据建模
+    \item[D)] 任何DBMS都是基于某种逻辑数据模型
+\end{itemize}
+\textbf{答案：C} \\
+\textit{解析：从用户观点出发的是外模式（用户模型），逻辑模型是全局的，基于计算机系统观点。}
+
+\item 候选码中的属性可以有()。
+\begin{itemize}
+    \item[A)] 1个或多个
+    \item[B)] 0个
+    \item[C)] 1个
+    \item[D)] 多个
+\end{itemize}
+\textbf{答案：A}
+
+\item 在SQL语句中，谓词"EXISTS"的含义是()。
+\begin{itemize}
+    \item[A)] 存在量词
+    \item[B)] 全称量词
+    \item[C)] 自然连接
+    \item[D)] 等值连接
+\end{itemize}
+\textbf{答案：A}
+
+\item 关系规范化中的插入操作异常是指()
+\begin{itemize}
+    \item[A)] 应该插入的数据未被插入
+    \item[B)] 不该删除的数据被删除
+    \item[C)] 不该插入的数据被插入
+    \item[D)] 应该删除的数据未被删除
+\end{itemize}
+\textbf{答案：A}
+
+\item 在SELECT语句中，可以使用()子句将结果集中的数据行按一定的顺序进行排列。
+\begin{itemize}
+    \item[A)] LIMIT
+    \item[B)] ORDER BY
+    \item[C)] GROUP BY
+    \item[D)] HAVING
+\end{itemize}
+\textbf{答案：B}
+
+\item 一个关系的主码放在另外一个关系中，它被称为()。
+\begin{itemize}
+    \item[A)] 外码
+    \item[B)] 主码
+    \item[C)] 候选码
+    \item[D)] 超码
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列关系代数操作中，要求两个运算对象其属性结构完全相同的是
+\begin{itemize}
+    \item[A)] 笛卡尔积、连接
+    \item[B)] 自然连接、除法
+    \item[C)] 并、交、差
+    \item[D)] 投影、选择
+\end{itemize}
+\textbf{答案：C}
+
+\item 下面说法正确的是()。
+\begin{itemize}
+    \item[A)] 满足4范式一定满足BC范式
+    \item[B)] 满足4范式不一定满足BC范式
+    \item[C)] 满足BC范式一定满足4范式
+    \item[D)] BC范式与4范式没有任何关系
+\end{itemize}
+\textbf{答案：A}
+
+\item 在关系数据库中，关系的类型不包括()
+\begin{itemize}
+    \item[A)] 基本关系
+    \item[B)] 查询表
+    \item[C)] 视图表
+    \item[D)] 数据表
+\end{itemize}
+\textbf{答案：D} (通常分为基本表、视图、查询结果。数据表是统称)
+
+\item 下列关于ORDER BY和GROUP BY子句的差别的说法中错误的是()
+\begin{itemize}
+    \item[A)] ORDER BY是排序产生的输出.而GROUP BY是分组行...
+    \item[B)] ORDER BY任意列都可以使用
+    \item[C)] GROUP BY只可能使用选择列或表达式列
+    \item[D)] 若与聚合函数一起使用列或表达式.则ORDER BY必须使用
+\end{itemize}
+\textbf{答案：D} \\
+\textit{解析：聚合函数常与GROUP BY搭配，ORDER BY不是必须的。}
+
+\item 有关三个世界中数据的描述术语，"实体"是()。
+\begin{itemize}
+    \item[A)] 对信息世界数据信息的描述
+    \item[B)] 对现实世界数据信息的描述
+    \item[C)] 对计算机世界数据信息的描述
+    \item[D)] 对三个世界间相互联系的描述
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：现实世界叫“事物”，信息世界叫“实体”，计算机世界叫“记录/数据”。}
+
+\item ()是用户定义在关系表上的一类由事件驱动的数据库对象。
+\begin{itemize}
+    \item[A)] 非空约束
+    \item[B)] CHECK约束
+    \item[C)] 触发器
+    \item[D)] 外键
+\end{itemize}
+\textbf{答案：C}
+
+\item 要保证数据库逻辑数据的独立性，需要修改的是()
+\begin{itemize}
+    \item[A)] 逻辑模式
+    \item[B)] 模式与内模式的映像
+    \item[C)] 外模式与逻辑模式的映像
+    \item[D)] 内模式
+\end{itemize}
+\textbf{答案：C}
+
+\item 在MySQL中，当需要撤销一个用户的权限、而又不希望将该用户从系统中删除时，可以使用()语句来实现。
+\begin{itemize}
+    \item[A)] PRIVILEGES
+    \item[B)] REVOKE
+    \item[C)] GRANT OPTION FROM
+    \item[D)] DELETE
+\end{itemize}
+\textbf{答案：B}
+
+\item 消除了部分函数依赖的1NF的关系模式，必定是()。
+\begin{itemize}
+    \item[A)] 2NF
+    \item[B)] 1NF
+    \item[C)] 3NF
+    \item[D)] 4NF
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库系统中应用程序数据库的接口是()。
+\begin{itemize}
+    \item[A)] 数据库管理系统(DBMS)
+    \item[B)] 数据库集合
+    \item[C)] 操作系统(OS)
+    \item[D)] 计算机中的存储介质
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据完整性保护中的约束条件主要是指()。
+\begin{itemize}
+    \item[A)] 值的约束和结构的约束
+    \item[B)] 用户操作权限的约束
+    \item[C)] 用户口令校对
+    \item[D)] 并发控制的约束
+\end{itemize}
+\textbf{答案：A}
+
+\item 修改数据库模式的权限中，允许用户创建新的关系是
+\begin{itemize}
+    \item[A)] 索引权限
+    \item[B)] 资源权限
+    \item[C)] 修改权限 (或Create权限)
+    \item[D)] 撤销权限
+\end{itemize}
+\textbf{答案：C} (通常指CREATE权限，选项中“修改权限”最接近)
+
+\item 假设有关系R和S，在下列的关系运算中，()运算不要求："R和S具有相同的元数，且它们的对应属性取自同一个域"
+\begin{itemize}
+    \item[A)] R$\times$S
+    \item[B)] R$\cap$S
+    \item[C)] R$\cup$S
+    \item[D)] R-S
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：笛卡尔积不要求同构，并交差要求同构。}
+
+\item 概念结构设计阶段形成的模式是()
+\begin{itemize}
+    \item[A)] 概念模式 (E-R图)
+    \item[B)] 逻辑模式
+    \item[C)] 内模式
+    \item[D)] 外模式
+\end{itemize}
+\textbf{答案：A}
+
+\item 以下哪个步骤并不属于数据库设计的步骤阶段()
+\begin{itemize}
+    \item[A)] 数据库文档设计
+    \item[B)] 用户需求分析
+    \item[C)] 数据库实施
+    \item[D)] 数据库运行和维护
+\end{itemize}
+\textbf{答案：A} (文档贯穿始终，不是独立的设计阶段)
+
+\item 关系模式中各级范式之间的关系为()。
+\begin{itemize}
+    \item[A)] 3NF $\subset$ 2NF $\subset$ 1NF
+    \item[B)] ...
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：A} (高范式包含于低范式)
+
+\item 以下关于INSERT触发器的说法中错误的是()
+\begin{itemize}
+    \item[A)] INSERT触发器可在INSERT语句执行之前或之后执行
+    \item[B)] 在INSERT触发器代码内.可引用一个名为OLD...访问以前...的值
+    \item[C)] 在BEFORE INSERT触发器中.NEW中的值也可以被更新
+    \item[D)] 对于AUTO\_INCREMENT列.NEW在INSERT执行之前包含的是0值...
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：INSERT触发器中没有OLD表，只有NEW表。}
+
+\item 关系数据库规范化是为了解决关系数据库中()问题而引入的。
+\begin{itemize}
+    \item[A)] 插入异常、删除异常和数据冗余
+    \item[B)] 提高查询速度
+    \item[C)] 保证数据库的安全性和完整性
+    \item[D)] 减少数据操作的复杂性
+\end{itemize}
+\textbf{答案：A}
+
+\item 存储在计算机内、有组织的、统一管理的相关数据的集合，其英文名称是
+\begin{itemize}
+    \item[A)] Data Dictionary(DD)
+    \item[B)] Database(DB)
+    \item[C)] Database System(DBS)
+    \item[D)] Database Management System(DBMS)
+\end{itemize}
+\textbf{答案：B}
+
+\item SQL语言是关系型数据库系统典型的数据库语言，它是
+\begin{itemize}
+    \item[A)] 过程化语言
+    \item[B)] 结构化查询语言
+    \item[C)] 格式化语言
+    \item[D)] 导航式语言
+\end{itemize}
+\textbf{答案：B}
+
+\item 根据参照完整性规则，若属性F是关系S的主属性，同时又是关系R的外码，则关系R中的F的值()。
+\begin{itemize}
+    \item[A)] 可以取空值
+    \item[B)] 必须取空值
+    \item[C)] 必须取非空值
+    \item[D)] 其他三个选项答案都不对。
+\end{itemize}
+\textbf{答案：A} (外码可以为空，除非定义为NOT NULL)
+
+\item 在数据库的表定义在，限制成绩属性列的取值在0~100的范围内，属于数据的()约束。
+\begin{itemize}
+    \item[A)] 用户自定义
+    \item[B)] 实体完整性
+    \item[C)] 参照完整性
+    \item[D)] 用户操作
+\end{itemize}
+\textbf{答案：A}
+
+\item 在MySQL中，使用CREATE FUNCTION语句创建存储函数中，语法项()用于指定存储函数的参数。
+\begin{itemize}
+    \item[A)] sp\_name
+    \item[B)] func\_parameter
+    \item[C)] RETURNS type
+    \item[D)] routine\_body
+\end{itemize}
+\textbf{答案：B}
+
+\item 下列选项中，所有控件共有的属性是()。
+\begin{itemize}
+    \item[A)] 标题
+    \item[B)] 控件来源
+    \item[C)] 文本
+    \item[D)] 名称
+\end{itemize}
+\textbf{答案：D}
+
+\item 关于交叉表查询，以下说法错误的是()。
+\begin{itemize}
+    \item[A)] 交叉表查询可以将数据分为两组显示
+    \item[B)] 两组数据分别显示在表的上部和左边
+    \item[C)] 左边和上部的数据在表中的交叉点可以对表中其他数据进行求和与求平均值的运算
+    \item[D)] 表中交叉点不可以对表中另外一组数据进行求平均值和其他计算
+\end{itemize}
+\textbf{答案：D}
+
+\item 在MySQL中，可以使用()语句创建触发器。
+\begin{itemize}
+    \item[A)] CREATE TRIGGER
+    \item[B)] CREATE TABLE
+    \item[C)] CREATE CONSTRAINT
+    \item[D)] ALTER TABLE
+\end{itemize}
+\textbf{答案：A}
+
+\item 关于数据库管理系统的主要功能，说法错误的是()
+\begin{itemize}
+    \item[A)] 有数据定义的功能
+    \item[B)] 有数据操纵的功能
+    \item[C)] 不具备与其他软件的网络通信功能
+    \item[D)] 有数据库的运行管理功能
+\end{itemize}
+\textbf{答案：C} \\
+\textit{解析：现代DBMS具备网络通信功能。}
+
+\item 在数据库系统中，外模式/模式映像用于解决数据的()。
+\begin{itemize}
+    \item[A)] 逻辑独立性
+    \item[B)] 物理独立性
+    \item[C)] 结构独立性
+    \item[D)] 分布独立性
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库管理系统是()。
+\begin{itemize}
+    \item[A)] 操作系统的一部分
+    \item[B)] 在操作系统支持下的系统软件
+    \item[C)] 一种编译系统
+    \item[D)] 一种操作系统
+\end{itemize}
+\textbf{答案：B}
+
+\item 数据模型的分类中，()是描述数据在存储介质上的组织结构。
+\begin{itemize}
+    \item[A)] 物理层数据模型
+    \item[B)] 逻辑层数据模型
+    \item[C)] 网络层数据模型
+    \item[D)] 概念层数据模型
+\end{itemize}
+\textbf{答案：A}
+
+\item 关系模式的任何属性()。
+\begin{itemize}
+    \item[A)] 不可再分
+    \item[B)] 其他三个答案都不对
+    \item[C)] 可再分
+    \item[D)] 命名在该关系模式中可以不唯一
+\end{itemize}
+\textbf{答案：A}
+
+\item 在关系窗口中，双击两个表之间的连接线，会出现()。
+\begin{itemize}
+    \item[A)] 数据表分析向导
+    \item[B)] 数据关系图窗口
+    \item[C)] 连接线粗细变化
+    \item[D)] 编辑关系对话框
+\end{itemize}
+\textbf{答案：D}
+
+\item 把表和索引分开放在不同的磁盘上以提高性能是哪个阶段考虑的事项()
+\begin{itemize}
+    \item[A)] 数据库物理设计
+    \item[B)] 数据库实施
+    \item[C)] 数据库运行与维护
+    \item[D)] 需求分析
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库恢复的主要依据是()。
+\begin{itemize}
+    \item[A)] 日志文件
+    \item[B)] DBA
+    \item[C)] 基本表
+    \item[D)] 封锁协议
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库技术的三级模式中，数据的全局逻辑结构用()来描述。
+\begin{itemize}
+    \item[A)] 模式
+    \item[B)] 子模式
+    \item[C)] 用户模式
+    \item[D)] 存储模式
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库管理系统(DBMS)是()。
+\begin{itemize}
+    \item[A)] 一组系统软件
+    \item[B)] 一个完整的数据库应用系统
+    \item[C)] 一组硬件
+    \item[D)] 既有硬件，也有软件
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列关于部分函数依赖的叙述中，哪一条是正确的?()
+\begin{itemize}
+    \item[A)] 若X$\to$Y，且存在X的真子集X'，X'$\to$Y，则称Y对X部分函数依赖
+    \item[B)] ...
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：A}
+
+\item 将ER模型转换成关系模型，属于数据库的()
+\begin{itemize}
+    \item[A)] 逻辑设计
+    \item[B)] 需求分析
+    \item[C)] 概念设计
+    \item[D)] 物理设计
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列不属于需求分析阶段工作的是()
+\begin{itemize}
+    \item[A)] 建立E-R图
+    \item[B)] 分析用户活动
+    \item[C)] 建立数据流图
+    \item[D)] 建立数据字典
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：E-R图是概念设计阶段。}
+
+\item 可用于收回权限的SQL语句是
+\begin{itemize}
+    \item[A)] GRANT
+    \item[B)] ROLL
+    \item[C)] REVOKE
+    \item[D)] RETURN
+\end{itemize}
+\textbf{答案：C}
+
+\item 在SELECT语句中，通常与HAVING子语句同时使用的是()。
+\begin{itemize}
+    \item[A)] GROUP BY
+    \item[B)] ORDER BY
+    \item[C)] WHERE
+    \item[D)] 均不需要
+\end{itemize}
+\textbf{答案：A}
+
+\item DBS运行的最小逻辑工作单位是
+\begin{itemize}
+    \item[A)] 数据
+    \item[B)] 事务
+    \item[C)] 记录
+    \item[D)] 函数
+\end{itemize}
+\textbf{答案：B}
+
+\item SELECT语句的查询结果之间进行集合的交操作的运算符是
+\begin{itemize}
+    \item[A)] UNION
+    \item[B)] INTERSECT
+    \item[C)] EXISTS
+    \item[D)] JOIN
+\end{itemize}
+\textbf{答案：B}
+
+\item 描述事物的符号记录是
+\begin{itemize}
+    \item[A)] Data
+    \item[B)] DB
+    \item[C)] DBMS
+    \item[D)] DBS
+\end{itemize}
+\textbf{答案：A}
+
+\item 外模式用来描述()
+\begin{itemize}
+    \item[A)] 数据库的总体逻辑结构
+    \item[B)] 数据库的局部逻辑结构
+    \item[C)] 数据库的物理存储结构
+    \item[D)] 数据库的概念结构
+\end{itemize}
+\textbf{答案：B}
+
+\item 在DELETE触发器代码内，可以引用一个名为()的虚拟表，来访问被删除的行。
+\begin{itemize}
+    \item[A)] OLD
+    \item[B)] NEW
+    \item[C)] BEFORE
+    \item[D)] AFTER
+\end{itemize}
+\textbf{答案：A}
+
+\item SQL的视图可以提高数据的()。
+\begin{itemize}
+    \item[A)] 安全性
+    \item[B)] 完整性
+    \item[C)] 并发能力
+    \item[D)] 数据恢复能力
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列关于规范化理论的叙述中，哪一(些)条是不正确的?() ... IV.规范化理论只能应用于数据库逻辑结构设计阶段...
+\begin{itemize}
+    \item[A)] 仅V
+    \item[B)] 仅II和IV
+    \item[C)] 仅IV (题目选项可能有误，通常IV错，V对)
+    \item[D)] 仅I和II
+\end{itemize}
+\textbf{答案：(根据文档答案A，可能题目认为V错？通常V是对的“有时候会降低规范化”。若文档选A，则题目认为V不正确。但常识是IV错。此处依文档答案A)} *注：文档第253题答案为A，解析未详述。通常IV是错的，V是对的。若选A(仅V)，意味着题目认为V错。这可能是一个陷阱题或者特定教材观点。*
+
+\item 从一个数据库文件中取出满足某个条件的所有记录形成一个新的数据库文件的操作是()操作。
+\begin{itemize}
+    \item[A)] 选择
+    \item[B)] 投影
+    \item[C)] 连接
+    \item[D)] 复制
+\end{itemize}
+\textbf{答案：A}
+
+\item 在分组检索中，要去掉不满足条件的分组和不满足条件的记录，应当()
+\begin{itemize}
+    \item[A)] 先使用WHERE字句，再使用HAVING字句
+    \item[B)] 先使用HAVING字句，再使用WHERE字句
+    \item[C)] 使用HAVING字句
+    \item[D)] 使用WHERE字句
+\end{itemize}
+\textbf{答案：A}
+
+\item 以下关于RENAME USER语句的使用说法中错误的是()
+\begin{itemize}
+    \item[A)] RENAME USER语句可以修改一个或多个已经存在的MySQL用户账号
+    \item[B)] 拥有MySQL中的mysql数据库的ALTER权限.可以使用RENAME USER语句
+    \item[C)] 拥有MySQL中的mysql数据库的全局CREATE USER权限.可以使用RENAME USER语句
+    \item[D)] 倘若系统中旧账户不存在或者新账户已存在.则语句执行会出现错误
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：需要UPDATE权限或CREATE USER权限，不需要ALTER权限。}
+
+\item 数据库结构设计不包括()
+\begin{itemize}
+    \item[A)] 概念结构设计
+    \item[B)] 逻辑结构设计
+    \item[C)] 行为结构设计
+    \item[D)] 物理结构设计
+\end{itemize}
+\textbf{答案：C} \\
+\textit{解析：数据库设计包括结构设计和行为设计，结构设计包含概念、逻辑、物理。行为设计不属于结构设计。}
+
+\item 关于数据库的高共享性带来的好处，下列说法错误的是()
+\begin{itemize}
+    \item[A)] 提高了数据的独立性
+    \item[B)] 降低了数据的冗余度
+    \item[C)] 避免了数据间的不一致性
+    \item[D)] 节省了存储空间
+\end{itemize}
+\textbf{答案：A} \\
+\textit{解析：共享性本身不直接提高独立性，独立性是架构决定的。共享带来的是冗余小、一致性好、节省空间。}
+
+\item 若有关系模式R(A，B，C)，属性A，B，C之间没有任何函数依赖关系。下列叙述中哪一条是正确的?()
+\begin{itemize}
+    \item[A)] R肯定属于BCNF，但R不一定属于4NF
+    \item[B)] R肯定属于4NF
+    \item[C)] R肯定属于3NF，但R不一定属于BCNF
+    \item[D)] R肯定属于2NF，但R不一定属于3NF
+\end{itemize}
+\textbf{答案：A} (若无FD，则所有非平凡FD左边必含码，满足BCNF。但可能有MVD，故不一定4NF)
+
+\item 能够保证数据库系统中的数据具有较高的逻辑独立性的是()
+\begin{itemize}
+    \item[A)] 外模式/模式映像
+    \item[B)] 模式
+    \item[C)] 模式/内模式映像
+    \item[D)] 外模式
+\end{itemize}
+\textbf{答案：A}
+
+\item 限制表中大学生的年龄在15~28岁之间，这属于()。
+\begin{itemize}
+    \item[A)] 静态列级约束
+    \item[B)] 动态列级约束
+    \item[C)] 静态元组约束
+    \item[D)] 静态关系约束
+\end{itemize}
+\textbf{答案：A} (针对单列值的范围)
+
+\item 数据库需求分析时，数据字典的含义是()
+\begin{itemize}
+    \item[A)] 数据库中所涉及的数据流、数据项和文件等描述的集合
+    \item[B)] 数据库中所有数据的集合
+    \item[C)] 数据库所涉及到字母、字符及汉字的集合
+    \item[D)] 数据库中所涉及的属性和文件的名称集合
+\end{itemize}
+\textbf{答案：A}
+
+\item E-R图中，用菱形表示的是()
+\begin{itemize}
+    \item[A)] 域
+    \item[B)] 实体
+    \item[C)] 属性
+    \item[D)] 联系
+\end{itemize}
+\textbf{答案：D}
+
+\item 在SELECT语句中，可以使用()子句指定过滤条件。
+\begin{itemize}
+    \item[A)] FROM
+    \item[B)] WHERE
+    \item[C)] GROUP BY
+    \item[D)] ORDER BY
+\end{itemize}
+\textbf{答案：B}
+
+\item 关系模型是()。
+\begin{itemize}
+    \item[A)] 用关系表示实体及其联系
+    \item[B)] 用关系表示实体
+    \item[C)] 用关系表示联系
+    \item[D)] 用关系表示属性
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据流图是在数据库()阶段完成的。
+\begin{itemize}
+    \item[A)] 需求分析
+    \item[B)] 逻辑设计
+    \item[C)] 物理设计
+    \item[D)] 概念设计
+\end{itemize}
+\textbf{答案：A}
+
+\item 设关系R和S的结构相同，分别有m和n个元组，则R-S结果中元组个数为()
+\begin{itemize}
+    \item[A)] 小于等于m
+    \item[B)] m-n
+    \item[C)] m
+    \item[D)] 小于等于(m-n)
+\end{itemize}
+\textbf{答案：A}
+
+\item 关于参照关系和被参照关系叙述正确的是
+\begin{itemize}
+    \item[A)] 以外码相关联的两个关系，以外码作为主码的关系称为参照关系
+    \item[B)] 以外码相关联的两个关系，外码所在的关系称为被参照关系
+    \item[C)] 参照关系也称为主关系，被参照关系也称为从关系
+    \item[D)] 参照关系也称为从关系，被参照关系也称为主关系
+\end{itemize}
+\textbf{答案：D}
+
+\item 并发执行的每个事务不必关心其他事务，如同在单用户环境下执行一样，这个性质称为事务的()。
+\begin{itemize}
+    \item[A)] 隔离性
+    \item[B)] 原子性
+    \item[C)] 一致性
+    \item[D)] 持久性
+\end{itemize}
+\textbf{答案：A}
+
+\item 逻辑结构设计阶段得到的结果是()。
+\begin{itemize}
+    \item[A)] 某个DBMS所支持的数据逻辑结构
+    \item[B)] 包括存储结构和存取方法的物理结构
+    \item[C)] E-R图表示的概念模型...
+    \item[D)] 数据字典描述的数据需求
+\end{itemize}
+\textbf{答案：A}
+
+\item 候选码的属性可以有()。 (重复题)
+\begin{itemize}
+    \item[A)] 一个或多个
+    \item[B)] 0个
+    \item[C)] 一个
+    \item[D)] 多个
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库管理系统能实现对数据库中数据的查询、插入、修改和删除，这类功能称为()。
+\begin{itemize}
+    \item[A)] 数据操纵功能
+    \item[B)] 数据定义功能
+    \item[C)] 数据管理功能
+    \item[D)] 数据控制功能
+\end{itemize}
+\textbf{答案：A}
+
+\item 自然连接是构成新关系的有效方法。一般情况下，当对关系R和S使用自然连接时，要求R和S含有一个或多个共有的()
+\begin{itemize}
+    \item[A)] 属性
+    \item[B)] 元组
+    \item[C)] 行
+    \item[D)] 记录
+\end{itemize}
+\textbf{答案：A}
+
+\item 关系模型中，一个码()。
+\begin{itemize}
+    \item[A)] 可有多个或者一个其值能够唯一表示该关系模式中任何元组的属性组成
+    \item[B)] 可以由多个任意属性组成
+    \item[C)] 至多由一个属性组成
+    \item[D)] 另外三个答案都不正确
+\end{itemize}
+\textbf{答案：A}
+
+\item 下面选项中，不属于关系数据库对关系的限定的是()
+\begin{itemize}
+    \item[A)] 关系的每个属性是不可分割的
+    \item[B)] 在同一个关系模式中.属性名可以相同
+    \item[C)] 同一个关系中不允许出现候选键值完全相同的元组
+    \item[D)] 在关系中.元组的顺序可以任意交换
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：同一关系模式中属性名必须唯一。}
+
+\item 为防止因删除不存在的视图而出错，需要在DROP VIEW语句中添加关键字()。
+\begin{itemize}
+    \item[A)] RESTRICT
+    \item[B)] IF EXISTS
+    \item[C)] CASCADE
+    \item[D)] RETURN
+\end{itemize}
+\textbf{答案：B}
+
+\item 在关系代数的传统集合运算中，假定有关系R和S，运算结果为W，如果W中的元组属于R，或者属于S，则W的运算的结果是()
+\begin{itemize}
+    \item[A)] 并
+    \item[B)] 笛卡尔积
+    \item[C)] 差
+    \item[D)] 交
+\end{itemize}
+\textbf{答案：A}
+
+\item 具有数据冗余度小、数据共享以及较高数据独立性等特征的系统是()
+\begin{itemize}
+    \item[A)] 数据库系统
+    \item[B)] 文件系统
+    \item[C)] 管理系统
+    \item[D)] 高级程序
+\end{itemize}
+\textbf{答案：A}
+
+\item 关系模式中，满足2NF的模式()。
+\begin{itemize}
+    \item[A)] 必定是1NF
+    \item[B)] 可能是1NF
+    \item[C)] 必定是3NF
+    \item[D)] 必定是BCNF
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库的基本特点是()。
+\begin{itemize}
+    \item[A)] 数据可以共享，数据冗余大...
+    \item[B)] 数据可以共享，数据冗余小，数据独立性高，统一管理和控制
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：B}
+
+\item 关系规范化中的删除操作异常是指()。
+\begin{itemize}
+    \item[A)] 不该删除的数据被删除
+    \item[B)] 不该插入的数据被插入
+    \item[C)] 应该删除的数据未被删除
+    \item[D)] 应该插入的数据未被插入
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列语句中不属于SQL数据操纵功能的是()。
+\begin{itemize}
+    \item[A)] GREATE (拼写错误，应为CREATE)
+    \item[B)] UPDATE
+    \item[C)] DELETE
+    \item[D)] INSERT
+\end{itemize}
+\textbf{答案：A} (CREATE是DDL)
+
+\item 在ALTER TABLE语句中，只能修改指定列的数据类型指的是()子句。
+\begin{itemize}
+    \item[A)] CHANGE COLUMN
+    \item[B)] MODIFY COLUMN
+    \item[C)] DROP COLUMN
+    \item[D)] ADD [COLUMN]
+\end{itemize}
+\textbf{答案：B} (MODIFY仅改类型/约束，CHANGE可改名)
+
+\item MySQL的用户账号及相关信息都存储在一个名为()的MySQL数据库中。
+\begin{itemize}
+    \item[A)] mysql
+    \item[B)] user
+    \item[C)] root
+    \item[D)] admin
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库实施阶段需要完成的工作不包括()
+\begin{itemize}
+    \item[A)] 服务器分析
+    \item[B)] 数据库试运行
+    \item[C)] 应用程序设计
+    \item[D)] 加载数据
+\end{itemize}
+\textbf{答案：A} (服务器分析应在物理设计或前期)
+
+\item 规范化过程主要是为克服数据库逻辑结构中的插入异常、删除异常以及()的缺陷。
+\begin{itemize}
+    \item[A)] 冗余度大
+    \item[B)] 数据的不一致性
+    \item[C)] 结构不合理
+    \item[D)] 数据丢失
+\end{itemize}
+\textbf{答案：A}
+
+\item 在数据库中，查看表包括显示表的名称和显示表的()两种情形。
+\begin{itemize}
+    \item[A)] 内容
+    \item[B)] 数据
+    \item[C)] 结构
+    \item[D)] 符号
+\end{itemize}
+\textbf{答案：C}
+
+\item 数据库系统与文件系统的主要区别是()。
+\begin{itemize}
+    \item[A)] 文件系统不能解决数据冗余和数据独立性问题，而数据库系统可以解决
+    \item[B)] ...
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：A}
+
+\item 在关系数据库中，表中的数据是按()存储的。
+\begin{itemize}
+    \item[A)] 内容
+    \item[B)] 列
+    \item[C)] 行
+    \item[D)] 符号
+\end{itemize}
+\textbf{答案：C} (逻辑上行，物理上通常也是行存储，除非列式)
+
+\item 数据库的三层模式结构之间存在着两级映像，使得数据库系统具有较高的
+\begin{itemize}
+    \item[A)] 事务并发性
+    \item[B)] 数据可靠性
+    \item[C)] 数据独立性
+    \item[D)] 数据重用性
+\end{itemize}
+\textbf{答案：C}
+
+\item 一间宿舍可住多名学生，则实体宿舍和学生之间的联系是()。
+\begin{itemize}
+    \item[A)] 一对一
+    \item[B)] 一对多
+    \item[C)] 多对一
+    \item[D)] 多对多
+\end{itemize}
+\textbf{答案：B} (宿舍1对学生N)
+
+\item 加载数据时，不是由人工完成的是()
+\begin{itemize}
+    \item[A)] 收集
+    \item[B)] 分类
+    \item[C)] 整理
+    \item[D)] 检验和输入
+\end{itemize}
+\textbf{答案：D} (通常由程序完成)
+
+\item 数据约束是指使用数据时的特殊要求，不属于数据约束的是()
+\begin{itemize}
+    \item[A)] 概念结构设计
+    \item[B)] 数据的完整性
+    \item[C)] 响应时间
+    \item[D)] 数据恢复
+\end{itemize}
+\textbf{答案：A}
+
+\item 如果要在文本框中输入字符时达到密码显示效果，如星号(*)，应设置文本框的属性是()。
+\begin{itemize}
+    \item[A)] Text
+    \item[B)] Caption
+    \item[C)] InputMask
+    \item[D)] PasswordChar
+\end{itemize}
+\textbf{答案：D}
+
+\item 在MySQL中，可以使用()语句修改一个用户的登录口令。
+\begin{itemize}
+    \item[A)] UPDATE PASSWORD
+    \item[B)] SET PASSWORD
+    \item[C)] ALTER PASSWORD
+    \item[D)] CREATE PASSWORD
+\end{itemize}
+\textbf{答案：B}
+
+\item 在窗口中有一个标签Label0和一个命令按钮Command1... Label0.Top = Label0.Top + 20 ... 结果是()。
+\begin{itemize}
+    \item[A)] 标签向上加高
+    \item[B)] 标签向下加高
+    \item[C)] 标签向上移动
+    \item[D)] 标签向下移动
+\end{itemize}
+\textbf{答案：D} (Top增加表示向下移动)
+
+\item 使用二维表格结构表达实体及实体之间联系的数据模型是()。
+\begin{itemize}
+    \item[A)] 关系模型
+    \item[B)] 层次模型
+    \item[C)] 网状模型
+    \item[D)] 联系模型
+\end{itemize}
+\textbf{答案：A}
+
+\item 在ALTER TABLE语句中为原表添加一个索引，使用()子句。
+\begin{itemize}
+    \item[A)] ADD PRIMARY KEY
+    \item[B)] ADD FOREIGN KEY
+    \item[C)] ADD INDEX
+    \item[D)] ADD SUPER KEY
+\end{itemize}
+\textbf{答案：C}
+
+\item 数据库是在计算机系统中按照一定的数据模型组织、存储和应用的()。
+\begin{itemize}
+    \item[A)] 数据的集合
+    \item[B)] 文件的集合
+    \item[C)] 命令的集合
+    \item[D)] 程序的集合
+\end{itemize}
+\textbf{答案：A}
+
+\item 若系统在运行过程中，由于某种原因，造成系统停止运行，致使事务在执行过程中以非控制方式终止，这时内存中的信息丢失，而存储在外存上的数据未受影响，这种情况称为()
+\begin{itemize}
+    \item[A)] 系统故障
+    \item[B)] 事务故障
+    \item[C)] 介质故障
+    \item[D)] 运行故障
+\end{itemize}
+\textbf{答案：A}
+
+\item 下列关于关系的描述中，不正确的说法是()
+\begin{itemize}
+    \item[A)] 在关系中，每一行数据是可以任意交换的
+    \item[B)] 在关系中，每一列数据是可以任意交换的
+    \item[C)] 在关系中，属性是可以分解的
+    \item[D)] 在关系中，任意两个属性名是不允许重名的
+\end{itemize}
+\textbf{答案：C}
+
+\item 关系数据模型()。
+\begin{itemize}
+    \item[A)] 可以表示实体间的三种联系(1:1，1:n；n:m)
+    \item[B)] 错误
+    \item[C)] ...
+    \item[D)] ...
+\end{itemize}
+\textbf{答案：A}
+
+\end{enumerate}
+
+\section{判断题}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{481} % 接续题号
+
+\item 简述数据库的运行与维护阶段的主要工作。 (注：题目形式为判断，但内容是简答，文档答案选A正确，可能意指“是否有此阶段”或题目排版错误)
+\begin{itemize}
+    \item[A)] 正确
+    \item[B)] 错误
+\end{itemize}
+\textbf{答案：A}
+
+\item 如果一个字段要保存照片，该字段的数据类型应被定义为"图像"类型。()
+\begin{itemize}
+    \item[A)] 正确
+    \item[B)] 错误
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：通常用OLE对象或BLOB类型，没有标准的"图像"类型。}
+
+\item 完整性约束实际上是对数据施加语义约束，以便能真实反映客观世界。
+\begin{itemize}
+    \item[A)] 正确
+    \item[B)] 错误
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库的完整性就是要防止合法用户加入不合语义的数据。
+\begin{itemize}
+    \item[A)] 正确
+    \item[B)] 错误
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：完整性是防止不合语义的数据，无论用户是否合法。安全性是防止非法用户。题目表述“合法用户”缩小了范围，或者意指完整性不关心用户身份只关心数据。通常此题判错是因为完整性不仅针对合法用户，而是针对所有操作。或者题目意思是“防止...加入”，而完整性是检查。文档答案B。}
+
+\item 在SQL中主码也可以用UNIQUE声明。
+\begin{itemize}
+    \item[A)] 正确
+    \item[B)] 错误
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：主码用PRIMARY KEY，UNIQUE允许NULL且可多个，主码不允许NULL且只有一个。虽然主码隐含Unique，但不能用UNIQUE关键字替代PRIMARY KEY定义主码。}
+
+\item E-R模型的联系集也可以具有属性。
+\begin{itemize}
+    \item[A)] 正确
+    \item[B)] 错误
+\end{itemize}
+\textbf{答案：A}
+
+\item 简述第二代关系数据库系统的特点。 (同上，形式为判断)
+\begin{itemize}
+    \item[A)] 正确
+    \item[B)] 错误
+\end{itemize}
+\textbf{答案：A}
+
+\item MySQL提供的逻辑运算符有哪些?
+\begin{itemize}
+    \item[A)] 正确
+    \item[B)] 错误
+\end{itemize}
+\textbf{答案：A}
+
+\item 数据库正式投入运行，标志着数据库设计工作的结束。
+\begin{itemize}
+    \item[A)] 正确
+    \item[B)] 错误
+\end{itemize}
+\textbf{答案：B} \\
+\textit{解析：投入运行后还有运行维护阶段，设计可能需要调整。}
+
+\item 最常用的创建表的方法是使用表设计器。()
+\begin{itemize}
+    \item[A)] 正确
+    \item[B)] 错误
+\end{itemize}
+\textbf{答案：A}
+
+\end{enumerate}
+
+\end{document}

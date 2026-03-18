@@ -1,0 +1,360 @@
+\documentclass[a4paper,11pt]{ctexart}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=2.0cm, bottom=2.0cm, headsep=0.3cm, footskip=1cm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{needspace}
+\usepackage{multirow}
+
+\AtBeginDocument{\hypersetup{colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan}}
+\setlist{nosep, itemsep=0.8ex, parsep=0.1em}
+\setlist[itemize]{leftmargin=1.8em}
+\setlist[enumerate]{leftmargin=1.8em}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebg}{rgb}{0.98,0.98,0.98}
+\definecolor{tipsblue}{rgb}{0.85,0.93,1.0}
+\definecolor{highlightyellow}{rgb}{1.0,0.97,0.8}
+
+\lstdefinestyle{mystyle}{backgroundcolor=\color{codebg},commentstyle=\color{codegreen},keywordstyle=\color{magenta}\bfseries,numberstyle=\tiny\color{codegray},stringstyle=\color{codepurple},basicstyle=\ttfamily\small,breakatwhitespace=false,breaklines=true,captionpos=b,keepspaces=true,numbers=left,numbersep=6pt,showspaces=false,showstringspaces=false,showtabs=false,tabsize=2,language=Python,frame=single,framerule=0.5pt,rulecolor=\color{gray!40}}
+\lstset{style=mystyle}
+
+\newtcolorbox{problembox}[1][]{colback=white,colframe=blue!60!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=10pt,after skip=8pt}
+\newtcolorbox{solutionbox}[1][]{enhanced,breakable,colback=green!3!white,colframe=green!50!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=10pt}
+\newtcolorbox{metaphorbox}[1][]{colback=orange!5!white,colframe=orange!70!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=8pt}
+\newtcolorbox{beginnerbox}[1][]{colback=tipsblue,colframe=blue!50!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=8pt}
+\newtcolorbox{appbox}[1][]{colback=green!3!white,colframe=green!60!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=10pt}
+\newtcolorbox{keybox}[1][]{colback=highlightyellow,colframe=orange!80!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=8pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{机器学习-第2章}
+\fancyhead[L]{机器学习基本理论 · 练习题}
+\fancyfoot[C]{\thepage}
+\addtolength{\headheight}{2pt}
+
+\parskip=2pt plus 1pt minus 0.5pt
+\linespread{1.35}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+
+\title{\textbf{机器学习\\第2章\quad 机器学习基本理论}\\[0.5em]
+{\large\color{gray}——三要素、方法分类、建模流程：机器学习的"宪法"}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{beginnerbox}[本章题目导览：你将挑战哪些核心问题？]
+    本章建立机器学习的\textbf{理论框架}——弄清楚"学什么、用什么学、怎么学"的基本问题。本章 4 道题覆盖三大主题：
+    \begin{itemize}
+        \item \textbf{Q2-01（三要素辨析）}：模型、策略、算法——机器学习三要素各自负责什么？三者如何协同工作？
+        \item \textbf{Q2-02（方法分类）}：监督/无监督/强化学习的本质区别，以及生成模型 vs 判别模型的差异。
+        \item \textbf{Q2-03（建模流程）}：从数据到部署的完整流程——每一步做什么、为什么要这样排序？
+        \item \textbf{Q2-04（综合应用）}：给定一个具体场景，识别其三要素，规划建模流程，选择合适的方法类别。
+    \end{itemize}
+\end{beginnerbox}
+
+\section{第 2 章\quad 机器学习基本理论}
+
+任何机器学习问题，不管表面上看起来多复杂，都可以用三个问题来拆解：
+
+\begin{itemize}
+    \item \textbf{学什么？}（模型：用什么样的函数族来表达从输入到输出的映射）
+    \item \textbf{用什么标准评价好坏？}（策略：定义"什么叫学得好"的损失/目标函数）
+    \item \textbf{怎么找到最优解？}（算法：如何高效地在模型空间中搜索最优参数）
+\end{itemize}
+
+\begin{metaphorbox}[先建立一个总感觉：三要素就像"选手 + 裁判 + 赛制"]
+    \textbf{模型}是参赛选手——它的能力范围决定了它能解决什么问题（一个线性模型就像只能走直线的运动员）；\\
+    \textbf{策略}是裁判规则——损失函数告诉模型"你现在答得有多差"，没有裁判就不知道怎么进步；\\
+    \textbf{算法}是训练赛制——梯度下降就像每天按教练指导改进动作，直到找到最佳状态。\\
+    三者缺一不可：再好的选手没有裁判规则不知道往哪里努力，再好的赛制没有合适的选手也无从发挥。
+\end{metaphorbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q2-01\quad 机器学习三要素：模型、策略、算法]
+    \textbf{题目描述：}\\
+    机器学习方法 = 模型 + 策略 + 算法。三者共同构成了一个完整的机器学习系统。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 用一句话定义三要素，并填写下表：
+
+        \begin{center}
+        \begin{tabular}{p{2cm} p{4cm} p{4.5cm} p{2.5cm}}
+            \toprule
+            要素 & 核心问题 & 具体内容举例 & 数学表示 \\
+            \midrule
+            模型 & 用什么函数来表示从输入到输出的映射？ & \underline{\hspace{3.5cm}} & 假设空间 $\mathcal{F}$ \\[1.5em]
+            策略 & \underline{\hspace{3.5cm}} & 均方误差、交叉熵、对数损失 & \underline{\hspace{2cm}} \\[1.5em]
+            算法 & 如何求解使策略最优的模型参数？ & \underline{\hspace{3.5cm}} & 参数更新规则 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 以\textbf{线性回归}为例，具体说明三要素各是什么：
+        \begin{enumerate}[a.]
+            \item 模型：函数族是什么形式？
+            \item 策略：用什么损失函数？写出公式。
+            \item 算法：可以用哪两种方法求解最优参数？
+        \end{enumerate}
+
+        \item "假设空间"（Hypothesis Space）是什么概念？它的大小对模型能力有什么影响？假设空间过大和过小分别有什么风险？
+
+        \item 经验风险（Empirical Risk）和期望风险（Expected Risk）有什么区别？为什么最小化经验风险不等同于最小化期望风险？
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 2 章 2.1 机器学习三要素]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：损失函数和目标函数是同一个东西吗？]
+    \begin{itemize}
+        \item \textbf{损失函数（Loss Function）}：衡量\textbf{单个样本}预测值与真实值之间差距的函数，如 $L(\hat{y}, y) = (\hat{y} - y)^2$。
+        \item \textbf{代价函数（Cost Function）}：通常指\textbf{整个训练集}的平均损失，$J(\theta) = \frac{1}{n}\sum_i L(\hat{y}_i, y_i)$，是优化的直接对象。
+        \item \textbf{目标函数（Objective Function）}：最广义的叫法，可以包含正则化项等，$\text{Obj}(\theta) = J(\theta) + \lambda R(\theta)$。
+        \item 三者在很多语境下混用，但严格来说粒度不同：损失函数是样本级，代价函数是数据集级，目标函数是优化级。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 三要素填表：}
+    \begin{center}
+    \begin{tabular}{p{2cm} p{4cm} p{4.5cm} p{2.5cm}}
+        \toprule
+        要素 & 核心问题 & 具体内容举例 & 数学表示 \\
+        \midrule
+        模型 & 用什么函数映射输入到输出？ & 线性模型、决策树、神经网络 & 假设空间 $\mathcal{F}$ \\[0.8em]
+        策略 & \textbf{用什么标准衡量模型好坏？} & 均方误差、交叉熵 & \textbf{损失/目标函数 $L$} \\[0.8em]
+        算法 & 如何高效求最优参数？ & 梯度下降、牛顿法、解析解 & 参数更新规则 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 线性回归的三要素：}
+    \begin{enumerate}[a.]
+        \item \textbf{模型}：$f(x) = w^T x + b$，线性函数族，假设空间为所有可能的权重向量 $w$ 和偏置 $b$。
+        \item \textbf{策略}：均方误差（MSE）：$L(w,b) = \dfrac{1}{n}\sum_{i=1}^n (f(x_i) - y_i)^2$
+        \item \textbf{算法}：\textbf{解析解}（正规方程 $w^* = (X^TX)^{-1}X^Ty$）或\textbf{梯度下降法}（迭代更新 $w \leftarrow w - \eta\nabla_w L$）。
+    \end{enumerate}
+
+    \textbf{(3) 假设空间：}
+
+    假设空间是模型候选函数的集合——即"我们假设真实映射落在哪类函数中"。假设空间越大，模型表达能力越强，\textbf{但过大会导致过拟合}（过多候选函数，容易找到"记住训练数据"但不泛化的解）；假设空间过小，则表达能力不足，\textbf{导致欠拟合}（真实映射不在假设空间内，怎么优化都学不好）。
+
+    \textbf{(4) 经验风险 vs 期望风险：}
+
+    \begin{keybox}[两种风险的本质区别]
+        \textbf{期望风险}（真正想最小化）：模型在所有可能数据上的平均损失，$R_{\exp}(f) = E_{(x,y)\sim P}[L(f(x), y)]$，依赖未知的真实数据分布 $P$，\textbf{无法直接计算}。\\
+        \textbf{经验风险}（实际优化对象）：模型在有限训练集上的平均损失，$R_{\text{emp}}(f) = \frac{1}{n}\sum_i L(f(x_i), y_i)$，\textbf{可以计算}。\\
+        当训练数据量有限时，经验风险只是期望风险的一个估计，存在偏差——训练集可能有偏，或模型过拟合训练集后经验风险很低但期望风险很高。这就是为什么需要测试集来估计真实泛化误差。
+    \end{keybox}
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q2-02\quad 机器学习方法分类：监督/无监督/强化 + 生成/判别]
+    \textbf{题目描述：}\\
+    机器学习方法从不同维度可以分成多种类型，两个最重要的分类维度是：①是否有标签（监督/无监督/强化），②建模目标（生成模型 vs 判别模型）。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，对比监督学习、无监督学习、半监督学习、强化学习：
+
+        \begin{center}
+        \begin{tabular}{p{2.8cm} p{3cm} p{3cm} p{3.5cm}}
+            \toprule
+            类型 & 训练数据 & 学习目标 & 典型算法 \\
+            \midrule
+            监督学习 & \underline{\hspace{2.5cm}} & 学习 $f: x\to y$ & \underline{\hspace{3cm}} \\[1.2em]
+            无监督学习 & \underline{\hspace{2.5cm}} & \underline{\hspace{2.5cm}} & K-means、PCA \\[1.2em]
+            半监督学习 & \underline{\hspace{2.5cm}} & \underline{\hspace{2.5cm}} & \underline{\hspace{3cm}} \\[1.2em]
+            强化学习 & \underline{\hspace{2.5cm}} & 学习最优决策策略 & \underline{\hspace{3cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{生成模型（Generative Model）vs 判别模型（Discriminative Model）}：
+        \begin{enumerate}[a.]
+            \item 两者建模的目标概率分布分别是什么？（用 $P(y|x)$ 和 $P(x,y)$ 表示）
+            \item 朴素贝叶斯属于哪类？逻辑回归属于哪类？SVM 属于哪类？
+            \item 生成模型有什么额外能力是判别模型不具备的？
+        \end{enumerate}
+
+        \item 以下哪些描述正确？（多选，并解释错误选项的错误之处）
+        \begin{enumerate}[A.]
+            \item 深度学习一定属于监督学习
+            \item 强化学习不需要任何数据，只靠与环境交互
+            \item 无监督学习不能用于分类任务
+            \item 半监督学习通常在有标签数据少、无标签数据多时使用
+            \item 所有监督学习都需要大量标注数据才能工作
+        \end{enumerate}
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 2 章 2.2 机器学习方法分类]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 方法分类对比：}
+    \begin{center}
+    \begin{tabular}{p{2.8cm} p{3cm} p{3cm} p{3.5cm}}
+        \toprule
+        类型 & 训练数据 & 学习目标 & 典型算法 \\
+        \midrule
+        监督学习 & 带标签 $\{(x_i,y_i)\}$ & 学习 $f:x\to y$ & 线性回归、SVM、神经网络 \\[0.8em]
+        无监督学习 & 无标签 $\{x_i\}$ & 发现数据内在结构 & K-means、PCA、DBSCAN \\[0.8em]
+        半监督学习 & 少量有标签 + 大量无标签 & 利用无标签数据辅助监督学习 & Label Propagation、自训练 \\[0.8em]
+        强化学习 & 环境交互的奖励信号 & 学习最优决策策略 & Q-learning、PPO、AlphaGo \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 生成模型 vs 判别模型：}
+    \begin{enumerate}[a.]
+        \item 生成模型建模\textbf{联合分布} $P(x, y)$（或类条件分布 $P(x|y)$），通过贝叶斯定理推导 $P(y|x)$；判别模型直接建模\textbf{条件分布} $P(y|x)$。
+        \item 朴素贝叶斯→\textbf{生成模型}；逻辑回归→\textbf{判别模型}；SVM→\textbf{判别模型}（直接找分界面）。
+        \item 生成模型因为建模了 $P(x)$，可以\textbf{生成新样本}（如 GAN、VAE 生成图片）；还可以处理缺失数据（利用联合分布填补），以及异常检测（低概率 $P(x)$ 的样本是异常）。判别模型只能做分类/回归，不具备这些能力。
+    \end{enumerate}
+
+    \textbf{(3) 正确/错误分析：}
+    \begin{itemize}
+        \item \textbf{A——错误}：深度学习可以是无监督（如自编码器）、半监督（如对比学习）或强化学习（如 DQN），不仅限于监督学习。
+        \item \textbf{B——部分正确但表述不精确}：强化学习不需要预先标注的数据集，但其"经验数据"来自智能体与环境的交互（奖励信号本身就是一种反馈数据）。
+        \item \textbf{C——错误}：无监督学习可以辅助分类——先聚类，再给每个簇打标签，这是一种"先无监督后有监督"的半流程。
+        \item \textbf{D——正确}：半监督学习正是为"标注稀缺"场景设计的。
+        \item \textbf{E——错误}：Few-shot learning、零样本学习等方法可以用极少量标注数据完成分类任务。
+    \end{itemize}
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q2-03\quad 建模流程：从数据到部署的完整 Pipeline]
+    \textbf{题目描述：}\\
+    一个完整的机器学习项目不只是"跑一个模型"，而是包含多个有严格顺序要求的步骤。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 将下列步骤按正确顺序排列，并简要说明每步的目的：
+
+        \textit{（乱序列表）}模型部署与监控 / 数据收集与清洗 / 模型训练 / 问题定义 / 特征工程 / 模型评估与选择 / 数据集划分 / 超参数调优
+
+        \item "数据集划分"步骤中，通常将数据分为训练集、验证集、测试集三部分。
+        \begin{enumerate}[a.]
+            \item 三者各自的作用是什么？
+            \item 为什么不能用测试集来调参？用测试集调参会导致什么问题？
+            \item 典型的三部分比例是多少？（如 70/15/15 等，可以有多种合理答案）
+        \end{enumerate}
+
+        \item 特征工程在整个流程中处于什么位置？它的主要工作内容有哪些？（列举 3 个以上）
+
+        \item 为什么说"垃圾进，垃圾出"（Garbage In, Garbage Out）？数据质量对最终模型有什么决定性影响？
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 2 章 2.3 建模流程]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 正确顺序：}
+
+    \textbf{①问题定义 → ②数据收集与清洗 → ③数据集划分 → ④特征工程 → ⑤模型训练 → ⑥模型评估与选择 → ⑦超参数调优 → ⑧模型部署与监控}
+
+    各步目的：
+    \begin{itemize}
+        \item \textbf{问题定义}：明确任务类型（分类/回归？）、评估指标、约束条件（延迟要求、可解释性需求）。
+        \item \textbf{数据收集与清洗}：获取原始数据，处理缺失值、异常值、重复数据，保证数据质量。
+        \item \textbf{数据集划分}：在任何特征处理之前先划分，防止信息泄漏。
+        \item \textbf{特征工程}：在训练集上 fit 变换器，对训练/验证/测试集做 transform，提取有效特征。
+        \item \textbf{模型训练}：用训练集拟合模型参数。
+        \item \textbf{模型评估与选择}：用验证集比较不同模型的性能，选出最佳候选。
+        \item \textbf{超参数调优}：用网格搜索/贝叶斯优化等方法在验证集上调整超参数。
+        \item \textbf{部署与监控}：将模型上线服务，持续监控线上性能（数据漂移检测）。
+    \end{itemize}
+
+    \textbf{(2) 数据集划分：}
+    \begin{enumerate}[a.]
+        \item 训练集：拟合模型参数；验证集：调整超参数、进行模型选择；测试集：最终评估，模拟真实部署效果，\textbf{只用一次}。
+        \item 用测试集调参相当于将测试集变成了"另一个验证集"，模型间接地"见过"测试集，导致对真实泛化能力的估计偏乐观（信息泄漏/数据泄露）。
+        \item 典型比例：数据量大时 80/10/10 或 70/15/15；数据量小时可用 k 折交叉验证替代固定验证集。
+    \end{enumerate}
+
+    \textbf{(3) 特征工程位置与内容：}
+
+    特征工程在数据划分\textbf{之后}、模型训练\textbf{之前}进行（且必须先在训练集上 fit，再 transform 所有集合，防止测试集信息泄漏）。主要内容：缺失值填充、异常值处理、归一化/标准化、类别编码（One-hot/Label Encoding）、特征选择（过滤/包裹/嵌入法）、特征构造（交叉特征、多项式特征）、降维（PCA）。
+
+    \textbf{(4) "Garbage In, Garbage Out"：}
+
+    模型只能从数据中学习存在的模式，数据本身的偏差（噪声、错误标注、采样偏差）会被模型"学进去"并放大。再好的算法也无法从错误数据中学到正确规律。实践中数据清洗和特征工程通常占据整个项目 60--80\% 的时间，是决定最终效果的最关键环节。
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q2-04\quad 综合应用：识别三要素，规划建模流程]
+    \textbf{题目描述：}\\
+    某互联网公司想构建一个模型，根据用户在 App 上的行为数据（浏览时长、点击次数、搜索关键词数量、设备类型等 20 个特征），\textbf{预测用户次日是否会流失}（不再使用 App）。历史数据有 50 万条记录，其中已有人工标注的"是否流失"标签，流失率约为 5\%。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 识别该任务的\textbf{三要素}：
+        \begin{enumerate}[a.]
+            \item 模型：可以选用哪类模型？（至少列出两种候选）
+            \item 策略：适合用什么损失函数？（注意：流失率只有 5\%，类别极不平衡）
+            \item 算法：如果选用逻辑回归，求解参数的算法是什么？
+        \end{enumerate}
+        \item 该任务属于哪种机器学习类型？（监督/无监督/强化，分类/回归？）
+        \item 5\% 的流失率意味着数据严重\textbf{类别不平衡}。列出至少两种处理不平衡数据的策略。
+        \item 规划完整的建模流程（列出关键步骤，每步一句话说明）。
+        \item 如果公司同时有另一批\textbf{没有流失标注的}用户行为数据（500 万条），是否可以利用起来？如何利用？
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 2 章 2.1--2.3]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 三要素识别：}
+    \begin{enumerate}[a.]
+        \item \textbf{模型候选}：逻辑回归（可解释性好，适合初期基线）；XGBoost/随机森林（处理非线性关系，效果通常更好）；深度神经网络（数据量足够时可以尝试）。
+        \item \textbf{策略}：基础可用\textbf{对数损失（交叉熵）}，但针对类别不平衡应使用\textbf{加权交叉熵}（给少数类流失样本更高权重），或使用 Focal Loss 重点关注难分类样本。评估指标推荐 \textbf{AUC-ROC 或 F1 分数}（准确率在不平衡时会误导）。
+        \item \textbf{算法}：逻辑回归使用\textbf{梯度下降法}（或 L-BFGS 拟牛顿法）最小化对数损失。
+    \end{enumerate}
+
+    \textbf{(2) 任务类型：监督学习——二分类}（有标签，输出"是否流失"两个类别）。
+
+    \textbf{(3) 处理类别不平衡的策略：}
+    \begin{itemize}
+        \item \textbf{过采样}：对少数类（流失用户）进行重复采样或合成新样本（SMOTE 算法）；
+        \item \textbf{欠采样}：对多数类（未流失用户）随机删除部分样本，使类别比例接近平衡；
+        \item \textbf{代价敏感学习}：设置 \texttt{class\_weight='balanced'} 参数，给少数类赋予更高的误分类代价；
+        \item \textbf{选择合适的评估指标}：放弃准确率，改用 F1、AUC-ROC、PR 曲线下面积。
+    \end{itemize}
+
+    \textbf{(4) 完整建模流程：}
+
+    ①问题定义（预测流失，评估指标选 AUC）→ ②数据探索与清洗（处理缺失值、异常行为）→ ③数据集划分（按时间切分，避免未来数据泄漏）→ ④特征工程（行为特征标准化，构造趋势特征）→ ⑤处理不平衡（SMOTE 过采样）→ ⑥模型训练（从逻辑回归基线开始）→ ⑦验证集调参（网格搜索超参数）→ ⑧测试集最终评估（一次性报告 AUC）→ ⑨部署与监控（监控模型分数分布，检测数据漂移）。
+
+    \textbf{(5) 利用无标注数据：}
+
+    可以采用\textbf{半监督学习}策略：用 50 万有标注数据训练初始模型，用该模型对 500 万无标注数据打伪标签（高置信度的预测），将伪标签数据加入训练集重新训练（自训练/Self-training）。还可以用无标注数据\textbf{预训练特征提取器}（如用无监督方法学习行为序列的嵌入表示），再用有标注数据微调分类头。
+\end{solutionbox}
+
+\section{本章小结}
+\begin{itemize}
+    \item \textbf{三要素框架}：任何 ML 问题 = 模型（学什么）+ 策略（评价标准）+ 算法（怎么优化），三者明确后问题就被结构化了。
+    \item \textbf{方法分类的两个维度}：有无标签（监督/无监督/强化）× 建模目标（生成/判别），四象限定位解决方案。
+    \item \textbf{建模流程的顺序很重要}：数据划分必须在特征工程之前；测试集只用一次；超参数调优用验证集而非测试集。
+    \item \textbf{数据质量决定上限}：再好的算法无法从差数据中学到好模型，数据清洗值得投入大量精力。
+\end{itemize}
+\end{document}

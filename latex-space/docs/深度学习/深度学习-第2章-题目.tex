@@ -1,0 +1,901 @@
+\documentclass[a4paper,11pt]{ctexart}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=2.0cm, bottom=2.0cm, headsep=0.3cm, footskip=1cm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{needspace}
+\usepackage{multirow}
+
+\AtBeginDocument{
+  \hypersetup{colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan}
+}
+
+\setlist{nosep, itemsep=0.8ex, parsep=0.1em}
+\setlist[itemize]{leftmargin=1.8em}
+\setlist[enumerate]{leftmargin=1.8em}
+
+% ===== 颜色定义 =====
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebg}{rgb}{0.98,0.98,0.98}
+\definecolor{tipsblue}{rgb}{0.85,0.93,1.0}
+\definecolor{highlightyellow}{rgb}{1.0,0.97,0.8}
+
+% ===== 代码块样式 =====
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=6pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=Python,
+    frame=single,
+    framerule=0.5pt,
+    rulecolor=\color{gray!40}
+}
+\lstset{style=mystyle}
+
+% ===== 彩色框 =====
+\newtcolorbox{problembox}[1][]{
+    colback=white,
+    colframe=blue!60!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=10pt, after skip=8pt
+}
+
+\newtcolorbox{solutionbox}[1][]{
+    enhanced, breakable,
+    colback=green!3!white,
+    colframe=green!50!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=10pt
+}
+
+\newtcolorbox{metaphorbox}[1][]{
+    colback=orange!5!white,
+    colframe=orange!70!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+\newtcolorbox{beginnerbox}[1][]{
+    colback=tipsblue,
+    colframe=blue!50!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+\newtcolorbox{appbox}[1][]{
+    colback=green!3!white,
+    colframe=green!60!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=10pt
+}
+
+\newtcolorbox{keybox}[1][]{
+    colback=highlightyellow,
+    colframe=orange!80!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+% ===== 页眉页脚 =====
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{深度学习-第2章}
+\fancyhead[L]{神经网络基础 · 练习题}
+\fancyfoot[C]{\thepage}
+\addtolength{\headheight}{2pt}
+
+\parskip=2pt plus 1pt minus 0.5pt
+\linespread{1.35}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+
+\title{\textbf{深度学习\\第2章\quad 神经网络基础}\\[0.5em]
+{\large\color{gray}——从感知机到多层网络，把神经网络的"骨架"真正搞清楚}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% ===== 章节导读 =====
+\begin{beginnerbox}[本章题目导览：你将挑战哪些核心问题？]
+    神经网络看起来很神秘，但拆开来看，不过是一堆"加权求和 + 激活函数"的重复叠加。本章 6 道题从感知机出发，一步步搭出完整的多层神经网络，并实现手写数字识别：
+
+    \begin{itemize}
+        \item \textbf{Q2-01（辨析填空）}：感知机 vs 神经网络——感知机是什么？它和现代神经网络的本质区别在哪？激活函数为什么是从感知机到神经网络的关键一步？
+        \item \textbf{Q2-02（计算题）}：激活函数数值计算——给定输入，分别计算 Sigmoid、Tanh、ReLU、Softmax 的输出，感受各函数的"数值行为"。
+        \item \textbf{Q2-03（对比分析）}：六种激活函数全面对比——从公式、值域、梯度特性、适用场景全方位梳理，建立激活函数选择的系统认知。
+        \item \textbf{Q2-04（计算题）}：三层神经网络前向传播手动推导——给定权重矩阵和输入，手算各层的加权求和与激活输出，追踪数据流动的完整路径。
+        \item \textbf{Q2-05（代码阅读）}：神经网络代码追踪——阅读一段三层神经网络的 NumPy 实现，逐行分析形状变化，补全关键缺失步骤。
+        \item \textbf{Q2-06（综合应用）}：手写数字识别全流程——MNIST 数据集加载、前向推理、Softmax 输出解读，理解从像素到预测类别的完整过程。
+    \end{itemize}
+\end{beginnerbox}
+
+\section{第 2 章\quad 神经网络基础}
+
+第1章我们认识了感知机——一个"加权求和，超过阈值就输出1，否则输出0"的简单模型。它能解决线性可分问题，但一遇到 XOR 这类非线性问题就彻底无能为力。
+
+神经网络解决了这个问题，靠的就是两个关键升级：
+
+\begin{itemize}
+    \item \textbf{激活函数}：用平滑的非线性函数（Sigmoid、ReLU……）替换硬性的阶跃函数，让网络有能力拟合任意复杂的非线性关系；
+    \item \textbf{多层叠加}：一层"加权求和 + 激活"的输出作为下一层的输入，层层堆叠，表达能力随层数指数级增长。
+\end{itemize}
+
+\textbf{理论上，一个足够宽的两层神经网络可以逼近任意连续函数}（万能近似定理）——这就是神经网络强大的根本原因。
+
+\begin{metaphorbox}[先建立一个总感觉：神经网络像什么？]
+    \textbf{把神经网络比作一条有多道工序的加工流水线。}
+
+    \begin{itemize}
+        \item \textbf{每道工序（每一层）} = 接收上一道工序的半成品（上一层的输出），做一次线性变换（加权求和），再做一次非线性处理（激活函数），把结果传给下一道工序；
+        \item \textbf{激活函数} = 工序中的"成型模具"：没有它，每道工序都只是线性拉伸，叠多少道都等价于一道——有了它，每层都能引入新的"形状变化"，表达能力才真正随层数增长；
+        \item \textbf{权重} = 每道工序的操作参数：训练就是不断调整这些参数，让流水线最终输出最接近期望的产品。
+    \end{itemize}
+\end{metaphorbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q2-01\quad 感知机 vs 神经网络：从阶跃到平滑]
+    \textbf{题目描述：}\\
+    文档第 2.1 节回顾了感知机，并指出神经网络在此基础上的关键演进。理解这个演进，才能真正明白激活函数"为什么必须存在"。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，对比感知机与神经网络的核心差异：
+
+        \begin{center}
+        \begin{tabular}{p{3.0cm} p{4.5cm} p{4.5cm}}
+            \toprule
+            & \textbf{感知机} & \textbf{神经网络（多层）} \\
+            \midrule
+            激活函数 & 阶跃函数（输出 0 或 1） & \underline{\hspace{4.0cm}} \\[1.2em]
+            激活函数是否可微 & \underline{\hspace{4.0cm}} & 几乎处处可微（支持梯度下降） \\[1.2em]
+            能否解决非线性问题 & 单层不能，多层\underline{\hspace{1.8cm}} & \underline{\hspace{4.0cm}} \\[1.2em]
+            参数学习方式 & 感知机学习规则（硬更新） & \underline{\hspace{4.0cm}} \\[1.2em]
+            典型应用 & \underline{\hspace{4.0cm}} & 图像分类、NLP、语音识别等 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{激活函数为什么不能用阶跃函数（在神经网络中）？}从可微性和梯度下降的角度解释。
+
+        \item \textbf{多层线性网络的局限性}：假设一个三层网络，每层都只做线性变换（无激活函数）：
+        \[
+        y = W_3 (W_2 (W_1 x))
+        \]
+        证明这等价于单层线性变换 $y = W x$，并说明这意味着什么。
+
+        \item \textbf{偏置项 $b$ 的几何含义}：在 $z = Wx + b$ 中，偏置 $b$ 的作用是什么？如果去掉偏置，网络的表达能力会受到什么限制？（提示：从决策边界是否过原点的角度思考）
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 2 章 2.1 神经网络的构成]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：感知机和神经网络，差在哪一步？]
+    \begin{itemize}
+        \item \textbf{感知机的激活函数}：阶跃函数——输入大于阈值输出1，否则输出0。这个函数在阈值处不可微（导数无意义），其余地方导数为0，\textbf{梯度处处为零或无意义，无法用梯度下降学习}。感知机只能用专门的"感知机学习规则"，且只适用于线性可分问题。
+        \item \textbf{神经网络的激活函数}：Sigmoid、ReLU 等平滑（或分段线性）函数，在绝大多数点可微，梯度有意义，反向传播能正常传递信号。
+        \item \textbf{核心结论}：从感知机到神经网络，\textbf{最关键的一步就是把阶跃函数换成平滑的非线性激活函数}。这一步让梯度下降成为可能，整个深度学习的大厦才能建立起来。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 对比表填写：}
+
+    \begin{center}
+    \begin{tabular}{p{3.0cm} p{4.2cm} p{4.2cm}}
+        \toprule
+        & \textbf{感知机} & \textbf{神经网络} \\
+        \midrule
+        激活函数 & 阶跃函数（0或1） & Sigmoid、ReLU 等平滑非线性函数 \\[0.8em]
+        是否可微 & 不可微（阈值处）/导数为0 & 几乎处处可微 \\[0.8em]
+        非线性问题 & 单层不能，多层理论上能（但无法有效学习） & 多层可以，配合梯度下降高效学习 \\[0.8em]
+        参数学习 & 感知机学习规则（错误驱动） & 反向传播 + 梯度下降 \\[0.8em]
+        典型应用 & 简单线性分类 & 图像、语音、NLP 等复杂任务 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 阶跃函数不能用于神经网络的原因：}
+
+    梯度下降需要计算损失对参数的偏导数，并将梯度通过激活函数反向传播。阶跃函数在阈值处不可微，在其余处导数为0——无论上游传来多大的梯度，经过阶跃函数后都变为0，底层参数永远得不到更新信号，\textbf{反向传播完全失效}。
+
+    \textbf{(3) 多层线性网络等价于单层：}
+
+    由矩阵乘法的结合律：
+    \[
+    y = W_3(W_2(W_1 x)) = (W_3 W_2 W_1)x = Wx, \quad W = W_3 W_2 W_1
+    \]
+    三个矩阵相乘仍是一个矩阵，整个"三层网络"等价于一个单层线性变换。无论叠多少层，只要没有非线性激活函数，\textbf{表达能力永远只有一个线性函数}，无法拟合任何非线性关系——增加层数毫无意义。
+
+    \textbf{(4) 偏置 $b$ 的几何含义：}
+
+    在二维情形，$z = w_1x_1 + w_2x_2 + b = 0$ 是决策边界。无偏置（$b=0$）时，决策边界\textbf{必须过原点}，极大限制了网络能拟合的分类边界的位置。加入偏置后，决策边界可以平移到任意位置，网络可以拟合任意位置的分类面，表达能力显著提升。偏置可以理解为"激活函数的偏移量"——控制神经元在什么水平的输入下才会被激活。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q2-02\quad 激活函数数值计算]
+    \textbf{题目描述：}\\
+    文档第 2.2 节详细介绍了各种激活函数。把激活函数的公式"算出来"，比死记公式理解深得多——你会直接感受到每种函数的"数值行为"。
+
+    \vspace{0.3cm}
+    对输入 $x = 2.0$，分别计算各激活函数的输出（结果保留四位小数）：
+
+    \vspace{0.3cm}
+    对输入向量 $\mathbf{z} = [3.0,\ 1.0,\ 0.5,\ -1.0]$（用于 Softmax）：
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{Sigmoid 函数}：$\sigma(x) = \dfrac{1}{1+e^{-x}}$，计算 $\sigma(2.0)$。
+
+        \item \textbf{Tanh 函数}：$\tanh(x) = \dfrac{e^x - e^{-x}}{e^x + e^{-x}}$，计算 $\tanh(2.0)$（可使用 $e^2 \approx 7.389$）。
+
+        \item \textbf{ReLU 函数}：$\text{ReLU}(x) = \max(0, x)$，计算 $\text{ReLU}(2.0)$ 和 $\text{ReLU}(-2.0)$。
+
+        \item \textbf{Softmax 函数}：$p_k = \dfrac{e^{z_k}}{\sum_j e^{z_j}}$，对输入 $\mathbf{z} = [3.0,\ 1.0,\ 0.5,\ -1.0]$ 计算 Softmax 输出（结果保留三位小数），并验证各概率之和为1。
+
+        \item \textbf{Softmax 的数值稳定性技巧}：直接计算 $e^{3.0},\ldots,e^{-1.0}$ 没问题，但若 $\mathbf{z} = [1000,\ 999,\ 998]$，直接算 $e^{1000}$ 会数值溢出。标准的解决方案是：
+        \[
+        p_k = \frac{e^{z_k - z_{\max}}}{\sum_j e^{z_j - z_{\max}}}
+        \]
+        证明这个变换不改变 Softmax 的结果，并对 $\mathbf{z} = [1000,\ 999,\ 998]$ 用此公式计算 Softmax（结果保留三位小数）。
+
+        \item 观察规律：Sigmoid 和 Tanh 的输出值域分别是什么？ReLU 的输出值域呢？Softmax 的输出有什么约束？
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 2 章 2.2 激活函数]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：Softmax 为什么总用在最后一层？]
+    \begin{itemize}
+        \item \textbf{Softmax 把任意实数变成概率分布}：无论输入（logits）是正是负、多大多小，Softmax 的输出总是（1）每个值在 $(0,1)$ 之间，（2）所有值加起来等于1——这正是概率分布的定义。
+        \item \textbf{为什么只在输出层用}：Softmax 会把每个神经元的输出和其他神经元\textbf{耦合}在一起（分母是所有输出的指数和），一个值变化会影响所有输出的值。在隐藏层使用 Softmax 会导致计算复杂且梯度难以传播，不如 ReLU 简洁高效。
+        \item \textbf{Softmax 配合交叉熵}：输出层 Softmax + 交叉熵损失是多分类任务的"黄金组合"，梯度简洁（$y_k - t_k$），数值稳定（合并计算）。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) Sigmoid}（$e^{-2} \approx 0.1353$）：
+    \[
+    \sigma(2.0) = \frac{1}{1+e^{-2}} = \frac{1}{1+0.1353} = \frac{1}{1.1353} \approx \boxed{0.8808}
+    \]
+
+    \textbf{(2) Tanh}（$e^2 \approx 7.389,\ e^{-2} \approx 0.1353$）：
+    \[
+    \tanh(2.0) = \frac{7.389 - 0.1353}{7.389 + 0.1353} = \frac{7.2537}{7.5243} \approx \boxed{0.9640}
+    \]
+
+    \textbf{(3) ReLU}：
+    \[
+    \text{ReLU}(2.0) = \max(0, 2.0) = \boxed{2.0}
+    \]
+    \[
+    \text{ReLU}(-2.0) = \max(0, -2.0) = \boxed{0.0}
+    \]
+
+    \textbf{(4) Softmax}（$\mathbf{z} = [3.0, 1.0, 0.5, -1.0]$）：
+
+    $e^{3.0}\approx20.086,\ e^{1.0}\approx2.718,\ e^{0.5}\approx1.649,\ e^{-1.0}\approx0.368$
+
+    总和 $S = 20.086 + 2.718 + 1.649 + 0.368 = 24.821$
+
+    \[
+    \mathbf{p} = \left[\frac{20.086}{24.821},\ \frac{2.718}{24.821},\ \frac{1.649}{24.821},\ \frac{0.368}{24.821}\right]
+    \approx \boxed{[0.809,\ 0.109,\ 0.066,\ 0.015]}
+    \]
+
+    验证：$0.809+0.109+0.066+0.015 = 0.999 \approx 1$（舍入误差）\checkmark
+
+    \textbf{(5) 数值稳定性证明}：
+
+    设 $c = z_{\max}$，则：
+    \[
+    \frac{e^{z_k - c}}{\sum_j e^{z_j - c}} = \frac{e^{z_k}/e^c}{\sum_j e^{z_j}/e^c} = \frac{e^{z_k}}{\sum_j e^{z_j}}
+    \]
+    分子分母同除以 $e^c$，结果不变。
+
+    对 $\mathbf{z}=[1000,999,998]$，$z_{\max}=1000$，减去后得 $[0,-1,-2]$：
+    \[
+    e^0=1,\ e^{-1}\approx0.368,\ e^{-2}\approx0.135;\quad S=1.503
+    \]
+    \[
+    \mathbf{p} \approx \boxed{[0.665,\ 0.245,\ 0.090]}
+    \]
+
+    \textbf{(6) 值域总结：}
+
+    \begin{center}
+    \begin{tabular}{lll}
+        \toprule
+        激活函数 & 值域 & 约束 \\
+        \midrule
+        Sigmoid & $(0, 1)$ & 输出为正数，非零均值 \\
+        Tanh & $(-1, 1)$ & 输出零均值，对称 \\
+        ReLU & $[0, +\infty)$ & 非负，无上界 \\
+        Softmax & $(0,1)$ 且和为1 & 构成概率分布 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q2-03\quad 六种激活函数全面对比与选择指南]
+    \textbf{题目描述：}\\
+    文档第 2.2 节介绍了阶跃函数、Sigmoid、Tanh、ReLU、Softmax 及其他常见激活函数。激活函数的选择直接影响网络的训练速度和性能，需要系统梳理。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，全面对比六种激活函数：
+
+        \begin{center}
+        \begin{tabular}{p{1.8cm} p{3.2cm} p{1.5cm} p{2.0cm} p{3.0cm}}
+            \toprule
+            函数 & 公式 & 值域 & 梯度特性 & 典型使用位置 \\
+            \midrule
+            阶跃函数 & $\mathbb{1}[x \geq 0]$ & $\{0,1\}$ & \underline{\hspace{1.5cm}} & 感知机（不用于NN） \\[1.2em]
+            Sigmoid & $\dfrac{1}{1+e^{-x}}$ & \underline{\hspace{1.5cm}} & 最大值0.25，饱和区趋0 & \underline{\hspace{2.5cm}} \\[1.5em]
+            Tanh & $\dfrac{e^x-e^{-x}}{e^x+e^{-x}}$ & $(-1,1)$ & \underline{\hspace{1.5cm}} & \underline{\hspace{2.5cm}} \\[1.5em]
+            ReLU & $\max(0,x)$ & \underline{\hspace{1.5cm}} & \underline{\hspace{1.5cm}} & \underline{\hspace{2.5cm}} \\[1.2em]
+            Leaky ReLU & $\begin{cases}x & x>0\\ \alpha x & x\leq0\end{cases}$ & \underline{\hspace{1.5cm}} & \underline{\hspace{1.5cm}} & 解决死亡ReLU问题 \\[1.5em]
+            Softmax & $e^{z_k}/\sum e^{z_j}$ & \underline{\hspace{1.5cm}} & \underline{\hspace{1.5cm}} & \underline{\hspace{2.5cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{"死亡 ReLU"问题}：在什么情况下 ReLU 神经元会"死亡"（永久输出0）？Leaky ReLU 如何解决这个问题？两者在反向传播时有什么区别？
+
+        \item \textbf{Tanh 与 Sigmoid 的关系}：可以证明 $\tanh(x) = 2\sigma(2x) - 1$。从这个关系出发，解释为什么 Tanh 通常比 Sigmoid 更适合隐藏层（从"零均值"角度分析）。
+
+        \item \textbf{激活函数选择决策树}：根据以下场景，分别推荐最合适的激活函数并说明理由：
+        \begin{enumerate}[a.]
+            \item 多分类任务的输出层（10个类别）；
+            \item 二分类任务的输出层；
+            \item 深层网络（50层）的隐藏层；
+            \item 回归任务的输出层（预测连续值）；
+            \item 输出需要为零均值的隐藏层（如 RNN 中的隐藏状态）。
+        \end{enumerate}
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 2 章 2.2 激活函数 / 2.2.8 如何选择激活函数]}}
+\end{problembox}
+
+\begin{metaphorbox}[生活比喻：六种激活函数像六种"开关"]
+    \begin{itemize}
+        \item \textbf{阶跃函数} = 硬开关：要么全开（1），要么全关（0），没有中间状态；切换瞬间导数无穷大，其余时刻导数为零——没法用梯度学习；
+        \item \textbf{Sigmoid} = 调光旋钮（0到1）：从全暗到全亮平滑过渡，但旋到两端时旋钮很难转动（饱和区梯度极小）；
+        \item \textbf{Tanh} = 双向调光旋钮（-1到1）：比 Sigmoid 对称，"中立态"在0而不是0.5，更适合需要正负输出的场景；
+        \item \textbf{ReLU} = 单向阀门：负压完全截断（输出0），正压原样通过——简单、快，但一旦阀门被负压"卡死"就再也开不了（死亡ReLU）；
+        \item \textbf{Leaky ReLU} = 带小泄漏的单向阀：负压方向有一点点泄漏（$\alpha x$），防止阀门被永久卡死；
+        \item \textbf{Softmax} = 投票系统：把所有候选人的"得票数"（logits）转换成百分比（概率），所有人的占比加起来等于100\%。
+    \end{itemize}
+\end{metaphorbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 六种激活函数对比表：}
+
+    \begin{center}
+    \begin{tabular}{p{1.8cm} p{3.0cm} p{1.5cm} p{2.2cm} p{2.8cm}}
+        \toprule
+        函数 & 公式 & 值域 & 梯度特性 & 使用位置 \\
+        \midrule
+        阶跃 & $\mathbb{1}[x\geq0]$ & $\{0,1\}$ & 不可微/恒为0 & 感知机 \\[0.8em]
+        Sigmoid & $1/(1+e^{-x})$ & $(0,1)$ & 最大0.25，饱和趋0 & 二分类输出层 \\[0.8em]
+        Tanh & $(e^x-e^{-x})/(e^x+e^{-x})$ & $(-1,1)$ & 最大1，饱和趋0 & RNN隐藏层 \\[0.8em]
+        ReLU & $\max(0,x)$ & $[0,+\infty)$ & 正区域恒1，负区域恒0 & 深层网络隐藏层 \\[0.8em]
+        Leaky ReLU & 见公式 & $(-\infty,+\infty)$ & 正区域1，负区域$\alpha$ & 替代ReLU，防死亡 \\[0.8em]
+        Softmax & $e^{z_k}/\sum e^{z_j}$ & $(0,1)$且和为1 & 与输出层CE合并 & 多分类输出层 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 死亡 ReLU 与 Leaky ReLU：}
+
+    当一个神经元的输入\textbf{永远为负}时（可能因为学习率过大导致权重大幅更新后落入负区域），ReLU 输出恒为0，梯度恒为0，该神经元\textbf{永远无法再通过梯度下降更新}——"死亡"了。
+
+    Leaky ReLU 在负值区域保留了一个小斜率 $\alpha$（通常取0.01），使负输入仍有非零输出和非零梯度（大小为 $\alpha$），神经元不会被永久关闭。
+
+    反向传播区别：ReLU 在 $x\leq0$ 处梯度为0；Leaky ReLU 在 $x\leq0$ 处梯度为 $\alpha > 0$，梯度信号仍可传递。
+
+    \textbf{(3) Tanh 比 Sigmoid 更适合隐藏层：}
+
+    Sigmoid 输出在 $(0,1)$ 之间，均值约为0.5（非零均值）。当使用 Sigmoid 作为隐藏层时，下一层的输入均值偏正，导致权重梯度总是朝同一方向（正方向或负方向），更新效率低（"之字形"震荡）。
+
+    Tanh 输出在 $(-1,1)$ 之间，\textbf{零均值对称}，下一层的输入均值接近0，梯度方向更均衡，训练更稳定，收敛更快。
+
+    \textbf{(4) 激活函数选择：}
+
+    \begin{enumerate}[a.]
+        \item \textbf{多分类输出层} $\to$ \textbf{Softmax}：将 logits 转换为概率分布，配合交叉熵损失；
+        \item \textbf{二分类输出层} $\to$ \textbf{Sigmoid}：输出单一概率值 $p \in (0,1)$，配合二元交叉熵；
+        \item \textbf{深层网络隐藏层} $\to$ \textbf{ReLU}（或 Leaky ReLU）：计算高效，正区域梯度恒为1，有效缓解梯度消失；
+        \item \textbf{回归输出层} $\to$ \textbf{无激活函数（线性输出）}：预测连续值不应限制范围，直接输出实数；
+        \item \textbf{需要零均值的隐藏层} $\to$ \textbf{Tanh}：输出范围 $(-1,1)$，零均值对称，适合 RNN 等需要正负输出的场景。
+    \end{enumerate}
+
+    \begin{keybox}[激活函数选择速查卡]
+        \begin{itemize}
+            \item \textbf{隐藏层默认选} ReLU；若出现死亡神经元，改用 Leaky ReLU
+            \item \textbf{多分类输出层} 用 Softmax；\textbf{二分类输出层} 用 Sigmoid
+            \item \textbf{回归输出层} 不加激活函数
+            \item \textbf{RNN/需要零均值} 用 Tanh
+        \end{itemize}
+    \end{keybox}
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q2-04\quad 三层神经网络前向传播手动推导]
+    \textbf{题目描述：}\\
+    文档第 2.3 节介绍了三层神经网络的结构和各层之间的信号传递。把数据在网络中的流动手算一遍，是理解前向传播的最直接方式。
+
+    \vspace{0.3cm}
+    \textbf{网络结构}：输入层（2个节点）$\to$ 隐藏层（3个节点，ReLU）$\to$ 输出层（2个节点，Softmax）
+
+    \vspace{0.3cm}
+    给定权重和偏置（已初始化）：
+    \[
+    W^{(1)} = \begin{pmatrix} 0.1 & 0.3 & -0.2 \\ 0.4 & -0.1 & 0.5 \end{pmatrix},\quad
+    b^{(1)} = \begin{pmatrix} 0.1 \\ 0.2 \\ -0.1 \end{pmatrix}
+    \]
+    \[
+    W^{(2)} = \begin{pmatrix} 0.2 & -0.3 \\ 0.5 & 0.1 \\ -0.2 & 0.4 \end{pmatrix},\quad
+    b^{(2)} = \begin{pmatrix} 0.1 \\ -0.1 \end{pmatrix}
+    \]
+    输入：$\mathbf{x} = \begin{pmatrix} 1.0 \\ 0.5 \end{pmatrix}$
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 写出各矩阵的形状，并验证矩阵乘法的维度匹配：
+        \begin{enumerate}[a.]
+            \item $\mathbf{x}$：\underline{\hspace{2cm}}，$W^{(1)}$：\underline{\hspace{2cm}}，$(W^{(1)})^T \mathbf{x}$（或 $\mathbf{x}^T W^{(1)}$）的形状：\underline{\hspace{2cm}}
+            \item $W^{(2)}$：\underline{\hspace{2cm}}，隐藏层输出：\underline{\hspace{2cm}}，最终输出：\underline{\hspace{2cm}}
+        \end{enumerate}
+
+        \item \textbf{第一层（隐藏层）前向传播}：计算线性变换 $\mathbf{z}^{(1)} = (W^{(1)})^T \mathbf{x} + b^{(1)}$（结果保留三位小数）。
+
+        \item \textbf{ReLU 激活}：对 $\mathbf{z}^{(1)}$ 应用 ReLU，得到隐藏层输出 $\mathbf{h} = \text{ReLU}(\mathbf{z}^{(1)})$。
+
+        \item \textbf{第二层（输出层）前向传播}：计算 $\mathbf{z}^{(2)} = (W^{(2)})^T \mathbf{h} + b^{(2)}$（结果保留三位小数）。
+
+        \item \textbf{Softmax 输出}：对 $\mathbf{z}^{(2)}$ 应用 Softmax，得到最终预测概率 $\hat{\mathbf{y}}$（结果保留三位小数）。模型预测该样本属于哪个类别？
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 2 章 2.3.1 三层神经网络 / 2.3.2 各层之间的信号传递]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：前向传播的本质就是矩阵运算流水线]
+    \begin{itemize}
+        \item \textbf{每一层做两件事}：(1) 线性变换：$\mathbf{z} = W^T\mathbf{x} + b$（加权求和）；(2) 非线性激活：$\mathbf{h} = f(\mathbf{z})$（激活函数）。
+        \item \textbf{为什么用矩阵表示}：一层有多个神经元，每个神经元对所有输入都有一个权重。把所有权重打包成矩阵 $W$，一次矩阵乘法就完成了整层所有神经元的加权求和，既简洁又高效（GPU 专门优化矩阵运算）。
+        \item \textbf{维度匹配是调试的关键}：前向传播出错90\%是维度不匹配。养成"每步都检查形状"的习惯，是深度学习实践的基本功。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 形状验证：}
+
+    $\mathbf{x}$: $(2,1)$；$W^{(1)}$: $(2,3)$；$(W^{(1)})^T\mathbf{x}$: $(3,2)(2,1)=(3,1)$
+
+    $W^{(2)}$: $(3,2)$；隐藏层输出 $\mathbf{h}$: $(3,1)$；$(W^{(2)})^T\mathbf{h}$: $(2,3)(3,1)=(2,1)$
+
+    \textbf{(2) 第一层线性变换} $\mathbf{z}^{(1)} = (W^{(1)})^T\mathbf{x} + b^{(1)}$：
+
+    \[
+    (W^{(1)})^T = \begin{pmatrix}0.1&0.4\\0.3&-0.1\\-0.2&0.5\end{pmatrix}
+    \]
+    \[
+    (W^{(1)})^T\mathbf{x} = \begin{pmatrix}0.1\times1.0+0.4\times0.5\\0.3\times1.0+(-0.1)\times0.5\\(-0.2)\times1.0+0.5\times0.5\end{pmatrix}
+    = \begin{pmatrix}0.300\\0.250\\0.050\end{pmatrix}
+    \]
+    \[
+    \mathbf{z}^{(1)} = \begin{pmatrix}0.300\\0.250\\0.050\end{pmatrix} + \begin{pmatrix}0.1\\0.2\\-0.1\end{pmatrix}
+    = \boxed{\begin{pmatrix}0.400\\0.450\\-0.050\end{pmatrix}}
+    \]
+
+    \textbf{(3) ReLU 激活}：
+
+    $z^{(1)}_1=0.400>0$，$z^{(1)}_2=0.450>0$，$z^{(1)}_3=-0.050\leq0$
+    \[
+    \mathbf{h} = \text{ReLU}(\mathbf{z}^{(1)}) = \boxed{\begin{pmatrix}0.400\\0.450\\0.000\end{pmatrix}}
+    \]
+    第三个神经元被 ReLU 截断为0。
+
+    \textbf{(4) 第二层线性变换} $\mathbf{z}^{(2)} = (W^{(2)})^T\mathbf{h} + b^{(2)}$：
+
+    \[
+    (W^{(2)})^T = \begin{pmatrix}0.2&0.5&-0.2\\-0.3&0.1&0.4\end{pmatrix}
+    \]
+    \[
+    (W^{(2)})^T\mathbf{h} = \begin{pmatrix}0.2\times0.4+0.5\times0.45+(-0.2)\times0\\-0.3\times0.4+0.1\times0.45+0.4\times0\end{pmatrix}
+    = \begin{pmatrix}0.080+0.225+0\\-0.120+0.045+0\end{pmatrix}
+    = \begin{pmatrix}0.305\\-0.075\end{pmatrix}
+    \]
+    \[
+    \mathbf{z}^{(2)} = \begin{pmatrix}0.305\\-0.075\end{pmatrix} + \begin{pmatrix}0.1\\-0.1\end{pmatrix}
+    = \boxed{\begin{pmatrix}0.405\\-0.175\end{pmatrix}}
+    \]
+
+    \textbf{(5) Softmax 输出}：
+
+    $e^{0.405}\approx1.500,\ e^{-0.175}\approx0.840$，总和 $S=2.340$
+    \[
+    \hat{\mathbf{y}} = \left[\frac{1.500}{2.340},\ \frac{0.840}{2.340}\right] \approx \boxed{[0.641,\ 0.359]}
+    \]
+    类别0的概率为64.1\%，类别1的概率为35.9\%，模型预测该样本属于\textbf{类别0}。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q2-05\quad 神经网络代码追踪：NumPy 实现]
+    \textbf{题目描述：}\\
+    文档第 2.3.3 节给出了三层神经网络的代码实现。阅读并追踪代码是将数学与工程实现打通的关键一步。
+
+    \begin{lstlisting}[language=Python]
+import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def softmax(x):
+    c = np.max(x)              # 数值稳定性处理
+    exp_x = np.exp(x - c)
+    return exp_x / np.sum(exp_x)
+
+def relu(x):
+    return np.maximum(0, x)
+
+class ThreeLayerNet:
+    def __init__(self, input_size, hidden1_size,
+                 hidden2_size, output_size):
+        self.params = {}
+        # 使用 He 初始化（适合 ReLU）
+        self.params['W1'] = np.random.randn(
+            input_size, hidden1_size) * np.sqrt(2 / input_size)
+        self.params['b1'] = np.zeros(hidden1_size)
+        self.params['W2'] = np.random.randn(
+            hidden1_size, hidden2_size) * np.sqrt(2 / hidden1_size)
+        self.params['b2'] = np.zeros(hidden2_size)
+        self.params['W3'] = np.random.randn(
+            hidden2_size, output_size) * np.sqrt(2 / hidden2_size)
+        self.params['b3'] = np.zeros(output_size)
+
+    def predict(self, x):
+        W1,b1 = self.params['W1'], self.params['b1']
+        W2,b2 = self.params['W2'], self.params['b2']
+        W3,b3 = self.params['W3'], self.params['b3']
+
+        a1 = x  @ W1 + b1     # 行A
+        z1 = relu(a1)          # 行B
+        a2 = z1 @ W2 + b2     # 行C
+        z2 = relu(a2)          # 行D
+        a3 = z2 @ W3 + b3     # 行E
+        y  = softmax(a3)       # 行F
+        return y
+
+net = ThreeLayerNet(784, 100, 50, 10)
+x_sample = np.random.randn(1, 784)   # 单个样本
+    \end{lstlisting}
+
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{形状追踪}：设输入 \texttt{x\_sample} 形状为 \texttt{(1, 784)}，填写各中间变量的形状：
+
+        \begin{center}
+        \begin{tabular}{cccc}
+            \toprule
+            变量 & 行号 & 形状 & 计算说明 \\
+            \midrule
+            \texttt{a1} & A & \underline{\hspace{2.5cm}} & $[1,784] \times [784,100] + [100]$ \\
+            \texttt{z1} & B & \underline{\hspace{2.5cm}} & ReLU 不改变形状 \\
+            \texttt{a2} & C & \underline{\hspace{2.5cm}} & \underline{\hspace{4cm}} \\
+            \texttt{z2} & D & \underline{\hspace{2.5cm}} & \underline{\hspace{4cm}} \\
+            \texttt{a3} & E & \underline{\hspace{2.5cm}} & \underline{\hspace{4cm}} \\
+            \texttt{y}  & F & \underline{\hspace{2.5cm}} & Softmax 不改变形状 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{\texttt{softmax} 函数中 \texttt{c = np.max(x)} 的作用}：解释为什么要减去最大值，以及如果不减会在什么情况下出错。
+
+        \item \textbf{He 初始化}：权重初始化使用 \texttt{np.sqrt(2 / input\_size)} 作为标准差，这是 He 初始化（Kaiming 初始化）。为什么这里用 He 初始化而不是 Xavier 初始化？（提示：激活函数是 ReLU）
+
+        \item \textbf{批量推理}：如果将输入改为一批样本 \texttt{x\_batch = np.random.randn(32, 784)}（32个样本），代码是否需要修改？\texttt{a1} 的形状会变成什么？解释 NumPy 矩阵乘法如何自动支持批量计算。
+
+        \item \textbf{参数总量计算}：这个网络（784→100→50→10）共有多少个可学习参数？写出计算过程。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 2 章 2.3.3 代码实现]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：矩阵乘法中"谁乘谁"容易搞混——记住这个规律]
+    \begin{itemize}
+        \item \textbf{代码中的写法} \texttt{x @ W}：输入 $x$ 在\textbf{左}，权重 $W$ 在\textbf{右}。$x$ 形状 $(N, D_{\text{in}})$，$W$ 形状 $(D_{\text{in}}, D_{\text{out}})$，结果形状 $(N, D_{\text{out}})$。
+        \item \textbf{与数学公式的对应}：数学上写 $\mathbf{z} = W^T\mathbf{x}$（列向量），代码中写 \texttt{z = x @ W}（行向量/批量）——两者等价，只是约定不同。
+        \item \textbf{批量计算的优势}：\texttt{x @ W} 中 $x$ 的每一行都是一个独立样本，矩阵乘法自动对所有样本并行计算——这正是深度学习能在 GPU 上高速运行的基础，GPU 矩阵乘法的吞吐量比逐样本循环高出数百倍。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 形状追踪（\texttt{x\_sample} 形状 \texttt{(1, 784)}）：}
+
+    \begin{center}
+    \begin{tabular}{cccc}
+        \toprule
+        变量 & 行号 & 形状 & 计算说明 \\
+        \midrule
+        \texttt{a1} & A & \texttt{(1, 100)} & $[1,784]\times[784,100]+[100]$ \\
+        \texttt{z1} & B & \texttt{(1, 100)} & ReLU 不改变形状 \\
+        \texttt{a2} & C & \texttt{(1, 50)}  & $[1,100]\times[100,50]+[50]$ \\
+        \texttt{z2} & D & \texttt{(1, 50)}  & ReLU 不改变形状 \\
+        \texttt{a3} & E & \texttt{(1, 10)}  & $[1,50]\times[50,10]+[10]$ \\
+        \texttt{y}  & F & \texttt{(1, 10)}  & Softmax 不改变形状 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) \texttt{c = np.max(x)} 的作用（数值稳定性）：}
+
+    当 \texttt{x} 中有很大的值（如1000），$e^{1000}$ 超过 \texttt{float64} 的最大值（约 $1.8\times10^{308}$），产生 \texttt{inf}，进而导致 \texttt{inf/inf = nan}，计算崩溃。
+
+    减去最大值后，最大项变为 $e^0=1$，其他项均 $\leq 1$，不会溢出。由于证明 Softmax 结果不受常数偏移影响（Q2-02 第(5)题），此操作安全且必要。
+
+    \textbf{(3) He 初始化 vs Xavier 初始化：}
+
+    Xavier 初始化假设激活函数不截断信号（前向方差保持不变）。ReLU 将所有负值截断为0，约有一半的神经元输出为0，有效方差减半。He 初始化用 $\sqrt{2/n_{\text{in}}}$（比 Xavier 多因子 $\sqrt{2}$），恰好补偿 ReLU 使方差减半的效应，保持各层激活值的方差稳定，是 ReLU 网络的推荐初始化方式。
+
+    \textbf{(4) 批量推理（\texttt{x\_batch} 形状 \texttt{(32, 784)}）：}
+
+    代码\textbf{无需任何修改}，NumPy 矩阵乘法自动支持批量：
+    \texttt{a1 = x\_batch @ W1 + b1}，形状为 \texttt{[32,784]@[784,100]+[100] = (32, 100)}。
+    偏置 \texttt{b1} 形状为 \texttt{(100,)}，通过广播机制自动加到32个样本的每一行上。整个前向传播对32个样本并行计算，效率远高于逐样本循环。
+
+    \textbf{(5) 参数总量计算：}
+
+    \begin{center}
+    \begin{tabular}{lcc}
+        \toprule
+        层 & 权重参数 & 偏置参数 \\
+        \midrule
+        第1层 (784→100) & $784 \times 100 = 78400$ & $100$ \\
+        第2层 (100→50)  & $100 \times 50 = 5000$   & $50$ \\
+        第3层 (50→10)   & $50 \times 10 = 500$     & $10$ \\
+        \midrule
+        合计 & $83900$ & $160$ \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    \[
+    \text{总参数量} = 83900 + 160 = \boxed{84060}
+    \]
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q2-06\quad 综合应用：手写数字识别全流程]
+    \textbf{题目描述：}\\
+    文档第 2.4 节给出了手写数字识别（MNIST）的应用案例。MNIST 是深度学习的"Hello World"——28$\times$28 像素的灰度图像，识别0到9共10个数字。
+
+    \begin{lstlisting}[language=Python]
+import numpy as np
+
+# 假设已加载 MNIST 测试集
+# x_test: (10000, 784)  float32，像素值归一化到 [0,1]
+# t_test: (10000,)      int，真实标签（0-9）
+
+def load_pretrained_weights():
+    """返回预训练好的权重字典（三层网络：784->100->50->10）"""
+    pass  # 假设已实现
+
+network = ThreeLayerNet(784, 100, 50, 10)
+network.params = load_pretrained_weights()
+
+# ===== 批量推理 =====
+batch_size = 100
+accuracy_count = 0
+
+for i in range(0, len(x_test), batch_size):
+    x_batch = x_test[i : i + batch_size]         # 行A
+    y_batch = network.predict(x_batch)            # 行B
+    p = np.argmax(y_batch, axis=1)                # 行C
+    accuracy_count += np.sum(p == t_test[i:i+batch_size])  # 行D
+
+accuracy = accuracy_count / len(x_test)
+print(f"测试集准确率：{accuracy:.4f}")
+    \end{lstlisting}
+
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{数据预处理}：代码注释中提到"像素值归一化到 $[0,1]$"。原始 MNIST 像素值范围是 $[0, 255]$，写出归一化公式，并解释为什么要归一化而不是直接使用原始像素值。
+
+        \item \textbf{逐行分析}：
+        \begin{enumerate}[a.]
+            \item 行A：\texttt{x\_batch} 的形状是什么（第一次循环 $i=0$ 时）？
+            \item 行B：\texttt{y\_batch} 的形状是什么？每一行代表什么含义？
+            \item 行C：\texttt{np.argmax(y\_batch, axis=1)} 的作用是什么？\texttt{axis=1} 是什么意思？结果 \texttt{p} 的形状是什么？
+            \item 行D：\texttt{p == t\_test[i:i+batch\_size]} 返回什么类型的数组？\texttt{np.sum} 对布尔数组求和会得到什么？
+        \end{enumerate}
+
+        \item \textbf{为什么用批量推理而不是逐图推理}：逐图处理（\texttt{batch\_size=1}）功能上可以，但效率极低。解释批量推理在 CPU 和 GPU 上的效率优势。
+
+        \item \textbf{输出解读}：设某张图片经过网络后的 Softmax 输出为：
+        \[
+        \hat{\mathbf{y}} = [0.01, 0.02, 0.05, 0.80, 0.03, 0.02, 0.01, 0.03, 0.02, 0.01]
+        \]
+        \begin{enumerate}[a.]
+            \item 模型预测这张图片的数字是几？置信度是多少？
+            \item 模型对第2个类别（数字"2"）的预测概率是多少？这意味着什么？
+            \item 如果真实标签是"3"（对应索引3），这次预测是否正确？
+        \end{enumerate}
+
+        \item \textbf{准确率的局限性}：如果测试集中有90\%的样本是数字"0"，一个永远预测"0"的模型准确率为90\%，但显然没有用。提出一种比准确率更全面的评估指标，并说明其优势。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 2 章 2.4 应用案例：手写数字识别]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：MNIST 数据集是什么？为什么从它开始？]
+    \begin{itemize}
+        \item \textbf{MNIST 是什么}：由美国国家标准与技术研究院（NIST）收集的手写数字数据集，共70000张图片（60000训练 + 10000测试），每张 $28\times28$ 像素，灰度图，标签为0到9的整数。
+        \item \textbf{为什么从 MNIST 开始}：数据小（每张图仅784个像素），类别少（10类），任务清晰（分类数字），一个简单的三层网络就能达到97\%以上的准确率——非常适合验证网络实现是否正确，是入门深度学习的"标准测试题"。
+        \item \textbf{数字"3"被识别为什么样子}：网络把 $28\times28=784$ 个像素值（0到1之间的灰度值）作为784维输入向量，经过三层变换，输出10个数字的概率分布，概率最大的那个类别就是预测结果。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 数据归一化：}
+
+    归一化公式：$x_{\text{norm}} = x_{\text{raw}} / 255.0$，将 $[0,255]$ 映射到 $[0,1]$。
+
+    \textbf{为什么归一化}：
+    \begin{itemize}
+        \item 未归一化时，像素值量级为 $[0,255]$，而权重通常初始化为小数（量级 $10^{-2}$），两者量级差距过大，加权求和后激活层输入极大，Sigmoid/Tanh 直接进入饱和区，梯度消失；ReLU 则产生巨大输出，可能引发梯度爆炸；
+        \item 归一化后所有特征在同一量级范围，梯度下降更稳定，收敛更快。
+    \end{itemize}
+
+    \textbf{(2) 逐行分析：}
+
+    \begin{enumerate}[a.]
+        \item 行A（$i=0$）：\texttt{x\_batch = x\_test[0:100]}，形状 \texttt{(100, 784)}；
+        \item 行B：\texttt{y\_batch} 形状 \texttt{(100, 10)}，每行是一个样本的10个类别概率，各行加和为1；
+        \item 行C：\texttt{np.argmax(y\_batch, axis=1)} 沿每行（\texttt{axis=1}）取最大值的索引，即每个样本的预测类别。\texttt{p} 形状为 \texttt{(100,)}，值域 $\{0,1,\ldots,9\}$；
+        \item 行D：\texttt{p == t\_test[...]} 返回布尔数组 \texttt{(100,)}，预测正确处为 \texttt{True}，错误处为 \texttt{False}。\texttt{np.sum} 将 \texttt{True} 计为1、\texttt{False} 计为0求和，得到该 batch 的正确预测数量。
+    \end{enumerate}
+
+    \textbf{(3) 批量推理的效率优势：}
+
+    \begin{itemize}
+        \item \textbf{CPU}：逐样本处理时，每次矩阵乘法规模小（$[1,784]\times[784,100]$），CPU 的 SIMD 向量化单元利用率低；批量后单次矩阵乘法规模大（$[100,784]\times[784,100]$），向量化利用率更高，同等时间内处理更多样本；
+        \item \textbf{GPU}：GPU 有数千个并行计算核心，批量推理将100个样本合并为一次大矩阵运算，充分发挥并行性；逐样本时 GPU 大部分核心空闲，效率极低。
+    \end{itemize}
+
+    \textbf{(4) Softmax 输出解读}：
+
+    $\hat{\mathbf{y}} = [0.01, 0.02, 0.05, \mathbf{0.80}, 0.03, 0.02, 0.01, 0.03, 0.02, 0.01]$
+
+    \begin{enumerate}[a.]
+        \item 索引3对应的概率最大（0.80），模型预测为\textbf{数字"3"，置信度80\%}；
+        \item 数字"2"（索引2）的概率为0.05，即5\%——模型认为有5\%的可能性是"2"；
+        \item 真实标签为"3"（索引3），预测类别也是3，\textbf{预测正确}。
+    \end{enumerate}
+
+    \textbf{(5) 更全面的评估指标：}
+
+    推荐使用\textbf{混淆矩阵（Confusion Matrix）}及基于它的指标：
+    \begin{itemize}
+        \item \textbf{精确率（Precision）}：预测为某类的样本中，真正属于该类的比例——衡量"预测为正的可靠性"；
+        \item \textbf{召回率（Recall）}：某类真实样本中，被正确预测出来的比例——衡量"漏检率"；
+        \item \textbf{F1 分数}：精确率和召回率的调和平均 $F1 = 2PR/(P+R)$——综合两者的平衡指标。
+    \end{itemize}
+    对于类别不平衡问题（90\%是"0"），一个永远预测"0"的模型准确率90\%，但对其他9个类别的召回率均为0，F1 分数极低，这能真实反映模型的无效性。
+
+    \begin{keybox}[MNIST 三层网络的典型性能参考]
+        \begin{itemize}
+            \item 随机猜测（10类均匀）：准确率约 $10\%$
+            \item 简单线性分类器（无隐藏层）：约 $92\%$
+            \item 本章三层全连接网络（784-100-50-10）：约 $97\sim98\%$
+            \item 卷积神经网络（LeNet-5）：约 $99.3\%$
+            \item 目前最优模型：$>99.7\%$
+        \end{itemize}
+    \end{keybox}
+\end{solutionbox}
+
+\begin{appbox}[现实应用场景]
+    \textbf{手写识别——从学术玩具到工业应用：}\\
+    MNIST 诞生于1998年，至今仍是入门深度学习的标准数据集。但它的"后辈"们已经渗透日常生活：银行支票上的手写金额识别（识别引擎与本章网络原理相同，只是规模更大）、快递单上的手写地址解析、智能手表的手写输入……这些系统背后都是深度神经网络。从 MNIST 的784个像素到 ChatGPT 的万亿参数，\textbf{前向传播"层层加权求和+激活"的基本结构从未改变}——改变的只是深度、宽度和训练技巧。理解了本章，你就理解了这一切的起点。
+\end{appbox}
+
+% ===== 本章小结 =====
+\section{本章小结：神经网络的"骨架"已经搭好}
+
+学完这 6 道题，整章内容可以浓缩成这几句话：
+
+\begin{itemize}
+    \item \textbf{感知机 $\to$ 神经网络的关键一步}：把不可微的阶跃函数换成平滑的激活函数（Sigmoid/ReLU），梯度下降才能运作，深度学习才成为可能；
+    \item \textbf{没有激活函数，多层 = 单层}：纯线性层叠加等价于一个线性变换，激活函数引入的非线性才是网络"表达力"的来源；
+    \item \textbf{激活函数选择口诀}：隐藏层用 ReLU，多分类输出用 Softmax，二分类输出用 Sigmoid，回归输出不加激活；
+    \item \textbf{前向传播的本质}：矩阵乘法 + 激活函数的流水线，每层做两件事：线性变换（$z=Wx+b$）+ 非线性激活（$h=f(z)$）；
+    \item \textbf{批量计算的威力}：把 $N$ 个样本打包成矩阵一次性算完，比逐样本循环快数百倍，这是现代深度学习能处理海量数据的基础；
+    \item \textbf{MNIST = 深度学习的 Hello World}：像素归一化 $\to$ 三层网络前向传播 $\to$ Softmax 输出 $\to$ argmax 取预测类别，一条完整的推理链路。
+\end{itemize}
+
+\begin{metaphorbox}[给零基础读者的一句总比喻]
+    \textbf{如果把神经网络比作一台"模式翻译机"：}
+    \begin{itemize}
+        \item \textbf{输入层} = 原材料仓库：接收原始数据（784个像素值）；
+        \item \textbf{隐藏层} = 加工车间：每一层提取更高级的特征——第一层可能学到"边缘"，第二层学到"笔画"，第三层学到"数字轮廓"；
+        \item \textbf{激活函数} = 车间里的成型模具：没有它，每道工序只是简单拉伸，有了它，才能把原材料加工成各种形状；
+        \item \textbf{输出层（Softmax）} = 质检台：把加工结果转化为"这是数字0的概率是X\%，数字1的概率是Y\%……"，取概率最大的就是预测答案；
+        \item \textbf{前向传播} = 一件产品从原材料仓库流过所有车间到质检台的完整过程——本章讲的正是这条流水线怎么搭、怎么运转。
+    \end{itemize}
+\end{metaphorbox}
+
+\end{document}

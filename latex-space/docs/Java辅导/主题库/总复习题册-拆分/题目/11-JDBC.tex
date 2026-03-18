@@ -1,0 +1,65 @@
+\section{JDBC}
+
+\begin{question}
+	以下关于Java中JDBC的说法错误的是
+	\begin{options}
+		\item 用于连接数据库
+		\item 不同的数据库有不同的驱动
+		\item 执行SQL语句通过Statement对象
+		\item 不需要关闭连接资源
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		必须关闭 Connection、Statement、ResultSet 以释放资源。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于执行查询语句？
+	\begin{options}
+		\item executeQuery()
+		\item executeUpdate()
+		\item execute()
+		\item runQuery()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{executeQuery()} 用于 SELECT 查询，返回 ResultSet。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中PreparedStatement的说法正确的是
+	\begin{options}
+		\item 性能比Statement差
+		\item 不能防止SQL注入
+		\item 可以设置参数
+		\item 不支持批量操作
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		PreparedStatement 可预编译，支持参数化查询，防止 SQL 注入，性能更好。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中事务的说法错误的是
+	\begin{options}
+		\item 保证数据的一致性
+		\item 可以通过commit()提交
+		\item 可以通过rollback()回滚
+		\item 事务中的操作一定能成功
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		事务中的操作可能失败，此时应回滚。
+	\end{explanation}
+\end{question}

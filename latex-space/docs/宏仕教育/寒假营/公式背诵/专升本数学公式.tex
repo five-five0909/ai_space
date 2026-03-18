@@ -1,0 +1,885 @@
+\documentclass[UTF8, a4paper, 10pt]{ctexart} % 【改动1】字号改为 10pt
+
+% ==================== 导言区 ====================
+
+% 【改动2】页边距缩小为 1.5cm，极大增加单页容量
+\usepackage{geometry}
+\geometry{a4paper, margin=1.5cm}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{multicol} % 【新增】用于目录分栏
+\usepackage[hidelinks]{hyperref}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+% --- 颜色定义 ---
+\definecolor{maincolor}{RGB}{178, 34, 34} 
+\definecolor{boxback}{RGB}{255, 245, 245} % 背景色调淡一点，看着不累
+
+% --- 【改动3】标题间距大幅压缩 ---
+\ctexset{
+    section = {
+        format = \large\bfseries\color{maincolor}, % 字体由 Large 变为 large
+        name = {第,章},
+        number = \chinese{section},
+        aftername = \quad,
+        beforeskip = 1.0ex plus 0.2ex minus .2ex, % 压缩标题上间距
+        afterskip = 0.5ex plus 0.2ex minus .2ex   % 压缩标题下间距
+    },
+    subsection = {
+        format = \bfseries\color{black}, % 子标题去掉 large，保持正文大小加粗
+        number = \arabic{section}.\arabic{subsection},
+        beforeskip = 0.5ex plus 0.2ex minus .2ex,
+        afterskip = 0.2ex plus 0.2ex minus .2ex
+    }
+}
+
+% --- 【改动4】自定义环境紧凑化 ---
+
+% 1. 概念框 (Concept)
+\newtcolorbox{concept}[1]{
+    colback=boxback,
+    colframe=maincolor,
+    fonttitle=\bfseries\small, % 标题字体变小
+    title={#1},
+    boxrule=0.8pt,
+    arc=1mm,
+    left=2pt, right=2pt, top=2pt, bottom=2pt, % 【关键】内部边距压缩
+    toptitle=1pt, bottomtitle=1pt,             % 标题栏边距压缩
+    fontupper=\small                           % 框内字体设为 small
+}
+
+% 2. 关键公式 (Formula)
+\newenvironment{formula}{
+    \begin{tcolorbox}[
+        colback=white, 
+        colframe=blue!50!black, 
+        title=关键公式, 
+        fonttitle=\bfseries\small, 
+        arc=1mm,
+        left=2pt, right=2pt, top=2pt, bottom=2pt, % 内部紧凑
+        toptitle=1pt, bottomtitle=1pt
+    ]
+    % 【关键】nosep 去除列表间距，leftmargin=* 减少左侧缩进
+    \begin{itemize}[leftmargin=*, nosep, labelsep=3pt] 
+}{
+    \end{itemize}
+    \end{tcolorbox}
+}
+
+% 3. 技巧点拨 (Tips)
+\newenvironment{tips}{
+    \begin{tcolorbox}[
+        colback=green!5, 
+        colframe=green!40!black, 
+        title=技巧点拨, 
+        fonttitle=\bfseries\small, 
+        arc=1mm,
+        left=2pt, right=2pt, top=2pt, bottom=2pt,
+        toptitle=1pt, bottomtitle=1pt
+    ]
+    \begin{itemize}[leftmargin=*, nosep]
+}{
+    \end{itemize}
+    \end{tcolorbox}
+}
+
+% 4. 避坑指南 (Pitfall)
+\newenvironment{pitfall}{
+    \begin{tcolorbox}[
+        colback=yellow!10, 
+        colframe=orange!80!black, 
+        title=避坑指南, 
+        fonttitle=\bfseries\small, 
+        arc=1mm,
+        left=2pt, right=2pt, top=2pt, bottom=2pt,
+        toptitle=1pt, bottomtitle=1pt
+    ]
+    \begin{itemize}[leftmargin=*, nosep, label=\textcolor{red}{\textbf{!}}]
+}{
+    \end{itemize}
+    \end{tcolorbox}
+}
+
+% --- 页眉页脚紧凑化 ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\small 专升本数学 $\cdot$ 高分公式概念背诵手册} % 页眉字体变小
+\fancyfoot[C]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{13pt}
+
+% ==================== 正文区 ====================
+
+\title{\vspace{-2cm}\textbf{\Large 专升本数学高分公式概念背诵手册}} % 标题上移
+% \author{\small fifine $\cdot$ 制作} 
+% \date{\vspace{-1cm}\small \today} % 日期上移
+
+\begin{document}
+% ==================== 封面设计 ====================
+\begin{titlepage}
+    % 临时调整封面页边距，使其更美观（封面不需要太窄的边距）
+    \newgeometry{top=3cm, bottom=3cm, left=2cm, right=2cm}
+    
+    \centering
+    
+    % 1. 顶部机构/系列名称
+    % {\Large \bfseries \color{black!60} 鸿仕教育 $\cdot$ 数学教研组 \quad 精编}
+    
+    \vspace{3cm}
+    
+    % 2. 核心标题区 (带边框的盒子)
+    \begin{tcolorbox}[
+        colback=maincolor!5,      % 极淡的红色背景
+        colframe=maincolor,       % 火砖红边框
+        width=0.9\textwidth,      % 宽度
+        arc=3mm, auto outer arc,
+        boxrule=1.5pt,
+        top=1cm, bottom=1cm
+    ]
+        \centering
+        % 主标题
+        {\zihao{-1} \bfseries \color{maincolor} 专升本数学} \\[0.8cm]
+        % 副标题
+        {\zihao{1} \bfseries 高分公式概念背诵手册}
+    \end{tcolorbox}
+    
+    \vspace{1.5cm}
+    
+    % 3. 核心卖点/关键词
+    {\large \bfseries 
+    核心考点 \quad $\cdot$ \quad 极致浓缩 \quad $\cdot$ \quad 快速提分
+    }
+    
+    \vspace{4cm}
+    
+    % 4. 励志语录 (这也是专升本资料的标配)
+    \begin{tcolorbox}[colback=white, colframe=gray!50, boxrule=0.5pt, width=0.8\textwidth]
+        \centering \itshape \color{gray}
+        ``星光不问赶路人，时光不负有心人。''
+    \end{tcolorbox}
+    
+    \vfill
+    
+    % 5. 底部版本日期
+    {\large \textbf{2026 最新版}} \\
+    \vspace{0.5cm}
+    {\small 编写日期：\today}
+    
+    % 恢复原来的紧凑页边距
+    \restoregeometry
+\end{titlepage}
+% ==================== 封面结束 ====================
+
+% \maketitle
+% {\small \tableofcontents} % 目录字体变小
+
+% --- 【核心修改】双栏目录 ---
+\vspace{-0.5cm} % 减少标题和目录之间的距离
+\begin{multicols}{2} % 开启双栏
+    {
+      \small % 强制缩小目录字体，确保能塞进一页
+      \setlength{\parskip}{0pt} % 消除段落间距
+      \tableofcontents
+    }
+\end{multicols}
+% --------------------------
+
+
+\newpage
+
+% ==================== 预备知识 ====================
+\section{初等数学公式汇总}
+
+\subsection{三角函数}
+\begin{formula}
+    \item \textbf{基本关系}
+    \begin{itemize}[nosep] % 嵌套列表也加上 nosep
+        \item $\sin^2 x + \cos^2 x = 1$
+        \item $1 + \tan^2 x = \sec^2 x, \quad 1 + \cot^2 x = \csc^2 x$
+        \item $\sin 2x = 2\sin x \cos x$
+        \item $\cos 2x = \cos^2 x - \sin^2 x = 2\cos^2 x - 1 = 1 - 2\sin^2 x$
+    \end{itemize}
+    
+    \item \textbf{和差化积与积化和差}
+    \begin{itemize}[nosep]
+        \item $\sin \alpha + \sin \beta = 2\sin\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}$
+        \item $\cos \alpha + \cos \beta = 2\cos\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}$
+        \item $\sin x \cos y = \frac{1}{2}[\sin(x+y) + \sin(x-y)]$
+    \end{itemize}
+\end{formula}
+
+\begin{tips}
+    \item \textbf{诱导公式口诀}：奇变偶不变，符号看象限。
+    \begin{itemize}[nosep]
+        \item $x$ 看作锐角，$x + n\frac{\pi}{2}$ 所在象限决定正负。
+        \item $\sin(\frac{\pi}{2} - x) = \cos x$
+    \end{itemize}
+\end{tips}
+
+\subsection{数列求和}
+\begin{formula}
+    \item \textbf{常用求和公式}
+    \begin{itemize}[nosep]
+        \item 等差：$S_n = \frac{n(a_1+a_n)}{2}$
+        \item 等比：$S_n = \frac{a_1(1-q^n)}{1-q} \quad (q \neq 1)$
+        \item 平方和：$\sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}$
+        \item 裂项相消：$\sum_{k=1}^n \frac{1}{k(k+1)} = 1 - \frac{1}{n+1} = \frac{n}{n+1}$
+    \end{itemize}
+\end{formula}
+
+\subsection{几何公式}
+\begin{formula}
+    \item \textbf{体积与面积}
+    \begin{itemize}[nosep]
+        \item 球体积 $V = \frac{4}{3}\pi R^3$
+        \item 圆柱体积 $V = \pi r^2 h$
+        \item 圆锥体积 $V = \frac{1}{3}\pi r^2 h$
+    \end{itemize}
+    \item \textbf{距离公式}
+    \begin{itemize}[nosep]
+        \item 点到直线：$d = \frac{|Ax_0 + By_0 + C|}{\sqrt{A^2+B^2}}$
+        \item 点到平面：$d = \frac{|Ax_0 + By_0 + Cz_0 + D|}{\sqrt{A^2+B^2+C^2}}$
+    \end{itemize}
+\end{formula}
+
+% ==================== 第一章 ====================
+\section{函数}
+
+\subsection{核心概念}
+\begin{concept}{函数的性质}
+    \begin{itemize}[nosep] % 手动添加 nosep
+        \item \textbf{奇偶性}：
+        \begin{itemize}[nosep]
+            \item 偶函数：$f(-x) = f(x)$，图像关于 $y$ 轴对称。
+            \item 奇函数：$f(-x) = -f(x)$，图像关于原点对称。
+            \item 运算规律：奇$\pm$奇=奇，偶$\pm$偶=偶，奇$\times$奇=偶，偶$\times$偶=偶，奇$\times$偶=奇。
+        \end{itemize}
+        \item \textbf{周期性}：若存在 $T>0$ 使得 $f(x+T) = f(x)$ 恒成立，则 $f(x)$ 为周期函数。
+        \begin{itemize}[nosep]
+            \item $y=\sin(\omega x)$ 和 $y=\cos(\omega x)$ 的最小正周期 $T = \frac{2\pi}{|\omega|}$。
+            \item $y=\tan(\omega x)$ 的最小正周期 $T = \frac{\pi}{|\omega|}$。
+        \end{itemize}
+        \item \textbf{单调性}：导数 $f'(x)>0 \implies$ 单调递增；$f'(x)<0 \implies$ 单调递减。
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{基本初等函数定义域}
+    \begin{itemize}[nosep]
+        \item 分式 $\frac{1}{f(x)}$：$f(x) \neq 0$
+        \item 偶次根式 $\sqrt{f(x)}$：$f(x) \ge 0$
+        \item 对数函数 $\ln f(x)$：$f(x) > 0$
+        \item 反正弦/余弦 $\arcsin f(x)$：$-1 \le f(x) \le 1$
+        \item 复合函数：取各部分定义域的\textbf{交集}。
+    \end{itemize}
+    \item \textbf{三角函数诱导公式}
+    \begin{itemize}[nosep]
+        \item $\sin(\pi + \alpha) = -\sin \alpha$
+        \item $\sin(\alpha - \pi) = -\sin \alpha$
+        \item $\cos(-x) = \cos x$ （偶函数）
+        \item $\sin(-x) = -\sin x$ （奇函数）
+    \end{itemize}
+    \item \textbf{重要恒等式}
+    $$ \sin^2 x + \cos^2 x = 1 $$
+\end{formula}
+\subsection{图像绘画}
+\begin{center}
+    \pgfplotsset{
+        myplot/.style={
+            axis lines=middle,
+            xlabel=$x$, ylabel=$y$,
+            every axis x label/.style={at={(current axis.right of origin)},anchor=west},
+            every axis y label/.style={at={(current axis.above origin)},anchor=south},
+            xtick=\empty, ytick=\empty,
+            width=0.45\textwidth, height=0.35\textwidth,
+            clip=false,
+            samples=100
+        }
+    }
+    \begin{tabular}{cc}
+        % 1. 幂函数 (整式)
+        \begin{tikzpicture}
+        \begin{axis}[myplot, title={幂函数 (1)}, xmin=-3, xmax=3, ymin=-3, ymax=3]
+            \addplot[maincolor, thick, domain=-2.5:2.5] {x} node[pos=0.9, right]{\tiny $y=x$};
+            \addplot[blue, thick, domain=-1.7:1.7] {x^2} node[pos=0.8, right]{\tiny $y=x^2$};
+            \addplot[orange, thick, domain=-1.4:1.4] {x^3} node[left]{\tiny $y=x^3$}; 
+        \end{axis}
+        \end{tikzpicture} 
+        &
+        % 2. 幂函数 (根式与分式)
+        \begin{tikzpicture}
+        \begin{axis}[myplot, title={幂函数 (2)}, xmin=-3, xmax=3, ymin=-3, ymax=3]
+            \addplot[purple, thick, domain=0:3] {sqrt(x)} node[right] {\tiny $y=\sqrt{x}$};
+            \addplot[black, dashed, domain=0.3:3] {1/x};
+            \addplot[black, dashed, domain=-3:-0.3] {1/x} node[pos=0.1, below] {\tiny $y=x^{-1}$};
+        \end{axis}
+        \end{tikzpicture} 
+        \\
+        % 3. 指数与对数 (原位置)
+        \begin{tikzpicture}
+        \begin{axis}[myplot, title={指数与对数}, xmin=-3, xmax=3, ymin=-3, ymax=3]
+            \addplot[maincolor, thick, domain=-3:1.1] {exp(x)} node[left] {\tiny $y=e^x$};
+            \addplot[blue, thick, domain=0.05:3] {ln(x)} node[right] {\tiny $y=\ln x$};
+            \addplot[gray, dashed, domain=-2.5:2.5] {x};
+        \end{axis}
+        \end{tikzpicture} 
+        &
+        % 4. 正弦与余弦 (原位置)
+        \begin{tikzpicture}
+        \begin{axis}[myplot, title={正弦与余弦}, xmin=-4, xmax=4, ymin=-1.5, ymax=1.5,
+            xtick={-3.14, 3.14}, xticklabels={$-\pi$, $\pi$}]
+            \addplot[maincolor, thick, domain=-3.5:3.5] {sin(deg(x))} node[right] {\tiny $\sin x$};
+            \addplot[blue, thick, dashed, domain=-3.5:3.5] {cos(deg(x))} node[above] {\tiny $\cos x$};
+        \end{axis}
+        \end{tikzpicture}
+        \\
+        % 5. 正切 (多周期)
+        \begin{tikzpicture}
+        \begin{axis}[myplot, title={正切 $y=\tan x$}, xmin=-5, xmax=5, ymin=-4, ymax=4,
+            xtick={-4.71, -1.57, 1.57, 4.71}, xticklabels={$-\frac{3\pi}{2}$, $-\frac{\pi}{2}$, $\frac{\pi}{2}$, $\frac{3\pi}{2}$},
+            tick label style={font=\tiny}]
+            % 主周期
+            \addplot[maincolor, thick, domain=-1.4:1.4] {tan(deg(x))};
+            % 左周期
+            \addplot[maincolor, thick, domain=-4.5:-1.74] {tan(deg(x))};
+            % 右周期
+            \addplot[maincolor, thick, domain=1.74:4.5] {tan(deg(x))};
+            
+            % 渐近线
+            \draw[dashed, gray] (axis cs:-1.57, -4) -- (axis cs:-1.57, 4);
+            \draw[dashed, gray] (axis cs:1.57, -4) -- (axis cs:1.57, 4);
+            \draw[dashed, gray] (axis cs:-4.71, -4) -- (axis cs:-4.71, 4);
+            \draw[dashed, gray] (axis cs:4.71, -4) -- (axis cs:4.71, 4);
+        \end{axis}
+        \end{tikzpicture}
+        &
+        % 6. 反正弦与反余弦
+        \begin{tikzpicture}
+        \begin{axis}[myplot, title={反正弦与反余弦}, xmin=-1.5, xmax=1.5, ymin=-1, ymax=3.5,
+            ytick={1.57, 3.14}, yticklabels={$\frac{\pi}{2}$, $\pi$}]
+            \addplot[maincolor, thick, domain=-1:1] {asin(x)/180*pi} node[above right] {\tiny $\arcsin x$};
+            \addplot[blue, thick, dashed, domain=-1:1] {acos(x)/180*pi} node[above left] {\tiny $\arccos x$};
+        \end{axis}
+        \end{tikzpicture}
+        \\
+        % 7. 反正切
+        \begin{tikzpicture}
+        \begin{axis}[myplot, title={反正切 $y=\arctan x$}, xmin=-4, xmax=4, ymin=-2, ymax=2,
+            ytick={-1.57, 1.57}, yticklabels={$-\frac{\pi}{2}$, $\frac{\pi}{2}$}]
+            \addplot[maincolor, thick, domain=-4:4] {atan(x)/180*pi};
+            \draw[dashed, gray] (axis cs:-4, 1.57) -- (axis cs:4, 1.57);
+            \draw[dashed, gray] (axis cs:-4, -1.57) -- (axis cs:4, -1.57);
+        \end{axis}
+        \end{tikzpicture}
+        &
+        % 空占位符
+        \mbox{}
+    \end{tabular}
+\end{center}
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{定义域求交集}：求复合函数定义域时，一定要分别解出每个限制条件的不等式，最后求\textbf{交集}【学会画数轴！】。
+    \item \textbf{解不等式注意方向}：
+    \begin{itemize}[nosep]
+        \item 解 $|x| > a$ 得 $x > a$ 或 $x < -a$（两边）。
+        \item 解 $|x| < a$ 得 $-a < x < a$（中间）。
+    \end{itemize}
+    \item \textbf{分母不为零}：不要只关注根号大于等于0，而忽略了分母不能为0的条件。
+    \item \textbf{具体函数 vs 抽象函数}：$f(x)$ 定义域指 $x$ 的范围；$f(g(x))$ 定义域也是指 $x$ 的范围，但需满足 $g(x)$ 在 $f$ 的定义域内。
+\end{pitfall}
+
+% ==================== 第二章 ====================
+\section{极限}
+
+\subsection{核心概念}
+\begin{concept}{极限与连续}
+    \begin{itemize}[nosep]
+        \item \textbf{极限存在充要条件}：$\lim_{x \to x_0} f(x) = A \iff \lim_{x \to x_0^-} f(x) = \lim_{x \to x_0^+} f(x) = A$。
+        \item \textbf{连续的定义}：$f(x)$ 在 $x_0$ 处连续 $\iff \lim_{x \to x_0} f(x) = f(x_0)$。
+        \item \textbf{无穷小比阶}：
+        \begin{itemize}[nosep]
+            \item $\lim \frac{\alpha}{\beta} = 0 \implies \alpha$ 是 $\beta$ 的\textbf{高阶}无穷小。
+            \item $\lim \frac{\alpha}{\beta} = \infty \implies \alpha$ 是 $\beta$ 的\textbf{低阶}无穷小。
+            \item $\lim \frac{\alpha}{\beta} = C \neq 0 \implies \alpha$ 与 $\beta$ 是\textbf{同阶}无穷小。
+            \item $\lim \frac{\alpha}{\beta} = 1 \implies \alpha$ 与 $\beta$ \textbf{等价} ($\alpha \sim \beta$)。
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{两个重要极限}
+    $$ \lim_{x \to 0} \frac{\sin x}{x} = 1 \quad \text{(广义: $\frac{\sin \Delta}{\Delta} \to 1$)} $$
+    $$ \lim_{x \to \infty} (1 + \frac{1}{x})^x = e, \quad \lim_{x \to 0} (1 + x)^{\frac{1}{x}} = e $$
+    
+    \item \textbf{常用等价无穷小 ($x \to 0$)}
+    \begin{itemize}[nosep]
+        \item $\sin x \sim x, \quad \tan x \sim x, \quad \arcsin x \sim x, \quad \arctan x \sim x$
+        \item $\ln(1+x) \sim x, \quad e^x - 1 \sim x$
+        \item $1 - \cos x \sim \frac{1}{2}x^2, \quad (1+x)^\alpha - 1 \sim \alpha x$
+    \end{itemize}
+
+    \item \textbf{核心泰勒公式 (Maclaurin)}
+    \begin{itemize}[nosep]
+        \item $e^x = 1 + x + \frac{x^2}{2!} + \cdots + \frac{x^n}{n!} + o(x^n)$
+        % sin 和 cos 并列一行，节省空间
+        \item $\sin x = x - \frac{x^3}{3!} + o(x^3), \quad \cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} + o(x^4)$
+        % ln 和 幂函数 并列一行
+        \item $\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} + o(x^3), \enspace (1+x)^\alpha = 1 + \alpha x + \frac{\alpha(\alpha-1)}{2!}x^2 + o(x^2)$
+    \end{itemize}
+
+    \item \textbf{洛必达法则}
+    适用于 $\frac{0}{0}$ 或 $\frac{\infty}{\infty}$ 型不定式：
+    $$ \lim \frac{f(x)}{g(x)} = \lim \frac{f'(x)}{g'(x)} $$
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{等价无穷小代换原则}：通常只在\textbf{乘除}因子中使用，\textbf{加减}运算中若不满足精度要求（如相减抵消由主项变为高阶项）则不能直接代换。优先用泰勒公式处理加减。
+    \item \textbf{洛必达法则条件}：必须验证是 $\frac{0}{0}$ 或 $\frac{\infty}{\infty}$ 型。
+    \item \textbf{震荡极限}：$\lim_{x \to 0} \sin\frac{1}{x}$ 不存在（震荡）；但 $\lim_{x \to 0} x\sin\frac{1}{x} = 0$（无穷小$\times$有界量）。
+\end{pitfall}
+
+% ==================== 第三章 ====================
+\section{连续}
+
+\subsection{核心概念}
+\begin{concept}{间断点分类}
+    \begin{itemize}[nosep]
+        \item \textbf{第一类间断点}（左右极限均存在）：
+        \begin{itemize}[nosep]
+            \item 可去间断点：左右极限相等，但不等于 $f(x_0)$ 或无定义。
+            \item 跳跃间断点：左右极限不相等。
+        \end{itemize}
+        \item \textbf{第二类间断点}（左右极限至少有一个不存在）：
+        \begin{itemize}[nosep]
+            \item 无穷间断点：极限为无穷大。
+            \item 振荡间断点：极限值在区间内变动，不趋于定值。
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{闭区间连续函数性质}
+    \begin{itemize}[nosep]
+        \item \textbf{有界性定理}：在闭区间 $[a,b]$ 上连续的函数必有界。
+        \item \textbf{最值定理}：在闭区间 $[a,b]$ 上连续的函数必有最大值和最小值。
+        \item \textbf{零点定理}：若 $f(x)$ 在 $[a,b]$ 连续且 $f(a) \cdot f(b) < 0$，则 $(a, b)$ 内至少有一点 $\xi$ 使 $f(\xi)=0$。
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{连续与极限}：函数在某点极限存在，不一定连续（可能是可去间断点）。
+    \item \textbf{分段函数}：讨论分段函数连续性时，必须分别考察分段点处的左极限、右极限和函数值。
+    \item \textbf{零点判定}：使用零点定理前，务必确认函数在区间上是\textbf{连续}的。
+\end{pitfall}
+
+% ==================== 第四章 ====================
+\section{导数与微分}
+
+\subsection{核心概念}
+\begin{concept}{导数概念}
+    \begin{itemize}[nosep]
+        \item \textbf{定义}：$f'(x_0) = \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}$。
+        \item \textbf{几何意义}：$f'(x_0)$ 是曲线 $y=f(x)$ 在点 $(x_0, f(x_0))$ 处的切线斜率。
+        \item \textbf{关系}：可导 $\implies$ 连续；连续 $\nRightarrow$ 可导（如 $y=|x|$ 在 $x=0$ 处）。
+        \item \textbf{奇偶性导数}：奇函数的导数是偶函数；偶函数的导数是奇函数。
+        \item \textbf{周期性导数}：周期函数的导数仍为周期函数（周期不变）。
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    % 使用 array 环境排版表格，\renewcommand 调整行高防止拥挤
+    \item \textbf{基本求导公式表 (对照记忆版)}
+    % 1.5倍行高，防止分数线碰到边框
+    \[
+    \renewcommand{\arraystretch}{1.5}
+    \setlength{\arraycolsep}{6pt} % 稍微增加列间距
+    \begin{array}{|l|l|}
+        \hline
+        \textbf{基础/正向公式} & \textbf{对照/负向/特例公式} \\
+        \hline
+        (x^\mu)' = \mu x^{\mu-1} & (C)' = 0 \\
+        \hline
+        (\sqrt{x})' = \frac{1}{2\sqrt{x}} & (\frac{1}{x})' = -\frac{1}{x^2} \\
+        \hline
+        (\sin x)' = \cos x & (\cos x)' = -\sin x \\
+        \hline
+        (\tan x)' = \sec^2 x & (\cot x)' = -\csc^2 x \\
+        \hline
+        (\sec x)' = \sec x \tan x & (\csc x)' = -\csc x \cot x \\
+        \hline
+        (a^x)' = a^x \ln a & (e^x)' = e^x \\
+        \hline
+        (\log_a x)' = \frac{1}{x \ln a} & (\ln x)' = \frac{1}{x} \\
+        \hline
+        (\arcsin x)' = \frac{1}{\sqrt{1-x^2}} & (\arccos x)' = -\frac{1}{\sqrt{1-x^2}} \\
+        \hline
+        (\arctan x)' = \frac{1}{1+x^2} & (\text{arccot}\, x)' = -\frac{1}{1+x^2} \\
+        \hline
+    \end{array}
+    \]
+    \item \textbf{切线与法线}
+    \begin{itemize}[nosep]
+        \item 切线方程：$y - y_0 = f'(x_0)(x - x_0)$
+        \item 法线方程：$y - y_0 = -\frac{1}{f'(x_0)}(x - x_0)$
+    \end{itemize}
+    \item \textbf{参数方程求导}
+    $\begin{cases} x = \phi(t) \\ y = \psi(t) \end{cases} \implies \frac{dy}{dx} = \frac{\psi'(t)}{\phi'(t)}$
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{复合函数求导}：不要漏乘内层函数的导数（链式法则）。
+    \item \textbf{隐函数求导}：对方程两边求导时，视 $y$ 为 $x$ 的函数，遇 $y$ 求导需乘 $y'$。
+    \item \textbf{绝对值导数}：$f(x)=|x|$ 在 $x=0$ 处不可导（尖点）。在求导前最好先去绝对值符号。
+\end{pitfall}
+
+% ==================== 第五章 ====================
+\section{中值定理与导数应用}
+
+\subsection{核心概念}
+\begin{concept}{导数应用}
+    \begin{itemize}[nosep]
+        \item \textbf{极值判定}：
+        \begin{itemize}[nosep]
+            \item 第一充分条件：驻点两侧 $f'(x)$ 变号（左正右负$\to$极大，左负右正$\to$极小）。
+            \item 第二充分条件：$f'(x_0)=0$ 且 $f''(x_0) \neq 0$。（$f''<0 \to$ 极大，$f''>0 \to$ 极小）。
+        \end{itemize}
+        \item \textbf{凹凸性与拐点}：
+        \begin{itemize}[nosep]
+            \item 凹凸定义：$f''(x) > 0 \implies$ 凹（开口向上 $\cup$）；$f''(x) < 0 \implies$ 凸（开口向下 $\cap$）。
+            \item 拐点：曲线凹凸性发生改变的点 $(x_0, f(x_0))$。
+        \end{itemize}
+        \item \textbf{渐近线}：
+        \begin{itemize}[nosep]
+            \item 水平渐近线：$\lim_{x \to \infty} f(x) = A \implies y=A$。
+            \item 垂直渐近线：$\lim_{x \to x_0} f(x) = \infty \implies x=x_0$（通常在分母为0处）。
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{中值定理}
+    \begin{itemize}[nosep]
+        \item \textbf{罗尔定理}：闭区间连续，开区间可导，端点值相等 $\implies \exists \xi, f'(\xi)=0$。
+        \item \textbf{拉格朗日中值定理}：闭区间连续，开区间可导 $\implies f(b)-f(a) = f'(\xi)(b-a)$。
+    \end{itemize}
+    \item \textbf{洛必达法则}（见第二章，此处常用于求渐近线极限）。
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{极值点 vs 驻点}：驻点（导数为0）不一定是极值点（如 $y=x^3$ 在 $x=0$）；极值点也不一定是驻点（可能是不可导点，如 $y=|x|$）。
+    \item \textbf{拐点坐标}：填写拐点时写坐标 $(x_0, y_0)$，不要只写横坐标。
+    \item \textbf{区间写法}：单调区间和凹凸区间建议写成开区间 $(a, b)$，由定义域决定。
+\end{pitfall}
+
+% ==================== 第六章 ====================
+\section{不定积分}
+
+\subsection{核心概念}
+\begin{concept}{原函数与不定积分}
+    \begin{itemize}[nosep]
+        \item \textbf{定义}：若 $F'(x) = f(x)$，则 $\int f(x) dx = F(x) + C$。
+        \item \textbf{性质}：
+        \begin{itemize}[nosep]
+            \item $\frac{d}{dx} \int f(x) dx = f(x)$
+            \item $\int f'(x) dx = f(x) + C$
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{基本积分公式表 (对照记忆版)}
+    % 1.6倍行高，因为积分符号较高，需要更多空间
+    \[
+    \renewcommand{\arraystretch}{1.6}
+    \setlength{\arraycolsep}{4pt} % 稍微收紧列距以容纳长公式
+    \begin{array}{|l|l|}
+        \hline
+        \textbf{幂/指/对/三角 (正)} & \textbf{特例/带负号/倒三角} \\
+        \hline
+        \int x^\mu dx = \frac{x^{\mu+1}}{\mu+1} + C & \int \frac{1}{x} dx = \ln|x| + C \\
+        \hline
+        \int e^x dx = e^x + C & \int a^x dx = \frac{a^x}{\ln a} + C \\
+        \hline
+        \int \cos x dx = \sin x + C & \int \sin x dx = -\cos x + C \\
+        \hline
+        \int \sec^2 x dx = \tan x + C & \int \csc^2 x dx = -\cot x + C \\
+        \hline
+        \int \sec x \tan x dx = \sec x + C & \int \csc x \cot x dx = -\csc x + C \\
+        \hline
+        \int \tan x dx = -\ln|\cos x| + C & \int \cot x dx = \ln|\sin x| + C \\
+        \hline
+        \int \sec x dx = \ln|\sec x + \tan x| + C & \int \csc x dx = \ln|\csc x - \cot x| + C \\
+        \hline
+        \int \frac{1}{1+x^2} dx = \arctan x + C & \int \frac{1}{a^2+x^2} dx = \frac{1}{a}\arctan\frac{x}{a} + C \\
+        \hline
+        \int \frac{1}{\sqrt{1-x^2}} dx = \arcsin x + C & \int \frac{1}{\sqrt{a^2-x^2}} dx = \arcsin\frac{x}{a} + C \\
+        \hline
+    \end{array}
+    \]
+    \item \textbf{积分方法}
+    \begin{itemize}[nosep]
+        \item \textbf{凑微分法}：$\int f(g(x)) g'(x) dx = \int f(u) du$。
+        \item \textbf{分部积分法}：$\int u dv = uv - \int v du$。
+        \item \textbf{倒代换}：令 $x = \frac{1}{t}$（常用于分母幂次高的情况）。
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{常数 C}：计算不定积分千万别忘了 $+C$。
+    \item \textbf{对数绝对值}：$\int \frac{1}{x} dx$ 结果是 $\ln|x|$，特别是分母为函数时，如 $\ln|f(x)|$。
+    \item \textbf{分部积分顺序}：\textbf{反对幂指三}（反三角、对数、幂函数、指数、三角），排在前面的优先设为 $u$。
+\end{pitfall}
+
+% ==================== 第七章 ====================
+\section{定积分}
+
+\subsection{核心概念}
+\begin{concept}{定积分性质}
+    \begin{itemize}[nosep]
+        \item \textbf{几何意义}：曲边梯形的面积（$x$轴上方为正，下方为负）。
+        \item \textbf{奇偶性}：
+        \begin{itemize}[nosep]
+            \item 对称区间 $[-a, a]$ 上，奇函数积分为 0。
+            \item 对称区间 $[-a, a]$ 上，偶函数积分 $= 2\int_0^a f(x) dx$。
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{牛顿-莱布尼茨公式}
+    $$ \int_a^b f(x) dx = F(b) - F(a) $$
+    \item \textbf{变上限积分求导}
+    $$ \frac{d}{dx} \int_a^{g(x)} f(t) dt = f(g(x)) \cdot g'(x) $$
+    \item \textbf{定积分换元}
+    换元必换限：令 $x = \phi(t)$，则 $dx = \phi'(t) dt$，积分限由 $a,b$ 变为 $\alpha, \beta$。
+    \item \textbf{几何应用}
+    \begin{itemize}[nosep]
+        \item 面积：$S = \int_a^b |f(x)| dx$。
+        \item 旋转体体积（绕x轴）：$V_x = \pi \int_a^b f^2(x) dx$。
+        \item 旋转体体积（绕y轴）：$V_y = 2\pi \int_a^b x|f(x)| dx$ （柱壳法）。
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{换元换限}：定积分换元时，上下限必须同步变换，最后结果不需要回代变量。
+    \item \textbf{变限求导}：若上限是 $x$ 的函数 $g(x)$，求导要乘 $g'(x)$（链式法则）。
+    \item \textbf{广义积分}：注意无穷限积分或瑕积分的敛散性判定。
+\end{pitfall}
+
+% ==================== 第八章 ====================
+\section{微分方程}
+
+\subsection{核心概念}
+\begin{concept}{基本概念}
+    \begin{itemize}[nosep]
+        \item \textbf{阶}：方程中导数的最高阶数。
+        \item \textbf{通解}：包含独立任意常数的个数等于方程阶数。
+        \item \textbf{特解}：满足初始条件的解（不含任意常数）。
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{一阶微分方程}
+    \begin{itemize}[nosep]
+        \item \textbf{可分离变量}：$f(y) dy = g(x) dx \implies \int f(y) dy = \int g(x) dx$。
+        \item \textbf{一阶线性} $y' + P(x)y = Q(x)$：
+        $$ y = e^{-\int P(x)dx} \left( \int Q(x) e^{\int P(x)dx} dx + C \right) $$
+    \end{itemize}
+\item \textbf{二阶常系数线性齐次} $y'' + py' + qy = 0$
+    \begin{itemize}[nosep]
+        \item \textbf{特征方程}：$r^2 + pr + q = 0$
+        \item \textbf{万能求根公式}：$\displaystyle r_{1,2} = \frac{-p \pm \sqrt{p^2 - 4q}}{2}$ \quad (令 $\Delta = p^2 - 4q$)
+    \end{itemize}
+    % 表格化记忆，带全边框
+    \[
+    \renewcommand{\arraystretch}{1.5} % 增加行高，看着不累
+    \setlength{\arraycolsep}{3pt}     % 微调列宽以适应页面
+    \begin{array}{|c|c|l|}
+        \hline
+        \textbf{判别式 } \Delta & \textbf{特征根 } r & \textbf{微分方程通解 } y \\
+        \hline
+        \Delta > 0 & r_1 \neq r_2 \text{ (实)} & y = C_1 e^{r_1 x} + C_2 e^{r_2 x} \\
+        \hline
+        \Delta = 0 & r_1 = r_2 \text{ (实)} & y = (C_1 + C_2 x) e^{r_1 x} \\
+        \hline
+        \Delta < 0 & \alpha \pm i\beta \text{ (复)} & y = e^{\alpha x} (C_1 \cos \beta x + C_2 \sin \beta x) \\
+        \hline
+    \end{array}
+    \]
+    \begin{itemize}[nosep]
+        \item \textbf{注}：复根情况中，$\alpha = -\frac{p}{2}, \quad \beta = \frac{\sqrt{4q-p^2}}{2}$。
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{识别题型}：拿到方程先看是一阶还是二阶，是否可分离变量，或者是线性方程。
+    \item \textbf{公式记忆}：一阶线性公式中 $e$ 的指数符号，外面是负积分，里面是正积分。
+    \item \textbf{特解常数}：求特解时，先求出通解，再代入初始条件求 $C$，最后写出特解表达式。
+\end{pitfall}
+
+% ==================== 第九章 ====================
+\section{多元函数微分学}
+
+\subsection{核心概念}
+\begin{concept}{偏导与全微分}
+    \begin{itemize}[nosep]
+        \item \textbf{关系链}：可微 $\implies$ 连续；可微 $\implies$ 偏导数存在。反之均不成立。偏导数连续 $\implies$ 可微。
+        \item \textbf{极值判定}：
+        驻点 $(x_0, y_0)$ 满足 $f_x=0, f_y=0$。令 $A=f_{xx}, B=f_{xy}, C=f_{yy}$。
+        \begin{itemize}[nosep]
+            \item $AC - B^2 > 0$ 且 $A > 0 \implies$ 极小值。
+            \item $AC - B^2 > 0$ 且 $A < 0 \implies$ 极大值。
+            \item $AC - B^2 < 0 \implies$ 非极值点。
+            \item $AC - B^2 = 0 \implies$ 需进一步讨论。
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{全微分}
+    $$ dz = \frac{\partial z}{\partial x} dx + \frac{\partial z}{\partial y} dy $$
+    \item \textbf{复合函数求导（链式法则）}
+    若 $z = f(u, v)$，且 $u=u(x,y), v=v(x,y)$，则：
+    $$ \frac{\partial z}{\partial x} = \frac{\partial z}{\partial u}\frac{\partial u}{\partial x} + \frac{\partial z}{\partial v}\frac{\partial v}{\partial x} $$
+    \item \textbf{隐函数求导}
+    由方程 $F(x, y, z) = 0$ 确定 $z=z(x,y)$，则：
+    $$ \frac{\partial z}{\partial x} = -\frac{F_x}{F_z}, \quad \frac{\partial z}{\partial y} = -\frac{F_y}{F_z} $$
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{求导符号}：计算偏导数时，视其他变量为常数。勿混淆 $d$ 和 $\partial$。
+    \item \textbf{条件极值}：使用拉格朗日乘数法时，构造函数 $L(x,y,\lambda) = f(x,y) + \lambda \phi(x,y)$，方程组解包含 $\lambda$。
+\end{pitfall}
+
+% ==================== 第十章 ====================
+\section{向量代数与空间解析几何}
+
+\subsection{核心概念}
+\begin{concept}{向量运算几何意义}
+    \begin{itemize}[nosep]
+        \item \textbf{数量积} $\mathbf{a} \cdot \mathbf{b} = |\mathbf{a}||\mathbf{b}|\cos\theta$。若为0，则垂直。
+        \item \textbf{向量积} $\mathbf{a} \times \mathbf{b}$ 为向量，模 $|\mathbf{a}||\mathbf{b}|\sin\theta$，方向垂直于 $\mathbf{a}, \mathbf{b}$。若为0，则平行。
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{平面方程}
+    \begin{itemize}[nosep]
+        \item 点法式：$A(x-x_0) + B(y-y_0) + C(z-z_0) = 0$。法向量 $\mathbf{n}=\{A,B,C\}$。
+        \item 一般式：$Ax + By + Cz + D = 0$。
+    \end{itemize}
+    \item \textbf{直线方程}
+    \begin{itemize}[nosep]
+        \item 点向式（对称式）：$\frac{x-x_0}{m} = \frac{y-y_0}{n} = \frac{z-z_0}{p}$。方向向量 $\mathbf{s}=\{m,n,p\}$。
+        \item 参数式：$x=x_0+mt, y=y_0+nt, z=z_0+pt$。
+    \end{itemize}
+    \item \textbf{位置关系}
+    \begin{itemize}[nosep]
+        \item 平面 $\mathbf{n}_1$ 与 $\mathbf{n}_2$：垂直 $\iff \mathbf{n}_1 \cdot \mathbf{n}_2 = 0$。
+        \item 直线 $\mathbf{s}$ 与平面 $\mathbf{n}$：垂直 $\iff \mathbf{s} \parallel \mathbf{n}$；平行 $\iff \mathbf{s} \perp \mathbf{n}$。
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{线面垂直}：直线垂直于平面，意味着直线的\textbf{方向向量}平行于平面的\textbf{法向量}。不要弄反条件。
+    \item \textbf{缺项含义}：平面方程缺 $z$ 表示平行于 $z$ 轴（柱面）。
+\end{pitfall}
+
+% ==================== 第十一章 ====================
+\section{二重积分}
+
+\subsection{核心概念}
+\begin{concept}{二重积分计算}
+    \begin{itemize}[nosep]
+        \item \textbf{几何意义}：以 $D$ 为底，曲面 $z=f(x,y)$ 为顶的曲顶柱体体积。
+        \item \textbf{对称性}：
+        \begin{itemize}[nosep]
+            \item 关于 $x$ 轴对称区域：若 $f(x, -y) = -f(x,y)$，积分为0。
+            \item 关于 $y$ 轴对称区域：同理。
+            \item 关于 $y=x$ 对称区域：若 $f(y, x) = -f(x,y)$，积分为0。
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{直角坐标系}
+    \begin{itemize}[nosep]
+        \item X-型区域（先 $y$ 后 $x$）：$\int_a^b dx \int_{\phi_1(x)}^{\phi_2(x)} f(x,y) dy$。
+        \item Y-型区域（先 $x$ 后 $y$）：$\int_c^d dy \int_{\psi_1(y)}^{\psi_2(y)} f(x,y) dx$。
+    \end{itemize}
+    \item \textbf{极坐标系}
+    $x=r\cos\theta, y=r\sin\theta, dxdy = r dr d\theta$。
+    $$ \iint_D f(x,y) dxdy = \int_\alpha^\beta d\theta \int_{r_1(\theta)}^{r_2(\theta)} f(r\cos\theta, r\sin\theta) r dr $$
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{交换次序}：必须画出积分区域草图，重新定限。不要直接交换积分号和下限。
+    \item \textbf{极坐标雅可比因子}：极坐标积分千万别忘了乘 $r$。
+    \item \textbf{极坐标限}：射线穿入穿出法确定 $r$ 的上下限。
+\end{pitfall}
+
+% ==================== 第十二章 ====================
+\section{无穷级数}
+
+\subsection{核心概念}
+\begin{concept}{级数敛散性}
+    \begin{itemize}[nosep]
+        \item \textbf{必要条件}：级数 $\sum u_n$ 收敛 $\implies \lim_{n\to\infty} u_n = 0$。
+        \item \textbf{正项级数}：比较判别法、比值判别法、根值判别法。
+        \item \textbf{交错级数}：莱布尼茨判别法（$u_n$ 单调递减趋于0 $\implies$ 收敛）。
+        \item \textbf{绝对收敛}：$\sum |u_n|$ 收敛 $\implies \sum u_n$ 绝对收敛。
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{常用级数}
+    \begin{itemize}[nosep]
+        \item 几何级数 $\sum_{n=0}^\infty q^n$：$|q|<1$ 收敛于 $\frac{1}{1-q}$；$|q|\ge 1$ 发散。
+        \item P-级数 $\sum_{n=1}^\infty \frac{1}{n^p}$：$p>1$ 收敛；$p\le 1$ 发散。
+    \end{itemize}
+    \item \textbf{幂级数}
+    \begin{itemize}[nosep]
+        \item 收敛半径 $R = \lim_{n\to\infty} |\frac{a_n}{a_{n+1}}|$。
+        \item 泰勒展开：
+        $e^x = \sum_{n=0}^\infty \frac{x^n}{n!}, \quad x \in (-\infty, +\infty)$
+        $\ln(1+x) = \sum_{n=1}^\infty (-1)^{n-1} \frac{x^n}{n}, \quad x \in (-1, 1]$
+        $\sin x = \sum_{n=0}^\infty (-1)^n \frac{x^{2n+1}}{(2n+1)!}, \quad x \in (-\infty, +\infty)$
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{端点敛散性}：求收敛域时，必须单独检验收敛区间端点处的敛散性。
+    \item \textbf{缺项级数}：如 $\sum x^{2n}$，换元 $t=x^2$求半径，或直接用后项比前项求极限 $<1$。
+    \item \textbf{条件收敛}：莱布尼茨级数收敛，但取绝对值后发散，称为条件收敛。
+\end{pitfall}
+
+\end{document}

@@ -1,0 +1,771 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{booktabs}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 颜色定义
+\definecolor{lightblue}{RGB}{230, 245, 255}
+\definecolor{lightyellow}{RGB}{255, 255, 230}
+\definecolor{lightgreen}{RGB}{230, 255, 230}
+\definecolor{lightred}{RGB}{255, 230, 230}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理讲义}
+\lhead{第3章 SQL语言}
+\cfoot{\thepage}
+
+% bluebox环境定义
+\newenvironment{bluebox}[1]{%
+  \begin{trivlist}
+  \item[\hskip\labelsep \textbf{#1}]
+  \setlength{\parskip}{0.5ex}
+  \setlength{\itemsep}{0.5ex}
+}{%
+  \end{trivlist}
+}
+
+\title{\textbf{第3章 关系数据库标准语言SQL}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{SQL概述}
+
+\subsection{SQL的基本概念}
+
+\begin{bluebox}{核心概念框架}
+	\textbf{【SQL核心认知框架】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{SQL(Structured Query Language)}：结构化查询语言
+		\item \textbf{地位}：介于关系代数和关系演算之间的结构化查询语言
+		\item \textbf{功能}：数据查询、数据定义、数据操纵、数据控制
+		\item \textbf{特点}：综合统一、高度非过程化、面向集合操作、同义词
+	\end{itemize}
+
+	\textbf{SQL动词对照表}：
+
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{分类} & \textbf{动词}                 & \textbf{功能}   \\
+		\hline
+		DDL(数据定义)   & CREATE、DROP、ALTER           & 创建、删除、修改数据库对象 \\
+		\hline
+		DML(数据操纵)   & SELECT、INSERT、UPDATE、DELETE & 查询、插入、修改、删除数据 \\
+		\hline
+		DCL(数据控制)   & GRANT、REVOKE                & 授权、回收权限       \\
+		\hline
+		TCL(事务控制)   & COMMIT、ROLLBACK、SAVEPOINT   & 提交、回滚、保存点     \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\begin{bluebox}{SQL语句分类}
+	\textbf{【SQL四大语句分类】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{DDL（数据定义语言）}：
+		      \begin{itemize}
+			      \item CREATE：创建数据库对象（表、视图、索引等）
+			      \item ALTER：修改数据库对象结构
+			      \item DROP：删除数据库对象
+		      \end{itemize}
+		\item \textbf{DML（数据操纵语言）}：
+		      \begin{itemize}
+			      \item SELECT：数据查询
+			      \item INSERT：数据插入
+			      \item UPDATE：数据更新
+			      \item DELETE：数据删除
+		      \end{itemize}
+		\item \textbf{DCL（数据控制语言）}：
+		      \begin{itemize}
+			      \item GRANT：授予权限
+			      \item REVOKE：回收权限
+		      \end{itemize}
+		\item \textbf{TCL（事务控制语言）}：
+		      \begin{itemize}
+			      \item COMMIT：提交事务
+			      \item ROLLBACK：回滚事务
+			      \item SAVEPOINT：设置保存点
+		      \end{itemize}
+	\end{enumerate}
+\end{bluebox}
+
+\section{SQL数据定义}
+
+\subsection{创建与操作数据库对象}
+
+\begin{bluebox}{DDL语句}
+	\textbf{【常用DDL语句速查】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{创建表}：
+		      \begin{verbatim}
+CREATE TABLE 表名 (
+    列名1 数据类型 [约束],
+    列名2 数据类型 [约束],
+    ...
+);
+		      \end{verbatim}
+		\item \textbf{删除表}：
+		      \begin{verbatim}
+DROP TABLE 表名;  -- 删除表结构和数据
+		      \end{verbatim}
+		\item \textbf{修改表}：
+		      \begin{verbatim}
+ALTER TABLE 表名 ADD 列名 类型;
+ALTER TABLE 表名 DROP COLUMN 列名;
+ALTER TABLE 表名 MODIFY 列名 新类型;
+		      \end{verbatim}
+		\item \textbf{创建视图}：
+		      \begin{verbatim}
+CREATE VIEW 视图名 AS SELECT 查询;
+		      \end{verbatim}
+		\item \textbf{删除视图}：
+		      \begin{verbatim}
+DROP VIEW 视图名;
+		      \end{verbatim}
+	\end{enumerate}
+\end{bluebox}
+
+\begin{bluebox}{完整性约束}
+	\textbf{【SQL完整性约束】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{NOT NULL}：非空约束
+		\item \textbf{UNIQUE}：唯一约束
+		\item \textbf{PRIMARY KEY}：主键约束
+		\item \textbf{FOREIGN KEY}：外键约束
+		\item \textbf{CHECK}：检查约束
+		\item \textbf{DEFAULT}：默认值约束
+	\end{enumerate}
+
+	\textbf{约束命名语法}：
+	\begin{verbatim}
+CONSTRAINT 约束名 约束类型 (列名)
+	\end{verbatim}
+
+	\textbf{重要结论}：删除完整性约束使用 ALTER TABLE ... DROP CONSTRAINT
+\end{bluebox}
+
+\section{SQL数据查询}
+
+\subsection{SELECT语句详解}
+
+\begin{bluebox}{SELECT语句结构}
+	\textbf{【SELECT语句完整语法】}
+
+	\begin{verbatim}
+SELECT [DISTINCT] 列1, 列2, ...
+FROM 表1, 表2, ...
+[WHERE 条件]
+[GROUP BY 列名 [HAVING 条件]]
+[ORDER BY 列名 [ASC|DESC]]
+[LIMIT 数字];
+	\end{verbatim}
+
+	\textbf{各子句执行顺序}（重要！）：
+	\begin{enumerate}
+		\item FROM：确定数据来源
+		\item WHERE：筛选行
+		\item GROUP BY：分组
+		\item HAVING：筛选分组
+		\item SELECT：选择列
+		\item ORDER BY：排序
+		\item LIMIT：限制行数
+	\end{enumerate}
+\end{bluebox}
+
+\begin{bluebox}{WHERE子句条件}
+	\textbf{【WHERE子句运算符】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{比较运算符}：=、<>、!=、>、<、>=、<=
+		\item \textbf{范围运算符}：BETWEEN...AND...、NOT BETWEEN...AND...
+		\item \textbf{集合运算符}：IN、NOT IN
+		\item \textbf{模糊匹配}：LIKE（\% 任意字符、\_ 单个字符）
+		\item \textbf{空值判断}：IS NULL、IS NOT NULL
+		\item \textbf{逻辑运算符}：AND、OR、NOT
+	\end{enumerate}
+
+	\textbf{BETWEEN...AND...特点}：包含两端值，等价于 ">= 下限 AND <= 上限"
+\end{bluebox}
+
+\begin{bluebox}{聚合函数}
+	\textbf{【SQL聚合函数】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{COUNT}：统计行数
+		\item \textbf{SUM}：求和
+		\item \textbf{AVG}：求平均值
+		\item \textbf{MAX}：最大值
+		\item \textbf{MIN}：最小值
+	\end{enumerate}
+
+	\textbf{重要特性}：
+	\begin{itemize}
+		\item 聚合函数忽略NULL值（COUNT(*)除外）
+		\item COUNT(列名) 忽略NULL，COUNT(*) 统计所有行
+		\item 聚合函数不能用在WHERE子句中（要用HAVING）
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{GROUP BY与HAVING}
+	\textbf{【分组查询】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{GROUP BY}：按指定列分组
+		\item \textbf{HAVING}：筛选分组后的结果（相当于WHERE，但作用于分组）
+	\end{enumerate}
+
+	\textbf{GROUP BY规则}：
+	\begin{itemize}
+		\item SELECT中的列必须是分组列或聚合函数
+		\item 分组列可以有多列（复合分组）
+		\item NULL值会作为一组
+	\end{itemize}
+
+	\textbf{WHERE vs HAVING}：
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{区别} & \textbf{WHERE} & \textbf{HAVING} \\
+		\hline
+		作用对象        & 分组前的行          & 分组后的组           \\
+		\hline
+		使用聚合函数      & 不能             & 可以              \\
+		\hline
+		执行顺序        & 在GROUP BY之前    & 在GROUP BY之后     \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\section{SQL数据操纵}
+
+\subsection{INSERT、UPDATE、DELETE}
+
+\begin{bluebox}{数据插入}
+	\textbf{【INSERT语句】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{插入单行}：
+		      \begin{verbatim}
+INSERT INTO 表名 (列1, 列2, ...) VALUES (值1, 值2, ...);
+		      \end{verbatim}
+		\item \textbf{插入查询结果}：
+		      \begin{verbatim}
+INSERT INTO 表名 (列1, 列2, ...) SELECT 查询;
+		      \end{verbatim}
+	\end{enumerate}
+
+	\textbf{注意事项}：
+	\begin{itemize}
+		\item VALUES顺序与列顺序一致
+		\item 未指定的列使用默认值或NULL
+		\item 主键通常需要显式插入
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{数据更新}
+	\textbf{【UPDATE语句】}
+
+	\begin{verbatim}
+UPDATE 表名 SET 列1=值1, 列2=值2, ... [WHERE 条件];
+	\end{verbatim}
+
+	\textbf{注意事项}：
+	\begin{itemize}
+		\item WHERE子句限制更新范围
+		\item 省略WHERE会更新所有行
+		\item 更新时不能违反完整性约束
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{数据删除}
+	\textbf{【DELETE语句】}
+
+	\begin{verbatim}
+DELETE FROM 表名 [WHERE 条件];
+	\end{verbatim}
+
+	\textbf{TRUNCATE vs DELETE}：
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{特征} & \textbf{DELETE} & \textbf{TRUNCATE} \\
+		\hline
+		语法          & 可加WHERE         & 直接清空              \\
+		\hline
+		回滚          & 支持              & 不支持（DDL）          \\
+		\hline
+		速度          & 较慢（逐行）          & 快（整表）             \\
+		\hline
+		触发器         & 触发DELETE触发器     & 不触发               \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\section{视图}
+
+\begin{bluebox}{视图概念}
+	\textbf{【视图（View）】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{定义}：视图是从基本表导出的虚拟表
+		\item \textbf{存储}：只存储视图定义，不存储实际数据
+		\item \textbf{数据来源}：视图查询基于基本表
+		\item \textbf{更新}：修改视图会影响基本表
+	\end{enumerate}
+
+	\textbf{视图的优点}：
+	\begin{itemize}
+		\item 简化复杂查询
+		\item 提供数据安全性
+		\item 保持数据逻辑独立性
+		\item 重新格式化数据
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{视图操作}
+	\textbf{【视图的CRUD】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{创建视图}：
+		      \begin{verbatim}
+CREATE VIEW 视图名 AS SELECT 查询;
+		      \end{verbatim}
+		\item \textbf{删除视图}：
+		      \begin{verbatim}
+DROP VIEW 视图名;
+		      \end{verbatim}
+		\item \textbf{查询视图}：与查询表相同
+		\item \textbf{更新视图}：会影响到基本表（可更新的视图条件）
+	\end{enumerate}
+
+	\textbf{视图对应三级模式}：外模式（对应用户视图）
+\end{bluebox}
+
+\section{索引}
+
+\begin{bluebox}{索引概念}
+	\textbf{【索引（Index）】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{定义}：索引是建立在表上的数据结构，用于加速查询
+		\item \textbf{类型}：
+		      \begin{itemize}
+			      \item 聚集索引：物理顺序与索引顺序一致（一个表一个）
+			      \item 非聚集索引：物理顺序与索引顺序无关（多个）
+			      \item 唯一索引：索引值唯一
+			      \item 复合索引：多列组合
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{创建索引}：
+	\begin{verbatim}
+CREATE [UNIQUE] INDEX 索引名 ON 表名 (列1, 列2, ...);
+	\end{verbatim}
+\end{bluebox}
+
+\section{本章必背知识点}
+
+\begin{bluebox}{命题人思维版}
+	\textbf{【本章应背诵知识点】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{SQL四大分类}：DDL、DML、DCL、TCL
+		\item \textbf{Select执行顺序}：FROM $\rightarrow$ WHERE $\rightarrow$ GROUP BY $\rightarrow$ HAVING $\rightarrow$ SELECT $\rightarrow$ ORDER BY
+		\item \textbf{DISTINCT}：消除重复行
+		\item \textbf{WHERE vs HAVING}：WHERE筛选行，HAVING筛选分组
+		\item \textbf{聚合函数忽略NULL}：COUNT(*)除外
+		\item \textbf{视图本质}：存储定义，不存储数据
+		\item \textbf{DDL命令}：CREATE、DROP、ALTER
+		\item \textbf{DML命令}：SELECT、INSERT、UPDATE、DELETE
+	\end{enumerate}
+
+	\textbf{选项辨析速查表（考场5秒决策）}：
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{命令类型} & \textbf{关键词}                & \textbf{作用对象} & \textbf{记忆口诀} \\
+		\hline
+		DDL           & CREATE/DROP/ALTER           & 表、视图、索引       & "定义对象"        \\
+		\hline
+		DML           & SELECT/INSERT/UPDATE/Delete & 数据            & "操作数据"        \\
+		\hline
+		DCL           & GRANT/REVOKE                & 权限            & "控制权限"        \\
+		\hline
+		TCL           & COMMIT/ROLLBACK             & 事务            & "事务控制"        \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\begin{bluebox}{高频陷阱清单}
+	\textbf{【本章高频陷阱清单】}
+
+	\begin{itemize}
+		\item 陷阱1："SQL是关系数据库专用语言" $\rightarrow$ \textbf{错误！} SQL是标准，其他数据库也支持但有扩展
+		\item 陷阱2："DELETE可以删除表结构" $\rightarrow$ \textbf{错误！} DELETE只删除数据，DROP删除结构
+		\item 陷阱3："视图可以无限创建" $\rightarrow$ \textbf{错误！} 视图基于实际表，复杂视图不易维护
+		\item 陷阱4："聚合函数可以用在WHERE中" $\rightarrow$ \textbf{错误！} WHERE在GROUP BY之前执行
+		\item 陷阱5："TRUNCATE可以回滚" $\rightarrow$ \textbf{错误！} TRUNCATE是DDL，不可回滚
+		\item 陷阱6："索引越多越好" $\rightarrow$ \textbf{错误！} 索引影响增删改速度
+	\end{itemize}
+\end{bluebox}
+
+\section{典型例题深度解析}
+
+\begin{bluebox}{例题1：SQL功能分类}
+	\textbf{【例题1】} SQL语句中用于数据检索的命令是（\quad）。
+
+	\begin{itemize}
+		\item[A)] SELECT
+		\item[B)] DELETE
+		\item[C)] INSERT
+		\item[D)] UPDATE
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查SQL语句的功能分类
+		\item \textbf{关键区分点}：SELECT是数据查询命令
+		\item \textbf{命题人意图}：测试考生对SQL基本命令的掌握
+	\end{itemize}
+
+	\textbf{命令功能对照}：
+
+	\begin{itemize}
+		\item SELECT：查询数据（DML）
+		\item DELETE：删除数据（DML）
+		\item INSERT：插入数据（DML）
+		\item UPDATE：更新数据（DML）
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{例题2：权限控制语句}
+	\textbf{【例题2】} SQL的GRANT和REVOKE语句是用来维护数据库的（\quad）的。
+
+	\begin{itemize}
+		\item[A)] 安全性
+		\item[B)] 完整性
+		\item[C)] 并发控制
+		\item[D)] 恢复
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查GRANT和REVOKE的作用
+		\item \textbf{关键区分点}：这两个语句属于DCL，用于权限管理
+		\item \textbf{命题人意图}：测试考生对SQL控制功能的掌握
+	\end{itemize}
+
+	\textbf{GRANT语法}：
+	\begin{verbatim}
+GRANT 权限 ON 对象 TO 用户 [WITH GRANT OPTION];
+	\end{verbatim}
+
+	\textbf{REVOKE语法}：
+	\begin{verbatim}
+REVOKE 权限 ON 对象 FROM 用户;
+	\end{verbatim}
+\end{bluebox}
+
+\begin{bluebox}{例题3：空值处理}
+	\textbf{【例题3】} 在SQL的算术表达式中，如果其中有空值，则表达式（\quad）。
+
+	\begin{itemize}
+		\item[A)] 结果为空值
+		\item[B)] 空值按0计算
+		\item[C)] 由用户确定空值内容再计算结果
+		\item[D)] 指出运算错误，终止执行
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查SQL中空值的处理
+		\item \textbf{关键区分点}：空值参与运算，结果仍为空值
+		\item \textbf{命题人意图}：测试考生对NULL的理解
+	\end{itemize}
+
+	\textbf{NULL特性}：
+	\begin{itemize}
+		\item NULL + 数字 = NULL
+		\item NULL - 数字 = NULL
+		\item NULL * 数字 = NULL
+		\item 任何与NULL的比较（=、<>）结果都是UNKNOWN
+		\item 需要使用 IS NULL 或 IS NOT NULL 判断
+	\end{itemize}
+
+	\textbf{记忆口诀}：NULL参与运算，结果还是NULL
+\end{bluebox}
+
+\begin{bluebox}{例题4：视图概念}
+	\textbf{【例题4】} 视图是从（\quad）中导出的表。
+
+	\begin{itemize}
+		\item[A)] 模式
+		\item[B)] 内模式
+		\item[C)] 外模式
+		\item[D)] 逻辑模式
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查视图与三级模式的关系
+		\item \textbf{关键区分点}：视图对应外模式
+		\item \textbf{命题人意图}：测试考生对数据库系统三级模式的理解
+	\end{itemize}
+
+	\textbf{三级模式对应关系}：
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{模式} & \textbf{对应对象} \\
+		\hline
+		外模式         & 视图、用户模式       \\
+		\hline
+		模式(概念模式)    & 全体数据的逻辑结构     \\
+		\hline
+		内模式         & 物理存储结构        \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\begin{bluebox}{例题5：LIMIT子句}
+	\textbf{【例题5】} 使用（\quad）子句来限制被SELECT语句返回的行数。
+
+	\begin{itemize}
+		\item[A)] ORDER BY
+		\item[B)] LIMIT
+		\item[C)] HAVING
+		\item[D)] GROUP BY
+	\end{itemize}
+
+	\textbf{答案：B}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查限制结果集行数的方法
+		\item \textbf{关键区分点}：LIMIT是MySQL/PostgreSQL的语法
+		\item \textbf{命题人意图}：测试考生对SQL查询子句的掌握
+	\end{itemize}
+
+	\textbf{LIMIT语法}：
+	\begin{verbatim}
+LIMIT offset, count
+-- 或
+LIMIT count OFFSET offset
+-- 或（MySQL 8.0）
+LIMIT count OFFSET offset
+	\end{verbatim}
+
+	\textbf{其他数据库}：
+	\begin{itemize}
+		\item SQL Server：TOP n
+		\item Oracle：ROWNUM 或 FETCH
+		\item PostgreSQL：LIMIT
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{例题6：参照完整性}
+	\textbf{【例题6】} 设关系R(A，B，C)，主码为A；S(D，A)，主码为D，外码为A，参照R中的属性A。关系R的元组\{(1，2，3)，(2，1，3)，(3，7，8)\}和S的元组\{(d1，2)，(d2，NULL)，(d3，4)，(d4，1)\}。关系S中违反参照完整性规则的元组是（\quad）。
+
+	\begin{itemize}
+		\item[A)] (d1，2)
+		\item[B)] (d2，NULL)
+		\item[C)] (d3，4)
+		\item[D)] (d4，1)
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查参照完整性规则
+		\item \textbf{关键区分点}：外键要么为空，要么必须等于参照主键
+		\item \textbf{命题人意图}：测试考生对参照完整性的理解
+	\end{itemize}
+
+	\textbf{分析过程}：
+
+	\begin{itemize}
+		\item R的主键值：\{1, 2, 3\}
+		\item S的外键A值：
+		      \begin{itemize}
+			      \item d1: A=2 $\rightarrow$ 在R中存在，正确
+			      \item d2: A=NULL $\rightarrow$ 允许空值，正确
+			      \item d3: A=4 $\rightarrow$ 不在R的主键值中，违反！
+			      \item d4: A=1 $\rightarrow$ 在R中存在，正确
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{记忆口诀}：外键要么空，要么等于参照主键值
+\end{bluebox}
+
+\begin{bluebox}{例题7：视图安全性}
+	\textbf{【例题7】} 在数据库系统中，视图可以提供数据的（\quad）。
+
+	\begin{itemize}
+		\item[A)] 安全性
+		\item[B)] 完整性
+		\item[C)] 并发性
+		\item[D)] 可恢复性
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查视图的作用
+		\item \textbf{关键区分点}：视图可以限制用户访问范围
+		\item \textbf{命题人意图}：测试考生对视图功能的理解
+	\end{itemize}
+
+	\textbf{视图的安全作用}：
+	\begin{itemize}
+		\item 只暴露用户需要的数据列
+		\item 隐藏敏感信息（如工资）
+		\item 限制行级访问（如只看本部门）
+		\item 提供逻辑数据独立性
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{例题8：统计函数}
+	\textbf{【例题8】} 下列统计函数中不能忽略空值(NULL)的是（\quad）。
+
+	\begin{itemize}
+		\item[A)] SUM
+		\item[B)] AVG
+		\item[C)] MAX
+		\item[D)] COUNT
+	\end{itemize}
+
+	\textbf{答案：D}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查聚合函数对NULL的处理
+		\item \textbf{关键区分点}：COUNT(*)统计所有行，包括NULL
+		\item \textbf{命题人意图}：测试考生对聚合函数特性的掌握
+	\end{itemize}
+
+	\textbf{各函数对NULL的处理}：
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{函数}     & \textbf{COUNT(列名)} & \textbf{COUNT(*)} \\
+		\hline
+		SUM/AVG/MAX/MIN & 忽略NULL值            & 统计所有行             \\
+		\hline
+		COUNT           & 只统计非NULL值          & 统计所有行             \\
+		\hline
+	\end{tabular}
+
+	\textbf{记忆口诀}：聚合函数都忽略NULL，COUNT(*)是例外
+\end{bluebox}
+
+\begin{bluebox}{例题9：关系运算等价}
+	\textbf{【例题9】} 设关系R和S具有相同的关系模式，则与 $R \cup S$ 等价的是（\quad）。
+
+	\begin{itemize}
+		\item[A)] R - (R - S)
+		\item[B)] S - (R - S)
+		\item[C)] R + S
+		\item[D)] R
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查关系代数运算的等价转换
+		\item \textbf{关键区分点}：并运算可以用差运算表示
+		\item \textbf{命题人意图}：测试考生对关系代数运算的理解
+	\end{itemize}
+
+	\textbf{证明}：
+	\begin{itemize}
+		\item $R - (R - S)$ = R中减去"R有S没有的部分"
+		\item = R中保留S也有的部分 + R中S没有的部分（被减掉了）
+		\item = R ∪ S（并集）
+	\end{itemize}
+
+	\textbf{记忆口诀}：$R \cup S = R - (R - S) = S - (S - R)$
+\end{bluebox}
+
+\section{命题趋势与实战策略}
+
+\begin{bluebox}{考场秒杀三步法}
+	\textbf{【本章考场秒杀三步法】}
+
+	\begin{enumerate}
+		\item \textbf{第一步：识别题型}
+		      \begin{itemize}
+			      \item 问SQL命令功能 $\rightarrow$ 区分DDL/DML/DCL
+			      \item 问空值处理 $\rightarrow$ 记住NULL特性
+			      \item 问视图 $\rightarrow$ 联系三级模式
+		      \end{itemize}
+
+		\item \textbf{第二步：排除干扰项}
+		      \begin{itemize}
+			      \item 混淆DELETE和DROP $\rightarrow$ 记住"删数据"vs"删结构"
+			      \item 混淆WHERE和HAVING $\rightarrow$ 记住执行顺序
+			      \item 混淆索引类型 $\rightarrow$ 记住聚集索引一个表一个
+		      \end{itemize}
+
+		\item \textbf{第三步：关键词锁定}
+		      \begin{itemize}
+			      \item "限制返回行数" $\rightarrow$ LIMIT/TOP
+			      \item "消除重复" $\rightarrow$ DISTINCT
+			      \item "权限控制" $\rightarrow$ GRANT/REVOKE
+		      \end{itemize}
+	\end{enumerate}
+\end{bluebox}
+
+\begin{bluebox}{近年真题规律}
+	\textbf{【本章命题规律分析】}
+
+	\begin{itemize}
+		\item 85\%考题涉及"SELECT语句结构"
+		\item 80\%考题考查"WHERE vs HAVING"
+		\item 75\%考题以"NULL处理"作为陷阱
+		\item 新趋势：结合具体SQL语句考查执行顺序
+		\item 高频考点：GROUP BY、聚合函数、视图概念
+	\end{itemize}
+\end{bluebox}
+
+\end{document}

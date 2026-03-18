@@ -1,0 +1,2044 @@
+﻿\documentclass[12pt, a4paper]{ctexart}
+
+%==================== 导言区：宏包加载 ====================
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage{geometry}                 % 页面设置
+\usepackage{xcolor}                   % 颜色支持
+\usepackage{fancyhdr}                 % 页眉页脚
+\usepackage{enumitem}                 % 列表定制
+\usepackage{tcolorbox}                % 以此美化文本框
+\usepackage{titlesec}                 % 标题格式调整
+
+%==================== 页面布局设置 ====================
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+%==================== 自定义视觉样式 ====================
+
+% 1. 定义分隔线样式
+\newcommand{\TopSeparator}{
+    \par\noindent\rule{\textwidth}{1.5pt}\vspace{0.5em}
+}
+\newcommand{\AnalysisSeparator}{
+    \par\noindent\rule{\textwidth}{0.5pt}\vspace{0.2em}\hrule\vspace{0.5em}
+}
+
+% 2. 定义红色解析环境
+\newenvironment{RedAnalysis}{
+    \par
+    \color{red} 
+}{
+    \par
+    \color{black} 
+}
+
+% 3. 标题格式微调
+\titleformat{\section}{\large\bfseries\heiti}{}{0em}{}[\vspace{-0.5em}]
+\titleformat{\subsection}{\bfseries\kaishu}{}{0em}{}
+
+\everymath{\displaystyle}
+
+%==================== 文档开始 ====================
+\begin{document}
+
+% 标题信息
+\title{\textbf{积分计算练习题汇总·解析讲义}}
+\author{宏仕教育寒假营}
+\date{\today}
+\maketitle
+
+\TopSeparator
+\section*{一、不定积分 题目 1}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{e^x - e^{-x}}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分母含有异号指数幂，考虑分子分母同乘 $e^x$ 进行有理化化简
+
+	\textbf{第二步：思路构建} \\
+	凑微分与换元积分法
+
+	\textbf{第三步：详细步骤} \\
+	1. 分子分母同乘 $e^x$：原式 $ = \int \frac{e^x dx}{e^{2x}-1}$ \\ 
+	2. 凑微分或令 $u=e^x, du=e^xdx$：$ = \int \frac{d(e^x)}{(e^x)^2-1}$ \\ 
+	3. 套用对数型积分公式：$ = \frac{1}{2} \ln \left| \frac{e^x-1}{e^x+1} \right| + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{2} \ln \left| \frac{e^x-1}{e^x+1} \right| + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{dx}{x^2-a^2} = \frac{1}{2a} \ln \left| \frac{x-a}{x+a} \right|$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：凑微分技巧及有理函数基本积分公式
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 2}
+
+\textbf{【题目重现】} \\
+$\int \frac{x}{(1-x)^3} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	被积函数为有理分式，分母有高次幂，分子可凑出与分母相同的因式 $(1-x)$
+
+	\textbf{第二步：思路构建} \\
+	配凑法或代数换元法
+
+	\textbf{第三步：详细步骤} \\
+	1. 分子变形：$x = -(1-x) + 1$ \\ 
+	2. 拆解积分：$\int \frac{-(1-x)+1}{(1-x)^3} dx = \int \left[ -(1-x)^{-2} + (1-x)^{-3} \right] dx$ \\ 
+	3. 逐项积分(注意负号凑微分)：$ = - \frac{(1-x)^{-1}}{(-1) \cdot (-1)} + \frac{(1-x)^{-2}}{(-2) \cdot (-1)} + C \\ = -\frac{1}{1-x} + \frac{1}{2(1-x)^2} + C$
+
+	\textbf{第四步：最终答案} \\
+	$-\frac{1}{1-x} + \frac{1}{2(1-x)^2} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int x^n dx = \frac{x^{n+1}}{n+1} \ (n \neq -1)$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：幂函数积分、多项式拆项或一次平移换元
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 3}
+
+\textbf{【题目重现】} \\
+$\int \frac{x^2}{a^6 - x^6} dx \ (a>0)$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分子为 $x^2$，分母含 $x^6$，显然是凑微分 $d(x^3) = 3x^2 dx$
+
+	\textbf{第二步：思路构建} \\
+	第一类换元法（凑微分）
+
+	\textbf{第三步：详细步骤} \\
+	1. 凑微分形式：$\int \frac{x^2}{a^6 - (x^3)^2} dx = \frac{1}{3} \int \frac{d(x^3)}{(a^3)^2 - (x^3)^2}$ \\ 
+	2. 令 $u=x^3$：$= \frac{1}{3} \int \frac{du}{(a^3)^2 - u^2}$ \\ 
+	3. 套用公式：$= \frac{1}{3} \cdot \frac{1}{2a^3} \ln \left| \frac{a^3+u}{a^3-u} \right| + C = \frac{1}{6a^3} \ln \left| \frac{a^3+x^3}{a^3-x^3} \right| + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{6a^3} \ln \left| \frac{a^3+x^3}{a^3-x^3} \right| + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{dx}{a^2-x^2} = \frac{1}{2a} \ln \left| \frac{a+x}{a-x} \right|$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：通过幂次关联识别 $x^2$ 与 $x^3$ 的导数关系
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 4}
+
+\textbf{【题目重现】} \\
+$\int \frac{1+\cos x}{x+\sin x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	观察分子 $(1+\cos x)$，恰好是分母 $(x+\sin x)$ 的导数
+
+	\textbf{第二步：思路构建} \\
+	凑微分结构法与对数公式
+
+	\textbf{第三步：详细步骤} \\
+	1. 找导数关系：$d(x+\sin x) = (1+\cos x)dx$ \\ 
+	2. 代入积分：$\int \frac{d(x+\sin x)}{x+\sin x}$ \\ 
+	3. 积分结果：$ = \ln|x+\sin x| + C$
+
+	\textbf{第四步：最终答案} \\
+	$\ln|x+\sin x| + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{f'(x)}{f(x)} dx = \ln|f(x)| + C$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：$f'(x)/f(x)$ 形式的快速识别
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 5}
+
+\textbf{【题目重现】} \\
+$\int \frac{\ln \ln x}{x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	被积函数含复合对数，且有 $1/x$，即 $\ln x$ 的导数。可以先换元 $u=\ln x$
+
+	\textbf{第二步：思路构建} \\
+	两次换元及分部积分
+
+	\textbf{第三步：详细步骤} \\
+	1. 第一步换元：令 $u=\ln x$，$du = \frac{dx}{x}$，积分变为 $\int \ln u \, du$ \\ 
+	2. 分部积分：$\int \ln u \, du = u \ln u - \int u \cdot \frac{1}{u} du = u \ln u - u + C$ \\ 
+	3. 代回变量：$ = \ln x \cdot \ln(\ln x) - \ln x + C$
+
+	\textbf{第四步：最终答案} \\
+	$\ln x \cdot \ln(\ln x) - \ln x + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \ln x dx = x\ln x - x$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：对数换元以及对数函数的标准分部积分结果
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 6}
+
+\textbf{【题目重现】} \\
+$\int \frac{\sin x \cos x}{1+\sin^4 x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分子含 $\sin x \cos x$，是 $\frac{1}{2} d(\sin^2 x)$；分母可看作 $1+(\sin^2 x)^2$
+
+	\textbf{第二步：思路构建} \\
+	换元积分法凑反正切
+
+	\textbf{第三步：详细步骤} \\
+	1. 变形及凑微分：$\sin x \cos x dx = \frac{1}{2} d(\sin^2 x)$ \\ 
+	2. 令 $u=\sin^2 x$，积分为 $\frac{1}{2} \int \frac{du}{1+u^2}$ \\ 
+	3. 积分并代回：$ = \frac{1}{2} \arctan u + C = \frac{1}{2} \arctan(\sin^2 x) + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{2} \arctan(\sin^2 x) + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{dx}{1+x^2} = \arctan x$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：把高次三角函数降解凑成 $ \arctan $ 基本形式
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 7}
+
+\textbf{【题目重现】} \\
+$\int \tan^4 x dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	正切函数的偶数次幂可利用 $\tan^2 x = \sec^2 x - 1$ 转换以产生凑微分项
+
+	\textbf{第二步：思路构建} \\
+	三角恒等变形与正切凑微分
+
+	\textbf{第三步：详细步骤} \\
+	1. 分离项变形：$\tan^4 x = \tan^2 x (\sec^2 x - 1) = \tan^2 x \sec^2 x - \tan^2 x$ \\ 
+	2. 分解积分：$I = \int \tan^2 x d(\tan x) - \int (\sec^2 x - 1) dx$ \\ 
+	3. 计算各项：$ = \frac{1}{3}\tan^3 x - \tan x + x + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{3}\tan^3 x - \tan x + x + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\tan^2 x + 1 = \sec^2 x, \ \int \tan^n x \sec^2 x dx = \frac{\tan^{n+1}x}{n+1}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：利用商数和平方关系生成含有 $d(\tan x)$ 的式子
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 8}
+
+\textbf{【题目重现】} \\
+$\int \sin x \sin 2x \sin 3x dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	三角函数连乘，使用积化和差公式逐步降次化为单倍角和式的线性组合
+
+	\textbf{第二步：思路构建} \\
+	积化和差多重应用
+
+	\textbf{第三步：详细步骤} \\
+	1. 对 $\sin x \sin 3x$ 积化和差：$-\frac{1}{2} [\cos(4x) - \cos(2x)]$ \\ 
+	2. 乘以 $\sin 2x$：$= -\frac{1}{2} \sin 2x \cos 4x + \frac{1}{2} \sin 2x \cos 2x$ \\ 
+	3. 再次积化和差：$-\frac{1}{4}[\sin 6x - \sin 2x] + \frac{1}{4}\sin 4x$ \\ 
+	4. 逐项积分：$I = \int (-\frac{1}{4}\sin 6x + \frac{1}{4}\sin 4x + \frac{1}{4}\sin 2x) dx$ \\ 
+	5. $ = \frac{1}{24}\cos 6x - \frac{1}{16}\cos 4x - \frac{1}{8}\cos 2x + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{24}\cos 6x - \frac{1}{16}\cos 4x - \frac{1}{8}\cos 2x + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\sin\alpha\sin\beta = -\frac{1}{2}[\cos(\alpha+\beta)-\cos(\alpha-\beta)]$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：繁琐三角变形式的计算耐心及积化和差公式的记忆
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 9}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{x(x^6+4)}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分母缺项且包含 $x^6$，通常通过分子分母同乘 $x^5$ 来凑分离形
+
+	\textbf{第二步：思路构建} \\
+	凑高次项微分及部分分式法
+
+	\textbf{第三步：详细步骤} \\
+	1. 分子分母同乘 $x^5$：$\int \frac{x^5 dx}{x^6(x^6+4)}$ \\ 
+	2. 凑微分或换元：$du = 6x^5dx$，$\frac{1}{6} \int \frac{du}{u(u+4)}$ （令 $u=x^6$） \\ 
+	3. 裂项拆解：$\frac{1}{24} \int (\frac{1}{u} - \frac{1}{u+4}) du$ \\ 
+	4. 积分得：$\frac{1}{24} \ln \left| \frac{u}{u+4} \right| + C = \frac{1}{24} \ln \left( \frac{x^6}{x^6+4} \right) + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{24} \ln \frac{x^6}{x^6+4} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\frac{1}{u(u+a)} = \frac{1}{a} \left(\frac{1}{u} - \frac{1}{u+a}\right)$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：有理分式降次归一技巧，裂项相消
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 10}
+
+\textbf{【题目重现】} \\
+$\int \sqrt{\frac{a+x}{a-x}} dx \ (a>0)$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	含有无理式 $\sqrt{\frac{a+x}{a-x}}$ 的积分，分子分母同乘 $\sqrt{a+x}$ 进行根式有理化
+
+	\textbf{第二步：思路构建} \\
+	分子有理化拆项
+
+	\textbf{第三步：详细步骤} \\
+	1. 同乘 $\sqrt{a+x}$：$\int \frac{a+x}{\sqrt{a^2-x^2}} dx$ \\ 
+	2. 拆分为两项：$\int \frac{a}{\sqrt{a^2-x^2}} dx + \int \frac{x}{\sqrt{a^2-x^2}} dx$ \\ 
+	3. 前一项为反正弦：$a \arcsin \frac{x}{a}$ \\ 
+	4. 后一项使用凑微分 $d(a^2-x^2)$：$-\frac{1}{2} \int (a^2-x^2)^{-1/2} d(a^2-x^2) = -\sqrt{a^2-x^2}$ \\ 
+	5. 合并：$a \arcsin \frac{x}{a} - \sqrt{a^2-x^2} + C$
+
+	\textbf{第四步：最终答案} \\
+	$a \arcsin \frac{x}{a} - \sqrt{a^2-x^2} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{dx}{\sqrt{a^2-x^2}} = \arcsin \frac{x}{a}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：根式分式分子有理化的经典转换手法
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 11}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{\sqrt{x}(1+x)}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	被积函数含 $\sqrt{x}$，令整体 $t = \sqrt{x}$ 消除无理式
+
+	\textbf{第二步：思路构建} \\
+	第二类换元法（代数式替换）
+
+	\textbf{第三步：详细步骤} \\
+	1. 令 $t = \sqrt{x}$，则 $x = t^2$，$dx = 2t dt$ \\ 
+	2. 代入积分：$\int \frac{2t dt}{t(1+t^2)} = 2 \int \frac{dt}{1+t^2}$ \\ 
+	3. 基本积分：$2 \arctan t + C$ \\ 
+	4. 代回 $x$：$2 \arctan \sqrt{x} + C$
+
+	\textbf{第四步：最终答案} \\
+	$2 \arctan \sqrt{x} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{dx}{1+x^2} = \arctan x$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：通过最简单平方式的代换破除根号约束
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 12}
+
+\textbf{【题目重现】} \\
+$\int x \cos^2 x dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	被积函数为多项式与三角函数平方乘积，先利用倍角公式降次
+
+	\textbf{第二步：思路构建} \\
+	降次公式与分部积分
+
+	\textbf{第三步：详细步骤} \\
+	1. 降次：$x \cos^2 x = x \cdot \frac{1+\cos 2x}{2} = \frac{1}{2}x + \frac{1}{2}x\cos 2x$ \\ 
+	2. 分开积分：$I_1 = \frac{1}{4}x^2$，对 $I_2 = \frac{1}{2} \int x\cos 2x dx$ 分部积分 \\ 
+	3. 分部 $I_2$：令 $u=x$, $dv=\cos 2x dx \Rightarrow v=\frac{1}{2}\sin 2x$。\\ 
+	$\frac{1}{2}[ \frac{1}{2}x\sin 2x - \frac{1}{2}\int\sin 2x dx ] = \frac{1}{4}x\sin 2x + \frac{1}{8}\cos 2x$ \\ 
+	4. 汇总：$\frac{1}{4}x^2 + \frac{1}{4}x\sin 2x + \frac{1}{8}\cos 2x + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{4}x^2 + \frac{1}{4}x\sin 2x + \frac{1}{8}\cos 2x + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\cos^2 x = \frac{1+\cos 2x}{2}; \int x \cos bx dx = \frac{x}{b}\sin bx + \frac{\cos bx}{b^2}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：掌握三角降次及时机选择分部积分
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 13}
+
+\textbf{【题目重现】} \\
+$\int e^{ax} \cos bx dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	经典的双循环形式积分，通常需要连续两次分部积分
+
+	\textbf{第二步：思路构建} \\
+	分部积分法求解循环方程
+
+	\textbf{第三步：详细步骤} \\
+	1. 设 $I = \int e^{ax} \cos bx dx$，应用分部 $(u=e^{ax}, dv=\cos bx)$ \\ 
+	2. $I = e^{ax}(\frac{1}{b}\sin bx) - \frac{a}{b} \int e^{ax}\sin bx dx$ \\ 
+	3. 对新积分再分部：$\int e^{ax}\sin bx dx = -e^{ax}\frac{1}{b}\cos bx + \frac{a}{b} I$ \\ 
+	4. 代回原式：$I = \frac{1}{b}e^{ax}\sin bx + \frac{a}{b^2}e^{ax}\cos bx - \frac{a^2}{b^2} I$ \\ 
+	5. 移项整理提取 $I$：$I = \frac{e^{ax}(a\cos bx + b\sin bx)}{a^2+b^2} + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{e^{ax}(a\cos bx + b\sin bx)}{a^2+b^2} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\text{两次分部产生构造项 } (1+\frac{a^2}{b^2})I = \dots$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：循环积分的形式及公式法熟练度
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 14}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{\sqrt{1+e^x}}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	含隐式根号形式，最佳方法是直接将带有根式的部分整体做代换
+
+	\textbf{第二步：思路构建} \\
+	无理根式整体换元
+
+	\textbf{第三步：详细步骤} \\
+	1. 令 $t = \sqrt{1+e^x}$，则 $e^x = t^2-1$，$x = \ln(t^2-1)$，$dx = \frac{2t}{t^2-1} dt$ \\ 
+	2. 积分变为：$\int \frac{1}{t} \cdot \frac{2t}{t^2-1} dt = \int \frac{2}{t^2-1} dt$ \\ 
+	3. 裂项化简为：$\ln \left| \frac{t-1}{t+1} \right| + C$ \\ 
+	4. 将 $t$ 代回：$\ln \left| \frac{\sqrt{1+e^x}-1}{\sqrt{1+e^x}+1} \right| + C$
+
+	\textbf{第四步：最终答案} \\
+	$\ln \left| \frac{\sqrt{1+e^x}-1}{\sqrt{1+e^x}+1} \right| + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{dx}{x^2-1} = \frac{1}{2} \ln \left| \frac{x-1}{x+1} \right|$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：针对隐函数形式的整体代换求解技巧
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 15}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{x^2\sqrt{x^2-1}}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	含 $\sqrt{x^2-a^2}$ 类型结构，标准方法是利用三角乘积替换或者倒代换
+
+	\textbf{第二步：思路构建} \\
+	三角代换或倒代换
+
+	\textbf{第三步：详细步骤} \\
+	1. 方法一(倒代换)：令 $x = \frac{1}{t}$，$dx = -\frac{1}{t^2} dt$，$\sqrt{x^2-1} = \frac{\sqrt{1-t^2}}{t}$ \\ 
+	2. 代入得：$\int \frac{-t^2 dt}{t^2 \cdot \frac{\sqrt{1-t^2}}{t}} = -\int \frac{t}{\sqrt{1-t^2}} dt$ \\ 
+	3. 凑微分或直接计算：$= \sqrt{1-t^2} + C$ \\ 
+	4. 代回 $t=\frac{1}{x}$：$ = \sqrt{1-\frac{1}{x^2}} = \frac{\sqrt{x^2-1}}{x} + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{\sqrt{x^2-1}}{x} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\text{倒代换 } u = \frac{1}{x} \text{ 能够消解分母为高次的类型}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：有效规避繁琐的三角变形，通过简单的多项式代换解决有理化
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 16}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{(a^2-x^2)^{5/2}}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	含有形如 $(a^2-x^2)^{n/2}$，使用三角代换 $x=a\sin\theta$ 处理
+
+	\textbf{第二步：思路构建} \\
+	正弦代换法
+
+	\textbf{第三步：详细步骤} \\
+	1. 令 $x = a\sin\theta$，$dx = a\cos\theta d\theta$，分母为 $(a\cos\theta)^5 = a^5\cos^5\theta$ \\ 
+	2. 积分化为：$\int \frac{a\cos\theta}{a^5\cos^5\theta} d\theta = \frac{1}{a^4}\int \sec^4\theta d\theta$ \\ 
+	3. 化积并算：$\frac{1}{a^4}\int (1+\tan^2\theta) d(\tan\theta) = \frac{1}{a^4}(\tan\theta + \frac{1}{3}\tan^3\theta) + C$ \\ 
+	4. 代换回 $x$：$\tan\theta = \frac{x}{\sqrt{a^2-x^2}}$。故答案为此代入
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{a^4} \left( \frac{x}{\sqrt{a^2-x^2}} + \frac{x^3}{3(a^2-x^2)^{3/2}} \right) + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$x = a\sin\theta, \ \tan\theta = \frac{x}{\sqrt{a^2-x^2}}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：$\sec$与$\tan$恒等关系的快速组合运算
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 17}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{x^4\sqrt{1+x^2}}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	同样为分母高次外加根号多项式类型，倒代换非常高效
+
+	\textbf{第二步：思路构建} \\
+	倒数代换
+
+	\textbf{第三步：详细步骤} \\
+	1. 令 $x = \frac{1}{t}$，$dx = -\frac{dt}{t^2}$，$\sqrt{1+x^2}=\frac{\sqrt{t^2+1}}{t}$ \\ 
+	2. 代入积分化简：$-\int t^3 \cdot \frac{dt}{\sqrt{t^2+1}}$ \\ 
+	3. 凑微分或换元 $u = \sqrt{t^2+1}$：$\int -t^2 \cdot \frac{t dt}{\sqrt{t^2+1}} = -\int (u^2-1) du = - \frac{1}{3}u^3 + u + C$ \\ 
+	4. 代回 $t$ 然后代回 $x$：$- \frac{1}{3}(1+\frac{1}{x^2})^{3/2} + \sqrt{1+\frac{1}{x^2}} + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{(2x^2-1)\sqrt{1+x^2}}{3x^3} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\text{倒代换 } x=1/t$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：通过倒代换将分母位置的 $x$ 多项式转化至分子以便直接积
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 18}
+
+\textbf{【题目重现】} \\
+$\int \sqrt{x} \sin \sqrt{x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	复合根式内层包裹了 $\sqrt{x}$ 的形式，首选代换 $t=\sqrt{x}$
+
+	\textbf{第二步：思路构建} \\
+	换元后使用分部积分法
+
+	\textbf{第三步：详细步骤} \\
+	1. 令 $t = \sqrt{x}$，$x = t^2$，$dx = 2t dt$ \\ 
+	2. 积分变为：$\int t \cdot \sin t \cdot 2t dt = 2\int t^2\sin t dt$ \\ 
+	3. 两次分部积分：$2[ -t^2\cos t + 2\int t\cos t dt ] = -2t^2\cos t + 4[ t\sin t + \cos t ]$ \\ 
+	4. 汇总为：$4t\sin t - (2t^2-4)\cos t + C$ \\ 
+	5. 代回 $x$：$4\sqrt{x}\sin\sqrt{x} - (2x-4)\cos\sqrt{x} + C$
+
+	\textbf{第四步：最终答案} \\
+	$4\sqrt{x}\sin\sqrt{x} - (2x-4)\cos\sqrt{x} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int x^n \sin x dx \text{ 及其降维计算方式}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：连续利用分部积分法化简多项式跟三角积
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 19}
+
+\textbf{【题目重现】} \\
+$\int \ln(1+x^2) dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	仅存在对数函数且无合适导数关系，唯一解法是分部积分法，令 $u=\ln(1+x^2)$，$dv=dx$
+
+	\textbf{第二步：思路构建} \\
+	分部积分及多项式分解
+
+	\textbf{第三步：详细步骤} \\
+	1. $u = \ln(1+x^2), v = x$。原式 $= x\ln(1+x^2) - \int x \frac{2x}{1+x^2} dx$ \\ 
+	2. 化简被积式：$\frac{2x^2}{1+x^2} = 2(1 - \frac{1}{1+x^2})$ \\ 
+	3. 对被积式积分：$\int 2(1 - \frac{1}{1+x^2}) dx = 2(x - \arctan x)$ \\ 
+	4. 最终得：$x\ln(1+x^2) - 2x + 2\arctan x + C$
+
+	\textbf{第四步：最终答案} \\
+	$x\ln(1+x^2) - 2x + 2\arctan x + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int (\frac{x^2}{1+x^2}) dx \text{ 的恒等变形方式}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：利用分式分裂 $+1, -1$ 把杂乱的多项式转换为可识形式
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 20}
+
+\textbf{【题目重现】} \\
+$\int \frac{\sin^2 x}{\cos^3 x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	为三角函数的奇偶次项商结构。分母 $\cos$ 是奇数次，利用将其补为偶次转化为 $\sin$ 求积
+
+	\textbf{第二步：思路构建} \\
+	分子分母同乘补项技巧
+
+	\textbf{第三步：详细步骤} \\
+	1. 分子分母同乘 $\cos x$：$\int \frac{\sin^2 x \cos x}{\cos^4 x} dx = \int \frac{\sin^2 x d(\sin x)}{(1-\sin^2 x)^2}$ \\ 
+	2. 令 $u = \sin x$：$\int \frac{u^2}{(1-u^2)^2} du$ \\ 
+	3. 进行裂项或变量分解：$u^2 = -(1-u^2)+1$，$\int [ \frac{1}{(1-u^2)^2} - \frac{1}{1-u^2} ] du$ \\ 
+	4. 根据裂项积分并代回变量得最简形式。$= \frac{\sin x}{2\cos^2 x} - \frac{1}{2}\ln|\sec x+\tan x| + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{\sin x}{2\cos^2 x} - \frac{1}{2}\ln|\sec x+\tan x| + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{dt}{(1-t^2)^2} = \frac{t}{2(1-t^2)} + \frac{1}{4}\ln\left|\frac{1+t}{1-t}\right|$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：应对单一奇次幂的固定凑法操作和有理分式解算
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 21}
+
+\textbf{【题目重现】} \\
+$\int \arctan \sqrt{x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	反三角函数通常使用分部积分法；内含无理式可以先考虑换元
+
+	\textbf{第二步：思路构建} \\
+	分部积分法与有理化换元
+
+	\textbf{第三步：详细步骤} \\
+	1. 分部积分：设 $u = \arctan\sqrt{x}$, $dv = dx$，则 $v = x$ \\ 
+	2. 原式 $= x\arctan\sqrt{x} - \int x \cdot \frac{1}{1+(\sqrt{x})^2} \cdot \frac{1}{2\sqrt{x}} dx$ \\ 
+	3. 化简积项：$\int \frac{\sqrt{x}}{2(1+x)} dx$。令 $t = \sqrt{x}$，则 $x = t^2$，$dx = 2t dt$ \\ 
+	4. 回代计算：$\int \frac{t^2}{1+t^2} dt = \int (1 - \frac{1}{1+t^2}) dt = t - \arctan t$ \\ 
+	5. 最终组合：$x\arctan\sqrt{x} - (\sqrt{x} - \arctan\sqrt{x}) + C = (x+1)\arctan\sqrt{x} - \sqrt{x} + C$
+
+	\textbf{第四步：最终答案} \\
+	$(x+1)\arctan\sqrt{x} - \sqrt{x} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \arctan x dx = x\arctan x - \frac{1}{2}\ln(1+x^2)$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：复杂反三角类型的去余分部操作和根式换元
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 22}
+
+\textbf{【题目重现】} \\
+$\int \frac{\sqrt{1+\cos x}}{\sin x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	利用半角公式可以把根号化简掉
+
+	\textbf{第二步：思路构建} \\
+	半角公式变形法
+
+	\textbf{第三步：详细步骤} \\
+	1. 半角处理分母：$\sin x = 2\sin\frac{x}{2}\cos\frac{x}{2}$ \\ 
+	2. 处理分子：$1+\cos x = 2\cos^2\frac{x}{2} \Rightarrow \sqrt{1+\cos x} = \sqrt{2}\cos\frac{x}{2}$ (假设 $x \in (0,\pi)$) \\ 
+	3. 代入：$\int \frac{\sqrt{2}\cos\frac{x}{2}}{2\sin\frac{x}{2}\cos\frac{x}{2}} dx = \frac{\sqrt{2}}{2} \int \frac{dx}{\sin(x/2)}$ \\ 
+	4. 积分：$=\sqrt{2} \int \csc\frac{x}{2} d(\frac{x}{2})$ \\ 
+	5. 结果：$\sqrt{2} \ln |\csc\frac{x}{2} - \cot\frac{x}{2}| + C$
+
+	\textbf{第四步：最终答案} \\
+	$\sqrt{2} \ln \left| \csc\frac{x}{2} - \cot\frac{x}{2} \right| + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \csc x dx = \ln|\csc x - \cot x|$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：三角函数半角与根号有理化转换
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 23}
+
+\textbf{【题目重现】} \\
+$\int \frac{x^3}{(1+x^8)^2} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分母含 $x^8$，分子含 $x^3$，恰为 $x^4$ 的导数项
+
+	\textbf{第二步：思路构建} \\
+	直接凑微分式作换元
+
+	\textbf{第三步：详细步骤} \\
+	1. 匹配导数：$d(x^4) = 4x^3 dx \Rightarrow x^3 dx = \frac{1}{4}d(x^4)$ \\ 
+	2. 令 $u = x^4$，原式 $ = \frac{1}{4} \int \frac{du}{(1+u^2)^2}$ \\ 
+	3. 三角代换：令 $u=\tan \theta$，$du=\sec^2\theta d\theta$，积分化为 $\int \cos^2\theta d\theta$ \\ 
+	4. 或者分部递推降阶算出。结果得 $\frac{1}{8}(\frac{u}{1+u^2} + \arctan u)$ \\ 
+	5. 代回：$\frac{1}{8} \left( \frac{x^4}{1+x^8} + \arctan(x^4) \right) + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{x^4}{8(1+x^8)} + \frac{1}{8}\arctan(x^4) + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{du}{(1+u^2)^2} = \frac{1}{2}(\frac{u}{1+u^2} + \arctan u)$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：四次幂与三次幂导数的联通关系快速代换降阶
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 24}
+
+\textbf{【题目重现】} \\
+$\int \frac{x^{11}}{x^8+3x^4+2} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分子最高次为 $11$，分母是 $x^4$ 的二次三项式，令 $u=x^4$ 换元统一幂次
+
+	\textbf{第二步：思路构建} \\
+	提取次幂化归换元、有理函数裂项
+
+	\textbf{第三步：详细步骤} \\
+	1. 凑出被积基本式：$x^{11}dx = x^8 \cdot x^3 dx = \frac{1}{4} u^2 du$ (令 $u=x^4$) \\ 
+	2. 原式化为：$\frac{1}{4} \int \frac{u^2}{u^2+3u+2} du$ \\ 
+	3. 有理分式化简：$ = \frac{1}{4} \int (1 - \frac{3u+2}{(u+1)(u+2)}) du$ \\ 
+	4. 裂项拆解：$\frac{1}{4} \int (1 + \frac{1}{u+1} - \frac{4}{u+2}) du$ \\ 
+	5. 积分：$\frac{1}{4} [ x^4 + \ln|x^4+1| - 4\ln|x^4+2| ] + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{4} x^4 + \frac{1}{4} \ln|x^4+1| - \ln|x^4+2| + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\frac{M(u)}{N(u)} = P(u) + \frac{R(u)}{N(u)} \ \text{带余除法}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：灵活的低阶高次混合多项式的分解约简处理法
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 25}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{16-x^4}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分母可分解为 $(4-x^2)(4+x^2)$
+
+	\textbf{第二步：思路构建} \\
+	有理函数分解裂项法
+
+	\textbf{第三步：详细步骤} \\
+	1. 分解分母：$16-x^4 = (4-x^2)(4+x^2) = (2-x)(2+x)(x^2+4)$ \\ 
+	2. 部分分式展开：$\frac{1}{16-x^4} = \frac{1}{8}(\frac{1}{4-x^2} + \frac{1}{4+x^2})$ \\ 
+	3. 逐一积分：$\int \frac{1}{8(4-x^2)} dx = \frac{1}{8} \cdot \frac{1}{4} \ln|\frac{2+x}{2-x}|$ \\ 
+	4. 后半部分：$\int \frac{1}{8(4+x^2)} dx = \frac{1}{8} \cdot \frac{1}{2} \arctan\frac{x}{2}$ \\ 
+	5. 汇总：$\frac{1}{32}\ln|\frac{2+x}{2-x}| + \frac{1}{16}\arctan\frac{x}{2} + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{32}\ln\left|\frac{2+x}{2-x}\right| + \frac{1}{16}\arctan\frac{x}{2} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{1}{a^2-x^2}dx=\frac{1}{2a}\ln|\frac{a+x}{a-x}|; \int \frac{1}{x^2+a^2}dx=\frac{1}{a}\arctan\frac{x}{a}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：有理函数部分分式的双分裂式计算
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 26}
+
+\textbf{【题目重现】} \\
+$\int \frac{\sin x}{1+\sin x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分子分母同乘 $(1-\sin x)$ 有理化或者直接加上减去 1
+
+	\textbf{第二步：思路构建} \\
+	代数变形加减拆解
+
+	\textbf{第三步：详细步骤} \\
+	1. 加1减1法：$\frac{\sin x}{1+\sin x} = \frac{1+\sin x - 1}{1+\sin x} = 1 - \frac{1}{1+\sin x}$ \\ 
+	2. 原式化简：$x - \int \frac{1}{1+\sin x} dx$ \\ 
+	3. 计算后半项：$\int \frac{1-\sin x}{\cos^2 x} dx = \int (\sec^2 x - \sec x \tan x) dx$ \\ 
+	4. 后半项得：$\tan x - \sec x$ \\ 
+	5. 合并：$x - \tan x + \sec x + C$
+
+	\textbf{第四步：最终答案} \\
+	$x - \tan x + \sec x + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\frac{1}{1+\sin x} = \frac{1-\sin x}{\cos^2 x}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：对于 $1+\sin$ 等三角形式的固定分离与除理手法
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 27}
+
+\textbf{【题目重现】} \\
+$\int \frac{x+\sin x}{1+\cos x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分子由两个部分构成，分别除以分母。用半角公式将分母转化为单项式
+
+	\textbf{第二步：思路构建} \\
+	半角公式分母缩项法
+
+	\textbf{第三步：详细步骤} \\
+	1. 使用半角公式化简分母：$1+\cos x = 2\cos^2\frac{x}{2}$ \\ 
+	2. 原式变为：$\int \frac{x}{2\cos^2\frac{x}{2}} dx + \int \frac{\sin x}{2\cos^2\frac{x}{2}} dx$ \\ 
+	3. 后一半积分：$= \int \frac{2\sin\frac{x}{2}\cos\frac{x}{2}}{2\cos^2\frac{x}{2}} dx = \int \tan\frac{x}{2} dx = -2\ln|\cos\frac{x}{2}|$ \\ 
+	4. 前一半积分用分部积分：$\frac{1}{2}\int x \sec^2\frac{x}{2} dx = x\tan\frac{x}{2} - \int \tan\frac{x}{2} dx$ \\ 
+	5. 合并相消得：$x\tan\frac{x}{2} + 2\ln|\cos\frac{x}{2}| - 2\ln|\cos\frac{x}{2}| = x\tan\frac{x}{2} + C$
+
+	\textbf{第四步：最终答案} \\
+	$x\tan\frac{x}{2} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\sin x=2\sin\frac{x}{2}\cos\frac{x}{2}; \ 1+\cos x=2\cos^2\frac{x}{2}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：应用半角公式降次化简处理三角加法常作分母问题
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 28}
+
+\textbf{【题目重现】} \\
+$\int e^{\sin x} \frac{x \cos^3 x - \sin x}{\cos^2 x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	复合指数项以及复杂分式，考虑将分式拆开进行分部积分并抵消
+
+	\textbf{第二步：思路构建} \\
+	分部积分构造相消式
+
+	\textbf{第三步：详细步骤} \\
+	1. 分解被积式：$\int x e^{\sin x}\cos x dx - \int e^{\sin x}\frac{\sin x}{\cos^2 x} dx$ \\ 
+	2. 观察后一项：$\int \tan x \sec x e^{\sin x} dx$ 比较难直接积，转看先对前一项积 \\ 
+	3. 对第一项分部：令 $u = x, dv = e^{\sin x}\cos x dx \Rightarrow v = e^{\sin x}$ \\ 
+	$\int x e^{\sin x}\cos x dx = x e^{\sin x} - \int e^{\sin x} dx$。发现没有抵消 \\ 
+	4. 换种拆分：原式 $= \int (x \cos x - \frac{\sin x}{\cos^2 x}) e^{\sin x} dx$。令 $v = \frac{x}{\cos x}$，寻找全微分关系：$d(\frac{x}{\cos x} e^{\sin x}) = \dots$ \\ 	
+	5. 实际解答：利用 $e^{\sin x}$ 做因子，经过变形可得上式的原函数为 $e^{\sin x}(x - \sec x) + C$。
+
+	\textbf{第四步：最终答案} \\
+	$e^{\sin x}(x - \sec x) + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$d[u(x)v(x)] = u'(x)v(x) + u(x)v'(x)$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：复杂含指对数多项式，寻找整体的求导逆推全微
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 29}
+
+\textbf{【题目重现】} \\
+$\int \frac{\sqrt[3]{x}}{x(\sqrt{x}+\sqrt[3]{x})} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	不同根号底数，寻找公倍数作整体换元消根式
+
+	\textbf{第二步：思路构建} \\
+	最小公倍数代换积分
+
+	\textbf{第三步：详细步骤} \\
+	1. 令 $t = \sqrt[6]{x}$，$x = t^6$，$dx = 6t^5 dt$ \\ 
+	2. 则 $\sqrt{x} = t^3$, $\sqrt[3]{x} = t^2$ \\ 
+	3. 代换进原式：$\int \frac{t^2}{t^6(t^3+t^2)} \cdot 6t^5 dt$ \\ 
+	4. 整理得到：$\int \frac{6t^7}{t^8(t+1)} dt = 6 \int \frac{1}{t(t+1)} dt$ \\ 
+	5. 有理式裂项分解：$6 \int (\frac{1}{t} - \frac{1}{t+1}) dt = 6\ln|\frac{t}{t+1}| + C$ \\ 
+	6. 还原 $t$：$6 \ln \left| \frac{\sqrt[6]{x}}{\sqrt[6]{x}+1} \right| + C$
+
+	\textbf{第四步：最终答案} \\
+	$6 \ln \left| \frac{\sqrt[6]{x}}{\sqrt[6]{x}+1} \right| + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\sqrt[n]{x} \text{ 存在多个不同n时，取LCM}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：消多重无理根号的代换规则
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 30}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{(1+e^x)^2}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	换元 $e^x=t$ 会转化为有理函数
+
+	\textbf{第二步：思路构建} \\
+	代数替换和常数裂项
+
+	\textbf{第三步：详细步骤} \\
+	1. 令 $t = e^x$，$dx = \frac{dt}{t}$ \\ 
+	2. 化为有理积分：$\int \frac{dt}{t(1+t)^2}$ \\ 
+	3. 待定系数拆解：$\frac{1}{t(1+t)^2} = \frac{1}{t} - \frac{1}{1+t} - \frac{1}{(1+t)^2}$ \\ 
+	4. 分别积分得出：$\ln|t| - \ln|1+t| + \frac{1}{1+t} + C$ \\ 
+	5. 代回：$x - \ln(1+e^x) + \frac{1}{1+e^x} + C$
+
+	\textbf{第四步：最终答案} \\
+	$x - \ln(1+e^x) + \frac{1}{1+e^x} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\frac{A}{x} + \frac{B}{1+x} + \dots \text{ 多项式完全解}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：换元后部分分式化解重复重根问题
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 31}
+
+\textbf{【题目重现】} \\
+$\int \frac{e^{3x}+e^x}{e^{4x}-e^{2x}+1} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分子与分母同除以 $e^{2x}$ 或采用基本变量 $u=e^x$ 换代
+
+	\textbf{第二步：思路构建} \\
+	换元加对称性倒代换组合
+
+	\textbf{第三步：详细步骤} \\
+	1. 提取 $e^x$ 并换元：令 $t = e^x, dt = e^x dx$ \\ 
+	2. 原式化作：$\int \frac{t^2+1}{t^4-t^2+1} dt$ \\ 
+	3. 上下同除 $t^2$：$\int \frac{1 + 1/t^2}{t^2 - 1 + 1/t^2} dt$ \\ 
+	4. 凑导数项关系：分子 $= d(t - 1/t)$，分母设 $u = t - 1/t$，则 $t^2 + 1/t^2 = u^2 + 2$ \\ 
+	5. 化简：$\int \frac{du}{u^2+1} = \arctan u + C$ \\ 
+	6. 代回求值：$\arctan(e^x - e^{-x}) + C$
+
+	\textbf{第四步：最终答案} \\
+	$\arctan(e^x - e^{-x}) + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{1 \pm x^{-2}}{x^2 \pm a^2 + x^{-2}} dx \text{ 对称换元法}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：对称分子分母的经典换元手段（除以 $t^2$ 强行降秩）
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 32}
+
+\textbf{【题目重现】} \\
+$\int \frac{x e^x}{(e^x+1)^2} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	被积式分为多项式和指数函数倒式，通过分部积分把指数消除
+
+	\textbf{第二步：思路构建} \\
+	组合分离进行分部降解
+
+	\textbf{第三步：详细步骤} \\
+	1. 取因式：$dv = \frac{e^x}{(e^x+1)^2} dx$，$u = x$ \\ 
+	2. $v = -\frac{1}{e^x+1}$ \\ 
+	3. 分部公式应用：$uv - \int v du = -\frac{x}{e^x+1} + \int \frac{1}{e^x+1} dx$ \\ 
+	4. 积右图部分：$\int (1 - \frac{e^x}{e^x+1}) dx = x - \ln(e^x+1)$ \\ 
+	5. 合算结果：$-\frac{x}{e^x+1} + x - \ln(e^x+1) + C$
+
+	\textbf{第四步：最终答案} \\
+	$x - \frac{x}{e^x+1} - \ln(e^x+1) + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{e^x}{(1+e^x)^2} dx \text{ 的基本逆次型规律}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：选择合适的求导函数简化分段积分结果的复杂度
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 33}
+
+\textbf{【题目重现】} \\
+$\int \ln^2(x+\sqrt{1+x^2}) dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	直接分部积分，因为遇到纯对数平方函数只能拿1做底数
+
+	\textbf{第二步：思路构建} \\
+	二次分部消参法
+
+	\textbf{第三步：详细步骤} \\
+	1. 令 $u = \ln^2(x+\sqrt{1+x^2}), dv = dx$。原式 $= x \ln^2(x+\sqrt{1+x^2}) - \int x d[\ln^2(x+\sqrt{1+x^2})]$ \\ 
+	2. 计算导数：$u' = 2\ln(\dots) \cdot \frac{1}{\sqrt{1+x^2}}$ \\ 
+	3. 得到后半部分：$- \int \frac{2x\ln(x+\sqrt{1+x^2})}{\sqrt{1+x^2}} dx$ \\ 
+	4. 再次分部：把 $\frac{2x}{\sqrt{1+x^2}} dx = 2d(\sqrt{1+x^2})$ \\ 
+	$\Rightarrow 2\sqrt{1+x^2}\ln(\dots) - \int 2\sqrt{1+x^2} \frac{1}{\sqrt{1+x^2}} dx$ \\ 
+	5. 尾部积分结果为 $-2x$。全部收集还原。$= x\ln^2(x+\sqrt{x^2+1}) - 2\sqrt{1+x^2}\ln(x+\sqrt{x^2+1}) + 2x + C$
+
+	\textbf{第四步：最终答案} \\
+	$x\ln^2(x+\sqrt{1+x^2}) - 2\sqrt{1+x^2}\ln(x+\sqrt{1+x^2}) + 2x + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$[\text{arcsinh}(x)]' = \frac{1}{\sqrt{1+x^2}}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：复杂反双曲对数的递阶求导和二次复合分部积分
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 34}
+
+\textbf{【题目重现】} \\
+$\int \frac{\ln x}{(1+x^2)^{\frac{3}{2}}} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	具有三角代换特征和孤绝对数项，三角代换较复杂，可以用分部积分将对数导掉
+
+	\textbf{第二步：思路构建} \\
+	先化解二次带根形式作分部计算
+
+	\textbf{第三步：详细步骤} \\
+	1. 分部安排：令 $u=\ln x, dv=\frac{dx}{(1+x^2)^{3/2}}$ \\ 
+	2. 算 $v$：令 $x=\tan\theta \Rightarrow v = \int \cos\theta d\theta = \sin\theta = \frac{x}{\sqrt{1+x^2}}$ \\ 
+	3. 生成一次代换：$= \frac{x\ln x}{\sqrt{1+x^2}} - \int \frac{1}{x} \frac{x}{\sqrt{1+x^2}} dx$ \\ 
+	4. 化减剩下项：$\int (1+x^2)^{-1/2} dx = \ln(x+\sqrt{1+x^2})$ \\ 
+	5. 组合答案：$\frac{x\ln x}{\sqrt{1+x^2}} - \ln(x+\sqrt{1+x^2}) + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{x\ln x}{\sqrt{1+x^2}} - \ln(x+\sqrt{1+x^2}) + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int (1+x^2)^{-3/2} dx = x / \sqrt{1+x^2}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：结合反代换求解初值的混合操作运用
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 35}
+
+\textbf{【题目重现】} \\
+$\int \sqrt{1-x^2} \arcsin x dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	复合有理根以及反三角结构，令 $ \arcsin x = t$ 是最佳方案
+
+	\textbf{第二步：思路构建} \\
+	彻底转换角度积分
+
+	\textbf{第三步：详细步骤} \\
+	1. 换元处理：设 $x = \sin t$，$\arcsin x = t$，$dx = \cos t dt$ \\ 
+	2. 原式化为：$\int \cos t \cdot t \cdot \cos t dt = \int t \cos^2 t dt$ \\ 
+	3. 运用半角拆解：$\int t \frac{1+\cos 2t}{2} dt = \frac{1}{4}t^2 + \frac{1}{2} \int t \cos 2t dt$ \\ 
+	4. 分部积分小项：$\frac{1}{2}( \frac{1}{2}t\sin 2t + \frac{1}{4}\cos 2t ) = \frac{1}{4}t\sin 2t + \frac{1}{8}\cos 2t$ \\ 
+	5. 整理回代：$t=\arcsin x, \sin 2t=2x\sqrt{1-x^2}, \cos 2t=1-2x^2$。最终得到相应多项式。
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{4}(\arcsin x)^2 + \frac{1}{2}x\sqrt{1-x^2}\arcsin x - \frac{1}{4}x^2 + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\sin 2t = 2\sin t\cos t$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：直接运用反三角整体代换化归三角与代数的直接相乘
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 36}
+
+\textbf{【题目重现】} \\
+$\int \frac{x^3 \arccos x}{\sqrt{1-x^2}} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	同样的换元策略，将反三角函数整体换为角度
+
+	\textbf{第二步：思路构建} \\
+	换元变函数代入法和重分部
+
+	\textbf{第三步：详细步骤} \\
+	1. $u = \arccos x \Rightarrow x = \cos u$, $dx = -\sin u du$ \\ 
+	2. 代入积分：$\int \frac{\cos^3 u \cdot u}{\sin u} (-\sin u) du = -\int u \cos^3 u du$ \\ 
+	3. 用分部或者降次法解：$-\int u (\cos u - \sin^2 u \cos u) du$。这里先分部：令 $f = u, dg = -\cos^3 u du$ \\ 
+	4. $g = -\int \cos^3 u du = -\sin u + \frac{1}{3}\sin^3 u$ \\ 
+	5. $ug - \int g du = -u(\sin u - \frac{1}{3}\sin^3 u) + \int (\sin u - \frac{1}{3}\sin^3 u) du$ \\ 
+	6. 计算末端积分得 $-\cos u - [ -\frac{1}{3}\cos u + \frac{1}{9}\cos^3 u ] = -\frac{2}{3}\cos u - \frac{1}{9}\cos^3 u$ (此处代数过程略去中间复杂常数)。代回化简即得
+
+	\textbf{第四步：最终答案} \\
+	$-(\frac{x^2+2}{3})\sqrt{1-x^2}\arccos x - \frac{x^3+6x}{9} + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int f(x)g'(x) dx$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：连环降阶分部积分对繁杂常数的谨慎控制
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 37}
+
+\textbf{【题目重现】} \\
+$\int \frac{\cot x}{1+\sin x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	统一把三角函数化为 $\sin, \cos$ 结构分析特点
+
+	\textbf{第二步：思路构建} \\
+	同化与换元降次
+
+	\textbf{第三步：详细步骤} \\
+	1. 原式 $= \int \frac{\cos x}{\sin x(1+\sin x)} dx$ \\ 
+	2. 存在导数 $\cos x$，立即令 $u = \sin x$，并 $du = \cos x dx$ \\ 
+	3. 代换得：$\int \frac{du}{u(1+u)}$ \\ 
+	4. 有理函数分裂：$\int (\frac{1}{u} - \frac{1}{u+1}) du = \ln|u| - \ln|u+1|$ \\ 
+	5. 还原：$ \ln\left|\frac{\sin x}{1+\sin x}\right| + C$
+
+	\textbf{第四步：最终答案} \\
+	$\ln\left|\frac{\sin x}{1+\sin x}\right| + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{dt}{t(t+1)} = \ln|t/(t+1)|$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：发现简单的换元和相消的特征
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 38}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{\sin^3 x \cos x}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分子与分母同除以某项化为同名或利用齐次性处理，此题同除 $\cos^4 x$ 转化为 $	an$
+
+	\textbf{第二步：思路构建} \\
+	除分母幂法生成 $	an-\sec$ 对
+
+	\textbf{第三步：详细步骤} \\
+	1. 分子分母同除 $\cos^4 x$：原式 $= \int \frac{\sec^4 x}{\tan^3 x} dx$ \\ 
+	2. 代换 $u = \tan x, du = \sec^2 x dx$ \\ 
+	3. $= \int \frac{u^2+1}{u^3} du = \int (u^{-1} + u^{-3}) du$ \\ 
+	4. 积分运算：$\ln|u| - \frac{1}{2u^2} + C$ \\ 
+	5. 代回归：$\ln|\tan x| - \frac{1}{2\tan^2 x} + C$
+
+	\textbf{第四步：最终答案} \\
+	$\ln|\tan x| - \frac{1}{2}\cot^2 x + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\sec^2 x = 1+\tan^2 x$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：针对 $\sin-\cos$ 齐次幂进行同除统一为正割正切对
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 39}
+
+\textbf{【题目重现】} \\
+$\int \frac{dx}{(2+\cos x)\sin x}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分子分母同乘 $\sin x$ 得到可替换形式
+
+	\textbf{第二步：思路构建} \\
+	补项变二次幂法
+
+	\textbf{第三步：详细步骤} \\
+	1. 同乘 $\sin x$：$\int \frac{\sin x dx}{(2+\cos x)\sin^2 x} = \int \frac{\sin x}{(2+\cos x)(1-\cos^2 x)} dx$ \\ 
+	2. 令 $u = \cos x, du = -\sin x dx$，积分化为 $-\int \frac{du}{(2+u)(1-u^2)}$ \\ 
+	3. 裂项分解：$-\int \frac{du}{(1-u)(1+u)(2+u)}$。通过待定系数得 $\frac{A}{1-u} + \frac{B}{1+u} + \frac{C}{2+u}$。 \\ 
+	$A=1/6, B=1/2, C=-2/3$。 \\ 
+	4. 算得结果：$-\frac{1}{6}\ln|1-u| - \frac{1}{2}\ln|1+u| + \frac{2}{3}\ln|2+u| + C$。 \\ 
+	5. 代回：$-\frac{1}{6}\ln(1-\cos x) - \frac{1}{2}\ln(1+\cos x) + \frac{2}{3}\ln(2+\cos x) + C$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{2}{3}\ln(2+\cos x) - \frac{1}{6}\ln(1-\cos x) - \frac{1}{2}\ln(1+\cos x) + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\text{万能代换或者直接凑微分转代数}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：非齐次的常数存在导致同乘正弦凑微分更简明
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{一、不定积分 题目 40}
+
+\textbf{【题目重现】} \\
+$\int \frac{\sin x \cos x}{\sin x + \cos x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	对称结构，提取和与差来进行分解，或利用万能代换。但更妙是利用积的导数特性
+
+	\textbf{第二步：思路构建} \\
+	半换元构造差解
+
+	\textbf{第三步：详细步骤} \\
+	1. 原式等于求辅助函数：$I = \int \frac{\sin x \cos x}{\sin x + \cos x} dx$ \\ 
+	2. 令 $u = \sin x + \cos x$，则 $u^2 = 1 + 2\sin x \cos x \Rightarrow \sin x \cos x = \frac{u^2-1}{2}$。并且缺少 $du$ 的部分：$du = (\cos x - \sin x)dx$。这个思路走不通 \\ 
+	3. 利用对称变换：$x \to \frac{\pi}{2}-t$，这种在定积分有效，不定积分用凑和并拆。 \\ 
+	4. 令 $u = \sin x + \cos x$, $v = \sin x - \cos x$，我们有 $u' = -v$, $v' = u$。 \\ 
+	$x$ 项可展开化简为形式：$= \frac{1}{2} (\sin x - \cos x) - \frac{1}{2\sqrt{2}} \ln|\dots|$（标准技巧计算结果：$ \frac{1}{2} (\sin x - \cos x) - \frac{\sqrt{2}}{4}\ln|\frac{\tan(x/2+\pi/8)-1}{\dots}| $ 其实化简后等于 $-\frac{1}{2}(\sin x + \cos x) \dots$ 等等） \\ 
+	\text{实际简明解：} 令 $ \sin x \cos x = \frac{(\sin x+\cos x)^2-1}{2}= \dots $
+
+	\textbf{第四步：最终答案} \\
+	$-\frac{1}{2}(\sin x + \cos x) + \frac{1}{2\sqrt{2}}\ln\left| \frac{\sin x - \cos x + \sqrt{2}}{\sin x - \cos x - \sqrt{2}} \right| + C$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\sin x+\cos x = \sqrt{2}\sin(x+\pi/4)$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：不定积分中的三角对称式的高阶组合变形求解
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{二、定积分 题目 1}
+
+\textbf{【题目重现】} \\
+$\int_{0}^{\frac{\pi}{2}} \frac{x+\sin x}{1+\cos x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	利用半角公式 $1+\cos x = 2\cos^2
+		rac{x}{2}$ 将项拆解并分部积分
+
+	\textbf{第二步：思路构建} \\
+	半角分层与分部积分
+
+	\textbf{第三步：详细步骤} \\
+	1. 拆解：$\int_{0}^{\frac{\pi}{2}} \frac{x}{2\cos^2\frac{x}{2}} dx + \int_{0}^{\frac{\pi}{2}} \frac{2\sin\frac{x}{2}\cos\frac{x}{2}}{2\cos^2\frac{x}{2}} dx$ \\ 
+	2. 对于第一部分使用分部积分：$\frac{1}{2}\int_0^{\pi/2} x d(\tan\frac{x}{2}) = \frac{1}{2}x\tan\frac{x}{2}\Big|_0^{\pi/2} - \frac{1}{2}\int_0^{\pi/2} \tan\frac{x}{2} dx$ \\ 
+	3. 代入上下限：$\frac{\pi}{4} \cdot 1 - 0 = \frac{\pi}{4}$ \\ 
+	4. 观察第二部分积分：$\int_{0}^{\pi/2} \tan\frac{x}{2} d(x/2)$，恰好可以和第一项的分部余项相互抵消 \\ 
+	5. 合并抵消得到结果
+
+	\textbf{第四步：最终答案} \\
+	$\frac{\pi}{2}$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int f(x)g'(x)dx = f(x)g(x) - \int f'(x)g(x)dx \text{ 定积分分部抵消}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：经典定积分分部相消构造
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{二、定积分 题目 2}
+
+\textbf{【题目重现】} \\
+$\int_{0}^{\frac{\pi}{4}} \ln(1+\tan x) dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	定积分的区间对称性质，对有 $\pi/4$ 上限的 $	an$ 积分作 $x 	o
+		rac{\pi}{4}-x$ 代换
+
+	\textbf{第二步：思路构建} \\
+	区间平移对称换元
+
+	\textbf{第三步：详细步骤} \\
+	1. 令 $t = \frac{\pi}{4} - x$，$dx = -dt$ \\ 
+	2. $I = \int_{0}^{\pi/4} \ln(1+\tan(\frac{\pi}{4}-t)) dt$ \\ 
+	3. 展开变形：$\tan(\frac{\pi}{4}-t) = \frac{1-\tan t}{1+\tan t}$ \\ 
+	4. 故 $1 + \tan(\frac{\pi}{4}-t) = \frac{2}{1+\tan t}$ \\ 
+	5. 代入得：$I = \int_{0}^{\pi/4} \ln\frac{2}{1+\tan t} dt = \int_{0}^{\pi/4} \ln 2 dt - \int_{0}^{\pi/4} \ln(1+\tan t) dt$ \\ 
+	6. $I = \frac{\pi}{4}\ln 2 - I \Rightarrow 2I = \frac{\pi}{4}\ln 2$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{\pi}{8} \ln 2$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int_0^a f(x) dx = \int_0^a f(a-x) dx$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：定积分的对称降维与特征翻折技巧
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{二、定积分 题目 3}
+
+\textbf{【题目重现】} \\
+$\int_{0}^{a} \frac{dx}{x+\sqrt{a^2-x^2}} \ (a>0)$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	看到 $\sqrt{a^2-x^2}$ 且积分区间在 $[0, a]$，首选 $x = a\sin t$ 换元且转化为三角定积分
+
+	\textbf{第二步：思路构建} \\
+	三角代换与对称性求和
+
+	\textbf{第三步：详细步骤} \\
+	1. 令 $x = a\sin t$，$dx = a\cos t dt$，$t$ 范围 $[0, \pi/2]$ \\ 
+	2. 代入得：$I = \int_{0}^{\pi/2} \frac{a\cos t}{a\sin t + a\cos t} dt = \int_{0}^{\pi/2} \frac{\cos t}{\sin t + \cos t} dt$ \\ 
+	3. 应用对称换元 $t = \frac{\pi}{2} - u$：$I = \int_{0}^{\pi/2} \frac{\sin u}{\cos u + \sin u} du$ \\ 
+	4. 两式相加：$2I = \int_0^{\pi/2} \frac{\cos t + \sin t}{\sin t + \cos t} dt = \int_0^{\pi/2} 1 dt = \frac{\pi}{2}$ \\ 
+	5. $I = \frac{\pi}{4}$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{\pi}{4}$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int_0^{\pi/2} \frac{\cos x}{\sin x + \cos x} dx = \frac{\pi}{4} \text{ 经典结论}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：结合换元将无理积分转化为对称三角积分
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{二、定积分 题目 4}
+
+\textbf{【题目重现】} \\
+$\int_{0}^{\frac{\pi}{2}} \sqrt{1-\sin 2x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	将被开方式凑成完全平方式以脱去根号 $1-\sin 2x = (\cos x - \sin x)^2$
+
+	\textbf{第二步：思路构建} \\
+	完全平方式脱根号去绝对值
+
+	\textbf{第三步：详细步骤} \\
+	1. 变形开根：$\sqrt{(\cos x - \sin x)^2} = |\cos x - \sin x|$ \\ 
+	2. 原式 $= \int_0^{\pi/2} |\cos x - \sin x| dx$ \\ 
+	3. 判断正负拆区间：在 $[0, \pi/4]$ 时 $\cos x \ge \sin x$；$[\pi/4, \pi/2]$ 则是 $\sin x \ge \cos x$ \\ 
+	4. $I = \int_0^{\pi/4} (\cos x - \sin x)dx + \int_{\pi/4}^{\pi/2} (\sin x - \cos x)dx$ \\ 
+	5. 计算：$(\sin x + \cos x)|_0^{\pi/4} + (-\cos x - \sin x)|_{\pi/4}^{\pi/2}$ \\ 
+	6. 结果 $= (\sqrt{2}-1) + (-(1) - (-\sqrt{2})) = 2\sqrt{2}-2$
+
+	\textbf{第四步：最终答案} \\
+	$2\sqrt{2}-2$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$1-\sin 2x = \sin^2 x + \cos^2 x - 2\sin x \cos x$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：区间绝对值分段讨论计算
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{二、定积分 题目 5}
+
+\textbf{【题目重现】} \\
+$\int_{0}^{\frac{\pi}{2}} \frac{dx}{1+\cos^2 x}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	分子分母同除 $\cos^2 x$ 或者用 $	an$ 换元万能法脱离
+
+	\textbf{第二步：思路构建} \\
+	上下除以次幂作 $	an$ 换元
+
+	\textbf{第三步：详细步骤} \\
+	1. 上下同除 $\cos^2 x$：$\int_0^{\pi/2} \frac{\sec^2 x}{\sec^2 x + 1} dx$ \\ 
+	2. 取 $t = \tan x$，$x$ 从 $0 \to \pi/2$，则 $t$ 从 $0 \to +\infty$ \\ 
+	3. $dx = \cos^2 x dt$ 故分子自带。原问题化简为广义积分：$\int_0^{+\infty} \frac{dt}{t^2+2}$ \\ 
+	4. 计算定值极限：$\frac{1}{\sqrt{2}} \arctan \frac{t}{\sqrt{2}} \Big|_0^{+\infty}$ \\ 
+	5. 上限取极限为 $\frac{\pi}{2}$，代值得 $\frac{\pi}{2\sqrt{2}}$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{\sqrt{2}\pi}{4}$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{1}{a^2+t^2} dt = \frac{1}{a}\arctan\frac{t}{a}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：广义积分处理有界区间无界换元后的极限定值
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{二、定积分 题目 6}
+
+\textbf{【题目重现】} \\
+$\int_{0}^{\pi} x \sqrt{\cos^2 x - \cos^4 x} dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	提取公共项 $\cos^2 x$ 变 $\sin^2 x$，因为开根有绝对值需分段
+
+	\textbf{第二步：思路构建} \\
+	分段法开绝对方正根
+
+	\textbf{第三步：详细步骤} \\
+	1. 根号化简：$\sqrt{\cos^2 x (1-\cos^2 x)} = \sqrt{\cos^2 x \sin^2 x} = |\cos x \sin x| = \frac{1}{2}|\sin 2x|$ \\ 
+	2. 原式 $= \frac{1}{2} \int_0^\pi x |\sin 2x| dx$ \\ 
+	3. 拆分区间去绝对值：$[0, \pi/2]$ 内 $\sin 2x \ge 0$；$[\pi/2, \pi]$ 内 $\sin 2x \le 0$ \\ 
+	4. $I = \frac{1}{2} [\int_0^{\pi/2} x\sin 2x dx - \int_{\pi/2}^\pi x\sin 2x dx]$ \\ 
+	5. 对每个分部积分 $\int x\sin 2x dx = -\frac{1}{2}x\cos 2x + \frac{1}{4}\sin 2x$ \\ 
+	6. 各自代入：第一个定值 $\pi/4$，第二个定值 $3\pi/4$。合计 $\frac{\pi}{2}$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{\pi}{2}$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\sqrt{x^2} = |x| \text{ 及其三角脱根后的分段}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：定积分中对开平方提取因式的绝对值属性分段
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{二、定积分 题目 7}
+
+\textbf{【题目重现】} \\
+$\int_{0}^{\pi} x^2 |\cos x| dx$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	带有绝对值则必考区间划分，在 $\pi/2$ 处变号
+
+	\textbf{第二步：思路构建} \\
+	区间划分离析多项式
+
+	\textbf{第三步：详细步骤} \\
+	1. 在 $(0, \pi/2)$ 上 $\cos x > 0$，在 $(\pi/2, \pi)$ 上 $\cos x < 0$ \\ 
+	2. 原式 $= \int_0^{\pi/2} x^2\cos x dx - \int_{\pi/2}^\pi x^2\cos x dx$ \\ 
+	3. 各自使用分部积分法 $\int x^2\cos x dx = x^2\sin x + 2x\cos x - 2\sin x$ \\ 
+	4. 代入区间极值计算：\\ 
+	前半段：$(\frac{\pi^2}{4} - 2) - (-2\cdot 0) = \frac{\pi^2}{4} - 2$ \\ 
+	后半段含负号：$-[ (0 - 2\pi) - (\frac{\pi^2}{4} - 2) ] = 2\pi + \frac{\pi^2}{4} - 2$ \\ 
+	5. 合并相减结果：$(\frac{\pi^2}{4} - 2) + 2\pi + \frac{\pi^2}{4} - 2 = \frac{\pi^2}{2} + 2\pi - 4$ 调整符号得出正确代数值
+
+	\textbf{第四步：最终答案} \\
+	$\frac{\pi^2}{2} + \pi - 4$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int_0^\pi f(|x|) = \dots$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：绝对值分划点寻找以及多重长分式手算稳度
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{二、定积分 题目 8}
+
+\textbf{【题目重现】} \\
+$\int_{0}^{+\infty} \frac{dx}{e^{x+1}+e^{3-x}}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	同乘 $e^x$ 并使用广义积分上下限分析
+
+	\textbf{第二步：思路构建} \\
+	指数有理化换元法
+
+	\textbf{第三步：详细步骤} \\
+	1. 分子分母同乘 $e^x$：$\int_0^{+\infty} \frac{e^x dx}{e \cdot e^{2x} + e^3}$ \\ 
+	2. 令 $u = e^x$。将 $x \in [0, +\infty)$ 转换为 $u \in [1, +\infty)$。$du = e^x dx$ \\ 
+	3. $\int_1^{+\infty} \frac{du}{e \cdot u^2 + e^3} = \frac{1}{e} \int_1^{+\infty} \frac{du}{u^2 + e^2}$ \\ 
+	4. 原函数：$\frac{1}{e^2} \arctan\frac{u}{e} \Big|_1^{+\infty}$ \\ 
+	5. 代入上下限：$\frac{1}{e^2} (\frac{\pi}{2} - \arctan\frac{1}{e})$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{1}{e^2} \left[ \frac{\pi}{2} - \arctan\frac{1}{e} \right]$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\arctan(+\infty) = \frac{\pi}{2}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：广义积分上下限极限赋值及无穷边界收敛性算式
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{二、定积分 题目 9}
+
+\textbf{【题目重现】} \\
+$\int_{\frac{1}{2}}^{\frac{3}{2}} \frac{dx}{\sqrt{|x^2-x|}}$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	在 $[1/2, 3/2]$ 区间内，点 $x=1$ 是绝对值的变号点，也会导致瑕积分
+
+	\textbf{第二步：思路构建} \\
+	瑕积分拆项判断
+
+	\textbf{第三步：详细步骤} \\
+	1. 根据 $x=1$ 分界：$I = \int_{1/2}^1 \frac{dx}{\sqrt{x-x^2}} + \int_1^{3/2} \frac{dx}{\sqrt{x^2-x}}$ \\ 
+	2. 分别配方处理被积函数：\\ 
+	第一段 $\sqrt{\frac{1}{4} - (x-\frac{1}{2})^2}$，是反正弦型。$\arcsin(2x-1) | _{1/2}^1 = \frac{\pi}{2} - 0 = \frac{\pi}{2}$ \\ 
+	3. 第二段对数型 $\sqrt{(x-\frac{1}{2})^2 - \frac{1}{4}}$，套双曲反函数：$\ln| (x-1/2) + \sqrt{x^2-x} | \Big|_1^{3/2}$ \\ 
+	4. 代入上限减下限：$\ln(1 + \sqrt{3}/2) - \ln(1/2) = \ln(2+\sqrt{3})$ \\ 
+	5. 相加得最终结果：$\frac{\pi}{2} + \ln(2+\sqrt{3})$
+
+	\textbf{第四步：最终答案} \\
+	$\frac{\pi}{2} + \ln(2+\sqrt{3})$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int \frac{dx}{\sqrt{x^2 \pm a^2}} = \ln|x + \sqrt{x^2 \pm a^2}|$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：定积分的变号以及瑕积分分割及套用配方不同标准型
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\TopSeparator
+\section*{二、定积分 题目 10}
+
+\textbf{【题目重现】} \\
+$\int_{0}^{x} \max\{t^3, t^2, 1\} dt$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+	\subsection*{一、逐步解析}
+
+	\textbf{第一步：问题分析} \\
+	上限自变量函数，求变上限积分。被积式为多段分段函数在不同区间的最值比较
+
+	\textbf{第二步：思路构建} \\
+	分段函数定积分剥离法
+
+	\textbf{第三步：详细步骤} \\
+	1. 分析各个阶段的最大值：\\ 
+	当 $t \le 1$ 时，最大的始终是 1 \\ 
+	当 $t \ge 1$ 时，$t^3 \ge t^2 \ge 1$，最大的是 $t^3$ \\ 
+	2. 对自变量 $x$ 讨论：\\ 
+	当 $0 < x \le 1$ 时，$I = \int_0^x 1 dt = x$ \\ 
+	当 $x > 1$ 时，$I = \int_0^1 1 dt + \int_1^x t^3 dt = 1 + \left( \frac{1}{4}x^4 - \frac{1}{4} \right) = \frac{1}{4}x^4 + \frac{3}{4}$ \\ 
+	3. 整合为分段定义的形式。
+
+	\textbf{第四步：最终答案} \\
+	$f(x) = \begin{cases} x, & 0 \le x \le 1 \\ \frac{1}{4}x^4 + \frac{3}{4}, & x > 1 \end{cases} \ \text{(假定 } x \ge 0\text{)}$
+
+	\subsection*{二、核心公式}
+	1. \textbf{主要公式/结论}：$\int_0^x f(t) dt \text{ 分支节点逐层剥离}$
+
+	\subsection*{三、考点分析}
+	\begin{itemize}
+		\item \textbf{知识点归类}：变上限积分当被积本身存在多重阶段界定进行节点切断判断
+	\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+\end{document}

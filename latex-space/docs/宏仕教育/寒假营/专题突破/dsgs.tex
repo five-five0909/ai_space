@@ -1,0 +1,201 @@
+\documentclass[12pt, a4paper]{article}
+
+% --------------------------------------------------------
+% 宏包引入
+% --------------------------------------------------------
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage[margin=2.5cm]{geometry}   % 页面边距
+\usepackage{xcolor}         % 颜色支持
+\usepackage{fancyhdr}       % 页眉页脚
+\usepackage{tcolorbox}      %漂亮的文本框
+\tcbuselibrary{skins, breakable}
+\usepackage{enumitem}       % 列表定制
+\usepackage{mathrsfs}       % 花体字
+
+% --------------------------------------------------------
+% 样式设置
+% --------------------------------------------------------
+% 定义颜色
+\definecolor{mainblue}{RGB}{0, 70, 140}
+\definecolor{accentred}{RGB}{200, 40, 40}
+\definecolor{lightgray}{RGB}{245, 245, 245}
+
+% 页眉设置
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textbf{高等数学专题讲义}}
+\rhead{\textit{幂指函数极限与 $e$ 指数化}}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% 定义定理/公式框
+\newtcolorbox{conceptbox}[1]{
+  colback=blue!5!white,
+  colframe=mainblue,
+  fonttitle=\bfseries,
+  title={#1},
+  arc=0mm,
+  boxrule=1pt,
+  left=5pt, right=5pt, top=5pt, bottom=5pt
+}
+
+\newtcolorbox{alertbox}[1]{
+  colback=red!5!white,
+  colframe=accentred,
+  fonttitle=\bfseries,
+  title={#1},
+  arc=0mm,
+  boxrule=1pt
+}
+
+% --------------------------------------------------------
+% 正文开始
+% --------------------------------------------------------
+\begin{document}
+
+\section*{\centering \huge 专题：幂指函数极限的 $e$ 指数化处理}
+\begin{center}
+    \large \textbf{Calculus Advanced Lecture Notes}
+\end{center}
+\vspace{1em}
+
+\section{核心知识体系 (Core Concepts)}
+
+\subsection{1. 幂指函数的定义与痛点}
+形式为 $y = u(x)^{v(x)}$ 的函数称为\textbf{幂指函数}。
+在求极限 $\lim_{x \to x_0} u(x)^{v(x)}$ 时，不能直接使用幂函数或指数函数的法则。
+\textbf{常见不定式类型}：$1^\infty, \quad 0^0, \quad \infty^0$。
+
+\subsection{2. 通用解法：$e$ 指数恒等变形}
+这是解决幂指函数最本质、最通用的方法，能将“底数”与“指数”分离，转化为乘积形式。
+
+\begin{conceptbox}{核心公式：$e$ 指数化 (The $e$-Identity)}
+对于任意 $u(x) > 0$，恒有：
+\[
+u(x)^{v(x)} = e^{\ln \left( u(x)^{v(x)} \right)} = e^{v(x) \cdot \ln u(x)}
+\]
+利用指数函数的连续性，极限运算可深入到指数部分：
+\[
+\lim u(x)^{v(x)} = e^{\lim \left[ v(x) \cdot \ln u(x) \right]}
+\]
+\end{conceptbox}
+
+\subsection{3. $1^\infty$ 型的各种处理路径}
+对于 $\lim u(x) = 1$ 且 $\lim v(x) = \infty$ 的情形（即 $1^\infty$ 型），有以下两种主流处理方式：
+
+\begin{itemize}
+    \item \textbf{路径 A（推荐）：直接 $e$ 指数化 + 洛必达/等价无穷小}
+    \[
+    \lim v \ln u = \lim v \ln[1 + (u-1)] \sim \lim v(u-1)
+    \]
+    此路径通用性强，不仅限于 $1^\infty$，也适用于 $0^0$ 等。
+    
+    \item \textbf{路径 B：利用重要极限凑形}
+    \[
+    \lim_{x \to x_0} u^v = e^{\lim_{x \to x_0} (u-1)v}
+    \]
+    \textit{注：路径 B 实质上是路径 A 在 $1^\infty$ 情形下的推论。}
+\end{itemize}
+
+\newpage
+
+\section{典型例题精讲 (Typical Examples)}
+
+\begin{conceptbox}{解题三步走策略}
+\begin{enumerate}
+    \item \textbf{定型}：判断极限类型 ($1^\infty, 0^0, \infty^0$)。
+    \item \textbf{变形}：使用 $e^{v \ln u}$ 将底数化为 $e$，将问题转化为求指数部分 $A = \lim v \ln u$ 的极限。
+    \item \textbf{求值}：对 $A$ 使用\textbf{洛必达法则}或\textbf{等价无穷小替换}求解。
+\end{enumerate}
+\end{conceptbox}
+
+% 例题 1
+\subsection*{题型一：$1^\infty$ 型与洛必达法则的结合}
+\textbf{例题 1.} 计算极限 $\displaystyle \lim_{x \to 0} (\cos x)^{\frac{1}{x^2}}$。
+
+\noindent\textbf{【解析】}
+此为 $1^\infty$ 型不定式。
+\begin{align*}
+    \text{原式} &= \lim_{x \to 0} e^{\frac{1}{x^2} \ln(\cos x)} & \text{($e$ 指数化)} \\
+    &= e^{\lim_{x \to 0} \frac{\ln(\cos x)}{x^2}} & \text{(指数连续性)}
+\end{align*}
+令指数部分极限为 $A$，这是 $0/0$ 型，使用洛必达法则：
+\begin{align*}
+    A &= \lim_{x \to 0} \frac{\ln(\cos x)}{x^2} \quad \left(\frac{0}{0}\right) \\
+    &\overset{\text{L'H}}{=} \lim_{x \to 0} \frac{\frac{1}{\cos x} \cdot (-\sin x)}{2x} \\
+    &= \lim_{x \to 0} \frac{-\tan x}{2x} \\
+    &= -\frac{1}{2} \cdot \lim_{x \to 0} \frac{\tan x}{x} = -\frac{1}{2} \cdot 1 = -\frac{1}{2}
+\end{align*}
+\textbf{【结果】} 原极限 $= e^{-\frac{1}{2}}$。
+
+\vspace{1em}
+\noindent\textbf{【技巧点拨】} 也可以使用等价无穷小 $\ln(\cos x) \sim \cos x - 1 \sim -\frac{1}{2}x^2$，计算更快捷。
+
+% 例题 2
+\vspace{1.5em}
+\subsection*{题型二：$\infty$ 处的幂指函数}
+\textbf{例题 2.} 计算极限 $\displaystyle \lim_{x \to \infty} \left( \frac{x^2+1}{x^2-2} \right)^{x^2}$。
+
+\noindent\textbf{【解析】}
+底数 $\to 1$，指数 $\to \infty$，属 $1^\infty$ 型。
+\begin{align*}
+    \text{原式} &= e^{\lim_{x \to \infty} x^2 \ln \left( \frac{x^2+1}{x^2-2} \right)} \\
+    &= e^{\lim_{x \to \infty} x^2 \ln \left( 1 + \frac{3}{x^2-2} \right)} 
+\end{align*}
+利用等价无穷小 $\ln(1+t) \sim t$ (当 $t \to 0$)，此处 $t = \frac{3}{x^2-2} \to 0$：
+\[
+    \text{指数极限} = \lim_{x \to \infty} x^2 \cdot \frac{3}{x^2-2} = \lim_{x \to \infty} \frac{3x^2}{x^2-2} = 3
+\]
+\textbf{【结果】} 原极限 $= e^3$。
+
+\newpage
+
+% 例题 3
+\subsection*{题型三：非 $1^\infty$ 型 ($0^0, \infty^0$) 的处理}
+\textbf{例题 3.} 计算极限 $\displaystyle \lim_{x \to 0^+} x^{\sin x}$。
+
+\noindent\textbf{【解析】}
+此为 $0^0$ 型不定式，\textbf{只能}使用 $e$ 指数化法，不可套用 $e^{(u-1)v}$ 公式。
+\[
+    \text{原式} = \lim_{x \to 0^+} e^{\sin x \cdot \ln x}
+\]
+考察指数部分 $A = \lim_{x \to 0^+} \sin x \cdot \ln x$ ($0 \cdot \infty$ 型)：
+\begin{align*}
+    A &= \lim_{x \to 0^+} \frac{\ln x}{\frac{1}{\sin x}} \quad \left(\frac{\infty}{\infty}\right) \\
+    &\overset{\text{L'H}}{=} \lim_{x \to 0^+} \frac{\frac{1}{x}}{-\csc x \cot x} \\
+    &= \lim_{x \to 0^+} \frac{\sin^2 x}{-x \cos x} \quad (\text{化简整理}) \\
+    &= \lim_{x \to 0^+} \frac{x^2}{-x \cdot 1} \quad (\sin x \sim x, \cos x \to 1) \\
+    &= \lim_{x \to 0^+} (-x) = 0
+\end{align*}
+\textbf{【结果】} 原极限 $= e^0 = 1$。
+
+\section{易错警示 (Warnings)}
+
+\begin{alertbox}{警示：乱用 $e^{(u-1)v}$ 公式}
+很多同学看到 $u^v$ 就直接写成 $e^{(u-1)v}$，这是错误的！
+\begin{itemize}
+    \item \textbf{适用前提}：必须是 $1^\infty$ 型，即 $\lim u(x) = 1$ 且 $\lim v(x) = \infty$。
+    \item \textbf{反例}：求 $\lim_{x \to 0} (1+x)^2$。
+    \begin{itemize}
+        \item \textbf{错误做法}：$e^{\lim 2(1+x-1)} = e^{\lim 2x} = e^0 = 1$。
+        \item \textbf{正确做法}：直接代入 $(1+0)^2 = 1$。虽然此例结果巧合相同，但逻辑完全错误。如果是 $\lim_{x \to 0} 2^x \neq e^{(2-1)x}$。
+    \end{itemize}
+    \item \textbf{建议}：养成写 $e^{v \ln u}$ 的习惯，这是万能的。
+\end{itemize}
+\end{alertbox}
+
+\section{强化练习 (Exercises)}
+
+请利用 $e$ 指数化方法与洛必达法则计算下列极限：
+\begin{enumerate}
+    \item $\displaystyle \lim_{x \to 0} \left( \frac{\sin x}{x} \right)^{\frac{1}{x^2}}$
+    \item $\displaystyle \lim_{x \to \infty} \left( \sin \frac{1}{x} + \cos \frac{1}{x} \right)^x$
+    \item $\displaystyle \lim_{x \to 1} x^{\frac{1}{1-x}}$
+\end{enumerate}
+
+\vspace{1em}
+\noindent\textbf{参考答案：} 
+1. $e^{-\frac{1}{6}}$ \quad 2. $e$ \quad 3. $e^{-1}$
+
+\end{document}

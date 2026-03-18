@@ -1,0 +1,221 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理习题集}
+\lhead{第5章 数据库完整性}
+\cfoot{\thepage}
+
+\title{\textbf{第5章 数据库完整性}}
+\date{}
+
+\begin{document}
+
+\section{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 数据库的（\quad）是指数据的正确性和相容性。
+	      \begin{enumerate}
+		      \item 安全性
+		      \item 完整性
+		      \item 并发
+		      \item 恢复
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据库完整性是指（\quad）。
+	      \begin{enumerate}
+		      \item 数据的正确性和相容性
+		      \item 数据的保密性
+		      \item 数据的并发控制
+		      \item 数据的恢复
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关系数据库的（\quad）规则规定：基本关系的主属性不能取空。
+	      \begin{enumerate}
+		      \item 实体完整性
+		      \item 参照完整性
+		      \item 用户定义完整性
+		      \item 键完整性
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关系数据库的（\quad）规定规则：一个基本关系的外码取值不能取空值或者必须等于它所对应基本关系中的主码值。
+	      \begin{enumerate}
+		      \item 实体完整性
+		      \item 参照完整性
+		      \item 用户定义完整性
+		      \item 键完整性
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 关系模型中，实体完整性是指（\quad）。
+	      \begin{enumerate}
+		      \item 实体不允许是空实体
+		      \item 实体主键值不允许是空值
+		      \item 实体外键值不允许是空值
+		      \item 实体属性值不能是空值
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 若要求工资表中基本工资不得超过 5000 元，则这个要求属于（\quad）。
+	      \begin{enumerate}
+		      \item 关系完整性约束
+		      \item 实体完整性约束
+		      \item 参照完整性约束
+		      \item 用户定义完整性约束
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item "年纪在 15 至 30 岁之间"，这种约束属于数据库系统的（\quad）。
+	      \begin{enumerate}
+		      \item 完整性方法
+		      \item 安全性方法
+		      \item 恢复方法
+		      \item 并发控制方法
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关系数据库中，实现"表中任意两行不能相同"的约束是靠（\quad）来实现。
+	      \begin{enumerate}
+		      \item 外码
+		      \item 属性
+		      \item 主码
+		      \item 列
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 关系数据库中，实现主键标识元组作用是通过（\quad）来实现。
+	      \begin{enumerate}
+		      \item 实体完整性规则
+		      \item 参照完整性规则
+		      \item 用户自定义完整性
+		      \item 属性值域
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关系数据库中，表与表之间联系约束是通过（\quad）来实现。
+	      \begin{enumerate}
+		      \item 实体完整性规则
+		      \item 引用完整性规则
+		      \item 用户自定义完整性
+		      \item 值域
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 要求主表中没有相关记录时就不能将记录添加到相关表中，则应该在表关系中设置（\quad）。
+	      \begin{enumerate}
+		      \item 参照完整性
+		      \item 有效性规则
+		      \item 输入掩码
+		      \item 级联更新相关字段
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 下列关于命名完整性约束的说法中错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 语法格式是CONSTRAINT [symbol]...
+		      \item 约束名字在数据库里必须是唯一的
+		      \item 只能给基于列的完整性约束指定名字，而无法给基于表的完整性约束指定名字
+		      \item 倘若没有明确给出约束的名字，则MySQL自动创建一个约束名字
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 下列数据库对象中，不能施加完整性约束条件的是（\quad）。
+	      \begin{enumerate}
+		      \item 触发器
+		      \item 列
+		      \item 元组
+		      \item 表
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库的数据完整性是指数据库中数据的正确性、（\quad）和一致性。
+	      \begin{enumerate}
+		      \item 目标性
+		      \item 相容性
+		      \item 服务性
+		      \item 完美性
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 若事务T对数据R已加X锁，则其他事务对数据R（\quad）。
+	      \begin{enumerate}
+		      \item 不能加任何锁
+		      \item 可以加S锁不能加X锁
+		      \item 不能加S锁可以加X锁
+		      \item 可以加S锁也可以加X锁
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在MySQL中，主键列必须遵守的规则中说法错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 每一个表可以定义多个主键，由多个列组合而成的主键称为复合主键
+		      \item 主键的值，也称为键值，必须能够唯一标志表中的每一行记录，且不能为NULL
+		      \item 复合主键不能包含不必要的多余列
+		      \item 一个列名在复合主键的列表中只能出现一次
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 属性的值都能用来唯一标识其关系的元组，则称这些属性为该关系的（\quad）。
+	      \begin{enumerate}
+		      \item 码或键
+		      \item 参照关系
+		      \item 记录
+		      \item 分量
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 已知关系R(A，B，C)、S(E，F，G)和T(M，N，A，E，O，P)，其中R的主码是A，S的主码是E，T的主码是M，T与R、S彼此间存在着属性的引用。关系T被称为（\quad）。
+	      \begin{enumerate}
+		      \item 参照关系
+		      \item 被参照关系
+		      \item 主要关系
+		      \item 次要关系
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 已知关系 R 有 30 个元组，S 有 15 个元组，则 R $\cup$ S 和 R $\cap$ S 的元组数不可能是（\quad）。
+	      \begin{enumerate}
+		      \item 40、5
+		      \item 30、15
+		      \item 45、15
+		      \item 38、7
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在数据库管理系统中，创建唯一性索引时，通常使用的关键字是（\quad）。
+	      \begin{enumerate}
+		      \item INDEX
+		      \item UNIQUE
+		      \item DISTINCT
+		      \item INSERT
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 设有关系模式图书(图书编号，书名，作者，出版社，单价)，查询价格在50到60元之间的图书，结果按出版社及单价升序排列，则下列用于排列的是（\quad）。
+	      \begin{enumerate}
+		      \item GROUP BY
+		      \item ORDER BY
+		      \item HAVING
+		      \item LIMIT
+	      \end{enumerate}
+	      \textbf{答案：B}
+\end{enumerate}
+
+\end{document}

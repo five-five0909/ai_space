@@ -1,0 +1,157 @@
+\documentclass[UTF8, a4paper, 12pt]{article}
+\usepackage{ctex}      % 中文支持
+\usepackage{amsmath}   % 数学公式
+\usepackage{amssymb}   % 数学符号
+\usepackage{geometry}  % 页面设置
+\usepackage{xcolor}    % 颜色支持
+\usepackage{framed}    % 文本框
+\usepackage{fancybox}  % 装饰框
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 定义新的分析环境，强调“函数本质”
+\newenvironment{essence}{
+    \par\vspace{0.5em}\noindent
+    \textbf{\color{purple}【函数本质视角】}
+    \itshape
+}{
+    \par\vspace{0.5em}
+}
+
+\title{\textbf{泰勒公式的本质：函数即多项式}}
+\author{高阶导数秒杀法}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{核心观念：其实泰勒公式就是函数本身！}
+
+在 $x=0$ 附近，任何复杂的函数（如 $\sin x, \ln x, e^x$）其实都是伪装的“无穷多项式”。
+\[
+f(x) = a_0 + a_1 x + a_2 x^2 + \dots + \mathbf{a_n x^n} + \dots
+\]
+求 $f^{(n)}(0)$ 不需要痛苦地求导 $n$ 次，我们只需要看穿函数的“真面目”（展开式），找到 $x^n$ 面前站着的那个系数 $a_n$ 即可。
+
+\begin{center}
+\shadowbox{\begin{minipage}{0.8\textwidth}
+\centering
+\vspace{0.5em}
+\textbf{系数与导数的唯一对应关系}：
+\[ f^{(n)}(0) = n! \times a_n \]
+\textit{口诀：抓出 $x^n$ 的系数，乘以 $n!$ 就是答案。}
+\vspace{0.5em}
+\end{minipage}}
+\end{center}
+
+\vspace{1em}
+\hrulefill
+\vspace{1em}
+
+% --- 模型一 ---
+\section{降维模型：被除法“削”过的函数}
+
+\textbf{【题目】}
+设函数 $ f(x) = \begin{cases} \dfrac{\ln(1+2x)}{x}, & x \neq 0 \\ 2, & x=0 \end{cases} $，求 $ f^{(100)}(0) $。
+
+\begin{essence}
+这个函数 $f(x)$ 的本质是什么？
+它其实就是 $\ln(1+2x)$ 的多项式，每一项被 $x$ “削”掉了一层皮（次数减1）。
+所以，新函数里的 $x^{100}$，其实就是原级数里的 $x^{101}$ 变过来的。
+\end{essence}
+
+\textbf{【还原步骤】}
+\begin{enumerate}
+    \item \textbf{看穿原函数}：$\ln(1+2x)$ 的真面目（级数）是：
+    \[ \ln(1+2x) = 2x - 2x^2 + \dots + (-1)^{n-1}\dfrac{2^n}{n}x^n + \dots \]
+    
+    \item \textbf{变形为现函数}：$f(x)$ 就是把上面每一项除以 $x$。
+    \[ f(x) = 2 - 2x + \dots + (-1)^{n-1}\dfrac{2^n}{n}\mathbf{x^{n-1}} + \dots \]
+    
+    \item \textbf{抓取系数}：
+    我们要找 $f(x)$ 中 $x^{100}$ 的系数。
+    看通项：$\mathbf{x^{n-1}}$ 变成 $x^{100}$，意味着 $n=101$。
+    系数为：
+    \[ a_{100} = (-1)^{101-1}\dfrac{2^{101}}{101} = \dfrac{2^{101}}{101} \]
+    
+    \item \textbf{秒杀导数}：
+    \[ f^{(100)}(0) = 100! \cdot a_{100} = \dfrac{100! \cdot 2^{101}}{101} \]
+\end{enumerate}
+
+\newpage
+
+% --- 模型二 ---
+\section{升维模型：被乘法“抬”过的函数}
+
+\textbf{【题目】}
+设函数 $f(x) = x \ln(1+2x)$，求 $f^{(100)}(0)$。
+
+\begin{essence}
+这个函数 $f(x)$ 的本质是什么？
+它就是 $\ln(1+2x)$ 的多项式，每一项被 $x$ “抬”高了一级（次数加1）。
+所以，新函数里的 $x^{100}$，其实是原级数里的 $x^{99}$ 变过来的。
+\end{essence}
+
+\textbf{【还原步骤】}
+\begin{enumerate}
+    \item \textbf{看穿原函数}：
+    \[ \ln(1+2x) = \sum_{n=1}^{\infty} (-1)^{n-1} \dfrac{2^n}{n} x^n \]
+    
+    \item \textbf{变形为现函数}：$f(x)$ 就是把上面每一项乘以 $x$。
+    \[ f(x) = \sum_{n=1}^{\infty} (-1)^{n-1} \dfrac{2^n}{n} \mathbf{x^{n+1}} \]
+    
+    \item \textbf{抓取系数}：
+    我们要找 $f(x)$ 中 $x^{100}$ 的系数。
+    看通项：$\mathbf{x^{n+1}}$ 变成 $x^{100}$，意味着 $n=99$。
+    系数为：
+    \[ a_{100} = (-1)^{99-1}\dfrac{2^{99}}{99} = \dfrac{2^{99}}{99} \]
+    
+    \item \textbf{秒杀导数}：
+    \[ f^{(100)}(0) = 100! \cdot a_{100} = \dfrac{100! \cdot 2^{99}}{99} \]
+\end{enumerate}
+
+\vspace{2em}
+\hrulefill
+\vspace{2em}
+
+% --- 模型三 ---
+\section{拼图模型：两个多项式的混合}
+
+\textbf{【题目】}
+设函数 $f(x) = \sin x \cdot \ln(1+2x)$，求 $f^{(100)}(0)$。
+
+\begin{essence}
+这个函数 $f(x)$ 的本质是什么？
+它是两个无限多项式（$\sin$ 和 $\ln$）的乘积。
+我们不需要把整个乘积算出来，我们只是“拼图玩家”——只需要找出那些\textbf{拼起来刚好等于 100 次方}的碎片组合。
+\end{essence}
+
+\textbf{【还原步骤】}
+\begin{enumerate}
+    \item \textbf{摆出两盒拼图}：
+    \begin{itemize}
+        \item \textbf{碎片 A ($\sin x$)}：只提供奇数次项 $x^1, x^3, x^5 \dots$
+        \item \textbf{碎片 B ($\ln$)}：提供所有次项 $x^1, x^2, x^3 \dots$
+    \end{itemize}
+    
+    \item \textbf{寻找契合的碎片}：
+    我们要凑 $x^{100}$。即 $A \text{的次数} + B \text{的次数} = 100$。
+    因为 A 只有奇数，所以 B 也必须出奇数（奇+奇=偶）。
+    
+    \item \textbf{计算合成系数 $a_{100}$}：
+    遍历所有可能的奇数 $k$（从 1 到 99）：
+    \[
+    a_{100} = \sum_{k \in \{1,3,\dots,99\}} \left( \sin x \text{的 } k \text{ 次方系数} \right) \times \left( \ln \text{的 } 100-k \text{ 次方系数} \right)
+    \]
+    代入各自的身份证系数公式：
+    \[
+    a_{100} = \sum_{k=0}^{49} \left[ \dfrac{(-1)^k}{(2k+1)!} \right] \cdot \left[ \dfrac{2^{100-(2k+1)}}{100-(2k+1)} \right]
+    \]
+    
+    \item \textbf{秒杀导数}：
+    \[ f^{(100)}(0) = 100! \cdot a_{100} \]
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,167 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理习题集}
+\lhead{第4章 数据库安全性}
+\cfoot{\thepage}
+
+\title{\textbf{第4章 数据库安全性}}
+\date{}
+
+\begin{document}
+
+\section{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 保护数据库，防止未经授权的或不合法的使用造成的数据泄漏、更改破坏。这是指数据的（\quad）。
+	      \begin{enumerate}
+		      \item 安全性
+		      \item 完整性
+		      \item 并发控制
+		      \item 恢复
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在数据库系统中，对数据操作的最小单位是（\quad）。
+	      \begin{enumerate}
+		      \item 数据项
+		      \item 字节
+		      \item 记录
+		      \item 字符
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 以下不是数据库安全性控制方法的是（\quad）。
+	      \begin{enumerate}
+		      \item 设置口令
+		      \item 控制用户存取权限
+		      \item 数据加密
+		      \item 备份
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 在数据系统中，对存取权限的定义称为（\quad）。
+	      \begin{enumerate}
+		      \item 授权
+		      \item 命令
+		      \item 定义
+		      \item 审计
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item SQL的GRANT和REVOKE语句主要是用来维护数据库的（\quad）。
+	      \begin{enumerate}
+		      \item 完整性
+		      \item 可靠性
+		      \item 安全性
+		      \item 一致性
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 数据库保护不包括数据的（\quad）。
+	      \begin{enumerate}
+		      \item 安全性
+		      \item 冗余控制
+		      \item 故障恢复
+		      \item 并发控制
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据库管理系统具有对数据的统一管理和控制功能，不包括（\quad）。
+	      \begin{enumerate}
+		      \item 数据的并发控制
+		      \item 控制数据冗余
+		      \item 数据的完整性
+		      \item 数据的故障恢复
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 每次用户要求进入系统时，系统都将对该用户进行鉴定以确定用户的（\quad），判断是否能进入到下一步操作。
+	      \begin{enumerate}
+		      \item 可接受性
+		      \item 合理性
+		      \item 合法性
+		      \item 目标性
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 用于删除一个或多个MySQL账户，并消除其权限的语句是（\quad）。
+	      \begin{enumerate}
+		      \item DROP USERS
+		      \item DROP USER
+		      \item ALTER USERS
+		      \item ALTER USER
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 在MySQL中，使用（\quad）语句修改一个或多个已经存在的MySQL用户账号。
+	      \begin{enumerate}
+		      \item UPDATE USER
+		      \item DROP USER
+		      \item ALTER USER
+		      \item RENAME USER
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 下列关于数据库管理系统(DBMS)的描述错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库管理系统是位于用户和应用系统之间的一层数据管理软件
+		      \item 数据库管理系统是指负责数据库存取、维护和管理的系统软件
+		      \item 数据库管理系统的基本功能包含：数据定义功能、数据操作功能
+		      \item 数据库管理系统负责数据库的运行管理和数据库的建立、维护功能
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 下面关于数据库设计过程，排序正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 概念结构设计，逻辑结构设计，物理设计
+		      \item 概念结构设计，物理设计，逻辑结构设计
+		      \item 逻辑结构设计，概念结构设计，物理设计
+		      \item 物理设计，逻辑结构设计，概念结构设计
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库的三级模式体系结构的划分，有利于保持数据库的（\quad）。
+	      \begin{enumerate}
+		      \item 数据独立性
+		      \item 结构规范化
+		      \item 数据安全性
+		      \item 操作可行性
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库系统实现整体数据的结构化，主要表现在以下几个方面，除了（\quad）。
+	      \begin{enumerate}
+		      \item 数据库和应用程序一一对应
+		      \item 数据可以变长
+		      \item 数据的最小存取单位是数据项
+		      \item 数据的结构用数据模型描述，无需程序定义和解释
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在数据管理技术发展过程中，关于数据库阶段描述错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据集成是数据库管理系统的主要目的
+		      \item 数据共享性低
+		      \item 数据冗余小
+		      \item 减少应用程序开发与维护的工作量
+	      \end{enumerate}
+	      \textbf{答案：B}
+\end{enumerate}
+
+\end{document}

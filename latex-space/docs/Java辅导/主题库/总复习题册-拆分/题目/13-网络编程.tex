@@ -1,0 +1,129 @@
+\section{网络编程}
+
+\begin{question}
+	以下关于Java中Socket编程的说法错误的是
+	\begin{options}
+		\item 用于网络通信
+		\item ServerSocket用于服务器端
+		\item Socket用于客户端
+		\item 不需要处理异常
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		网络编程必须处理 \texttt{IOException} 等异常。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于发送数据？
+	\begin{options}
+		\item send()
+		\item write()
+		\item output()
+		\item transmit()
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		使用 \texttt{OutputStream.write()} 发送字节数据。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中URL类的说法错误的是
+	\begin{options}
+		\item 用于表示统一资源定位符
+		\item 可以获取网络资源
+		\item 不能解析URL
+		\item 可以获取URL的各个部分
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		\texttt{URL} 类可以解析 URL 字符串。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于获取URL的协议部分？
+	\begin{options}
+		\item getProtocol()
+		\item getScheme()
+		\item getType()
+		\item getProtocolType()
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		\texttt{getScheme()} 返回协议（如 http、https）。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中Servlet的说法错误的是
+	\begin{options}
+		\item 运行在服务器端
+		\item 是一个接口
+		\item 用于处理HTTP请求
+		\item 可以直接被实例化
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		Servlet 由容器管理实例化，开发者不直接 new。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法是Servlet的生命周期方法？
+	\begin{options}
+		\item init()
+		\item start()
+		\item execute()
+		\item process()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{init()}、\texttt{service()}、\texttt{destroy()} 是生命周期方法。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中JSP的说法错误的是
+	\begin{options}
+		\item 本质是一个Servlet
+		\item 可以嵌入Java代码
+		\item 性能比Servlet高
+		\item 用于生成动态网页
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		JSP 首次访问需编译为 Servlet，性能略低于直接使用 Servlet。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个是JSP中的指令？
+	\begin{options}
+		\item <jsp:include>
+		\item <jsp:forward>
+		\item <%@ %>
+		\item <jsp:param>
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		<%@ page %>、<%@ include %> 是指令（Directive），而 <jsp:include> 是动作（Action）。
+	\end{explanation}
+\end{question}

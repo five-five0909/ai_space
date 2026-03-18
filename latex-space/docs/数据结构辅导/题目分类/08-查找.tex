@@ -1,0 +1,535 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据结构习题集}
+\lhead{分类整理}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{第八章 查找}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 顺序查找法适合于存储结构为（ ）的线性表。
+	      \begin{enumerate}
+		      \item[A.] 散列存储
+		      \item[B.] 顺序存储或链式存储
+		      \item[C.] 压缩存储
+		      \item[D.] 索引存储
+	      \end{enumerate}
+
+	\item 对线性表进行折半查找时，要求线性表必须（ ）
+	      \begin{enumerate}
+		      \item[A.] 以顺序方式存储
+		      \item[B.] 以顺序方式存储，且结点按关键字有序排列
+		      \item[C.] 以链式方式存储
+		      \item[D.] 以链式方式存储，且结点按关键字有序排列
+	      \end{enumerate}
+
+	\item 采用顺序查找法查找长度为 n 的线性表时，每个元素的平均查找长度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $n$
+		      \item[B.] $n/2$
+		      \item[C.] $(n+1)/2$
+		      \item[D.] $(n-1)/2$
+	      \end{enumerate}
+
+	\item 采用折半查找法查找长度为 n 的线性表时，查找元素的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n^2)$
+		      \item[B.] $O(n \log n)$
+		      \item[C.] $O(n)$
+		      \item[D.] $O(\log n)$
+	      \end{enumerate}
+
+	\item 采用折半查找法查找长度为 n 的线性表时，每个元素的平均查找长度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n^2)$
+		      \item[B.] $O(n \log_2 n)$
+		      \item[C.] $O(n)$
+		      \item[D.] $O(\log_2 n)$
+	      \end{enumerate}
+
+	\item 有一个长度为 12 的有序表，按折半查找法对该表进行查找，在表内各元素等概率情况下查找成功所需的平均比较次数为（ ）
+	      \begin{enumerate}
+		      \item[A.] 35/12
+		      \item[B.] 37/12
+		      \item[C.] 39/12
+		      \item[D.] 43/12
+	      \end{enumerate}
+
+	\item 有一个有序表为 $(1, 3, 9, 12, 32, 41, 45, 62, 75, 77, 82, 95, 100)$ 当折半查找值为 82 的结点时，（ ）次比较后查找成功。
+	      \begin{enumerate}
+		      \item[A.] 1
+		      \item[B.] 2
+		      \item[C.] 4
+		      \item[D.] 8
+	      \end{enumerate}
+
+	\item 对有 18 个元素的有序表作折半查找，则查找 A[3] 的比较序列的下标为（ ）
+	      \begin{enumerate}
+		      \item[A.] 1, 2, 3
+		      \item[B.] 9, 5, 2, 3
+		      \item[C.] 9, 5, 3
+		      \item[D.] 9, 4, 2, 3
+	      \end{enumerate}
+
+	\item 在关键字序列 $(10, 15, 20, 25, 30)$ 中采用折半法查找 20，依次与（ ）关键字进行了比较。
+	      \begin{enumerate}
+		      \item[A.] 20
+		      \item[B.] 15, 20
+		      \item[C.] 20, 10, 20
+		      \item[D.] 20, 25
+	      \end{enumerate}
+
+	\item 在关键字序列 $(10, 15, 20, 25, 30)$ 中采用折半法查找 25，关键字之间比较需要（ ）次。
+	      \begin{enumerate}
+		      \item[A.] 1
+		      \item[B.] 2
+		      \item[C.] 3
+		      \item[D.] 4
+	      \end{enumerate}
+
+	\item 分块查找的时间效率（ ）
+	      \begin{enumerate}
+		      \item[A.] 高于二分查找
+		      \item[B.] 高于顺序查找而低于二分查找
+		      \item[C.] 低于顺序查找
+		      \item[D.] 高于顺序查找且高于二分查找
+	      \end{enumerate}
+
+	\item 设有一个按元素的值排好序的线性表且长度大于 2，对给定的值 K，分别用顺序查找法和二分查找法查找一个与 K 相等的元素，比较次数分别是 s 和 b；在查找不成功的情况下，正确的数量关系是（ ）
+	      \begin{enumerate}
+		      \item[A.] 总有 $s=b$
+		      \item[B.] 总有 $s>b$
+		      \item[C.] 总有 $s<b$
+		      \item[D.] 与 K 值大小有关
+	      \end{enumerate}
+
+	\item 有数据 $(53, 30, 37, 12, 45, 24, 96)$ 从空二叉树开始逐个插入数据来形成二叉排序树，若希望高度最小，则应该选择下面哪个序列插入（ ）
+	      \begin{enumerate}
+		      \item[A.] 45, 24, 53, 12, 37, 96, 30
+		      \item[B.] 37, 24, 12, 30, 53, 45, 96
+		      \item[C.] 12, 24, 30, 37, 45, 53, 96
+		      \item[D.] 30, 24, 12, 37, 45, 96, 53
+	      \end{enumerate}
+
+	\item 利用逐点插入法建立序列 $(50, 72, 43, 85, 75, 20, 35, 45, 65, 30)$ 对应的二叉排序树以后，查找元素 35 要进行（ ）次元素间的比较。
+	      \begin{enumerate}
+		      \item[A.] 4
+		      \item[B.] 5
+		      \item[C.] 7
+		      \item[D.] 10
+	      \end{enumerate}
+
+	\item 下面关于 B 树和 B+ 树的叙述中，不正确的结论是（ ）
+	      \begin{enumerate}
+		      \item[A.] B 树和 B+ 树都能有效的支持顺序查找
+		      \item[B.] B 树和 B+ 树都能有效的支持随机查找
+		      \item[C.] B 树和 B+ 树都是平衡的多叉树
+		      \item[D.] B 树和 B+ 树都可用于文件索引结构
+	      \end{enumerate}
+
+	\item 以下说法错误的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 散列法存储的思想是由关键字值决定数据的存储地址
+		      \item[B.] 散列表的结点中只包含数据元素自身的信息，不包含任何指针
+		      \item[C.] 装填因子是散列法的一个重要参数，它反映了散列表的装填程度
+		      \item[D.] 散列表的查找效率主要取决于散列表造表时选取的散列函数和处理冲突的方法
+	      \end{enumerate}
+
+	\item 散列表的平均查找长度（ ）
+	      \begin{enumerate}
+		      \item[A.] 与处理冲突方法有关而与表的长度无关
+		      \item[B.] 与处理冲突方法无关而与表的长度有关
+		      \item[C.] 与处理冲突方法有关且与表的长度有关
+		      \item[D.] 与处理冲突方法无关且与表的长度无关
+	      \end{enumerate}
+
+	\item 设散列表长 $m=14$，散列函数 $H(key)=key \% 11$，表中已有 4 个结点：addr(15)=4, addr(38)=5, addr(61)=6, addr(84)=7，其余地址为空，如用二次探测再散列处理冲突，关键字为 49 的结点的地址是（ ）
+	      \begin{enumerate}
+		      \item[A.] 8
+		      \item[B.] 3
+		      \item[C.] 5
+		      \item[D.] 9
+	      \end{enumerate}
+
+	\item 如果要求一个线性表既能较快地查找，又能适应动态变化的要求，可以采用（ ）查找方法。
+	      \begin{enumerate}
+		      \item[A.] 分块
+		      \item[B.] 顺序
+		      \item[C.] 折半
+		      \item[D.] 散列
+	      \end{enumerate}
+
+	\item 采用分块查找时，若线性表中共有 625 个元素，查找每个元素的概率相同，假设采用顺序查找来确定结点所在的块时，每块应分（ ）个结点最佳。
+	      \begin{enumerate}
+		      \item[A.] 10
+		      \item[B.] 25
+		      \item[C.] 6
+		      \item[D.] 625
+	      \end{enumerate}
+
+	\item 二叉树为二叉排序树的充分必要条件是其任一结点的值均大于其左孩子的值、小于其右孩子的值，这种说法（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 在关键字随机分布的情况下，用二叉排序树的方法进行查找，其查找长度与（ ）量级相当。
+	      \begin{enumerate}
+		      \item[A.] 顺序查找
+		      \item[B.] 折半查找
+		      \item[C.] 前两者均不正确
+	      \end{enumerate}
+
+	\item 假定有 k 个关键字互为同义词，若用线性探测法把这 k 个关键字存入散列表中，至少要进行（ ）次探测。
+	      \begin{enumerate}
+		      \item[A.] $k-1$
+		      \item[B.] $k$
+		      \item[C.] $k+1$
+		      \item[D.] $k*(k+1)/2$
+	      \end{enumerate}
+
+	\item 查找效率最高的二叉排序树是（ ）
+	      \begin{enumerate}
+		      \item[A.] 所有结点的左子树都为空的二叉排序树
+		      \item[B.] 所有结点的右子树都为空的二叉排序树
+		      \item[C.] 平衡二叉树
+		      \item[D.] 没有左子树的二叉排序树
+	      \end{enumerate}
+
+	\item 已知有序表为 $(12, 18, 24, 35, 47, 50, 62, 83, 90, 115, 134)$，当用折半法查找 90 时，需进行（ ）次查找可确定成功；查找 100 时，需进行（ ）次查找才能确定不成功。
+	      \begin{enumerate}
+		      \item[A.] 2, 3
+		      \item[B.] 3, 2
+		      \item[C.] 2, 4
+		      \item[D.] 4, 3
+	      \end{enumerate}
+
+	\item 下面关于 B 树和 B+ 树的叙述中，不正确的结论是（ ）
+	      \begin{enumerate}
+		      \item[A.] B 树和 B+ 树都能有效的支持顺序查找
+		      \item[B.] B 树和 B+ 树都能有效的支持随机查找
+		      \item[C.] B 树和 B+ 树都是平衡的多叉树
+		      \item[D.] B 树和 B+ 树都可用于文件索引结构
+	      \end{enumerate}
+
+	\item 在各种查找方法中，平均查找长度与结点个数 n 无关的查找方法是（ ）
+	      \begin{enumerate}
+		      \item[A.] 顺序查找
+		      \item[B.] 折半查找
+		      \item[C.] 散列查找
+		      \item[D.] 分块查找
+	      \end{enumerate}
+
+	\item 若一个待哈希存储的线性表长度为 n，哈希表的长度为 m，则 m 应（ ）n，装填因子为（ ）
+	      \begin{enumerate}
+		      \item[A.] 大于 n
+		      \item[B.] 小于 n
+		      \item[C.] 等于 n
+		      \item[D.] n/m
+	      \end{enumerate}
+
+	\item 在哈希存储中，装填因子的值越大，存取元素时发生冲突的可能性（ ），装填因子的值越小，存取元素时发生冲突的可能性（ ）
+	      \begin{enumerate}
+		      \item[A.] 越大 越小
+		      \item[B.] 越小 越大
+		      \item[C.] 越大 越大
+		      \item[D.] 越小 越小
+	      \end{enumerate}
+
+	\item 对于二叉排序树的查找，若根结点的值大于被查元素的值，则应该在二叉排序树的（ ）上继续查找。
+	      \begin{enumerate}
+		      \item[A.] 左子树
+		      \item[B.] 右子树
+		      \item[C.] 父结点
+		      \item[D.] 不确定
+	      \end{enumerate}
+
+	\item 二叉排序树的查找效率与树的形态有关，当二叉排序树为单支树时，查找算法变为（ ），其平均查找长度为（ ）
+	      \begin{enumerate}
+		      \item[A.] 顺序查找 O(n)
+		      \item[B.] 折半查找 O(log n)
+		      \item[C.] 哈希查找 O(1)
+		      \item[D.] 分块查找 O(sqrt(n))
+	      \end{enumerate}
+
+	\item 顺序查找 n 个元素的线性表，若查找成功，则比较关键字的次数最多为（ ）次。
+	      \begin{enumerate}
+		      \item[A.] n
+		      \item[B.] n/2
+		      \item[C.] n+1
+		      \item[D.] n-1
+	      \end{enumerate}
+
+	\item 在 n 个记录的有序顺序表中进行折半查找，最大的比较次数是（ ）
+	      \begin{enumerate}
+		      \item[A.] n
+		      \item[B.] log n
+		      \item[C.] log(n+1)
+		      \item[D.] n log n
+	      \end{enumerate}
+
+	\item 折半查找的存储结构仅限于（ ），且是（ ）；而分块查找要求将待查找的表均匀地分成若干块且块中诸记录的顺序可以是任意的，但块与块之间必须（ ）
+	      \begin{enumerate}
+		      \item[A.] 顺序结构 有序的 递增
+		      \item[B.] 链式结构 有序的 递增
+		      \item[C.] 顺序结构 无序的 递增
+		      \item[D.] 顺序结构 有序的 递增
+	      \end{enumerate}
+
+	\item 分块查找中，若索引表各块内均用顺序查找，则有 900 个元素的线性表分成（ ）块最好，若分成 25 块，其平均查找长度为（ ）
+	      \begin{enumerate}
+		      \item[A.] 30
+		      \item[B.] 20
+		      \item[C.] 15
+		      \item[D.] 10
+	      \end{enumerate}
+
+	\item 在分块查找方法中，首先查找（ ），然后再查找相应的（ ）
+	      \begin{enumerate}
+		      \item[A.] 索引表 块
+		      \item[B.] 块 索引表
+		      \item[C.] 顺序表 索引表
+		      \item[D.] 哈希表 块
+	      \end{enumerate}
+
+	\item 在散列函数 $H(key)=key \% m$ 中，m 应取（ ）
+	      \begin{enumerate}
+		      \item[A.] 偶数
+		      \item[B.] 奇数
+		      \item[C.] 质数
+		      \item[D.] 任意数
+	      \end{enumerate}
+
+	\item 对一棵二叉排序树进行（ ）遍历，可得到一个递增有序序列。
+	      \begin{enumerate}
+		      \item[A.] 先序
+		      \item[B.] 中序
+		      \item[C.] 后序
+		      \item[D.] 层序
+	      \end{enumerate}
+
+	\item 用二叉排序树查找，在最坏情况下，平均查找长度 (时间复杂度) 为（ ），在最好情况下，平均查找长度 (时间复杂度) 为（ ）
+	      \begin{enumerate}
+		      \item[A.] O(n) O(log n)
+		      \item[B.] O(log n) O(n)
+		      \item[C.] O(n) O(n)
+		      \item[D.] O(log n) O(log n)
+	      \end{enumerate}
+
+	\item 在二叉排序树中插入一个新结点，总是插入到（ ）
+	      \begin{enumerate}
+		      \item[A.] 叶子结点下面
+		      \item[B.] 根结点
+		      \item[C.] 任意位置
+		      \item[D.] 不插入
+	      \end{enumerate}
+
+	\item 对一棵二叉排序树按前序方法遍历得出的结点序列是从小到大的序列。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item N 个结点的二叉排序树有多种，其中树高最小的二叉排序树是最佳的。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 在任意一棵非空二叉排序树中，删除某结点后又将其插入，则所得二叉排序树与原二叉排序树相同。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 查找相同结点的效率折半查找总比顺序查找高。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 用向量和单链表表示的有序表均可使用折半查找方法来提高查找速度。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 在索引顺序表中，实现分块查找，在等概率查找情况下，其平均查找长度不仅与表中元素个数有关，而且与每块中元素个数有关。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 对大小均为 n 的有序表和无序表分别进行顺序查找，在等概率查找的情况下，对于查找成功，它们的平均查找长度是相同的，而对于查找失败，它们的平均查找长度是不同的。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 在查找树 (二叉排序树) 中插入一个新结点，总是插入到叶结点下面。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 折半查找法适用于有序的顺序表。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 散列法存储的思想是由关键字值决定数据的存储地址。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item Hash 表的平均查找长度与处理冲突的方法无关。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 负载因子 (装填因子) 是散列表的一个重要参数，它反映散列表的装满程度。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 散列法的平均检索长度不随表中结点、数目的增加而增加，而是随负载因子的增大而增大。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 平衡二叉树中，任意结点左右子树的高度差（绝对值）不超过 1。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 二叉树为二叉排序树的充分必要条件是其任一结点的值均大于其左孩子的值、小于其右孩子的值。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 直接选择排序算法在最好情况下的时间复杂度为 $O(n)$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 对线性表进行折半查找时，要求线性表必须以链式方式存储，且结点按关键字有序排列。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 采用线性探测法处理冲突，当从哈希表中删除一个记录时，不应将这个记录的所在位置置空，因为这会影响以后的查找。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 散列函数越复杂越好，因为这样随机性好，冲突概率小。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+\end{enumerate}
+
+\section*{填空题}
+
+\begin{enumerate}
+	\item 在各种查找方法中，平均查找长度与结点个数 n 无关的查找方法是（ ）
+	\item 若一个待哈希存储的线性表长度为 n，哈希表的长度为 m，则 m 应（ ）n，装填因子为（ ）
+	\item 在哈希存储中，装填因子的值越大，存取元素时发生冲突的可能性（ ），装填因子的值越小，存取元素时发生冲突的可能性（ ）
+	\item 对于二叉排序树的查找，若根结点的值大于被查元素的值，则应该在二叉排序树的（ ）上继续查找
+	\item 二叉排序树的查找效率与树的形态有关，当二叉排序树为单支树时，查找算法变为（ ），其平均查找长度为（ ）
+	\item 顺序查找 n 个元素的线性表，若查找成功，则比较关键字的次数最多为（ ）次
+	\item 在 n 个记录的有序顺序表中进行折半查找，最大的比较次数是（ ）
+	\item 折半查找的存储结构仅限于（ ），且是（ ）；而分块查找要求将待查找的表均匀地分成若干块且块中诸记录的顺序可以是任意的，但块与块之间必须（ ）
+	\item 分块查找中，若索引表各块内均用顺序查找，则有 900 个元素的线性表分成（ ）块最好，若分成 25 块，其平均查找长度为（ ）
+	\item 在分块查找方法中，首先查找（ ），然后再查找相应的（ ）
+	\item 在散列函数 $H(key)=key \% m$ 中，m 应取（ ）
+	\item 已知有序表为 $(12, 18, 24, 35, 47, 50, 62, 83, 90, 115, 134)$，当用折半法查找 90 时，需进行（ ）次查找可确定成功；查找 100 时，需进行（ ）次查找才能确定不成功。
+	\item 对一棵二叉排序树进行（ ）遍历，可得到一个递增有序序列。
+	\item 用二叉排序树查找，在最坏情况下，平均查找长度 (时间复杂度) 为（ ），在最好情况下，平均查找长度 (时间复杂度) 为（ ）
+	\item 在各种查找方法中，平均查找长度与结点个数 n 无关的查找方法是 \underline{散列查找法}。
+	\item 在分块索引查找方法中，首先查找 \underline{索引表}，然后查找相应的块表。
+	\item 一个无序序列可以通过构造一棵 \underline{二叉排序树} 而变成一个有序序列，构造树的过程即为对无序序列进行排序的过程。
+	\item 已知图 G 的邻接表如图所示，其从顶点 v1 出发的深度优先搜索序列为 \underline{v1 v2 v3 v6 v5 v4}，其从顶点 v1 出发的广度优先搜索序列为 \underline{v1 v2 v5 v4 v3 v6}。
+	\item 索引是为了加快检索速度而引进的一种数据结构。一个索引隶属于某个数据记录集，它由若干索引项组成，索引项的结构为 \underline{关键字} 和 \underline{关键字对应记录的地址}。
+	\item Prim 算法生成一个最小生成树每一步选择都要满足 \underline{边的总数不超过 n-1}，\underline{当前选择的边的权值是候选边中最小的}，\underline{选中的边加入树中不产生回路} 三项原则。
+	\item 在一棵 m 阶 B 树中，除根结点外，每个结点最多有 \underline{m-1} 棵子树，最少有 \underline{$\lceil m/2 \rceil$} 棵子树。
+	\item 散列法存储的思想是由关键字值决定数据的存储地址。
+	\item 散列表的查找效率主要取决于散列表构造时选取的散列函数和处理冲突的方法。
+	\item 负载因子是散列表的一个重要参数，它反映了散列表的饱满程度。
+\end{enumerate}
+
+\section*{应用题}
+
+\begin{enumerate}
+	\item 设有一组关键字 $\{9, 01, 23, 14, 55, 20, 84, 27\}$，采用哈希函数：$H(key)=key \mod 7$，表长为 10，用开放地址法的二次探测再散列方法解决冲突。要求：对该关键字序列构造哈希表，并计算查找成功时的平均查找长度。
+
+	\item 对下面的关键字集 $\{30, 15, 21, 40, 25, 26, 36, 37\}$ 若查找表的装填因子为 0.8，采用线性探测再散列法解决冲突，
+	      \begin{enumerate}
+		      \item 设计哈希函数；
+		      \item 画出哈希表；
+		      \item 计算查找成功和查找失败的平均查找长度。
+	      \end{enumerate}
+
+	\item 采用哈希函数 $H(k)=3*k \mod 13$ 并用线性探测法处理冲突，在散列地址空间 $[0..12]$ 中对关键字序列 $22, 41, 53, 46, 30, 13, 1, 67, 51$
+	      \begin{enumerate}
+		      \item 构造哈希表；
+		      \item 计算查找成功和不成功的平均查找长度。
+	      \end{enumerate}
+
+	\item 设哈希 (Hash) 表的地址范围为 $0 \sim 17$，哈希函数为：$H(K)=K \mod 16$，K 为关键字，用线性探测再散列法处理冲突，输入关键字序列：$(10, 24, 32, 17, 31, 30, 46, 47, 40, 63, 49)$ 造出哈希表，试回答下列问题：
+	      \begin{enumerate}
+		      \item 画出哈希表示意图；
+		      \item 若查找关键字 63，需要依次与哪些关键字比较？
+		      \item 若查找关键字 60，需要依次与哪些关键字比较？
+		      \item 假定每个关键字的查找概率相等，求查找成功时的平均查找长度。
+	      \end{enumerate}
+
+	\item 已知长度为 11 的表 (xal, wan, wil, zol, yo, xul, yum, wen, wim, zi, yon)，按表中元素顺序依次插入一棵初始为空的二叉排序树中，画出插入完成后的二叉排序树，并求其在等概率的情况下查找成功的平均查找长度。
+
+	\item 用序列 $(46, 88, 45, 39, 70, 58, 101, 10, 66, 34)$ 建立一个排序二叉树，画出该树，并求在等概率情况下查找成功的平均查找长度。
+
+	\item 一棵二叉排序树结构如下，各结点的值从小到大依次为 1-9，请标出各结点的值。
+
+	\item 假定对有序表：$(3, 4, 5, 7, 24, 30, 42, 54, 63, 72, 87, 95)$ 进行折半查找，试回答下列问题：
+	      \begin{enumerate}
+		      \item 画出描述折半查找过程的判定树；
+		      \item 若查找元素 54，需依次与那些元素比较？
+		      \item 若查找元素 90，需依次与那些元素比较？
+		      \item 假定每个元素的查找概率相等，求查找成功时的平均查找长度。
+	      \end{enumerate}
+\end{enumerate}
+
+\end{document}

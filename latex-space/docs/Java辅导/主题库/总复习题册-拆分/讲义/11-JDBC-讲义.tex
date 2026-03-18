@@ -1,0 +1,537 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={JDBC讲义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt,
+    breakable
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{JDBC - 深度解析讲义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月02日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{JDBC}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于Java中JDBC的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 用于连接数据库
+		      \item 不同的数据库有不同的驱动
+		      \item 执行SQL语句通过Statement对象
+		      \item 不需要关闭连接资源
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查JDBC资源管理的基本原则——必须显式关闭数据库连接资源
+			      \item \textbf{关键区分点}：JDBC是"连接数据库的标准API"，但资源管理必须手动完成
+			      \item \textbf{命题人意图}：测试考生是否理解Java数据库编程中的"资源泄漏"风险
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 用于连接数据库 — 正确（JDBC核心功能）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{核心功能}：JDBC（Java Database Connectivity）提供Java应用程序与数据库之间的连接桥梁
+			      \item \textbf{JDBC架构}：
+				            \item JDBC API：java.sql包，定义一套访问数据库的接口
+				            \item JDBC Driver：各数据库厂商实现，负责具体数据库通信
+			      \item \textbf{连接建立代码示例}：
+			            \begin{lstlisting}[language=Java]
+Connection conn = DriverManager.getConnection(
+    "jdbc:mysql://localhost:3306/mydb",
+    "username", "password");
+      \end{lstlisting}
+		      % ---------- 选项B ----------
+					  \end{itemize}
+		      \item \textbf{B. 不同的数据库有不同的驱动 — 正确（JDBC驱动模式）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{JDBC驱动类型}：
+			            \begin{enumerate}
+				            \item Type 1：JDBC-ODBC桥接（已淘汰）
+				            \item Type 2：本地API驱动
+				            \item Type 3：网络协议驱动（中间件）
+				            \item Type 4：本地协议驱动（主流，如MySQL Connector/J）
+			            \end{enumerate}
+			      \item \textbf{驱动加载}：
+			            \begin{lstlisting}[language=Java]
+Class.forName("com.mysql.cj.jdbc.Driver"); // 加载驱动
+      \end{lstlisting}
+			      \item \textbf{驱动管理}：DriverManager根据URL前缀（jdbc:mysql:）选择对应驱动
+		      % ---------- 选项C ----------
+					  \end{itemize}
+		      \item \textbf{C. 执行SQL语句通过Statement对象 — 正确（基础API）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{Statement接口}：
+				            \item executeQuery()：执行SELECT语句，返回ResultSet
+				            \item executeUpdate()：执行INSERT/UPDATE/DELETE，返回影响行数
+				            \item execute()：执行任意SQL，返回boolean
+			      \item \textbf{代码示例}：
+			            \begin{lstlisting}[language=Java]
+Statement stmt = conn.createStatement();
+ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+int rows = stmt.executeUpdate("INSERT INTO users VALUES(...)");
+      \end{lstlisting}
+		      % ---------- 选项D ----------
+					  \end{itemize}
+		      \item \textbf{D. 不需要关闭连接资源 — 错误（资源泄漏根源）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{资源管理原则}：JDBC资源（Connection、Statement、ResultSet）必须显式关闭
+			      \item \textbf{原因分析}：
+				            \item 数据库连接是有限资源（连接池通常有最大连接数限制）
+				            \item 未关闭的连接会导致数据库端资源耗尽
+				            \item JVM垃圾回收无法自动关闭数据库连接
+			      \item \textbf{正确写法（try-with-resources）}：
+			            \begin{lstlisting}[language=Java]
+try (Connection conn = DriverManager.getConnection(...);
+     Statement stmt = conn.createStatement();
+     ResultSet rs = stmt.executeQuery("SELECT * FROM users")) {
+    // 使用资源
+} // 自动关闭
+      \end{lstlisting}
+			      \item \textbf{传统写法（需手动关闭）}：
+			            \begin{lstlisting}[language=Java]
+Connection conn = null;
+Statement stmt = null;
+ResultSet rs = null;
+try {
+    conn = DriverManager.getConnection(...);
+    stmt = conn.createStatement();
+    rs = stmt.executeQuery("SELECT * FROM users");
+} finally {
+    if (rs != null) rs.close();
+    if (stmt != null) stmt.close();
+    if (conn != null) conn.close();
+}
+      \end{lstlisting}
+		      % ======== 阶段三：应背诵知识点 ========
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{JDBC核心组件}：
+			            \begin{itemize}[label={}, nosep]
+				            \item DriverManager：管理JDBC驱动
+				            \item Connection：数据库连接
+				            \item Statement：SQL执行器
+				            \item ResultSet：结果集
+			            \end{itemize}
+
+			      \item \textbf{资源关闭顺序}：先关闭ResultSet，再Statement，最后Connection（后开先关）
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1："finally块中关闭资源" → 正确做法，但容易忽略null检查
+				            \item 陷阱2："try-with-resources是JDK7+特性" → 现代开发首选
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{考场秒杀三步法}：
+			            \begin{enumerate}
+				            \item 看到"JDBC"联想到"资源管理"
+				            \item JDBC资源必须手动关闭是基本常识
+				            \item D选项明显与事实相反，必选
+			            \end{enumerate}
+
+			      \item \textbf{必考结论}：任何JDBC操作都必须确保资源正确关闭，推荐使用try-with-resources
+		      \end{itemize}
+	      \end{bluebox}
+
+	\item \textbf{以下哪个方法用于执行查询语句？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item executeQuery()
+		      \item executeUpdate()
+		      \item execute()
+		      \item runQuery()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Statement接口的三个核心方法的区别
+			      \item \textbf{关键区分点}：不同SQL语句类型对应不同的执行方法
+			      \item \textbf{命题人意图}：测试考生对JDBC API的掌握程度
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+		      % ---------- 选项A ----------
+		      \item \textbf{A. executeQuery() — 正确（专用于查询）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{使用场景}：执行SELECT语句
+			      \item \textbf{返回值类型}：ResultSet（查询结果集）
+			      \item \textbf{典型用法}：
+			            \begin{lstlisting}[language=Java]
+ResultSet rs = stmt.executeQuery("SELECT name, age FROM users WHERE id = 1");
+while (rs.next()) {
+    String name = rs.getString("name");
+    int age = rs.getInt("age");
+}
+      \end{lstlisting}
+		      % ---------- 选项B ----------
+					  \end{itemize}
+		      \item \textbf{B. executeUpdate() — 错误（用于增删改）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{使用场景}：执行INSERT、UPDATE、DELETE语句
+			      \item \textbf{返回值类型}：int（受影响的行数）
+			      \item \textbf{典型用法}：
+			            \begin{lstlisting}[language=Java]
+int rows = stmt.executeUpdate("UPDATE users SET age = 20 WHERE id = 1");
+int rows = stmt.executeUpdate("DELETE FROM users WHERE id = 2");
+      \end{lstlisting}
+			      \item \textbf{DDL语句也用此方法}：CREATE TABLE、DROP TABLE等返回0
+		      % ---------- 选项C ----------
+					  \end{itemize}
+		      \item \textbf{C. execute() — 错误（通用方法）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{使用场景}：执行任意SQL语句，返回boolean
+			      \item \textbf{返回值}：true表示结果是ResultSet，false表示是更新计数
+			            \begin{lstlisting}[language=Java]
+boolean hasResultSet = stmt.execute("SELECT * FROM users");
+if (hasResultSet) {
+    ResultSet rs = stmt.getResultSet();
+} else {
+    int updateCount = stmt.getUpdateCount();
+}
+      \end{lstlisting}
+		      % ---------- 选项D ----------
+					  \end{itemize}
+		      \item \textbf{D. runQuery() — 错误（不存在的方法）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{辨析}：这是常见的干扰项，JDBC中没有此方法
+			      \item \textbf{正确方法名}：executeQuery（执行查询）
+		      % ======== 阶段三：应背诵知识点 ========
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{Statement方法速查表}：
+			            \begin{tabular}{|c|c|c|c|}
+				            \hline
+				            \textbf{方法}     & \textbf{SQL类型}       & \textbf{返回值} & \textbf{记忆口诀}                 \\
+				            \hline
+				            executeQuery()  & SELECT               & ResultSet    & \textcolor{green}{"查询Query"}  \\
+				            \hline
+				            executeUpdate() & INSERT/UPDATE/DELETE & int          & \textcolor{green}{"更新Update"} \\
+				            \hline
+				            execute()       & 任意SQL                & boolean      & \textcolor{red}{"通用但繁琐"}      \\
+				            \hline
+			            \end{tabular}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1：executeUpdate()用于SELECT会抛异常
+				            \item 陷阱2：DDL语句返回0而非抛异常
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：看到SELECT就选executeQuery()，其他情况用executeUpdate()
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中PreparedStatement的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 性能比Statement差
+		      \item 不能防止SQL注入
+		      \item 可以设置参数
+		      \item 不支持批量操作
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查PreparedStatement相对Statement的核心优势
+			      \item \textbf{关键区分点}：预编译SQL vs 动态SQL、参数化查询
+			      \item \textbf{命题人意图}：测试考生对SQL注入攻击防御的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 性能比Statement差 — 错误（预编译优势）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{性能优势}：
+				            \item SQL预编译：数据库一次解析，多次执行
+				            \item 减少网络传输：参数单独传输，减少SQL语句重复传输
+				            \item 缓存执行计划：数据库复用执行计划
+			      \item \textbf{适用场景}：重复执行结构相似的SQL（如批量插入）
+		      % ---------- 选项B ----------
+					  \end{itemize}
+		      \item \textbf{B. 不能防止SQL注入 — 错误（核心安全特性）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{SQL注入原理}：
+			            \begin{lstlisting}[language=Java]
+// 危险写法（Statement）
+String sql = "SELECT * FROM users WHERE name = '" + username + "'";
+// 用户输入: admin' OR '1'='1
+// 变成: SELECT * FROM users WHERE name = 'admin' OR '1'='1'
+      \end{lstlisting}
+			      \item \textbf{PreparedStatement防御}：
+			            \begin{lstlisting}[language=Java]
+// 安全写法（PreparedStatement）
+String sql = "SELECT * FROM users WHERE name = ?";
+PreparedStatement ps = conn.prepareStatement(sql);
+ps.setString(1, username); // 参数绑定，特殊字符被转义
+      \end{lstlisting}
+			      \item \textbf{原理}：参数部分作为字面值发送，数据库不解析为SQL代码
+		      % ---------- 选项C ----------
+					  \end{itemize}
+		      \item \textbf{C. 可以设置参数 — 正确（核心特性）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{参数设置方法}：
+				            \item setString(int parameterIndex, String x)
+				            \item setInt(int parameterIndex, int x)
+				            \item setObject(int parameterIndex, Object x)
+				            \item 等等...
+			      \item \textbf{代码示例}：
+			            \begin{lstlisting}[language=Java]
+String sql = "INSERT INTO users(name, age) VALUES(?, ?)";
+PreparedStatement ps = conn.prepareStatement(sql);
+ps.setString(1, "张三");
+ps.setInt(2, 25);
+ps.executeUpdate();
+      \end{lstlisting}
+			      \item \textbf{?占位符}：使用?作为参数占位符，从1开始编号
+		      % ---------- 选项D ----------
+					  \end{itemize}
+		      \item \textbf{D. 不支持批量操作 — 错误（支持批量操作）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{批量操作方法}：
+				            \item addBatch()：将当前参数添加到批处理队列
+				            \item executeBatch()：执行批处理
+				            \item clearBatch()：清空批处理队列
+			      \item \textbf{代码示例}：
+			            \begin{lstlisting}[language=Java]
+PreparedStatement ps = conn.prepareStatement("INSERT INTO logs(msg) VALUES(?)");
+for (String msg : messages) {
+    ps.setString(1, msg);
+    ps.addBatch();
+}
+int[] results = ps.executeBatch(); // 批量执行
+      \end{lstlisting}
+		      % ======== 阶段三：应背诵知识点 ========
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{PreparedStatement vs Statement对比}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{特性} & \textbf{Statement} & \textbf{PreparedStatement} \\
+				            \hline
+				            SQL注入防御     & 无                  & 有                          \\
+				            \hline
+				            性能          & 每次编译               & 预编译缓存                      \\
+				            \hline
+				            参数支持        & 无                  & 有(?)                       \\
+				            \hline
+				            批量操作        & 支持                 & 支持(更优)                     \\
+				            \hline
+			            \end{tabular}
+
+			      \item \textbf{必考结论}：开发中应优先使用PreparedStatement
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：PreparedStatement三个核心优势——防注入、提性能、参数化
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中事务的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 保证数据的一致性
+		      \item 可以通过commit()提交
+		      \item 可以通过rollback()回滚
+		      \item 事务中的操作一定能成功
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查JDBC事务的基本特性——原子性可能失败
+			      \item \textbf{关键区分点}：事务是"可能失败的操作集合"，非"必定成功"
+			      \item \textbf{命题人意图}：测试考生对事务ACID特性的理解深度
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 保证数据的一致性 — 正确（事务核心目标）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{一致性(Consistency)}：事务执行前后，数据库状态保持一致
+			            \begin{lstlisting}[language=Java]
+// 转账例子：A转B100元
+// 要么成功（A-100, B+100），要么失败（都不变）
+// 不可能出现A-100但B未+100的情况
+      \end{lstlisting}
+		      % ---------- 选项B ----------
+					  \end{itemize}
+		      \item \textbf{B. 可以通过commit()提交 — 正确（事务提交）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{提交}：将事务中所有修改永久写入数据库
+			            \begin{lstlisting}[language=Java]
+conn.setAutoCommit(false); // 开启事务
+// 执行多条SQL
+stmt.executeUpdate("UPDATE accounts SET balance = balance - 100 WHERE id = 1");
+stmt.executeUpdate("UPDATE accounts SET balance = balance + 100 WHERE id = 2");
+conn.commit(); // 提交事务
+      \end{lstlisting}
+		      % ---------- 选项C ----------
+					  \end{itemize}
+		      \item \textbf{C. 可以通过rollback()回滚 — 正确（事务回滚）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{回滚}：撤销事务中的所有修改
+			            \begin{lstlisting}[language=Java]
+try {
+    conn.setAutoCommit(false);
+    stmt.executeUpdate("UPDATE accounts SET balance = balance - 100 WHERE id = 1");
+    stmt.executeUpdate("UPDATE accounts SET balance = balance + 100 WHERE id = 2");
+    conn.commit();
+} catch (Exception e) {
+    conn.rollback(); // 发生异常时回滚
+}
+      \end{lstlisting}
+		      % ---------- 选项D ----------
+					  \end{itemize}
+		      \item \textbf{D. 事务中的操作一定能成功 — 错误（可能失败）}
+					  \begin{itemize}[label={}, nosep]
+			      \item \textbf{失败原因}：
+				            \item 网络异常
+				            \item 数据库约束违反（如外键、唯一索引）
+				            \item 死锁超时
+				            \item 磁盘空间不足
+			      \item \textbf{正确理解}：事务提供"要么全成功，要么全失败"的保证，而非"必定成功"
+			      \item \textbf{代码示例}：
+			            \begin{lstlisting}[language=Java]
+conn.setAutoCommit(false);
+try {
+    // 操作1
+    // 操作2
+    conn.commit(); // 可能抛出SQLException
+} catch (SQLException e) {
+    conn.rollback(); // 必须回滚
+}
+      \end{lstlisting}
+		      % ======== 阶段三：应背诵知识点 ========
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{事务ACID特性}：
+			            \begin{itemize}[label={}, nosep]
+				            \item Atomicity（原子性）：事务是最小执行单位，不可分割
+				            \item Consistency（一致性）：事务前后数据库状态一致
+				            \item Isolation（隔离性）：并发事务互不干扰
+				            \item Durability（持久性）：事务提交后，修改永久保存
+			            \end{itemize}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1："事务一定成功" → 可能因异常而失败回滚
+				            \item 陷阱2：忘记setAutoCommit(false)导致自动提交
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：事务不是"保险箱"，可能失败需回滚
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

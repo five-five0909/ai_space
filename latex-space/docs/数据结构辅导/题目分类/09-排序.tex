@@ -1,0 +1,754 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据结构习题集}
+\lhead{分类整理}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{第九章 排序}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 排序方法中，从未排序序列中依次取出元素与已排序序列中的元素进行比较，将其放入已排序序列的正确位置上的方法称为（ ）
+	      \begin{enumerate}
+		      \item[A.] 希尔排序
+		      \item[B.] 冒泡排序
+		      \item[C.] 插入排序
+		      \item[D.] 选择排序
+	      \end{enumerate}
+
+	\item 在待排序的元素序列基本有序的前提下，效率最高的排序方法是（ ）
+	      \begin{enumerate}
+		      \item[A.] 插入排序
+		      \item[B.] 选择排序
+		      \item[C.] 快速排序
+		      \item[D.] 归并排序
+	      \end{enumerate}
+
+	\item 在所有的排序方法中，关键字比较的次数与记录的初始排列次序无关的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 希尔排序
+		      \item[B.] 冒泡排序
+		      \item[C.] 直接插入排序
+		      \item[D.] 直接选择排序
+	      \end{enumerate}
+
+	\item 堆是一种有用的数据结构。下列关键码序列（ ）是一个堆。
+	      \begin{enumerate}
+		      \item[A.] 94, 31, 53, 23, 16, 72
+		      \item[B.] 94, 53, 31, 72, 16, 23
+		      \item[C.] 16, 53, 23, 94, 31, 72
+		      \item[D.] 16, 31, 23, 94, 53, 72
+	      \end{enumerate}
+
+	\item 堆排序是一种（ ）排序。
+	      \begin{enumerate}
+		      \item[A.] 插入
+		      \item[B.] 选择
+		      \item[C.] 交换
+		      \item[D.] 归并
+	      \end{enumerate}
+
+	\item 快速排序方法在（ ）情况下最不利于发挥其长处。
+	      \begin{enumerate}
+		      \item[A.] 要排序的数据量太大
+		      \item[B.] 要排序的数据中含有多个相同值
+		      \item[C.] 要排序的数据已基本有序
+		      \item[D.] 要排序的数据个数为奇数
+	      \end{enumerate}
+
+	\item 快速排序在最坏情况下时间复杂度是 $O(n^2)$，比（ ）性能差。
+	      \begin{enumerate}
+		      \item[A.] 堆排序
+		      \item[B.] 冒泡排序
+		      \item[C.] 选择排序
+	      \end{enumerate}
+
+	\item 采用直接选择排序，比较的次数与移动次数的时间复杂度分别是（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n)$, $O(\log n)$
+		      \item[B.] $O(\log n)$, $O(n)$
+		      \item[C.] $O(n^2)$, $O(n)$
+		      \item[D.] $O(n \log n)$, $O(n)$
+	      \end{enumerate}
+
+	\item 直接选择排序的时间复杂度为（ ）。（n 为元素个数）
+	      \begin{enumerate}
+		      \item[A.] $O(n)$
+		      \item[B.] $O(\log_2 n)$
+		      \item[C.] $O(n \log_2 n)$
+		      \item[D.] $O(n^2)$
+	      \end{enumerate}
+
+	\item 在对 n 个元素的序列进行排序时，堆排序所需要的附加存储空间是（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(\log n)$
+		      \item[C.] $O(n \log n)$
+		      \item[D.] $O(n)$
+	      \end{enumerate}
+
+	\item 设有 1000 个无序的元素，希望用最快的速度挑选出其中前 10 个最大的元素，最好选用（ ）排序方法。
+	      \begin{enumerate}
+		      \item[A.] 冒泡排序
+		      \item[B.] 快速排序
+		      \item[C.] 堆排序
+		      \item[D.] 基数排序
+	      \end{enumerate}
+
+	\item 以下序列不是堆的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 100, 85, 98, 77, 80, 60, 82, 40, 20, 10, 66
+		      \item[B.] 100, 98, 85, 82, 80, 77, 66, 60, 40, 20, 10
+		      \item[C.] 10, 20, 40, 60, 66, 77, 80, 82, 85, 98, 100
+		      \item[D.] 100, 85, 40, 77, 80, 60, 66, 98, 82, 10, 20
+	      \end{enumerate}
+
+	\item 将两个各有 n 个元素的有序表归并成一个有序表，其最少的比较次数是（ ）
+	      \begin{enumerate}
+		      \item[A.] $n$
+		      \item[B.] $2n-1$
+		      \item[C.] $2n$
+		      \item[D.] $n-1$
+	      \end{enumerate}
+
+	\item 就排序方法所用的辅助空间而言，堆排序、快速排序、归并排序的关系是（ ）
+	      \begin{enumerate}
+		      \item[A.] 堆排序 < 快速排序 < 归并排序
+		      \item[B.] 堆排序 < 归并排序 < 快速排序
+		      \item[C.] 堆排序 > 快速排序 > 归并排序
+		      \item[D.] 堆排序 > 归并排序 > 快速排序
+	      \end{enumerate}
+
+	\item 下述几种排序方法中，要求内存量最大的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 插入排序
+		      \item[B.] 选择排序
+		      \item[C.] 快速排序
+		      \item[D.] 归并排序
+	      \end{enumerate}
+
+	\item 若要对 1000 个元素排序，要求既快又稳定，则最好采用（ ）方法。
+	      \begin{enumerate}
+		      \item[A.] 直接插入排序
+		      \item[B.] 归并排序
+		      \item[C.] 堆排序
+		      \item[D.] 快速排序
+	      \end{enumerate}
+
+	\item 若要对 1000 个元素排序，要求既快又节省空间，则最好采用（ ）方法。
+	      \begin{enumerate}
+		      \item[A.] 直接插入排序
+		      \item[B.] 归并排序
+		      \item[C.] 堆排序
+		      \item[D.] 快速排序
+	      \end{enumerate}
+
+	\item 冒泡排序算法关键字比较的次数与记录的初始排列次序无关。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 直接选择排序算法在最好情况下的时间复杂度为 $O(n)$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 在待排序的记录集中，存在多个具有相同键值的记录，若经过排序，这些记录的相对次序仍然保持不变，称这种排序为稳定排序。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 堆排序的空间复杂度为 $O(1)$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 归并排序是稳定的排序方法。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 快速排序是稳定的排序方法。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 希尔排序是稳定的排序方法。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 堆排序是一种选择排序。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 基数排序不需要进行关键字间的比较。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 在对 n 个元素进行冒泡排序的过程中，最好情况下的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(\log n)$
+		      \item[C.] $O(n)$
+		      \item[D.] $O(n^2)$
+	      \end{enumerate}
+
+	\item 一组记录的关键码为 $(46, 79, 56, 38, 40, 84)$，则选用快速排序的方法，以第一个记录为基准得到的一次划分结果为（ ）
+	      \begin{enumerate}
+		      \item[A.] 38, 40, 46, 56, 79, 84
+		      \item[B.] 40, 38, 46, 79, 56, 84
+		      \item[C.] 40, 38, 46, 56, 79, 84
+		      \item[D.] 40, 38, 46, 84, 56, 79
+	      \end{enumerate}
+
+	\item 希尔排序是（ ）排序的一种。
+	      \begin{enumerate}
+		      \item[A.] 插入
+		      \item[B.] 选择
+		      \item[C.] 交换
+		      \item[D.] 归并
+	      \end{enumerate}
+
+	\item 堆排序的平均时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n)$
+		      \item[B.] $O(n \log n)$
+		      \item[C.] $O(n^2)$
+		      \item[D.] $O(\log n)$
+	      \end{enumerate}
+
+	\item 快速排序的平均时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n)$
+		      \item[B.] $O(n \log n)$
+		      \item[C.] $O(n^2)$
+		      \item[D.] $O(\log n)$
+	      \end{enumerate}
+
+	\item 归并排序的平均时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n)$
+		      \item[B.] $O(n \log n)$
+		      \item[C.] $O(n^2)$
+		      \item[D.] $O(\log n)$
+	      \end{enumerate}
+
+	\item 稳定的排序方法是（ ）
+	      \begin{enumerate}
+		      \item[A.] 快速排序
+		      \item[B.] 希尔排序
+		      \item[C.] 堆排序
+		      \item[D.] 冒泡排序
+	      \end{enumerate}
+
+	\item 不稳定的排序方法是（ ）
+	      \begin{enumerate}
+		      \item[A.] 冒泡排序
+		      \item[B.] 归并排序
+		      \item[C.] 希尔排序
+		      \item[D.] 直接插入排序
+	      \end{enumerate}
+
+	\item 快速排序在平均情况下的时间复杂度为（ ），在最坏情况下的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n)$ $O(n^2)$
+		      \item[B.] $O(n \log n)$ $O(n^2)$
+		      \item[C.] $O(\log n)$ $O(n)$
+		      \item[D.] $O(n^2)$ $O(n \log n)$
+	      \end{enumerate}
+
+	\item 直接插入排序最好情况下的时间复杂度为（ ），最坏情况下的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n)$ $O(n^2)$
+		      \item[B.] $O(1)$ $O(n)$
+		      \item[C.] $O(n \log n)$ $O(n^2)$
+		      \item[D.] $O(n^2)$ $O(n)$
+	      \end{enumerate}
+
+	\item 对 n 个元素进行排序，平均时间复杂度为 $O(n \log n)$ 的排序方法是（ ）
+	      \begin{enumerate}
+		      \item[A.] 冒泡排序
+		      \item[B.] 希尔排序
+		      \item[C.] 堆排序
+		      \item[D.] 基数排序
+	      \end{enumerate}
+
+	\item 下列排序方法中，空间复杂度为 $O(n)$ 的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 归并排序
+		      \item[B.] 快速排序
+		      \item[C.] 堆排序
+		      \item[D.] 冒泡排序
+	      \end{enumerate}
+
+	\item 下列排序方法中，平均时间复杂度为 $O(n^2)$ 的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 快速排序
+		      \item[B.] 堆排序
+		      \item[C.] 归并排序
+		      \item[D.] 冒泡排序
+	      \end{enumerate}
+
+	\item 对数据序列 (8, 9, 10, 4, 5, 6, 20, 1, 2) 采用冒泡排序，需要的趟数是（ ）
+	      \begin{enumerate}
+		      \item[A.] 3
+		      \item[B.] 4
+		      \item[C.] 5
+		      \item[D.] 6
+	      \end{enumerate}
+
+	\item 希尔排序的增量序列必须是（ ）
+	      \begin{enumerate}
+		      \item[A.] 递增的
+		      \item[B.] 递减的
+		      \item[C.] 互质的
+		      \item[D.] 任意的
+	      \end{enumerate}
+
+	\item 对关键字序列 (12, 13, 11, 18, 60, 15, 7, 20, 25, 10)，用筛选法建堆，必须从键值为（ ）的关键字开始筛选。
+	      \begin{enumerate}
+		      \item[A.] 18
+		      \item[B.] 60
+		      \item[C.] 12
+		      \item[D.] 10
+	      \end{enumerate}
+
+	\item 在插入、希尔、选择、快速、堆、归并和基数排序中，排序是不稳定的有（ ）
+	      \begin{enumerate}
+		      \item[A.] 希尔、选择、快速、堆
+		      \item[B.] 插入、希尔、归并
+		      \item[C.] 选择、快速、堆、基数
+		      \item[D.] 希尔、快速、堆、基数
+	      \end{enumerate}
+
+	\item （ ）排序不需要进行记录关键字间的比较。
+	      \begin{enumerate}
+		      \item[A.] 插入
+		      \item[B.] 交换
+		      \item[C.] 选择
+		      \item[D.] 基数
+	      \end{enumerate}
+
+	\item 假定一组记录为 $(46, 79, 56, 38, 40, 80)$，对其进行快速排序的过程中，共需要（ ）趟排序。
+	      \begin{enumerate}
+		      \item[A.] 1
+		      \item[B.] 2
+		      \item[C.] 3
+		      \item[D.] 4
+	      \end{enumerate}
+
+	\item 一组记录的排序码为 $(46, 79, 56, 38, 40, 84)$，则利用堆排序 (建立大根堆) 的方法建立的初始堆为（ ）
+	      \begin{enumerate}
+		      \item[A.] 79, 46, 56, 38, 40, 80
+		      \item[B.] 84, 79, 56, 38, 40, 46
+		      \item[C.] 84, 79, 56, 46, 40, 38
+		      \item[D.] 84, 56, 79, 40, 46, 38
+	      \end{enumerate}
+
+	\item 对有 n 个元素的顺序表进行直接插入排序，在最好情况下需要比较（ ）次。
+	      \begin{enumerate}
+		      \item[A.] n-1
+		      \item[B.] n
+		      \item[C.] n(n-1)/2
+		      \item[D.] n(n+1)/2
+	      \end{enumerate}
+
+	\item 归并排序的空间复杂度是（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(n)$
+		      \item[C.] $O(\log n)$
+		      \item[D.] $O(n \log n)$
+	      \end{enumerate}
+
+	\item 在对 n 个元素进行归并排序中，归并的趟数为（ ）
+	      \begin{enumerate}
+		      \item[A.] n
+		      \item[B.] n-1
+		      \item[C.] $\log n$
+		      \item[D.] $\lceil \log_2 n \rceil$
+	      \end{enumerate}
+
+	\item 在下列排序方法中，空间复杂度为 $O(1)$ 的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 归并排序
+		      \item[B.] 快速排序
+		      \item[C.] 堆排序
+		      \item[D.] 希尔排序
+	      \end{enumerate}
+
+	\item 下列说法中，正确的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 排序的稳定性是指排序算法的时间复杂度
+		      \item[B.] 稳定的排序算法一定比不稳定的排序算法好
+		      \item[C.] 堆排序是不稳定的排序算法
+		      \item[D.] 快速排序是目前基于比较的排序中最好的算法
+	      \end{enumerate}
+
+	\item 对关键字序列 (70, 34, 55, 87, 21, 68, 92) 进行堆排序，建大根堆后，堆顶元素是（ ）
+	      \begin{enumerate}
+		      \item[A.] 34
+		      \item[B.] 55
+		      \item[C.] 87
+		      \item[D.] 92
+	      \end{enumerate}
+
+	\item 对数据序列 (12, 2, 16, 30, 28, 10, 16*, 20, 6, 18) 进行排序，第一趟排序后的结果为 (12, 2, 16, 30, 28, 10, 16*, 20, 6, 18)，则可能的排序方法是（ ）
+	      \begin{enumerate}
+		      \item[A.] 冒泡排序
+		      \item[B.] 希尔排序
+		      \item[C.] 归并排序
+		      \item[D.] 快速排序
+	      \end{enumerate}
+
+	\item 下列关于堆的说法中，错误的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 堆是完全二叉树
+		      \item[B.] 大根堆中父结点一定大于子结点
+		      \item[C.] 小根堆中父结点一定小于子结点
+		      \item[D.] 堆可以用数组实现
+	      \end{enumerate}
+
+	\item 下列排序方法中，平均时间复杂度为 $O(n \log n)$ 且稳定的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 快速排序
+		      \item[B.] 希尔排序
+		      \item[C.] 归并排序
+		      \item[D.] 堆排序
+	      \end{enumerate}
+
+	\item 下列排序方法中，不稳定的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 冒泡排序
+		      \item[B.] 希尔排序
+		      \item[C.] 归并排序
+		      \item[D.] 基数排序
+	      \end{enumerate}
+
+	\item 一组记录的排序码为 $(25, 48, 16, 35, 79, 82, 23, 40, 36, 72)$，其中含有 5 个长度为 2 的有序表，按归并排序的方法对该序列进行一趟归并后的结果为（ ）
+	      \begin{enumerate}
+		      \item[A.] 16 25 35 48 23 40 79 82 36 72
+		      \item[B.] 16 25 35 48 79 82 23 36 40 72
+		      \item[C.] 16 25 48 35 79 82 23 36 40 72
+		      \item[D.] 16 25 35 48 79 23 36 40 72 82
+	      \end{enumerate}
+
+	\item 如果对 n 个元素进行直接选择排序，则进行任一趟排序的过程中，为寻找最小值元素所需要的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(\log n)$
+		      \item[C.] $O(n)$
+		      \item[D.] $O(n^2)$
+	      \end{enumerate}
+
+	\item 在对 n 个元素进行插入排序的过程中，共需要进行（ ）趟。
+	      \begin{enumerate}
+		      \item[A.] $n$
+		      \item[B.] $n+1$
+		      \item[C.] $n-1$
+		      \item[D.] $2n$
+	      \end{enumerate}
+
+	\item 在对 n 个元素进行冒泡排序的过程中，第一趟排序至多需要进行（ ）对相邻元素之间的交换。
+	      \begin{enumerate}
+		      \item[A.] $n$
+		      \item[B.] $n-1$
+		      \item[C.] $n+1$
+		      \item[D.] $n/2$
+	      \end{enumerate}
+
+	\item 在对 n 个元素进行快速排序的过程中，第一次划分最多需要移动（ ）次元素，包括开始把基准数移动到临时变量的一次在内。
+	      \begin{enumerate}
+		      \item[A.] $n/2$
+		      \item[B.] $n-1$
+		      \item[C.] $n$
+		      \item[D.] $n+1$
+	      \end{enumerate}
+
+	\item 在对 n 个元素进行快速排序的过程中，最好情况下需要进行（ ）趟排序完成。
+	      \begin{enumerate}
+		      \item[A.] $n$
+		      \item[B.] $n/2$
+		      \item[C.] $\log n$
+		      \item[D.] $2n$
+	      \end{enumerate}
+
+	\item 在对 n 个元素进行快速排序的过程中，最坏情况下需要进行（ ）趟排序完成。
+	      \begin{enumerate}
+		      \item[A.] $n$
+		      \item[B.] $n-1$
+		      \item[C.] $\log n$
+		      \item[D.] $n/2$
+	      \end{enumerate}
+
+	\item 若对 n 个元素进行插入排序，则进行任一趟排序的过程中，为寻找插入位置而需要的时间复杂度为（ ）。
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(n)$
+		      \item[C.] $O(n^2)$
+		      \item[D.] $O(\log n)$
+	      \end{enumerate}
+
+	\item 设有 1000 个无序的元素，希望用最快的速度挑选出其中前 5 个最大的元素，最好选用（ ）排序方法。
+	      \begin{enumerate}
+		      \item[A.] 冒泡排序
+		      \item[B.] 快速排序
+		      \item[C.] 堆排序
+		      \item[D.] 选择排序
+	      \end{enumerate}
+
+	\item 在排序方法中，关键字比较的次数与记录的初始排列次序无关的是直接选择排序。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 堆排序的时间复杂度为 $O(n \log n)$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 在所有排序方法中，关键字比较的次数与记录的初始排列次序无关的是直接选择排序。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 稳定的排序算法是指排序后相同关键字的相对位置不变。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 冒泡排序是一种稳定的排序方法。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 直接插入排序是一种稳定的排序方法。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 快速排序是一种不稳定的排序方法。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 堆排序是一种不稳定的排序方法。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 在待排序的记录集中，存在多个具有相同键值的记录，若经过排序，这些记录的相对次序仍然保持不变，称这种排序为稳定排序。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 堆排序的平均时间复杂度和最坏时间复杂度都是 $O(n \log n)$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 在对 n 个元素进行归并排序的过程中，归并的趟数为 $\lceil \log_2 n \rceil$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 直接选择排序的时间复杂度为 $O(n^2)$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 冒泡排序的时间复杂度为 $O(n^2)$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 归并排序的空间复杂度为 $O(n)$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 快速排序的空间复杂度为 $O(\log n)$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 堆排序的空间复杂度为 $O(1)$。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 对 n 个元素进行排序，时间复杂度为 $O(n \log n)$ 且稳定的排序方法是归并排序。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 堆排序的空间复杂度最小。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 冒泡排序中可以用设置标志位的方法来减少比较次数。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 希尔排序是直接插入排序的改进。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 快速排序是分治思想的典型应用。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 归并排序可以用于外部排序。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 在排序方法中，堆排序的空间复杂度最小。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 快速排序是原地排序。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 插入排序在数据接近有序时效率较高。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 快速排序在数据基本有序时效率较低。（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+\end{enumerate}
+
+\section*{填空题}
+
+\begin{enumerate}
+	\item 每次从无序表中取出一个元素把它插入到有序子表中的适当位置，此种排序方法叫做（ ）排序；每次从无序表中挑选出一个最小或最大元素，把它交换到有序表的一端，此种排序方法叫做（ ）排序。
+	\item 每次直接或通过基准元素间接比较两个元素，若出现逆序排列时就交换它们的位置，此种排序方法叫做（ ）排序；每次使两个相邻的有序表合并成一个有序表的排序方法叫做（ ）排序。
+	\item （ ）排序方法采用的是二分法的思想，（ ）排序方法其数据的组织采用完全二叉树结构。
+	\item 对 n 个记录的表进行直接选择排序，所需进行的关键字间的比较次数为（ ）。
+	\item 在利用快速排序方法对一组记录 $(54, 38, 96, 23, 15, 72, 60, 45, 83)$ 进行快速排序时，递归调用所使用的栈所能达到的最大深度为（ ），共需递归调用的次数为（ ），其中第二次递归调用是对（ ）一组记录进行快速排序。
+	\item 在堆排序和快速排序中，若原始记录接近正序或反序，则选用（ ）排序；若原始记录无序，则最好选用（ ）排序。
+	\item 在插入和选择排序中，若初始数据基本正序，则选用（ ）；若初始数据基本反序，则选用（ ）。
+	\item 设有关键码序列 $(Q, H, C, Y, Q, A, M, S, R, D, F, X)$ 要按照关键码值递增的次序进行排序，若采用初始步长为 4 的希尔排序法，则一趟扫描的结果是（ ）；若采用以第一个元素为分界元素的快速排序法，则一趟扫描的结果是（ ）。
+	\item 对 n 个元素进行冒泡排序时，最少的比较次数是（ ）。
+	\item 在堆排序、快速排序和归并排序中，若只从存储空间考虑，则应首先选取（ ）方法，其次选取（ ）方法，最后选取（ ）方法；若只从排序结果的稳定性考虑，则应选取（ ）方法；若只从平均情况下排序最快考虑，则应选取（ ）方法；若只从最坏情况下排序最快并且要节省内存考虑，则应选取（ ）方法。
+	\item 对于关键字序列 $(12, 13, 11, 18, 60, 15, 7, 20, 25, 10)$，用筛选法建堆，必须从键值为（ ）的关键字开始筛选。
+	\item 在插入、希尔、选择、快速、堆、归并和基数排序中，排序是不稳定的有（ ）。
+	\item （ ）排序不需要进行记录关键字间的比较。
+	\item 快速排序在平均情况下的时间复杂度为（ ），在最坏情况下的时间复杂度为（ ）。
+	\item 假定一组记录为 $(46, 79, 56, 38, 40, 80)$，对其进行快速排序的过程中，共需要（ ）趟排序。
+	\item 直接插入排序最好情况下的时间复杂度为（ ），最坏情况下的时间复杂度为（ ）。
+	\item 对一组记录 $(54, 38, 96, 23, 15, 72, 60, 45, 83)$ 进行直接插入排序时，当把第 7 个记录 60 插入到有序表时，为寻找插入位置需比较（ ）次。
+	\item 堆是一种有用的数据结构。下列关键码序列是一个堆的是 16, 31, 23, 94, 53, 72。（ ）
+	\item 在排序方法中，使用一个辅助空间进行两路归并的排序方法是归并排序。（ ）
+	\item 在插入排序中，初始数据越接近有序，排序效率越高。（ ）
+	\item 冒泡排序在原始数据越接近有序时，比较次数越少。（ ）
+	\item 希尔排序的效率一定优于直接插入排序。（ ）
+\end{enumerate}
+
+\section*{应用题}
+
+\begin{enumerate}
+	\item 请写出应填入下列叙述中（ ）内的正确答案。
+	      设一数组中原有数据如下：15, 13, 20, 18, 12, 60，下面是一组由不同排序方法进行一趟排序后的结果。
+	      \begin{itemize}
+		      \item （ ）排序的结果为：12, 13, 15, 18, 20, 60
+		      \item （ ）排序的结果为：13, 15, 18, 12, 20, 60
+		      \item （ ）排序的结果为：13, 15, 20, 18, 12, 60
+		      \item （ ）排序的结果为：12, 13, 20, 18, 15, 60
+	      \end{itemize}
+
+	\item 判别以下序列是否是堆（大根堆），如果不是，则把它调整为堆。
+	      $(12, 70, 33, 65, 24, 56, 48, 92, 86, 33)$
+
+	\item 已知一组记录为 $(46, 74, 53, 14, 26, 38, 86, 65, 27, 34)$ 给出采用下列排序方法进行排序时的前三趟结果。
+	      \begin{enumerate}
+		      \item 直接插入排序
+		      \item 希尔排序
+		      \item 冒泡排序
+		      \item 快速排序
+		      \item 选择排序
+		      \item 堆排序
+		      \item 归并排序
+		      \item 基数排序
+	      \end{enumerate}
+\end{enumerate}
+
+\section*{算法题}
+
+\begin{enumerate}
+	\item 写出所有内部排序的算法。
+	\item 用单链表实现选择排序。
+	\item 编写一个双向起泡的排序算法，即相邻两趟向相反方向起泡。
+\end{enumerate}
+
+\end{document}

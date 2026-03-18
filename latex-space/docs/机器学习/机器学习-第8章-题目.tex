@@ -1,0 +1,831 @@
+\documentclass[a4paper,11pt]{ctexart}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=2.0cm, bottom=2.0cm, headsep=0.3cm, footskip=1cm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{needspace}
+\usepackage{multirow}
+
+\AtBeginDocument{
+  \hypersetup{colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan}
+}
+
+\setlist{nosep, itemsep=0.8ex, parsep=0.1em}
+\setlist[itemize]{leftmargin=1.8em}
+\setlist[enumerate]{leftmargin=1.8em}
+
+% ===== 颜色定义 =====
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebg}{rgb}{0.98,0.98,0.98}
+\definecolor{tipsblue}{rgb}{0.85,0.93,1.0}
+\definecolor{highlightyellow}{rgb}{1.0,0.97,0.8}
+
+% ===== 代码块样式 =====
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=6pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=Python,
+    frame=single,
+    framerule=0.5pt,
+    rulecolor=\color{gray!40}
+}
+\lstset{style=mystyle}
+
+% ===== 彩色框 =====
+\newtcolorbox{problembox}[1][]{
+    colback=white,
+    colframe=blue!60!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=10pt, after skip=8pt
+}
+
+\newtcolorbox{solutionbox}[1][]{
+    enhanced, breakable,
+    colback=green!3!white,
+    colframe=green!50!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=10pt
+}
+
+\newtcolorbox{metaphorbox}[1][]{
+    colback=orange!5!white,
+    colframe=orange!70!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+\newtcolorbox{beginnerbox}[1][]{
+    colback=tipsblue,
+    colframe=blue!50!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+\newtcolorbox{appbox}[1][]{
+    colback=green!3!white,
+    colframe=green!60!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=10pt
+}
+
+\newtcolorbox{keybox}[1][]{
+    colback=highlightyellow,
+    colframe=orange!80!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+% ===== 页眉页脚 =====
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{机器学习-第8章}
+\fancyhead[L]{感知机 · 练习题}
+\fancyfoot[C]{\thepage}
+\addtolength{\headheight}{2pt}
+
+\parskip=2pt plus 1pt minus 0.5pt
+\linespread{1.35}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+
+\title{\textbf{机器学习\\第8章\quad 感知机}\\[0.5em]
+{\large\color{gray}——神经网络的起点：从一根神经元到万亿参数的第一步}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% ===== 章节导读 =====
+\begin{beginnerbox}[本章题目导览：你将挑战哪些核心问题？]
+    所有现代深度学习——ChatGPT、Stable Diffusion、AlphaFold——归根结底都建立在一个极其简单的结构上：\textbf{感知机}。它诞生于 1957 年，是人类第一次用数学模型模拟"一个神经元如何做决策"。理解感知机，就是理解神经网络的基因。本章 6 道题从零到多层，逐步打通感知机的全部核心：
+
+    \begin{itemize}
+        \item \textbf{Q8-01（概念理解）}：感知机是什么——输入、权重、偏置、激活函数，四个要素各自扮演什么角色？
+        \item \textbf{Q8-02（手动计算）}：逻辑门真值表验证——用感知机的数学公式手动验证与门、与非门、或门的输出，体会权重如何决定"行为"。
+        \item \textbf{Q8-03（参数设计）}：给定真值表，自行设计权重和偏置——如何从"要实现什么功能"反推出合适的 $(w_1, w_2, \theta)$ 取值？
+        \item \textbf{Q8-04（代码实践）}：感知机 Python 实现——读懂简单实现与引入权重偏置的两种代码写法，理解偏置的数学等价性。
+        \item \textbf{Q8-05（深度辨析）}：感知机的局限——为什么单层感知机无法解决异或（XOR）问题？从几何角度给出直觉解释。
+        \item \textbf{Q8-06（综合推理）}：多层感知机突破局限——如何用已有的与门、与非门、或门组合出异或门？多层结构带来了什么本质变化？
+    \end{itemize}
+\end{beginnerbox}
+
+\section{第 8 章\quad 感知机：神经网络的起点}
+
+在学所有"高大上"的深度学习之前，有一个问题值得认真问一句：\textbf{神经网络究竟是从哪里来的？}
+
+答案是：从模仿大脑开始的。
+
+\begin{itemize}
+    \item 人类大脑有约 860 亿个神经元，每个神经元接收来自其他神经元的信号，\textbf{当信号足够强时就"激发"输出一个信号，否则保持沉默}。
+    \item 1943 年，McCulloch 和 Pitts 把这个过程用数学写出来，得到了 MP 神经元模型。
+    \item 1957 年，Rosenblatt 在此基础上发明了\textbf{感知机}——一个可以从数据中自动学习权重的模型。
+\end{itemize}
+
+这就是整个深度学习大厦的地基。GPT-4 有 1.8 万亿参数，但每一个参数，都是在重复感知机里那个最简单的计算：\textbf{加权求和，然后判断是否激活}。
+
+\begin{metaphorbox}[先建立一个总感觉：感知机在模拟什么？]
+    \textbf{把感知机想象成一个"投票裁判"。}
+
+    \begin{itemize}
+        \item 有若干位"选民"（输入信号 $x_1, x_2, \ldots$），每位选民的投票有不同的\textbf{影响力}（权重 $w_1, w_2, \ldots$）；
+        \item 裁判把所有人的加权票数加起来，再加上一个\textbf{基础倾向}（偏置 $b$）；
+        \item 如果最终得分超过某个\textbf{门槛}（阈值），裁判拍板输出 1（通过），否则输出 0（否决）。
+    \end{itemize}
+
+    \textbf{感知机的核心}：用一个线性加权求和 + 一个阈值判断，模拟"做一个二元决策"。
+\end{metaphorbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q8-01\quad 感知机的概念：四个要素，各司其职]
+    \textbf{题目描述：}\\
+    感知机（Perceptron）是一种接收多个输入、输出一个二元信号（0 或 1）的计算模型。其数学定义为：
+    \[
+    y = \begin{cases} 0 & \text{若 } w_1 x_1 + w_2 x_2 + b \leq 0 \\ 1 & \text{若 } w_1 x_1 + w_2 x_2 + b > 0 \end{cases}
+    \]
+    其中 $x_1, x_2$ 为输入，$w_1, w_2$ 为权重，$b$ 为偏置（bias）。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，解释感知机各要素的含义与作用：
+
+        \begin{center}
+        \begin{tabular}{p{2.5cm} p{4.5cm} p{5cm}}
+            \toprule
+            要素 & 含义 & 作用（对输出的影响） \\
+            \midrule
+            输入 $x_i$ & \underline{\hspace{4cm}} & 提供原始信号，本身不可修改 \\[1.5em]
+            权重 $w_i$ & 对应输入的\underline{\hspace{2.5cm}} & $|w_i|$ 越大，$x_i$ 对输出的影响\underline{\hspace{1cm}} \\[1.5em]
+            偏置 $b$ & 与输入无关的\underline{\hspace{2cm}} & $b$ 越大，感知机越\underline{\hspace{1.5cm}}输出 1 \\[1.5em]
+            阈值 $\theta$ & 触发输出 1 的\underline{\hspace{2cm}} & 等价于将 $b = -\theta$ 写入公式中 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 原始感知机有时写成"阈值"形式：$y=1$ 当且仅当 $w_1 x_1 + w_2 x_2 > \theta$。请说明这与上述"偏置"形式在数学上是完全等价的，并写出两者之间的转换关系。
+
+        \item 感知机的输出 $y$ 只能取 0 或 1，这被称为\textbf{阶跃激活函数}（Heaviside 函数）。与后来的 Sigmoid 激活函数相比，它有什么缺陷？（提示：从"可微性"角度思考）
+
+        \item 感知机本质上是一种\textbf{线性分类器}——它在输入空间中划出一条直线（或超平面）来分隔两类样本。对于二输入感知机，这条分界线的方程是什么？
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 8 章 8.1 感知机的概念]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：偏置到底是什么，为什么需要它？]
+    \begin{itemize}
+        \item \textbf{没有偏置的感知机}：分界线 $w_1 x_1 + w_2 x_2 = 0$ 永远过原点，不管怎么调权重，这条线只能绕原点旋转，无法平移。这大大限制了模型能表达的模式。
+        \item \textbf{有偏置的感知机}：分界线变成 $w_1 x_1 + w_2 x_2 + b = 0$，$b$ 控制直线的平移位置——现在直线既能旋转又能平移，灵活性大大提高。
+        \item \textbf{直觉理解}：偏置 $b$ 相当于感知机的"基础兴奋度"，即使所有输入都是 0，感知机也有 $b$ 决定的初始倾向——$b > 0$ 代表"没有输入时也倾向于激发"，$b < 0$ 代表"需要更强的输入信号才能激发"。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 各要素含义与作用：}
+
+    \begin{center}
+    \begin{tabular}{p{2.5cm} p{4.5cm} p{5cm}}
+        \toprule
+        要素 & 含义 & 作用 \\
+        \midrule
+        输入 $x_i$ & 从外部接收的信号值（通常为 0 或 1，也可为实数） & 提供原始信号，本身不可修改 \\[0.8em]
+        权重 $w_i$ & 对应输入的\textbf{重要性/影响力系数} & $|w_i|$ 越大，$x_i$ 对输出的影响\textbf{越大}；符号决定促进（正）或抑制（负） \\[0.8em]
+        偏置 $b$ & 与输入无关的\textbf{常数项/基础激活量} & $b$ 越大，感知机越\textbf{容易}输出 1（激活门槛越低） \\[0.8em]
+        阈值 $\theta$ & 触发输出 1 的\textbf{最低加权和要求} & 等价于 $b = -\theta$（将阈值移至等式左边即为偏置） \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 阈值形式与偏置形式的等价性：}
+
+    阈值形式：$y = 1$ 当且仅当 $w_1 x_1 + w_2 x_2 > \theta$
+
+    将 $\theta$ 移到左边：$w_1 x_1 + w_2 x_2 - \theta > 0$
+
+    令 $b = -\theta$，即得偏置形式：$w_1 x_1 + w_2 x_2 + b > 0$
+
+    \textbf{转换关系}：$b = -\theta$，即偏置是阈值的\textbf{相反数}。
+
+    \textbf{(3) 阶跃函数的缺陷：}
+
+    阶跃函数在 0 处\textbf{不连续、不可微}——导数在 0 处无定义，在其他地方恒为 0。这使得无法用梯度下降法训练含阶跃函数的网络（因为梯度几乎处处为零，无法传递有意义的误差信号）。Sigmoid 函数处处可微，梯度可以传播，这是神经网络能够用反向传播训练的基础。
+
+    \textbf{(4) 分界线方程：}
+
+    令 $w_1 x_1 + w_2 x_2 + b = 0$，即：
+    \[
+    w_1 x_1 + w_2 x_2 + b = 0
+    \]
+    这是一条在 $(x_1, x_2)$ 平面内的\textbf{直线}，直线一侧输出 1，另一侧输出 0。感知机只能学习能被一条直线分开的两类问题（线性可分问题）。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q8-02\quad 逻辑门真值表验证：用公式手动计算]
+    \textbf{题目描述：}\\
+    下面给出三种逻辑门的参数，请用感知机公式 $z = w_1 x_1 + w_2 x_2 + b$，当 $z > 0$ 时输出 1，否则输出 0，手动验证每种门的输出是否符合真值表。
+
+    \vspace{0.3cm}
+    \textbf{三种逻辑门的参数：}
+    \begin{itemize}
+        \item \textbf{与门（AND）}：$w_1 = 0.5,\ w_2 = 0.5,\ b = -0.7$
+        \item \textbf{与非门（NAND）}：$w_1 = -0.5,\ w_2 = -0.5,\ b = 0.7$
+        \item \textbf{或门（OR）}：$w_1 = 0.5,\ w_2 = 0.5,\ b = -0.2$
+    \end{itemize}
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 对与门（AND），计算 $(x_1, x_2)$ 分别取 $(0,0), (1,0), (0,1), (1,1)$ 时的 $z$ 值，填写下表并给出输出 $y$：
+
+        \begin{center}
+        \begin{tabular}{ccccl}
+            \toprule
+            $x_1$ & $x_2$ & $z = 0.5x_1 + 0.5x_2 - 0.7$ & 输出 $y$ & 期望（AND） \\
+            \midrule
+            0 & 0 & \underline{\quad\quad} & \underline{\quad} & 0 \\
+            1 & 0 & \underline{\quad\quad} & \underline{\quad} & 0 \\
+            0 & 1 & \underline{\quad\quad} & \underline{\quad} & 0 \\
+            1 & 1 & \underline{\quad\quad} & \underline{\quad} & 1 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 对或门（OR），填写下表并验证：
+
+        \begin{center}
+        \begin{tabular}{ccccl}
+            \toprule
+            $x_1$ & $x_2$ & $z = 0.5x_1 + 0.5x_2 - 0.2$ & 输出 $y$ & 期望（OR） \\
+            \midrule
+            0 & 0 & \underline{\quad\quad} & \underline{\quad} & 0 \\
+            1 & 0 & \underline{\quad\quad} & \underline{\quad} & 1 \\
+            0 & 1 & \underline{\quad\quad} & \underline{\quad} & 1 \\
+            1 & 1 & \underline{\quad\quad} & \underline{\quad} & 1 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 观察与门和或门的参数，两者的权重相同，只有\textbf{偏置不同}（$-0.7$ vs $-0.2$）。这说明了什么？偏置的变化对分界线产生了什么几何效果？
+
+        \item 与非门（NAND）的权重是与门权重的\textbf{相反数}，这有什么直观含义？
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 8 章 8.2 简单逻辑电路]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：逻辑门是什么？为什么用它来讲感知机？]
+    \begin{itemize}
+        \item \textbf{逻辑门}是数字电路的基础元件，输入和输出都是 0 或 1：与门（AND）= "两个都是 1 才输出 1"；或门（OR）= "至少一个是 1 就输出 1"；与非门（NAND）= AND 的反转。
+        \item \textbf{为什么用逻辑门讲感知机？}：逻辑门输入输出都是 0/1，是感知机最直接、最简单的应用场景——所有计算的正确性都可以用真值表枚举验证，不需要大数据集，让我们能完全手算看清感知机的工作方式。
+        \item \textbf{历史意义}：Minsky 和 Papert 在 1969 年证明感知机无法实现异或门，这直接导致了第一次 AI 寒冬。但他们同时也提出了多层感知机可以解决这个问题——这为后来的深度学习埋下了种子。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 与门（AND）验证：}
+
+    \begin{center}
+    \begin{tabular}{ccccl}
+        \toprule
+        $x_1$ & $x_2$ & $z = 0.5x_1 + 0.5x_2 - 0.7$ & 输出 $y$ & 期望（AND） \\
+        \midrule
+        0 & 0 & $0 + 0 - 0.7 = -0.7$ & 0 & 0 \checkmark \\
+        1 & 0 & $0.5 + 0 - 0.7 = -0.2$ & 0 & 0 \checkmark \\
+        0 & 1 & $0 + 0.5 - 0.7 = -0.2$ & 0 & 0 \checkmark \\
+        1 & 1 & $0.5 + 0.5 - 0.7 = 0.3$ & 1 & 1 \checkmark \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    全部正确，参数有效实现了与门。
+
+    \textbf{(2) 或门（OR）验证：}
+
+    \begin{center}
+    \begin{tabular}{ccccl}
+        \toprule
+        $x_1$ & $x_2$ & $z = 0.5x_1 + 0.5x_2 - 0.2$ & 输出 $y$ & 期望（OR） \\
+        \midrule
+        0 & 0 & $0 + 0 - 0.2 = -0.2$ & 0 & 0 \checkmark \\
+        1 & 0 & $0.5 + 0 - 0.2 = 0.3$ & 1 & 1 \checkmark \\
+        0 & 1 & $0 + 0.5 - 0.2 = 0.3$ & 1 & 1 \checkmark \\
+        1 & 1 & $0.5 + 0.5 - 0.2 = 0.8$ & 1 & 1 \checkmark \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    全部正确，参数有效实现了或门。
+
+    \textbf{(3) 偏置变化的几何意义：}
+
+    与门和或门权重相同（$w_1 = w_2 = 0.5$），意味着分界线的\textbf{斜率/方向相同}——两条分界线互相平行。偏置从 $-0.7$ 变为 $-0.2$，使分界线\textbf{平移}：或门的分界线比与门更靠近原点，因此更"宽松"——只要一个输入为 1 就能越过分界线输出 1，而与门需要两个输入都为 1 才能越过更远的分界线。
+
+    \begin{keybox}[直觉总结]
+        \textbf{权重决定分界线的方向（倾斜角度），偏置决定分界线的位置（平移量）。}同样的权重 + 不同偏置 = 平行的分界线，对应着"宽严程度不同"的决策边界。
+    \end{keybox}
+
+    \textbf{(4) 与非门权重取反的含义：}
+
+    与非门（NAND）的权重是与门（AND）的相反数：$(-0.5, -0.5, +0.7)$ vs $(+0.5, +0.5, -0.7)$。权重全部取反相当于将分界线"翻转"——原来与门中 $(1,1)$ 落在 $z > 0$ 的激活侧，取反后 $(1,1)$ 落在 $z < 0$ 的抑制侧；原来不激活的三个输入组合，现在全部激活。这正好实现了 AND 的逻辑取反——与非门 $=$ NOT(AND)。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q8-03\quad 参数设计：从真值表反推权重和偏置]
+    \textbf{题目描述：}\\
+    前面是给你参数让你验证；现在反过来——给你一个逻辑门的真值表，\textbf{请你自己设计}满足条件的权重 $(w_1, w_2)$ 和偏置 $b$（不唯一，能满足条件即可）。
+
+    \vspace{0.3cm}
+    \textbf{题目（一）：或门（OR）}
+
+    真值表：$(0,0)\to 0$，$(1,0)\to 1$，$(0,1)\to 1$，$(1,1)\to 1$
+
+    约束条件（$y = 1$ 当 $z > 0$，$y = 0$ 当 $z \leq 0$）：
+    \[
+    w_1 \cdot 0 + w_2 \cdot 0 + b \leq 0 \quad \Rightarrow \quad b \leq 0
+    \]
+    \[
+    w_1 \cdot 1 + w_2 \cdot 0 + b > 0 \quad \Rightarrow \quad w_1 + b > 0
+    \]
+    \[
+    w_1 \cdot 0 + w_2 \cdot 1 + b > 0 \quad \Rightarrow \quad w_2 + b > 0
+    \]
+    \[
+    w_1 \cdot 1 + w_2 \cdot 1 + b > 0 \quad \Rightarrow \quad w_1 + w_2 + b > 0
+    \]
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 从上面四个不等式，推导出 $w_1, w_2, b$ 必须满足的条件，并给出一组具体的参数值（如 $w_1 = \underline{\quad}, w_2 = \underline{\quad}, b = \underline{\quad}$）使其满足所有约束。
+
+        \item \textbf{题目（二）：与门（AND）设计}。写出与门的四个约束不等式，并给出一组满足条件的参数。
+
+        \item 对于上述两门，参数是否唯一？如果不唯一，"合法参数"的集合在几何上代表什么含义？
+
+        \item （选做）感知机的参数 $(\mathbf{w}, b)$ 在训练过程中是如何自动找到的？描述感知机学习规则的基本思路（不需要写出完整公式）。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 8 章 8.3 感知机的实现 / 8.1 感知机的概念]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 或门参数设计：}
+
+    由四个约束：
+    \[
+    b \leq 0, \quad w_1 > -b, \quad w_2 > -b, \quad w_1 + w_2 > -b
+    \]
+
+    由 $b \leq 0$，设 $b = -0.5$，则需要 $w_1 > 0.5$ 且 $w_2 > 0.5$（第四个约束自然满足）。
+
+    \textbf{一组合法参数}：$w_1 = 1.0,\ w_2 = 1.0,\ b = -0.5$
+
+    \textbf{验证}：$z(0,0) = -0.5 \leq 0$ ✓，$z(1,0) = 0.5 > 0$ ✓，$z(0,1) = 0.5 > 0$ ✓，$z(1,1) = 1.5 > 0$ ✓
+
+    \textbf{(2) 与门（AND）约束与参数设计：}
+
+    AND 真值表：$(0,0)\to 0,\ (1,0)\to 0,\ (0,1)\to 0,\ (1,1)\to 1$，约束为：
+    \[
+    b \leq 0, \quad w_1 + b \leq 0, \quad w_2 + b \leq 0, \quad w_1 + w_2 + b > 0
+    \]
+
+    由前三条：$w_1 \leq -b$，$w_2 \leq -b$，即 $w_1, w_2 \leq |b|$；由最后一条：$w_1 + w_2 > -b = |b|$。
+
+    设 $b = -1.5$，则 $w_1 \leq 1.5,\ w_2 \leq 1.5,\ w_1 + w_2 > 1.5$。
+
+    \textbf{一组合法参数}：$w_1 = 1.0,\ w_2 = 1.0,\ b = -1.5$
+
+    \textbf{(3) 参数的非唯一性：}
+
+    参数\textbf{不唯一}。满足所有约束的参数集合是一个\textbf{多维不等式区域}——在参数空间 $(w_1, w_2, b)$ 中，所有合法参数构成一个多面体区域（多个线性不等式的交集）。几何上，这意味着有无数条分界线都能正确分类这四个数据点——只要直线穿过正确的"区域"，将 $(1,1)$ 和其他点分开即可。
+
+    \textbf{(4) 感知机学习规则（简述）：}
+
+    \begin{keybox}[感知机学习规则的思路]
+        \begin{enumerate}
+            \item 随机初始化权重和偏置；
+            \item 对每个训练样本 $(x_i, y_i)$，用当前参数计算预测输出 $\hat{y}_i$；
+            \item 若预测正确（$\hat{y}_i = y_i$），参数不变；
+            \item 若预测为 0 但真实为 1（漏激活）：\textbf{增大权重}（$w_j \mathrel{+}= \eta x_{ij}$），让下次更容易激活；
+            \item 若预测为 1 但真实为 0（误激活）：\textbf{减小权重}（$w_j \mathrel{-}= \eta x_{ij}$），让下次更难激活；
+            \item 反复扫描训练集，直到所有样本都被正确分类（收敛定理：数据线性可分时，感知机学习一定收敛）。
+        \end{enumerate}
+    \end{keybox}
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q8-04\quad 感知机的 Python 实现：代码阅读与理解]
+    \textbf{题目描述：}\\
+    下面给出感知机实现逻辑门的两种 Python 代码写法，请结合代码回答问题。
+
+    \textbf{写法一：直接使用阈值 $\theta$}
+    \begin{lstlisting}[language=Python]
+def AND_v1(x1, x2):
+    w1, w2, theta = 0.5, 0.5, 0.7
+    tmp = x1 * w1 + x2 * w2
+    if tmp <= theta:
+        return 0
+    elif tmp > theta:
+        return 1
+    \end{lstlisting}
+
+    \textbf{写法二：引入偏置 $b$（NumPy 向量化）}
+    \begin{lstlisting}[language=Python]
+import numpy as np
+
+def AND_v2(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([0.5, 0.5])
+    b = -0.7
+    tmp = np.sum(w * x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
+
+def NAND(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([-0.5, -0.5])
+    b = 0.7
+    tmp = np.sum(w * x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
+
+def OR(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([0.5, 0.5])
+    b = -0.2
+    tmp = np.sum(w * x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
+    \end{lstlisting}
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \texttt{AND\_v1} 和 \texttt{AND\_v2} 在逻辑上完全等价，但写法不同。具体说明两者的对应关系：\texttt{AND\_v1} 中的 \texttt{theta} 对应 \texttt{AND\_v2} 中的哪个变量，数值关系是什么？
+
+        \item \texttt{np.sum(w * x)} 做了什么运算？为什么写法二比写法一更适合扩展到多输入（如 100 个输入）的情况？
+
+        \item 写法二中，\texttt{w * x} 使用了 NumPy 的什么特性？如果 \texttt{w = np.array([0.5, 0.5])} 而 \texttt{x = np.array([1, 1])}，逐步写出 \texttt{w * x} 和 \texttt{np.sum(w * x)} 的计算结果。
+
+        \item 如果想用写法二实现一个\textbf{三输入与门}（$x_1 \cdot x_2 \cdot x_3$，三个输入均为 1 时才输出 1），应如何修改 \texttt{w}、\texttt{x} 和 \texttt{b}？给出一组合法参数。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 8 章 8.3 感知机的实现]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 两种写法的对应关系：}
+
+    \texttt{AND\_v1} 中判断 \texttt{tmp > theta}（即 $w_1 x_1 + w_2 x_2 > \theta$）；\texttt{AND\_v2} 中判断 \texttt{tmp > 0}（即 $w_1 x_1 + w_2 x_2 + b > 0$）。
+
+    对应关系：\texttt{AND\_v1} 的 \texttt{theta = 0.7} 对应 \texttt{AND\_v2} 的 \texttt{b = -0.7}，即 $b = -\theta$（偏置是阈值的相反数）。
+
+    \textbf{(2) \texttt{np.sum(w * x)} 的作用：}
+
+    \texttt{np.sum(w * x)} 计算的是向量内积（点积）$\sum_i w_i x_i = w_1 x_1 + w_2 x_2$。
+
+    写法二的优势：若有 100 个输入，写法一需要写 100 项 \texttt{x1*w1 + x2*w2 + ...}，既冗长又容易出错；写法二只需将 \texttt{w} 和 \texttt{x} 改为长度 100 的数组，代码本身不变——这是向量化编程的核心优势。
+
+    \textbf{(3) NumPy 逐元素乘法：}
+
+    \texttt{w * x} 使用了 NumPy 的\textbf{广播/逐元素乘法（element-wise multiplication）}特性。
+
+    计算过程：
+    \begin{align*}
+    \texttt{w * x} &= \texttt{np.array([0.5*1,\ 0.5*1])} = \texttt{np.array([0.5,\ 0.5])} \\
+    \texttt{np.sum(w * x)} &= 0.5 + 0.5 = 1.0
+    \end{align*}
+
+    \textbf{(4) 三输入与门的实现：}
+
+    三输入 AND：$(0,0,0),(1,0,0),(0,1,0),(0,0,1),(1,1,0),(1,0,1),(0,1,1) \to 0$；$(1,1,1) \to 1$。
+
+    约束：$b \leq 0$，$w_i + b \leq 0$，$w_i + w_j + b \leq 0$，$w_1 + w_2 + w_3 + b > 0$。
+
+    \textbf{一组合法参数}：$w_1 = w_2 = w_3 = 1.0$，$b = -2.5$
+
+    验证关键项：$z(1,1,0) = 1+1+0-2.5 = -0.5 \leq 0$ ✓；$z(1,1,1) = 1+1+1-2.5 = 0.5 > 0$ ✓
+
+    \begin{lstlisting}[language=Python]
+def AND3(x1, x2, x3):
+    x = np.array([x1, x2, x3])
+    w = np.array([1.0, 1.0, 1.0])
+    b = -2.5
+    tmp = np.sum(w * x) + b
+    return 0 if tmp <= 0 else 1
+    \end{lstlisting}
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q8-05\quad 感知机的局限：为什么无法解决异或（XOR）问题？]
+    \textbf{题目描述：}\\
+    异或门（XOR）的真值表如下：
+
+    \begin{center}
+    \begin{tabular}{ccc}
+        \toprule
+        $x_1$ & $x_2$ & XOR 输出 \\
+        \midrule
+        0 & 0 & 0 \\
+        1 & 0 & 1 \\
+        0 & 1 & 1 \\
+        1 & 1 & 0 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    XOR 的含义："两个输入不同时输出 1，相同时输出 0"。请从几何角度和代数角度两个维度，解释单层感知机\textbf{无法}实现 XOR 的原因。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{几何角度}：在 $(x_1, x_2)$ 平面上，将四个数据点画出来，标注哪些应输出 0（圆圈），哪些应输出 1（叉号）。观察：能否用一条直线将圆圈和叉号完全分开？
+
+        \item \textbf{代数角度}：假设存在参数 $(w_1, w_2, b)$ 使感知机实现 XOR，写出对应的四个不等式约束。然后证明这四个不等式\textbf{相互矛盾}（不可能同时成立）。
+
+        \item XOR 的不可分性用数学术语叫"\textbf{线性不可分}"（Linearly Inseparable）。请解释这个概念：什么样的数据集是线性可分的？什么样的是线性不可分的？
+
+        \item 与门（AND）、或门（OR）、与非门（NAND）都是线性可分的，而 XOR 不是。这说明单层感知机的\textbf{表达能力}有什么根本限制？
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 8 章 8.4 感知机的局限]}}
+\end{problembox}
+
+\begin{metaphorbox}[生活比喻：为什么一刀切不开"异或"？]
+    把四个点画在平面上：$(0,0)$ 和 $(1,1)$ 应该输出 0（一类），$(1,0)$ 和 $(0,1)$ 应该输出 1（另一类）——
+
+    你会发现，这四个点分布的方式就像棋盘的对角格：黑白各占两个对角。不管你怎么拿一把直尺，都没法把"两个黑格"和"两个白格"分开——直尺（一条直线）永远会把平面分成上下两半，而两类点各有一个在上半、一个在下半。
+
+    这就是线性不可分的直觉：\textbf{两类点的分布方式，天生不能被一条直线分开}。
+\end{metaphorbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 几何分析：}
+
+    在 $(x_1, x_2)$ 平面上，四个点的位置与类别：
+    \begin{itemize}
+        \item 输出 0（圆圈）：$(0,0)$ 和 $(1,1)$——左下角与右上角
+        \item 输出 1（叉号）：$(1,0)$ 和 $(0,1)$——右下角与左上角
+    \end{itemize}
+
+    两类点各占一组对角位置。无论如何放置一条直线，它将平面分成两个半平面，而两类点各有一个点"跨越"在直线两侧——\textbf{不存在任何一条直线能将这两类点完全分开}。
+
+    \textbf{(2) 代数矛盾证明：}
+
+    假设存在 $(w_1, w_2, b)$ 实现 XOR，则：
+    \begin{align}
+        b &\leq 0 \quad &\text{（$(0,0) \to 0$：$z(0,0) = b \leq 0$）} \label{eq1}\\
+        w_1 + b &> 0 \quad &\text{（$(1,0) \to 1$：$z(1,0) = w_1 + b > 0$）} \label{eq2}\\
+        w_2 + b &> 0 \quad &\text{（$(0,1) \to 1$：$z(0,1) = w_2 + b > 0$）} \label{eq3}\\
+        w_1 + w_2 + b &\leq 0 \quad &\text{（$(1,1) \to 0$：$z(1,1) = w_1 + w_2 + b \leq 0$）} \label{eq4}
+    \end{align}
+
+    将不等式 \eqref{eq2} 和 \eqref{eq3} 相加：$(w_1 + b) + (w_2 + b) > 0$，即 $w_1 + w_2 + 2b > 0$。
+
+    由不等式 \eqref{eq1}，$b \leq 0$，故 $2b \leq 0$，于是 $w_1 + w_2 + b = (w_1 + w_2 + 2b) - b > 0 - b \geq 0$，即 $w_1 + w_2 + b > 0$。
+
+    但这与不等式 \eqref{eq4} $w_1 + w_2 + b \leq 0$ 直接矛盾！\textbf{四个约束不能同时成立，单层感知机无法实现 XOR。}$\blacksquare$
+
+    \textbf{(3) 线性可分 vs 线性不可分：}
+
+    \begin{keybox}[线性可分的定义]
+        \begin{itemize}
+            \item \textbf{线性可分}：存在一个超平面（二维中是一条直线，三维中是一个平面，$n$ 维中是一个 $n-1$ 维超平面），能将两类样本\textbf{完全正确地分开}（所有正类在超平面一侧，所有负类在另一侧）。
+            \item \textbf{线性不可分}：不存在任何这样的超平面——两类样本"交织"在一起，无法用线性边界分开。
+        \end{itemize}
+    \end{keybox}
+
+    \textbf{(4) 单层感知机的根本限制：}
+
+    单层感知机只能表达\textbf{线性可分}的分类问题。它的决策边界永远是一个超平面，无法弯曲、无法组合——任何需要非线性边界才能正确分类的问题（如 XOR、环形分布等），都超出了单层感知机的表达能力范围。这是一个\textbf{本质性的结构限制}，不是参数数量不够，而是模型的函数类不够丰富。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q8-06\quad 多层感知机：组合已有门，突破异或局限]
+    \textbf{题目描述：}\\
+    虽然单层感知机无法实现 XOR，但\textbf{多层感知机}（MLP）可以。具体地，可以用与门、与非门、或门三个基本门组合出异或门。
+
+    XOR 的组合方案如下（请在做题过程中自行推导验证）：
+
+    \[
+    \text{XOR}(x_1, x_2)
+    = \text{AND}\!\Big(\text{NAND}(x_1, x_2),\ \text{OR}(x_1, x_2)\Big)
+    \]
+
+    即：先同时计算 NAND 和 OR，再把两个结果送入 AND。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 用真值表验证上述组合确实实现了 XOR：计算四组输入 $(x_1, x_2)$ 分别取 $(0,0), (1,0), (0,1), (1,1)$ 时，$s_1 = \text{NAND}(x_1,x_2)$，$s_2 = \text{OR}(x_1,x_2)$，$y = \text{AND}(s_1, s_2)$ 的值。
+
+        \begin{center}
+        \begin{tabular}{cccccl}
+            \toprule
+            $x_1$ & $x_2$ & $s_1 = \text{NAND}$ & $s_2 = \text{OR}$ & $y = \text{AND}(s_1, s_2)$ & 期望（XOR） \\
+            \midrule
+            0 & 0 & \underline{\quad} & \underline{\quad} & \underline{\quad} & 0 \\
+            1 & 0 & \underline{\quad} & \underline{\quad} & \underline{\quad} & 1 \\
+            0 & 1 & \underline{\quad} & \underline{\quad} & \underline{\quad} & 1 \\
+            1 & 1 & \underline{\quad} & \underline{\quad} & \underline{\quad} & 0 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 用 Python 实现上述多层感知机（直接调用前面定义的 \texttt{AND}、\texttt{NAND}、\texttt{OR} 函数）：
+
+        \begin{lstlisting}[language=Python]
+def XOR(x1, x2):
+    s1 = ____(____, ____)   # 第一层：NAND
+    s2 = ____(____, ____)   # 第一层：OR
+    y  = ____(____, ____)   # 第二层：AND
+    return y
+        \end{lstlisting}
+
+        \item 从"层"的角度分析上述 XOR 实现：它有几层感知机？第一层和第二层各自的作用是什么？
+
+        \item \textbf{多层带来了什么本质变化？}单层感知机的决策边界是直线，多层感知机的决策边界变成了什么形状？为什么说"层数越多，能表达的函数越复杂"？
+
+        \item 从 XOR 多层感知机出发，联系后续的深度神经网络：多层感知机（MLP）与深度学习中的"全连接神经网络"有什么关系？两者的核心区别是什么？
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 8 章 8.5 多层感知机]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：为什么多了一层就能解决 XOR？]
+    \begin{itemize}
+        \item \textbf{第一层在做什么？}NAND 和 OR 各自画了一条分界线，把四个点"重新编码"——$(x_1, x_2)$ 空间里线性不可分的四个点，经过两个感知机变换后，变成了 $(s_1, s_2)$ 空间里的四个新点。
+        \item \textbf{神奇之处}：在新空间 $(s_1, s_2)$ 中，这四个点\textbf{变成线性可分的了}！第二层的 AND 只需要一条直线就能分开它们。
+        \item \textbf{核心洞察}：多层网络 = \textbf{特征变换} + 线性分类。每一层都在做"换一个更好的视角来看数据"，最终在某个高维变换空间中，原本复杂的问题变得简单了。这正是深度学习的本质——用层层变换把复杂问题化简。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 真值表验证：}
+
+    利用前面计算好的逻辑门真值（NAND 是 AND 取反，OR 已验证）：
+
+    \begin{center}
+    \begin{tabular}{cccccl}
+        \toprule
+        $x_1$ & $x_2$ & $s_1 = \text{NAND}$ & $s_2 = \text{OR}$ & $y = \text{AND}(s_1, s_2)$ & 期望 \\
+        \midrule
+        0 & 0 & 1 & 0 & 0 & 0 \checkmark \\
+        1 & 0 & 1 & 1 & 1 & 1 \checkmark \\
+        0 & 1 & 1 & 1 & 1 & 1 \checkmark \\
+        1 & 1 & 0 & 1 & 0 & 0 \checkmark \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    全部正确，组合方案成立。
+
+    \textbf{(2) Python 实现：}
+
+    \begin{lstlisting}[language=Python]
+def XOR(x1, x2):
+    s1 = NAND(x1, x2)   # 第一层：NAND
+    s2 = OR(x1, x2)     # 第一层：OR
+    y  = AND(s1, s2)    # 第二层：AND
+    return y
+
+# 验证
+for x1, x2 in [(0,0),(1,0),(0,1),(1,1)]:
+    print(f"XOR({x1}, {x2}) = {XOR(x1, x2)}")
+    \end{lstlisting}
+
+    \textbf{(3) 层的结构分析：}
+
+    \begin{itemize}
+        \item \textbf{共两层感知机}。
+        \item \textbf{第一层}（NAND + OR 并行）：\textbf{特征变换层}——将原始输入 $(x_1, x_2) \in \{0,1\}^2$ 映射到新的中间表示 $(s_1, s_2) \in \{0,1\}^2$，重新组织信息，使原本线性不可分的问题在新空间中变得线性可分。
+        \item \textbf{第二层}（AND）：\textbf{决策层}——对变换后的特征做最终线性分类，输出结果。
+    \end{itemize}
+
+    \textbf{(4) 多层带来的本质变化：}
+
+    单层感知机的决策边界是一条直线（超平面）；多层感知机的决策边界是\textbf{分段线性曲线或折线}，可以逼近任意曲线边界。层数越多，每一层的变换叠加起来，能表达的函数族越来越丰富：
+    \begin{itemize}
+        \item 1 层：只能表达线性分类；
+        \item 2 层：能表达任意凸多边形分类区域；
+        \item 3 层及以上：理论上能以任意精度逼近任意连续函数（万能近似定理）。
+    \end{itemize}
+
+    \textbf{(5) MLP 与深度神经网络的关系：}
+
+    \begin{keybox}[MLP 与深度学习的传承与区别]
+        \begin{itemize}
+            \item \textbf{联系}：深度神经网络（DNN）本质上就是"多层感知机 + 连续可微激活函数"。XOR 感知机是最简单的两层 MLP，现代大语言模型是有数十亿参数的超深层 MLP。
+            \item \textbf{核心区别一——激活函数}：感知机用阶跃函数（不可微），DNN 用 ReLU / Sigmoid / GELU 等可微函数，使反向传播成为可能。
+            \item \textbf{核心区别二——学习方式}：感知机学习规则只能逐样本调整，且仅适用于线性可分问题；DNN 用梯度下降 + 反向传播，可以端到端训练整个多层网络。
+            \item \textbf{核心区别三——规模}：感知机每层通常只有几个神经元；现代 DNN 每层可以有数千乃至数百万个神经元，通过矩阵乘法高效并行计算。
+        \end{itemize}
+    \end{keybox}
+\end{solutionbox}
+
+\begin{appbox}[现实应用场景]
+    \textbf{从感知机到 ChatGPT：相同的基因，不同的规模}
+
+    感知机的运算 $z = \mathbf{w}^T \mathbf{x} + b$，在 GPT-4 中被重复了约 1.8 万亿次（参数量）。每一个注意力头、每一个前馈层，都是在做"加权求和 + 非线性激活"——感知机的核心计算。变化的只是规模（从 2 个输入到数万维），层次（从 2 层到 96 层），以及训练数据（从 4 条真值表到数万亿词元）。理解感知机，就是理解整个深度学习大厦的砖头。
+\end{appbox}
+
+
+% ===== 本章小结 =====
+\section{本章小结：感知机——神经网络的 DNA}
+
+学完本章 6 道题，感知机的全貌已经清晰：
+
+\begin{itemize}
+    \item \textbf{感知机是什么}：加权求和 + 阈值判断，用数学模拟"一个神经元的激发决策"。
+    \item \textbf{权重与偏置的几何含义}：权重决定分界线方向，偏置决定分界线位置——改变参数就是移动分界线。
+    \item \textbf{逻辑门是感知机的最简验证场}：AND、OR、NAND 都是线性可分的，感知机一层搞定；XOR 是线性不可分的，单层无能为力。
+    \item \textbf{单层感知机的根本限制}：只能表达线性边界，世界上大部分有趣的问题都是非线性的。
+    \item \textbf{多层感知机的突破}：通过堆叠层次实现特征变换，每一层把"难问题"变换成"在新视角下更简单的问题"——这是深度学习的核心哲学。
+\end{itemize}
+
+\begin{metaphorbox}[给零基础读者的一句总比喻]
+    \textbf{如果把感知机比作一个"只会画直线做判断"的裁判：}
+    \begin{itemize}
+        \item \textbf{单层感知机}：裁判只有一把直尺，能把站成简单队形的两队人分开（AND、OR），但遇到对角站位（XOR）就彻底没办法了——无论怎么放直尺，总有人站错边。
+        \item \textbf{多层感知机}：先让两位助手（第一层的 NAND 和 OR）分别画一条线，把人群"重新安排位置"；重新站好后，裁判再画一条线，这次就能正确分开了。
+        \item \textbf{深度学习}：不是 2 位助手，而是成千上万位，层层递进，把现实世界中最复杂的问题（识别人脸、理解语言、诊断疾病……）一步步化简成最后那条能画出来的直线。
+    \end{itemize}
+\end{metaphorbox}
+
+\end{document}

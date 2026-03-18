@@ -1,0 +1,177 @@
+\section{集合}
+
+\begin{question}
+	以下关于Java集合框架的说法正确的是
+	\begin{options}
+		\item List允许重复元素
+		\item Set允许重复元素
+		\item Map存储键值对，键可以重复
+		\item 以上都不对
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		List 允许重复；Set 不允许重复；Map 的键唯一。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	在Java中，以下哪个集合实现了链表结构？
+	\begin{options}
+		\item ArrayList
+		\item LinkedList
+		\item HashSet
+		\item HashMap
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		\texttt{LinkedList} 内部使用双向链表实现。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个集合是无序且不允许重复元素的？
+	\begin{options}
+		\item ArrayList
+		\item HashSet
+		\item LinkedHashSet
+		\item TreeSet
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		\texttt{HashSet} 无序且不允许重复。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于HashMap的说法错误的是
+	\begin{options}
+		\item 存储键值对
+		\item 键不允许重复
+		\item 是线程安全的
+		\item 基于哈希表实现
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		\texttt{HashMap} 非线程安全，\texttt{Hashtable} 和 \texttt{ConcurrentHashMap} 才是。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法可以判断一个集合是否为空？
+	\begin{options}
+		\item isEmpty()
+		\item isBlank()
+		\item isNullOrEmpty()
+		\item isNotNull()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		集合接口提供 \texttt{isEmpty()} 方法判断是否为空。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中Lambda表达式的说法正确的是
+	\begin{options}
+		\item 可以简化匿名内部类的写法
+		\item 不支持函数式接口
+		\item 不能作为方法参数
+		\item 性能比普通方法差
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		Lambda 表达式用于简化函数式接口的实现，可作为参数传递。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个是函数式接口？
+	\begin{options}
+		\item 接口中有多个抽象方法
+		\item 接口中有一个抽象方法
+		\item 接口中有静态方法
+		\item 接口中有默认方法
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		函数式接口定义：只包含一个抽象方法的接口（可包含默认方法和静态方法）。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中方法引用的说法错误的是
+	\begin{options}
+		\item 可以减少代码量
+		\item 有四种类型的方法引用
+		\item 不能引用静态方法
+		\item 是Lambda表达式的一种简洁写法
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		方法引用可以引用静态方法，如 \texttt{ClassName::staticMethod}。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中Stream流的说法正确的是
+	\begin{options}
+		\item 可以对集合进行高效的操作
+		\item 只能顺序处理数据
+		\item 不支持并行处理
+		\item 不能进行数据过滤
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		Stream 支持顺序和并行处理，可进行过滤、映射、归约等操作。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于创建Stream流？
+	\begin{options}
+		\item stream()
+		\item createStream()
+		\item makeStream()
+		\item generateStream()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		集合类（如 List、Set）提供 \texttt{stream()} 方法创建流。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中Stream流的终端操作的说法错误的是
+	\begin{options}
+		\item 终端操作会触发流的执行
+		\item forEach()是终端操作
+		\item 终端操作只能执行一次
+		\item 终端操作后可以继续进行中间操作
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		终端操作后流被消费，不能再进行中间或终端操作。
+	\end{explanation}
+\end{question}

@@ -1,0 +1,1349 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{ctex}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\title{\textbf{第一章\ C语言数据类型和表达式}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{一、选择题}
+
+\begin{enumerate}
+	\item C语言中，以下哪个选项是合法的数据类型？
+	      \begin{enumerate}
+		      \item[A)] int
+		      \item[B)] float
+		      \item[C)] char
+		      \item[D)] 以上都是
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个符号表示逻辑与运算符？
+	      \begin{enumerate}
+		      \item[A)] \&\&
+		      \item[B)] ||
+		      \item[C)] !
+		      \item[D)] |
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 如果一个整型变量声明为 \texttt{int a = 5;}，那么 \texttt{a} 的值是多少？
+	      \begin{enumerate}
+		      \item[A)] 5
+		      \item[B)] 0
+		      \item[C)] 1
+		      \item[D)] 无法确定
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下列哪个函数用于动态分配内存？
+	      \begin{enumerate}
+		      \item[A)] \texttt{malloc()}
+		      \item[B)] \texttt{alloc()}
+		      \item[C)] \texttt{new()}
+		      \item[D)] \texttt{calloc()}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示字符串结束符？
+	      \begin{enumerate}
+		      \item[A)] '\texttt{\textbackslash0}'
+		      \item[B)] '\texttt{\textbackslash n}'
+		      \item[C)] '\texttt{\textbackslash r}'
+		      \item[D)] '\texttt{\textbackslash t}'
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个函数用于输入字符串？
+	      \begin{enumerate}
+		      \item[A)] \texttt{scanf()}
+		      \item[B)] \texttt{printf()}
+		      \item[C)] \texttt{gets()}
+		      \item[D)] \texttt{fgets()}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个函数用于输出字符串？
+	      \begin{enumerate}
+		      \item[A)] \texttt{scanf()}
+		      \item[B)] \texttt{printf()}
+		      \item[C)] \texttt{gets()}
+		      \item[D)] \texttt{fgets()}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示函数返回类型为 \texttt{void}？
+	      \begin{enumerate}
+		      \item[A)] \texttt{int}
+		      \item[B)] \texttt{float}
+		      \item[C)] \texttt{char}
+		      \item[D)] \texttt{void}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示函数参数列表为空？
+	      \begin{enumerate}
+		      \item[A)] \texttt{int}
+		      \item[B)] \texttt{void}
+		      \item[C)] \texttt{char}
+		      \item[D)] \texttt{()}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示函数的返回值类型为整型？
+	      \begin{enumerate}
+		      \item[A)] \texttt{int}
+		      \item[B)] \texttt{float}
+		      \item[C)] \texttt{char}
+		      \item[D)] \texttt{void}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示函数的返回值类型为浮点型？
+	      \begin{enumerate}
+		      \item[A)] \texttt{int}
+		      \item[B)] \texttt{float}
+		      \item[C)] \texttt{char}
+		      \item[D)] \texttt{void}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示函数的返回值类型为字符型？
+	      \begin{enumerate}
+		      \item[A)] \texttt{int}
+		      \item[B)] \texttt{float}
+		      \item[C)] \texttt{char}
+		      \item[D)] \texttt{void}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下叙述中正确的是
+	      \begin{enumerate}
+		      \item[A)] C语言比其他语言高级
+		      \item[B)] C语言可以不用编译就能被计算机识别执行
+		      \item[C)] C语言以接近英语国家的自然语言和数学语言作为语言的表达形式
+		      \item[D)] C语言出现的最晚，具有其他语言的一切优点
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item C语言中用于结构化程序设计的三种基本结构是
+	      \begin{enumerate}
+		      \item[A)] 顺序结构、选择结构、循环结构
+		      \item[B)] if、switch、break
+		      \item[C)] for、while、do-while
+		      \item[D)] if、for、continue
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在一个C程序中
+	      \begin{enumerate}
+		      \item[A)] main函数必须出现在所有函数之前
+		      \item[B)] main函数可以在任何地方出现
+		      \item[C)] main函数必须出现在所有函数之后
+		      \item[D)] main函数必须出现在固定位置
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下列叙述中正确的是
+	      \begin{enumerate}
+		      \item[A)] C语言中既有逻辑类型也有集合类型
+		      \item[B)] C语言中没有逻辑类型但有集合类型
+		      \item[C)] C语言中有逻辑类型但没有集合类型
+		      \item[D)] C语言中既没有逻辑类型也没有集合类型
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下列关于C语言用户标识符的叙述中正确的是
+	      \begin{enumerate}
+		      \item[A)] 用户标识符中可以出现在下划线和中划线（减号）
+		      \item[B)] 用户标识符中不可以出现中划线，但可以出现下划线
+		      \item[C)] 用户标识符中可以出现下划线，但不可以放在用户标识符的开头
+		      \item[D)] 用户标识符中可以出现在下划线和数字，它们都可以放在用户标识符的开头
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下叙述中正确的是
+	      \begin{enumerate}
+		      \item[A)] 构成C程序的基本单位是函数
+		      \item[B)] 可以在一个函数中定义另一个函数
+		      \item[C)] main（）函数必须放在其他函数之前
+		      \item[D)] C函数定义的格式是 K\&R格式
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 一个C语言程序是由
+	      \begin{enumerate}
+		      \item[A)] 一个主程序和若干子程序组成
+		      \item[B)] 函数组成
+		      \item[C)] 若干过程组成
+		      \item[D)] 若干子程序组成
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 请选出可用作C语言用户标识符的是
+	      \begin{enumerate}
+		      \item[A)] void, define, WORD
+		      \item[B)] a3\_b3, \_123, IF
+		      \item[C)] FOR, --abc, Case
+		      \item[D)] 2a, Do, Sizeof
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下列各数据类型不属于构造类型的是
+	      \begin{enumerate}
+		      \item[A)] 枚举型
+		      \item[B)] 共用型
+		      \item[C)] 结构型
+		      \item[D)] 数组型
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在16位C编译系统上，若定义 \texttt{long a;}，则能给a赋40000的正确语句是
+	      \begin{enumerate}
+		      \item[A)] \texttt{a=20000+20000;}
+		      \item[B)] \texttt{a=4000*10;}
+		      \item[C)] \texttt{a=30000+10000;}
+		      \item[D)] \texttt{a=4000L*10L}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下不正确的叙述是
+	      \begin{enumerate}
+		      \item[A)] 在C程序中，逗号运算符的优先级最低
+		      \item[B)] 在C程序中，APH和aph是两个不同的变量
+		      \item[C)] 若a和b类型相同，在计算了赋值表达式 \texttt{a=b} 后b中的值将放入a中，而b中的值不变
+		      \item[D)] 当从键盘输入数据时，对于整型变量只能输入整型数值，对于实型变量只能输入实型数值
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item \texttt{sizeof(float)} 是
+	      \begin{enumerate}
+		      \item[A)] 一个双精度型表达式
+		      \item[B)] 一个整型表达式
+		      \item[C)] 一种函数调用
+		      \item[D)] 一个不合法的表达式
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若 x、i、j和k都是int型变量，则计算表达式 \texttt{x=(i=4,j=16,k=32)} 后，x的值为
+	      \begin{enumerate}
+		      \item[A)] 4
+		      \item[B)] 16
+		      \item[C)] 32
+		      \item[D)] 52
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下叙述中正确的是
+	      \begin{enumerate}
+		      \item[A)] C程序的基本组成单位是语句
+		      \item[B)] C程序中的每一行只能写一条语句
+		      \item[C)] 简单C语句必须以分号结束
+		      \item[D)] C语句必须在一行内写完
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 计算机能直接执行的程序是
+	      \begin{enumerate}
+		      \item[A)] 源程序
+		      \item[B)] 目标程序
+		      \item[C)] 汇编程序
+		      \item[D)] 可执行程序
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下关于宏的叙述中正确的是
+	      \begin{enumerate}
+		      \item[A)] 宏名必须用大写字母表示
+		      \item[B)] 宏定义必须位于源程序中所有语句之前
+		      \item[C)] 宏替换没有数据类型限制
+		      \item[D)] 宏调用比函数调用耗费时间
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下选项中正确的定义语句是
+	      \begin{enumerate}
+		      \item[A)] \texttt{double a;b;}
+		      \item[B)] \texttt{double a=b=7}
+		      \item[C)] \texttt{double a=7,b=7;}
+		      \item[D)] \texttt{double,a,b;}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下不能正确表示代数式 $\frac{2ab}{cd}$ 的C语言表达式是
+	      \begin{enumerate}
+		      \item[A)] \texttt{2*a*b/c/d}
+		      \item[B)] \texttt{a*b/c/d*2}
+		      \item[C)] \texttt{a/c/d*b*2}
+		      \item[D)] \texttt{2*a*b/c*d}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item C源程序中不能表示的数制是
+	      \begin{enumerate}
+		      \item[A)] 二进制
+		      \item[B)] 八进制
+		      \item[C)] 十进制
+		      \item[D)] 十六进制
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若变量已正确定义为int型，要通过语句 \texttt{scanf("\%d,\%d,\%d",\&a,\&b,\&c);} 给a赋值1、给b赋值2、给c赋值3，以下输入形式中错误的是（u代表一个空格符）
+	      \begin{enumerate}
+		      \item[A)] uuu1,2,3<回车>
+		      \item[B)] 1u2u3<回车>
+		      \item[C)] 1,uuu2,uuu3<回车>
+		      \item[D)] 1,2,3<回车>
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下列变量定义正确的是
+	      \begin{enumerate}
+		      \item[A)] \texttt{int 2ab;}
+		      \item[B)] \texttt{float a>b;}
+		      \item[C)] \texttt{char \$123}
+		      \item[D)] \texttt{int* per;}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有说明 \texttt{int a=1, x=2, y=3;}，下列不是C语言合法表达式的是
+	      \begin{enumerate}
+		      \item[A)] \texttt{++9}
+		      \item[B)] \texttt{(float)(x)}
+		      \item[C)] \texttt{a++}
+		      \item[D)] \texttt{(float)x+y}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有说明 \texttt{int i=1, j=2, k=3;}，表达式 \texttt{i\&\&j\&\&k} 的值为
+	      \begin{enumerate}
+		      \item[A)] 1
+		      \item[B)] 2
+		      \item[C)] 3
+		      \item[D)] 4
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下列不是关系表达式的是
+	      \begin{enumerate}
+		      \item[A)] \texttt{3>5}
+		      \item[B)] \texttt{1<2>3}
+		      \item[C)] \texttt{!3>5}
+		      \item[D)] \texttt{1+2>3}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下列对数组的定义正确的是
+	      \begin{enumerate}
+		      \item[A)] \texttt{int a(10);}
+		      \item[B)] \texttt{int a[10];}
+		      \item[C)] \texttt{int a\{10\};}
+		      \item[D)] \texttt{int a10;}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有说明 \texttt{int* p, a[10], j=3;}，下列指针变量赋值错误的是
+	      \begin{enumerate}
+		      \item[A)] \texttt{p=\&j;}
+		      \item[B)] \texttt{p=\&a[j];}
+		      \item[C)] \texttt{p=a;}
+		      \item[D)] \texttt{p=0x1000;}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有说明 \texttt{int a=4;}，执行语句 \texttt{a>>1} 后，变量a的值
+	      \begin{enumerate}
+		      \item[A)] 1
+		      \item[B)] 2
+		      \item[C)] 3
+		      \item[D)] 4
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以只读的方式打开文本文件"test.txt"的正确方法是
+	      \begin{enumerate}
+		      \item[A)] \texttt{fopen("test.txt","r");}
+		      \item[B)] \texttt{fopen("test.txt","rb");}
+		      \item[C)] \texttt{fopen("test","r");}
+		      \item[D)] \texttt{fopen("test.txt");}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item C语言程序的基本单位是
+	      \begin{enumerate}
+		      \item[A)] 程序行
+		      \item[B)] 语句
+		      \item[C)] 函数
+		      \item[D)] 字符
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 可用作C语言用户标识符的一组字符串是
+	      \begin{enumerate}
+		      \item[A)] void define WORD
+		      \item[B)] a3\_b3 \_123 IF
+		      \item[C)] For -abc Case
+		      \item[D)] 2a DO sizeof
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 设 \texttt{int a=12}，则执行完语句 \texttt{a+=a-=a*a;} 后a的值是
+	      \begin{enumerate}
+		      \item[A)] 552
+		      \item[B)] 264
+		      \item[C)] 144
+		      \item[D)] -264
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下叙述正确的是
+	      \begin{enumerate}
+		      \item[A)] do-while语句构成的循环不能用其它语句构成的循环来代替。
+		      \item[B)] do-while语句构成的循环只能用break语句退出。
+		      \item[C)] 用do-while语句构成的循环，在while后的表达式为非零时结束循环。
+		      \item[D)] 用do-while语句构成的循环，在while后的表达式为零时结束循环。
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在宏定义 \texttt{\#define PI 3.14159} 中，用宏名PI代替一个
+	      \begin{enumerate}
+		      \item[A)] 单精度数
+		      \item[B)] 双精度数
+		      \item[C)] 常量
+		      \item[D)] 字符串
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，要求运算数必须是整型的运算符是
+	      \begin{enumerate}
+		      \item[A)] \%
+		      \item[B)] /
+		      \item[C)] <
+		      \item[D)] !
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 为表示关系 $x \ge y \ge z$，应使用的C语言表达式是
+	      \begin{enumerate}
+		      \item[A)] \texttt{(x>=y)\&\&(y>=z)}
+		      \item[B)] \texttt{(x>=y) AND(y>=z)}
+		      \item[C)] \texttt{(x>=y>=z)}
+		      \item[D)] \texttt{(x>=y)\&(y>=z)}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有定义 \texttt{char* s="$\setminus\setminus$Name$\setminus\setminus$Address$\setminus$n"}，则指针s所指字符串长度为
+	      \begin{enumerate}
+		      \item[A)] 19
+		      \item[B)] 15
+		      \item[C)] 18
+		      \item[D)] 说明不合法
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下述对C语言字符数组的描述中错误的是
+	      \begin{enumerate}
+		      \item[A)] 字符数组可以存放字符串
+		      \item[B)] 字符数组中的字符串可以整体输入输出
+		      \item[C)] 可以在赋值语句中通过赋值运算符对字符数组整体赋值
+		      \item[D)] 不可以用关系运算符对字符数组中的字符串进行比较
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 设有如下的函数 \texttt{exam(float x)\{ printf("\%f",x*x); \}}，则函数的类型为
+	      \begin{enumerate}
+		      \item[A)] 与参数x的类型相同
+		      \item[B)] 是void
+		      \item[C)] 是int
+		      \item[D)] 无法确定
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若a是int型变量，且a=5，则表达式 \texttt{(a+100)\%2+a/2} 的值为
+	      \begin{enumerate}
+		      \item[A)] 52
+		      \item[B)] 51
+		      \item[C)] 53
+		      \item[D)] 50
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item C语言中，基本数据类型包括整型、浮点型和\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 一个C程序是由\_\_\_\_\_\_组成的。
+	      \vspace{0.3cm}
+
+	\item 在abc、a\_1、a1b2、auto四个变量中，不合法的是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 字符串"ab$\setminus\setminus$c$\setminus$n$\setminus$101"的占用内存的字节数为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在运算符+、->、*=、\&\&中，其优先级最低的是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 表达式 \texttt{7*2/5+3.5+'b'} 值的类型是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 设有语句 \texttt{int a=5;}，执行语句 \texttt{printf("\%d",++a);} 后，输出结果为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item a) 若有说明 \texttt{a=-1;}，\texttt{printf("\%d,\%x,\%o$\setminus$n",a,a,a)} 的输出结果是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item b) -32760在内存中的存储形式是\_\_\_\_\_\_（用十六进制表示)。
+	      \vspace{0.3cm}
+
+	\item c) \texttt{7\%4} 的值为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item d) 写出C语言中的三种逻辑运算符\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item e) 循环语句有for语句、\_\_\_\_\_\_和\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item f) continue语句的作用是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item g) 字符串"123$\setminus$x45$\setminus$19abc"的长度为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item C语言中规定，整型常量可以用十进制、八进制和\_\_\_\_\_\_进制形式来表示。
+	      \vspace{0.3cm}
+
+	\item 结构化程序设计中的三种基本结构为：顺序结构、\_\_\_\_\_\_和循环结构。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，对于负整数，在内存中是以\_\_\_\_\_\_码形式进行存储。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，若被定义为int类型的变量，在内存中占用\_\_\_\_\_\_个字节的存储空间。
+	      \vspace{0.3cm}
+
+	\item 若某变量被定义为auto变量的存储单元，则将被分配在内存的\_\_\_\_\_\_存储区域。
+	      \vspace{0.3cm}
+
+	\item 在下列给出的字符数组c，它在内存中所占用的字节数是\_\_\_\_\_\_。
+	      \begin{verbatim}
+char c[]={"C language"};
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，能够实现循环结构的语句有：while语句、if/goto语句、do-while语句以及\_\_\_\_\_\_语句。
+	      \vspace{0.3cm}
+
+	\item 若有 \texttt{a=3, b=5;} 则求 \texttt{a>b} 的关系运算结果是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 若有定义 \texttt{a[10];} 则允许数组a的下标最小可以是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 定义共用体类型使用关键字\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item C语言中，break语句通常用在\_\_\_\_\_\_语句和循环语句中。
+	      \vspace{0.3cm}
+
+	\item C语言程序中引用标准输入输出库函数，必须在每个源文件的首部写下 \texttt{\#include<\_\_\_\_\_\_>}。
+	      \vspace{0.3cm}
+
+	\item 当文件关闭成功后，fclose函数返回值为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 设变量a和b已正确定义并赋初值。请写出与 \texttt{a-=a+b} 等价的赋值表达式：\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 关系的操作的特点是\_\_\_\_\_\_操作。
+	      \vspace{0.3cm}
+
+	\item 数据的逻辑结构有线性结构和\_\_\_\_\_\_两大类。
+	      \vspace{0.3cm}
+
+	\item 顺序存储方法是把逻辑上相邻的结点存储在物理位置的\_\_\_\_\_\_存储单元中。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个整型变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个字符型变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个浮点型变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个双精度浮点型变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个short类型变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个long类型变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个unsigned char类型变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个unsigned int类型变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个unsigned long类型变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 在C语言中，一个指针变量占用的内存大小为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 若int型变量占内存2个字节，double型变量占内存8个字节，有如下定义: \texttt{union data \{ int i; double d; \} a;} 则变量a在内存中所占字节数为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 数组a[10]的第i个元素的指针是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 若有结构体类型定义 \texttt{struct STU\{int a; float x; char c;\};}，\texttt{sizeof(struct STU)} 的值是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item FILE* fp;的作用是定义了一个\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{二、填空题}
+
+\begin{enumerate}
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    printf("%d\n", ++a);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    printf("%d\n", a++);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    printf("%d\n", a + 5);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    printf("%d\n", a / 2);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    printf("%d\n", a % 2);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    printf("%d\n", a > 4);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    printf("%d\n", a < 6);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    printf("%d\n", a >= 5);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    printf("%d\n", a <= 5);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下程序段的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int main() {
+    int a = 5;
+    printf("%d\n", a == 5);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 若有定义：\texttt{int a[10], *p=a;}，则 \texttt{*(p+5)} 表示\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 设x、y、z均为int型变量，则执行以下语句后，z的值为\_\_\_\_\_\_。\\
+	      \texttt{x=y=z=1; ++x || ++y \&\& ++z;}
+	      \vspace{0.3cm}
+
+	\item 若有以下定义和语句：
+	      \begin{verbatim}
+char c1='b', c2='e';
+printf("%d,%c\n", c2-c1, c2-'a'+'A');
+      \end{verbatim}
+	      则输出结果是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 以下程序的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include <stdio.h>
+void main()
+{
+    int a=1,b=4,c=2;
+    if(a<b)
+        if(b<0) c=0;
+        else c++;
+    printf("%d\n",c);
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 以下程序的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include <stdio.h>
+void main()
+{
+    int a=5,b=4,c=3,d;
+    d=(a>b>c);
+    printf("%d\n",d);
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 若有以下说明和语句：\\
+	      \texttt{int c[4][5], (*p)[5];}\\
+	      \texttt{p=c;}\\
+	      能够正确引用数组元素 \texttt{c[1][2]} 的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] *(*(p+1)+2)
+		      \item[B)] (*p)[2]
+		      \item[C)] p+1[2]
+		      \item[D)] *(p+5)
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下程序的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include <stdio.h>
+void main()
+{
+    int a[10]={1,2,3,4,5,6,7,8,9,10},*p=&a[3],b;
+    b=*(p+2);
+    printf("%d\n",b);
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 若有以下定义和语句：\\
+	      \texttt{int a[10]={1,2,3,4,5,6,7,8,9,10}, *p=a;}\\
+	      则值为6的表达式是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] *p+6
+		      \item[B)] *p++
+		      \item[C)] p+6
+		      \item[D)] p+=5,*(p+5)
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 有以下程序段
+	      \begin{verbatim}
+int a,b,c;
+a=10; b=50; c=30;
+if(a>b) a=b,b=c,c=a;
+printf("a=%d b=%d c=%d\n",a,b,c);
+    \end{verbatim}
+	      程序的输出结果是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] a=10 b=50 c=10
+		      \item[B)] a=10 b=50 c=30
+		      \item[C)] a=10 b=30 c=10
+		      \item[D)] a=50 b=30 c=50
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item main()
+	      \begin{verbatim}
+{ int i,s;
+  for(i=10,s=0;i;s+=i,i--)
+      printf("result:%d\n",s);
+}
+    \end{verbatim}
+	      输出结果是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item main()
+	      \begin{verbatim}
+{ void fun();
+  float x,y;
+  x=10;
+  fun(x,&y);
+  printf("result:%.0f,%.0f\n",x,y);
+}
+void fun(x,y)
+float x,*y;
+{ *y=x*x;
+}
+    \end{verbatim}
+	      输出结果是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 设有定义：\texttt{int n=0, *p=\&n, **q=\&p;}，则下列选项中正确的赋值语句是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] p=1;
+		      \item[B)] *q=2;
+		      \item[C)] q=p;
+		      \item[D)] *p=5;
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 已有定义:\texttt{int a[5], *p;}，当执行了 \texttt{p=\&a[3];} 语句时，是将指针变量p指向了a数组的第\_\_\_\_\_\_个元素的地址。
+	      \vspace{0.3cm}
+
+	\item 若有以下定义：
+	      \begin{verbatim}
+char s[10]="hello\0\t\\ ";
+      \end{verbatim}
+	      则 \texttt{printf("\%d",strlen(s));} 的输出结果是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 10
+		      \item[B)] 9
+		      \item[C)] 7
+		      \item[D)] 6
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下面程序的运行结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include <stdio.h>
+void main()
+{
+    int x=1,y=0,a=0,b=0;
+    switch(x)
+    {
+    case 1:
+        switch(y)
+        {
+        case 0: a++; break;
+        case 1: b++; break;
+        }
+    case 2: a++; b++; break;
+    case 3: a++; b++;
+    }
+    printf("a=%d,b=%d\n",a,b);
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] a=2,b=1
+		      \item[B)] a=1,b=1
+		      \item[C)] a=1,b=0
+		      \item[D)] a=2,b=2
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 有以下程序
+	      \begin{verbatim}
+#include <stdio.h>
+void main()
+{
+    int a=1,b=0;
+    if(!a) b++;
+    else if(a==0)
+        if(a) b++;
+        else b++;
+    printf("%d\n",b);
+}
+    \end{verbatim}
+	      程序运行后的输出结果是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 0
+		      \item[B)] 1
+		      \item[C)] 2
+		      \item[D)] 3
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有以下定义和语句：\\
+	      \texttt{char c1='b', c2='e';}\\
+	      \texttt{printf("\%d,\%c\textbackslash n", c2-c1, c2-'a'+'A');}\\
+	      则输出结果是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 2,M
+		      \item[B)] 3,E
+		      \item[C)] 2,E
+		      \item[D)] 输出项与对应的格式控制不一致，输出结果不确定
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 有以下程序
+	      \begin{verbatim}
+#include <stdio.h>
+void main()
+{
+    int a[3][3]={{1,2,3},{4,5,6},{7,8,9}};
+    int i,j,s=0;
+    for(i=0;i<3;i++)
+        for(j=0;j<i;j++) s+=a[i][j];
+    printf("%d\n",s);
+}
+    \end{verbatim}
+	      程序运行后的输出结果是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 18
+		      \item[B)] 19
+		      \item[C)] 20
+		      \item[D)] 21
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下程序的输出结果是\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include <stdio.h>
+void main()
+{
+    int a[3][3]={{1,2,3},{4,5,6},{7,8,9}};
+    int i,j,s=0;
+    for(i=0;i<3;i++)
+        for(j=0;j<=i;j++) s+=a[i][j];
+    printf("%d\n",s);
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] 18
+		      \item[B)] 19
+		      \item[C)] 20
+		      \item[D)] 21
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 有以下程序
+	      \begin{verbatim}
+#include <stdio.h>
+void fun(char *c, int d)
+{
+    *c=*c+1; d=d+1;
+    printf("%c, %c, ", *c, d);
+}
+void main()
+{
+    char a='A', b='a';
+    fun(&b, a);
+    printf("%c, %c\n", a, b);
+}
+    \end{verbatim}
+	      程序运行后的输出结果是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] B, b, A, a
+		      \item[B)] a, B, B, b
+		      \item[C)] A, b, B, a
+		      \item[D)] b, B, a, B
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有以下程序段：\\
+	      \texttt{int a[4]={0,0,0,0}, i;}\\
+	      \texttt{for(i=1; i<4; i++) scanf("\%d", \&a[i]);}\\
+	      若从键盘输入：1234<回车>，则 \texttt{a[1]} 的值是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 不定值
+		      \item[B)] 0
+		      \item[C)] 1234
+		      \item[D)] 4
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    int n=100;
+    if(n>100) printf("***");
+    else printf("###");
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    int a=2,b=-1,c=2;
+    if(a<b)
+        if(b<0) c=0;
+        else c+=1;
+    printf("c=%d\n",c);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    char s[]="student\0teacher";
+    printf("%s\n",s);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    int a=3,b=4;
+    printf("a=%d,b=%d\n",++a,b++);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    static int a[5],i;
+    for(i=0;i<5;i++) a[i]=a[i]+i;
+    for(i=0;i<5;i++) printf("%d,",a[i]);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    int k=11;
+    printf("k=%d, k=%o, k=%x\n",k,k,k);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] k=11, k=12, k=11
+		      \item[B)] k=11, k=13, k=13
+		      \item[C)] k=11, k=013, k=0xb
+		      \item[D)] k=11, k=13, k=b
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    int y=10;
+    while(y--);
+    printf("y=%d\n",y);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] y=10
+		      \item[B)] y=1
+		      \item[C)] y=随机值
+		      \item[D)] y=-1
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    int a,b,*p1,*p2;
+    p1=&a; p2=&b;
+    *p1=100; *p2=200;
+    c=*p1+*p2;
+    printf("%d\n",c);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 300
+		      \item[B)] 100+200
+		      \item[C)] 100
+		      \item[D)] 200
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在下列程序中，当执行到 \texttt{gets(ss);} 语句时，若输入字符为"ABC"时，则该程序的输出结果是\_\_\_\_\_\_：
+	      \begin{verbatim}
+main(){
+    char ss[10]="12345";
+    strcat(ss,"6789");
+    gets(ss);
+    printf("%s\n",ss);
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] ABC
+		      \item[B)] ABC9
+		      \item[C)] 123456ABC
+		      \item[D)] ABC456789
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    char a[]="morning",t;
+    int i,j=0;
+    for(i=1;i<7;i++)
+        if(a[j]<a[i]) j=i;
+    t=a[j]; a[j]=a[7]; a[7]=t;
+    puts(a);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] mogninr
+		      \item[B)] mo
+		      \item[C)] morning
+		      \item[D)] mornin
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    int k=3,n=0;
+    while(k>0){
+        switch(k){
+            case 1: n+=k;
+            case 2:
+            case 3: n+=k;
+            default: break;
+        }
+        k--;
+    }
+    printf("%d\n",n);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    int i,j,row,column,m;
+    static int array[3][3]={{100,200,300},{28,72,-30},{-850,2,6}};
+    m=array[0][0];
+    for(i=0;i<3;i++)
+        for(j=0;j<3;j++)
+            if(array[i][j]<m){
+                m=array[i][j];
+                row=i; column=j;
+            }
+    printf("%d,%d,%d\n",m,row,column);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include<stdio.h>
+int p(int k,int a[]){
+    int m,i,c=0;
+    for(m=2;m<=k;m++)
+        for(i=2;i<m;i++){
+            if(!(m%i)) break;
+            if(i==m) a[c++]=m;
+        }
+    return c;
+}
+#define MAXN 20
+main(){
+    int i,m,s[MAXN];
+    m=p(13,s);
+    for(i=0;i<m;i++) printf("%4d",s[i]);
+    printf("\n");
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+int f(int n){
+    if(n==0||n==1) return 1;
+    else return f(n-2)+2*f(n-1);
+}
+main(){
+    int n=5;
+    printf("%d",f(n));
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+main(){
+    int i=2,j=3,k;
+    k=i+j;
+    {
+        int k=8;
+        if(i=3) printf("%d",k);
+        else printf("%d",j);
+    }
+    printf("%d%d",i,k);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+#define SIZE 8
+main(){
+    char s[]="GDBFHACE";
+    int i,j,t;
+    for(i=0;i<SIZE;i++){
+        for(j=i+1;j<=SIZE;j++){
+            if(s[i]>s[j]){
+                t=s[i]; s[i]=s[j]; s[j]=t;
+            }
+        }
+    }
+    for(i=0;i<SIZE;i++) printf("%c",s[i]);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int fun(int a,int b,int*cn,int*dn){
+    *cn=a*b+b*b;
+    *dn=a*a-b*b;
+    a=5; b=6;
+}
+main(){
+    int a=2,b=3,c=5,d=6;
+    fun(a,b,&c,&d);
+    printf("a=%d,b=%d,c=%d\n",a,b,c,d);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int fun(int x){
+    static y=2;
+    y++;
+    x+=y;
+    return x;
+}
+main(){
+    int k;
+    k=fun(3);
+    printf("%d,%d\n",k,fun(k));
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include<stdio.h>
+main(){
+    int s=0,m;
+    for(m=7;m>=3;m--)
+        switch(m){
+            case 1: case 4: case 7:s++;break;
+            case 2: case 3: case 6:s+=2;
+            case 0: case 5:s+=3;break;
+        }
+    printf("s=%d\n",s);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main(){
+    int i,j,x;
+    for(i=0;i<=4;i++){
+        for(j=1;j<=4-i;j++) printf(" ");
+        for(j=0;j<=2*i+1;j++) printf("*");
+        printf("\n");
+    }
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 写出下面程序的运行结果：
+	      \begin{verbatim}
+#include<stdio.h>
+void main(){
+    int x[]={0,1,2,3,4,5,6,7,8,9};
+    int i,sum=0;
+    for(i=0;i<10;i=i+2) sum=sum+x[i];
+    printf("%d",sum);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 写出下面程序的运行结果：
+	      \begin{verbatim}
+#include<stdio.h>
+void main(){
+    char s[]="ABC",*p;
+    for(p=s;p<s+3;p++) printf("%s\n",p);
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\end{document}

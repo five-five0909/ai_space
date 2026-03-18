@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "lastUpdated": 1772729163685,
+  "plugins": [
+    {
+      "filename": "subagent-driven-development",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills\\subagent-driven-development",
+        "filename": "subagent-driven-development",
+        "name": "subagent-driven-development",
+        "description": "Use when executing implementation plans with independent tasks in the current session",
+        "category": "skills",
+        "type": "skill",
+        "size": 14800,
+        "contentHash": "994b89a5d294eadd6a1611edb51377bac748d5f5fb7f4139d3c736b616b3a46a",
+        "installedAt": 1772729163681,
+        "updatedAt": 1772729163681
+      }
+    }
+  ]
+}

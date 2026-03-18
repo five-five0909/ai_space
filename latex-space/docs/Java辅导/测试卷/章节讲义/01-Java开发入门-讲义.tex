@@ -1,0 +1,137 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={Java开发入门-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{Java开发入门 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月05日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{Java开发入门}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{【本章说明】}
+
+	      \begin{bluebox}{章节概述}
+		      \textbf{题目数量}：暂无本章题目
+
+		      \textbf{章节内容}：
+
+		      本章主要考察Java环境搭建与运行机制，包括：
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item JDK/JRE/JVM的区别与联系
+			      \item Java环境的安装与配置
+			            \textbackslashitem Java程序的编译与运行过程
+			      \item \texttt{javac}与\texttt{java}命令的使用
+			      \item 类文件的结构与字节码
+		      \end{itemize}
+
+		      \textbf{命题人视角}：
+
+		      虽然当前题库暂无本章节题目，但本章是Java学习的基础，也是后续章节的前置知识。可能的考点方向包括：
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 考查对JVM内存模型的基本理解
+			      \item 考查Java程序编译与运行的完整流程
+			      \item 考查类加载机制的基本概念
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item \textbf{JDK/JRE/JVM三层架构}：
+			            \begin{itemize}
+				            \item JDK（Java Development Kit）：开发工具包，包含JRE + 开发工具（javac、javadoc等）
+				            \item JRE（Java Runtime Environment）：运行环境，包含JVM + 核心类库
+				            \item JVM（Java Virtual Machine）：虚拟机，运行Java字节码
+			            \end{itemize}
+
+			      \item \textbf{Java程序运行过程}：
+			            \begin{itemize}
+				            \item 编译：\texttt{javac Xxx.java} → \texttt{Xxx.class}
+				            \item 运行：\texttt{java Xxx}
+				            \item JVM加载.class文件，解释或编译为机器码执行
+			            \end{itemize}
+
+			      \item \textbf{关键字考点}：
+			            \begin{itemize}
+				            \item \texttt{public}：访问修饰符，表示公开访问
+				            \item \texttt{class}：定义类的关键字
+				            \item \texttt{static}：静态修饰符，属于类而非对象
+				            \item \texttt{void}：返回类型，表示无返回值
+				            \item \texttt{main}：程序入口方法名
+				            \item \texttt{String[] args}：命令行参数数组
+			            \end{itemize}
+		      \end{enumerate}
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,447 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={面向对象下-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{面向对象（下） - 逐题精讲解义}}}
+\author{专升本 fifine老师}
+\date{2026年03月02日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{面向对象（下）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{在Java中，以下哪个关键字用于实现继承？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item extends
+		      \item implements
+		      \item interface
+		      \item abstract
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. extends}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item \textbf{题目本质}：考查Java中类继承的实现关键字
+			      \item \textbf{关键区分点}：extends用于类继承，implements用于接口实现
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[label={}, nosep]
+			      \item \textbf{A. extends — 正确（类继承关键字）}
+			      \begin{itemize}[label={}, nosep]
+				      \item JLS §8.1：使用extends关键字实现类继承
+				      \item 子类自动获得父类的非私有成员
+				      \item 单继承：一个类只能继承一个父类
+			      \end{itemize}
+			      \item \textbf{B. implements — 错误（用于接口实现）}
+			      \begin{itemize}[label={}, nosep]
+				      \item implements用于实现接口
+			      \end{itemize}
+			      \item \textbf{C. interface — 错误（用于定义接口）}
+			      \begin{itemize}[label={}, nosep]
+				      \item interface用于定义接口
+			      \end{itemize}
+			      \item \textbf{D. abstract — 错误（用于定义抽象类/方法）}
+			      \begin{itemize}[label={}, nosep]
+				      \item abstract用于定义抽象类或抽象方法
+			      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 类继承：extends（单继承）
+			      \item 接口实现：implements（多实现）
+			      \item 接口继承：extends（多继承）
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于抽象类的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 抽象类可以有抽象方法
+		      \item 抽象类不能被实例化
+		      \item 抽象类的子类必须实现所有抽象方法
+		      \item 抽象类中可以有非抽象方法
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 抽象类的子类必须实现所有抽象方法}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item \textbf{题目本质}：考查抽象类的特性与继承规则
+			      \item \textbf{关键区分点}：抽象类子类不一定实现所有抽象方法（如果子类也是抽象类）
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[label={}, nosep]
+			      \item \textbf{A. 抽象类可以有抽象方法 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item 抽象方法是抽象类的核心特征
+				      \item 只有抽象类才能有抽象方法
+			      \end{itemize}
+			      \item \textbf{B. 抽象类不能被实例化 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item 不能使用new创建实例
+				      \item 但可以有构造方法（供子类调用）
+			      \end{itemize}
+			      \item \textbf{C. 抽象类的子类必须实现所有抽象方法 — 错误（本题答案）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 普通子类：必须实现所有抽象方法
+				      \item 抽象子类：可以不实现（继承）
+			      \end{itemize}
+			      \item \textbf{D. 抽象类中可以有非抽象方法 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item 抽象类可以有具体实现的方法
+			      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 抽象类：有抽象方法的类必须声明为abstract
+			      \item 抽象方法：只有声明，没有实现
+			      \item 子类继承抽象类：普通类需实现，抽象类可继承
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个关键字用于定义接口？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item interface
+		      \item abstract class
+		      \item class
+		      \item extends
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. interface}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item \textbf{题目本质}：考查接口定义关键字
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[label={}, nosep]
+			      \item \textbf{A. interface — 正确（定义接口的关键字）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 接口使用interface关键字定义
+			      \end{itemize}
+			      \item \textbf{B. abstract class — 错误（定义抽象类）}
+			      \item \textbf{C. class — 错误（定义类）}
+			      \item \textbf{D. extends — 错误（用于继承）}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 接口定义：interface 接口名 \{ \}
+			      \item JDK8+：接口可以有default方法和static方法
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于接口的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 接口中的方法默认是public abstract修饰的
+		      \item 接口中的变量默认是public static final修饰的
+		      \item 一个类可以实现多个接口
+		      \item 接口可以继承类
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 接口可以继承类}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item \textbf{题目本质}：考查接口的特性
+			      \item \textbf{关键区分点}：接口只能继承接口
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[label={}, nosep]
+			      \item \textbf{A. 接口中的方法默认是public abstract修饰的 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item 方法默认：public abstract
+				      \item JDK8+：default方法和static方法除外
+			      \end{itemize}
+			      \item \textbf{B. 接口中的变量默认是public static final修饰的 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item 变量默认：public static final（常量）
+			      \end{itemize}
+			      \item \textbf{C. 一个类可以实现多个接口 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item 类可以实现多个接口（多实现）
+			      \end{itemize}
+			      \item \textbf{D. 接口可以继承类 — 错误（本题答案）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 接口只能继承接口，不能继承类
+				      \item 类只能继承类（单继承）
+				      \item 类可以实现接口（多实现）
+			      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 接口：完全抽象的类型
+			      \item 接口成员：抽象方法（默认方法、静态方法）、常量
+			      \item 类关系：extends（继承类）、implements（实现接口）
+			      \item 接口关系：extends（继承接口，可多继承）
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个关键字用于修饰内部类，使其可以访问外部类的私有成员？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item static
+		      \item final
+		      \item private
+		      \item public
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. static}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item \textbf{题目本质}：考查内部类的访问特性
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[label={}, nosep]
+			      \item \textbf{A. static — 正确（静态内部类）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 静态内部类可以访问外部类的静态成员
+				      \item 非静态内部类可以访问外部类的所有成员（包括私有）
+			      \end{itemize}
+			      \item \textbf{B. final — 错误（无此功能）}
+			      \item \textbf{C. private — 错误（修饰符不是这样用）}
+			      \item \textbf{D. public — 错误（无此功能）}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 成员内部类：需要外部类对象创建
+			      \item 静态内部类：不需要外部类对象
+			      \item 局部内部类：定义在方法内
+			      \item 匿名内部类：没有类名
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于匿名内部类的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 没有类名
+		      \item 可以继承其他类或实现接口
+		      \item 只能使用一次
+		      \item 不能定义构造方法
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 只能使用一次}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item \textbf{题目本质}：考查匿名内部类的特性
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[label={}, nosep]
+			      \item \textbf{A. 没有类名 — 正确}
+			      \item \textbf{B. 可以继承其他类或实现接口 — 正确}
+			      \item \textbf{C. 只能使用一次 — 错误（本题答案）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 每次new都会创建新的匿名内部类
+				      \item 可以多次使用
+			      \end{itemize}
+			      \item \textbf{D. 不能定义构造方法 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item 匿名内部类没有显式类名
+				      \item 无法定义构造方法
+			      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 语法：new 接口/类() \{ 实现 \}
+			      \item 用途：事件处理、线程创建等
+			      \item 限制：无类名、无构造方法、只能继承一个类或实现一个接口
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{在Java中，以下哪个方法用于比较两个对象是否相等？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item equals()
+		      \item compareTo()
+		      \item isEqual()
+		      \item same()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. equals()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item \textbf{题目本质}：考查对象相等性比较方法
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[label={}, nosep]
+			      \item \textbf{A. equals() — 正确（对象相等比较方法）}
+			      \begin{itemize}[label={}, nosep]
+				      \item equals()定义在Object类中
+				      \item 默认实现：return this == obj（比较引用）
+				      \item String类重写了equals()，比较内容
+			      \end{itemize}
+			      \item \textbf{B. compareTo() — 错误（用于比较顺序）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 实现Comparable接口的方法
+				      \item 返回负数、零、正数
+			      \end{itemize}
+			      \item \textbf{C. isEqual() — 错误（无此方法）}
+			      \item \textbf{D. same() — 错误（无此方法）}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item ==：比较引用地址（基本类型比较值）
+			      \item equals()：比较对象内容（需重写）
+			      \item hashCode()：与equals()配套使用
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中对象克隆的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以通过实现Cloneable接口来实现对象克隆
+		      \item clone()方法是在Object类中定义的
+		      \item 克隆分为浅克隆和深克隆
+		      \item 默认的clone()方法实现的是深克隆
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 默认的clone()方法实现的是深克隆}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item \textbf{题目本质}：考查对象克隆机制
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[label={}, nosep]
+			      \item \textbf{A. 可以通过实现Cloneable接口来实现对象克隆 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item Cloneable是标记接口
+				      \item 必须实现才能调用clone()
+			      \end{itemize}
+			      \item \textbf{B. clone()方法是在Object类中定义的 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item protected方法，需重写为public
+			      \end{itemize}
+			      \item \textbf{C. 克隆分为浅克隆和深克隆 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item 浅克隆：只复制对象本身
+				      \item 深克隆：递归复制引用对象
+			      \end{itemize}
+			      \item \textbf{D. 默认的clone()方法实现的是深克隆 — 错误（本题答案）}
+			      \begin{itemize}[label={}, nosep]
+				      \item Object的默认clone()是浅克隆
+				      \item 只复制对象本身，引用类型成员共享同一引用
+			      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 克隆步骤：实现Cloneable + 重写clone() + 改为public
+			      \item 浅克隆：基本类型复制值，引用类型复制引用
+			      \item 深克隆：所有引用都递归复制
+			      \item 序列化方式也可实现深克隆
+		      \end{itemize}
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

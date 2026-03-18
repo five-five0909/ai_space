@@ -1,0 +1,409 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- 页面与布局设置 ---
+\usepackage[margin=2.5cm]{geometry} % 标准A4页边距
+\usepackage{xeCJK}                  % 中文支持
+\usepackage{amsmath, amssymb}       % 数学符号
+\usepackage{graphicx}               % 图片支持
+\usepackage{tabularx}               % 自适应表格
+\usepackage{longtable}              % 长表格
+\usepackage{booktabs}               % 三线表
+\usepackage{enumitem}               % 列表定制
+\usepackage{titlesec}               % 标题定制
+\usepackage{xcolor}                 % 颜色
+\usepackage{ulem}                   % 下划线
+\usepackage{fancybox}               % 边框
+\usepackage[most]{tcolorbox}        % 高级文本框
+\usepackage{fancyhdr}               % 页眉页脚
+
+% --- 字体配置 ---
+% 确保系统中有这些字体，或者根据实际情况调整
+\setCJKmainfont[BoldFont=SimHei, ItalicFont=KaiTi]{SimSun}
+\setCJKsansfont{SimHei}
+\setCJKmonofont{FangSong}
+
+% --- 颜色定义 ---
+\definecolor{primaryblue}{RGB}{0, 51, 102}    % 深蓝主题色
+\definecolor{secondaryblue}{RGB}{0, 102, 204} % 浅蓝辅助色
+\definecolor{boxbg}{RGB}{245, 247, 250}       % 文本框背景色
+
+% --- 排版调整 ---
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.5em}
+\setlist{nosep} % 列表紧凑
+\renewcommand{\arraystretch}{1.3} % 表格行高增加
+
+% --- 标题格式 ---
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{primaryblue}}
+  {\thesection}{1em}{}
+  [{\titlerule[1pt]}] % 标题后加横线
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{secondaryblue}}
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}
+  {\thesubsubsection}{1em}{}
+
+% --- 页眉页脚 ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \color{gray} 宏仕教育·2026寒假集训}
+\fancyhead[R]{\small \color{gray} 诗歌鉴赏全解}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- 自定义环境 (tcolorbox) ---
+\newtcolorbox{poembox}[1][]{
+  enhanced,
+  colback=boxbg,
+  colframe=primaryblue,
+  fonttitle=\bfseries,
+  coltitle=white,
+  boxrule=0.5pt,
+  left=5mm, right=5mm, top=3mm, bottom=3mm,
+  title={#1},
+  #1
+}
+
+% 如果 poembox 不需要标题栏，只做背景框：
+\renewenvironment{poembox}{
+    \begin{tcolorbox}[
+        enhanced,
+        colback=boxbg,
+        colframe=secondaryblue!30,
+        boxrule=0.5pt,
+        arc=2mm,
+        left=5mm, right=5mm, top=3mm, bottom=3mm
+    ]
+    \small \itshape % 框内字体稍小，斜体显示某种引用感
+}{
+    \end{tcolorbox}
+}
+
+\begin{document}
+
+% --- 封面/主标题 ---
+\begin{center}
+    \vspace*{2em}
+    {\Huge \bfseries \color{primaryblue} 诗歌鉴赏全解} \\[1em]
+    \vspace{2em}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{诗歌概述}
+
+\begin{center}
+\large \textbf{“诗缘情而绮靡（qǐ mí）”——（西晋）陆机《文赋》}
+\end{center}
+
+“诗缘情”指诗歌源于个体情感的抒发，确立了抒情在诗歌创作中的核心地位。“绮靡”指语言精巧、声律和谐等形式上的美感追求，要求诗歌具有艳丽华美的艺术形式。
+
+诗歌是用高度凝练的语言，\underline{形象地表达作者的丰富情感}，集中反映社会生活并具有一定节奏和韵律的文学体裁。
+
+\subsection{古诗的分类}
+
+\subsubsection{(一) 按体裁分类}
+广义的中国古典诗歌按体裁可以分为诗、词、曲、赋。其中，诗按音律又可分为古体诗和近体诗。而狭义的中国古典诗歌仅指古体诗和近体诗。
+
+\textbf{1. 古体诗}
+
+古体诗，又称古诗或古风。这个概念和通常说的“古代诗歌”不同，是专用名词，和唐代形成的近体诗相对。广义的古体诗指唐代以前的各种诗歌体裁，这包括《诗经》中的诗、《楚辞》中的诗、汉乐府中的诗及“三曹”的诗歌、陶渊明的诗歌等，还包括唐及唐代以后文人仿古的诗作（如李白《古风五十九首》），又比如诗人们借乐府旧题所写的诗歌。诗题中凡出现“歌”“行”“吟”“引”“弄”“操”“曲”等字样的都应属于古体诗，如《梦游天姥吟留别》、《茅屋为秋风所破歌》、《琵琶行》。
+
+\textit{古体诗发展轨迹：}《诗经》 $\to$ 楚辞 $\to$ 汉乐府 $\to$ 魏晋南北朝民歌 $\to$ 建安诗歌 $\to$ 陶诗等文人五言诗 $\to$ 唐代的古风、新乐府。
+
+唐诗基本形式有六种：五言古体、七言古体、五言绝句、七言绝句、五言律诗、七言律诗。古体诗对音韵格律要求较宽（句数可多可少，韵脚可转换）；近体诗要求严（句数限定，平仄有规律，律诗中间对仗）。
+
+\textbf{2. 近体诗}
+
+即“今体诗”，唐代形成的律诗和绝句的通称。最基本的格律包括：字数、句数、平仄、押韵和对仗。
+\begin{itemize}
+    \item 句内相间，联内相对，联间相粘。
+    \item 除首尾二联外，中间几联必须对仗。
+    \item 一般押同步到底的平声韵。
+\end{itemize}
+\textit{注：} 古人分平、上、去、入四声，仄声包括上、去、入。七言近体诗每句第一个字通常可平仄不拘。
+
+\textbf{3. 词}
+
+别称长短句、诗余、曲子词，起源于隋唐，大盛于宋。原本配合燕乐。
+\begin{itemize}
+    \item 分类：小令（58字以内）、中调（59-90字）、长调（91字以上）。
+    \item 结构：分上阙、下阙（上片、下片）。
+    \item 词牌：词的曲调名称，决定节奏音律。词必须有词牌，但不一定有标题（标题体现内容）。常见词牌：卜算子、菩萨蛮、浣溪沙、蝶恋花等。
+\end{itemize}
+
+\textbf{4. 曲}
+
+主要指“元曲”，包括散曲（可唱短句）和剧曲（杂剧）。散曲包括“小令”和“套数”。元曲一方面继承清丽婉转，一方面\underline{透出反抗情绪，锋芒直指社会弊端}，语言泼辣大胆，通俗活泼。
+
+\textbf{5. 赋}
+
+介于诗和散文之间的有韵文体。特点“铺采摘文，体物写志”。发展：短赋 $\to$ 骚赋 $\to$ 辞赋 $\to$ 骈赋 $\to$ 律赋 $\to$ 文赋。代表作：《洛神赋》、《阿房宫赋》、《前赤壁赋》。
+
+\subsubsection{(二) 按内容主题分类}
+
+\textbf{1. 山水田园诗}
+
+代表：陶渊明（田园）、谢灵运（山水）、王维、孟浩然。
+\begin{itemize}
+    \item \textbf{常见意象}：溪水、松林、柴门、桑麻、五柳、明月、渔歌。
+    \item \textbf{特定意象}：月（离愁/思乡）、杜鹃（凄凉）、鸿雁（游子/羁旅）、鹧鸪（乡愁）、佳节（思亲）。
+    \item \textbf{节日含义}：中秋（团圆/思亲）、重阳（登高/团聚）、冬至（孤独）、除夕（除旧布新/团聚）。
+\end{itemize}
+
+\begin{tcolorbox}[colback=white, colframe=black!50, title=山水田园诗特征, boxrule=0.5pt, sharp corners=downhill]
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\textbf{主题} & ①归隐田园，钟情山水；②描绘山川美景，热爱祖国河山；③厌弃官场，抒发闲适情调及高洁品格。 \\ \midrule
+\textbf{常用术语} & 思想：热爱自然、向往自由、归隐、闲适淡泊。手法：借景抒情、白描、动静结合。语言：清新自然、质朴、洗练、幽静、恬淡。 \\
+\end{tabularx}
+\end{tcolorbox}
+
+\textbf{2. 边塞军旅诗}
+
+代表：高适、岑参、王昌龄、王之涣、李颀。
+\begin{itemize}
+    \item \textbf{意象}：金鼓、烽火、长城、大漠、黄沙、孤城、羌笛、单于、楼兰等。
+    \item \textbf{汉代情结}：以汉代唐（汉兵、汉月、霍去病、李广）。
+\end{itemize}
+
+\begin{tcolorbox}[colback=white, colframe=black!50, title=边塞军旅诗特征, boxrule=0.5pt, sharp corners=downhill]
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\textbf{思想感情} & ①主战（讴歌奉献、建功豪情、报国激情）；②反战（环境恶劣、征战痛苦、思亲离恨、讽刺黩武）；③歌颂山河、惊异绝域风光。 \\ \midrule
+\textbf{风格} & 雄浑、恢弘、浩瀚、悲壮、豪迈、苍劲。 \\
+\end{tabularx}
+\end{tcolorbox}
+
+\textbf{3. 怀古咏史诗}
+
+结构：临古地 $\to$ 思古人 $\to$ 忆其事 $\to$ 抒己志。\\
+内容：国家（衰微）、统治者（荒淫）、名地（昔盛今衰）、古人（壮志难酬）。
+
+\begin{tcolorbox}[colback=white, colframe=black!50, title=怀古咏史诗特征, boxrule=0.5pt, sharp corners=downhill]
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\textbf{思想感情} & ①缅怀古人，渴望建功；②昔盛今衰，借古讽今；③忧国伤时，同情疾苦；④悲叹年华，壮志难酬。 \\
+\end{tabularx}
+\end{tcolorbox}
+
+\textbf{4. 托物言志诗}
+
+方法：抓住“物”的特征 $\to$ 理解寄托的情感 $\to$ 分析技巧（拟人、比喻、烘托）。
+
+\begin{tcolorbox}[colback=white, colframe=black!50, title=托物言志诗特征, boxrule=0.5pt, sharp corners=downhill]
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\textbf{内容} & 咏物言志，借物表达志向、品质、节操或对生活的思考。 \\ \midrule
+\textbf{常见手法} & 托物言志、象征、比喻、拟人、对比、烘托。 \\
+\end{tabularx}
+\end{tcolorbox}
+
+\textbf{5. 送别怀人诗}
+
+结构：即景抒情（首联叙题，颔联叙别，颈联写景，尾联期望）。\\
+意象：杨柳、长亭、酒、月、阳关、舟、灞桥。
+
+\begin{tcolorbox}[colback=white, colframe=black!50, title=送别怀人诗特征, boxrule=0.5pt, sharp corners=downhill]
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\textbf{基本主题} & 依依不舍；勉励；坦陈心志；想象别后。 \\ \midrule
+\textbf{感情色彩} & 依恋（低沉哀婉）；祝愿（旷达刚健）。 \\
+\end{tabularx}
+\end{tcolorbox}
+
+\textbf{6. 闺怨诗}
+
+内容：思念丈夫/亲人；哀怨青春易逝。注意点：\textbf{政治性}（以男女喻君臣）。
+
+\textbf{7. 羁旅思乡诗}
+
+抓意象（月、雁、危楼、书信）；明情感（孤凄、恋家、怀才不遇、厌战）；晓手法（借景抒情、即事写情、对面落笔/对写法）。
+
+\textbf{按思想感情分类汇总：}
+\begin{itemize}
+    \item \textbf{忧国伤时}：揭露腐朽（杜牧《过华清宫》）、反映离乱（杜甫《春望》）、同情疾苦（白居易《卖炭翁》）、担忧命运（杜甫《登岳阳楼》）。
+    \item \textbf{建功报国}：渴望建功（曹操）、保家卫国（王昌龄）、报国无门（辛弃疾）、山河沦丧（陆游）、壮志难酬（苏轼）。
+    \item \textbf{生活杂感}：寄情山水、昔盛今衰（刘禹锡《乌衣巷》）、青春易逝（李清照）、仕途失意（白居易《琵琶行》）。
+\end{itemize}
+
+\section{鉴赏诗歌形象}
+
+形象（意象）指人、物、自然景象。
+
+\subsection{(一) 人物形象}
+\textbf{1. 主人公形象}：诗中塑造的人物（如《天净沙·秋思》的游子）。\\
+\textbf{2. 诗人形象}（抒情主人公）：
+\begin{itemize}
+    \item 傲视权贵（李白）；心忧天下（杜甫）；归隐田园（陶渊明）；怀才不遇（陈子昂）；矢志报国（陆游）；献身边塞（王昌龄）。
+\end{itemize}
+
+\subsection{(二) 景物形象 (常见意象)}
+\begin{enumerate}
+    \item \textbf{送别类}：杨柳、长亭、酒。
+    \item \textbf{思乡类}：月亮、鸿雁、捣衣。
+    \item \textbf{愁苦类}：梧桐、芭蕉、流水、猿猴、杜鹃鸟、斜阳。
+    \item \textbf{抒怀类}：菊花（高洁隐逸）、梅花（高洁孤傲）、松柏（坚韧）、竹（气节）。
+    \item \textbf{爱情类}：红豆、莲、连理枝、比翼鸟。
+    \item \textbf{战争类}：投笔、长城、楼兰、羌笛。
+    \item \textbf{闲适类}：五柳、东篱、三径、采薇。
+\end{enumerate}
+
+\subsection{题型探究}
+
+\subsubsection{(一) 人物形象类}
+\textbf{提问}：刻画了什么形象？形象特征是什么？\\
+\textbf{答题}：(1) 概括形象（性格+身份）；(2) 结合诗句分析特征；(3) 指出形象意义（情感/理想）。
+
+\begin{poembox}
+\textbf{示例1：柳宗元《江雪》}\\
+问：诗中描写了一个什么样的老渔翁形象？\\
+\textbf{参考答案}：在寒冷、寂静的环境中，老渔翁不怕天寒地冻，专心钓鱼，形体孤独，显得清高孤傲。（特征）这正是诗人摆脱世俗、超然物外的清高孤傲思想感情的寄托和写照。（意义）
+\end{poembox}
+
+\begin{poembox}
+\textbf{示例2：陆游《诉衷情》}\\
+问：简析词中的人物形象。\\
+\textbf{答案}：(1) 描写了一个被闲置不用、壮志未酬、报国无门的抗金英雄形象。(2) 以“万里”“匹马”表现曾经的金戈铁马，以“关河梦断”“泪空流”写年华已老被弃置，但仍“心在天山”。(3) 表达了诗人因理想与现实格格不入的痛苦愤懑及强烈爱国热情。
+\end{poembox}
+
+\subsubsection{(二) 物象类}
+\textbf{提问}：描绘了怎样的物象？如何借此表达情感？\\
+\textbf{答题}：(1) 指出物象并概括特征；(2) 结合诗句分析（表现手法）；(3) 点出意义（托物言志）。
+
+\begin{poembox}
+\textbf{示例：张渭《早梅》}\\
+问：诗人是如何借梅展示自我形象的？\\
+\textbf{答案}：(1) 本诗展现了早梅耐寒而立、迎风而发的形象。(2) “寒”字点明恶劣环境，“迥”表现孤单，“白玉条”及疑梅为雪表现冰清玉洁。(3) 作者以梅自喻，展示了孤寂傲世、坚韧刚强、超凡脱俗的自我形象。
+\end{poembox}
+
+\subsubsection{(三) 意境类}
+\textbf{提问}：营造了怎样的意境/氛围？展现了怎样的画面？\\
+\textbf{答题}：(1) 找出物象；(2) 联想想象，用语言再现画面；(3) 点明氛围特点（如孤寂冷清、雄浑壮美）；(4) 分析思想感情。
+
+\begin{poembox}
+\textbf{示例：曾巩《西楼》}\\
+问：这首诗描写了什么景象？\\
+\textbf{答案}：描写了滨海暴风雨来临前的壮美景象，渲染了雄伟的气势。诗人高挂帘子敞开窗户饱览“千山急雨来”，表达了开阔的胸襟和内心的豪情。
+\end{poembox}
+
+\section{诗歌的表达技巧}
+
+\textbf{包含内容}：修辞手法、表达方式、表现手法、篇章结构。
+
+\subsection{一、修辞手法}
+比喻、比拟、象征、起兴、夸张、衬托、对比、设问、反问、通感、借代、双关、叠字、对偶、反复。
+\textbf{答题模式}：点修辞 + 析内容 + 说效果。
+
+\subsection{二、抒情手法}
+\begin{tcolorbox}[colback=white, colframe=black!50]
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\textbf{直接抒情} & 直抒胸臆。 \\ \midrule
+\textbf{间接抒情} & 借景抒情（情景交融）、托物言志、寓情于事、借古讽今。 \\
+\end{tabularx}
+\end{tcolorbox}
+
+\subsection{三、表现手法}
+\begin{enumerate}
+    \item \textbf{用典}：借古抒怀，加深意境。
+    \item \textbf{联想/想象}：由此及彼，创造新观念（如《望洞庭》）。
+    \item \textbf{衬托/烘托}：正衬、反衬（如“蝉噪林逾静”）。烘托（侧面描写）。
+    \item \textbf{渲染}：多方面描写形容以突出形象（如《登高》）。
+    \item \textbf{象征}：以物征事。
+    \item \textbf{对比/对照}：两种事物比较（如《越中览古》）。
+    \item \textbf{抑扬}：欲扬先抑或欲抑先扬。
+    \item \textbf{照应}：结构紧凑。
+    \item \textbf{直抒胸臆}：直接表达情怀。
+    \item \textbf{借景抒情/融情于景}：情寓于景。
+    \item \textbf{托物言志}：借物喻人。
+\end{enumerate}
+
+\subsection{四、描写手法}
+正面描写、侧面描写、虚实结合（有无、古今、远近）、动静结合、白描（线条勾勒）、工笔（细节描写）。
+
+\subsection{五、篇章结构}
+卒章显志、首尾呼应、过渡、铺垫、以景结情。
+
+\begin{poembox}
+\textbf{示例1：陈与义《早行》}\\
+问：主要用了什么表现手法？\\
+\textbf{答案}：反衬。星斗明亮反衬夜色之暗，“草虫鸣”反衬环境寂静。突出出行之早及漂泊孤独。
+\end{poembox}
+
+\begin{poembox}
+\textbf{示例2：杜甫《送韩十四江东觐省》}\\
+问：从表达技巧角度赏析颈联（黄牛峡静滩声转，白马江寒树影稀）。\\
+\textbf{答案}：①以静衬动（峡岸静衬水汹涌）；②寓情于景（凄凉之景寓离愁）；③虚实结合（想象黄牛峡为虚，眼前白马江为实）；④视听结合。
+\end{poembox}
+
+\section{诗歌的语言及思想内容}
+
+\subsection{一、诗歌的语言}
+\subsubsection{(一) 炼字}
+\textbf{1. 动词}：勾勒形象、传情达意（如“感时花\textbf{溅}泪”）。\\
+\textbf{2. 形容词}：绘景摹状（如“\textbf{红}杏枝头春意闹”）。\\
+\textbf{3. 虚词}：疏通文气（如“花\textbf{自}飘零水\textbf{自}流”）。
+
+\subsubsection{(二) 诗眼}
+全诗主旨的凝聚点（如《书愤》的“愤”）或句中最传神的字（如“红杏枝头春意\textbf{闹}”）。
+
+\subsubsection{(三) 语言风格}
+\begin{itemize}
+    \item \textbf{平实质朴}：陶渊明（朴素自然）。
+    \item \textbf{含蓄隽永}：李商隐（意在言外）。
+    \item \textbf{清新明丽}：王维、杨万里（清丽优美）。
+    \item \textbf{形象生动}、\textbf{绚丽飘逸}（李白）、\textbf{婉约细腻}（李清照）。
+    \item \textbf{雄浑}（边塞诗）、\textbf{豪迈奔放}（苏辛）、\textbf{沉郁顿挫}（杜甫）、\textbf{悲壮慷慨}、\textbf{旷达}（苏轼）。
+\end{itemize}
+
+\subsection{二、考查类型}
+
+\subsubsection{(一) 炼字型}
+\textbf{步骤}：(1) 解释字义；(2) 放入原句描述景象/手法；(3) 表达效果/感情。
+\begin{poembox}
+\textbf{示例：白居易《南浦别》}\\
+问：“看”字看似平常，好在哪里？\\
+\textbf{答案}：“看”指回望。写离人频频回望，肝肠寸断。淋漓尽致地表现了离别的酸楚。
+\end{poembox}
+
+\begin{poembox}
+\textbf{示例：裴迪《华子岗》}\\
+问：“侵”“拂”两字的妙处？\\
+\textbf{答案}：“侵”写夕阳消退过程，“拂”用拟人增强动感。表现了对山色的眷恋。
+\end{poembox}
+
+\subsubsection{(二) 炼词型}
+\begin{poembox}
+\textbf{示例：李白《春夜洛城闻笛》}\\
+问：“折柳”是全诗关键，为什么？\\
+\textbf{答案}：“折柳”寓意惜别怀远，诗歌主旨是思乡，思乡之情由听到“折柳”曲引起，故为关键。
+\end{poembox}
+
+\subsubsection{(三) 炼句型}
+\begin{poembox}
+\textbf{示例：杜甫《水槛遣心》}\\
+问：赏析“细雨鱼儿出，微风燕子斜”。\\
+\textbf{答案}：写细雨中鱼儿欢欣，微风中燕子轻盈。“出”写欢欣，“斜”写轻盈。遣词精巧，描绘了大自然生机，蕴含对春天的热爱和闲适心情。
+\end{poembox}
+
+\subsubsection{(四) 分析语言特色评价词}
+清新、质朴、绚丽、含蓄、简洁、清秀、诙谐、劲健、冷峻。
+
+\subsection{三、诗歌的思想内容}
+\textbf{意象与意境的关系}：意象 = 物象 $\times$ 情思； 意境 = 意象 + 氛围。
+
+\textbf{古代诗歌常见意境特点}：
+
+\begin{tcolorbox}[colback=white, colframe=primaryblue, title=常见意境风格, boxrule=0.5pt, sharp corners=downhill]
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\textbf{风格} & \textbf{特点} \\ \midrule
+豪放类 & 雄浑开阔、雄奇瑰丽、浩瀚辽阔、广袤高远、旷达洒脱。 \\ \midrule
+清幽类 & 清新明丽、宁静恬淡、淡雅闲适、和谐静谧。 \\ \midrule
+伤感类 & 凄清冷寂、孤寂冷清、哀怨低沉、凄惨萧条。 \\ \midrule
+婉约类 & 缠绵悱恻、哀婉动人、委婉含蓄、朦胧缥缈。 \\ \midrule
+超脱类 & 超脱世俗、远离尘嚣、高雅脱俗。 \\ \midrule
+华美类 & 富丽堂皇、华美绚丽、色彩斑斓。 \\
+\end{tabularx}
+\end{tcolorbox}
+
+\end{document}

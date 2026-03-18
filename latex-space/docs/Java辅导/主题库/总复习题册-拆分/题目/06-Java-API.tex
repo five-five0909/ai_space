@@ -1,0 +1,369 @@
+\section{Java API}
+
+\begin{question}
+	以下哪个方法可以将字符串转换为整数？
+	\begin{options}
+		\item parseInt()
+		\item valueOf()
+		\item toString()
+		\item toInteger()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{Integer.parseInt(String s)} 将字符串解析为 \texttt{int} 类型。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	在Java中，以下哪个方法用于获取字符串的长度？
+	\begin{options}
+		\item length()
+		\item size()
+		\item count()
+		\item getLength()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		字符串使用 \texttt{length()} 方法获取长度。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于将字符串转换为大写？
+	\begin{options}
+		\item toUpperCase()
+		\item upperCase()
+		\item makeUpperCase()
+		\item convertToUpperCase()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{toUpperCase()} 将字符串转为大写。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于将字符串转换为小写？
+	\begin{options}
+		\item toLowerCase()
+		\item lowerCase()
+		\item makeLowerCase()
+		\item convertToLowerCase()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{toLowerCase()} 将字符串转为小写。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于截取字符串？
+	\begin{options}
+		\item substring()
+		\item cut()
+		\item slice()
+		\item truncate()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{substring(int beginIndex)} 或 \texttt{substring(int begin, int end)} 用于截取。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于判断字符串是否以指定字符串开头？
+	\begin{options}
+		\item startsWith()
+		\item beginWith()
+		\item isStartWith()
+		\item hasStartWith()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{startsWith(String prefix)} 判断是否以某字符串开头。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于判断字符串是否以指定字符串结尾？
+	\begin{options}
+		\item endsWith()
+		\item finishWith()
+		\item isEndWith()
+		\item hasEndWith()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{endsWith(String suffix)} 判断是否以某字符串结尾。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于在字符串中查找指定字符第一次出现的位置？
+	\begin{options}
+		\item indexOf()
+		\item find()
+		\item search()
+		\item locate()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{indexOf()} 返回首次出现的位置，未找到返回 -1。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于在字符串中查找指定字符最后一次出现的位置？
+	\begin{options}
+		\item lastIndexOf()
+		\item findLast()
+		\item searchLast()
+		\item locateLast()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{lastIndexOf()} 返回最后一次出现的位置。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中的包装类的说法错误的是
+	\begin{options}
+		\item 包装类可以将基本数据类型转换为对象
+		\item Integer是int的包装类
+		\item 包装类的对象不可变
+		\item 包装类可以提高基本数据类型的操作效率
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		包装类主要用于对象化基本类型，便于集合操作，但不提高基本类型的操作效率。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个是Double类的静态方法，用于将字符串转换为Double类型？
+	\begin{options}
+		\item parseDouble()
+		\item valueOf()
+		\item toString()
+		\item toDouble()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{Double.parseDouble(String s)} 返回 \texttt{double} 值。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中的枚举类型的说法错误的是
+	\begin{options}
+		\item 枚举类型是一种特殊的类
+		\item 枚举类型的成员是常量
+		\item 枚举类型可以有构造方法
+		\item 枚举类型不能实现接口
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		枚举可以实现接口。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个类用于获取系统属性？
+	\begin{options}
+		\item System
+		\item Properties
+		\item Runtime
+		\item SystemProperties
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		\texttt{System.getProperties()} 返回 \texttt{Properties} 对象，用于获取系统属性。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中的注解的说法错误的是
+	\begin{options}
+		\item 注解是一种元数据
+		\item 可以自定义注解
+		\item 注解可以影响程序的逻辑
+		\item 注解可以为代码添加额外的信息
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		注解本身不改变程序逻辑，需由工具或框架处理。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个是Java中的基本注解？
+	\begin{options}
+		\item @Override
+		\item @Deprecated
+		\item @SuppressWarnings
+		\item 以上都是
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		这三个都是Java内置的基本注解。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java注解@SuppressWarnings的作用，正确的是
+	\begin{options}
+		\item 抑制所有的警告
+		\item 抑制指定类型的警告
+		\item 增加警告信息
+		\item 用于代码注释
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		可以指定警告类型，如 \texttt{"unchecked"}。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中StringBuilder和StringBuffer的说法正确的是
+	\begin{options}
+		\item StringBuilder是线程安全的，StringBuffer不是
+		\item StringBuffer是线程安全的，StringBuilder不是
+		\item 两者性能相同
+		\item 两者都不是线程安全的
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		\texttt{StringBuffer} 方法使用 \texttt{synchronized} 修饰，线程安全。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于将StringBuilder或StringBuffer对象转换为字符串？
+	\begin{options}
+		\item toString()
+		\item toStr()
+		\item getString()
+		\item getText()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{toString()} 方法返回字符串表示。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中Math类的说法错误的是
+	\begin{options}
+		\item 提供了常用的数学计算方法
+		\item 所有方法都是静态的
+		\item 可以创建Math类的对象
+		\item 包含了求绝对值、平方根等方法
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		\texttt{Math} 类是工具类，构造方法私有，不能实例化。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于获取随机数？
+	\begin{options}
+		\item random()
+		\item getRandom()
+		\item Random.nextInt()
+		\item Math.random()
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		\texttt{Math.random()} 返回 [0.0, 1.0) 的 double 随机数。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中Calendar类的说法错误的是
+	\begin{options}
+		\item 用于操作日期和时间
+		\item 是一个抽象类
+		\item 可以直接创建对象
+		\item 可以通过getInstance()方法获取实例
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		\texttt{Calendar} 是抽象类，需通过 \texttt{getInstance()} 获取实例。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于格式化日期？
+	\begin{options}
+		\item format()
+		\item parse()
+		\item DateFormat.format
+		\item SimpleDateFormat.format()
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		\texttt{SimpleDateFormat} 的 \texttt{format(Date)} 方法用于格式化。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中Optional类的说法错误的是
+	\begin{options}
+		\item 用于避免空指针异常
+		\item 可以包含值或为空
+		\item 不支持值的获取和判断
+		\item 提供了一些有用的方法
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		Optional 提供 \texttt{isPresent()}、\texttt{get()}、\texttt{orElse()} 等方法用于获取和判断值。
+	\end{explanation}
+\end{question}

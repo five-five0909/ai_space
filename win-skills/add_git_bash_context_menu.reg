@@ -1,0 +1,17 @@
+Windows Registry Editor Version 5.00
+
+; 添加到文件夹右键菜单
+[HKEY_CLASSES_ROOT\Directory\shell\Git Bash Here]
+@="Git Bash Here"
+"Icon"="E:\\sdk_tool\\PortableGit\\mingw64\\share\\git\\git-for-windows.ico"
+
+[HKEY_CLASSES_ROOT\Directory\shell\Git Bash Here\command]
+@="\"E:\\sdk_tool\\PortableGit\\git-bash.exe\" --cd=\"%1\""
+
+; 添加到文件夹背景右键菜单
+[HKEY_CLASSES_ROOT\Directory\Background\shell\Git Bash Here]
+@="Git Bash Here"
+"Icon"="E:\\sdk_tool\\PortableGit\\mingw64\\share\\git\\git-for-windows.ico"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\Git Bash Here\command]
+@="\"E:\\sdk_tool\\PortableGit\\git-bash.exe\" --cd=\"%V\""

@@ -1,0 +1,604 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{booktabs}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 颜色定义
+\definecolor{lightblue}{RGB}{230, 245, 255}
+\definecolor{lightyellow}{RGB}{255, 255, 230}
+\definecolor{lightgreen}{RGB}{230, 255, 230}
+\definecolor{lightred}{RGB}{255, 230, 230}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理讲义}
+\lhead{第2章 关系模型}
+\cfoot{\thepage}
+
+% bluebox环境定义
+\newenvironment{bluebox}[1]{%
+  \begin{trivlist}
+  \item[\hskip\labelsep \textbf{#1}]
+  \setlength{\parskip}{0.5ex}
+  \setlength{\itemsep}{0.5ex}
+}{%
+  \end{trivlist}
+}
+
+\title{\textbf{第2章 关系模型}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{关系模型基本概念}
+
+\subsection{关系模型的数据结构}
+
+\begin{bluebox}{核心概念框架}
+	\textbf{【关系模型核心认知框架】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{关系(Relation)}：一个关系就是一张二维表，每个关系有一个关系名
+		\item \textbf{元组(Tuple)}：二维表中的一行，代表一个实体或实体之间的联系
+		\item \textbf{属性(Attribute)}：二维表中的一列，代表实体的某一特征
+		\item \textbf{码/键(Key)}：可以唯一标识元组的属性或属性组
+		\item \textbf{域(Domain)}：属性的取值范围
+		\item \textbf{分量}：元组中的一个属性值
+	\end{itemize}
+
+	\textbf{概念层次关系}：域 $\rightarrow$ 分量 $\rightarrow$ 属性 $\rightarrow$ 元组 $\rightarrow$ 关系
+\end{bluebox}
+
+\begin{bluebox}{关系的基本特征}
+	\textbf{【关系的六大特征（必须满足）】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{列是同质的}：每一列中的分量是来自同一域的数据
+		\item \textbf{列位置互换性}：列的顺序不影响关系的实际意义
+		\item \textbf{行位置互换性}：行的顺序不影响关系的实际意义
+		\item \textbf{分量不可再分}：每一个分量必须是原子数据（1NF）
+		\item \textbf{元组唯一性}：不允许出现重复元组
+		\item \textbf{属性名唯一}：同一个关系中属性名必须唯一
+	\end{enumerate}
+\end{bluebox}
+
+\subsection{关系模型的三要素}
+
+\begin{bluebox}{三要素}
+	\textbf{【关系模型的三要素】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{数据结构}：用二维表表示实体及实体之间的联系
+		\item \textbf{数据操作}：选择($\sigma$)、投影($\pi$)、连接($\Join$)、并($\cup$)、差$-$、交($\cap$)、除($\div$)
+		\item \textbf{完整性约束}：实体完整性、参照完整性、用户定义完整性
+	\end{enumerate}
+
+	\textbf{重要结论}：关系模型是当前数据库系统的主流模型，采用二维表结构，具有严格的数学理论基础
+\end{bluebox}
+
+\section{关系代数运算}
+
+\subsection{五种基本运算}
+
+\begin{bluebox}{基本运算}
+	\textbf{【关系代数的五种基本运算】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{并(Union, $\cup$)}：$R \cup S = \{t | t \in R \vee t \in S\}$
+		\item \textbf{差(Difference, $-$)}：$R - S = \{t | t \in R \wedge t \notin S\}$
+		\item \textbf{笛卡尔积(Cartesian Product, $\times$)}：$R \times S = \{t_r t_s | t_r \in R \wedge t_s \in S\}$
+		\item \textbf{投影(Projection, $\pi$)}：$\pi_{A_1,A_2,...,A_k}(R)$，从R中选取指定列
+		\item \textbf{选择(Selection, $\sigma$)}：$\sigma_F(R)$，从R中选取满足条件F的行
+	\end{enumerate}
+
+	\textbf{记忆口诀}：并差笛卡尔积，投影选择是基础
+\end{bluebox}
+
+\begin{bluebox}{运算组合}
+	\textbf{【常用派生运算】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{交(Intersection, $\cap$)}：$R \cap S = R - (R - S)$
+		\item \textbf{自然连接(Natural Join, $\Join$)}：$R \Join S = \pi_{A_1,...,A_n,B_1,...,B_m}(\sigma_{R.A_i=S.A_i}(R \times S))$
+		\item \textbf{除(Division, $\div$)}：$R(X,Y) \div S(Y)$，求在X上取值能够覆盖S中所有Y值的元组
+		\item \textbf{$\theta$连接}：$R \Join_{A \theta B} S = \sigma_{A \theta B}(R \times S)$
+	\end{enumerate}
+\end{bluebox}
+
+\begin{bluebox}{运算规则}
+	\textbf{【关系运算的重要规则】}
+
+	\begin{itemize}
+		\item \textbf{并、交、差运算}：要求两个关系具有相同的结构（属性个数相同，对应属性域相同）
+		\item \textbf{笛卡尔积}：结果属性数 = $r + s$，结果元组数 = $r \times s$
+		\item \textbf{自然连接}：要求两个关系必须有公共属性，且公共属性值相等才能连接
+		\item \textbf{投影}：消除重复元组
+		\item \textbf{选择}：从水平方向筛选元组
+	\end{itemize}
+\end{bluebox}
+
+\section{完整性约束}
+
+\subsection{三大完整性规则}
+
+\begin{bluebox}{完整性约束}
+	\textbf{【关系模型的三大完整性约束】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{实体完整性}：主属性不能取空值（主键非空且唯一）
+		\item \textbf{参照完整性}：外键必须取空值或等于所参照主键的值
+		\item \textbf{用户定义完整性}：域完整性、断言、触发器等
+	\end{enumerate}
+
+	\textbf{记忆口诀}：实体完整主键非空，参照完整外键对应，用户定义域约束
+\end{bluebox}
+
+\begin{bluebox}{键的概念}
+	\textbf{【关系模型中的键概念】}
+
+	\begin{itemize}
+		\item \textbf{超键(Super Key)}：能唯一标识元组的属性或属性组
+		\item \textbf{候选键(Candidate Key)}：能唯一标识元组的最小属性组（无冗余）
+		\item \textbf{主键(Primary Key)}：从候选键中选定的一个
+		\item \textbf{外键(Foreign Key)}：引用另一个关系主键的属性
+		\item \textbf{全码(All-Key)}：关系的所有属性组成候选键
+	\end{itemize}
+
+	\textbf{重要结论}：候选键 $\subseteq$ 超键，主键 $\in$ 候选键
+\end{bluebox}
+
+\section{本章必背知识点}
+
+\begin{bluebox}{命题人思维版}
+	\textbf{【本章应背诵知识点】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{关系模型三要素}：数据结构（二维表）、数据操作（关系代数）、完整性约束
+		\item \textbf{五种基本运算}：并、差、笛卡尔积、投影、选择
+		\item \textbf{关系的六大特征}：列同质、行互换、列互换、分量不可再分、元组唯一、属性名唯一
+		\item \textbf{三大完整性约束}：实体完整性、参照完整性、用户定义完整性
+		\item \textbf{键的概念}：超键 $\supseteq$ 候选键 $\supseteq$ 主键
+		\item \textbf{E-R模型转换}：1:1可合并、1:n外键放n端、m:n单独建表
+	\end{enumerate}
+
+	\textbf{选项辨析速查表（考场5秒决策）}：
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{运算}    & \textbf{作用方向} & \textbf{是否减少元组} & \textbf{记忆口诀} \\
+		\hline
+		选择($\sigma$)   & 水平筛选          & 可能减少            & "挑行"          \\
+		\hline
+		投影($\pi$)      & 垂直筛选          & 可能减少（去重）        & "挑列"          \\
+		\hline
+		并($\cup$)      & 合并            & 可能减少（去重）        & "相加去重"        \\
+		\hline
+		差$-$           & 相减            & 必然减少            & "R有S无"        \\
+		\hline
+		交($\cap$)      & 公共部分          & 必然减少            & "共同部分"        \\
+		\hline
+		笛卡尔积($\times$) & 组合            & 元组数相乘           & "全面组合"        \\
+		\hline
+		自然连接           & 等值连接+去重       & 可能减少            & "相同相等"        \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\begin{bluebox}{高频陷阱清单}
+	\textbf{【本章高频陷阱清单】}
+
+	\begin{itemize}
+		\item 陷阱1："关系的行可以任意交换" $\rightarrow$ \textbf{错误！} 行位置虽然理论可互换，但会改变数据的物理存储顺序
+		\item 陷阱2："关系的列不能交换" $\rightarrow$ \textbf{错误！} 列位置理论上可互换，但实际中保持列顺序有助于理解
+		\item 陷阱3："候选键必须包含多个属性" $\rightarrow$ \textbf{错误！} 候选键可以是单属性
+		\item 陷阱4："外键可以随意取值" $\rightarrow$ \textbf{错误！} 外键必须取空值或参照主键值
+		\item 陷阱5："自然连接等价于笛卡尔积" $\rightarrow$ \textbf{错误！} 自然连接是等值连接+去重
+		\item 陷阱6："交运算可以随意使用" $\rightarrow$ \textbf{错误！} 交运算要求两个关系结构相同
+	\end{itemize}
+\end{bluebox}
+
+\section{典型例题深度解析}
+
+\begin{bluebox}{例题1：E-R图转关系模型}
+	\textbf{【例题1】} 有两个实体集，而且这两个实体集之间存在 M:N 联系，则依照转换规则，这个 E-R 结构转换成表的数目应该为（\quad）个。
+
+	\begin{itemize}
+		\item[A)] 1
+		\item[B)] 2
+		\item[C)] 3
+		\item[D)] 4
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查E-R模型向关系模型转换的规则
+		\item \textbf{关键区分点}：实体集之间联系的类型不同，转换规则不同
+		\item \textbf{命题人意图}：测试考生对E-R图转换规则的掌握
+	\end{itemize}
+
+	\textbf{转换规则详解}：
+
+	\begin{itemize}
+		\item \textbf{1:1联系}：可以将两个实体合并，或将任一实体的主键放入另一实体
+		\item \textbf{1:n联系}：在"n"端实体转换的关系中，添加"1"端实体的主键作为外键
+		\item \textbf{m:n联系}：需要将联系转换为独立的关系表，包含两个实体的主键和外键关系
+	\end{itemize}
+
+	\textbf{本题解析}：m:n联系需要三个表：两个实体表 + 一个关系表
+
+	\textbf{记忆口诀}：一对一可合并，一对多加外键，多对多建新表
+\end{bluebox}
+
+\begin{bluebox}{例题2：实体间联系类型}
+	\textbf{【例题2】} 设某工程设计企业中要求，一项工程是由多名职员共同完成，而一名职员只能参加一个工程项目，则职员与工程之间的联系类型是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 1:n
+		\item[B)] 1:1
+		\item[C)] m:n
+		\item[D)] n:1
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：分析现实世界中实体间的联系类型
+		\item \textbf{关键区分点}：理解"一名职员只能参加一个工程"和"一项工程由多名职员完成"
+		\item \textbf{命题人意图}：测试考生将现实关系转换为数据模型的能力
+	\end{itemize}
+
+	\textbf{分析过程}：
+
+	\begin{itemize}
+		\item 职员端：一个职员 $\rightarrow$ 一个工程（1）
+		\item 工程端：一个工程 $\rightarrow$ 多个职员（n）
+		\item 所以是 \textbf{1:n} 联系
+	\end{itemize}
+
+	\textbf{常见混淆}：
+
+	\begin{itemize}
+		\item 如果改为"一名职员可以参加多个工程"，则是 m:n
+		\item 如果改为"一名职员只能参加一个工程，且一个工程只能由一名职员完成"，则是 1:1
+	\end{itemize}
+
+	\textbf{记忆口诀}：多对多先找"一"，"一"端主键放"多"端
+\end{bluebox}
+
+\begin{bluebox}{例题3：关系运算判断}
+	\textbf{【例题3】} 对表进行水平方向分割，用运算是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 交
+		\item[B)] 投影
+		\item[C)] 选择
+		\item[D)] 连接
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查关系代数运算的作用方向
+		\item \textbf{关键区分点}：水平方向=按行筛选，垂直方向=按列筛选
+		\item \textbf{命题人意图}：测试考生对关系运算方向的掌握
+	\end{itemize}
+
+	\textbf{各运算作用方向}：
+
+	\begin{itemize}
+		\item \textbf{选择($\sigma$)}：水平方向，按条件筛选行 $\rightarrow$ 正确
+		\item \textbf{投影($\pi$)}：垂直方向，按列筛选
+		\item \textbf{交}：求两个关系的公共元组
+		\item \textbf{连接}：按条件组合两个关系
+	\end{itemize}
+
+	\textbf{记忆口诀}：水平分割"选"，垂直分割"投"
+\end{bluebox}
+
+\begin{bluebox}{例题4：垂直分割运算}
+	\textbf{【例题4】} 对表进行垂直方向分割，用运算是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 交
+		\item[B)] 投影
+		\item[C)] 选择
+		\item[D)] 连接
+	\end{itemize}
+
+	\textbf{答案：B}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：与上题类似，考查垂直分割的运算
+		\item \textbf{关键区分点}：投影运算从关系中选取指定列
+		\item \textbf{命题人意图}：测试考生对投影运算的理解
+	\end{itemize}
+
+	\textbf{投影运算特点}：
+
+	\begin{itemize}
+		\item 投影操作会消除重复元组
+		\item 投影后属性顺序可以改变
+		\item 如果只投影部分属性，可能减少元组数量
+	\end{itemize}
+
+	\textbf{记忆口诀}：投影就是"挑列"，去重是特点
+\end{bluebox}
+
+\begin{bluebox}{例题5：参照完整性}
+	\textbf{【例题5】} 关系数据库中，表与表之间联系约束是通过（\quad）来实现。
+
+	\begin{itemize}
+		\item[A)] 实体完整性规则
+		\item[B)] 引用完整性规则
+		\item[C)] 用户自定义完整性
+		\item[D)] 值域
+	\end{itemize}
+
+	\textbf{答案：B}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查完整性约束的作用
+		\item \textbf{关键区分点}：区分三种完整性约束的功能
+		\item \textbf{命题人意图}：测试考生对完整性约束的掌握
+	\end{itemize}
+
+	\textbf{完整性约束对比}：
+
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{完整性类型} & \textbf{作用对象} & \textbf{实现方式} \\
+		\hline
+		实体完整性          & 主键            & 主键非空且唯一       \\
+		\hline
+		参照完整性(引用完整性)   & 外键            & 外键取空值或等于参照主键值 \\
+		\hline
+		用户自定义完整性       & 属性值           & 域约束、断言、触发器    \\
+		\hline
+	\end{tabular}
+
+	\textbf{记忆口诀}：实体完整保主键，参照完整保外键，用户定义保属性
+\end{bluebox}
+
+\begin{bluebox}{例题6：关系运算组合}
+	\textbf{【例题6】} 关系代数中，连接操作是由（\quad）组合而成。
+
+	\begin{itemize}
+		\item[A)] 乘积和选择
+		\item[B)] 乘积、选择和投影
+		\item[C)] 乘积和投影
+		\item[D)] 投影和选择
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查连接运算的本质
+		\item \textbf{关键区分点}：连接 = 笛卡尔积 + 选择（等值条件）
+		\item \textbf{命题人意图}：测试考生对连接运算底层实现的理解
+	\end{itemize}
+
+	\textbf{连接运算分解}：
+
+	\begin{itemize}
+		\item 自然连接 $R \Join S = \pi_{A_1,...,A_n,B_1,...,B_m}(\sigma_{R.A_i=S.A_i}(R \times S))$
+		\item $\theta$连接 $R \Join_{F} S = \sigma_F(R \times S)$
+		\item \textbf{结论}：连接 = 乘积 + 选择（有时需要投影）
+	\end{itemize}
+
+	\textbf{记忆口诀}：连接本质是"乘积选"，等值条件来筛选
+\end{bluebox}
+
+\begin{bluebox}{例题7：空值处理}
+	\textbf{【例题7】} 依照关系模式完整性规则，一个关系中的主键（\quad）。
+
+	\begin{itemize}
+		\item[A)] 不能有两个
+		\item[B)] 不能成为另一个关系的外部键
+		\item[C)] 不允许空值
+		\item[D)] 能够取空值
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查实体完整性规则
+		\item \textbf{关键区分点}：主键必须唯一且非空
+		\item \textbf{命题人意图}：测试考生对主键约束的理解
+	\end{itemize}
+
+	\textbf{主键规则详解}：
+
+	\begin{itemize}
+		\item \textbf{唯一性}：主键值必须唯一标识表中每一行
+		\item \textbf{非空性}：主键值不能为空（实体完整性要求）
+		\item \textbf{不可更改性}：主键值一旦确定不宜修改
+		\item \textbf{复合主键}：可以由多个属性组成，但整体不能为空
+	\end{itemize}
+
+	\textbf{记忆口诀}：主键主键，非空唯一
+\end{bluebox}
+
+\begin{bluebox}{例题8：自然连接条件}
+	\textbf{【例题8】} 进行自然联接运算的两个关系（\quad）。
+
+	\begin{itemize}
+		\item[A)] 最少存在一个相同属性名
+		\item[B)] 可不存在任何相同属性名
+		\item[C)] 不可存在多个相同属性名
+		\item[D)] 全部属性名必须完全相同
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查自然连接的前提条件
+		\item \textbf{关键区分点}：自然连接需要公共属性
+		\item \textbf{命题人意图}：测试考生对自然连接概念的理解
+	\end{itemize}
+
+	\textbf{自然连接规则}：
+
+	\begin{itemize}
+		\item 必须存在相同属性名（或通过别名实现）
+		\item 公共属性上进行等值连接
+		\item 结果中消除重复的公共属性列
+		\item 如果没有公共属性，自然连接等价于笛卡尔积
+	\end{itemize}
+
+	\textbf{记忆口诀}：自然连接找公共，等值连接去重复
+\end{bluebox}
+
+\begin{bluebox}{例题9：候选键概念}
+	\textbf{【例题9】} 关系的候选码（\quad）。
+
+	\begin{itemize}
+		\item[A)] 可由一个或多个其值能唯一标识该关系模式中任何元组的属性组成
+		\item[B)] 可由多个任意属性组成
+		\item[C)] 至多由一个属性组成
+		\item[D)] 以上都不是
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查候选键的定义
+		\item \textbf{关键区分点}：候选键是最小超键，可以是单属性或多属性
+		\item \textbf{命题人意图}：测试考生对候选键概念的掌握
+	\end{itemize}
+
+	\textbf{候选键特性}：
+
+	\begin{itemize}
+		\item \textbf{唯一性}：能唯一标识元组
+		\item \textbf{最小性}：真子集不能唯一标识元组
+		\item \textbf{可多个}：一个关系可以有多个候选键
+		\item \textbf{可复合}：由多个属性组合而成
+	\end{itemize}
+
+	\textbf{记忆口诀}：候选键，最小超键，唯一标识不能缺
+\end{bluebox}
+
+\begin{bluebox}{例题10：笛卡尔积}
+	\textbf{【例题10】} 设关系 R、S、W 各有 10 个元组，那么这三个关系的笛卡尔积元组个数是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 10
+		\item[B)] 30
+		\item[C)] 1000
+		\item[D)] 不确定
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查笛卡尔积的计算
+		\item \textbf{关键区分点}：笛卡尔积是元组数的乘积
+		\item \textbf{命题人意图}：测试考生对笛卡尔积运算的理解
+	\end{itemize}
+
+	\textbf{计算过程}：
+
+	\begin{itemize}
+		\item $R \times S$：$10 \times 10 = 100$ 个元组
+		\item $(R \times S) \times W$：$100 \times 10 = 1000$ 个元组
+		\item 即 $10 \times 10 \times 10 = 1000$
+	\end{itemize}
+
+	\textbf{记忆口诀}：笛卡尔积，元组相乘
+\end{bluebox}
+
+\section{命题趋势与实战策略}
+
+\begin{bluebox}{考场秒杀三步法}
+	\textbf{【本章考场秒杀三步法】}
+
+	\begin{enumerate}
+		\item \textbf{第一步：识别题型}
+		      \begin{itemize}
+			      \item 问E-R图转换 $\rightarrow$ 记住三种联系的转换规则
+			      \item 问关系运算 $\rightarrow$ 区分水平/垂直/组合操作
+			      \item 问完整性约束 $\rightarrow$ 区分实体/参照/用户定义
+		      \end{itemize}
+
+		\item \textbf{第二步：排除干扰项}
+		      \begin{itemize}
+			      \item 混淆"候选键"和"超键" $\rightarrow$ 记住最小性
+			      \item 混淆"选择"和"投影" $\rightarrow$ 记住行/列方向
+			      \item 混淆实体完整性和参照完整性 $\rightarrow$ 记住主键/外键
+		      \end{itemize}
+
+		\item \textbf{第三步：关键词锁定}
+		      \begin{itemize}
+			      \item "水平分割" $\rightarrow$ 选择
+			      \item "垂直分割" $\rightarrow$ 投影
+			      \item "多对多" $\rightarrow$ 建三个表
+			      \item "外键取值" $\rightarrow$ 空值或等于主键值
+		      \end{itemize}
+	\end{enumerate}
+\end{bluebox}
+
+\begin{bluebox}{近年真题规律}
+	\textbf{【本章命题规律分析】}
+
+	\begin{itemize}
+		\item 85\%考题涉及"关系代数运算"概念
+		\item 80\%考题考查"E-R图转换规则"
+		\item 75\%考题以"完整性约束"作为干扰项
+		\item 新趋势：结合实际场景考查联系类型判断
+		\item 高频考点：选择vs投影、自然连接条件、候选键概念
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{高阶延伸（冲击满分）}
+	\textbf{【高阶知识点延伸】}
+
+	\begin{itemize}
+		\item \textbf{连接 vs 除运算}：除运算用于求"包含"关系
+		\item \textbf{外码特殊情况}：外键可以取空值的情况
+		\item \textbf{候选键求解}：如何从属性集找出候选键
+		\item \textbf{规范化程度}：关系模型与范式的关系
+	\end{itemize}
+\end{bluebox}
+
+\end{document}

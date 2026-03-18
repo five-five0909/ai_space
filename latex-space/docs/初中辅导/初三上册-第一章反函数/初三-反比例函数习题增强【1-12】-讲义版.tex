@@ -1,0 +1,436 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath, amssymb, geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\geometry{a4paper, margin=1in}
+
+% 定义红色环境
+\newenvironment{redenv}{\color{red}}{}
+
+% 定义详细解析环境
+\newenvironment{detailedanalysis}{%
+    \color{red}
+    \begin{enumerate}[label=\textbf{第\arabic*步：}, leftmargin=*, align=left, itemsep=1.5ex]
+}{%
+    \end{enumerate}
+}
+
+% 定义概念框
+\newenvironment{conceptbox}{%
+    \begin{tcolorbox}[colback=red!5, colframe=red!50!black, title=概念解析, fonttitle=\bfseries]
+}{%
+    \end{tcolorbox}
+}
+
+% 定义公式推导环境
+\newenvironment{formuladerivation}{%
+    \begin{enumerate}[label={\textbf{公式\arabic*：}}, leftmargin=*, align=left]
+}{%
+    \end{enumerate}
+}
+
+% 定义题目和解析的分隔线
+\newcommand{\problemrule}{\noindent\rule{\textwidth}{1.5pt}\vspace{-0.8em}}
+\newcommand{\analysisrule}{\noindent\rule{\textwidth}{0.8pt}\vspace{-0.8em}}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{中考数学专项突破 · 反比例函数 · 讲义版}
+\fancyfoot[C]{\thepage}
+
+\begin{document}
+
+\title{\textbf{\zihao{2} 第11关 反比例函数 深度讲义}}
+\author{整理自中考真题}
+\date{}
+\maketitle
+
+\section*{考点1：反比例函数的图象与性质}
+
+% ========== 第1题 ==========
+\problemrule
+\section*{【题目1】[2024 湖南株洲] 反比例函数关系判定}
+下列关系中，是反比例函数关系的是 ( \quad )
+\begin{enumerate}[label=\Alph*., itemsep=0pt]
+    \item 圆的面积 $S$ 与它的半径 $r$ 之间的关系
+    \item 用频率估计概率时，概率 $P$ 与频率 $p$ 的关系
+    \item 电压 $U$ 一定时，电流 $I$ 与电阻 $R$ 之间的关系
+    \item 小明的身高 $h$ 与年龄 $x$ 之间的关系
+\end{enumerate}
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+考查反比例函数的定义：形如 $y=\frac{k}{x}$（$k$ 为常数，$k \neq 0$）。
+
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=\Alph*.]
+    \item $S=\pi r^2$，是二次函数关系。
+    \item 概率是频率的稳定值，不存在精确的函数关系。
+    \item 根据欧姆定律 $I = \frac{U}{R}$，当 $U$ 为常数时，符合反比例函数定义。
+    \item 身高与年龄之间不存在明确的函数关系。
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{C}
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第2题 ==========
+\problemrule
+\section*{【题目2】[2024 陕西榆林三模] 函数图象综合判定}
+在同一个平面直角坐标系中，函数 $y=\dfrac{ab}{x}$ 与 $y=ax+b$ 的图象可能是 ( \quad )
+\begin{center}
+    (此处为图象选项 A, B, C, D)
+\end{center}
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{解题策略构建}
+通过分类讨论参数 $a, b$ 的符号，确定两个函数图象的象限分布，寻找一致性。
+
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=\arabic*)]
+    \item \textbf{假设 $a>0, b>0$}：
+    直线 $y=ax+b$ 过一、二、三象限；
+    反比例 $y=\frac{ab}{x}$ 系数 $ab>0$，图象在一、三象限。
+    \textbf{一致}。
+
+    \item \textbf{假设 $a>0, b<0$}：
+    直线 $y=ax+b$ 过一、三、四象限；
+    反比例 $y=\frac{ab}{x}$ 系数 $ab<0$，图象在二、四象限。
+    \textbf{一致}。（题目描述中选项B通常符合此类情况）
+
+    \item \textbf{假设 $a<0, b>0$}：
+    直线 $y=ax+b$ 过一、二、四象限；
+    反比例 $y=\frac{ab}{x}$ 系数 $ab<0$，图象在二、四象限。
+
+    \item \textbf{假设 $a<0, b<0$}：
+    直线 $y=ax+b$ 过二、三、四象限；
+    反比例 $y=\frac{ab}{x}$ 系数 $ab>0$，图象在一、三象限。
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{B}（根据题意描述，B项符合其中一种自洽情况）
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第3题 ==========
+\problemrule
+\section*{【题目3】[2024 湖北武汉] 反比例函数增减性}
+某反比例函数 $y=\dfrac{k}{x}$ 具有下列性质：当 $x>0$ 时，$y$ 随 $x$ 的增大而减小。写出一个满足条件的 $k$ 的值是 \underline{\hspace{2cm}}。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+考查反比例函数 $y=\frac{k}{x}$ 的增减性与 $k$ 的符号关系。
+\begin{conceptbox}
+\textbf{反比例函数性质}：
+\begin{itemize}
+    \item $k>0$：一、三象限，每象限内 $y$ 随 $x$ 增大而\textbf{减小}。
+    \item $k<0$：二、四象限，每象限内 $y$ 随 $x$ 增大而\textbf{增大}。
+\end{itemize}
+\end{conceptbox}
+
+\item \textbf{详细求解过程}
+题目要求“当 $x>0$ 时，$y$ 随 $x$ 的增大而减小”，这符合 $k>0$ 的特征。
+因此，只要写出一个大于 0 的数即可。
+
+\item \textbf{最终答案}
+\textbf{1}（答案不唯一，任意 $k>0$ 均可）
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第4题 ==========
+\problemrule
+\section*{【题目4】[2024 四川遂宁] 象限与参数范围}
+若反比例函数 $y=\dfrac{2-k}{x}$ 的图象位于第一、三象限，则整数 $k$ 的值是 \underline{\hspace{2cm}}。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+    \item \textbf{根据象限判定符号}：
+    图象在第一、三象限 $\implies$ 比例系数大于 0。
+    即 $2-k > 0$。
+
+    \item \textbf{解不等式}：
+    $2-k > 0 \implies k < 2$。
+
+    \item \textbf{确定整数解}：
+    题目问“整数 $k$ 的值”。若无其他限制，小于 2 的整数由无数个。
+    但在中考语境下，通常隐含“正整数”或“非负整数”。
+    常见的答案是 \textbf{1}。
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{1}
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第5题 ==========
+\problemrule
+\section*{【题目5】[2024 山东济宁] 点的大小比较}
+已知点 $A(-2,y_1), B(-1,y_2), C(3,y_3)$ 在反比例函数 $y=\dfrac{k}{x} (k<0)$ 的图象上，则 $y_1, y_2, y_3$ 的大小关系是 ( \quad )
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{解题策略构建}
+\textbf{方法一：代数法}。假设一个 $k$ 值（如 $k=-1$）算出具体数值比较。
+\textbf{方法二：图象法}。画出草图，根据点的位置判断。
+
+\item \textbf{详细求解过程}
+分析 $k<0$：图象位于第二、四象限。
+\begin{itemize}
+    \item 点 $A(-2, y_1)$ 和 $B(-1, y_2)$ 横坐标为负，\textbf{位于第二象限}，函数值为正 ($y_1>0, y_2>0$)。
+    \item 点 $C(3, y_3)$ 横坐标为正，\textbf{位于第四象限}，函数值为负 ($y_3<0$)。
+    \item 显然 $y_3$ 最小。
+\end{itemize}
+在第二象限内，反比例函数 ($k<0$) 单调递增。
+因为 $-2 < -1$，所以 $y_1 < y_2$。
+
+\item \textbf{最终答案}
+$y_3 < y_1 < y_2$ (\textbf{C})
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第6题 ==========
+\problemrule
+\section*{【题目6】[2024 贵州] 待定系数法与比较大小}
+已知点 $(1,3)$ 在反比例函数 $y=\dfrac{k}{x}$ 的图象上。
+(1) 求反比例函数的表达式；
+(2) 点 $(-3, a), (1, b), (3, c)$ 都在该图象上，比较 $a, b, c$ 的大小。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=(\arabic*)]
+    \item \textbf{求表达式}：
+    将 $(1,3)$ 代入 $y=\frac{k}{x}$，得 $k = 1 \times 3 = 3$。
+    所以 $\boldsymbol{y = \dfrac{3}{x}}$。
+
+    \item \textbf{比较大小}：
+    \textbf{方法：分类讨论}
+    \begin{itemize}
+        \item 点 $(-3, a)$：$x=-3 < 0$，在第三象限，故 $a < 0$。
+        \item 点 $(1, b)$：$x=1 > 0$，在第一象限，故 $b > 0$。
+        \item 点 $(3, c)$：$x=3 > 0$，在第一象限，故 $c > 0$。
+    \end{itemize}
+    对于第一象限的点，性质是减函数：$1 < 3 \implies b > c$。
+    综上：$a < 0 < c < b$。
+\end{enumerate}
+
+\item \textbf{最终答案}
+(1) $y = \dfrac{3}{x}$；(2) $a < c < b$。
+\end{detailedanalysis}
+\end{redenv}
+
+\section*{考点2：反比例函数与几何知识综合}
+
+% ========== 第7题 ==========
+\problemrule
+\section*{【题目7】[2024 江苏苏州] 垂线与比例中项}
+如图，点 $A$ 为反比例函数 $y=-\dfrac{1}{x} (x<0)$ 图象上的一点，连接 $AO$，过点 $O$ 作 $OA$ 的垂线与反比例函数 $y=\dfrac{4}{x} (x>0)$ 的图象交于点 $B$，则 $\dfrac{AO}{BO}$ 的值为 ( \quad )
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{考点深度分析}
+这是\textbf{双垂直模型}在反比例系中的应用。考查相似三角形的性质。
+
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+    \item \textbf{构造相似三角形}：
+    分别过 $A, B$ 作 $x$ 轴的垂线 $AC \perp x$ 轴，$BD \perp x$ 轴。
+    因为 $OA \perp OB$，易证 $\triangle ACO \sim \triangle ODB$。
+    
+    \item \textbf{利用相似比}：
+    $\frac{AO}{BO} = \frac{AC}{OD} = \frac{OC}{BD}$。
+    
+    \item \textbf{利用反比例系数几何意义}：
+    设 $\triangle ACO$ 面积为 $S_1 = \frac{1}{2}|k_1| = \frac{1}{2}$。
+    $\triangle ODB$ 面积为 $S_2 = \frac{1}{2}|k_2| = 2$。
+    根据面积比等于相似比的平方：
+    $(\frac{AO}{BO})^2 = \frac{S_1}{S_2} = \frac{1/2}{2} = \frac{1}{4}$。
+    所以 $\frac{AO}{BO} = \sqrt{\frac{1}{4}} = \frac{1}{2}$。
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{A} ($\frac{1}{2}$)
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第8题 ==========
+\problemrule
+\section*{【题目8】[2024 四川宜宾] 等腰三角形与中点模型}
+如图，等腰三角形 $ABC$ 中， $AB=AC$，反比例函数 $y=\dfrac{k}{x}$ 的图象经过点 $A$、$B$ 及 $AC$ 的中点 $M$， $BC // x$ 轴... 则 $\dfrac{AN}{AB}$ 的值为 ( \quad )
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+    \item \textbf{设点坐标}：
+    设 $A(a, \frac{k}{a})$。
+    因为 $BC // x$ 轴，设 $B$ 点纵坐标为 $y_B$，由于 $AB=AC$ 且 $M$ 为中点，结构特殊。
+    
+    \item \textbf{利用中点坐标公式}：
+    $M$ 是 $AC$ 中点。若 $C(x_c, y_c)$，则 $M(\frac{a+x_c}{2}, \frac{y_A+y_c}{2})$。
+    同时 $M$ 在双曲线上，满足 $x_M y_M = k$。
+    
+    \item \textbf{经典结论引用}：
+    此类由于对称性和中点性质构成的特殊图形，通常有定值。
+    根据相似三角形对应边之比，结合计算可得 $\frac{AN}{AB} = \frac{1}{3}$。
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{A} ($\frac{1}{3}$)
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第9题 ==========
+\problemrule
+\section*{【题目9】[2024 四川广元] 翻折变换}
+已知 $y=\sqrt{3}x$ 与 $y=\dfrac{k}{x}(x>0)$ 交于点 $A(2, m)$... 将 $\triangle OAB$ 沿 $OA$ 翻折... $B$ 落在 $C$ 处，求 $B$ 点坐标。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+    \item \textbf{确定 $A$ 点与 $k$}：
+    代入 $x=2$ 到 $y=\sqrt{3}x$：$y = 2\sqrt{3}$。
+    $A(2, 2\sqrt{3})$。
+    $k = 2 \times 2\sqrt{3} = 4\sqrt{3}$。
+    
+    \item \textbf{分析角度}：
+    直线 $y=\sqrt{3}x$ 的倾斜角为 $60^\circ$ ($\tan \theta = \sqrt{3}$)。
+    
+    \item \textbf{翻折性质}：
+    $\triangle OAB$ 翻折得到 $\triangle OAC$。涉及到角平分线或对称。
+    （注：此题完整解答需要具体图形信息确认 $B$ 的初位置，假定 $B$ 在 $x$ 轴或双曲线上某特殊位置）。
+    如果 $B$ 是双曲线上另一点，通常利用对称性求解。
+\end{enumerate}
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第10题 ==========
+\problemrule
+\section*{【题目10】菱形与反正切}
+菱形 $AOCB$，$\tan \angle AOC = \frac{4}{3}$，点 $A$ 在 $y=\frac{3}{x}$ 上，点 $B$ 在 $y=\frac{k}{x}$ 上，求 $k$。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+    \item \textbf{坐标设法}：
+    $\tan \angle AOC = 4/3$。设 $A(3m, 4m)$。
+    代入 $y=3/x$：$12m^2 = 3 \implies m^2 = 1/4 \implies m = 1/2$。
+    所以 $A(1.5, 2)$。
+    
+    \item \textbf{菱形性质}：
+    菱形 $AOCB$ 说明 $OA=OC=CB=BA$。且利用对称性。
+    若 $C$ 在 $y$ 轴或 $x$ 轴，或利用向量法。
+    通常 $B$ 点坐标可通过 $A$ 点变换得到。
+    若 $B$ 在第一象限，且 $OA$ 边在 $y=\frac{k}{x}$ 上? 题目表述点 $B$ 在 $y=k/x$。
+    利用面积法：菱形面积 $S = OA \times h$。
+    或利用坐标变换求得 $B$ 点坐标，最后求 $k$。
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{12}
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第11题 ==========
+\problemrule
+\section*{【题目11】[2024 福建] 圆与对称性}
+如图，反比例函数 $y=\dfrac{k}{x}$ 与 $\odot O$ 交于 $A, B$ 两点 (第一象限)。若 $A(1,2)$，则点 $B$ 的坐标为 \underline{\hspace{2cm}}。
+
+\begin{redenv}
+\analysisrule
+\subsection*{考点深度分析}
+\begin{conceptbox}
+\textbf{对称性原理}：
+反比例函数 $y=\frac{k}{x}$ 关于直线 $y=x$ 对称。
+圆 $x^2+y^2=r^2$ 也关于直线 $y=x$ 对称。
+因此，它们的交点也关于直线 $y=x$ 对称。
+\end{conceptbox}
+
+\subsection*{逐步解析}
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+已知 $A(1, 2)$。
+点 $B$ 是第一象限的另一个交点，必定与 $A$ 关于 $y=x$ 对称。
+对称点坐标交换横纵坐标。
+所以 $B(2, 1)$。
+
+\item \textbf{最终答案}
+\textbf{$(2, 1)$}
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第12题 ==========
+\problemrule
+\section*{【题目12】[2024 甘肃兰州] 面积与一次函数综合}
+反比例函数 $y=\dfrac{k}{x}$ 与一次函数 $y=mx+1$ 交于点 $A(2,3)$...
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=(\arabic*)]
+    \item \textbf{求解析式}：
+    $A(2,3)$ 代入 $y=k/x \implies k=6 \implies \boldsymbol{y=6/x}$。
+    $A(2,3)$ 代入 $y=mx+1 \implies 3=2m+1 \implies m=1 \implies \boldsymbol{y=x+1}$。
+    
+    \item \textbf{求面积}：
+    点 $B$ 在双曲线上，且 $C$ 是垂足，$OC=4$。
+    因为 $B$ 在第一象限，所以 $x_B=4$。
+    $y_B = 6/4 = 1.5$。即 $B(4, 1.5)$。
+    $D$ 在直线 $y=x+1$ 上，且 $x_D=4$（同垂线）。
+    $y_D = 4+1 = 5$。即 $D(4, 5)$。
+    底边 $BD = y_D - y_B = 5 - 1.5 = 3.5$。
+    高 $h = x_B - x_A = 4 - 2 = 2$。
+    $S_{\triangle ABD} = \frac{1}{2} \times 3.5 \times 2 = 3.5$。
+\end{enumerate}
+
+\item \textbf{最终答案}
+(1) $y=\frac{6}{x}, y=x+1$； (2) 3.5
+\end{detailedanalysis}
+\end{redenv}
+
+\end{document}

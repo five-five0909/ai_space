@@ -1,0 +1,236 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理习题集}
+\lhead{第8章 数据库恢复和并发控制}
+\cfoot{\thepage}
+
+\title{\textbf{第8章 数据库恢复和并发控制}}
+\date{}
+
+\begin{document}
+
+\section{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 事务的原子性是指（\quad）。
+	      \begin{enumerate}
+		      \item 事务中包括的所有操作要么都做，要么都不做
+		      \item 事务一旦提交，对数据库的改变是永久的
+		      \item 一个事务内部的操作及使用的数据对并发的其他事务是隔离的
+		      \item 事务必须使数据库从一个一致性状态变到另一个一致性状态
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 当数据库遭到破坏时，将其恢复到数据库破坏前的某种一致性状态，这种功效称为（\quad）。
+	      \begin{enumerate}
+		      \item 数据库安全性控制
+		      \item 数据库完整性控制
+		      \item 数据库并发控制
+		      \item 数据库恢复
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库的并发操作可能带来的一个问题是（\quad）。
+	      \begin{enumerate}
+		      \item 丢失修改
+		      \item 非法用户使用
+		      \item 增加数据冗余
+		      \item 提高数据独立性
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 事务并发中出现的主要问题是（\quad）。
+	      \begin{enumerate}
+		      \item 三个选项都正确
+		      \item 丢失更新
+		      \item 不一致的分析
+		      \item 对未提交更新的依赖
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 两个事务T1、T2，并发操作如下所示，则（\quad）。
+	      \begin{enumerate}
+		      \item 丢失修改
+		      \item 不存在任何问题
+		      \item 不可重复读
+		      \item 读脏数据
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在第一个事务以S封锁方式读数据A时，第二个事务对数据A的读方式会遭到失败的是（\quad）。
+	      \begin{enumerate}
+		      \item 实现X封锁的读
+		      \item 实现S封锁的读
+		      \item 不加封锁的读
+		      \item 实现共享型封锁的读
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库系统故障发生时，已提交的事务对数据库的更新还留在缓冲区未写入数据库，则系统故障的恢复需要进行（\quad）处理。
+	      \begin{enumerate}
+		      \item REDO
+		      \item UNDO
+		      \item COMMIT
+		      \item ROLLBACK
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关于触发器的说法不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 触发器是用户定义在关系表上的一类由事件驱动的数据库对象
+		      \item 触发器一旦定义，须用户调用来激活相应的触发器
+		      \item 使用触发器是保证数据完整性的方法
+		      \item 在 MySQL 中支持 INSERT、DELETE、UPDATE 和 SELECT 四种触发器类型
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 关于触发器的说法不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 触发器是用户定义在关系表上的一类由事件驱动的数据库对象
+		      \item 触发器一旦定义，任何对表的修改操作都由数据库服务器自动激活相应触发器
+		      \item 使用触发器是保证数据完整性的方法
+		      \item 在 MySQL 中支持 INSERT、DELETE、UPDATE 和 SELECT 四种触发器类型
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 以下关于触发器的说法中错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 是用户定义在关系表上的一类由事件驱动的数据库对象
+		      \item 触发器定义后，须用户调用来激活相应的触发器
+		      \item 其主要作用是实现主键和外键不能保证的复杂的参照完整性和数据的一致性
+		      \item 是一种保证数据完整性的方法
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 当UPDATE触发器涉及对触发表自身的更新操作时，只能使用（\quad）触发器。
+	      \begin{enumerate}
+		      \item BEFORE UPDATE
+		      \item AFTER UPDATE
+		      \item ALTER UPDATE
+		      \item OLD
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在DELETE触发器代码内，关于OLD的说法中正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 部分是只读的，部分是可写的
+		      \item 全部是只读的，能被更新的
+		      \item 全部都是可写的，能被更新
+		      \item 全部是只读的，不能被更新
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 在INSERT触发器代码内，可引用一个名为（\quad）的虚拟表，来访问被插入的行。
+	      \begin{enumerate}
+		      \item OLD
+		      \item NEW
+		      \item BEFORE
+		      \item AFTER
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 下列（\quad）是对触发器的描述。
+	      \begin{enumerate}
+		      \item 当用户修改数据时，一种特殊形式的存储过程被自动执行
+		      \item 定义了一个有相关列和行的集合
+		      \item SQL语句的预编译集合
+		      \item 它根据一或多列的值，提供对数据库表的行的快速访问
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关于游标说法错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 使用 CLOSE 语句关闭游标
+		      \item 使用游标前必须先声明（定义）它
+		      \item 游标多次使用需要多次声明
+		      \item 每个游标不再需要时都应该被关闭
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 下列关于游标说法错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 使用 CLOSE 语句关闭游标
+		      \item 使用游标前必须先声明（定义）它
+		      \item 游标多次使用需要多次声明
+		      \item 每个游标不再需要时都应该被关闭
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 对存储过程的调用，需要使用（\quad）语句。
+	      \begin{enumerate}
+		      \item RETURN
+		      \item CALL
+		      \item OPEN
+		      \item SELECT
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 下列关于存储函数的调用说法中错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 成功创建存储函数后才能调用
+		      \item 和调用系统内置函数的方法一样
+		      \item 使用关键字SELECT对其进行调用
+		      \item 其语法格式是：CALL sp\_name([func\_parameter[,\dots]])
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 在T-SQL语言中，由用户定义和维护的变量是（\quad）。
+	      \begin{enumerate}
+		      \item 全局变量
+		      \item 静态变量
+		      \item 局部变量
+		      \item 系统变量
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 对关系R进行水平方向分割，用运算是（\quad）。
+	      \begin{enumerate}
+		      \item 交
+		      \item 投影
+		      \item 选择
+		      \item 连接
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 对关系R进行垂直方向分割，用运算是（\quad）。
+	      \begin{enumerate}
+		      \item 交
+		      \item 投影
+		      \item 选择
+		      \item 连接
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 在对关系R和关系S进行自然连接时，只把R中原该舍弃的元组保存到新关系中，这种操作称为（\quad）。
+	      \begin{enumerate}
+		      \item 左外连接
+		      \item 全外连接
+		      \item 内连接
+		      \item 右外连接
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在一个关系表上最多只能建立一个聚簇索引。（\quad）
+	      \textbf{答案：正确}
+
+	\item SQL 语言是 SQL Server 数据库管理系统的专用语言，其它的数据库如 Oracle、Sybase 等都不支持这种语言。（\quad）
+	      \textbf{答案：错误}
+\end{enumerate}
+
+\end{document}

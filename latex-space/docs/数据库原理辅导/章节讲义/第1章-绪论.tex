@@ -1,0 +1,435 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{colortbl}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 颜色定义
+\definecolor{lightblue}{RGB}{230, 245, 255}
+\definecolor{lightyellow}{RGB}{255, 255, 230}
+\definecolor{lightgreen}{RGB}{230, 255, 230}
+\definecolor{lightred}{RGB}{255, 230, 230}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理讲义}
+\lhead{第1章 绪论}
+\cfoot{\thepage}
+
+% bluebox环境定义
+\newenvironment{bluebox}[1]{%
+  \begin{trivlist}
+  \item[\hskip\labelsep \textbf{#1}]
+  \setlength{\parskip}{0.5ex}
+  \setlength{\itemsep}{0.5ex}
+}{%
+  \end{trivlist}
+}
+
+\title{\textbf{第1章 绪论}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{数据库基本概念}
+
+\subsection{数据库的四个基本概念}
+
+\begin{bluebox}{核心概念框架}
+	\textbf{【数据库基本概念框架】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{数据(Database)}：描述事物的符号记录，是数据库中存储的基本对象
+		\item \textbf{数据库(Database, DB)}：长期存储在计算机内、有组织、可共享的大量数据的集合
+		\item \textbf{数据库管理系统(DBMS)}：位于用户与操作系统之间的一层数据管理软件
+		\item \textbf{数据库系统(DBS)}：由数据库、DBMS、应用系统、数据库管理员(DBA)等组成的完整系统
+	\end{itemize}
+
+	\textbf{概念层次关系}：数据 $\rightarrow$ 数据库 $\rightarrow$ DBMS $\rightarrow$ 数据库系统
+\end{bluebox}
+
+\begin{bluebox}{数据独立性}
+	\textbf{【数据独立性 - 数据库系统的核心特征】}
+
+	数据独立性是数据库系统的一个重要特点，也是数据库管理系统必须提供的基本功能。
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{逻辑数据独立性}：应用程序与数据库的逻辑结构相互独立。当模式改变时，外模式保持不变，应用程序无需修改。
+		\item \textbf{物理数据独立性}：应用程序与数据库的物理存储结构相互独立。当物理存储结构改变时，模式保持不变，应用程序无需修改。
+	\end{enumerate}
+
+	\textbf{实现机制}：数据库系统的三级模式结构 + 两级映像
+
+	\begin{itemize}
+		\item 外模式/模式映像 $\rightarrow$ 逻辑独立性
+		\item 模式/内模式映像 $\rightarrow$ 物理独立性
+	\end{itemize}
+\end{bluebox}
+
+\subsection{数据管理技术的发展}
+
+\begin{bluebox}{发展阶段}
+	\textbf{【数据管理技术的发展阶段】}
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{阶段} & \textbf{人工管理阶段} & \textbf{文件系统阶段} & \textbf{数据库系统阶段} \\
+		\hline
+		数据管理者       & 程序员             & 操作系统            & DBMS             \\
+		\hline
+		数据共享性       & 不共享、冗余大         & 共享性差、冗余大        & 共享、冗余小           \\
+		\hline
+		数据独立性       & 不独立             & 物理独立            & 物理+逻辑独立          \\
+		\hline
+		数据控制权       & 程序员             & 操作系统            & DBMS统一控制         \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\begin{bluebox}{数据库系统特点}
+	\textbf{【数据库系统的基本特点】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{数据结构化}：采用数据模型描述数据，数据之间具有联系（这是与文件系统的本质区别）
+		\item \textbf{数据共享性高}：面向整个系统，可被多个应用共享
+		\item \textbf{数据冗余度低}：由DBMS统一控制，减少不必要的重复
+		\item \textbf{数据独立性高}：物理独立性和逻辑独立性
+		\item \textbf{数据由DBMS统一管理和控制}：
+		      \begin{itemize}
+			      \item 安全性保护
+			      \item 完整性检查
+			      \item 并发控制
+			      \item 数据库恢复
+		      \end{itemize}
+	\end{enumerate}
+\end{bluebox}
+
+\subsection{数据库系统的三级模式结构}
+
+\begin{bluebox}{三级模式结构}
+	\textbf{【数据库系统的三级模式结构】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{模式(Schema)/逻辑模式}：
+		      \begin{itemize}
+			      \item 数据库中全体数据的逻辑结构和特征的描述
+			      \item 一个数据库只有一个模式
+			      \item 是数据库的中间层，不涉及物理存储
+		      \end{itemize}
+
+		\item \textbf{外模式(External Schema)/子模式/用户模式}：
+		      \begin{itemize}
+			      \item 数据库用户能够看到和使用的局部数据的逻辑结构和特征的描述
+			      \item 一个数据库可以有多个外模式
+			      \item 是模式的子集
+		      \end{itemize}
+
+		\item \textbf{内模式(Internal Schema)/存储模式}：
+		      \begin{itemize}
+			      \item 数据物理结构和存储方式的描述
+			      \item 是数据最底层的抽象
+			      \item 一个数据库只有一个内模式
+		      \end{itemize}
+	\end{enumerate}
+\end{bluebox}
+
+\begin{bluebox}{两级映像}
+	\textbf{【数据库的两级映像】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{外模式/模式映像}：
+		      \begin{itemize}
+			      \item 定义外模式与模式之间的对应关系
+			      \item 当模式改变时，修改映像，外模式保持不变 $\rightarrow$ 保证逻辑独立性
+		      \end{itemize}
+
+		\item \textbf{模式/内模式映像}：
+		      \begin{itemize}
+			      \item 定义数据全局逻辑结构与物理存储之间的对应关系
+			      \item 当物理存储改变时，修改映像，模式保持不变 $\rightarrow$ 保证物理独立性
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{记忆口诀}：外模映模式（外 $\rightarrow$ 模式），模式映内模（模式 $\rightarrow$ 内）
+\end{bluebox}
+
+\begin{bluebox}{重要结论}
+	\textbf{【三级模式结构的必考结论】}
+
+	\begin{itemize}
+		\item \textbf{模式是中心}：连接外模式和内模式的桥梁
+		\item \textbf{外模式可以有多个}：不同用户有不同的视图
+		\item \textbf{内模式只能有一个}：物理存储只有一种
+		\item \textbf{两级映像保证数据独立性}：这是数据库系统区别于文件系统的根本标志
+		\item \textbf{模式是数据库中数据的三级映射结构的中间层}，既是外模式的逻辑抽象，也是内模式的物理实现
+	\end{itemize}
+\end{bluebox}
+
+\subsection{数据库系统的组成}
+
+\begin{bluebox}{系统组成}
+	\textbf{【数据库系统的组成】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{硬件}：计算机硬件平台
+		\item \textbf{软件}：DBMS、操作系统、应用程序
+		\item \textbf{数据}：数据库的核心
+		\item \textbf{人员}：
+		      \begin{itemize}
+			      \item \textbf{DBA(数据库管理员)}：全面管理和控制数据库系统
+			      \item \textbf{系统分析员}：负责应用系统的需求分析
+			      \item \textbf{程序员}：编写应用程序
+			      \item \textbf{用户}：使用数据库的人员
+		      \end{itemize}
+	\end{enumerate}
+\end{bluebox}
+
+\section{数据模型}
+
+\subsection{数据模型的三要素}
+
+\begin{bluebox}{三要素}
+	\textbf{【数据模型的三要素】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{数据结构}：描述数据库的组成对象以及对象之间的联系
+		\item \textbf{数据操作}：对数据库中各种对象的实例允许执行的操作集合
+		\item \textbf{完整性约束}：一组完整性规则，保证数据的正确性、有效性、相容性
+	\end{enumerate}
+
+	\textbf{重要结论}：数据模型是数据库系统的基础和核心
+\end{bluebox}
+
+\subsection{概念模型}
+
+\begin{bluebox}{E-R模型}
+	\textbf{【E-R(实体-联系)模型】}
+
+	E-R模型是数据库设计中最常用的概念模型，用于描述现实世界的信息结构。
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{实体(Entity)}：客观存在并可相互区别的事物
+		\item \textbf{属性(Attribute)}：实体具有的某一特性
+		\item \textbf{联系(Relationship)}：实体之间的对应关系
+	\end{enumerate}
+
+	\textbf{实体间的联系类型}：
+
+	\begin{itemize}
+		\item \textbf{1:1(一对一)}：一个实体对应一个实体
+		\item \textbf{1:n(一对多)}：一个实体对应多个实体
+		\item \textbf{m:n(多对多)}：多个实体对应多个实体
+	\end{itemize}
+
+	\textbf{E-R图表示}：
+
+	\begin{itemize}
+		\item 矩形：实体
+		\item 椭圆形：属性
+		\item 菱形：联系
+	\end{itemize}
+\end{bluebox}
+
+\subsection{常见的数据模型}
+
+\begin{bluebox}{数据模型分类}
+	\textbf{【数据模型的分类】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{层次模型}：用树形结构表示实体之间的联系
+		\item \textbf{网状模型}：用图结构表示实体之间的联系
+		\item \textbf{关系模型}：用二维表表示实体及实体之间的联系（当前主流）
+		\item \textbf{面向对象模型}：新一代数据库模型
+	\end{enumerate}
+
+	\textbf{关系模型是当前数据库系统的主流模型}，采用二维表结构，具有严格的数学理论基础。
+\end{bluebox}
+
+\section{本章必背知识点}
+
+\begin{bluebox}{命题人思维版}
+	\textbf{【本章应背诵知识点】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{数据库系统的本质特征}：数据结构化（区别于文件系统的根本标志）
+		\item \textbf{数据独立性}：物理独立性 + 逻辑独立性
+		\item \textbf{三级模式结构}：模式(一个) $\rightarrow$ 外模式(多个) $\rightarrow$ 内模式(一个)
+		\item \textbf{两级映像}：外模式/模式映像 + 模式/内模式映像
+		\item \textbf{DBMS的功能}：数据定义、数据操纵、数据库运行控制、数据库维护
+		\item \textbf{DBA的职责}：决定数据库中的信息内容和结构、决定数据库的存储结构和存取策略、定义数据的安全性要求和完整性约束条件、监视和控制系统运行
+	\end{enumerate}
+
+	\textbf{选项辨析速查表（考场5秒决策）}：
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{概念} & \textbf{能否改变} & \textbf{属于哪级模式} & \textbf{记忆口诀} \\
+		\hline
+		模式          & 由DBA修改        & 中间层             & "模式是核心"       \\
+		\hline
+		外模式         & 可多个，用户定义      & 用户层             & "外是用户视角"      \\
+		\hline
+		内模式         & 由DBA修改        & 物理层             & "内是存储方式"      \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\begin{bluebox}{高频陷阱清单}
+	\textbf{【本章高频陷阱清单】}
+
+	\begin{itemize}
+		\item 陷阱1："数据库就是DBMS" $\rightarrow$ \textbf{错误！} DBMS是管理软件，数据库是存储数据的集合
+		\item 陷阱2："文件系统也能实现数据共享" $\rightarrow$ \textbf{错误！} 共享性低、冗余大、无完整性保障
+		\item 陷阱3："数据独立性由DBA保证" $\rightarrow$ \textbf{错误！} 由三级模式结构和两级映像保证
+		\item 陷阱4："一个数据库可以有多个内模式" $\rightarrow$ \textbf{错误！} 只能有一个
+		\item 陷阱5："外模式是模式的子集" $\rightarrow$ \textbf{正确！} 但要注意是逻辑子集
+	\end{itemize}
+\end{bluebox}
+
+\section{命题趋势与实战策略}
+
+\begin{bluebox}{考场秒杀三步法}
+	\textbf{【本章考场秒杀三步法】}
+
+	\begin{enumerate}
+		\item \textbf{第一步：识别题型}
+		      \begin{itemize}
+			      \item 问"数据库系统与文件系统的区别" $\rightarrow$ 答"数据结构化"
+			      \item 问"保证数据独立性" $\rightarrow$ 答"两级映像"
+			      \item 问"三级模式" $\rightarrow$ 记住"外-模-内"顺序
+		      \end{itemize}
+
+		\item \textbf{第二步：排除干扰项}
+		      \begin{itemize}
+			      \item 混淆DB和DBMS的选项 $\rightarrow$ 直接排除
+			      \item 说"一个数据库有多个内模式" $\rightarrow$ 直接排除
+		      \end{itemize}
+
+		\item \textbf{第三步：关键词锁定}
+		      \begin{itemize}
+			      \item "共享性高、冗余度低" $\rightarrow$ 指向数据库系统
+			      \item "数据结构化" $\rightarrow$ 数据库系统本质特征
+			      \item "外模式/模式映像" $\rightarrow$ 逻辑独立性
+		      \end{itemize}
+	\end{enumerate}
+\end{bluebox}
+
+\begin{bluebox}{近年真题规律}
+	\textbf{【本章命题规律分析】}
+
+	\begin{itemize}
+		\item 80\%考题涉及"数据独立性"概念
+		\item 75\%考题考查"三级模式结构"
+		\item 70\%考题以"DBMS的功能"作为干扰项
+		\item 新趋势：结合E-R模型设计考查概念
+	\end{itemize}
+\end{bluebox}
+
+\section{典型例题深度解析}
+
+\begin{bluebox}{例题1}
+	\textbf{【例题1】} 数据库系统与文件系统的主要区别是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 数据库系统复杂，而文件系统简单
+		\item[B)] 文件系统不能处理数据冗余和数据独立性问题，而数据库系统能够处理
+		\item[C)] 文件系统只能管理程序文件，而数据库系统能够管理各种类型文件
+		\item[D)] 文件系统管理数据量较少，而数据库系统能够管理庞大数据量
+	\end{itemize}
+
+	\textbf{答案：B}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查数据库系统与文件系统的本质区别
+		\item \textbf{关键区分点}：文件系统无法解决数据冗余和数据独立性问题，这是数据库系统产生的根本原因
+		\item \textbf{命题人意图}：测试考生是否理解数据库系统出现的动机
+	\end{itemize}
+
+	\textbf{选项分析}：
+
+	\begin{itemize}
+		\item[A] 错误：复杂程度不是主要区别
+		\item[B] 正确：这是数据库系统与文件系统的根本区别
+		\item[C] 错误：文件类型不是关键区别
+		\item[D] 错误：数据量不是本质区别
+	\end{itemize}
+
+	\textbf{记忆口诀}：数据库取代文件系统，因为"独立+共享"
+\end{bluebox}
+
+\begin{bluebox}{例题2}
+	\textbf{【例题2】} 要确保数据库物理数据独立性，需要修改的是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 模式
+		\item[B)] 模式/内模式映射
+		\item[C)] 模式/外模式映射
+		\item[D)] 内模式
+	\end{itemize}
+
+	\textbf{答案：B}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查两级映像的功能
+		\item \textbf{关键区分点}：物理数据独立性由模式/内模式映像保证
+		\item \textbf{命题人意图}：测试考生对两级映像功能的理解
+	\end{itemize}
+
+	\textbf{选项分析}：
+
+	\begin{itemize}
+		\item[A] 错误：修改模式不能保证物理独立性
+		\item[B] 正确：修改模式/内模式映射即可保证物理独立性
+		\item[C] 错误：这是保证逻辑独立性的
+		\item[D] 错误：内模式是物理存储结构本身
+	\end{itemize}
+
+	\textbf{记忆口诀}：物理独立靠"模式/内模式"；逻辑独立靠"外模式/模式"
+\end{bluebox}
+
+\begin{bluebox}{例题3}
+	\textbf{【例题3】} 在数据库的三级模式结构中，描述数据库中全体数据的全局逻辑结构和特性的是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 模式
+		\item[B)] 外模式
+		\item[C)] 内模式
+		\item[D)] 存储模式
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查三级模式的定义
+		\item \textbf{关键区分点}：模式是全局逻辑结构，外模式是局部，内模式是物理存储
+		\item \textbf{命题人意图}：测试考生对三级模式概念的理解
+	\end{itemize}
+
+	\textbf{记忆口诀}：模式=全局逻辑，外模式=用户视图，内模式=物理存储
+\end{bluebox}
+
+\end{document}

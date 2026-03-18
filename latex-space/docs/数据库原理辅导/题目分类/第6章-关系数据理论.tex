@@ -1,0 +1,210 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理习题集}
+\lhead{第6章 关系数据理论}
+\cfoot{\thepage}
+
+\title{\textbf{第6章 关系数据理论}}
+\date{}
+
+\begin{document}
+
+\section{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 关系数据库的（\quad）理论是关系数据库设计的理论依据。
+	      \begin{enumerate}
+		      \item 专业化
+		      \item 规范化
+		      \item 一般性
+		      \item 特殊性
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 关系规范化实质上是围绕（\quad）进行。
+	      \begin{enumerate}
+		      \item 函数
+		      \item 函数依赖
+		      \item 范式
+		      \item 关系
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 设关系模式R的属性集是U，X是U的一个子集。如果X$\to$U在R上成立，但对于X的任一真子集X1$\to$U不成立，那么称X是R上的一个（\quad）。
+	      \begin{enumerate}
+		      \item 候选键
+		      \item 超键
+		      \item 主键
+		      \item 外键
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 当关系有多个候选码时，选定一个作为主键，若主键为全码，应包含（\quad）。
+	      \begin{enumerate}
+		      \item 单个属性
+		      \item 两个属性
+		      \item 多个属性
+		      \item 全部属性
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item X$\to$Y，当下列哪一条成立时，称为平凡的函数依赖（\quad）。
+	      \begin{enumerate}
+		      \item Y包含于X
+		      \item X$\cap$Y=$\emptyset$
+		      \item Y$\subseteq$X
+		      \item X包含于Y
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item A值与B值有一对多联系，可写出的函数依赖是（\quad）。
+	      \begin{enumerate}
+		      \item B$\to$A
+		      \item A$\to$B
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 如果关系模式设计的不好，会出现（\quad）。
+	      \begin{enumerate}
+		      \item 数据冗余
+		      \item 函数依赖
+		      \item 多值依赖
+		      \item 关键码
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在关系模式 R（A，B，C）中，存在函数依赖关系｛B$\to$A，（A，C）$\to$B｝，R 满足的范式为（\quad）。
+	      \begin{enumerate}
+		      \item 1NF
+		      \item 2NF
+		      \item 3NF
+		      \item 不确定
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 若一个关系模式只有两个属性，则该关系模式（\quad）。
+	      \begin{enumerate}
+		      \item 最高属于 1NF
+		      \item 最高属于 2NF
+		      \item 可能属于 3NF
+		      \item 必定属于 3NF
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 在一个关系R中，若每个数据项都是不可再分割的，那么关系R一定属于（\quad）。
+	      \begin{enumerate}
+		      \item 1NF
+		      \item 3NF
+		      \item BCNF
+		      \item 2NF
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 规范化理论是关系数据库进行逻辑设计的理论依据，根据这个理论，关系数据库中的关系必须满足：其每一属性都是（\quad）。
+	      \begin{enumerate}
+		      \item 不可分解的
+		      \item 互不相关的
+		      \item 长度可变的
+		      \item 互相关联的
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 下列四项中，关系规范化程度最高的是关系满足（\quad）。
+	      \begin{enumerate}
+		      \item 第三范式
+		      \item 非规范关系
+		      \item 第二范式
+		      \item 第一范式
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库通常使用（\quad）以上关系。
+	      \begin{enumerate}
+		      \item 1NF
+		      \item 2NF
+		      \item 3NF
+		      \item 4NF
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在 E-R 模型转化成关系模型过程中，以下叙述不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 每个实体类型转化成一个关系模式
+		      \item 每个联系类型转化成一个关系模式
+		      \item 每个 m:n 联系转化成一个关系模式
+		      \item 在 1:n 联系中，"1"端实体的主键作为外部键放在"n"端实体类型转换成的关系模式中
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 将E-R图转换为关系模式时，实体和联系都可以表示为（\quad）。
+	      \begin{enumerate}
+		      \item 属性
+		      \item 键
+		      \item 关系
+		      \item 域
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 若两个实体之间的联系是1：m，则实现1：m联系的方法是（\quad）。
+	      \begin{enumerate}
+		      \item 在"m"端实体转换的关系中加入"1"端的实体转换关系的码
+		      \item 将"m"端实体转换关系的码加入到"1"端的关系
+		      \item 在两个实体转换的关系中，分别加入另一个关系码
+		      \item 将两个实体转换成一个关系
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 有两个实体集，而且这两个实体集之间存在 M:N 联系，则依照转换规则，这个 E-R 结构转换成表的数目应该为（\quad）个。
+	      \begin{enumerate}
+		      \item 1
+		      \item 2
+		      \item 3
+		      \item 4
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 飞机的座位和乘客之间的联系是（\quad）。
+	      \begin{enumerate}
+		      \item 1:1
+		      \item 1:N
+		      \item M:N
+		      \item N:1
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 设有关系R(A，B，C)，主码为A；S(D，A)，主码为D，外码为A，参照R中的属性A。关系R的元组\{(1，2，3)，(2，1，3)，(3，7，8)\}和S的元组\{(d1，2)，(d2，NULL)，(d3，4)，(d4，1)\}。关系S中违反参照完整性规则的元组是（\quad）。
+	      \begin{enumerate}
+		      \item (d1，2)
+		      \item (d2，NULL)
+		      \item (d3，4)
+		      \item (d4，1)
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 下列关于数据库特点的叙述中，错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库能够减少数据冗余
+		      \item 数据库中的数据可以共享
+		      \item 数据库中的表能够避免一切数据的重复
+		      \item 数据库中的表既相对独立，又相互联系
+	      \end{enumerate}
+	      \textbf{答案：C}
+\end{enumerate}
+
+\end{document}

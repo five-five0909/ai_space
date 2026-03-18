@@ -1,0 +1,614 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{booktabs}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 颜色定义
+\definecolor{lightblue}{RGB}{230, 245, 255}
+\definecolor{lightyellow}{RGB}{255, 255, 230}
+\definecolor{lightgreen}{RGB}{230, 255, 230}
+\definecolor{lightred}{RGB}{255, 230, 230}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理讲义}
+\lhead{第4章 数据库安全性}
+\cfoot{\thepage}
+
+% bluebox环境定义
+\newenvironment{bluebox}[1]{%
+  \begin{trivlist}
+  \item[\hskip\labelsep \textbf{#1}]
+  \setlength{\parskip}{0.5ex}
+  \setlength{\itemsep}{0.5ex}
+}{%
+  \end{trivlist}
+}
+
+\title{\textbf{第4章 数据库安全性}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{数据库安全性概述}
+
+\subsection{安全性的基本概念}
+
+\begin{bluebox}{核心概念框架}
+	\textbf{【数据库安全性核心认知框架】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{数据库安全性}：保护数据库，防止未经授权的或不合法的使用造成的数据泄漏、更改破坏
+		\item \textbf{威胁来源}：非法用户访问、越权操作、数据泄露、恶意破坏
+		\item \textbf{保护对象}：数据机密性、数据完整性、系统可用性
+		\item \textbf{安全级别}：C1级（酌情安全保护）、C2级（受控访问保护）、B1级（标记安全保护）、B2级（结构化保护）
+	\end{itemize}
+
+	\textbf{安全性 vs 完整性}：
+	\begin{itemize}
+		\item 安全性：防止非法用户访问（Who can do what）
+		      完整性：防止合法用户破坏数据（Correct data）
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{安全性控制方法}
+	\textbf{【数据库安全性控制方法】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{用户标识和鉴定}：最外层保护，用户名+密码
+		\item \textbf{存取控制}：定义用户权限和检查权限
+		\item \textbf{数据加密}：对敏感数据加密存储
+		\item \textbf{审计}：记录用户对数据库的操作
+		\item \textbf{视图机制}：通过视图隐藏敏感数据
+	\end{enumerate}
+
+	\textbf{记忆口诀}：标识鉴定是入口，存取控制最核心，加密审计来辅助
+\end{bluebox}
+
+\section{存取控制}
+
+\subsection{自主存取控制与强制存取控制}
+
+\begin{bluebox}{存取控制}
+	\textbf{【存取控制分类】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{自主存取控制(DAC)}：
+		      \begin{itemize}
+			      \item 用户对不同数据对象有不同的存取权限
+			      \item 权限可以转授给其他用户
+			      \item 代表：GRANT、REVOKE语句
+		      \end{itemize}
+		\item \textbf{强制存取控制(MAC)}：
+		      \begin{itemize}
+			      \item 每个数据对象有密级标记
+			      \item 每个用户有许可证级别
+			      \item 必须满足许可证级别 $\ge$ 密级才能访问
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{重要结论}：自主存取控制灵活但不够安全，强制存取控制安全但不够灵活
+\end{bluebox}
+
+\begin{bluebox}{GRANT与REVOKE}
+	\textbf{【权限管理语句】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{GRANT（授予权限）}：
+		      \begin{verbatim}
+GRANT 权限 ON 对象 TO 用户 [WITH GRANT OPTION];
+		      \end{verbatim}
+		\item \textbf{REVOKE（回收权限）}：
+		      \begin{verbatim}
+REVOKE 权限 ON 对象 FROM 用户 [CASCADE|RESTRICT];
+		      \end{verbatim}
+	\end{enumerate}
+
+	\textbf{常用权限}：
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{对象} & \textbf{权限}                    & \textbf{说明} \\
+		\hline
+		表/视图        & SELECT, INSERT, UPDATE, DELETE & 数据操作        \\
+		\hline
+		表           & REFERENCES                     & 外键引用        \\
+		\hline
+		数据库         & CREATE TEMPORARY TABLES        & 创建临时表       \\
+		\hline
+		全局          & SELECT, UPDATE, DELETE         & 全局权限        \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\begin{bluebox}{权限级别}
+	\textbf{【MySQL权限层级】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{全局权限(Global)}：应用于MySQL服务器上所有数据库
+		\item \textbf{数据库权限(Database)}：应用于特定数据库及其内容
+		\item \textbf{表权限(Table)}：应用于特定表
+		\item \textbf{列权限(Column)}：应用于特定列
+		\item \textbf{存储过程权限}：应用于存储过程
+	\end{enumerate}
+
+	\textbf{权限粒度}：粒度越小，管理越灵活，但开销越大
+\end{bluebox}
+
+\section{数据库审计}
+
+\subsection{审计概念}
+
+\begin{bluebox}{审计机制}
+	\textbf{【数据库审计】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{定义}：审计跟踪(Audit Trail)，记录用户对数据库的所有操作
+		\item \textbf{作用}：
+		      \begin{itemize}
+			      追踪非法操作
+			      发现安全漏洞
+			      事后分析取证
+		      \end{itemize}
+		\item \textbf{审计内容}：
+		      \begin{itemize}
+			      谁访问了数据
+			      什么时候访问的
+			      执行了什么操作
+			      修改了什么数据
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{审计方式}：
+	\begin{itemize}
+		\item Statement审计：记录SQL语句
+		\item Row审计：记录数据行变化
+		\item Access审计：记录访问尝试
+	\end{itemize}
+\end{bluebox}
+
+\section{数据加密}
+
+\subsection{加密技术}
+
+\begin{bluebox}{数据加密}
+	\textbf{【数据库数据加密】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{存储加密}：
+		      \begin{itemize}
+			      \item 透明存储加密：在OS/DBMS层加密
+			      \item 非透明存储加密：通过加密函数实现
+		      \end{itemize}
+		\item \textbf{传输加密}：
+		      \begin{itemize}
+			      \item SSL/TLS加密通道
+			      \item 链路加密
+			      \item 端到端加密
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{常用加密算法}：
+	\begin{itemize}
+		\item 对称加密：DES、AES
+		\item 非对称加密：RSA、ECC
+		\item 哈希：MD5、SHA
+	\end{itemize}
+\end{bluebox}
+
+\section{完整性控制与安全性控制的区别}
+
+\begin{bluebox}{重要对比}
+	\textbf{【完整性 vs 安全性对比】}
+
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{特征} & \textbf{完整性} & \textbf{安全性} \\
+		\hline
+		目的          & 保证数据正确性、相容性  & 防止非法访问、破坏    \\
+		\hline
+		对象          & 合法用户操作       & 非法用户访问       \\
+		\hline
+		手段          & 约束、触发器、断言    & 存取控制、加密、审计   \\
+		\hline
+		关注点         & 数据值是否合法      & 谁可以访问什么数据    \\
+		\hline
+		违反时         & 拒绝操作         & 拒绝访问         \\
+		\hline
+	\end{tabular}
+
+	\textbf{记忆口诀}：完整性保"正确"，安全性防"非法"
+\end{bluebox}
+
+\section{数据库用户管理}
+
+\begin{bluebox}{用户管理}
+\textbf{【MySQL用户管理】}
+
+\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+\item \textbf{创建用户}：
+\begin{verbatim}
+CREATE USER '用户名'@'主机' IDENTIFIED BY '密码';
+		      \end{verbatim}
+\item \textbf{修改用户}：
+\begin{verbatim}
+ALTER USER '用户名'@'主机' IDENTIFIED BY '新密码';
+RENAME USER '旧名' TO '新名';
+		      \end{verbatim}
+\item \textbf{删除用户}：
+\begin{verbatim}
+DROP USER '用户名'@'主机';
+		      \end{verbatim}
+\item \textbf{修改密码}：
+\begin{verbatim}
+SET PASSWORD FOR '用户名'@'主机' = PASSWORD('新密码');
+\end{itemize}
+\end{enumerate}
+\end{bluebox}
+
+\section{本章必背知识点}
+
+\begin{bluebox}{命题人思维版}
+	\textbf{【本章应背诵知识点】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{数据库安全性定义}：保护数据库防止未经授权的非法使用
+		\item \textbf{安全性控制方法}：用户标识鉴定、存取控制、数据加密、审计、视图
+		\item \textbf{GRANT/REVOKE}：授予和回收权限
+		\item \textbf{DAC vs MAC}：自主存取控制 vs 强制存取控制
+		\item \textbf{安全性vs完整性}：防非法vs保正确
+		\item \textbf{权限级别}：全局、数据库、表、列
+	\end{enumerate}
+
+	\textbf{选项辨析速查表（考场5秒决策）}：
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{概念} & \textbf{作用} & \textbf{属于} & \textbf{记忆口诀} \\
+		\hline
+		标识鉴定        & 入口控制        & 安全性         & "第一道门"        \\
+		\hline
+		存取控制        & 权限管理        & 安全性         & "核心防线"        \\
+		\hline
+		数据加密        & 数据保护        & 安全性         & "最后屏障"        \\
+		\hline
+		审计          & 追踪记录        & 安全性         & "事后追踪"        \\
+		\hline
+		完整性约束       & 数据正确性       & 完整性         & "数据把关"        \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\begin{bluebox}{高频陷阱清单}
+	\textbf{【本章高频陷阱清单】}
+
+	\begin{itemize}
+		\item 陷阱1："数据库安全性就是完整性" $\rightarrow$ \textbf{错误！} 安全性防非法，完整性保正确
+		\item 陷阱2："GRANT可以授予所有权限" $\rightarrow$ \textbf{错误！} 只能授予已拥有的权限
+		\item 陷阱3："REVOKE会级联回收" $\rightarrow$ \textbf{区分！} CASCADE级联，RESTRICT限制
+		\item 陷阱4："加密可以解决所有安全问题" $\rightarrow$ \textbf{错误！} 加密只是手段之一
+		\item 陷阱5："视图主要用于查询" $\rightarrow$ \textbf{错误！} 视图也可用于安全性
+		\item 陷阱6："备份是安全性措施" $\rightarrow$ \textbf{错误！} 备份属于恢复范畴
+	\end{itemize}
+\end{bluebox}
+
+\section{典型例题深度解析}
+
+\begin{bluebox}{例题1：安全性定义}
+	\textbf{【例题1】} 保护数据库，防止未经授权的或不合法的使用造成的数据泄漏、更改破坏。这是指数据的（\quad）。
+
+	\begin{itemize}
+		\item[A)] 安全性
+		\item[B)] 完整性
+		\item[C)] 并发控制
+		\item[D)] 恢复
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查数据库安全性的定义
+		\item \textbf{关键区分点}：安全性关注"未经授权的非法使用"
+		\item \textbf{命题人意图}：测试考生对安全性概念的理解
+	\end{itemize}
+
+	\textbf{概念对比}：
+	\begin{itemize}
+		\item 安全性：防非法访问
+		\item 完整性：防合法用户破坏数据正确性
+		\item 并发控制：处理多用户同时访问
+		\item 恢复：从故障中恢复数据
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{例题2：安全性控制方法}
+	\textbf{【例题2】} 以下不是数据库安全性控制方法的是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 设置口令
+		\item[B)] 控制用户存取权限
+		\item[C)] 数据加密
+		\item[D)] 备份
+	\end{itemize}
+
+	\textbf{答案：D}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查安全性控制方法的识别
+		\item \textbf{关键区分点}：备份属于恢复范畴，不是安全性措施
+		\item \textbf{命题人意图}：测试考生对安全性控制方法的掌握
+	\end{itemize}
+
+	\textbf{安全性控制方法}：
+	\begin{itemize}
+		\item 设置口令（用户标识）
+		\item 存取控制（权限管理）
+		\item 数据加密（存储保护）
+		\item 审计（操作追踪）
+	\end{itemize}
+
+	\textbf{不属于安全性}：
+	\begin{itemize}
+		\item 备份：属于恢复机制
+		\item 约束：属于完整性机制
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{例题3：权限定义}
+	\textbf{【例题3】} 在数据系统中，对存取权限的定义称为（\quad）。
+
+	\begin{itemize}
+		\item[A)] 授权
+		\item[B)] 命令
+		\item[C)] 定义
+		\item[D)] 审计
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查授权的概念
+		\item \textbf{关键区分点}：定义用户存取权限就是"授权"
+		\item \textbf{命题人意图}：测试考生对授权术语的掌握
+	\end{itemize}
+
+	\textbf{授权(Authorization)}：
+	\begin{itemize}
+		\item GRANT语句：授予权限
+		\item REVOKE语句：回收权限
+		\item 授权定义哪些用户可以访问哪些数据对象
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{例题4：GRANT/REVOKE}
+	\textbf{【例题4】} SQL的GRANT和REVOKE语句主要是用来维护数据库的（\quad）。
+
+	\begin{itemize}
+		\item[A)] 完整性
+		\item[B)] 可靠性
+		\item[C)] 安全性
+		\item[D)] 一致性
+	\end{itemize}
+
+	\textbf{答案：C}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查GRANT和REVOKE语句的功能
+		\item \textbf{关键区分点}：这两个语句属于DCL，用于权限控制
+		\item \textbf{命题人意图}：测试考生对SQL控制功能的掌握
+	\end{itemize}
+
+	\textbf{GRANT vs REVOKE}：
+	\begin{itemize}
+		\item GRANT：授予权限 $\rightarrow$ 安全性
+		\item REVOKE：回收权限 $\rightarrow$ 安全性
+		\item 两者都是权限管理语句
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{例题5：DBMS统一管理}
+	\textbf{【例题5】} 数据库管理系统具有对数据的统一管理和控制功能，不包括（\quad）。
+
+	\begin{itemize}
+		\item[A)] 数据的并发控制
+		\item[B)] 控制数据冗余
+		\item[C)] 数据的完整性
+		\item[D)] 数据的故障恢复
+	\end{itemize}
+
+	\textbf{答案：B}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查DBMS的功能
+		\item \textbf{关键区分点}：控制数据冗余不是DBMS的直接功能
+		\item \textbf{命题人意图}：测试考生对DBMS功能的理解
+	\end{itemize}
+
+	\textbf{DBMS的功能}：
+	\begin{itemize}
+		\item 数据定义（DDL）
+		\item 数据操纵（DML）
+		\item 并发控制
+		\item 完整性控制
+		\item 恢复控制
+		\item 安全性控制
+	\end{itemize}
+
+	\textbf{DBMS不能直接控制}：
+	\begin{itemize}
+		\item 数据冗余：需要通过良好的设计来减少，不是DBMS强制控制
+		\item 数据冗余是由设计决定的，不是DBMS的功能
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{例题6：最小授权原则}
+	\textbf{【例题6】} 授权数据对象的（\quad），则授权子系统的越灵活。
+
+	\begin{itemize}
+		\item[A)] 粒度越小
+		\item[B)] 粒度越大
+		\item[C)] 约束越少
+		\item[D)] 约束越多
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查权限粒度的概念
+		\item \textbf{关键区分点}：粒度越小，授权越精细、越灵活
+		\item \textbf{命题人意图}：测试考生对权限管理灵活性的理解
+	\end{itemize}
+
+	\textbf{粒度对比}：
+	\begin{itemize}
+		\item 粒度小（列级）：精细控制，灵活性高，管理开销大
+		\item 粒度大（表级/数据库级）：粗粒度控制，灵活性低，管理开销小
+	\end{itemize}
+
+	\textbf{记忆口诀}：粒度小，灵活高，管理细粒度
+\end{bluebox}
+
+\begin{bluebox}{例题7：三级模式与安全性}
+	\textbf{【例题7】} 数据库的三级模式体系结构的划分，有利于保持数据库的（\quad）。
+
+	\begin{itemize}
+		\item[A)] 数据独立性
+		\item[B)] 结构规范化
+		\item[C)] 数据安全性
+		\item[D)] 操作可行性
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查三级模式结构的作用
+		\item \textbf{关键区分点}：三级模式保证数据独立性
+		\item \textbf{命题人意图}：测试考生对数据库系统体系结构的理解
+	\end{itemize}
+
+	\textbf{三级模式与独立性}：
+	\begin{itemize}
+		\item 外模式/模式映像 $\rightarrow$ 逻辑独立性
+		\item 模式/内模式映像 $\rightarrow$ 物理独立性
+	\end{itemize}
+
+	\textbf{安全性}：通过GRANT/REVOKE、视图、加密等实现
+\end{bluebox}
+
+\begin{bluebox}{例题8：数据操作最小单位}
+	\textbf{【例题8】} 在数据库系统中，对数据操作的最小单位是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 数据项
+		\item[B)] 字节
+		\item[C)] 记录
+		\item[D)] 字符
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}
+		\item \textbf{题目本质}：考查数据库操作的基本单位
+		\item \textbf{关键区分点}：数据项是数据库操作的最小单位
+		\item \textbf{命题人意图}：测试考生对数据库系统的理解
+	\end{itemize}
+
+	\textbf{数据单位层次}：
+	\begin{itemize}
+		\item 字节：计算机存储基本单位
+		\item 字符：数据表示基本单位
+		\item 数据项：数据库操作最小单位（如一个字段值）
+		\item 记录：相关数据项的集合
+		\item 文件：记录的集合
+	\end{itemize}
+\end{bluebox}
+
+\section{命题趋势与实战策略}
+
+\begin{bluebox}{考场秒杀三步法}
+	\textbf{【本章考场秒杀三步法】}
+
+	\begin{enumerate}
+		\item \textbf{第一步：识别题型}
+		      \begin{itemize}
+			      问安全性控制方法 $\rightarrow$ 识别五大方法
+			      问授权语句 $\rightarrow$ 区分GRANT/REVOKE
+			      问安全性vs完整性 $\rightarrow$ 记住对比表
+		      \end{itemize}
+
+		\item \textbf{第二步：排除干扰项}
+		      \begin{itemize}
+			      混淆备份与安全 $\rightarrow$ 备份属于恢复
+			      混淆完整性与安全性 $\rightarrow$ 正确vs非法
+			      混淆约束与权限 $\rightarrow$ 约束是完整性
+		      \end{itemize}
+
+		\item \textbf{第三步：关键词锁定}
+		      \begin{itemize}
+			      "未经授权" $\rightarrow$ 安全性
+			      "数据泄漏" $\rightarrow$ 安全性
+			      "正确性相容性" $\rightarrow$ 完整性
+		      \end{itemize}
+	\end{enumerate}
+\end{bluebox}
+
+\begin{bluebox}{近年真题规律}
+	\textbf{【本章命题规律分析】}
+
+	\begin{itemize}
+		\item 85\%考题涉及"安全性控制方法"
+		\item 80\%考题考查"GRANT/REVOKE语句"
+		\item 75\%考题以"安全性vs完整性"作为陷阱
+		\item 新趋势：结合MySQL用户管理考查
+		\item 高频考点：权限粒度、存取控制、三级模式
+	\end{itemize}
+\end{bluebox}
+
+\begin{bluebox}{高阶延伸}
+	\textbf{【高阶知识点延伸】}
+
+	\begin{itemize}
+		\item \textbf{强制存取控制}：主体和客体的敏感度标记
+		\item \textbf{数据库防火墙}：SQL注入防护
+		\item \textbf{安全审计日志}：记录和分析
+		\item \textbf{最小权限原则}：只授予必要权限
+		\item \textbf{密码策略}：复杂度、过期、锁定
+	\end{itemize}
+\end{bluebox}
+
+\end{document}

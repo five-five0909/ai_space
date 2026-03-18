@@ -1,0 +1,292 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox} % 用于美化方框
+
+% 页面设置
+\geometry{left=2cm,right=2cm,top=2.5cm,bottom=2.5cm}
+
+% 页眉页脚设置
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{高阶导数专题突破 —— 自用讲义版}}
+\fancyhead[R]{自用}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% 段落设置
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+% 自定义颜色和环境
+\definecolor{mainblue}{RGB}{0, 102, 204}
+\newtcolorbox{tiptip}{colback=blue!5!white,colframe=mainblue,title=\textbf{�� 授课思路与技巧}}
+
+\begin{document}
+
+\section*{专题：高阶导数}
+
+\textbf{【授课目标】} 掌握常见函数的高阶导数公式、莱布尼兹公式、泰勒展开法及奇偶性简化技巧。
+
+\rule{\linewidth}{0.5pt}
+
+\section{归纳法与基本 $n$ 阶导数公式}
+
+\textbf{【授课要点】}
+求高阶导数时，若函数形式简单，推荐直接套用五大必背公式。
+
+\begin{tcolorbox}[title=\textbf{★ 必背公式表 (建议板书)}, colback=white, colframe=black]
+\begin{enumerate}[label=\arabic*)]
+    \item $(e^{ax})^{(n)} = a^n e^{ax}$
+    \item $[\sin(ax)]^{(n)} = a^n \sin\left(ax + \dfrac{n\pi}{2}\right)$
+    \item $[\cos(ax)]^{(n)} = a^n \cos\left(ax + \dfrac{n\pi}{2}\right)$
+    \item $\left(\dfrac{1}{x+a}\right)^{(n)} = \dfrac{(-1)^n n!}{(x+a)^{n+1}}$
+    \item $(\ln(x+a))^{(n)} = \dfrac{(-1)^{n-1} (n-1)!}{(x+a)^n} \quad (n \geq 1)$
+\end{enumerate}
+\end{tcolorbox}
+
+\vspace{1em}
+
+% --- 例题 1 ---
+\textbf{【例1】}（2023 湖南专升本 改编）
+设函数 $y = \dfrac{1}{x+2}$，则 $y^{(n)}(0) = \_\_\_\_\_$。
+
+\begin{tiptip}
+\textbf{分析}：这是标准的幂函数求导模型，对应公式 $\frac{1}{x+a}$。\\
+\textbf{易错点}：注意阶乘符号 $n!$ 和符号项 $(-1)^n$ 不要漏写。
+\end{tiptip}
+
+\textbf{解题步骤}：
+\begin{enumerate}
+    \item 套用通式：$\left( \dfrac{1}{x+a} \right)^{(n)} = \dfrac{(-1)^n n!}{(x+a)^{n+1}}$
+    \item 令 $a=2$，得：$y^{(n)}(x) = \dfrac{(-1)^n n!}{(x+2)^{n+1}}$
+    \item 代入 $x=0$：
+    \[
+    y^{(n)}(0) = \dfrac{(-1)^n n!}{(0+2)^{n+1}} = \dfrac{(-1)^n n!}{2^{n+1}}
+    \]
+\end{enumerate}
+\textbf{答案}：\fbox{$\dfrac{(-1)^n n!}{2^{n+1}}$}
+
+\vspace{2em}
+
+% --- 例题 2 ---
+\textbf{【例2】}（2022 安徽专升本 真题）
+函数 $y = \ln(1+x)$ 在 $x=0$ 处的三阶导数 $y^{(3)}(0) = \_\_\_\_\_$。
+
+\begin{tiptip}
+\textbf{分析}：
+方法一：背诵公式 $(\ln(x+1))^{(n)}$。\\
+方法二：因为阶数较低（仅3阶），现场逐步求导往往更快，适合记不住公式的学生。
+\end{tiptip}
+
+\textbf{解题步骤}（演示逐步求导法）：
+\begin{align*}
+y' &= \dfrac{1}{1+x} = (1+x)^{-1} \\
+y'' &= -1 \cdot (1+x)^{-2} = -\dfrac{1}{(1+x)^2} \\
+y''' &= -1 \cdot (-2) \cdot (1+x)^{-3} = \dfrac{2}{(1+x)^3}
+\end{align*}
+代入 $x=0$：$y^{(3)}(0) = \dfrac{2}{1^3} = 2$。
+
+\textbf{答案}：\fbox{$2$}
+
+\newpage
+
+\section{莱布尼兹公式}
+
+\textbf{【授课要点】}
+适用场景：\textbf{乘积型函数}的高阶导数，即 $y=u(x) \cdot v(x)$。
+\textbf{通用展开式}（类比二项式展开）：
+\begin{align*}
+(uv)^{(n)} &= C_n^0 u v^{(n)} + C_n^1 u' v^{(n-1)} + C_n^2 u'' v^{(n-2)} + \dots + C_n^n u^{(n)} v \\
+&= u v^{(n)} + n u' v^{(n-1)} + \dfrac{n(n-1)}{2} u'' v^{(n-2)} + \dots + u^{(n)} v
+\end{align*}
+\textbf{破题技巧}：
+\begin{itemize}
+    \item 必有一项为\textbf{多项式}（如 $x, x^2$），将其设为 $u(x)$。
+    \item 因为多项式求导几次后会变成 0，公式中绝大多数项为 0，只需计算前几项（\textbf{非零项数 = 多项式次数 + 1}）。
+\end{itemize}
+
+\begin{tcolorbox}[colback=green!5!white, colframe=green!50!black, title=\textbf{★ 基础补给站：组合系数 $C_n^k$ 速算}]
+\textbf{1. 计算公式}：
+\[ C_n^k = \frac{n!}{k!(n-k)!} = \frac{\overbrace{n \cdot (n-1) \cdots (n-k+1)}^{k\text{个}}}{\underbrace{k \cdot (k-1) \cdots 1}_{k\text{的阶乘}}} \]
+
+\textbf{2. 常用数值（必背）}：
+\begin{itemize}
+    \item $C_n^0 = 1, \quad C_n^n = 1$
+    \item $C_n^1 = n$
+    \item $C_n^2 = \dfrac{n(n-1)}{2}$
+    \item $C_n^3 = \dfrac{n(n-1)(n-2)}{6}$
+\end{itemize}
+
+\textbf{3. 对称性}：$C_n^k = C_n^{n-k}$（算大数时用），例如 $C_{10}^8 = C_{10}^2 = \frac{10 \times 9}{2} = 45$。
+
+\textbf{4. 常考实例（直接背诵）}：
+\begin{itemize}
+    \item $n=2$ (二阶导)：$1, \mathbf{2}, 1$ \quad ($C_2^0, C_2^1, C_2^2$)
+    \item $n=3$ (三阶导)：$1, \mathbf{3}, \mathbf{3}, 1$ \quad ($C_3^0, C_3^1, C_3^2, C_3^3$)
+    \item $n=4$ (四阶导)：$1, \mathbf{4}, \mathbf{6}, \mathbf{4}, 1$ \quad ($C_4^0, C_4^1, C_4^2, C_4^3, C_4^4$)
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{1em}
+
+% --- 例题 3 ---
+\textbf{【例3】}（2024 河南专升本 改编）
+设 $f(x) = x^2 e^x$，则 $f^{(3)}(0) = \_\_\_\_\_$。
+
+\begin{tiptip}
+\textbf{分析}：设 $u=x^2$，求导三次后为0，故只需计算前几项。
+\end{tiptip}
+
+\textbf{解题步骤}：
+\begin{enumerate}
+    \item 设 $u=x^2, v=e^x$。
+    \item 准备导数：$u'=2x, u''=2, u'''=0$；$v$ 的各阶导数均为 $e^x$。
+    \item 展开莱布尼兹公式（$n=3$）：
+    \[
+    f^{(3)}(x) = \binom{3}{0} x^2 e^x + \binom{3}{1} (2x) e^x + \binom{3}{2} (2) e^x + 0
+    \]
+    \[
+    f^{(3)}(x) = x^2 e^x + 6x e^x + 6 e^x
+    \]
+    \item 代入 $x=0$（含 $x$ 项均为0）：
+    \[
+    f^{(3)}(0) = 0 + 0 + 6 \cdot e^0 = 6
+    \]
+\end{enumerate}
+\textbf{答案}：\fbox{$6$}
+
+\vspace{2em}
+
+% --- 例题 4 ---
+\textbf{【例4】}（2021 江苏专升本 真题）
+函数 $f(x) = x \cdot 2^x$，则 $f''(0) = \_\_\_\_\_$。
+
+\begin{tiptip}
+\textbf{易错提醒}：$(2^x)' = 2^x \ln 2$，学生常漏掉 $\ln 2$。
+\end{tiptip}
+
+\textbf{解题步骤}：
+设 $u=x, v=2^x$。应用二阶莱布尼兹公式：
+\[
+f''(x) = u v'' + 2 u' v' + u'' v
+\]
+\begin{itemize}
+    \item $u=x \Rightarrow u'=1, u''=0$
+    \item $v=2^x \Rightarrow v' = 2^x \ln 2, \quad v'' = 2^x (\ln 2)^2$
+\end{itemize}
+代入公式：
+\[
+f''(x) = x \cdot 2^x (\ln 2)^2 + 2 \cdot 1 \cdot 2^x \ln 2 + 0
+\]
+令 $x=0$：
+\[
+f''(0) = 0 + 2 \cdot 1 \cdot \ln 2 = 2\ln 2
+\]
+\textbf{答案}：\fbox{$2\ln 2$}
+
+\newpage
+
+\section{泰勒公式逆用求导法}
+
+\textbf{【授课要点】}
+根据麦克劳林公式（$x=0$ 处的泰勒公式）：
+\[
+f(x) = f(0) + f'(0)x + \frac{f''(0)}{2!}x^2 + \dots + \frac{f^{(n)}(0)}{n!}x^n + o(x^n)
+\]
+观察可知：\textbf{$x^n$ 的系数 $a_n$ 等于 $\frac{f^{(n)}(0)}{n!}$}。
+由此得出求高阶导数的捷径：
+\[
+f^{(n)}(0) = n! \cdot a_n \quad (\text{即：} n! \times x^n \text{的系数})
+\]
+
+\vspace{1em}
+
+% --- 例题 5 ---
+\textbf{【例5】}（2023 广东专升本 改编）
+已知 $f(x) = \dfrac{1}{1+x}$，则 $f^{(4)}(0) = \_\_\_\_\_$。
+
+\begin{tiptip}
+\textbf{分析}：此题虽可用公式 $\left(\dfrac{1}{x+a}\right)^{(n)}$，但利用泰勒公式提取系数法更为简便。
+只需写出展开式中含 $x^4$ 的项即可。
+\end{tiptip}
+
+\textbf{解题步骤}：
+\begin{enumerate}
+    \item 写出 $\dfrac{1}{1+x}$ 的麦克劳林公式（展开至 $x^4$ 项）：
+    \[
+    \dfrac{1}{1+x} = 1 - x + x^2 - x^3 + x^4 + o(x^4)
+    \]
+    \item 锁定系数：$x^4$ 的系数为 $a_4 = 1$。
+    \item 反求导数：代入公式 $f^{(4)}(0) = 4! \cdot a_4$。
+    \[
+    f^{(4)}(0) = 24 \times 1 = 24
+    \]
+\end{enumerate}
+\textbf{答案}：\fbox{$24$}
+
+\vspace{2em}
+
+% --- 例题 6 ---
+\textbf{【例6】}（重要变式）
+设 $ f(x) = \begin{cases} \dfrac{\ln(1+2x)}{x}, & x \neq 0 \\ 2, & x=0 \end{cases} \quad \left(-\dfrac{1}{2} < x < \dfrac{1}{2}\right) $，求 $ f^{(100)}(0) $。
+
+\begin{tiptip}
+\textbf{分析}：此题无法直接求导100次。利用泰勒公式展开 $\ln(1+2x)$，再利用公式 $f^{(n)}(0) = n! \cdot a_n$ 求解。
+关键在于提取 $x^{100}$ 的系数。
+\end{tiptip}
+
+\textbf{解题步骤}：
+\begin{enumerate}
+    \item 麦克劳林公式展开：
+    \[ \ln(1+t) = t - \dfrac{t^2}{2} + \dfrac{t^3}{3} - \dots + (-1)^{n-1}\dfrac{t^n}{n} + o(t^n) \]
+    令 $t=2x$，则：
+    \[ \ln(1+2x) = (2x) - \dfrac{(2x)^2}{2} + \dots + (-1)^{n-1}\dfrac{(2x)^n}{n} + \dots \]
+    \item 求 $f(x)$ 表达式（当 $x \neq 0$）：
+    \[ f(x) = \dfrac{\ln(1+2x)}{x} = \dfrac{1}{x} \left[ 2x - \dfrac{4x^2}{2} + \dots + (-1)^{n-1}\dfrac{2^n x^n}{n} + \dots \right] \]
+    整理得（注意每项次数减1）：
+    \[ f(x) = 2 - 2x + \dots + (-1)^{n-1}\dfrac{2^n}{n} x^{n-1} + \dots \]
+    \item 寻找 $x^{100}$ 的系数 $a_{100}$：
+    在上述展开式中，我们要找 $x^{100}$ 项。令通项中的 exponent $n-1 = 100 \Rightarrow n = 101$。
+    对应的系数为（注意符号）：
+    \[ a_{100} = (-1)^{101-1} \dfrac{2^{101}}{101} = \dfrac{2^{101}}{101} \]
+    \item 计算高阶导数：
+    \[ f^{(100)}(0) = 100! \cdot a_{100} = 100! \cdot \dfrac{2^{101}}{101} \]
+\end{enumerate}
+\textbf{答案}：\fbox{$\dfrac{100! \cdot 2^{101}}{101}$}
+
+\vspace{2em}
+
+\section{利用奇偶性简化计算}
+
+\textbf{【授课要点】}
+\begin{itemize}
+    \item 若 $f(x)$ 是\textbf{偶函数} $\Rightarrow$ 奇数阶导数在 $x=0$ 处为 0。
+    \item 若 $f(x)$ 是\textbf{奇函数} $\Rightarrow$ 偶数阶导数在 $x=0$ 处为 0。
+\end{itemize}
+
+\vspace{1em}
+
+% --- 例题 7 ---
+\textbf{【例7】}（2022 山东专升本 真题）
+设 $f(x) = x^2 \cos x$，则 $f^{(3)}(0) = \_\_\_\_\_$。
+
+\begin{tiptip}
+\textbf{分析}：直接求三阶导非常繁琐。观察发现 $x^2$ 和 $\cos x$ 均为偶函数，利用奇偶性可秒杀。
+\end{tiptip}
+
+\textbf{解题步骤}：
+\begin{enumerate}
+    \item 判断奇偶性：$f(-x) = (-x)^2 \cos(-x) = x^2 \cos x = f(x)$。
+    \item 故 $f(x)$ 为偶函数。
+    \item 偶函数的导数奇偶性交替（偶 $\to$ 奇 $\to$ 偶 $\to$ 奇）。
+    \item 所以三阶导数 $f^{(3)}(x)$ 是奇函数。
+    \item 奇函数在原点值必为 0，即 $f^{(3)}(0) = 0$。
+\end{enumerate}
+\textbf{答案}：\fbox{$0$}
+
+\end{document}

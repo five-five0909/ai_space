@@ -1,0 +1,377 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbset{autoparskip}
+
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={网络编程-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{网络编程 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月05日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{网络编程}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于Java中Socket编程的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 用于网络通信
+		      \item ServerSocket用于服务器端
+		      \item Socket用于客户端
+		      \item 不需要处理异常
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 不需要处理异常}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Socket编程的基本流程和异常处理
+			      \item \textbf{关键区分点}：网络编程的不可靠性必须处理
+			      \item \textbf{命题人意图}：测试对网络异常处理的重视程度
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{用于网络通信 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{Socket概念}：网络通信端点的抽象（IP + Port）
+				            \item \textbf{功能说明}：提供TCP/UDP网络编程能力
+				            \item \textbf{使用场景}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 客户端-服务器通信（C/S架构）
+					                  \item 分布式系统通信
+					                  \item 实时数据传输
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// Socket用于网络通信
+Socket client = new Socket("127.0.0.1", 8080);
+OutputStream out = client.getOutputStream();
+out.write("Hello Server".getBytes());
+client.close();
+// Socket通过网络进行数据传输
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{ServerSocket用于服务器端 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{功能说明}：监听指定端口，接受客户端连接
+				            \item \textbf{工作流程}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 绑定端口：new ServerSocket(port)
+					                  \item 监听连接：serverSocket.accept()
+					                  \item 获取客户端Socket：Socket client = accept()
+					                  \item 使用客户端Socket通信
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+import java.io.*;
+import java.net.*;
+
+public class EchoServer {
+    public static void main(String[] args) {
+        try {
+            // 创建服务器端Socket，绑定端口8080
+            ServerSocket serverSocket = new ServerSocket(8080);
+            System.out.println("服务器启动，等待连接...");
+
+            // 阻塞等待客户端连接
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("客户端已连接");
+
+            // 获取输入输出流
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(clientSocket.getInputStream()));
+            PrintWriter out = new PrintWriter(
+                clientSocket.getOutputStream(), true);
+
+            // 读取客户端消息
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println("收到：" + inputLine);
+                out.println("Echo: " + inputLine);  // 回射给客户端
+            }
+
+            // 关闭资源
+            in.close();
+            out.close();
+            clientSocket.close();
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+// ServerSocket在服务器端监听端口并接受连接
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{Socket用于客户端 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{功能说明}：主动连接服务器，进行数据传输
+				            \item \textbf{工作流程}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 创建Socket：new Socket(host, port)
+					                  \item 获取输入输出流
+					                  \item 读写数据
+					                  \item 关闭连接
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+import java.io.*;
+import java.net.*;
+
+public class EchoClient {
+    public static void main(String[] args) {
+        try {
+            // 创建客户端Socket，连接服务器
+            Socket socket = new Socket("127.0.0.1", 8080);
+            System.out.println("已连接到服务器");
+
+            // 获取输入输出流
+            PrintWriter out = new PrintWriter(
+                socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
+            BufferedReader stdIn = new BufferedReader(
+                new InputStreamReader(System.in));
+
+            // 从控制台读取并发送给服务器
+            String userInput;
+            while ((userInput = stdIn.readLine()) != null) {
+                out.println(userInput);  // 发送给服务器
+                System.out.println("服务器响应：" + in.readLine());
+            }
+
+            // 关闭资源
+            out.close();
+            in.close();
+            stdIn.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+// Socket在客户端连接服务器并进行通信
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{不需要处理异常 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误原因}：网络操作不稳定，必须处理异常
+				            \item \textbf{网络异常来源}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 网络未连通（ConnectException）
+					                  \item 主机不可达（UnknownHostException）
+					                  \item 连接超时（SocketTimeoutException）
+					                  \item 连接断开（SocketException）
+					                  \item IO错误（IOException）
+				                  \end{itemize}
+				            \item \textbf{必须处理的异常类型}：
+				                  \begin{lstlisting}[language=Java]
+// Socket编程常见异常
+try {
+    Socket socket = new Socket("host", port);
+    // 可能导致异常的网络操作
+} catch (UnknownHostException e) {
+    // 主机名无法解析
+    e.printStackTrace();
+} catch (ConnectException e) {
+    // 连接被拒绝（服务器未启动）
+    e.printStackTrace();
+} catch (SocketTimeoutException e) {
+    // 连接超时
+    e.printStackTrace();
+} catch (IOException e) {
+    // 其他IO异常
+    e.printStackTrace();
+}
+// 网络编程必须处理各种可能发生的异常
+					      \end{lstlisting}
+				            \item \textbf{代码反证}：
+				                  \begin{lstlisting}[language=Java]
+// 错误示例：不处理异常（编译不通过）
+public class BadSocketExample {
+    public static void main(String[] args) {
+        Socket socket = new Socket("127.0.0.1", 8080);
+        // ^ 编译错误！必须要处理IOException
+    }
+}
+
+//javac错误信息：
+//error: 未报告的异常错误IOException; 必须对其进行捕获或声明以便抛出
+//    Socket socket = new Socket("127.0.0.1", 8080);
+//                                      ^
+//1 个错误
+// Java强制要求处理IOException及其子类异常
+					      \end{lstlisting}
+				            \item \textbf{正确处理方式1：try-catch}
+				                  \begin{lstlisting}[language=Java]
+public class CorrectSocketExample {
+    public static void main(String[] args) {
+        try (Socket socket = new Socket("127.0.0.1", 8080)) {
+            // 使用socket通信
+        } catch (UnknownHostException e) {
+            System.out.println("主机名解析失败");
+        } catch (IOException e) {
+            System.out.println("连接失败或IO错误");
+            e.printStackTrace();
+        }
+    }
+}
+// 使用try-with-resources自动关闭，捕获所有可能异常
+					      \end{lstlisting}
+				            \item \textbf{正确处理方式2：throws声明}
+				                  \begin{lstlisting}[language=Java]
+public class ThrowsSocketExample {
+    public static void main(String[] args) throws IOException {
+        Socket socket = new Socket("127.0.0.1", 8080);
+        // 使用socket
+        socket.close();
+    }
+}
+
+// 或者
+public class MethodExample {
+    public void connectToServer(String host, int port) throws IOException {
+        Socket socket = new Socket(host, port);
+        // 使用socket
+        socket.close();
+    }
+}
+// 将异常抛出给调用者处理（不推荐main方法这样做）
+					      \end{lstlisting}
+				            \item \textbf{健壮的服务器代码}：
+				                  \begin{lstlisting}[language=Java]
+public class RobustServer {
+    public static void main(String[] args) {
+        ServerSocket serverSocket = null;
+        try {
+            serverSocket = new ServerSocket(8080);
+            while (true) {
+                Socket client = serverSocket.accept();
+                new Thread(() -> {
+                    try {
+                        handleClient(client);
+                    } catch (IOException e) {
+                        System.out.println("客户端通信异常：" + e.getMessage());
+                    } finally {
+                        try {
+                            client.close();
+                        } catch (IOException e) {}
+                    }
+                }).start();
+            }
+        } catch (IOException e) {
+            System.err.println("服务器启动失败：" + e.getMessage());
+        } finally {
+            if (serverSocket != null) {
+                try {
+                    serverSocket.close();
+                } catch (IOException e) {}
+            }
+        }
+    }
+
+    private static void handleClient(Socket client) throws IOException {
+        // 处理客户端请求
+    }
+}
+// 每个网络操作都必须处理IOException
+					      \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{itemize}[label={}, nosep]
+			      \item Socket用于网络通信
+			      \item ServerSocket服务器端监听，Socket客户端连接
+			      \item 必须处理IO异常（UnknownHostException、IOException等）
+			      \item 使用try-with-resources或try-catch处理异常
+			      \item 口诀：Socket网络通通信，Server监听Socket连，所有操作要异常，不写捕获编译难
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+		      \textbf{考场秒杀}：看到"不需要处理异常"→错，网络编程必须处理IOException
+		      \textbf{高频陷阱}：忘记处理IOException导致编译错误
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

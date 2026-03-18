@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(xargs:*)",
+      "Bash(while:*)",
+      "Bash(done)",
+      "Bash(git push)",
+      "Bash(git rev-list:*)",
+      "Bash(git cat-file:*)",
+      "Bash(sort:*)",
+      "Bash(git reflog expire:*)",
+      "Bash(git gc --prune=now --aggressive:*)",
+      "Bash(git filter-branch:*)",
+      "Bash(git push:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,203 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={面向对象上-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{面向对象（上） - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月02日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{面向对象（上）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于类和对象的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 类是对象的实例
+		      \item 对象是类的模板
+		      \item 一个类只能创建一个对象
+		      \item 对象是类的具体实例
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 对象是类的具体实例}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查面向对象最基础的概念——类与对象的关系
+			      \item \textbf{关键区分点}：类是抽象模板，对象是具体实例；一个类可以创建多个对象
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[label={}, nosep]
+
+		      \item \textbf{类是对象的实例 — 错误（概念颠倒）}
+		      \begin{itemize}[label={}, nosep]
+			      \item 对象是类的实例（Instance）
+			      \item 类不是对象的实例
+		      \end{itemize}
+
+		      \item \textbf{对象是类的模板 — 错误（模板是类）}
+		      \begin{itemize}[label={}, nosep]
+			      \item 类是模板（Template），对象是实例（Instance）
+		      \end{itemize}
+
+		      \item \textbf{一个类只能创建一个对象 — 错误（可以创建多个）}
+		      \begin{itemize}[label={}, nosep]
+			      \item 类是模板，可以反复使用
+			      \item 每次new都创建新对象
+		      \end{itemize}
+
+		      \item \textbf{对象是类的具体实例 — 正确（正确定义）}
+		      \begin{itemize}[label={}, nosep]
+			      \item 类：抽象的模板，定义属性和方法
+			      \item 对象：类的具体实例，具有实际状态和行为
+		      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 类是抽象模板，对象是具体实例
+			      \item 一个类可以创建多个对象
+			      \item 对象拥有类的所有属性和行为
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：类=模板，对象=实例
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是Java中的对象引用传递？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 基本数据类型参数传递
+		      \item 对象作为参数传递
+		      \item 数组作为参数传递
+		      \item 以上都是
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 对象作为参数传递}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java中参数传递机制——值传递 vs 引用传递
+			      \item \textbf{关键区分点}：Java只有值传递，对象传递的是引用的副本（值）
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[label={}, nosep]
+
+		      \item \textbf{基本数据类型参数传递 — 错误（是值传递）}
+		      \begin{itemize}[label={}, nosep]
+			      \item 传递的是值的副本
+			      \item 形参的改变不影响实参
+		      \end{itemize}
+
+		      \item \textbf{对象作为参数传递 — 正确（引用副本传递）}
+		      \begin{itemize}[label={}, nosep]
+			      \item 所有参数传递都是值传递
+			      \item 对象传递的是引用地址的副本
+			      \item 通过形参可以访问堆中对象
+			      \item 但不能改变实参引用指向
+		      \end{itemize}
+
+		      \item \textbf{数组作为参数传递 — 部分正确（但非最佳答案）}
+		      \begin{itemize}[label={}, nosep]
+			      \item 数组也是对象（引用类型）
+			      \item 传递机制与对象相同
+		      \end{itemize}
+
+		      \item \textbf{以上都是 — 错误（基本类型不是）}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 基本类型：值传递（传副本）
+			      \item 引用类型：传引用地址的副本
+			      \item 注意：不能改变实参引用指向
+			      \item Java没有真正的引用传递
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：Java只有值传递，对象传引用副本
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

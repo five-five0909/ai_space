@@ -1,0 +1,669 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+%==================== 导言区：宏包加载 ====================
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage{geometry}                 % 页面设置
+\usepackage{xcolor}                   % 颜色支持
+\usepackage{fancyhdr}                 % 页眉页脚
+\usepackage{enumitem}                 % 列表定制
+\usepackage{tcolorbox}                %以此美化文本框
+\usepackage{titlesec}                 % 标题格式调整
+
+%==================== 页面布局设置 ====================
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+%==================== 自定义视觉样式 ====================
+
+% 1. 定义分隔线样式
+\newcommand{\TopSeparator}{
+    \par\noindent\rule{\textwidth}{1.5pt}\vspace{0.5em} % 粗实线 ━━━━
+}
+\newcommand{\AnalysisSeparator}{
+    \par\noindent\rule{\textwidth}{0.5pt}\vspace{0.2em}\hrule\vspace{0.5em} % 双线效果 ════
+}
+
+% 2. 定义红色解析环境
+%在这个环境内的所有文字和公式都会自动变成红色
+\newenvironment{RedAnalysis}{
+    \par
+    \color{red} % 设置后续字体为红色
+}{
+    \par
+    \color{black} % 结束时恢复黑色
+}
+
+% 3. 标题格式微调
+\titleformat{\section}{\large\bfseries\heiti}{}{0em}{}[\vspace{-0.5em}]
+\titleformat{\subsection}{\bfseries\kaishu}{}{0em}{}
+
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+%==================== 文档开始 ====================
+\begin{document}
+
+% 标题信息
+\title{\textbf{第四章 导数与微分（基础）解析讲义}}
+\author{数学习题讲义}
+\date{\today}
+\maketitle
+
+% --- 题目 1 ---
+\TopSeparator
+\section*{题目1}
+
+\textbf{【题目重现】} \\
+若函数 $ f(x) $ 在 $ x_{0} $ 处可导，则极限 $ \lim_{\Delta x \to 0} \frac{f(x_{0} + 3\Delta x) - f(x_{0})}{\Delta x} $ 可表示为 \underline{\hspace{1cm}}。
+\choicesFour{$ -f'(x_{0}) $}{$ 3f'(x_{0}) $}{$ \frac{1}{3}f'(x_{0}) $}{$ -3f'(x_{0}) $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+利用导数定义求极限。
+
+\textbf{第二步：思路构建} \\
+导数定义：$f'(x_0) = \lim_{h\to 0} \frac{f(x_0+h)-f(x_0)}{h}$。构造该形式。
+
+\textbf{第三步：详细步骤} \\
+令 $h = 3\Delta x$，当 $\Delta x \to 0$ 时 $h \to 0$。
+原式 $= \lim_{h\to 0} \frac{f(x_0+h)-f(x_0)}{h/3} = 3 \lim_{h\to 0} \frac{f(x_0+h)-f(x_0)}{h} = 3f'(x_0)$。
+
+\textbf{第四步：最终答案} \\
+B
+
+\subsection*{二、核心公式}
+1. \textbf{导数定义}：$f'(x_0) = \lim_{\Delta x\to 0} \frac{\Delta y}{\Delta x}$。
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 2 ---
+\TopSeparator
+\section*{题目2}
+
+\textbf{【题目重现】} \\
+设 $ y = 2^{\cos x} $ ，则 $ y' = $ \underline{\hspace{1cm}}。
+\choicesTwo
+    {$ 2^{x} \ln 2 $}
+    {$ -2^{\cos x} \sin x $}
+    {$ -2^{\cos x} \ln 2 \sin x $}
+    {$ -2^{\frac{1}{\cos x}} \sin x $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+复合函数求导。
+
+\textbf{第二步：思路构建} \\
+链式法则：$(a^u)' = a^u \ln a \cdot u'$。
+
+\textbf{第三步：详细步骤} \\
+$y' = (2^{\cos x})' = 2^{\cos x} \ln 2 \cdot (\cos x)' = 2^{\cos x} \ln 2 \cdot (-\sin x)$。
+即 $-2^{\cos x} \ln 2 \sin x$。
+
+\textbf{第四步：最终答案} \\
+C
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 3 ---
+\TopSeparator
+\section*{题目3}
+
+\textbf{【题目重现】} \\
+曲线 $ y = \ln x $ 与直线 $ y = x $ 平行的切线方程为 \underline{\hspace{1cm}}。
+\choicesFour{$x-y=0$}{$x-y-1=0$}{$ x-y+1=0 $}{$ x-y+2=0 $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+平行意味着斜率相同。
+
+\textbf{第二步：思路构建} \\
+求导令 $y'=1$ 求切点，再写切线方程。
+
+\textbf{第三步：详细步骤} \\
+1. $y' = (\ln x)' = \frac{1}{x}$。
+2. 令 $\frac{1}{x} = 1 \Rightarrow x=1$。
+3. 切点纵坐标 $y = \ln 1 = 0$。切点 $(1, 0)$。
+4. 切线方程：$y - 0 = 1 \cdot (x - 1) \Rightarrow y = x - 1$。
+   即 $x - y - 1 = 0$。
+
+\textbf{第四步：最终答案} \\
+B
+
+\subsection*{二、核心公式}
+1. \textbf{点斜式}：$y-y_0 = k(x-x_0)$。
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 4 ---
+\TopSeparator
+\section*{题目4}
+
+\textbf{【题目重现】} \\
+若曲线 $ y=x^{2}+ax+b $ 和 $ y=x^{3}+x $ 在点 $(1,2)$ 处相切，则 $a,b$ 之值为 \underline{\hspace{1cm}}。
+\choicesTwo
+    {$a=2,b=-1$}
+    {$a=1,b=-3$}
+    {$a=0,b=-2$}
+    {$a=-3,b=1$}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+相切 $\iff$ 经过同一点 且 在该点导数相等。
+
+\textbf{第二步：思路构建} \\
+建立方程组求解 $a, b$。
+
+\textbf{第三步：详细步骤} \\
+1. **点在曲线上**：
+   对于 $y=x^3+x$，$(1,2)$ 满足 $1+1=2$。
+   对于 $y=x^2+ax+b$，应满足 $2 = 1 + a + b \Rightarrow a+b=1$。
+2. **切线斜率相等**：
+   $y_1' = 2x+a$，在 $x=1$ 时为 $2+a$。
+   $y_2' = 3x^2+1$，在 $x=1$ 时为 $4$。
+   $2+a = 4 \Rightarrow a=2$。
+3. **求 b**：
+   $b = 1-a = 1-2 = -1$。
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 5 ---
+\TopSeparator
+\section*{题目5}
+
+\textbf{【题目重现】} \\
+设 $ f(x)=\begin{cases}x, & x<0\\ xe^{x}, & x\geq0\end{cases} $ 在点 $x=0$ 处，下列结论错误的是 \underline{\hspace{1cm}}。
+\choicesFour{连续}{可导}{不可导}{可微}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+判断分段点处的可导性。
+
+\textbf{第二步：思路构建} \\
+先看连续性，再看左右导数。
+
+\textbf{第三步：详细步骤} \\
+1. $f(0)=0$。
+   左极限 $\lim_{x\to 0^-} x = 0$。
+   右极限 $\lim_{x\to 0^+} xe^x = 0$。
+   连续。
+2. 左导数：$\lim_{x\to 0^-} \frac{x-0}{x} = 1$。
+   右导数：$\lim_{x\to 0^+} \frac{xe^x-0}{x} = \lim e^x = 1$。
+   左导数 = 右导数 = 1。
+3. 结论：在 $x=0$ 处可导（也就意味可微）。
+4. 题目问“错误”的结论，C“不可导”是错误的。
+
+\textbf{第四步：最终答案} \\
+C
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 6 ---
+\TopSeparator
+\section*{题目6}
+
+\textbf{【题目重现】} \\
+设 $ f(x)=\begin{cases}\frac{1-\mathrm{e}^{x^{2}}}{x}, & x \neq 0 \\ 0, & x = 0\end{cases} $ 则 $ f'(0)= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+用定义求导数。
+
+\textbf{第二步：思路构建} \\
+$f'(0) = \lim_{x\to 0} \frac{f(x)-f(0)}{x}$。
+
+\textbf{第三步：详细步骤} \\
+\[ f'(0) = \lim_{x\to 0} \frac{\frac{1-e^{x^2}}{x} - 0}{x} = \lim_{x\to 0} \frac{1-e^{x^2}}{x^2} \]
+利用等价无穷小 $e^u - 1 \sim u$，则 $1 - e^{x^2} \sim -x^2$。
+\[ = \lim_{x\to 0} \frac{-x^2}{x^2} = -1 \]
+
+\textbf{第四步：最终答案} \\
+-1
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 7 ---
+\TopSeparator
+\section*{题目7}
+
+\textbf{【题目重现】} \\
+$ \frac{d^2}{dx^{2}}(x^{2}-3x^{4})= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+求二阶导数。
+
+\textbf{第二步：思路构建} \\
+逐次求导。
+
+\textbf{第三步：详细步骤} \\
+$y = x^2 - 3x^4$.
+$y' = 2x - 12x^3$.
+$y'' = 2 - 36x^2$.
+
+\textbf{第四步：最终答案} \\
+$2 - 36x^2$
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 8 ---
+\TopSeparator
+\section*{题目8}
+
+\textbf{【题目重现】} \\
+若 $ e^{y} = xy $ ，则 $ y'= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+隐函数求导。
+
+\textbf{第二步：思路构建} \\
+两边对 $x$ 求导。
+
+\textbf{第三步：详细步骤} \\
+1. 两边求导：$e^y \cdot y' = 1 \cdot y + x \cdot y'$。
+2. 移项整理：
+   $y'(e^y - x) = y$
+   $y' = \frac{y}{e^y - x}$
+3. 利用原方程 $e^y = xy$ 化简分母：
+   $e^y - x = xy - x = x(y-1)$。
+   $y' = \frac{y}{x(y-1)}$。
+
+\textbf{第四步：最终答案} \\
+$\frac{y}{x(y-1)}$
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 9 ---
+\TopSeparator
+\section*{题目9}
+
+\textbf{【题目重现】} \\
+$ d(\arcsin\sqrt{x}) = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+求微分。
+
+\textbf{第二步：思路构建} \\
+$dy = f'(x)dx$。
+
+\textbf{第三步：详细步骤} \\
+1. $y = \arcsin\sqrt{x}$。
+   $y' = \frac{1}{\sqrt{1-(\sqrt{x})^2}} \cdot (\sqrt{x})' = \frac{1}{\sqrt{1-x}} \cdot \frac{1}{2\sqrt{x}}$。
+2. 整理得：
+   $y' = \frac{1}{2\sqrt{x(1-x)}} = \frac{1}{2\sqrt{x-x^2}}$。
+3. 微分 $dy = \frac{1}{2\sqrt{x-x^2}}dx$。
+
+\textbf{第四步：最终答案} \\
+$\frac{dx}{2\sqrt{x-x^2}}$
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 10 ---
+\TopSeparator
+\section*{题目10}
+
+\textbf{【题目重现】} \\
+设 $ f(x) = x(x + 1)(x + 2)(x + 3) $ ，则 $ f'(0) = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+多项式乘积求导，利用定义最快。
+
+\textbf{第二步：思路构建} \\
+$f'(0) = \lim_{x\to 0} \frac{f(x)-f(0)}{x}$。
+
+\textbf{第三步：详细步骤} \\
+1. $f(0) = 0$。
+2. $f'(0) = \lim_{x\to 0} \frac{x(x+1)(x+2)(x+3)}{x} = \lim (x+1)(x+2)(x+3)$。
+3. $x=0$ 代入得 $1 \cdot 2 \cdot 3 = 6$。
+
+\textbf{第四步：最终答案} \\
+6
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{解题技巧}：若 $f(x) = xg(x)$，则 $f'(0) = g(0)$。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 11 ---
+\TopSeparator
+\section*{题目11}
+
+\textbf{【题目重现】} \\
+求函数 $ y = x^{x} $ 的导数。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+幂指函数求导。
+
+\textbf{第二步：思路构建} \\
+对数求导法。
+
+\textbf{第三步：详细步骤} \\
+1. 取对数：$\ln y = x \ln x$。
+2. 两边求导：$\frac{y'}{y} = 1 \cdot \ln x + x \cdot \frac{1}{x} = \ln x + 1$。
+3. $y' = y(\ln x + 1) = x^x(\ln x + 1)$。
+
+\textbf{第四步：最终答案} \\
+$x^x(1+\ln x)$
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 12 ---
+\TopSeparator
+\section*{题目12}
+
+\textbf{【题目重现】} \\
+求函数 $ y = \ln(x + \sqrt{x^{2} + a^{2}}) $ 的导数。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+复合函数求导。
+
+\textbf{第二步：思路构建} \\
+按层求导，最后通分化简。
+
+\textbf{第三步：详细步骤} \\
+1. 外层导数：$\frac{1}{x + \sqrt{x^2+a^2}}$。
+2. 内层导数：$1 + \frac{1}{2\sqrt{x^2+a^2}} \cdot 2x = 1 + \frac{x}{\sqrt{x^2+a^2}} = \frac{\sqrt{x^2+a^2}+x}{\sqrt{x^2+a^2}}$。
+3. 相乘：
+   \[ \frac{1}{x + \sqrt{x^2+a^2}} \cdot \frac{x + \sqrt{x^2+a^2}}{\sqrt{x^2+a^2}} = \frac{1}{\sqrt{x^2+a^2}} \]
+
+\textbf{第四步：最终答案} \\
+$\frac{1}{\sqrt{x^2+a^2}}$
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 13 ---
+\TopSeparator
+\section*{题目13}
+
+\textbf{【题目重现】} \\
+设 $ f(x)=\begin{cases}\frac{\ln(1+2x)}{x}\\2\end{cases} \quad -\frac{1}{2}<x<\frac{1}{2} $ 且 $ x\neq0 $ , 求 $ f^{(100)}(0) $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+求高阶导数，利用麦克劳林展开级数系数的定义。
+
+\textbf{第二步：思路构建} \\
+$f(x) = \sum \frac{f^{(n)}(0)}{n!} x^n$。需展开 $\frac{\ln(1+2x)}{x}$。
+
+\textbf{第三步：详细步骤} \\
+1. $\ln(1+t) = \sum_{k=1}^\infty (-1)^{k-1} \frac{t^k}{k}$。
+2. $\ln(1+2x) = 2x - \frac{(2x)^2}{2} + \frac{(2x)^3}{3} - \dots$
+3. $f(x) = \frac{\ln(1+2x)}{x} = 2 - \frac{4}{2}x + \frac{8}{3}x^2 - \dots + (-1)^{n-1} \frac{2^n x^{n-1}}{n} + \dots$
+4. 我们需要 $f^{(100)}(0)$，对应的是 $x^{100}$ 的系数 $a_{100}$。
+   $a_{100} = \frac{f^{(100)}(0)}{100!}$。
+   在展开式中，$x^{100}$ 对应项（$n-1=100 \Rightarrow n=101$）为：
+   $(-1)^{101-1} \frac{2^{101}}{101} x^{100} = \frac{2^{101}}{101} x^{100}$。
+5. 比较系数得：
+   $\frac{f^{(100)}(0)}{100!} = \frac{2^{101}}{101}$。
+   $f^{(100)}(0) = \frac{2^{101}}{101} \cdot 100!$。
+
+\textbf{第四步：最终答案} \\
+$\frac{2^{101}}{101} \cdot 100!$
+
+\subsection*{二、核心公式}
+1. \textbf{泰勒展开}。
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 14 ---
+\TopSeparator
+\section*{题目14}
+
+\textbf{【题目重现】} \\
+曲线 $ y = x^{3} - x + 2 $ 上哪一点的切线与直线 $ 2x - y - 1 = 0 $ 平行？
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+利用导数求切线斜率。
+
+\textbf{第二步：思路构建} \\
+直线斜率 $k=2$。令 $y'=2$。
+
+\textbf{第三步：详细步骤} \\
+1. $y' = 3x^2 - 1$。
+2. 令 $3x^2 - 1 = 2 \Rightarrow x^2 = 1 \Rightarrow x = \pm 1$。
+3. 当 $x = 1$ 时，$y = 1 - 1 + 2 = 2$。点 $(1, 2)$。
+4. 当 $x = -1$ 时，$y = -1 + 1 + 2 = 2$。点 $(-1, 2)$。
+
+\textbf{第四步：最终答案} \\
+$(1,2)$ 和 $(-1,2)$
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 15 ---
+\TopSeparator
+\section*{题目15}
+
+\textbf{【题目重现】} \\
+求下列参数方程所确定的函数的导数：
+$$ \begin{cases}x=t-t^{2}\\ y=1-t^{2}\end{cases} $$
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+参数方程求导。
+
+\textbf{第二步：思路构建} \\
+$\frac{dy}{dx} = \frac{dy/dt}{dx/dt}$。
+
+\textbf{第三步：详细步骤} \\
+1. $y'_t = (1-t^2)' = -2t$。
+2. $x'_t = (t-t^2)' = 1-2t$。
+3. $\frac{dy}{dx} = \frac{-2t}{1-2t}$。
+
+\textbf{第四步：最终答案} \\
+$\frac{2t}{2t-1}$
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+略
+
+\end{RedAnalysis}
+
+\end{document}

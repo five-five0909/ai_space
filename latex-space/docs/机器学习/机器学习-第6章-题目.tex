@@ -1,0 +1,679 @@
+\documentclass[a4paper,11pt]{ctexart}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=2.0cm, bottom=2.0cm, headsep=0.3cm, footskip=1cm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{needspace}
+\usepackage{multirow}
+
+\AtBeginDocument{\hypersetup{colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan}}
+\setlist{nosep, itemsep=0.8ex, parsep=0.1em}
+\setlist[itemize]{leftmargin=1.8em}
+\setlist[enumerate]{leftmargin=1.8em}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebg}{rgb}{0.98,0.98,0.98}
+\definecolor{tipsblue}{rgb}{0.85,0.93,1.0}
+\definecolor{highlightyellow}{rgb}{1.0,0.97,0.8}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false, breaklines=true,
+    captionpos=b, keepspaces=true,
+    numbers=left, numbersep=6pt,
+    showspaces=false, showstringspaces=false,
+    showtabs=false, tabsize=2,
+    language=Python, frame=single,
+    framerule=0.5pt, rulecolor=\color{gray!40}
+}
+\lstset{style=mystyle}
+
+\newtcolorbox{problembox}[1][]{colback=white,colframe=blue!60!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=10pt,after skip=8pt}
+\newtcolorbox{solutionbox}[1][]{enhanced,breakable,colback=green!3!white,colframe=green!50!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=10pt}
+\newtcolorbox{metaphorbox}[1][]{colback=orange!5!white,colframe=orange!70!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=8pt}
+\newtcolorbox{beginnerbox}[1][]{colback=tipsblue,colframe=blue!50!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=8pt}
+\newtcolorbox{appbox}[1][]{colback=green!3!white,colframe=green!60!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=10pt}
+\newtcolorbox{keybox}[1][]{colback=highlightyellow,colframe=orange!80!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=8pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{机器学习-第6章}
+\fancyhead[L]{线性回归 · 练习题}
+\fancyfoot[C]{\thepage}
+\addtolength{\headheight}{2pt}
+
+\parskip=2pt plus 1pt minus 0.5pt
+\linespread{1.35}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+
+\title{\textbf{机器学习\\第6章\quad 线性回归}\\[0.5em]
+{\large\color{gray}——万物皆可回归：从一条直线出发，理解一切预测模型的根基}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{beginnerbox}[本章题目导览：你将挑战哪些核心问题？]
+    线性回归是机器学习中最简单也最基础的监督学习算法——理解它，就理解了整个监督学习的核心框架：损失函数、参数求解、梯度下降。本章 7 道题覆盖线性回归的完整体系：
+    \begin{itemize}
+        \item \textbf{Q6-01（概念理解）}：一元 vs 多元线性回归——模型形式、假设条件与应用场景。
+        \item \textbf{Q6-02（损失函数）}：MSE 的性质，以及为什么"误差服从正态分布"时，MSE 等价于极大似然估计（MLE）。
+        \item \textbf{Q6-03（解析解推导）}：一元线性回归的最小二乘解——手动推导 $\hat{w}$ 和 $\hat{b}$ 的公式，并用具体数据验算。
+        \item \textbf{Q6-04（正规方程）}：多元线性回归的矩阵形式与正规方程 $\hat{\boldsymbol{w}} = (X^TX)^{-1}X^T\boldsymbol{y}$ 的推导与计算。
+        \item \textbf{Q6-05（梯度下降）}：多元线性回归的梯度推导，手动执行一步参数更新，以及学习率选择问题。
+        \item \textbf{Q6-06（代码实践）}：sklearn LinearRegression API 参数解析，以及特征缩放对梯度下降收敛的影响。
+        \item \textbf{Q6-07（综合案例）}：广告投放效果预测——完整的建模流程，包括多元回归、评估指标解读与结果分析。
+    \end{itemize}
+\end{beginnerbox}
+
+\section{第 6 章\quad 线性回归：预测的基础}
+
+\begin{metaphorbox}[先建立一个总感觉：线性回归在做什么？]
+    想象你在租房网站上看了 100 套房子，记录了每套的面积（$x$）和月租（$y$）。你观察到\textbf{面积越大，租金越高}，而且大体上呈正比关系。线性回归就是在问：\textbf{能不能找到一条最合适的直线 $y = wx + b$，使它尽可能地"穿过"这 100 个点的中心？}\\
+    找到这条线后，给你一套你没看过的新房子，只知道面积，你就能用这条线预测它大概值多少租金。\\
+    这就是线性回归的全部：\textbf{用一条（超）平面来拟合数据，然后用它预测新样本。}
+\end{metaphorbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-01\quad 线性回归简介：一元 vs 多元，假设条件]
+    \textbf{题目描述：}\\
+    线性回归假设目标变量 $y$ 与输入特征之间存在线性关系，并通过数据学习最优的参数。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 写出\textbf{一元线性回归}和\textbf{多元线性回归}的模型形式（数学表达式），并指出两者的联系（多元是一元的什么推广？）。
+
+        \item 填写下表，对比一元和多元线性回归：
+        \begin{center}
+        \begin{tabular}{p{3cm} p{4.5cm} p{4.5cm}}
+            \toprule
+            对比维度 & 一元线性回归 & 多元线性回归 \\
+            \midrule
+            输入特征数 & \underline{\hspace{3.5cm}} & \underline{\hspace{3.5cm}} \\[1.2em]
+            模型参数数 & 2（$w, b$） & \underline{\hspace{3.5cm}} \\[1.2em]
+            几何意义 & \underline{\hspace{3.5cm}} & \underline{\hspace{3.5cm}} \\[1.2em]
+            典型应用 & 面积→房价 & \underline{\hspace{3.5cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 线性回归有哪些基本假设？（列举 3 个以上，如线性性、独立性等）违反某个假设会导致什么问题？
+
+        \item 线性回归是否只能建模"直线/平面"关系？能否用线性回归拟合 $y = x^2$ 这种曲线关系？如何实现？（提示：特征变换）
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.1 线性回归简介]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 模型形式：}
+    \begin{itemize}
+        \item \textbf{一元线性回归}：$\hat{y} = wx + b$，只有一个输入特征 $x$，两个参数 $w$（斜率）和 $b$（截距）。
+        \item \textbf{多元线性回归}：$\hat{y} = w_1 x_1 + w_2 x_2 + \cdots + w_p x_p + b = \boldsymbol{w}^T\boldsymbol{x} + b$，有 $p$ 个输入特征，$p+1$ 个参数。多元是一元的\textbf{高维推广}——从二维平面中的直线，推广到高维空间中的超平面。
+    \end{itemize}
+
+    \textbf{(2) 对比表格：}
+    \begin{center}
+    \begin{tabular}{p{3cm} p{4.5cm} p{4.5cm}}
+        \toprule
+        对比维度 & 一元线性回归 & 多元线性回归 \\
+        \midrule
+        输入特征数 & 1 个 & $p$ 个（$p \geq 2$） \\[0.6em]
+        模型参数数 & 2（$w, b$） & $p+1$（$w_1,\ldots,w_p, b$） \\[0.6em]
+        几何意义 & 二维平面上的一条直线 & $p+1$ 维空间中的一个超平面 \\[0.6em]
+        典型应用 & 面积→房价（单因素预测） & 面积+楼层+位置→房价（多因素预测） \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(3) 线性回归的基本假设：}
+    \begin{itemize}
+        \item \textbf{线性性}：$y$ 与各 $x_j$ 之间是线性关系；违反时（实际是非线性）模型系统性偏差，残差有明显规律性。
+        \item \textbf{独立性}：样本之间相互独立；违反时（如时间序列数据）标准误差被低估，置信区间失效。
+        \item \textbf{同方差性（Homoscedasticity）}：残差的方差在所有 $x$ 水平上一致；违反时参数估计效率降低。
+        \item \textbf{正态性}：残差近似正态分布；违反时影响假设检验的可靠性。
+        \item \textbf{无多重共线性}：各特征之间不高度相关；违反时系数估计不稳定。
+    \end{itemize}
+
+    \textbf{(4) 用线性回归拟合曲线关系：}
+
+    线性回归中的"线性"指的是\textbf{参数的线性}，而非特征的线性。可以通过\textbf{特征变换}将非线性问题转化为线性参数问题：将 $x$ 替换为 $x^2$ 作为新特征，则 $\hat{y} = w_1 x^2 + b$ 是关于参数 $w_1, b$ 的线性模型，但关于 $x$ 是二次曲线。这就是\textbf{多项式回归}——用线性模型框架拟合非线性关系，只需在特征工程中构造多项式特征即可（sklearn 的 \texttt{PolynomialFeatures}）。
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-02\quad 损失函数：MSE 的性质与极大似然等价性]
+    \textbf{题目描述：}\\
+    线性回归通常用均方误差（MSE）作为损失函数。MSE 不仅是直觉上合理的，在统计学上也有深刻的理论依据。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 写出均方误差（MSE）和平均绝对误差（MAE）的公式，并从以下四个维度对比两者：
+
+        \begin{center}
+        \begin{tabular}{p{3cm} p{4.5cm} p{4.5cm}}
+            \toprule
+            对比维度 & MSE & MAE \\
+            \midrule
+            公式 & \underline{\hspace{4cm}} & \underline{\hspace{4cm}} \\[1.2em]
+            对异常值敏感性 & \underline{\hspace{4cm}} & \underline{\hspace{4cm}} \\[1.2em]
+            可微性 & \underline{\hspace{4cm}} & \underline{\hspace{4cm}} \\[1.2em]
+            物理含义 & \underline{\hspace{4cm}} & \underline{\hspace{4cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{极大似然等价性}：假设每个样本的误差 $\varepsilon_i = y_i - \hat{y}_i$ 独立同分布，且服从均值为 0、方差为 $\sigma^2$ 的正态分布 $\varepsilon_i \sim \mathcal{N}(0, \sigma^2)$。
+        \begin{enumerate}[a.]
+            \item 写出条件概率 $P(y_i \mid x_i; \boldsymbol{w})$ 的表达式。
+            \item 写出 $n$ 个样本的似然函数 $L(\boldsymbol{w})$。
+            \item 对似然函数取对数后（对数似然），推导出最大化对数似然等价于最小化 MSE 的结论（证明等价性）。
+        \end{enumerate}
+
+        \item MSE 的最优解是预测值等于真实值均值，而 MAE 的最优解是预测值等于真实值中位数。请解释这两句话的含义，以及它们对异常值处理策略的指导意义。
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.3.1 损失函数]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：极大似然估计（MLE）是什么概念？]
+    \begin{itemize}
+        \item \textbf{核心思想}：在所有可能的参数 $\boldsymbol{w}$ 中，选择使"观测到当前训练数据的概率"最大的那个参数。
+        \item \textbf{直觉}：如果真实参数是 $\boldsymbol{w}^*$，那么我们观测到的训练数据应该是在 $\boldsymbol{w}^*$ 下"最有可能"出现的数据。反过来说，给定观测数据，让这些数据出现概率最大的参数，就是最好的参数估计。
+        \item \textbf{和 MSE 的联系}：线性回归 MLE 推导出来的参数估计 = 最小化 MSE 的参数——这说明 MSE 有概率论的坚实基础，不只是"随便选的"损失函数。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) MSE vs MAE 对比：}
+    \begin{center}
+    \begin{tabular}{p{3cm} p{4.5cm} p{4.5cm}}
+        \toprule
+        对比维度 & MSE & MAE \\
+        \midrule
+        公式 & $\frac{1}{n}\sum_{i=1}^n(\hat{y}_i-y_i)^2$ & $\frac{1}{n}\sum_{i=1}^n|\hat{y}_i-y_i|$ \\[0.8em]
+        异常值敏感性 & 高度敏感（误差平方放大异常值影响） & 相对鲁棒（线性惩罚，不放大异常值） \\[0.8em]
+        可微性 & 处处连续可微，梯度计算简单 & 在0处不可微（绝对值的尖点），需次梯度 \\[0.8em]
+        物理含义 & 预测误差的平均平方（方差量纲） & 预测误差的平均绝对大小（原始量纲） \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 极大似然等价性推导：}
+
+    \textbf{a.} 因为 $y_i = \boldsymbol{w}^T x_i + b + \varepsilon_i$，$\varepsilon_i\sim\mathcal{N}(0,\sigma^2)$，所以：
+    \[
+    P(y_i\mid x_i;\boldsymbol{w}) = \frac{1}{\sqrt{2\pi}\sigma}\exp\!\left(-\frac{(y_i - \hat{y}_i)^2}{2\sigma^2}\right)
+    \]
+
+    \textbf{b.} $n$ 个独立样本的似然函数（连乘）：
+    \[
+    L(\boldsymbol{w}) = \prod_{i=1}^n P(y_i\mid x_i;\boldsymbol{w}) = \left(\frac{1}{\sqrt{2\pi}\sigma}\right)^n \exp\!\left(-\frac{\sum_{i=1}^n(y_i-\hat{y}_i)^2}{2\sigma^2}\right)
+    \]
+
+    \textbf{c.} 对数似然（取 $\log$ 将乘积变为求和）：
+    \[
+    \ell(\boldsymbol{w}) = n\log\frac{1}{\sqrt{2\pi}\sigma} - \frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-\hat{y}_i)^2
+    \]
+    最大化 $\ell(\boldsymbol{w})$ 等价于最小化 $\sum_{i=1}^n(y_i-\hat{y}_i)^2$（前一项与 $\boldsymbol{w}$ 无关，$\sigma^2>0$）——即\textbf{最小化 MSE}。$\blacksquare$
+
+    \begin{keybox}[等价性的深刻含义]
+        在"误差正态分布"假设下，\textbf{最小二乘法（MSE 最小化）= 极大似然估计}。这赋予了线性回归坚实的概率论基础。若误差不是正态分布（如拉普拉斯分布），MLE 将退化为 MAE 最小化——这正是鲁棒回归的理论依据。
+    \end{keybox}
+
+    \textbf{(3) 均值 vs 中位数：}
+
+    MSE 惩罚大误差更重（平方放大），其最优常数预测是均值——均值对所有点的平方偏差之和最小，但易被异常值拉偏。MAE 线性惩罚，其最优常数预测是中位数——中位数对绝对偏差之和最小，对异常值鲁棒。\textbf{指导意义}：数据有明显异常值时优先考虑 MAE；数据较干净且希望惩罚大误差时用 MSE。
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-03\quad 一元线性回归解析解：推导与手算]
+    \textbf{题目描述：}\\
+    对于一元线性回归 $\hat{y} = wx + b$，可以通过对 MSE 损失函数求导并令导数为 0，直接得到最优参数 $\hat{w}$ 和 $\hat{b}$ 的解析公式。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 设 MSE 为 $J(w,b) = \frac{1}{n}\sum_{i=1}^n(wx_i+b-y_i)^2$，对 $b$ 求偏导 $\frac{\partial J}{\partial b}=0$，推导出 $\hat{b}$ 用 $\hat{w}$、$\bar{x}$、$\bar{y}$ 表示的表达式。
+
+        \item 再对 $w$ 求偏导并代入 $\hat{b}$ 的结果，推导出 $\hat{w}$ 的最终公式：
+        \[
+        \hat{w} = \frac{\sum_{i=1}^n x_i y_i - n\bar{x}\bar{y}}{\sum_{i=1}^n x_i^2 - n\bar{x}^2} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n (x_i-\bar{x})^2}
+        \]
+        验证两种写法的等价性（选做）。
+
+        \item \textbf{手动计算}：给定数据集：
+
+        \begin{center}
+        \begin{tabular}{ccc}
+            \toprule
+            样本 & $x$（广告费，万元） & $y$（销量，千件） \\
+            \midrule
+            1 & 1 & 3 \\
+            2 & 2 & 5 \\
+            3 & 3 & 6 \\
+            4 & 4 & 8 \\
+            5 & 5 & 9 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        用公式计算 $\hat{w}$ 和 $\hat{b}$，并写出拟合直线的方程。（提示：$\bar{x}=3, \bar{y}=6.2$）
+
+        \item 用第(3)题得到的模型，预测广告费为 6 万元时的销量，并说明线性外推（预测范围超出训练数据范围）的风险。
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.3.2 一元线性回归解析解]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 对 $b$ 求偏导：}
+    \[
+    \frac{\partial J}{\partial b} = \frac{2}{n}\sum_{i=1}^n(wx_i+b-y_i) = 0
+    \implies \sum_{i=1}^n(wx_i+b-y_i)=0
+    \implies nw\bar{x}+nb-n\bar{y}=0
+    \]
+    \[
+    \boxed{\hat{b} = \bar{y} - \hat{w}\bar{x}}
+    \]
+
+    \textbf{(2) 对 $w$ 求偏导并代入 $\hat{b}$：}
+    \[
+    \frac{\partial J}{\partial w} = \frac{2}{n}\sum_{i=1}^n(wx_i+b-y_i)x_i = 0
+    \]
+    代入 $b = \bar{y} - w\bar{x}$：
+    \[
+    \sum_{i=1}^n x_i(wx_i + \bar{y} - w\bar{x} - y_i) = 0
+    \implies w\sum x_i(x_i-\bar{x}) = \sum x_i(y_i-\bar{y})
+    \]
+    \[
+    \boxed{\hat{w} = \frac{\sum_{i=1}^n x_i(y_i-\bar{y})}{\sum_{i=1}^n x_i(x_i-\bar{x})} = \frac{\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i-\bar{x})^2}}
+    \]
+    （最后一步利用了 $\sum(x_i-\bar{x})\bar{y}=\bar{y}\sum(x_i-\bar{x})=0$，以及同理对分母的处理。）
+
+    \textbf{(3) 手动计算：}
+
+    $\bar{x}=3, \bar{y}=6.2$。计算各项：
+
+    \begin{center}
+    \begin{tabular}{ccccc}
+        \toprule
+        $i$ & $x_i-\bar{x}$ & $y_i-\bar{y}$ & $(x_i-\bar{x})(y_i-\bar{y})$ & $(x_i-\bar{x})^2$ \\
+        \midrule
+        1 & $-2$ & $-3.2$ & $6.4$ & $4$ \\
+        2 & $-1$ & $-1.2$ & $1.2$ & $1$ \\
+        3 & $0$  & $-0.2$ & $0$   & $0$ \\
+        4 & $1$  & $1.8$  & $1.8$ & $1$ \\
+        5 & $2$  & $2.8$  & $5.6$ & $4$ \\
+        \midrule
+        \textbf{合计} & & & \textbf{15.0} & \textbf{10} \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \[
+    \hat{w} = \frac{15.0}{10} = 1.5, \quad \hat{b} = 6.2 - 1.5\times3 = 6.2 - 4.5 = 1.7
+    \]
+    \textbf{拟合直线方程}：$\hat{y} = 1.5x + 1.7$
+
+    \textbf{(4) 预测与外推风险：}
+
+    预测广告费 6 万元时：$\hat{y} = 1.5\times6 + 1.7 = 10.7$（千件）。\textbf{外推风险}：训练数据范围是 $[1,5]$，6 万元超出此范围。线性关系只在训练范围内经过验证，实际上销量可能因市场饱和而增长放缓（非线性），线性外推可能严重高估或低估真实销量。
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-04\quad 正规方程法：矩阵形式与解析解]
+    \textbf{题目描述：}\\
+    多元线性回归可以用矩阵形式优雅地表示，并通过正规方程（Normal Equation）一步求出解析解。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 将多元线性回归写成矩阵形式 $\hat{\boldsymbol{y}} = X\boldsymbol{w}$。解释矩阵 $X$、向量 $\boldsymbol{w}$、$\hat{\boldsymbol{y}}$ 各自的维度（假设 $n$ 个样本、$p$ 个特征，且将截距 $b$ 并入 $\boldsymbol{w}$ 中）。
+
+        \item MSE 的矩阵形式为 $J(\boldsymbol{w}) = \frac{1}{n}\|X\boldsymbol{w}-\boldsymbol{y}\|_2^2$。对 $\boldsymbol{w}$ 求梯度并令 $\nabla_{\boldsymbol{w}}J=0$，推导出正规方程：
+        \[
+        \hat{\boldsymbol{w}} = (X^TX)^{-1}X^T\boldsymbol{y}
+        \]
+
+        \item 给定以下数据（将截距列并入矩阵）：
+        \[
+        X = \begin{bmatrix}1 & 1 \\ 1 & 2 \\ 1 & 3\end{bmatrix}, \quad \boldsymbol{y} = \begin{bmatrix}2 \\ 4 \\ 5\end{bmatrix}
+        \]
+        手动计算 $X^TX$、$X^T\boldsymbol{y}$，并用正规方程求 $\hat{\boldsymbol{w}}$。
+
+        \item 正规方程法的\textbf{时间复杂度}是多少？当特征数 $p$ 非常大时，为什么更推荐梯度下降法而非正规方程法？
+
+        \item 什么情况下 $X^TX$ 不可逆（奇异）？此时有什么替代方案？
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.3.3 正规方程法]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 矩阵形式与维度：}
+
+    将截距 $b$ 并入（在 $X$ 最左列添加全 1 列，$\boldsymbol{w}$ 第一项为 $b$）：
+    \[
+    X = \begin{bmatrix}1 & x_{11} & \cdots & x_{1p}\\ \vdots & & & \vdots\\ 1 & x_{n1} & \cdots & x_{np}\end{bmatrix}_{n\times(p+1)}, \quad
+    \boldsymbol{w} = \begin{bmatrix}b\\w_1\\\vdots\\w_p\end{bmatrix}_{(p+1)\times 1}, \quad
+    \hat{\boldsymbol{y}} = X\boldsymbol{w} \in \mathbb{R}^n
+    \]
+
+    \textbf{(2) 正规方程推导：}
+    \[
+    J(\boldsymbol{w}) = \frac{1}{n}(X\boldsymbol{w}-\boldsymbol{y})^T(X\boldsymbol{w}-\boldsymbol{y})
+    \]
+    对 $\boldsymbol{w}$ 求梯度（利用矩阵求导法则）：
+    \[
+    \nabla_{\boldsymbol{w}}J = \frac{2}{n}X^T(X\boldsymbol{w}-\boldsymbol{y}) = 0
+    \implies X^TX\boldsymbol{w} = X^T\boldsymbol{y}
+    \implies \boxed{\hat{\boldsymbol{w}} = (X^TX)^{-1}X^T\boldsymbol{y}}
+    \]
+
+    \textbf{(3) 手动计算：}
+    \[
+    X^TX = \begin{bmatrix}1&1&1\\1&2&3\end{bmatrix}\begin{bmatrix}1&1\\1&2\\1&3\end{bmatrix} = \begin{bmatrix}3&6\\6&14\end{bmatrix}
+    \]
+    \[
+    X^T\boldsymbol{y} = \begin{bmatrix}1&1&1\\1&2&3\end{bmatrix}\begin{bmatrix}2\\4\\5\end{bmatrix} = \begin{bmatrix}11\\25\end{bmatrix}
+    \]
+    $(X^TX)^{-1}$：$\det = 3\times14-6\times6=42-36=6$，
+    \[
+    (X^TX)^{-1} = \frac{1}{6}\begin{bmatrix}14&-6\\-6&3\end{bmatrix}
+    \]
+    \[
+    \hat{\boldsymbol{w}} = \frac{1}{6}\begin{bmatrix}14&-6\\-6&3\end{bmatrix}\begin{bmatrix}11\\25\end{bmatrix} = \frac{1}{6}\begin{bmatrix}154-150\\-66+75\end{bmatrix} = \frac{1}{6}\begin{bmatrix}4\\9\end{bmatrix} = \begin{bmatrix}2/3\\3/2\end{bmatrix}
+    \]
+    即 $b \approx 0.667$，$w \approx 1.5$，方程为 $\hat{y} = 1.5x + 0.667$。
+
+    \textbf{(4) 时间复杂度与选择：}
+
+    计算 $(X^TX)^{-1}$ 需要矩阵求逆，时间复杂度为 $O(p^3)$（$p$ 为特征数）。当 $p$ 很大时（如 NLP 中的词袋特征，$p$ 可达数十万），$p^3$ 级别的计算不可接受。梯度下降的每步复杂度为 $O(np)$，总体更适合大 $p$ 场景。
+
+    \textbf{(5) $X^TX$ 不可逆的情况：}
+
+    特征之间存在\textbf{完全多重共线性}（某特征是其他特征的线性组合）；或特征数 $p+1 > n$（参数多于样本）。替代方案：使用\textbf{岭回归正规方程} $\hat{\boldsymbol{w}} = (X^TX + \lambda I)^{-1}X^T\boldsymbol{y}$（L2 正则化保证可逆性）；或用梯度下降法；或 SVD 分解求伪逆。
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-05\quad 梯度下降法：推导更新公式与手动迭代]
+    \textbf{题目描述：}\\
+    当特征维度很高时，正规方程法代价过高，梯度下降法是更实用的选择。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 线性回归的 MSE 损失为 $J(\boldsymbol{w}, b) = \frac{1}{n}\sum_{i=1}^n(\hat{y}_i - y_i)^2$，其中 $\hat{y}_i = \boldsymbol{w}^T x_i + b$。推导出对参数 $w_j$（第 $j$ 个权重）的梯度更新公式：
+        \[
+        w_j \leftarrow w_j - \eta \cdot \frac{\partial J}{\partial w_j}
+        \]
+        写出 $\frac{\partial J}{\partial w_j}$ 和 $\frac{\partial J}{\partial b}$ 的表达式。
+
+        \item \textbf{手动执行一步梯度下降}：设一元线性回归，当前参数 $w=0, b=0$，学习率 $\eta=0.1$，训练数据为：
+
+        \begin{center}
+        \begin{tabular}{ccc}
+            \toprule
+            样本 & $x$ & $y$ \\
+            \midrule
+            1 & 1 & 2 \\
+            2 & 2 & 4 \\
+            3 & 3 & 6 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        计算当前预测值、损失、梯度，并执行一步参数更新（使用 BGD）。
+
+        \item 解释\textbf{特征缩放对梯度下降收敛的影响}：若两个特征尺度差异很大（如 $x_1 \in [0,1]$，$x_2 \in [0,10000]$），损失函数等高线是什么形状？为什么梯度下降会"走之字形"而难以收敛？
+
+        \item 梯度下降法中常见的\textbf{局部极小值和鞍点问题}：在线性回归中这是否是问题？在深度学习中呢？
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.3.4 梯度下降法]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 梯度推导：}
+    \[
+    \frac{\partial J}{\partial w_j} = \frac{2}{n}\sum_{i=1}^n(\hat{y}_i - y_i)\cdot x_{ij}
+    \quad \Rightarrow \quad
+    w_j \leftarrow w_j - \eta\cdot\frac{2}{n}\sum_{i=1}^n(\hat{y}_i - y_i) x_{ij}
+    \]
+    \[
+    \frac{\partial J}{\partial b} = \frac{2}{n}\sum_{i=1}^n(\hat{y}_i - y_i)
+    \quad \Rightarrow \quad
+    b \leftarrow b - \eta\cdot\frac{2}{n}\sum_{i=1}^n(\hat{y}_i - y_i)
+    \]
+
+    \textbf{(2) 手动一步更新：}
+
+    当前 $w=0, b=0$，各样本预测值 $\hat{y}_i = 0$（全为 0）。误差 $(\hat{y}_i - y_i) = (-2, -4, -6)$。
+
+    \[
+    \frac{\partial J}{\partial w} = \frac{2}{3}\sum e_i x_i = \frac{2}{3}[(-2)(1)+(-4)(2)+(-6)(3)] = \frac{2}{3}(-2-8-18) = \frac{2}{3}(-28) \approx -18.67
+    \]
+    \[
+    \frac{\partial J}{\partial b} = \frac{2}{3}\sum e_i = \frac{2}{3}(-2-4-6) = \frac{2}{3}(-12) = -8
+    \]
+    \[
+    w \leftarrow 0 - 0.1\times(-18.67) = 1.867
+    \]
+    \[
+    b \leftarrow 0 - 0.1\times(-8) = 0.8
+    \]
+    一步更新后 $w=1.867, b=0.8$（真实最优解为 $w=2, b=0$，已非常接近）。
+
+    \textbf{(3) 特征缩放对收敛的影响：}
+
+    若 $x_1\in[0,1]$，$x_2\in[0,10000]$，$w_2$ 的微小变化会引起巨大的损失变化，而 $w_1$ 的同样变化只引起微小变化。损失函数等高线在 $w_2$ 方向极扁（椭圆形），在 $w_1$ 方向极宽——使用统一学习率时，梯度在 $w_2$ 方向超调来回震荡（"之字形"），在 $w_1$ 方向进展极慢，收敛极其缓慢。\textbf{特征标准化后}等高线接近圆形，梯度方向直指最优点，收敛快速稳定。
+
+    \textbf{(4) 局部极小值与鞍点：}
+
+    \begin{keybox}[线性回归的凸性保证]
+        线性回归的 MSE 损失函数对 $\boldsymbol{w}$ 是\textbf{严格凸函数}（Hessian 矩阵 $= \frac{2}{n}X^TX$ 半正定），因此\textbf{只有一个全局最小值}，梯度下降（设置合适学习率）一定收敛到全局最优，不存在局部极小值和鞍点问题。深度学习中损失函数非凸，理论上存在局部极小值和鞍点，但实践中高维非凸函数中大量的"局部极小值"的函数值与全局最优接近，而鞍点才是主要的收敛障碍（梯度接近 0 但不是极小值）。
+    \end{keybox}
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-06\quad sklearn API 与特征缩放实践]
+    \textbf{题目描述：}\\
+    sklearn 提供了线性回归的完整 API，支持解析法和梯度下降法两种求解方式。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 阅读以下代码，回答问题：
+
+        \begin{lstlisting}[language=Python]
+from sklearn.linear_model import LinearRegression, SGDRegressor
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+import numpy as np
+
+# 方法一：正规方程（解析法）
+lr = LinearRegression(fit_intercept=True, copy_X=True)
+lr.fit(X_train, y_train)
+print(f"系数: {lr.coef_}, 截距: {lr.intercept_}")
+print(f"R²: {lr.score(X_test, y_test):.4f}")
+
+# 方法二：SGD（梯度下降法）
+pipe = Pipeline([
+    ('scaler', StandardScaler()),
+    ('sgd', SGDRegressor(loss='squared_error', max_iter=1000,
+                          tol=1e-3, learning_rate='adaptive',
+                          eta0=0.01, random_state=42))
+])
+pipe.fit(X_train, y_train)
+        \end{lstlisting}
+
+        \begin{enumerate}[a.]
+            \item \texttt{LinearRegression} 的 \texttt{fit\_intercept=True} 有什么作用？设为 \texttt{False} 时模型会变成什么形式？
+            \item \texttt{lr.score(X\_test, y\_test)} 返回的是什么指标？公式是什么？
+            \item 为什么 \texttt{SGDRegressor} 前面加了 \texttt{StandardScaler()}，而 \texttt{LinearRegression} 不需要？
+            \item \texttt{Pipeline} 的作用是什么？在预测时，它自动对新数据做了什么？
+        \end{enumerate}
+
+        \item \texttt{SGDRegressor} 中 \texttt{learning\_rate='adaptive'} 是什么策略？与固定学习率相比有什么优势？
+
+        \item 线性回归的 \texttt{normalize} 参数（旧版 sklearn）已被弃用，应改用什么方式进行特征归一化？写出推荐的替代写法。
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.2 API使用 / 6.3.4 梯度下降法 API]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 代码问题：}
+    \begin{enumerate}[a.]
+        \item \texttt{fit\_intercept=True}（默认）：模型会自动拟合截距 $b$，即在特征矩阵中隐式添加全 1 列。设为 \texttt{False} 时，模型变为\textbf{过原点的线性回归} $\hat{y}=\boldsymbol{w}^T x$（截距强制为 0），适用于已知数据必须过原点的场景（如物理定律），但大多数情况下不应设为 False。
+        \item \texttt{lr.score()} 返回\textbf{决定系数 $R^2$}，公式：$R^2 = 1 - \dfrac{\sum(y_i-\hat{y}_i)^2}{\sum(y_i-\bar{y})^2}$，越接近 1 越好（最大为 1，可为负）。
+        \item \texttt{LinearRegression} 使用正规方程求解，是纯粹的数学计算（矩阵运算），特征尺度不影响解的正确性。\texttt{SGDRegressor} 使用梯度下降，特征尺度影响梯度大小和收敛速度，必须标准化使各特征梯度在同一量级，否则收敛极慢。
+        \item \texttt{Pipeline} 将多个处理步骤链接为一个整体，\texttt{fit} 时依次训练每步，\texttt{predict} 时自动对新数据先 \texttt{transform}（不 \texttt{fit}）再传给下一步。这自动防止了数据泄漏（scaler 只在训练集 fit 一次）。
+    \end{enumerate}
+
+    \textbf{(2) \texttt{learning\_rate='adaptive'}：}
+
+    自适应学习率策略：初始学习率为 \texttt{eta0}，当发现当前更新后损失没有减小时，自动将学习率\textbf{除以 5}（衰减），逐步缩小步长。与固定学习率相比：不需要手动调节衰减，自动在初期快速收敛、后期精细调整，更稳健地处理不同曲率的损失面。
+
+    \textbf{(3) 替代 \texttt{normalize} 的写法：}
+
+    \begin{lstlisting}[language=Python]
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+
+# 推荐写法：用Pipeline显式组合标准化和模型
+model = Pipeline([
+    ('scaler', StandardScaler()),
+    ('lr', LinearRegression())
+])
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+    \end{lstlisting}
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q6-07\quad 综合案例：广告投放效果预测]
+    \textbf{题目描述：}\\
+    某公司收集了 200 条广告数据，包含三种渠道的投放费用（TV、Radio、Newspaper，单位：千美元）和对应的销量（Sales，单位：千件）。目标是建立多元线性回归模型，预测给定广告预算下的销量。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 写出该问题的多元线性回归模型形式（用 TV、Radio、Newspaper 作为变量名）。
+
+        \item 下面是建模代码框架，请填写缺失部分并回答问题：
+        \begin{lstlisting}[language=Python]
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import numpy as np
+
+df = pd.read_csv('advertising.csv')
+X = df[['TV', 'Radio', 'Newspaper']]
+y = df['Sales']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+# 评估
+mae  = mean_absolute_error(y_test, y_pred)
+mse  = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+r2   = r2_score(y_test, y_pred)
+
+print(f"系数: {dict(zip(X.columns, model.coef_))}")
+print(f"截距: {model.intercept_:.4f}")
+print(f"MAE={mae:.4f}, RMSE={rmse:.4f}, R²={r2:.4f}")
+        \end{lstlisting}
+
+        假设输出为：
+        \begin{itemize}
+            \item 系数：\texttt{\{TV: 0.0458, Radio: 0.1885, Newspaper: -0.0010\}}
+            \item 截距：\texttt{2.9389}
+            \item 输出：\texttt{MAE=1.4632, RMSE=1.8940, R²=0.8992}
+        \end{itemize}
+
+        \begin{enumerate}[a.]
+            \item 系数如何解释？TV 系数 0.0458 意味着什么？
+            \item Newspaper 系数为负（$-0.0010$），这说明什么？应该直接删掉 Newspaper 特征吗？
+            \item $R^2=0.8992$ 怎么解读？这个模型表现如何？
+            \item 如果想预测 TV=200、Radio=50、Newspaper=10 时的销量，写出计算过程。
+        \end{enumerate}
+
+        \item 如果想\textbf{进一步提升}模型性能，可以尝试哪些方向？（列举 3 个以上）
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 6 章 6.4 案例：广告投放效果预测]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 模型形式：}
+    \[
+    \widehat{\text{Sales}} = w_1\cdot\text{TV} + w_2\cdot\text{Radio} + w_3\cdot\text{Newspaper} + b
+    \]
+
+    \textbf{(2) 输出解读：}
+    \begin{enumerate}[a.]
+        \item \textbf{TV 系数 0.0458}：在 Radio 和 Newspaper 投入不变的情况下，TV 广告费每增加 1 千美元，预测销量\textbf{增加 0.0458 千件（约 46 件）}。这是偏效应——控制其他变量不变时的单变量贡献。
+        \item Newspaper 系数 $\approx -0.001$ 且绝对值极小，说明在控制 TV 和 Radio 投入后，Newspaper 对销量几乎没有独立贡献（可能与 Radio 相关，多重共线性使其系数变负）。\textbf{不应直接删掉}，应先做相关分析、方差膨胀因子（VIF）检验，确认多重共线性后再决定是否删除或用正则化处理。
+        \item $R^2=0.8992$ 说明模型解释了测试集中\textbf{约 89.9\% 的销量方差}，未被解释的部分约 10\%。MAE=1.46 千件说明平均预测误差约 1460 件，RMSE=1.89 千件——总体来说这是一个表现不错的模型。
+        \item 预测计算：
+        \[
+        \hat{y} = 0.0458\times200 + 0.1885\times50 + (-0.001)\times10 + 2.9389
+        \]
+        \[
+        = 9.16 + 9.425 - 0.01 + 2.9389 = \mathbf{21.51}\ \text{（千件）}
+        \]
+    \end{enumerate}
+
+    \textbf{(3) 进一步提升方向：}
+    \begin{itemize}
+        \item \textbf{特征工程}：构造交互特征（如 $\text{TV}\times\text{Radio}$），因为广告渠道之间可能有协同效应；
+        \item \textbf{多项式特征}：添加 $\text{TV}^2$ 等非线性项，若销量与广告费呈非线性关系（如边际递减）；
+        \item \textbf{正则化}：用 Ridge 或 Lasso 回归处理 Newspaper 的多重共线性问题；
+        \item \textbf{删除冗余特征}：用 VIF 检验确认高度共线的特征后删除，减少噪声；
+        \item \textbf{集成模型}：尝试 XGBoost、随机森林等非线性模型，不假设线性关系。
+    \end{itemize}
+\end{solutionbox}
+
+\begin{appbox}[现实应用场景]
+    \textbf{线性回归在工业中的广泛应用：}\\
+    金融领域（利率预测、信用评分）、营销领域（广告ROI预测、价格弹性分析）、工程领域（设备故障预测、能耗估计）、医疗领域（药物剂量-反应关系、流行病学研究）。尽管深度学习的流行，在数据量有限、需要可解释性、或问题确实接近线性的场景中，线性回归（或其正则化版本岭/Lasso回归）仍然是工业界首选的基线方法之一。
+\end{appbox}
+
+\section{本章小结}
+\begin{itemize}
+    \item \textbf{两种求解方法}：正规方程（解析法，$O(p^3)$，$p$ 小时用）vs 梯度下降（迭代法，$O(np)$ 每步，$p$ 大时用）。
+    \item \textbf{MSE 的统计根基}：误差正态分布假设下，MSE 最小化 = 极大似然估计——不是随意选的损失。
+    \item \textbf{线性回归是凸优化}：唯一全局最优，梯度下降保证收敛，不存在局部极小值困扰。
+    \item \textbf{梯度下降必须先标准化}：特征尺度差异导致"之字形"收敛——这是一个工程铁律。
+    \item \textbf{线性回归的线性是参数的线性}：通过多项式特征变换，可以拟合非线性关系，灵活性远超直觉。
+\end{itemize}
+\end{document}

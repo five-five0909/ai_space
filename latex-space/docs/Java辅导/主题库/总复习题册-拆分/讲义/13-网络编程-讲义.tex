@@ -1,0 +1,761 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{etoolbox}
+\usepackage{setspace}
+\usepackage{listings}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={网络编程讲义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt,
+    breakable
+}
+
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{网络编程 - 深度解析讲义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月02日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{网络编程}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于Java中Socket编程的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 用于网络通信
+		      \item ServerSocket用于服务器端
+		      \item Socket用于客户端
+		      \item 不需要处理异常
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Socket网络编程的基本概念
+			      \item \textbf{关键区分点}：网络编程必须处理异常
+			      \item \textbf{命题人意图}：测试对网络编程基础的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 用于网络通信 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{Socket}：网络通信的端点
+			      \item \textbf{作用}：建立TCP/UDP连接，进行数据交换
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. ServerSocket用于服务器端 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{ServerSocket}：服务器端监听端口
+			            \begin{lstlisting}[language=Java]
+ServerSocket serverSocket = new ServerSocket(8080);
+Socket client = serverSocket.accept(); // 等待客户端连接
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. Socket用于客户端 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{Socket}：客户端连接服务器
+			            \begin{lstlisting}[language=Java]
+Socket socket = new Socket("localhost", 8080);
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 不需要处理异常 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{必须处理异常}：
+			            \begin{itemize}[label={}, nosep]
+				            \item IOException：网络通信异常
+				            \item SocketException：Socket相关异常
+				            \item UnknownHostException：未知主机
+			            \end{itemize}
+			      \item \textbf{正确写法}：
+			            \begin{lstlisting}[language=Java]
+try (Socket socket = new Socket("localhost", 8080)) {
+    // 通信
+} catch (IOException e) {
+    e.printStackTrace();
+}
+      \end{lstlisting}
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{Socket通信流程}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 服务器：ServerSocket监听 → accept() → 获得Socket
+				            \item 客户端：new Socket() → 连接服务器
+			            \end{itemize}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1：网络编程必须捕获IOException
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：Socket编程异常处理是必须的
+	      \end{bluebox}
+
+	\item \textbf{以下哪个方法用于发送数据？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item send()
+		      \item write()
+		      \item output()
+		      \item transmit()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Socket数据发送方法
+			      \item \textbf{关键区分点}：使用OutputStream的write方法
+			      \item \textbf{命题人意图}：测试对Socket I/O API的掌握
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. send() — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：DatagramPacket有send()，但Socket用Stream
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. write() — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{使用OutputStream}：
+			            \begin{lstlisting}[language=Java]
+Socket socket = new Socket("localhost", 8080);
+OutputStream out = socket.getOutputStream();
+out.write("Hello".getBytes()); // 发送数据
+out.flush(); // 刷新缓冲区
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. output() — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：不是Socket的方法
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. transmit() — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：不存在此方法
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{Socket I/O方法}：
+			            \begin{itemize}[label={}, nosep]
+				            \item getOutputStream()：获取输出流（发送）
+				            \item getInputStream()：获取输入流（接收）
+			            \end{itemize}
+
+			      \item \textbf{注意}：write后要flush确保数据发出
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：Socket发送用OutputStream.write()
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中URL类的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 用于表示统一资源定位符
+		      \item 可以获取网络资源
+		      \item 不能解析URL
+		      \item 可以获取URL的各个部分
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查java.net.URL类的功能
+			      \item \textbf{关键区分点}：URL类可以解析URL字符串
+			      \item \textbf{命题人意图}：测试对URL类的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 用于表示统一资源定位符 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{URL格式}：protocol://host:port/path
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 可以获取网络资源 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{openStream()}：打开网络连接获取输入流
+			            \begin{lstlisting}[language=Java]
+URL url = new URL("https://www.example.com");
+InputStream in = url.openStream();
+// 读取网络资源
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 不能解析URL — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{恰恰相反}：URL类专门用于解析URL
+			            \begin{lstlisting}[language=Java]
+URL url = new URL("https://localhost:8080/path");
+url.getProtocol(); // https
+url.getHost(); // localhost
+url.getPort(); // 8080
+url.getPath(); // /path
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 可以获取URL的各个部分 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{获取方法}：getProtocol()、getHost()、getPort()、getPath()等
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{URL类常用方法}：
+			            \begin{tabular}{|c|c|}
+				            \hline
+				            \textbf{方法}   & \textbf{返回} \\
+				            \hline
+				            getProtocol() & 协议          \\
+				            \hline
+				            getHost()     & 主机名         \\
+				            \hline
+				            getPort()     & 端口          \\
+				            \hline
+				            getPath()     & 路径          \\
+				            \hline
+			            \end{tabular}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：URL类专门解析和获取URL各部分
+	      \end{bluebox}
+
+	\item \textbf{以下哪个方法用于获取URL的协议部分？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item getProtocol()
+		      \item getScheme()
+		      \item getType()
+		      \item getProtocolType()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查URL类获取协议的方法
+			      \item \textbf{关键区分点}：getScheme()是正确方法名
+			      \item \textbf{命题人意图}：测试对URL API的熟悉程度
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. getProtocol() — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：不是URL类的方法
+		      \end{itemize}
+
+		      \item \textbf{B. getScheme() — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{返回协议}：http、https、ftp等
+			            \begin{lstlisting}[language=Java]
+URL url = new URL("https://www.example.com");
+String scheme = url.getScheme(); // https
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. getType() — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：不存在此方法
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. getProtocolType() — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：不存在此方法
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{记忆技巧}：URL遵循URI规范，用scheme表示协议
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：URL获取协议用getScheme()
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中Servlet的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 运行在服务器端
+		      \item 是一个接口
+		      \item 用于处理HTTP请求
+		      \item 可以直接被实例化
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Servlet生命周期管理
+			      \item \textbf{关键区分点}：Servlet由容器管理，不直接new
+			      \item \textbf{命题人意图}：测试对Servlet生命周期的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 运行在服务器端 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{容器}：Tomcat、Jetty等Web容器
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 是一个接口 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{javax.servlet.Servlet}：核心接口
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 用于处理HTTP请求 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{HttpServlet}：处理HTTP请求的抽象类
+			            \begin{lstlisting}[language=Java]
+public class MyServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest req, 
+                         HttpServletResponse resp) {
+        // 处理GET请求
+    }
+}
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 可以直接被实例化 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{容器管理}：Servlet由Web容器实例化、初始化、调用
+			            \begin{itemize}[label={}, nosep]
+				            \item 容器创建Servlet实例
+				            \item 调用init()初始化
+				            \item 调用service()处理请求
+				            \item 调用destroy()销毁
+			            \end{itemize}
+			      \item \textbf{开发中不直接new}
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{Servlet生命周期}：
+			            \begin{enumerate}[label={}, leftmargin=*, nosep]
+				            \item 加载：容器加载Servlet类
+				            \item 实例化：new Servlet()
+				            \item 初始化：init()
+				            \item 处理请求：service()
+				            \item 销毁：destroy()
+			            \end{enumerate}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1：开发者不直接new Servlet，由容器管理
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：Servlet由容器管理生命周期
+	      \end{bluebox}
+
+	\item \textbf{以下哪个方法是Servlet的生命周期方法？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item init()
+		      \item start()
+		      \item execute()
+		      \item process()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Servlet生命周期方法
+			      \item \textbf{关键区分点}：init/service/destroy是生命周期方法
+			      \item \textbf{命题人意图}：测试对Servlet生命周期的掌握
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. init() — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{初始化方法}：容器调用一次
+			            \begin{lstlisting}[language=Java]
+public void init(ServletConfig config) throws ServletException {
+    // 初始化代码
+}
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. start() — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：不是Servlet的方法
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. execute() — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：不是Servlet的方法
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. process() — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{辨析}：不是Servlet的方法
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{Servlet生命周期方法}：
+			            \begin{itemize}[label={}, nosep]
+				            \item init()：初始化
+				            \item service()：处理请求（doGet/doPost）
+				            \item destroy()：销毁
+			            \end{itemize}
+
+			      \item \textbf{调用次数}：
+			            \begin{itemize}[label={}, nosep]
+				            \item init()：一次
+				            \item service()：每次请求
+				            \item destroy()：一次
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：Servlet生命周期 = init + service + destroy
+	      \end{bluebox}
+
+	\item \textbf{以下关于Java中JSP的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 本质是一个Servlet
+		      \item 可以嵌入Java代码
+		      \item 性能比Servlet高
+		      \item 用于生成动态网页
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查JSP与Servlet的关系
+			      \item \textbf{关键区分点}：JSP首次访问需编译为Servlet
+			      \item \textbf{命题人意图}：测试对JSP机制的理解
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. 本质是一个Servlet — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{编译过程}：JSP → Servlet → 编译 → class
+			            \begin{itemize}[label={}, nosep]
+				            \item 首次访问时，容器将JSP翻译成Java Servlet源码
+				            \item 然后编译成.class文件
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. 可以嵌入Java代码 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{JSP脚本元素}：
+			            \begin{itemize}[label={}, nosep]
+				            \item <\% \%>：代码片段
+				            \item <\%= \%>：表达式输出
+				            \item <\%! \%>：声明
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. 性能比Servlet高 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{性能分析}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 首次访问：JSP需要编译，性能低于直接使用Servlet
+				            \item 后续访问：编译后与Servlet性能相当
+				            \item 总体：Servlet性能更稳定
+			            \end{itemize}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. 用于生成动态网页 — 正确}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{应用场景}：视图层，动态生成HTML
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{JSP vs Servlet}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{对比} & \textbf{JSP} & \textbf{Servlet} \\
+				            \hline
+				            角色          & 视图层          & 控制层              \\
+				            \hline
+				            编写难度        & 简单           & 较难               \\
+				            \hline
+				            首次性能        & 差            & 好                \\
+				            \hline
+			            \end{tabular}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1：JSP首次访问需编译，首次性能差
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：JSP首次访问编译，Servlet性能更稳定
+	      \end{bluebox}
+
+	\item \textbf{以下哪个是JSP中的指令？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item <jsp:include>
+		      \item <jsp:forward>
+		      \item <\%@ \%>
+		      \item <jsp:param>
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查JSP指令与动作的区别
+			      \item \textbf{关键区分点}：指令使用<\%@ \%>语法
+			      \item \textbf{命题人意图}：测试对JSP语法的掌握
+		      \end{itemize}
+
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      % ---------- 选项A ----------
+		      \item \textbf{A. <jsp:include> — JSP动作}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{类型}：JSP Action（动作）
+			      \item \textbf{作用}：动态包含
+			            \begin{lstlisting}[language=Java]
+<jsp:include page="header.jsp" />
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项B ----------
+		      \item \textbf{B. <jsp:forward> — JSP动作}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{类型}：JSP Action
+			      \item \textbf{作用}：请求转发
+			            \begin{lstlisting}[language=Java]
+<jsp:forward page="next.jsp" />
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项C ----------
+		      \item \textbf{C. <\%@ \%> — JSP指令}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{类型}：Directive（指令）
+			      \item \textbf{作用}：页面设置、引入文件等
+			            \begin{lstlisting}[language=Java]
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+      \end{lstlisting}
+		      \end{itemize}
+
+		      % ---------- 选项D ----------
+		      \item \textbf{D. <jsp:param> — JSP动作元素}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{类型}：JSP Action
+			      \item \textbf{作用}：传递参数
+			            \begin{lstlisting}[language=Java]
+<jsp:include page="header.jsp">
+    <jsp:param name="title" value="首页" />
+</jsp:include>
+      \end{lstlisting}
+		      \end{itemize}
+
+		      \end{itemize}
+
+					  % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{JSP语法分类}：
+			            \begin{tabular}{|c|c|c|}
+				            \hline
+				            \textbf{类型} & \textbf{语法} & \textbf{示例}             \\
+				            \hline
+				            指令          & <\%@ \%>    & page, include, taglib   \\
+				            \hline
+				            动作          & <jsp:>      & include, forward, param \\
+				            \hline
+				            脚本          & <\% \%>     & 代码片段                    \\
+				            \hline
+				            表达式         & <\%= \%>    & 输出                      \\
+				            \hline
+				            声明          & <\%! \%>    & 方法定义                    \\
+				            \hline
+			            \end{tabular}
+
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}[label={}, nosep]
+				            \item 陷阱1：<jsp:include>是动作，不是指令
+				            \item 陷阱2：指令只有三种：page, include, taglib
+			            \end{itemize}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀技巧}：指令用<\%@ \%>，动作用<jsp:>
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

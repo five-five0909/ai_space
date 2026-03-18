@@ -1,0 +1,105 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{graphicx}       % 图片支持
+\usepackage{fancyhdr}       % 页眉页脚
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 使用方法：\choices{选项A}{选项B}{选项C}{选项D}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+
+\title{\textbf{《高等数学》必刷习题——基础版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第八章 微分方程（基础）}
+
+\begin{enumerate}
+    \item 下列是二阶微分方程的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ (y')^{2}-3y=0 $}
+    {$ (y')^{2}+x^{2}y'=0 $}
+    {$ y'y+x^{2}=0 $}
+    {$ y''+yx^{2}=0 $}
+
+    \item 下列是线性微分方程的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ y''+(\ln x)y'+\cos x \cdot y=0 $}
+    {$ y''-2y+y^{2}=e^{2} $}
+    {$ y'-xy+1=\ln x $}
+    {$ (y')^{2}-y'=3x+7 $}
+
+    \item 微分方程 $ \frac{dy}{dx}=\frac{2x+\sin x}{e^{y}} $ 的通解是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ e^{y}=x^{2}+\cos x+C $}
+    {$ e^{y}=x^{2}-\cos x+C $}
+    {$ e^{y}=x^{2}+\sin x+C $}
+    {$ e^{y}=x^{2}-\sin x+C $}
+
+    \item 微分方程 $ y'' + 7y' - 8y = 0 $ 的通解是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ y = C_{1}e^{-x} + C_{2}e^{8x} $}
+    {$ y = C_{1}e^{-x} + C_{2}e^{-8x} $}
+    {$ y = C_{1}e^{x} + C_{2}e^{8x} $}
+    {$ y = C_{1}e^{x} + C_{2}e^{-8x} $}
+
+    \item 微分方程 $ y' = 2xy $ 的通解是 $ y = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ Ce^{x^{2}} $}{$ e^{y^{2}}+C $}{$ x^{2}+C $}{$ e^{x}+C $}
+
+    \item 微分方程 $ y'' = e^{x} + \sin x $ 的通解是 \underline{\hspace{2cm}}。
+
+    \item 微分方程 $ y' - y \tan x - \sec x = 0 $ 的通解为 \underline{\hspace{2cm}}。
+
+    \item 求微分方程 $ y'' - 4y' + 2y = 0 $ 的通解。
+
+    \item 微分方程 $ y'' + 6y' + 9y = 0 $ 的通解为 \underline{\hspace{2cm}}。
+
+    \item 微分方程 $ \frac{dy}{dx} = -\frac{x}{y} $ 的通解为 \underline{\hspace{2cm}}。
+
+    \item 求微分方程 $ (x^{2}-y)dx-(x-y)dy=0 $ 的通解。
+
+    \item 求微分方程 $ y' + y = e^{x} + 1 $ 的通解。
+
+    \item 若 $ f(x) $ 连续，且 $ f(x) + 2 \int_{0}^{x} f(t) dt = x^{2} $ ，求 $ f(x) $ 。
+
+    \item 求微分方程 $ y'' - 6y' + 9y = 0 $ 的满足初始条件 $ y(0) = 1, y'(0) = 2 $ 的特解。
+
+    \item 求方程 $ \frac{dy}{dx}=\frac{e^{x}}{y+y^{3}} $ 的通解。
+\end{enumerate}
+
+
+\end{document}

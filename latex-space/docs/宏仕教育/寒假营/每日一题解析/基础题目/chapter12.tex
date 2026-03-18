@@ -1,0 +1,538 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+%==================== 导言区：宏包加载 ====================
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage{geometry}                 % 页面设置
+\usepackage{xcolor}                   % 颜色支持
+\usepackage{fancyhdr}                 % 页眉页脚
+\usepackage{enumitem}                 % 列表定制
+\usepackage{tcolorbox}                %以此美化文本框
+\usepackage{titlesec}                 % 标题格式调整
+
+%==================== 页面布局设置 ====================
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+%==================== 自定义视觉样式 ====================
+
+% 1. 定义分隔线样式
+\newcommand{\TopSeparator}{
+    \par\noindent\rule{\textwidth}{1.5pt}\vspace{0.5em} % 粗实线 ━━━━
+}
+\newcommand{\AnalysisSeparator}{
+    \par\noindent\rule{\textwidth}{0.5pt}\vspace{0.2em}\hrule\vspace{0.5em} % 双线效果 ════
+}
+
+% 2. 定义红色解析环境
+%在这个环境内的所有文字和公式都会自动变成红色
+\newenvironment{RedAnalysis}{
+    \par
+    \color{red} % 设置后续字体为红色
+}{
+    \par
+    \color{black} % 结束时恢复黑色
+}
+
+% 3. 标题格式微调
+\titleformat{\section}{\large\bfseries\heiti}{}{0em}{}[\vspace{-0.5em}]
+\titleformat{\subsection}{\bfseries\kaishu}{}{0em}{}
+
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+%==================== 文档开始 ====================
+\begin{document}
+
+% 标题信息
+\title{\textbf{第十二章 无穷级数（解析）}}
+\author{数学习题讲义}
+\date{\today}
+\maketitle
+
+% --- 题目 1 ---
+\TopSeparator
+\section*{题目1}
+
+\textbf{【题目重现】} \\
+级数 $ \sum_{n=1}^{\infty}\frac{1}{n(n+1)} $ 的前 $n$ 项部分和 $ s_{n} $ 满足 $ \lim_{n\to\infty}s_{n}= $ \underline{\hspace{1cm}}。
+\choicesFour{1}{$ \infty $}{$ \frac{1}{2} $}{0}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+裂项相消法求和。
+
+\textbf{详细步骤} \\
+1. 通项拆解：$u_n = \frac{1}{n(n+1)} = \frac{1}{n} - \frac{1}{n+1}$。
+2. 部分和：
+   $s_n = (1 - \frac{1}{2}) + (\frac{1}{2} - \frac{1}{3}) + \dots + (\frac{1}{n} - \frac{1}{n+1})$。
+   $s_n = 1 - \frac{1}{n+1}$。
+3. 求极限：
+   $\lim_{n \to \infty} s_n = 1 - 0 = 1$。
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{二、核心公式}
+1. \textbf{裂项法}：$\frac{1}{n(n+k)} = \frac{1}{k}(\frac{1}{n} - \frac{1}{n+k})$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 2 ---
+\TopSeparator
+\section*{题目2}
+
+\textbf{【题目重现】} \\
+如果级数 $ \sum_{n=1}^{\infty}u_{n}(u_{n}\neq0) $ 收敛，则必有 \underline{\hspace{1cm}}。
+\choicesTwo
+{$ \sum_{n=1}^{\infty}\frac{1}{u_{n}} $ 发散}
+{$ \sum_{n=1}^{\infty}\left(\frac{1}{n}+u_{n}\right) $ 收敛}
+{$ \sum_{n=1}^{\infty}|u_{n}| $ 收敛}
+{$ \sum_{n=1}^{\infty}(-1)^{n}u_{n} $ 收敛}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+级数收敛的必要条件：$u_n \to 0$。
+
+\textbf{详细步骤} \\
+1. 若 $\sum u_n$ 收敛，则 $\lim u_n = 0$。
+2. 考察A：$\lim \frac{1}{u_n} = \infty \neq 0$，一般项不趋于0，级数必发散。**正确**。
+3. 考察B：$\sum \frac{1}{n}$ 发散，收敛+发散=发散。
+4. 考察C：条件收敛级数（如 $(-1)^n/n$）绝对值级数发散。
+5. 考察D：若 $u_n = (-1)^n/n$，则 $(-1)^n u_n = 1/n$，发散。
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{二、核心公式}
+1. \textbf{必要条件}：级数收敛 $\Rightarrow \lim u_n = 0$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 3 ---
+\TopSeparator
+\section*{题目3}
+
+\textbf{【题目重现】} \\
+若级数 $ \sum_{n=1}^{\infty} a_{n} $ 收敛，下列结论正确的是 \underline{\hspace{1cm}}。
+\choicesTwo
+{$ \sum_{n=1}^{\infty}|a_{n}| $ 收敛}
+{$ \sum_{n=1}^{\infty}(-1)^{n}a_{n} $ 收敛}
+{$ \sum_{n=1}^{\infty}a_{n}a_{n+1} $ 收敛}
+{$ \sum_{n=1}^{\infty}\frac{a_{n}+a_{n+1}}{2} $ 收敛}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+考察级数的基本性质和反例。
+
+\textbf{详细步骤} \\
+1. A：条件收敛级数不成立。
+2. B：$a_n = (-1)^n/n$ 时，$\sum (-1)^n a_n = \sum 1/n$ 发散。
+3. C：$a_n = (-1)^n/\sqrt{n}$，收敛。$a_n a_{n+1} \approx -1/n$ (符号为负)，级数 $\sum a_n a_{n+1} = \sum (-1)^n/\sqrt{n} \cdot (-1)^{n+1}/\sqrt{n+1} \approx \sum -1/n$，发散。
+4. D：$\sum (a_n + a_{n+1})/2 = \frac{1}{2}(\sum a_n + \sum a_{n+1})$。
+   其中 $\sum a_{n+1}$ 是 $\sum a_n$ 去掉首项，性质不变。
+   两个收敛级数之和仍收敛。**正确**。
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. \textbf{线性运算}：收敛+收敛=收敛。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 4 ---
+\TopSeparator
+\section*{题目4}
+
+\textbf{【题目重现】} \\
+下列级数中收敛的是 \underline{\hspace{1cm}}。
+\choicesTwo
+{$ \sum_{n=1}^{+\infty}\left(\frac{1}{\sqrt[3]{n^{2}}}+1\right) $}
+{$ \sum_{n=1}^{+\infty}\left(\frac{1}{n^{3}}+1\right) $}
+{$ \sum_{n=1}^{+\infty}(-1)^{n}\frac{n}{n+4} $}
+{$ \sum_{n=1}^{+\infty}\left(\frac{1}{\sqrt{n^{3}}}+\frac{1}{3^{n}}\right) $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+检查通项极限是否为0，以及P级数、几何级数。
+
+\textbf{详细步骤} \\
+1. A：通项 $\to 1 \neq 0$，发散。
+2. B：通项 $\to 1 \neq 0$，发散。
+3. C：通项极限不为0（$|u_n| \to 1$），发散。
+4. D：$\frac{1}{n^{3/2}}$ 是P级数（$3/2 > 1$）收敛；$(1/3)^n$ 是几何级数 ($q<1$) 收敛。
+   收敛+收敛=收敛。
+
+\textbf{第四步：最终答案} \\
+D
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 5 ---
+\TopSeparator
+\section*{题目5}
+
+\textbf{【题目重现】} \\
+以下级数收敛的是 \underline{\hspace{1cm}}。
+\choicesTwo
+{$ \sum_{n=1}^{\infty}\frac{n^{2}+1}{n^{3}+2n^{2}} $}
+{$ \sum_{n=1}^{\infty}\sin\frac{n\pi}{3} $}
+{$ \sum_{n=1}^{\infty}\ln\left(1+\frac{1}{n^{2}}\right) $}
+{$ \sum_{n=1}^{\infty}\frac{3^{n}}{2^{n}+1} $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+比较判别法和等价无穷小。
+
+\textbf{详细步骤} \\
+1. A：$u_n \sim \frac{n^2}{n^3} = \frac{1}{n}$，发散。
+2. B：通项不趋于0（周期摆动），发散。
+3. C：$u_n = \ln(1 + \frac{1}{n^2}) \sim \frac{1}{n^2}$。
+   $\sum \frac{1}{n^2}$ 收敛（$P=2>1$），故收敛。
+4. D：$u_n \sim (\frac{3}{2})^n \to \infty$，发散。
+
+\textbf{第四步：最终答案} \\
+C
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 6 ---
+\TopSeparator
+\section*{题目6}
+
+\textbf{【题目重现】} \\
+当 $ n \to \infty $ 时， $ \lim_{n \to \infty} n \sin \frac{1}{n} = 1 $ ，根据比较审敛法，可以判定级数 $ \sum_{n=1}^{\infty} \sin \frac{1}{n} $ \underline{\hspace{2cm}}。(收敛还是发散)
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+1. $\sin \frac{1}{n} \sim \frac{1}{n}$。
+2. 级数 $\sum \frac{1}{n}$ 发散（调和级数）。
+3. 故原级数发散。
+
+\textbf{第四步：最终答案} \\
+发散
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 7 ---
+\TopSeparator
+\section*{题目7}
+
+\textbf{【题目重现】} \\
+判别级数的收敛性，级数是 $ \sum_{n=1}^{\infty}(1-\cos\frac{\pi}{n}) $ \underline{\hspace{2cm}}。(收敛还是发散)
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+1. $1 - \cos x \sim \frac{1}{2}x^2$。
+2. $u_n \sim \frac{1}{2} (\frac{\pi}{n})^2 = \frac{\pi^2}{2} \cdot \frac{1}{n^2}$。
+3. $\sum \frac{1}{n^2}$ 收敛，故原级数收敛。
+
+\textbf{第四步：最终答案} \\
+收敛
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 8 ---
+\TopSeparator
+\section*{题目8}
+
+\textbf{【题目重现】} \\
+判别级数的收敛性，级数是 $ \sum_{n=1}^{\infty}\frac{n!}{10^{n}} $ \underline{\hspace{2cm}}。(收敛还是发散)
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+1. 比值判别法：
+   $\rho = \lim \frac{u_{n+1}}{u_n} = \lim \frac{(n+1)!}{10^{n+1}} \cdot \frac{10^n}{n!} = \lim \frac{n+1}{10} = \infty > 1$。
+2. 故发散。
+
+\textbf{第四步：最终答案} \\
+发散
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 9 ---
+\TopSeparator
+\section*{题目9}
+
+\textbf{【题目重现】} \\
+幂级数 $ \sum_{n=1}^{\infty}\frac{3^{n}}{n(n+1)}x^{n} $ 的收敛半径是 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+1. $a_n = \frac{3^n}{n(n+1)}$。
+2. $\rho = \lim |\frac{a_n}{a_{n+1}}| = \lim \frac{3^n}{n(n+1)} \cdot \frac{(n+1)(n+2)}{3^{n+1}} = \lim \frac{1}{3} \frac{n+2}{n} = \frac{1}{3}$。
+   Wait, 公式是 $\rho = 1 / (\lim |a_{n+1}/a_n|)$。
+   $\lim |\frac{a_{n+1}}{a_n}| = 3$。
+   收敛半径 $R = 1/3$。
+
+\textbf{第四步：最终答案} \\
+$ \frac{1}{3} $
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 10 ---
+\TopSeparator
+\section*{题目10}
+
+\textbf{【题目重现】} \\
+如果幂级数 $ \sum_{n=0}^{\infty} a_{n} x^{n} $ 的收敛半径为 2, 则幂级数 $ (x-1)^{n-1} $ 的收敛区间为 \underline{\hspace{2cm}}。 
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+幂级数平移，收敛半径不变。
+中心从 0 变为 1。
+
+\textbf{详细步骤} \\
+1. 收敛半径 $R=2$。
+2. 收敛区间：$|x-1| < 2 \Rightarrow -2 < x-1 < 2 \Rightarrow -1 < x < 3$。
+3. 收敛区间为 $(-1, 3)$。
+
+\textbf{第四步：最终答案} \\
+$ (-1, 3) $
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 11 ---
+\TopSeparator
+\section*{题目11}
+
+\textbf{【题目重现】} \\
+求幂级数 $ \sum_{n=0}^{\infty} (-1)^{n} \frac{x^{n}}{\sqrt{n}} $ 的收敛域。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+1. **收敛半径**：
+   $R = \lim |\frac{a_n}{a_{n+1}}| = \lim \frac{\sqrt{n+1}}{\sqrt{n}} = 1$。
+   区间 $(-1, 1)$。
+2. **端点讨论**：
+   - $x=1$：$\sum \frac{(-1)^n}{\sqrt{n}}$，交错级数，Leibniz判别法，收敛。
+   - $x=-1$：$\sum \frac{(-1)^n (-1)^n}{\sqrt{n}} = \sum \frac{1}{\sqrt{n}}$，$P=1/2$ P级数，发散。
+3. 收敛域：$(-1, 1]$。
+
+\textbf{第四步：最终答案} \\
+$ (-1, 1] $
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 12 ---
+\TopSeparator
+\section*{题目12}
+
+\textbf{【题目重现】} \\
+求幂级数 $ \sum_{n=1}^{\infty} \frac{(x-1)^{n}}{2^{n} \cdot n} $ 的收敛区间。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+1. **收敛半径**：
+   $a_n = \frac{1}{2^n n}$。
+   $R = \lim \frac{2^{n+1}(n+1)}{2^n n} = 2$。
+2. **收敛区间**：
+   $|x-1| < 2 \Rightarrow -1 < x < 3$。
+   区间 $(-1, 3)$。
+   （注：若问收敛域，需讨论端点。$x=3$发散，$x=-1$收敛。域 $[-1,3)$。题目只问区间通常指开区间，但最好写全）
+
+\textbf{第四步：最终答案} \\
+$ (-1, 3) $ （若求收敛域为 $[-1, 3)$）
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 13 ---
+\TopSeparator
+\section*{题目13}
+
+\textbf{【题目重现】} \\
+把 $ y = \frac{1}{2-x} $ 展开为 $x$ 的幂级数。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+1. 转化为几何级数形式 $\frac{1}{1-t}$。
+   $y = \frac{1}{2(1 - \frac{x}{2})} = \frac{1}{2} \sum_{n=0}^\infty (\frac{x}{2})^n$。
+2. 收敛条件：$|\frac{x}{2}| < 1 \Rightarrow |x| < 2$。
+3. 结果：$\sum_{n=0}^\infty \frac{x^n}{2^{n+1}}$。
+
+\textbf{第四步：最终答案} \\
+$ \sum_{n=0}^\infty \frac{1}{2^{n+1}} x^n, \quad x \in (-2, 2) $
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 14 ---
+\TopSeparator
+\section*{题目14}
+
+\textbf{【题目重现】} \\
+求幂级数 $ \sum_{n=1}^{\infty} \frac{3^{n} + 5^{n}}{n} x^{n} $ 的收敛域。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+两个级数和，收敛半径取决于较小者。
+$\sum \frac{3^n}{n} x^n$ 半径 $1/3$。
+$\sum \frac{5^n}{n} x^n$ 半径 $1/5$。
+总半径 $1/5$。
+
+\textbf{详细步骤} \\
+1. $R = 1/5$。
+2. 讨论端点：
+   - $x = 1/5$：$\sum \frac{3^n+5^n}{n} \frac{1}{5^n} = \sum (\frac{(3/5)^n}{n} + \frac{1}{n})$。发散。
+   - $x = -1/5$：$\sum \frac{(-1)^n (3^n+5^n)}{n 5^n} = \sum (-1)^n [(\frac{3}{5})^n \frac{1}{n} + \frac{1}{n}]$。收敛。
+3. 收敛域 $[-1/5, 1/5)$。
+
+\textbf{第四步：最终答案} \\
+$ [-1/5, 1/5) $
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 15 ---
+\TopSeparator
+\section*{题目15}
+
+\textbf{【题目重现】} \\
+求幂级数 $ \sum_{n=1}^{\infty} \frac{x^{n+1}}{n(n+1)} $ 的收敛域及和函数。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{1. 收敛域}：
+$R = 1$。
+端点 $x=1$：$\sum \frac{1}{n(n+1)}$ 收敛。
+端点 $x=-1$：绝对收敛，故收敛。
+域：$[-1, 1]$。
+
+\textbf{2. 和函数}：
+设 $S(x) = \sum_{n=1}^\infty \frac{x^{n+1}}{n(n+1)}$。
+$S'(x) = \sum \frac{(n+1)x^n}{n(n+1)} = \sum \frac{x^n}{n} = -\ln(1-x)$。
+$S(x) = \int_0^x -\ln(1-t) dt$。
+分部积分：
+$= -[t \ln(1-t)]_0^x + \int_0^x t \frac{-1}{1-t} dt$
+$= -x \ln(1-x) + \int_0^x \frac{t}{t-1} dt$
+$= -x \ln(1-x) + \int_0^x (1 + \frac{1}{t-1}) dt$
+$= -x \ln(1-x) + [t + \ln|t-1|]_0^x$
+$= -x \ln(1-x) + x + \ln(1-x) = (1-x)\ln(1-x) + x$。
+
+\textbf{第四步：最终答案} \\
+收敛域 $[-1, 1]$；和函数 $ S(x) = (1-x)\ln(1-x) + x $。
+
+\end{RedAnalysis}
+
+\end{document}

@@ -1,0 +1,513 @@
+\documentclass[a4paper,11pt]{ctexart}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=2.0cm, bottom=2.0cm, headsep=0.3cm, footskip=1cm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{needspace}
+\usepackage{multirow}
+
+\AtBeginDocument{\hypersetup{colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan}}
+\setlist{nosep, itemsep=0.8ex, parsep=0.1em}
+\setlist[itemize]{leftmargin=1.8em}
+\setlist[enumerate]{leftmargin=1.8em}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebg}{rgb}{0.98,0.98,0.98}
+\definecolor{tipsblue}{rgb}{0.85,0.93,1.0}
+\definecolor{highlightyellow}{rgb}{1.0,0.97,0.8}
+
+\lstdefinestyle{mystyle}{backgroundcolor=\color{codebg},commentstyle=\color{codegreen},keywordstyle=\color{magenta}\bfseries,numberstyle=\tiny\color{codegray},stringstyle=\color{codepurple},basicstyle=\ttfamily\small,breakatwhitespace=false,breaklines=true,captionpos=b,keepspaces=true,numbers=left,numbersep=6pt,showspaces=false,showstringspaces=false,showtabs=false,tabsize=2,language=Python,frame=single,framerule=0.5pt,rulecolor=\color{gray!40}}
+\lstset{style=mystyle}
+
+\newtcolorbox{problembox}[1][]{colback=white,colframe=blue!60!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=10pt,after skip=8pt}
+\newtcolorbox{solutionbox}[1][]{enhanced,breakable,colback=green!3!white,colframe=green!50!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=10pt}
+\newtcolorbox{metaphorbox}[1][]{colback=orange!5!white,colframe=orange!70!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=8pt}
+\newtcolorbox{beginnerbox}[1][]{colback=tipsblue,colframe=blue!50!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=8pt}
+\newtcolorbox{appbox}[1][]{colback=green!3!white,colframe=green!60!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=10pt}
+\newtcolorbox{keybox}[1][]{colback=highlightyellow,colframe=orange!80!black,title=\textbf{#1},fonttitle=\bfseries\small,boxrule=1pt,arc=3pt,outer arc=3pt,coltitle=black,before skip=8pt,after skip=8pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{机器学习-第3章}
+\fancyhead[L]{特征工程 · 练习题}
+\fancyfoot[C]{\thepage}
+\addtolength{\headheight}{2pt}
+
+\parskip=2pt plus 1pt minus 0.5pt
+\linespread{1.35}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+
+\title{\textbf{机器学习\\第3章\quad 特征工程}\\[0.5em]
+{\large\color{gray}——数据决定上限，特征工程决定能否触及上限}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{beginnerbox}[本章题目导览：你将挑战哪些核心问题？]
+    特征工程是机器学习项目中最耗时却最关键的环节——据统计，数据科学家约 60\% 的时间花在数据清洗和特征工程上。本章 6 道题覆盖特征工程的所有核心手段：
+    \begin{itemize}
+        \item \textbf{Q3-01（概念框架）}：特征工程的四大内容——选择、转换、构造、降维，各自解决什么问题？
+        \item \textbf{Q3-02（特征选择）}：过滤法、包裹法、嵌入法三种特征选择策略的对比与选择场景。
+        \item \textbf{Q3-03（数值计算）}：归一化 vs 标准化——公式手算 + 适用场景判断，两者绝对不能混用！
+        \item \textbf{Q3-04（类别编码）}：One-hot 编码与 Label Encoding 的选择——什么情况下该用哪种？
+        \item \textbf{Q3-05（相关系数）}：皮尔逊 vs 斯皮尔曼相关系数——两者的区别、计算方法与适用条件。
+        \item \textbf{Q3-06（PCA 理解）}：主成分分析的直觉、步骤与 sklearn API，以及何时用 PCA。
+    \end{itemize}
+\end{beginnerbox}
+
+\section{第 3 章\quad 特征工程：让数据说话}
+
+\begin{metaphorbox}[先建立一个总感觉：特征工程是什么？]
+    把数据比作一块未经加工的矿石，特征工程就是\textbf{提炼矿石的过程}：
+    \begin{itemize}
+        \item \textbf{特征选择}：把矿石里没价值的杂质（无关特征）扔掉；
+        \item \textbf{特征转换}：把矿石研磨成粉末（统一量纲、归一化），让不同矿石能放在一起比较；
+        \item \textbf{特征构造}：把几块矿石熔炼成新的合金（交叉特征），发现原来分开时看不出的价值；
+        \item \textbf{特征降维}：把一百种成分的矿石压缩成几种主要成分的描述，去掉冗余。
+    \end{itemize}
+\end{metaphorbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q3-01\quad 特征工程框架：四大内容总览]
+    \textbf{题目描述：}\\
+    特征工程（Feature Engineering）是指将原始数据转化为能更好地表达问题本质、从而提升模型性能的特征的过程。它包含四大类工作。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，总结特征工程四大内容：
+
+        \begin{center}
+        \begin{tabular}{p{2.5cm} p{3.5cm} p{3.5cm} p{3cm}}
+            \toprule
+            类别 & 解决的问题 & 主要方法 & 典型 API \\
+            \midrule
+            特征选择 & \underline{\hspace{3cm}} & 过滤法、包裹法、嵌入法 & \underline{\hspace{2.5cm}} \\[1.2em]
+            特征转换 & \underline{\hspace{3cm}} & \underline{\hspace{3cm}} & StandardScaler, MinMaxScaler \\[1.2em]
+            特征构造 & \underline{\hspace{3cm}} & \underline{\hspace{3cm}} & \underline{\hspace{2.5cm}} \\[1.2em]
+            特征降维 & \underline{\hspace{3cm}} & PCA、LDA、t-SNE & \underline{\hspace{2.5cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 特征工程中有一个重要原则："必须在训练集上 \texttt{fit}，在所有集合上 \texttt{transform}"。解释这条原则的含义，以及违反它会导致什么问题。
+
+        \item 特征工程是否适用于所有机器学习模型？深度学习和传统机器学习在特征工程需求上有什么区别？
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 3 章 3.1--3.2]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 四大内容填表：}
+    \begin{center}
+    \begin{tabular}{p{2.5cm} p{3.5cm} p{3.5cm} p{3cm}}
+        \toprule
+        类别 & 解决的问题 & 主要方法 & 典型 API \\
+        \midrule
+        特征选择 & 去掉无关/冗余特征，降低维度，防止过拟合 & 过滤法、包裹法、嵌入法 & \texttt{SelectKBest}, \texttt{RFE} \\[0.8em]
+        特征转换 & 消除量纲差异，改善数据分布 & 归一化、标准化、对数变换、编码 & \texttt{StandardScaler}, \texttt{MinMaxScaler} \\[0.8em]
+        特征构造 & 挖掘特征间的组合关系，增加信息量 & 交叉特征、统计特征、时间特征 & \texttt{PolynomialFeatures} \\[0.8em]
+        特征降维 & 压缩高维特征，去除冗余，可视化 & PCA、LDA、t-SNE、自编码器 & \texttt{PCA}, \texttt{TSNE} \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) fit/transform 原则：}
+
+    \textbf{只在训练集上 fit}，意味着变换的统计量（如归一化的最大最小值、标准化的均值和标准差）\textbf{只从训练数据中计算}，然后用同样的参数对验证集和测试集做 transform。若在全量数据（含测试集）上 fit，测试集的统计信息就"泄漏"到了训练过程中（称为\textbf{数据泄漏/信息泄漏}），导致测试集上的评估结果过于乐观，高估了模型的真实泛化能力。
+
+    \textbf{(3) 深度学习 vs 传统 ML 的特征工程需求：}
+
+    传统机器学习（SVM、逻辑回归、随机森林等）\textbf{高度依赖特征工程}，人工设计的特征质量直接决定模型上限。深度学习的优势在于能从原始数据（像素、词元）中\textbf{自动学习层次化特征表示}，大大减少了对手工特征工程的依赖。但深度学习仍需要：数据预处理（归一化/标准化）、类别编码、处理缺失值等基础转换；且在数据量有限时，手工特征工程仍能显著提升深度模型性能。
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q3-02\quad 特征选择：过滤法、包裹法、嵌入法对比]
+    \textbf{题目描述：}\\
+    特征选择是去掉无关特征和冗余特征的过程，有三种主要方法，各有优缺点和适用场景。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，对比三种特征选择方法：
+
+        \begin{center}
+        \begin{tabular}{p{2.5cm} p{3.5cm} p{3cm} p{3.5cm}}
+            \toprule
+            方法 & 核心思路 & 优点 & 缺点/局限 \\
+            \midrule
+            过滤法 & 用统计指标对特征独立打分，按分数筛选 & \underline{\hspace{2.5cm}} & \underline{\hspace{3cm}} \\[1.5em]
+            包裹法 & \underline{\hspace{3cm}} & 能考虑特征间的交互 & \underline{\hspace{3cm}} \\[1.5em]
+            嵌入法 & \underline{\hspace{3cm}} & \underline{\hspace{2.5cm}} & 依赖特定模型 \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 低方差过滤法（Variance Threshold）的原理是什么？如果一个特征的方差接近 0，说明什么？给出 sklearn 的使用代码。
+
+        \item 皮尔逊相关系数过滤法中，如果两个特征之间的相关系数绝对值很高（如 $|r| > 0.95$），通常的处理策略是什么？为什么不能两个都保留？
+
+        \item L1 正则化（Lasso）为什么能实现嵌入式特征选择？L1 正则化与 L2 正则化在特征选择能力上有什么本质区别？
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 3 章 3.2.1 特征选择 / 3.3.1--3.3.2]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 三种方法对比：}
+    \begin{center}
+    \begin{tabular}{p{2.5cm} p{3.5cm} p{3cm} p{3.5cm}}
+        \toprule
+        方法 & 核心思路 & 优点 & 缺点/局限 \\
+        \midrule
+        过滤法 & 用统计指标独立评分筛选 & 计算速度快，与模型无关，可扩展到高维 & 不考虑特征间交互，可能保留冗余组合 \\[0.8em]
+        包裹法 & 用目标模型的性能评估特征子集，搜索最优子集（如 RFE） & 能考虑特征间交互，针对具体模型优化 & 计算代价极高（$2^p$ 种子集），容易过拟合 \\[0.8em]
+        嵌入法 & 将特征选择融入模型训练（如 L1 正则化、树模型特征重要性） & 兼顾效率和特征交互，与模型一体化 & 依赖特定模型，不同模型给出的重要性不同 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 低方差过滤法：}
+
+    方差衡量特征的"变化程度"。方差接近 0 说明该特征在所有样本中几乎取同一个值（如某列全是 1，或某二值列 99\% 都是 0）——这样的特征对区分样本\textbf{没有任何贡献}，可以直接删除。
+
+    \begin{lstlisting}[language=Python]
+from sklearn.feature_selection import VarianceThreshold
+selector = VarianceThreshold(threshold=0.01)  # 方差小于0.01的特征被删除
+X_selected = selector.fit_transform(X_train)
+    \end{lstlisting}
+
+    \textbf{(3) 高相关特征的处理：}
+
+    两个高度相关的特征本质上携带了\textbf{相同的信息}（多重共线性），同时保留不会增加有效信息，反而会：增加模型参数数量（过拟合风险）；在线性模型中导致系数估计不稳定（矩阵近似奇异）。通常保留一个删除另一个，或用 PCA 将两者合并为一个主成分。
+
+    \textbf{(4) L1 vs L2 的特征选择能力：}
+
+    \begin{keybox}[L1 产生稀疏解的数学原因]
+        L1 正则化在参数空间中等价于在一个"菱形"约束区域内优化，损失函数的等高线与菱形的\textbf{顶角}（坐标轴上的点）相交概率更高——这些点恰好有许多参数为零，产生\textbf{稀疏解}。L2 正则化的约束区域是"球形"，等高线倾向于在球面光滑处相切，几乎没有权重会精确等于零，只是被压缩得很小——\textbf{不产生稀疏解}，因此无法做特征选择，只能做正则化。
+    \end{keybox}
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q3-03\quad 归一化 vs 标准化：公式计算 + 场景判断]
+    \textbf{题目描述：}\\
+    数值特征的尺度差异会严重影响许多机器学习算法的性能。归一化和标准化是最常用的两种特征缩放方法。
+
+    \vspace{0.3cm}
+    \textbf{题目数据：}某数据集的"年龄"特征，5 个样本值为：$[18, 25, 30, 45, 62]$。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 写出\textbf{归一化}（Min-Max Normalization）的公式，并对上述 5 个值进行归一化计算（保留两位小数）。
+
+        \item 写出\textbf{标准化}（Z-score Standardization）的公式，并对上述 5 个值进行标准化计算（保留两位小数）。（提示：均值 $\bar{x} = 36$，标准差 $s \approx 15.94$）
+
+        \item 填写下表，对比两种方法的适用场景：
+
+        \begin{center}
+        \begin{tabular}{p{2.5cm} p{4.5cm} p{4.5cm}}
+            \toprule
+            对比维度 & 归一化（Min-Max） & 标准化（Z-score） \\
+            \midrule
+            输出范围 & \underline{\hspace{4cm}} & 均值为0，标准差为1，\underline{\hspace{1cm}}（无固定范围） \\[1.2em]
+            对异常值敏感性 & \underline{\hspace{4cm}} & \underline{\hspace{4cm}} \\[1.2em]
+            适合场景 & \underline{\hspace{4cm}} & \underline{\hspace{4cm}} \\[1.2em]
+            不适合场景 & 数据有明显异常值时 & \underline{\hspace{4cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item 决策树和随机森林\textbf{不需要}特征缩放，为什么？哪些算法\textbf{必须}进行特征缩放？
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 3 章 3.2.2 归一化 / 标准化]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 归一化计算：}
+
+    公式：$x' = \dfrac{x - x_{\min}}{x_{\max} - x_{\min}}$，其中 $x_{\min}=18$，$x_{\max}=62$，范围 $=44$。
+
+    \begin{center}
+    \begin{tabular}{cccc}
+        \toprule
+        原始值 & 计算过程 & 归一化结果 \\
+        \midrule
+        18 & $(18-18)/44$ & $0.00$ \\
+        25 & $(25-18)/44$ & $0.16$ \\
+        30 & $(30-18)/44$ & $0.27$ \\
+        45 & $(45-18)/44$ & $0.61$ \\
+        62 & $(62-18)/44$ & $1.00$ \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 标准化计算：}
+
+    公式：$x' = \dfrac{x - \bar{x}}{s}$，其中 $\bar{x}=36$，$s\approx15.94$。
+
+    \begin{center}
+    \begin{tabular}{cccc}
+        \toprule
+        原始值 & 计算过程 & 标准化结果 \\
+        \midrule
+        18 & $(18-36)/15.94$ & $-1.13$ \\
+        25 & $(25-36)/15.94$ & $-0.69$ \\
+        30 & $(30-36)/15.94$ & $-0.38$ \\
+        45 & $(45-36)/15.94$ & $+0.56$ \\
+        62 & $(62-36)/15.94$ & $+1.63$ \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(3) 适用场景对比：}
+    \begin{center}
+    \begin{tabular}{p{2.5cm} p{4.5cm} p{4.5cm}}
+        \toprule
+        对比维度 & 归一化 & 标准化 \\
+        \midrule
+        输出范围 & $[0, 1]$（固定） & 均值0，标准差1，无固定范围 \\[0.8em]
+        异常值敏感性 & \textbf{高度敏感}：异常值决定 min/max，严重影响其他样本缩放 & \textbf{相对稳健}：异常值影响均值和标准差，但程度较轻 \\[0.8em]
+        适合场景 & 需要输出在固定区间（如神经网络激活函数）；数据分布未知但已知边界范围 & 数据近似正态分布；不知道数据范围；有异常值但分布合理 \\[0.8em]
+        不适合场景 & 数据有明显异常值时 & 需要严格保持 $[0,1]$ 输出范围时（如图像像素） \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(4) 决策树不需要缩放的原因 + 必须缩放的算法：}
+
+    决策树的分裂判断基于\textbf{特征阈值}（"年龄 $>$ 30？"），是对单个特征的有序比较，不涉及特征之间的距离计算或线性组合——特征的绝对数值大小不影响分裂结果，只有相对排序重要。
+
+    \begin{keybox}[必须进行特征缩放的算法]
+        \textbf{必须缩放}：KNN（基于距离）、SVM（基于间隔，距离度量）、逻辑回归/线性回归（梯度更新步长受特征量纲影响）、神经网络（梯度下降收敛速度受量纲影响）、PCA（基于方差/协方差，量纲不一致会使方差大的特征主导主成分）、K-means（基于距离）。\\
+        \textbf{不需要缩放}：决策树、随机森林、XGBoost/LightGBM（基于排序/分裂，量纲不影响结果）。
+    \end{keybox}
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q3-04\quad 类别变量编码：One-hot vs Label Encoding]
+    \textbf{题目描述：}\\
+    机器学习模型只能处理数值，但许多特征是类别型的（如"城市""颜色""学历"）。如何将类别转为数值，是特征工程的重要问题。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{Label Encoding}（标签编码）将每个类别映射为一个整数（如红=0，绿=1，蓝=2）。这种方式有什么潜在问题？在什么情况下是合理的？
+
+        \item \textbf{One-hot Encoding}（独热编码）为什么能解决 Label Encoding 的问题？对"颜色"特征（红/绿/蓝）做 One-hot 编码后，数据会变成什么形式？
+
+        \item 当类别特征的取值种数非常多（如城市有 3000 个），使用 One-hot 编码会遇到什么问题（维度灾难、稀疏矩阵）？有哪些替代方案？
+
+        \item 填写下表，总结各编码方式的适用场景：
+
+        \begin{center}
+        \begin{tabular}{p{3cm} p{5cm} p{4.5cm}}
+            \toprule
+            编码方式 & 适用场景 & 注意事项 \\
+            \midrule
+            Label Encoding & \underline{\hspace{4.5cm}} & 不能用于无序类别的线性模型 \\[1.2em]
+            One-hot Encoding & \underline{\hspace{4.5cm}} & \underline{\hspace{4cm}} \\[1.2em]
+            Target Encoding & \underline{\hspace{4.5cm}} & \underline{\hspace{4cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 3 章 3.2.2 类别变量的编码]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) Label Encoding 的问题：}
+
+    整数编码隐含了\textbf{大小关系}（红=0 < 绿=1 < 蓝=2），而颜色之间本无大小。线性模型会把这个人为设定的顺序解读为真实的数值关系（认为"蓝比红大 2 倍"），导致错误的决策边界。\textbf{合理使用场景}：有内在顺序的类别特征（学历：小学=0, 初中=1, 高中=2, 大学=3）——这些类别确实有大小/优劣关系，Label Encoding 的整数顺序与真实语义一致。
+
+    \textbf{(2) One-hot 编码：}
+
+    One-hot 为每个类别创建独立的二进制列，完全消除了类别之间的假设大小关系：
+    \[
+    \text{红} \to [1, 0, 0], \quad \text{绿} \to [0, 1, 0], \quad \text{蓝} \to [0, 0, 1]
+    \]
+    三列的任意两列内积为 0，说明三个类别在模型眼中"等距"，不存在任何大小偏差。
+
+    \textbf{(3) 高基数类别的问题与替代方案：}
+
+    3000 个城市做 One-hot 会产生 3000 列，绝大多数位置为 0（稀疏矩阵），大幅增加计算量和内存消耗，且每个城市训练样本很少（过拟合风险）。替代方案：\textbf{Target Encoding}（用该类别的目标变量均值替换）；\textbf{频率编码}（用该类别出现的频率替换）；\textbf{嵌入编码}（Embedding，用低维稠密向量表示，适合深度学习）；\textbf{分组/层级编码}（如城市→省→地区，用更粗粒度）。
+
+    \textbf{(4) 编码方式适用场景：}
+    \begin{center}
+    \begin{tabular}{p{3cm} p{5cm} p{4.5cm}}
+        \toprule
+        编码方式 & 适用场景 & 注意事项 \\
+        \midrule
+        Label Encoding & 有序类别特征（学历、评级）；树模型（对顺序不敏感） & 不能用于无序类别的线性模型/SVM \\[0.8em]
+        One-hot Encoding & 无序类别，取值种数较少（$<$ 几十个）；线性模型、SVM、神经网络 & 存在多重共线性（哑变量陷阱），通常删掉一列；高基数时维度爆炸 \\[0.8em]
+        Target Encoding & 高基数类别特征；梯度提升树 & 存在数据泄漏风险，需用交叉验证方式编码 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q3-05\quad 相关系数：皮尔逊 vs 斯皮尔曼]
+    \textbf{题目描述：}\\
+    相关系数是衡量两个变量之间线性/单调关系强度的统计量，是特征选择中最常用的过滤指标之一。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 皮尔逊相关系数的公式是：
+        \[
+        r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_i(x_i-\bar{x})^2} \cdot \sqrt{\sum_i(y_i-\bar{y})^2}}
+        \]
+        给定数据：$x = [1, 2, 3, 4, 5]$，$y = [2, 4, 6, 8, 10]$，手动计算 $r$（$\bar{x}=3, \bar{y}=6$）。
+
+        \item 斯皮尔曼相关系数的核心思路是什么？它与皮尔逊相关系数的\textbf{适用条件}有什么区别？
+
+        \item 下面几种场景，分别应该用皮尔逊还是斯皮尔曼相关系数？
+        \begin{enumerate}[A.]
+            \item 研究"学习时长（小时）"与"考试分数（0--100 分）"的关系，两个变量近似正态分布
+            \item 研究"用户评分（1--5 星）"与"复购次数"的关系，评分是离散有序变量
+            \item 研究"收入"与"幸福感（1--10 分）"，收入数据有严重右偏（少数超高收入）
+        \end{enumerate}
+        \item 相关系数为 0 说明两个变量\textbf{一定没有关系}吗？举一个反例。
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 3 章 3.3.2 相关系数法]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 皮尔逊相关系数计算：}
+
+    $\bar{x}=3, \bar{y}=6$，各差值：$x-\bar{x} = [-2,-1,0,1,2]$，$y-\bar{y} = [-4,-2,0,2,4]$
+    \[
+    \sum(x_i-\bar{x})(y_i-\bar{y}) = (-2)(-4)+(-1)(-2)+(0)(0)+(1)(2)+(2)(4) = 8+2+0+2+8=20
+    \]
+    \[
+    \sqrt{\sum(x_i-\bar{x})^2} = \sqrt{4+1+0+1+4} = \sqrt{10}, \quad \sqrt{\sum(y_i-\bar{y})^2} = \sqrt{16+4+0+4+16} = \sqrt{40}
+    \]
+    \[
+    r = \frac{20}{\sqrt{10}\times\sqrt{40}} = \frac{20}{\sqrt{400}} = \frac{20}{20} = \boxed{1.0}
+    \]
+    完全线性相关（$y=2x$），符合预期。
+
+    \textbf{(2) 斯皮尔曼 vs 皮尔逊：}
+
+    斯皮尔曼相关系数先将两个变量\textbf{各自转为秩（排名）}，然后对秩计算皮尔逊相关系数。它衡量的是\textbf{单调关系}（无论线性还是非线性的单调），而皮尔逊只衡量\textbf{线性关系}。适用条件：皮尔逊要求数据近似正态分布、无显著异常值、关系为线性；斯皮尔曼无分布假设，对异常值更鲁棒，适合有序分类变量或存在异常值的连续变量。
+
+    \textbf{(3) 场景选择：}
+    \begin{itemize}
+        \item \textbf{A → 皮尔逊}：两个变量近似正态，关系线性，皮尔逊的假设完全满足。
+        \item \textbf{B → 斯皮尔曼}：评分是离散有序变量（1--5 星），不满足连续/正态假设，斯皮尔曼更合适。
+        \item \textbf{C → 斯皮尔曼}：收入严重右偏（异常值多），皮尔逊会被极端值严重影响，斯皮尔曼基于秩，对异常值鲁棒。
+    \end{itemize}
+
+    \textbf{(4) 相关系数为 0 不代表无关系：}
+
+    皮尔逊相关系数为 0 只说明\textbf{线性关系不显著}，但可能存在非线性关系。反例：$x = [-2,-1,0,1,2]$，$y = [4,1,0,1,4]$（即 $y = x^2$）。由于 $y$ 关于 $x=0$ 完全对称，皮尔逊相关系数精确为 0，但两者有完美的二次（非线性）关系。这正是斯皮尔曼等非参数方法、以及互信息等非线性关系度量的价值所在。
+\end{solutionbox}
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q3-06\quad PCA：主成分分析的直觉、步骤与 API]
+    \textbf{题目描述：}\\
+    主成分分析（PCA）是最经典的线性降维方法。在特征工程中，PCA 既可用于去除冗余特征，也可用于数据可视化（将高维数据降到 2--3 维展示）。
+
+    \vspace{0.2cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item PCA 的核心目标是什么？"主成分"（Principal Component）在几何上是什么含义？
+
+        \item PCA 算法的步骤（用 SVD 实现）依次是：①中心化，②SVD 分解，③选取前 $k$ 个奇异向量，④投影。解释每步的目的，并说明为什么第①步中心化是必须的。
+
+        \item 如何决定保留\textbf{多少个主成分}（选择 $k$ 的方法）？写出"解释方差比例"的公式，并说明通常选择的阈值（如 95\%）意味着什么。
+
+        \item 写出用 sklearn 对鸢尾花数据集（4 维）降至 2 维的完整代码，并打印保留的方差比例。
+
+        \begin{lstlisting}[language=Python]
+from sklearn.decomposition import PCA
+from sklearn.datasets import load_iris
+import numpy as np
+
+iris = load_iris()
+X = iris.data   # shape: (150, 4)
+
+# 请补全代码：标准化 -> PCA降维 -> 输出方差比例
+        \end{lstlisting}
+
+        \item PCA 降维后得到的新特征（主成分）是否具有业务含义？这对模型的可解释性有什么影响？
+    \end{enumerate}
+    {\color{gray}\small\textit{来源溯源：[文档第 3 章 3.2.4 / 3.3.3 主成分分析（PCA）]}}
+\end{problembox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) PCA 核心目标与主成分含义：}
+
+    PCA 的目标是找到一组新的正交坐标轴，使数据在这些轴上的\textbf{投影方差最大}（信息保留最多），同时各轴之间不相关（去除冗余）。主成分在几何上是数据点云中\textbf{方差最大的方向}——第一主成分是数据变化最剧烈的方向，第二主成分是与第一主成分垂直的、方差次大的方向，以此类推。
+
+    \textbf{(2) 各步目的：}
+    \begin{itemize}
+        \item \textbf{中心化}：减去均值，使数据以原点为中心。若不中心化，SVD 的第一个奇异向量会指向数据均值方向，而非真正的最大方差方向。
+        \item \textbf{SVD 分解}：将中心化矩阵分解为 $X_c = U\Sigma V^T$，右奇异矩阵 $V$ 的列就是主成分方向。
+        \item \textbf{选取前 $k$ 个奇异向量}：保留方差贡献最大的 $k$ 个主方向，舍弃信息量小的维度。
+        \item \textbf{投影}：$Z = X_c V_k$，将数据从原始空间投影到 $k$ 维主成分空间。
+    \end{itemize}
+
+    \textbf{(3) 选择 $k$ 的方法：}
+    \[
+    \text{Explained Variance Ratio}(k) = \frac{\sum_{i=1}^k \sigma_i^2}{\sum_{i=1}^r \sigma_i^2}
+    \]
+    选择使该比值达到 95\%（或 90\%、99\%）的最小 $k$，意味着保留 $k$ 个主成分后，原始数据 95\% 的变异信息被保留，仅丢失 5\% 的"次要信息"（通常是噪声）。
+
+    \textbf{(4) 完整代码：}
+    \begin{lstlisting}[language=Python]
+from sklearn.decomposition import PCA
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import StandardScaler
+
+iris = load_iris()
+X = iris.data
+
+# 先标准化（PCA对量纲敏感，必须标准化）
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# PCA降至2维
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)
+
+print(f"降维后形状: {X_pca.shape}")
+print(f"各主成分解释方差比例: {pca.explained_variance_ratio_}")
+print(f"前2个主成分累计解释方差: {pca.explained_variance_ratio_.sum():.2%}")
+    \end{lstlisting}
+
+    \textbf{(5) 主成分的可解释性：}
+
+    PCA 的主成分是原始特征的\textbf{线性组合}，通常\textbf{不具有直接的业务含义}（如"PC1 = 0.52×花萼长 − 0.37×花瓣宽 + ..."，很难直接解释是什么），这使得基于 PCA 的模型可解释性较差，在需要向业务方解释"为什么这样预测"的场景（如信贷审批）中慎用。PCA 更适合探索性分析、可视化、或将高维特征压缩后作为下游模型的输入（不需要解释特征含义的场景）。
+\end{solutionbox}
+
+\section{本章小结}
+\begin{itemize}
+    \item \textbf{fit-transform 原则铁律}：只在训练集 fit，再 transform 所有集合——违反会导致数据泄漏。
+    \item \textbf{归一化 vs 标准化}：有异常值用标准化；需要固定范围用归一化；决策树/随机森林不需要缩放。
+    \item \textbf{类别编码}：有序→ Label Encoding；无序且低基数→ One-hot；高基数→ Target Encoding 或 Embedding。
+    \item \textbf{特征选择三方法}：过滤法快但忽略交互；包裹法好但慢；嵌入法（L1/树模型）兼顾效率与效果。
+    \item \textbf{PCA 的代价}：降维压缩信息，失去可解释性——只在确实需要降维时使用，不是万能的预处理步骤。
+\end{itemize}
+\end{document}

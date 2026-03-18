@@ -1,0 +1,269 @@
+\documentclass[a4paper,12pt]{ctexart} % 使用 ctexart 支持中文
+
+% ------------------- 宏包引入 -------------------
+\usepackage{geometry}           % 页面布局
+\usepackage{amsmath, amssymb}   % 数学公式与符号
+\usepackage{graphicx}           % 图片支持
+\usepackage{xcolor}             % 颜色支持
+\usepackage{float}              % 浮动体控制
+\usepackage{enumitem}           % 列表定制
+\usepackage{tcolorbox}          % 彩色文本框
+\usepackage{tikz}               % 绘图
+\usepackage{pgfplots}           % 数据绘图
+
+% ------------------- 页面设置 -------------------
+\geometry{left=2.0cm, right=2.0cm, top=2.5cm, bottom=2.5cm}
+\pgfplotsset{compat=1.18}
+\linespread{1.5} % 行间距 1.5 倍
+
+% ------------------- 颜色定义 -------------------
+\definecolor{myorange}{RGB}{235, 120, 50}
+\definecolor{myblue}{RGB}{70, 115, 200}
+\definecolor{highlightred}{RGB}{200, 30, 30}
+\definecolor{notepurple}{RGB}{230, 230, 250}
+\definecolor{boxpurple}{RGB}{128, 0, 128}
+
+% ------------------- 自定义命令与环境 -------------------
+
+% 紫色定义框
+\newenvironment{purplebox}
+  {\begin{tcolorbox}[colback=white, colframe=boxpurple, boxrule=1pt, sharp corners, title=\textbf{定义/定理}]}
+  {\end{tcolorbox}}
+
+% 红色手写笔记框
+\newenvironment{rednote}
+  {\begin{tcolorbox}[colback=notepurple, colframe=highlightred, boxrule=1pt, title=\textbf{手写笔记补充}]}
+  {\end{tcolorbox}}
+
+% 用于突出显示的中文段落
+\newcommand{\zh}[1]{\par\smallskip\noindent\textbf{#1}\par\smallskip}
+
+% ------------------- 文档信息 -------------------
+\title{\textbf{考研数学 - 高数总结 (冲刺版)}}
+\author{复习笔记}
+\date{\today}
+
+% ------------------- 正文开始 -------------------
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{函数 极限 连续}
+
+\subsection{函数的性质}
+
+\subsubsection{奇偶性}
+\begin{enumerate}
+    \item 可导函数 $f(x)$ 是奇（偶）函数 $\Rightarrow f'(x)$ 是偶（奇）函数。
+    \item 连续函数 $f(x)$ 是奇（偶）函数 $\Rightarrow$
+    \[
+    \begin{cases}
+    F(x) = \int_0^x f(t) dt \text{ 是偶（奇）函数}, \\
+    F(x) = \int_a^x f(t) dt \text{ 是偶函数} \quad (a \neq 0, f(x) \text{ 是偶函数}, F(x) \text{ 不一定是奇函数}).
+    \end{cases}
+    \]
+    \item $y = f(x)$ 关于直线 $x = a$ 对称 $\Leftrightarrow f(a+x) = f(a-x)$。
+    \item $y = f(x)$ 关于点 $(a, 0)$ 对称 $\Leftrightarrow f(a+x) = -f(a-x)$。
+\end{enumerate}
+
+\subsubsection{周期性}
+\begin{purplebox}
+    \textbf{定义：} 若存在实数 $T > 0$，对于任意 $x$，恒有 $f(x+T) = f(x)$，则称 $y = f(x)$ 为周期函数。
+    使得上述关系式成立的最小正数 $T$ 称为 $f(x)$ 的最小正周期，简称为函数 $f(x)$ 的周期。
+\end{purplebox}
+
+\zh{性质补充：}
+\begin{enumerate}
+    \item $\sin x$ 与 $\cos x$ 以 $2\pi$ 为周期，$\sin 2x$ 与 $|\sin x|$ 以 $\pi$ 为周期。
+    \item 若 $f(x)$ 以 $T$ 为周期，则 $f(ax+b)$ 以 $\frac{T}{|a|} (a \neq 0)$ 为周期。
+\end{enumerate}
+
+\textbf{判定方法：}
+\begin{enumerate}
+    \item 利用定义。
+    \item 可导的周期函数其导函数为周期函数。
+    \item 周期函数的原函数不一定是周期函数（如 $1 + \cos x$）。
+\end{enumerate}
+
+\zh{积分性质：}
+\begin{enumerate}
+    \item 若 $f(x)$ 连续且以 $T$ 为周期，则
+    $F(x) = \int_0^x f(t) dt$ 是以 $T$ 为周期的周期函数 $\Leftrightarrow \int_0^T f(x) dx = 0$。
+    \item 周期函数的原函数是周期函数的充要条件是其在一个周期上的积分为零。
+    \item 可导函数 $f(x)$ 以 $T$ 为周期 $\Rightarrow f'(x)$ 以 $T$ 为周期。
+    \item 连续函数 $f(x)$ 以 $T$ 为周期，则 $F(x) = \int_a^x f(t) dt$ 不一定以 $T$ 为周期。
+\end{enumerate}
+
+\subsection{有界性}
+\begin{purplebox}
+    \textbf{定义：} 若 $\exists M > 0, \forall x \in I, |f(x)| \leqslant M$，则称 $f(x)$ 在 $I$ 上有界。
+\end{purplebox}
+
+\textbf{常见有界函数：}
+\[ |\sin x| \leqslant 1, \quad |\cos x| \leqslant 1, \quad |\arcsin x| \leqslant \frac{\pi}{2}, \quad |\arctan x| < \frac{\pi}{2}, \quad |\arccos x| \leqslant \pi \]
+
+\textbf{判定：}
+\begin{enumerate}
+    \item 利用定义。
+    \item $f(x)$ 在 $[a, b]$ 上连续 $\Rightarrow f(x)$ 在 $[a, b]$ 上有界。
+    \item $f(x)$ 在 $(a, b)$ 上连续，且 $f(a^+)$ 与 $f(b^-)$ 存在 $\Rightarrow f(x)$ 在 $(a, b)$ 上有界。（区间 $(a, b)$ 改为无穷区间 $(-\infty, b), (a, +\infty), (-\infty, +\infty)$ 结论仍成立）。
+    \item $f'(x)$ 在区间 $I$（有限）上有界 $\Rightarrow f(x)$ 在 $I$ 上有界。
+\end{enumerate}
+
+\subsection{单调性}
+\textbf{总结方法：} 作差法、作商法、定义、导数。
+
+\begin{enumerate}
+    \item \textbf{定义法：} 函数 $f(x)$ 的定义域为 $I, \forall x_1, x_2 \in I$，且 $x_1 < x_2$，有 $f(x_1) < f(x_2)$ ($f(x_1) > f(x_2)$)，则称 $f(x)$ 在 $I$ 上单调增加（减少）。
+    \item \textbf{用导数：} 函数 $f(x)$ 的定义域为 $I, x \in I$，若 $f'(x) > 0$ ($f'(x) < 0$) $\Rightarrow f(x)$ 在 $I$ 上单调增加（减少）。
+\end{enumerate}
+
+\section{极限的定义与性质}
+
+\subsection{极限与绝对值}
+\begin{purplebox}
+    \begin{enumerate}
+        \item 若 $\lim_{n \to \infty} a_n = a$，则 $\lim_{n \to \infty} |a_n| = |a|$，但反之不成立。
+        \item $\lim_{n \to \infty} a_n = 0$ 的充分必要条件是 $\lim_{n \to \infty} |a_n| = 0$。
+    \end{enumerate}
+\end{purplebox}
+
+\subsection{一些抽象语言的描述}
+\begin{enumerate}
+    \item 对极限定义中 \textcolor{red}{$\epsilon - \delta$}、\textcolor{red}{$\epsilon - X$}、\textcolor{red}{$\epsilon - N$} 语言的理解：
+    \begin{itemize}
+        \item $\lim_{x \to x_0} f(x) = A$ (\textcolor{red}{$\epsilon - \delta$} 语言)：
+        \[
+        \begin{cases}
+        \text{不等式 } |f(x) - A| < \epsilon \text{ 刻画了 } f(x) \text{ 与 } A \text{ 的无限接近；} \\
+        \text{函数极限与 } f(x) \text{ 在点 } x_0 \text{ 处是否有定义无关；} \\
+        \delta \text{ 与任意给定的正数 } \epsilon \text{ 有关；} \\
+        \delta \text{ 不唯一。}
+        \end{cases}
+        \]
+        \item $\lim_{n \to \infty} a_n = a$ (\textcolor{red}{$\epsilon - N$} 语言)：
+        \[
+        \begin{cases}
+        \text{不等式 } |a_n - a| < \epsilon \text{ 刻画了 } a_n \text{ 与 } a \text{ 的无限接近；} \\
+        N \text{ 与任意给定的正数 } \epsilon \text{ 有关，且不唯一；} \\
+        N \text{ 与前面的有限项无关。}
+        \end{cases}
+        \]
+    \end{itemize}
+    \item 极限的性质：唯一性、保号性、有界性、保序性。
+\end{enumerate}
+
+\subsection{区分左右极限}
+\zh{需要分左、右极限求极限的问题主要有三种：}
+\begin{enumerate}
+    \item 分段函数在分界点处的极限（包括带有绝对值的函数，如 $\lim_{x \to 0} \frac{|x|}{x}$）。
+    \item $e^\infty$ 型极限（如 $\lim_{x \to 0} e^{\frac{1}{x}}, \lim_{x \to \infty} e^x$）：
+    \begin{align*}
+        &\lim_{x \to 0^-} e^{\frac{1}{x}} = 0, \quad \lim_{x \to 0^+} e^{\frac{1}{x}} = +\infty, \quad \text{故 } \lim_{x \to 0} e^{\frac{1}{x}} \text{ 不存在。} \\
+        &e^{+\infty} = +\infty, \quad e^{-\infty} = 0.
+    \end{align*}
+    \item $\arctan \infty$ 型极限（如 $\lim_{x \to 0} \arctan \frac{1}{x}, \lim_{x \to \infty} \arctan x$）：
+    \begin{align*}
+        &\lim_{x \to 0^-} \arctan \frac{1}{x} = -\frac{\pi}{2}, \quad \lim_{x \to 0^+} \arctan \frac{1}{x} = \frac{\pi}{2}, \quad \text{故 } \lim_{x \to 0} \arctan \frac{1}{x} \text{ 不存在。} \\
+        &\arctan(+\infty) = \frac{\pi}{2}, \quad \arctan(-\infty) = -\frac{\pi}{2}.
+    \end{align*}
+\end{enumerate}
+
+\subsection{极限存在准则}
+\begin{purplebox}
+    \textbf{1. 夹逼准则} \\
+    若存在 $N$，当 $n > N$ 时，$x_n \leqslant y_n \leqslant z_n$，且 $\lim_{n \to \infty} x_n = \lim_{n \to \infty} z_n = a$，则 $\lim_{n \to \infty} y_n = a$。
+
+    \textbf{2. 单调有界准则} \\
+    单调有界数列必有极限。（单调增有上界，单调减有下界）。
+\end{purplebox}
+
+\subsection{无穷小的比较}
+\textbf{1. 概念：} 若 $f(x)$ 当 $x \to x_0$（或 $x \to \infty$）时的极限为零，则称 $f(x)$ 为无穷小。
+
+\textbf{2. 比较：} 设 $\lim \alpha(x) = 0, \lim \beta(x) = 0$。
+\begin{itemize}
+    \item 高阶：若 $\lim \frac{\beta(x)}{\alpha(x)} = 0$，记作 $\beta(x) = o(\alpha(x))$。
+    \item 同阶：若 $\lim \frac{\beta(x)}{\alpha(x)} = C \neq 0$。
+    \item 等价：若 $\lim \frac{\beta(x)}{\alpha(x)} = 1$，记作 $\alpha(x) \sim \beta(x)$。
+\end{itemize}
+
+\subsection{无穷大的比较}
+\textbf{常用阶的比较：}
+\begin{enumerate}
+    \item 当 $x \to +\infty$ 时，$\ln^\alpha x \ll x^\beta \ll a^x$ （其中 $\alpha > 0, \beta > 0, a > 1$）。
+    \item 当 $n \to \infty$ 时，$\ln^\alpha n \ll n^\beta \ll a^n \ll n! \ll n^n$。
+\end{enumerate}
+
+\begin{rednote}
+    \textbf{阶乘与双阶乘}
+    \begin{itemize}
+        \item $n! = 1 \cdot 2 \cdot 3 \cdots n \quad (\text{规定 } 0! = 1)$
+        \item $(2n)!! = 2 \cdot 4 \cdot 6 \cdots (2n) = 2^n \cdot n!$
+        \item $(2n-1)!! = 1 \cdot 3 \cdot 5 \cdots (2n-1)$
+    \end{itemize}
+    \textbf{常用放缩：}
+    \[ |\sin x| \leqslant |x|, \quad |\cos x| \leqslant 1, \quad |\arcsin x| \leqslant \frac{\pi}{2} \]
+    \textbf{技巧：} 加绝对值是一种重要技巧！
+\end{rednote}
+
+\subsection{无穷大量与无界变量}
+\begin{itemize}
+    \item \textbf{无穷大 $\Rightarrow$ 无界变量}。但无界变量不一定是无穷大（例：$x_n = n$ 当 $n$ 为奇数，$0$ 当 $n$ 为偶数）。
+    \item \textbf{倒数关系：} 无穷大的倒数是无穷小；无穷小（非零）的倒数是无穷大。
+\end{itemize}
+
+\subsection{常见的等价无穷小与泰勒公式 (必须记住)}
+
+\textbf{1. 常用等价无穷小 ($x \to 0$)}
+\begin{align*}
+    x &\sim \sin x \sim \tan x \sim \arcsin x \sim \arctan x \sim \ln(1+x) \sim e^x - 1 \\
+    (1+x)^a - 1 &\sim ax \\
+    1 - \cos x &\sim \frac{1}{2}x^2 \\
+    a^x - 1 &\sim x \ln a \\
+    x - \sin x &\sim \frac{x^3}{6}, \quad \arcsin x - x \sim \frac{x^3}{6} \\
+    \tan x - x &\sim \frac{x^3}{3}, \quad x - \arctan x \sim \frac{x^3}{3} \\
+    x - \ln(1+x) &\sim \frac{x^2}{2}
+\end{align*}
+
+\begin{rednote}
+    \textbf{推广结论：}
+    当 $\alpha(x) \to 0, \alpha(x)\beta(x) \to 0$ 时，$(1+\alpha(x))^{\beta(x)} - 1 \sim \alpha(x)\beta(x)$。
+    由此可得 $(1+x)^x - 1 \sim x^2$。
+\end{rednote}
+
+\textbf{2. 常用泰勒公式 (带 Peano 余项，在 $x=0$ 处)}
+\begin{align*}
+    e^x &= 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + o(x^3) \\
+    \ln(1+x) &= x - \frac{x^2}{2} + \frac{x^3}{3} + o(x^3) \\
+    \sin x &= x - \frac{x^3}{3!} + o(x^3) \\
+    \cos x &= 1 - \frac{x^2}{2!} + \frac{x^4}{4!} + o(x^4) \\
+    \tan x &= x + \frac{x^3}{3} + o(x^3) \\
+    \arcsin x &= x + \frac{x^3}{3!} + o(x^3) \\
+    \arctan x &= x - \frac{x^3}{3} + o(x^3) \\
+    (1+x)^\alpha &= 1 + \alpha x + \frac{\alpha(\alpha-1)}{2}x^2 + o(x^2)
+\end{align*}
+
+\section{函数极限的计算}
+
+\subsection{常用方法总结}
+\begin{itemize}
+    \item \textbf{洛必达法则}：用于 $\frac{0}{0}$ 或 $\frac{\infty}{\infty}$ 型。每次使用前必须检查条件。
+    \item \textbf{等价无穷小}：代换变量必须趋于 0。乘除可换，加减慎用（需阶数不同）。
+    \item \textbf{泰勒公式}：核心是确定展开的阶数（通常展开到分母的最高阶）。
+    \item \textbf{重要极限}：$\lim_{x \to 0} \frac{\sin x}{x} = 1$, $\lim_{x \to 0} (1+x)^{\frac{1}{x}} = e$。
+    \item \textbf{提取公因式}：处理 $\infty - \infty$ 或幂指函数时使用。
+\end{itemize}
+
+\begin{purplebox}
+    \textbf{经验之谈：}
+    当泰勒和等价无穷小都失效时，考虑洛必达。
+    \begin{itemize}
+        \item 先看分母：若分母 $\to 0$，看分子是否 $\to 0$。
+        \item 若分母 $\to \infty$，根据“广义洛必达”，无需判断分子，直接使用。
+    \end{itemize}
+\end{purplebox}
+
+\end{document}

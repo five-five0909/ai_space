@@ -1,0 +1,776 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+%==================== 导言区：宏包加载 ====================
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage{geometry}                 % 页面设置
+\usepackage{xcolor}                   % 颜色支持
+\usepackage{fancyhdr}                 % 页眉页脚
+\usepackage{enumitem}                 % 列表定制
+\usepackage{tcolorbox}                %以此美化文本框
+\usepackage{titlesec}                 % 标题格式调整
+
+%==================== 页面布局设置 ====================
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+%==================== 自定义视觉样式 ====================
+
+% 1. 定义分隔线样式
+\newcommand{\TopSeparator}{
+    \par\noindent\rule{\textwidth}{1.5pt}\vspace{0.5em} % 粗实线 ━━━━
+}
+\newcommand{\AnalysisSeparator}{
+    \par\noindent\rule{\textwidth}{0.5pt}\vspace{0.2em}\hrule\vspace{0.5em} % 双线效果 ════
+}
+
+% 2. 定义红色解析环境
+%在这个环境内的所有文字和公式都会自动变成红色
+\newenvironment{RedAnalysis}{
+    \par
+    \color{red} % 设置后续字体为红色
+}{
+    \par
+    \color{black} % 结束时恢复黑色
+}
+
+% 3. 标题格式微调
+\titleformat{\section}{\large\bfseries\heiti}{}{0em}{}[\vspace{-0.5em}]
+\titleformat{\subsection}{\bfseries\kaishu}{}{0em}{}
+
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+%==================== 文档开始 ====================
+\begin{document}
+
+% 标题信息
+\title{\textbf{第一章 函数（基础）解析讲义}}
+\author{数学习题讲义}
+\date{\today}
+\maketitle
+
+% --- 题目 1 ---
+\TopSeparator
+\section*{题目1}
+
+\textbf{【题目重现】} \\
+以下区间是函数 $ y = \sin x $ 的单调递增区间的是 \underline{\hspace{1cm}}。
+\choicesFour{$ [0,\frac{\pi}{2}] $}{$ [0,\pi] $}{$ [\frac{\pi}{2},\pi] $}{$ [\pi,\frac{3\pi}{2}] $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+本题考查正弦函数 $y=\sin x$ 的单调性，需要判断给定的区间是否属于其单调递增区间。
+
+\textbf{第二步：思路构建} \\
+回顾 $y=\sin x$ 的图像与性质，找出其单调递增区间的一般形式，然后逐一验证选项。
+
+\textbf{第三步：详细步骤} \\
+1. **回顾性质**：函数 $y=\sin x$ 的单调递增区间为 $[-\frac{\pi}{2} + 2k\pi, \frac{\pi}{2} + 2k\pi]$ ($k \in \mathbb{Z}$)。特别地，当 $k=0$ 时，区间为 $[-\frac{\pi}{2}, \frac{\pi}{2}]$。
+2. **分析选项**：
+   - A选项：$[0, \frac{\pi}{2}]$ 是 $[-\frac{\pi}{2}, \frac{\pi}{2}]$ 的子集，在此区间上函数单调递增。正确。
+   - B选项：$[0, \pi]$ 上，正弦函数先增后减（在 $[0, \frac{\pi}{2}]$ 增，在 $[\frac{\pi}{2}, \pi]$ 减）。错误。
+   - C选项：$[\frac{\pi}{2}, \pi]$ 上，正弦函数单调递减。错误。
+   - D选项：$[\pi, \frac{3\pi}{2}]$ 上，正弦函数单调递减。错误。
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{二、核心公式}
+1. \textbf{正弦函数单调性}：
+   - 递增区间：$[-\frac{\pi}{2} + 2k\pi, \frac{\pi}{2} + 2k\pi]$
+   - 递减区间：$[\frac{\pi}{2} + 2k\pi, \frac{3\pi}{2} + 2k\pi]$
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：三角函数的图像与性质。
+    \item \textbf{易错点提示}：对正弦函数图像记忆不清，容易混淆递增和递减区间。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 2 ---
+\TopSeparator
+\section*{题目2}
+
+\textbf{【题目重现】} \\
+$ y = \frac{e^{x} - e^{-x}}{2} $ 是 \underline{\hspace{1cm}}。
+\choicesFour{奇函数}{偶函数}{非奇非偶函数}{无法确定}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+本题考查函数的奇偶性判断。
+
+\textbf{第二步：思路构建} \\
+利用奇偶性的定义：计算 $f(-x)$ 并与 $f(x)$ 比较。
+- 若 $f(-x) = f(x)$，则为偶函数。
+- 若 $f(-x) = -f(x)$，则为奇函数。
+
+\textbf{第三步：详细步骤} \\
+1. 设 $f(x) = \frac{e^{x} - e^{-x}}{2}$。定义域为 $\mathbb{R}$，关于原点对称。
+2. 计算 $f(-x)$：
+   \[ f(-x) = \frac{e^{-x} - e^{-(-x)}}{2} = \frac{e^{-x} - e^{x}}{2} = -\frac{e^{x} - e^{-x}}{2} \]
+3. 比较得出 $f(-x) = -f(x)$。
+4. 结论：该函数为奇函数。
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{二、核心公式}
+1. \textbf{双曲正弦函数}：
+   题目中的函数实际上是双曲正弦函数 $\sinh x$，它是典型的奇函数。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数性质（奇偶性）。
+    \item \textbf{解题技巧}：熟悉常见函数的奇偶性（如 $e^x - e^{-x}$ 是奇函数，$e^x + e^{-x}$ 是偶函数）可以快速判断。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 3 ---
+\TopSeparator
+\section*{题目3}
+
+\textbf{【题目重现】} \\
+函数 $ y = |x \cos(-x)| $ 是 \underline{\hspace{1cm}}。
+\choicesFour{有界函数}{偶函数}{单调函数}{周期函数}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+分析函数 $y = |x \cos(-x)|$ 的各项性质（有界性、奇偶性、单调性、周期性）。
+
+\textbf{第二步：思路构建} \\
+先化简函数表达式，再逐一验证选项中的性质。
+
+\textbf{第三步：详细步骤} \\
+1. **化简**：因为 $\cos(-x) = \cos x$，且 $|\cos x| \le 1$，所以 $f(x) = |x| |\cos x|$。
+2. **分析奇偶性**：
+   $f(-x) = |-x| |\cos(-x)| = |x| |\cos x| = f(x)$。
+   所以函数是偶函数。选项 B 正确。
+3. **分析其他选项**（验证）：
+   - A（有界性）：当 $x \to \infty$ 时，取 $x=2k\pi$，则 $y = |2k\pi| \to \infty$，故无界。
+   - C（单调性）：函数包含周期因子 $\cos x$，图像具有振荡性，显然不单调。
+   - D（周期性）：因子 $|x|$ 是非周期的，破坏了周期性。
+
+\textbf{第四步：最终答案} \\
+B
+
+\subsection*{二、核心公式}
+1. \textbf{余弦偶函数性质}：$\cos(-x) = \cos x$.
+2. \textbf{绝对值运算}：$|-x| = |x|$.
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数的其本性质。
+    \item \textbf{易错点提示}：看到三角函数容易误以为是周期函数或有界函数，忽略了前面的 $x$ 的影响。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 4 ---
+\TopSeparator
+\section*{题目4}
+
+\textbf{【题目重现】} \\
+设 $ f(x) $ 的定义域为 $ [1,2] $ ，则函数 $ f(x^{2}) $ 的定义域是 \underline{\hspace{1cm}}。
+\choicesFour{$ [1,2] $}{$ [1,\sqrt{2}] $}{$ \left[-\sqrt{2},\sqrt{2}\right] $}{$ \left[-\sqrt{2},-1\right] \cup \left[1,\sqrt{2}\right] $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+已知抽象函数 $f(u)$ 的定义域，求复合函数 $f[g(x)]$ 的定义域。
+
+\textbf{第二步：思路构建} \\
+若 $f(x)$ 定义域为 $[1, 2]$，意味着括号内的自变量必须满足 $1 \le \text{自变量} \le 2$。
+对于 $f(x^2)$，即要求 $1 \le x^2 \le 2$。解此不等式求 $x$ 的范围。
+
+\textbf{第三步：详细步骤} \\
+1. 由题意，要求：
+   \[ 1 \le x^2 \le 2 \]
+2. 开平方取绝对值：
+   \[ 1 \le |x| \le \sqrt{2} \]
+3. 解绝对值不等式：
+   \[ x \in [-\sqrt{2}, -1] \cup [1, \sqrt{2}] \]
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. \textbf{复合函数定义域原则}：若 $f(x)$ 定义域为 $A$，则 $f[g(x)]$ 需满足 $g(x) \in A$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：抽象函数定义域求法。
+    \item \textbf{易错点提示}：容易漏掉负数区间，误选 B。记住 $x^2 \in [a, b]$ 解出来通常是对称的两个区间。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 5 ---
+\TopSeparator
+\section*{题目5}
+
+\textbf{【题目重现】} \\
+下列各对函数中，\underline{\hspace{1cm}} 中的两个函数是相同的。
+\choices
+    {$ f(x)=\frac{x^{2}-1}{x-1} $, $ g(x)=x+1 $}
+    {$ f(x)=\sqrt{x^{2}} $, $ g(x)=x $}
+    {$ f(x) = \ln x^{2} $, $ g(x) = 2\ln x $}
+    {$ f(x) = \sin^{2}x + \cos^{2}x $, $ g(x) = 1 $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+判断两个函数是否相同（相等），需满足两个条件：1. 定义域相同；2. 对应法则相同（化简后表达式一致）。
+
+\textbf{第二步：思路构建} \\
+逐一检查每个选项中两个函数的定义域和解析式。
+
+\textbf{第三步：详细步骤} \\
+1. **A选项**：
+   $f(x) = \frac{x^2-1}{x-1} = x+1$，但要求 $x-1 \ne 0$，即 $x \ne 1$。
+   $g(x) = x+1$，定义域为 $\mathbb{R}$。
+   定义域不同，函数不同。
+2. **B选项**：
+   $f(x) = \sqrt{x^2} = |x|$。
+   $g(x) = x$。
+   对应法则不同（在 $x < 0$ 时不相等）。函数不同。
+3. **C选项**：
+   $f(x) = \ln x^2$，定义域为 $x^2 > 0 \Rightarrow x \ne 0$。
+   $g(x) = 2\ln x$，定义域为 $x > 0$。
+   定义域不同，函数不同。
+4. **D选项**：
+   $f(x) = \sin^2 x + \cos^2 x \equiv 1$，定义域为 $\mathbb{R}$。
+   $g(x) = 1$，定义域为 $\mathbb{R}$。
+   定义域与对应法则均相同。
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. \textbf{函数概念}：定义域 + 对应法则。
+2. \textbf{三角恒等式}：$\sin^2 x + \cos^2 x = 1$.
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数的基本概念。
+    \item \textbf{易错点提示}：往往只关注化简后的表达式是否一致，忽略了变形过程引起的定义域变化（如 A、C 选项）。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 6 ---
+\TopSeparator
+\section*{题目6}
+
+\textbf{【题目重现】} \\
+若 $ f(x) = \log_{a} x \quad (a > 0, a \neq 1) $ ，则 $ f(x) + f(y) $ 等于 \underline{\hspace{1cm}}。
+\choicesFour{$ f(x+y) $}{$ f(xy) $}{$ f(x-y) $}{$ f(\frac{y}{x}) $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+考查对数函数的运算性质。
+
+\textbf{第二步：思路构建} \\
+代入函数表达式，利用对数运算规则化简。
+
+\textbf{第三步：详细步骤} \\
+1. $f(x) = \log_a x$.
+2. 计算 $f(x) + f(y)$：
+   \[ f(x) + f(y) = \log_a x + \log_a y \]
+3. 利用对数积公式：
+   \[ \log_a x + \log_a y = \log_a (xy) \]
+4. 观察 $\log_a (xy)$ 即为 $f(xy)$。
+
+\textbf{第四步：最终答案} \\
+B
+
+\subsection*{二、核心公式}
+1. \textbf{对数运算}：$\log_a M + \log_a N = \log_a (MN)$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：初等函数（对数函数）性质。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 7 ---
+\TopSeparator
+\section*{题目7}
+
+\textbf{【题目重现】} \\
+下列给定区间中是函数 $ f(x)=|x^{2}-1| $ 的单调有界区间的是 \underline{\hspace{1cm}}。
+\choicesFour{$ [-1,1] $}{$ (1,+\infty) $}{$ [-2,-1] $}{$ [-2,0] $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+需要找到一个区间，使得函数既单调又有界。
+
+\textbf{第二步：思路构建} \\
+1. 画出 $y=|x^2-1|$ 的图像（W型）。
+2. 分析单调区间。
+3. 检查有界性。
+
+\textbf{第三步：详细步骤} \\
+1. **图像分析**：
+   $f(x) = |x^2-1|$。零点为 $\pm 1$。
+   - 在 $(-\infty, -1]$ 上，单调递减。
+   - 在 $[-1, 0]$ 上，单调递增。
+   - 在 $[0, 1]$ 上，单调递减。
+   - 在 $[1, +\infty)$ 上，单调递增。
+2. **选项验证**：
+   - A: $[-1, 1]$。函数先增后减，不单调。
+   - B: $(1, +\infty)$。函数单调递增，但当 $x \to \infty$ 时 $y \to \infty$，无界。
+   - C: $[-2, -1]$。位于 $(-\infty, -1]$ 内，单调递减。端点值为 $f(-2)=3, f(-1)=0$，函数值在 $[0, 3]$ 之间，有界。符合题意。
+   - D: $[-2, 0]$。包含转折点 $-1$，函数先减后增，不单调。
+
+\textbf{第四步：最终答案} \\
+C
+
+\subsection*{二、核心公式}
+无特殊公式，依托二次函数绝对值图像。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数的单调性与有界性。
+    \item \textbf{解题技巧}：数形结合，快速判断图像走向和范围。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 8 ---
+\TopSeparator
+\section*{题目8}
+
+\textbf{【题目重现】} \\
+不等式 $ \frac{|x-1|-1}{|x-3|}>0 $ 的解集(用区间表示)为 \underline{\hspace{1cm}}。
+\choicesTwo
+    {$ (- \infty, 0) $}
+    {$ (- \infty, 3) \cup (3, +\infty) $}
+    {$ (2,3) \cup (3, +\infty) $}
+    {$ (- \infty, 0) \cup (2, 3) \cup (3, +\infty) $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+解分式绝对值不等式。
+
+\textbf{第二步：思路构建} \\
+分式大于0，且分母为绝对值（非负）。
+这意味着：
+1. 分母不能为0。
+2. 分子必须大于0（因为分母为正）。
+
+\textbf{第三步：详细步骤} \\
+1. **分母条件**：$|x-3| \ne 0 \Rightarrow x \ne 3$。
+   在此条件下，分母恒正，不等式等价于分子大于0。
+2. **分子条件**：$|x-1| - 1 > 0$。
+   \[ |x-1| > 1 \]
+3. **解绝对值不等式**：
+   \[ x-1 > 1 \quad \text{或} \quad x-1 < -1 \]
+   \[ x > 2 \quad \text{或} \quad x < 0 \]
+4. **综合条件**：
+   解集为 $(-\infty, 0) \cup (2, +\infty)$，且排除 $x=3$。
+   即 $(-\infty, 0) \cup (2, 3) \cup (3, +\infty)$。
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. **绝对值不等式**：$|x| > a \iff x > a \text{ 或 } x < -a$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：不等式求解。
+    \item \textbf{易错点提示}：容易忘记排除分母为0的点（$x=3$），导致选错。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 9 ---
+\TopSeparator
+\section*{题目9}
+
+\textbf{【题目重现】} \\
+已知函数 $ f(x) $ 的定义域为 $ [0,1] $ ，则函数 $ f(\ln x) $ 的定义域是 \underline{\hspace{1cm}}。
+\choicesFour{$ [1,e] $}{$ [e,+\infty) $}{$ (0,e] $}{$ (1,e) $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+复合函数定义域问题，已知 $f(x)$ 定义域，求 $f(\ln x)$ 的自变量范围。
+
+\textbf{第二步：思路构建} \\
+内层函数 $\ln x$ 的值域必须包含在 $f$ 的定义域 $[0, 1]$ 内。
+
+\textbf{第三步：详细步骤} \\
+1. 由题意，要求：
+   \[ 0 \le \ln x \le 1 \]
+2. 利用指数函数单调性去掉对数（两边取 $e$ 的幂）：
+   \[ e^0 \le x \le e^1 \]
+3. 计算得：
+   \[ 1 \le x \le e \]
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{二、核心公式}
+1. \textbf{对数不等式}：$a \le \ln x \le b \iff e^a \le x \le e^b$.
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数定义域。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 10 ---
+\TopSeparator
+\section*{题目10}
+
+\textbf{【题目重现】} \\
+假设函数 $ f(x) = \sin\frac{x}{2} + \cos\frac{x}{3} $ ，则 $ f(x) $ 的周期为 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+求两个三角函数之和的周期。
+
+\textbf{第二步：思路构建} \\
+分别求出两个分量的最小正周期 $T_1$ 和 $T_2$，函数的周期均是 $T_1$ 和 $T_2$ 的整数倍，故取它们的最小公倍数。
+
+\textbf{第三步：详细步骤} \\
+1. $y_1 = \sin \frac{x}{2}$ 的周期 $T_1 = \frac{2\pi}{1/2} = 4\pi$。
+2. $y_2 = \cos \frac{x}{3}$ 的周期 $T_2 = \frac{2\pi}{1/3} = 6\pi$。
+3. 求 $4\pi$ 和 $6\pi$ 的最小公倍数：
+   \[ \text{LCM}(4, 6) = 12 \]
+   所以 $T = 12\pi$。
+
+\textbf{第四步：最终答案} \\
+$12\pi$
+
+\subsection*{二、核心公式}
+1. \textbf{三角函数周期}：$y = \sin(\omega x)$ 的周期 $T = \frac{2\pi}{|\omega|}$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数周期性。
+    \item \textbf{解题技巧}：和函数的周期是各分量周期的最小公倍数。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 11 ---
+\TopSeparator
+\section*{题目11}
+
+\textbf{【题目重现】} \\
+如果函数 $ f(x) $ 的定义域是 $ \left[-\frac{1}{3},3\right] $ ，则 $ f(\frac{1}{x}) $ 的定义域是 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+复合函数定义域，内层为倒数函数。
+
+\textbf{第二步：思路构建} \\
+要求 $\frac{1}{x} \in [-\frac{1}{3}, 3]$。分别解不等式。
+
+\textbf{第三步：详细步骤} \\
+即解不等式：$-\frac{1}{3} \le \frac{1}{x} \le 3$。
+分为两部分求交集：
+1. $\frac{1}{x} \le 3$：
+   - 若 $x>0$，则 $1 \le 3x \Rightarrow x \ge \frac{1}{3}$。
+   - 若 $x<0$，则 $1/x < 0 < 3$ 恒成立。
+   综合得 $x < 0$ 或 $x \ge \frac{1}{3}$。
+2. $\frac{1}{x} \ge -\frac{1}{3}$：
+   - 若 $x>0$，则 $1/x > 0 > -1/3$ 恒成立。
+   - 若 $x<0$，则 $3 \le -x \Rightarrow x \le -3$。
+   综合得 $x \le -3$ 或 $x > 0$。
+
+求交集：
+$( (-\infty, 0) \cup [\frac{1}{3}, +\infty) ) \cap ( (-\infty, -3] \cup (0, +\infty) )$
+$= (-\infty, -3] \cup [\frac{1}{3}, +\infty)$。
+
+\textbf{第四步：最终答案} \\
+$(-\infty, -3] \cup [\frac{1}{3}, +\infty)$
+
+\subsection*{二、核心公式}
+无
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数定义域。
+    \item \textbf{易错点提示}：解倒数不等式时必须讨论 $x$ 的正负，且不能忘记 $x \ne 0$。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 12 ---
+\TopSeparator
+\section*{题目12}
+
+\textbf{【题目重现】} \\
+函数 $ f(x) = x \frac{a^{x}-1}{a^{x}+1} $ 的图像关于 \underline{\hspace{2cm}} 对称。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+考查函数的奇偶性，进而判断图像对称性。
+- 偶函数关于 Y 轴对称。
+- 奇函数关于原点对称。
+
+\textbf{第二步：思路构建} \\
+判断 $f(x)$ 的奇偶性。
+
+\textbf{第三步：详细步骤} \\
+1. 令 $g(x) = \frac{a^x-1}{a^x+1}$。
+   $g(-x) = \frac{a^{-x}-1}{a^{-x}+1} = \frac{1-a^x}{1+a^x} = -g(x)$。
+   $g(x)$ 是奇函数。
+2. $h(x) = x$ 是奇函数。
+3. $f(x) = h(x) \cdot g(x)$。
+   奇函数 $\times$ 奇函数 = 偶函数。
+4. 偶函数图像关于 $y$ 轴对称。
+
+\textbf{第四步：最终答案} \\
+$y$轴（或纵轴）
+
+\subsection*{二、核心公式}
+1. \textbf{奇偶运算}：奇 $\times$ 奇 = 偶。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数图像对称性与奇偶性。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 13 ---
+\TopSeparator
+\section*{题目13}
+
+\textbf{【题目重现】} \\
+求 $ y=\frac{2x}{\sqrt{2-x}}+\ln(1+x) $ 的定义域 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+求具体函数的定义域，需满足所有运算有意义。
+
+\textbf{第二步：思路构建} \\
+1. 分母不为零。
+2. 偶次根号下非负。
+3. 对数真数大于0。
+
+\textbf{第三步：详细步骤} \\
+由题意得：
+1. $\sqrt{2-x}$ 作为分母 $\Rightarrow 2-x > 0 \Rightarrow x < 2$。
+2. $\ln(1+x) \Rightarrow 1+x > 0 \Rightarrow x > -1$。
+综合得：$-1 < x < 2$。
+
+\textbf{第四步：最终答案} \\
+$(-1, 2)$
+
+\subsection*{二、核心公式}
+略
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数定义域。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 14 ---
+\TopSeparator
+\section*{题目14}
+
+\textbf{【题目重现】} \\
+设 $ f(x) $ 是奇函数， $ g(x) $ 是偶函数，则 $ f(x)g(x) $ 是 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+考查奇偶函数的乘积性质。
+
+\textbf{第二步：思路构建} \\
+设 $F(x) = f(x)g(x)$，计算 $F(-x)$。
+
+\textbf{第三步：详细步骤} \\
+$f(-x) = -f(x)$（奇）。
+$g(-x) = g(x)$（偶）。
+$F(-x) = f(-x)g(-x) = [-f(x)] \cdot g(x) = -[f(x)g(x)] = -F(x)$。
+故积函数是奇函数。
+
+\textbf{第四步：最终答案} \\
+奇函数
+
+\subsection*{二、核心公式}
+1. \textbf{口诀}：同偶异奇。（适用于乘除，奇奇得偶，偶偶得偶，奇偶得奇）。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数奇偶性运算。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 15 ---
+\TopSeparator
+\section*{题目15}
+
+\textbf{【题目重现】} \\
+函数 $ y=\sqrt{x^{2}-x-6}-\arcsin\frac{2x-3}{9} $ 的定义域是 \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+包含根式和反三角函数，需同时满足条件。
+
+\textbf{第二步：思路构建} \\
+1. 根号下 $\ge 0$。
+2. $\arcsin u$ 中 $-1 \le u \le 1$。
+求交集。
+
+\textbf{第三步：详细步骤} \\
+1. **根号条件**：
+   $x^2 - x - 6 \ge 0 \Rightarrow (x-3)(x+2) \ge 0$。
+   解得 $x \ge 3$ 或 $x \le -2$。
+2. **反三角条件**：
+   $-1 \le \frac{2x-3}{9} \le 1$
+   $-9 \le 2x-3 \le 9$
+   $-6 \le 2x \le 12$
+   $-3 \le x \le 6$。
+3. **求交集**：
+   $x \in [-3, 6]$ 与 $x \in (-\infty, -2] \cup [3, +\infty)$ 的交集。
+   即 $[-3, -2] \cup [3, 6]$。
+
+\textbf{第四步：最终答案} \\
+$[-3, -2] \cup [3, 6]$
+
+\subsection*{二、核心公式}
+1. \textbf{反三角定义域}：$y=\arcsin x \Rightarrow x \in [-1, 1]$。
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：函数定义域。
+    \item \textbf{易错点提示}：解二次不等式时注意“大于取两边”。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\end{document}

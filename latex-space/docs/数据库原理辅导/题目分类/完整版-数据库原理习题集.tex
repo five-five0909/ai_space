@@ -1,0 +1,801 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理习题集}
+\lhead{专升本复习资料}
+\cfoot{\thepage}
+
+
+\date{}
+\title{\textbf{数据库原理习题集}}
+% \subtitle{专升本复习资料}
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+% ========== 第1章 绪论 ==========
+\section{第1章 绪论}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 以下关于数据库描述正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库是一个 DBF 文件
+		      \item 数据库是一个关系
+		      \item 数据库是一个结构化数据集合
+		      \item 数据库是一组文件
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 数据独立性是指（\quad）。
+	      \begin{enumerate}
+		      \item 数据依赖于程序
+		      \item 程序依赖于数据
+		      \item 数据不依赖于程序
+		      \item 程序不依赖于数据
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 以下关于 DBA 职责叙述中，不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item DBA 是数据库系统超级用户，负责控制和管理各个用户访问权限
+		      \item DBA 要负责监控数据库运行
+		      \item DBA 要负责前端应用程序开发
+		      \item DBA 要负责当数据库系统发生故障时进行恢复
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item DBMS 是指（\quad）。
+	      \begin{enumerate}
+		      \item 数据库
+		      \item 数据库系统
+		      \item 数据库管理系统
+		      \item 数据处理系统
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 数据冗余度低、数据共享以及较高数据独立性等特征的系统是（\quad）。
+	      \begin{enumerate}
+		      \item 文件系统
+		      \item 数据库系统
+		      \item 操作系统
+		      \item 高级程序
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 仅次于用户和数据库之间的一层数据管理软件是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库系统
+		      \item 数据库
+		      \item 管理信息系统
+		      \item 数据库管理系统
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库系统中，逻辑数据和物理数据能够相互转换，执行该功效的是（\quad）。
+	      \begin{enumerate}
+		      \item 操作系统
+		      \item 信息管理系统
+		      \item 数据库管理系统
+		      \item 文件系统
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 数据库中对全部数据整体逻辑结构描述，称为数据库的（\quad）。
+	      \begin{enumerate}
+		      \item 存放模式
+		      \item 子模式
+		      \item 外模式
+		      \item 模式
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 用户看到的那部分数据的局部逻辑结构描述是（\quad）。
+	      \begin{enumerate}
+		      \item 存放模式
+		      \item 子模式（外模式）
+		      \item 概念模式
+		      \item 模式
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 文件系统和数据库系统最大的区别是（\quad）。
+	      \begin{enumerate}
+		      \item 数据共享
+		      \item 数据独立
+		      \item 数据冗余
+		      \item 数据结构化
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 关于信息和数据，下面阐述中正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 信息与数据，只有区分，没有联系
+		      \item 信息是数据的载体
+		      \item 同一信息用同一数据表示形式
+		      \item 数据处理本质上就是信息处理
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 描述事物性质的最小数据单位是（\quad）。
+	      \begin{enumerate}
+		      \item 记录
+		      \item 文件
+		      \item 数据项
+		      \item 数据库
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 若干记录的集合称为（\quad）。
+	      \begin{enumerate}
+		      \item 数据
+		      \item 数据库
+		      \item 数据项
+		      \item 文件
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库系统中的软件是指（\quad）。
+	      \begin{enumerate}
+		      \item 数据库管理系统
+		      \item 应用程序
+		      \item 数据库
+		      \item 数据库管理员
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在数据库系统组织结构中，把概念数据库与物理数据联系起来的映射是（\quad）。
+	      \begin{enumerate}
+		      \item 外模式/模式
+		      \item 内模式/外模式
+		      \item 模式/内模式
+		      \item 模式/外模式
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 1975 年 SPARC 公布了数据库标准报告，提出了数据库（\quad）结构组织。
+	      \begin{enumerate}
+		      \item 一级
+		      \item 二级
+		      \item 三级
+		      \item 四级
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 内模式是系统程序员用一定的（\quad）形式组织起来的一个存放文件和联系手段。
+	      \begin{enumerate}
+		      \item 记录
+		      \item 数据
+		      \item 视图
+		      \item 文件
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库系统三级结构关系，以下叙述中正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 模式是内模式的逻辑表示
+		      \item 模式是内模式的物理实现
+		      \item 模式是外模式的部分抽取
+		      \item 外模式是内模式的物理实现
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 三个模式反映了对数据库的三种不一样观点，以下说法中正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 内模式表示了概念级数据库，表现了对数据库的总体现
+		      \item 外模式表示了物理级数据库，表现了对数据库的存放观
+		      \item 外模式表示了用户级数据库，表现了对数据库的用户观
+		      \item 外模式表示了用户级数据库，表现了对数据库的存放观
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在数据库系统组织结构中，以下（\quad）映射把用户数据库与概念数据库联系起来。
+	      \begin{enumerate}
+		      \item 外模式/模式
+		      \item 外模式/外模式
+		      \item 模式/内模式
+		      \item 内模式/模式
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在数据库三级模式中，只有（\quad）才是真正存放数据。
+	      \begin{enumerate}
+		      \item 模式
+		      \item 外模式
+		      \item 内模式
+		      \item 用户模式
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 下面关于数据库管理系统阐述中，正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库管理系统是用户与应用程序的接口
+		      \item 应用程序只有经过数据库管理系统才能访问数据库
+		      \item 数据库管理系统用 DML 来定义三级模式
+		      \item 数据库管理系统用 DDL 来实现对数据库的各种操作
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item DBMS 经过（\quad）来定义三种模式，并将各种模式翻译成对应的目标代码。
+	      \begin{enumerate}
+		      \item DML
+		      \item DDL
+		      \item FoxPro
+		      \item DBA
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 下面命令中，（\quad）不是 DML 基本操作。
+	      \begin{enumerate}
+		      \item 排序
+		      \item 插入
+		      \item 修改
+		      \item 检索
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 以下关于"采取映射技术好处"的叙述中，不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 确保了数据独立性
+		      \item 确保了数据共享
+		      \item 方便了用户使用数据库
+		      \item 确保了数据库开放性
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库是指在计算机系统中按照一定数据模型组织、存放和应用的（\quad）。
+	      \begin{enumerate}
+		      \item 文件集合
+		      \item 数据集合
+		      \item 命令集合
+		      \item 程序集合
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据独立性是指（\quad）。
+	      \begin{enumerate}
+		      \item 不会因为数据数值发生改变而影响应用程序
+		      \item 不会因为系统数据存储结构和逻辑结构改变而影响程序
+		      \item 不会因为程序而影响数据
+		      \item 不会因为数据逻辑结构而影响数据存储结构
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 由计算机硬件、操作系统、DBMS、数据库、应用程序及用户等组成的一个整体称为（\quad）。
+	      \begin{enumerate}
+		      \item 文件系统
+		      \item 数据库系统
+		      \item 软件系统
+		      \item 数据库管理系统
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据库最小存取单位是（\quad）。
+	      \begin{enumerate}
+		      \item 数据项
+		      \item 字符
+		      \item 记录
+		      \item 文件
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 对于负责数据库系统、负责定义数据库内容、决定存储结构和存储策略及安全授权等工作人员是（\quad）。
+	      \begin{enumerate}
+		      \item 系统分析员
+		      \item 数据库用户
+		      \item 程序员
+		      \item DBA
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库系统支持数据独立性，这是经过（\quad）来实现。
+	      \begin{enumerate}
+		      \item DDL 和 DML
+		      \item 定义完整性约束条件
+		      \item 两级映射
+		      \item DBA
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 以下选项不是 DBMS 功效的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据定义
+		      \item 数据操纵
+		      \item 数据库运行控制
+		      \item 数据编译
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 当数据库遭到破坏时，将其恢复到数据库破坏前的某种一致性状态，这种功效称为（\quad）。
+	      \begin{enumerate}
+		      \item 数据库安全性控制
+		      \item 数据库完整性控制
+		      \item 数据库并发控制
+		      \item 数据库恢复
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 以下不是 DBMS 数据库运行控制功效的是（\quad）。
+	      \begin{enumerate}
+		      \item 并行控制
+		      \item 安全性控制
+		      \item 完整性控制
+		      \item 故障恢复
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 以下关于 DBMS 叙述中，不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item DBMS 提供数据描述语言 DDL 能够用来定义模式、外模式和内模式
+		      \item 全部 DBMS 都有自含程序设计语言
+		      \item 数据库运行控制包含数据库安全性、完整性、故障恢复、并发操作四个方面
+		      \item DBMS 要负责实现外模式/模式以及模式/内模式之间的映射
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 以下关于数据库模式说法中，正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 在应用程序中，用户使用的是内模式
+		      \item 在一个数据库系统中可以有多个外模式
+		      \item 模式是外模式的一个子集
+		      \item 在一个数据库系统中，可以有多个内模式和外模式
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 定义数据库模式、数据库结构以及数据特征等功效是经过（\quad）来实现。
+	      \begin{enumerate}
+		      \item 数据描述语言 DDL
+		      \item 数据操纵语言 DML
+		      \item 程序设计语言
+		      \item 机器语言
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 逻辑数据独立性是指（\quad）。
+	      \begin{enumerate}
+		      \item 模式变、用户不变
+		      \item 模式变、应用程序不变
+		      \item 应用程序变，模式不变
+		      \item 子模式变，应用程序不变
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item FoxPro 是一个（\quad）。
+	      \begin{enumerate}
+		      \item DB
+		      \item DBS
+		      \item DBMS
+		      \item OS
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 三级模式间存在两种映射，它们是（\quad）。
+	      \begin{enumerate}
+		      \item 子模式与模式间映射，模式与内模式间映射
+		      \item 子模式与内模式间映射，外模式与内模式间映射
+		      \item 子模式与外模式间映射，模式与内模式间映射
+		      \item 模式与内模式间映射，模式与外模式间映射
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item FoxPro 是一个基于（\quad）的 DBMS。
+	      \begin{enumerate}
+		      \item 层次模型
+		      \item 网状模型
+		      \item 关系模式应用程序
+		      \item 关系模型
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 模式是数据库中数据的（\quad）。
+	      \begin{enumerate}
+		      \item 全局物理结构
+		      \item 局部物理结构
+		      \item 全局逻辑结构
+		      \item 局部逻辑结构
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 以下关于外模式叙述中，正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 外模式是内模式的副本
+		      \item 外模式是模式的子集
+		      \item 外模式只能为一个应用程序所使用
+		      \item 外模式与模式无关
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据冗余可能产生的问题是（\quad）。
+	      \begin{enumerate}
+		      \item 修改数据方便
+		      \item 删除数据方便
+		      \item 增加了编程复杂度
+		      \item 潜在数据不一致性
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 以下关于 DB、DBMS、DBS 三者之间关系叙述中，正确的是（\quad）。
+	      \begin{enumerate}
+		      \item DB 包含 DBMS 和 DBS
+		      \item DBS 包含了 DBMS 和 DB
+		      \item DBMS 包含 DB 和 DBS
+		      \item DB、DBMS 和 DBS 无关
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 下列说法不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库减少了数据冗余
+		      \item 数据库避免了一切数据重复
+		      \item 数据库中的数据可以共享
+		      \item 如果冗余是系统可控制的，则系统可确保更新时的一致性
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 以下不是数据库安全性控制方法的是（\quad）。
+	      \begin{enumerate}
+		      \item 设置口令
+		      \item 控制用户存取权限
+		      \item 数据加密
+		      \item 备份
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 用二维表来表示实体及实体之间联系的数据模型称为（\quad）。
+	      \begin{enumerate}
+		      \item 实体-联系模型
+		      \item 层次模型
+		      \item 网状模型
+		      \item 关系模型
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 在下述关于数据库系统叙述中，正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库中只存在数据项之间的联系
+		      \item 数据库数据项之间和记录之间都存在联系
+		      \item 数据库数据项之间无联系，记录之间存在联系
+		      \item 数据库数据项之间和记录之间都不存在联系
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据库系统与文件系统的主要区别是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库系统复杂，而文件系统简单
+		      \item 文件系统不能处理数据冗余和数据独立性问题，而数据库系统能够处理
+		      \item 文件系统只能管理程序文件，而数据库系统能够管理各种类型文件
+		      \item 文件系统管理数据量较少，而数据库系统能够管理庞大数据量
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item DBS 是采取了数据库技术的计算机系统。DBS 是一个集合体，包含数据库、计算机软硬件、应用程序和（\quad）。
+	      \begin{enumerate}
+		      \item 系统分析员
+		      \item 程序员
+		      \item 数据库管理员
+		      \item 操作员
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 以下说法正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 外模式、概念模式、内模式都只有一个
+		      \item 模式只有一个，概念模式和内模式有多个
+		      \item 外模式有多个，概念模式和内模式只有一个
+		      \item 三个模式中，只有概念模式才是真正存在
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 要确保数据库物理数据独立性，需要修改的是（\quad）。
+	      \begin{enumerate}
+		      \item 模式
+		      \item 模式/内模式映射
+		      \item 模式/外模式映射
+		      \item 内模式
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 以下四项中，不属于数据库系统特点的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据共享
+		      \item 数据完整性
+		      \item 数据冗余较小
+		      \item 数据独立性低
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库中存放的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据
+		      \item 数据模型
+		      \item 数据之间的联系
+		      \item 数据以及数据之间的联系
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库系统组织结构是（\quad）。
+	      \begin{enumerate}
+		      \item 三级结构三级映射
+		      \item 二级结构三级映射
+		      \item 三级结构二级映射
+		      \item 二级结构二级映射
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 以下关于数据库模式说法中，正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 三个模式中，只有外模式才是真正存在
+		      \item 在应用程序中，用户使用的是外模式
+		      \item 在应用程序中，用户使用的是内模式
+		      \item 在应用程序中，用户使用的是概念模式
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据库（DB），数据库系统（DBS）和数据库管理系统（DBMS）三者之间的关系是（\quad）。
+	      \begin{enumerate}
+		      \item DBS 包括 DB 和 DBMS
+		      \item DBMS 包括 DB 和 DBS
+		      \item DB 包括 DBS 和 DBMS
+		      \item DBS 就是 DB，也就是 DBMS
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库系统依靠（\quad）支持了数据独立性。
+	      \begin{enumerate}
+		      \item 模式分级、各级之间有映像机制
+		      \item 抽象数据模型，具有封装机制
+		      \item 定义完整性约束条件
+		      \item DDL语言和DML
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库三级模式体系结构的划分，有利于保持数据库的（\quad）。
+	      \begin{enumerate}
+		      \item 数据独立性
+		      \item 结构规范化
+		      \item 数据安全性
+		      \item 操作可行性
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库物理存储方式的描述称为（\quad）。
+	      \begin{enumerate}
+		      \item 内模式
+		      \item 外模式
+		      \item 概念模式
+		      \item 逻辑模式
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在数据库的三级模式结构中，描述数据库中全体数据的全局逻辑结构和特性的是（\quad）。
+	      \begin{enumerate}
+		      \item 模式
+		      \item 外模式
+		      \item 内模式
+		      \item 存储模式
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库系统的数据独立性是指（\quad）。
+	      \begin{enumerate}
+		      \item 不会因为系统数据存储结构与数据逻辑结构的变化而影响应用程序
+		      \item 不会因为数据的变化而影响应用程序
+		      \item 不会因为存储策略的变化而影响存储结构
+		      \item 不会因为某些存储结构的变化而影响其他的存储结构
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 关于人工管理阶段的特点，描述错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据面向应用
+		      \item 数据集成
+		      \item 数据不保存
+		      \item 应用程序管理数据
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据管理技术的发展经历了人工管理、文件系统和（\quad）三个阶段。
+	      \begin{enumerate}
+		      \item 数据描述阶段
+		      \item 应用程序系统
+		      \item 编译系统
+		      \item 数据库系统
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据管理经过了手工文档、文件系统和（\quad）三个发展阶段。
+	      \textbf{答案：数据库系统}
+
+	\item 由于数据库系统在三级模式之间提供了（\quad）和（\quad）两层映像功能，这就保证了数据库系统具有较高的数据独立性。
+	      \textbf{答案：外模式/模式；模式/内模式}
+
+	\item 数据库的特点之一是数据的共享，严格地讲，这里的数据共享是指（\quad）。
+	      \begin{enumerate}
+		      \item 多种应用、多种语言、多个用户互相覆盖地使用数据集合
+		      \item 同一个应用中的多个程序共享一个数据集合
+		      \item 多个用户、同一种语言共享数据
+		      \item 多个用户共享一个数据文件
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在数据库的三级模式结构中内模式可以有多个。（\quad）
+	      \textbf{答案：错误}
+
+	\item 数据库系统就是数据库管理系统。（\quad）
+	      \textbf{答案：错误}
+
+	\item 模式是关系的集合。（\quad）
+	      \textbf{答案：错误}
+
+	\item 数据独立性指数据的存储与应用程序无关，数据存储结构的改变不影响应用程序的正常运行。（\quad）
+	      \textbf{答案：正确}
+
+	\item 数据是表示信息的具体形式，信息是数据表达的内容。（\quad）
+	      \textbf{答案：正确}
+
+	\item 与文件管理系统相比较，数据库系统的数据冗余度（\quad）、数据共享性（\quad）。
+	      \textbf{答案：低；好}
+
+	\item 下列关于数据库系统特点的叙述中，正确的一项是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库系统的存储模式如有改变，概念模式无需改动
+		      \item 各类用户程序均可随意地使用数据库中的各种数据
+		      \item 数据库系统中概念模式改变，只需将与其有关的子模式做相应改变，不用改写应用程序
+		      \item 数据一致性是指数据库中数据类型的一致
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库系统具有的特点不包括（\quad）。
+	      \begin{enumerate}
+		      \item 数据冗余高
+		      \item 减少应用程序开发与维护的工作量
+		      \item 数据一致性
+		      \item 实施统一管理与控制
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库中不属于存储数据特点的是（\quad）。
+	      \begin{enumerate}
+		      \item 永久存储
+		      \item 集中管理
+		      \item 有组织
+		      \item 可共享
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 实现数据在不会被相互干扰的情况下并发使用，并且在发生故障时能够对数据库进行正确恢复的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据定义功能
+		      \item 数据库的运行管理功能
+		      \item 数据操纵功能
+		      \item 数据库的维护功能
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据库管理系统是计算机的（\quad）。
+	      \begin{enumerate}
+		      \item 应用软件
+		      \item 系统软件
+		      \item 数据库系统
+		      \item 数据库
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item DBMS提供（\quad）来严格地定义模式。
+	      \begin{enumerate}
+		      \item 模式描述语言
+		      \item 子模式描述语言
+		      \item 内模式描述语言
+		      \item 程序设计语言
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库的核心是（\quad）。
+	      \begin{enumerate}
+		      \item 存储模式
+		      \item 概念模式
+		      \item 外部模式
+		      \item 内部模式
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据库管理系统的主要目的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据集成
+		      \item 数据共享
+		      \item 数据冗余小
+		      \item 数据独立性高
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 长期储存在计算机中的有组织的、可共享的数据集合是指（\quad）。
+	      \begin{enumerate}
+		      \item 数据
+		      \item 数据库
+		      \item 数据库管理系统
+		      \item 数据库系统
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 在计算机领域，称为数据库时代的是（\quad）。
+	      \begin{enumerate}
+		      \item 20世纪60年代
+		      \item 20世纪70年代
+		      \item 20世纪80年代
+		      \item 20世纪90年代
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 人工管理阶段，计算机主要应用于（\quad）。
+	      \begin{enumerate}
+		      \item 数据集成
+		      \item 过程控制
+		      \item 故障恢复
+		      \item 科学计算
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 下列不属于数据库系统三级模式结构的是（\quad）。
+	      \begin{enumerate}
+		      \item 模式
+		      \item 外模式
+		      \item 内模式
+		      \item 数据模式
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 下列属于新一代数据库系统的是（\quad）。
+	      \begin{enumerate}
+		      \item 层次数据库系统
+		      \item 网状数据库系统
+		      \item 关系数据库系统
+		      \item 面向对象数据库系统
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 第三代数据库系统应该是以支持（\quad）数据模型为主要特征的数据库系统。
+	      \begin{enumerate}
+		      \item 关系
+		      \item 网状
+		      \item 面向对象
+		      \item 面向过程
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 下列属于第一代数据库系统的是（\quad）。
+	      \begin{enumerate}
+		      \item SYBASE
+		      \item IMS
+		      \item Ingres
+		      \item OODBS
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 数据库中存储的数据的基本特点不包括（\quad）。
+	      \begin{enumerate}
+		      \item 永久存储
+		      \item 有组织
+		      \item 可共享
+		      \item 易于扩展
+	      \end{enumerate}
+	      \textbf{答案：D}
+\end{enumerate}
+
+
+\end{document}

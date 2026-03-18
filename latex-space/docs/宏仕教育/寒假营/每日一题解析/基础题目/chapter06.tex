@@ -1,0 +1,588 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+%==================== 导言区：宏包加载 ====================
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage{geometry}                 % 页面设置
+\usepackage{xcolor}                   % 颜色支持
+\usepackage{fancyhdr}                 % 页眉页脚
+\usepackage{enumitem}                 % 列表定制
+\usepackage{tcolorbox}                %以此美化文本框
+\usepackage{titlesec}                 % 标题格式调整
+
+%==================== 页面布局设置 ====================
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+%==================== 自定义视觉样式 ====================
+
+% 1. 定义分隔线样式
+\newcommand{\TopSeparator}{
+    \par\noindent\rule{\textwidth}{1.5pt}\vspace{0.5em} % 粗实线 ━━━━
+}
+\newcommand{\AnalysisSeparator}{
+    \par\noindent\rule{\textwidth}{0.5pt}\vspace{0.2em}\hrule\vspace{0.5em} % 双线效果 ════
+}
+
+% 2. 定义红色解析环境
+%在这个环境内的所有文字和公式都会自动变成红色
+\newenvironment{RedAnalysis}{
+    \par
+    \color{red} % 设置后续字体为红色
+}{
+    \par
+    \color{black} % 结束时恢复黑色
+}
+
+% 3. 标题格式微调
+\titleformat{\section}{\large\bfseries\heiti}{}{0em}{}[\vspace{-0.5em}]
+\titleformat{\subsection}{\bfseries\kaishu}{}{0em}{}
+
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+%==================== 文档开始 ====================
+\begin{document}
+
+% 标题信息
+\title{\textbf{第六章 不定积分（解析）}}
+\author{数学习题讲义}
+\date{\today}
+\maketitle
+
+% --- 题目 1 ---
+\TopSeparator
+\section*{题目1}
+
+\textbf{【题目重现】} \\
+不定积分 $ \int\frac{dx}{x(x+1)} $ 的结果为 \underline{\hspace{1cm}}。
+\choicesFour{$ \ln|\frac{x+1}{x}|+C $}{$ \ln|\frac{x}{x+1}|+C $}{$ \ln\frac{x+1}{x}+C $}{$ \ln\frac{x}{x+1}+C $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+被积函数是有理函数，且分母已分解因式。使用裂项法（部分分式分解）求解。
+
+\textbf{详细步骤} \\
+1. \textbf{裂项}：
+   \[ \frac{1}{x(x+1)} = \frac{1}{x} - \frac{1}{x+1} \]
+2. \textbf{积分}：
+   \[ \int (\frac{1}{x} - \frac{1}{x+1}) dx = \ln|x| - \ln|x+1| + C \]
+3. \textbf{整理}：
+   \[ = \ln \left| \frac{x}{x+1} \right| + C \]
+
+\textbf{第四步：最终答案} \\
+B
+
+\subsection*{二、核心公式}
+1. \textbf{裂项公式}：$\frac{1}{x(x+1)} = \frac{1}{x} - \frac{1}{x+1}$
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 2 ---
+\TopSeparator
+\section*{题目2}
+
+\textbf{【题目重现】} \\
+若 $ \int f(x)dx = F(x) + C, $ 则 $ \int e^{-x}f(e^{-x})dx = $ \underline{\hspace{1cm}}。
+\choicesFour{$ -F(e^{-x})+C $}{$ F(e^{-x})+C $}{$ \frac{F(e^{-x})}{x}+C $}{$ F(e^{x})+C $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+使用换元积分法。令 $u = e^{-x}$。
+
+\textbf{详细步骤} \\
+1. 令 $u = e^{-x}$，则 $du = -e^{-x} dx$，即 $e^{-x} dx = -du$。
+2. 原积分 $I = \int f(u) (-du) = - \int f(u) du$。
+3. 已知 $\int f(x) dx = F(x) + C$，故 $\int f(u) du = F(u) + C$。
+4. 所以 $I = -F(u) + C = -F(e^{-x}) + C$。
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{二、核心公式}
+1. \textbf{第一类换元法（凑微分）}：$\int g(\varphi(x)) \varphi'(x) dx = \int g(u) du$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 3 ---
+\TopSeparator
+\section*{题目3}
+
+\textbf{【题目重现】} \\
+若 $ \int f(x)dx = x^{2}e^{2x} + C $ ，则 $ f(x) = $ \underline{\hspace{1cm}}。
+\choicesFour{$ 2xe^{x} $}{$ 2x^{2}e^{2x} $}{$ xe^{2x} $}{$ 2xe^{2x}(1+x) $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+已知积分结果求被积函数，直接对积分结果求导即可。
+
+\textbf{详细步骤} \\
+\[ f(x) = (x^2 e^{2x})' = (x^2)'e^{2x} + x^2(e^{2x})' \]
+\[ = 2x e^{2x} + x^2 \cdot e^{2x} \cdot 2 \]
+\[ = 2xe^{2x}(1 + x) \]
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. \textbf{积分与导数关系}：$(\int f(x) dx)' = f(x)$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 4 ---
+\TopSeparator
+\section*{题目4}
+
+\textbf{【题目重现】} \\
+$ \int d(\arcsin\sqrt{x}) = $ \underline{\hspace{1cm}}。
+\choicesFour{$ \arcsin\sqrt{x} $}{$ \arcsin\sqrt{x}+C $}{$ \arccos\sqrt{x} $}{$ \arccos\sqrt{x}+C $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+不定积分是微分的逆运算。$\int dF(x) = F(x) + C$。
+
+\textbf{详细步骤} \\
+\[ \int d(\arcsin\sqrt{x}) = \arcsin\sqrt{x} + C \]
+
+\textbf{第四步：最终答案} \\
+B
+
+\subsection*{二、核心公式}
+1. \textbf{微分与积分}：$\int df(x) = f(x) + C$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 5 ---
+\TopSeparator
+\section*{题目5}
+
+\textbf{【题目重现】} \\
+$ \int xf(x^{2})f'(x^{2})dx = $ \underline{\hspace{1cm}}。
+\choicesTwo
+{$ \frac{1}{2}f(x^{2})+C $}
+{$ \frac{1}{2}f^{2}(x^{2})+C $}
+{$ \frac{1}{4}f^{2}(x^{2})+C $}
+{$ \frac{1}{4}x^{2}f^{2}(x^{2})+C $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+观察被积函数，含有 $x^2$ 和 $x dx$，适合用凑微分法。
+
+\textbf{详细步骤} \\
+1. $x dx = \frac{1}{2} d(x^2)$。原式 $= \int \frac{1}{2} f(x^2) f'(x^2) d(x^2)$。
+2. 令 $u = x^2$，则 $= \frac{1}{2} \int f(u) f'(u) du$。
+3. 又 $f'(u) du = d(f(u))$，令 $v = f(u)$。
+4. $= \frac{1}{2} \int v \, dv = \frac{1}{2} \cdot \frac{1}{2} v^2 + C = \frac{1}{4} f^2(u) + C$。
+5. 代回 $u = x^2$，得 $\frac{1}{4} f^2(x^2) + C$。
+
+\textbf{第四步：最终答案} \\
+C
+
+\subsection*{二、核心公式}
+1. \textbf{凑微分}：$f'(g(x))g'(x) dx = d[f(g(x))]$。此时用到 $\int v dv = \frac{1}{2} v^2$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 6 ---
+\TopSeparator
+\section*{题目6}
+
+\textbf{【题目重现】} \\
+已知 $ \int f(x)dx = \sin x \cos x + C $ , 则 $ f(x) = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+对积分结果求导。
+
+\textbf{详细步骤} \\
+1. $f(x) = (\sin x \cos x)'$
+2. 可以先化简：$\sin x \cos x = \frac{1}{2} \sin 2x$。
+3. 求导：$(\frac{1}{2} \sin 2x)' = \frac{1}{2} \cos 2x \cdot 2 = \cos 2x$。
+   或者：使用乘法法则 $(\sin x)'\cos x + \sin x (\cos x)' = \cos^2 x - \sin^2 x = \cos 2x$。
+
+\textbf{第四步：最终答案} \\
+$ \cos 2x $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：三角函数求导与倍角公式。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 7 ---
+\TopSeparator
+\section*{题目7}
+
+\textbf{【题目重现】} \\
+设 $ f(x) $ 在 $ (-\infty,+\infty) $ 内连续，则 $ \frac{d}{dx}[\int f(x)dx]= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+先积分后求导还原为被积函数。
+
+\textbf{详细步骤} \\
+根据微积分基本关系，$\frac{d}{dx} \int f(x) dx = f(x)$。
+
+\textbf{第四步：最终答案} \\
+$ f(x) $
+
+\subsection*{二、核心公式}
+1. \textbf{互逆运算}：$\frac{d}{dx}\int f(x) dx = f(x)$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 8 ---
+\TopSeparator
+\section*{题目8}
+
+\textbf{【题目重现】} \\
+若 $ \int xf(x)dx=\frac{1}{2}x^{2}+C, $ 则 $ \int\frac{1}{f(x)}dx= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+先通过求导找出 $f(x)$，再计算所求积分。
+
+\textbf{详细步骤} \\
+1. 对已知等式两边求导：
+   $x f(x) = (\frac{1}{2}x^2)' = x$。
+2. 当 $x \neq 0$ 时，解得 $f(x) = 1$。
+3. 计算 $\int \frac{1}{1} dx = \int dx = x + C$。
+
+\textbf{第四步：最终答案} \\
+$ x + C $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：积分方程求解。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 9 ---
+\TopSeparator
+\section*{题目9}
+
+\textbf{【题目重现】} \\
+已知 $ \int f(\sqrt{x})\frac{1}{\sqrt{x}}dx = x + \ln x + C $ ，则 $ f(x) = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+利用换元法处理左边积分，或直接两边求导。
+
+\textbf{详细步骤} \\
+1. 两边求导：
+   $f(\sqrt{x}) \cdot \frac{1}{\sqrt{x}} = 1 + \frac{1}{x} = \frac{x+1}{x}$
+2. 整理得：$f(\sqrt{x}) = \sqrt{x} \cdot \frac{x+1}{x} = \frac{x+1}{\sqrt{x}} = \sqrt{x} + \frac{1}{\sqrt{x}}$。
+3. 令 $t = \sqrt{x}$，则 $f(t) = t + \frac{1}{t}$。
+
+\textbf{第四步：最终答案} \\
+$ x + \frac{1}{x} $ （或 $ x + x^{-1} $ ）
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：变限积分或不定积分求导。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 10 ---
+\TopSeparator
+\section*{题目10}
+
+\textbf{【题目重现】} \\
+设 $ f(x) = e^{-x} $ ，则 $ \int \frac{f'(\ln x)}{x} dx = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+先求 $f'(x)$，代入表达式化简，再积分。
+
+\textbf{详细步骤} \\
+1. $f(x) = e^{-x} \Rightarrow f'(x) = -e^{-x}$。
+2. $f'(\ln x) = -e^{-\ln x} = - \frac{1}{e^{\ln x}} = -\frac{1}{x}$。
+3. 被积函数为 $\frac{-1/x}{x} = -\frac{1}{x^2}$。
+4. 积分：$\int -\frac{1}{x^2} dx = - \int x^{-2} dx = - \frac{x^{-1}}{-1} + C = \frac{1}{x} + C$。
+
+\textbf{第四步：最终答案} \\
+$ \frac{1}{x} + C $
+
+\subsection*{二、核心公式}
+1. \textbf{指数运算}：$e^{-\ln x} = \frac{1}{x}$。
+2. \textbf{幂函数积分}：$\int x^n dx = \frac{x^{n+1}}{n+1}$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 11 ---
+\TopSeparator
+\section*{题目11}
+
+\textbf{【题目重现】} \\
+计算 $ \int x^{2} \arctan x \, dx $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+被积函数是幂函数与反三角函数乘积，首选分部积分法。
+令 $u = \arctan x, dv = x^2 dx$。
+
+\textbf{详细步骤} \\
+1. $u = \arctan x \Rightarrow du = \frac{1}{1+x^2} dx$。
+   $dv = x^2 dx \Rightarrow v = \frac{1}{3}x^3$。
+2. 应用公式：
+   \[ \int x^2 \arctan x dx = \frac{1}{3}x^3 \arctan x - \int \frac{1}{3}x^3 \cdot \frac{1}{1+x^2} dx \]
+   \[ = \frac{1}{3}x^3 \arctan x - \frac{1}{3} \int \frac{x^3}{1+x^2} dx \]
+3. 处理剩余积分：利用假分式化简
+   \[ \frac{x^3}{1+x^2} = \frac{x(x^2+1)-x}{1+x^2} = x - \frac{x}{1+x^2} \]
+   \[ \int (x - \frac{x}{1+x^2}) dx = \frac{1}{2}x^2 - \frac{1}{2}\int \frac{d(1+x^2)}{1+x^2} = \frac{1}{2}x^2 - \frac{1}{2}\ln(1+x^2) \]
+4. 合并结果：
+   \[ = \frac{1}{3}x^3 \arctan x - \frac{1}{3}(\frac{1}{2}x^2 - \frac{1}{2}\ln(1+x^2)) + C \]
+   \[ = \frac{1}{3}x^3 \arctan x - \frac{1}{6}x^2 + \frac{1}{6}\ln(1+x^2) + C \]
+
+\textbf{第四步：最终答案} \\
+$ \frac{1}{3}x^3 \arctan x - \frac{1}{6}x^2 + \frac{1}{6}\ln(1+x^2) + C $
+
+\subsection*{二、核心公式}
+1. \textbf{分部积分}：$\int u dv = uv - \int v du$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 12 ---
+\TopSeparator
+\section*{题目12}
+
+\textbf{【题目重现】} \\
+求不定积分 $ \int x^{2}e^{-x} \, dx $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+幂函数与指数函数乘积，属于“反对幂三指”中“幂指”组合，用分部积分消除幂次。需用两次。
+
+\textbf{详细步骤} \\
+1. 令 $u=x^2, dv=e^{-x}dx \Rightarrow du=2xdx, v=-e^{-x}$。
+   \[ I = -x^2 e^{-x} + \int 2x e^{-x} dx \]
+2. 再对 $\int x e^{-x} dx$ 分部：
+   令 $u=x, dv=e^{-x}dx \Rightarrow du=dx, v=-e^{-x}$。
+   \[ \int x e^{-x} dx = -xe^{-x} + \int e^{-x} dx = -xe^{-x} - e^{-x} \]
+3. 代回原式：
+   \[ I = -x^2 e^{-x} + 2(-xe^{-x} - e^{-x}) + C \]
+   \[ = -e^{-x}(x^2 + 2x + 2) + C \]
+
+\textbf{第四步：最终答案} \\
+$ -e^{-x}(x^2 + 2x + 2) + C $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：多次分部积分法。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 13 ---
+\TopSeparator
+\section*{题目13}
+
+\textbf{【题目重现】} \\
+求不定积分 $ \int(x+1)\sin x \, dx $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+幂函数与三角函数乘积，用分部积分。
+
+\textbf{详细步骤} \\
+1. 令 $u = x+1, dv = \sin x dx \Rightarrow du = dx, v = -\cos x$。
+2. \[ I = -(x+1)\cos x - \int (-\cos x) dx \]
+   \[ = -(x+1)\cos x + \int \cos x dx \]
+   \[ = -(x+1)\cos x + \sin x + C \]
+
+\textbf{第四步：最终答案} \\
+$ \sin x - (x+1)\cos x + C $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：分部积分法。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 14 ---
+\TopSeparator
+\section*{题目14}
+
+\textbf{【题目重现】} \\
+求不定积分 $ \int\frac{dx}{\sqrt{2x-3}+1} $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+含有根式，使用第二类换元法（根式代换）。
+
+\textbf{详细步骤} \\
+1. 令 $t = \sqrt{2x-3}$，则 $t^2 = 2x-3 \Rightarrow x = \frac{t^2+3}{2} \Rightarrow dx = t dt$。
+2. 代入积分：
+   \[ \int \frac{t dt}{t+1} = \int \frac{t+1-1}{t+1} dt = \int (1 - \frac{1}{t+1}) dt \]
+   \[ = t - \ln|t+1| + C \]
+3. 代回变量：
+   \[ = \sqrt{2x-3} - \ln(\sqrt{2x-3}+1) + C \]
+   （注：根式 $\ge 0$ 加 1 后恒正，绝对值可去）
+
+\textbf{第四步：最终答案} \\
+$ \sqrt{2x-3} - \ln(\sqrt{2x-3}+1) + C $
+
+\subsection*{二、核心公式}
+1. \textbf{根式换元}：令 $t = \sqrt{ax+b}$ 去根号。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 15 ---
+\TopSeparator
+\section*{题目15}
+
+\textbf{【题目重现】} \\
+求不定积分 $ \int\frac{x^{2}}{1+x^{2}}\arctan x \, dx $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+先将假分式变形，再拆分为两部分积分。
+
+\textbf{详细步骤} \\
+1. $\frac{x^2}{1+x^2} = 1 - \frac{1}{1+x^2}$。
+2. 原积分 $I = \int (1 - \frac{1}{1+x^2}) \arctan x dx = \int \arctan x dx - \int \frac{\arctan x}{1+x^2} dx$。
+3. 第一部分 $I_1 = \int \arctan x dx$：
+   分部积分：$u = \arctan x, v = x$。
+   $I_1 = x \arctan x - \int \frac{x}{1+x^2} dx = x \arctan x - \frac{1}{2}\ln(1+x^2)$。
+4. 第二部分 $I_2 = \int \arctan x \cdot \frac{1}{1+x^2} dx$：
+   观察到 $(\arctan x)' = \frac{1}{1+x^2}$，凑微分。
+   $I_2 = \int \arctan x \, d(\arctan x) = \frac{1}{2}(\arctan x)^2$。
+5. 合并：
+   \[ I = I_1 - I_2 = x \arctan x - \frac{1}{2}\ln(1+x^2) - \frac{1}{2}(\arctan x)^2 + C \]
+
+\textbf{第四步：最终答案} \\
+$ x \arctan x - \frac{1}{2}\ln(1+x^2) - \frac{1}{2}(\arctan x)^2 + C $
+
+\subsection*{二、核心公式}
+1. \textbf{拆项法}：复杂分式先拆分。
+
+\end{RedAnalysis}
+
+\end{document}

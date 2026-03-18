@@ -1,0 +1,217 @@
+管理类联考::第一章::整数与自然数	<b>【定义】整数与自然数</b>	<div class="latex-box box-purple"><ul><li><b>整数</b>：包括正整数、0 和负整数。</li><li><b>正整数</b>：\(1, 2, 3, \dots\)</li><li><b>自然数</b>：\(0\) 和正整数（即非负整数）。<br><span style="color:#e74c3c">（注：考纲明确规定 0 是自然数）</span></li></ul></div>
+管理类联考::第一章::奇数与偶数	<b>【定义】奇数与偶数</b>	<div class="latex-box box-purple"><ul><li><b>奇数</b>：不能被 2 整除的整数。<br>通式：\(2k+1\) (\(k \in \mathbb{Z}\))。</li><li><b>偶数</b>：能被 2 整除的整数。<br>通式：\(2k\) (\(k \in \mathbb{Z}\))。<br><span style="color:#e74c3c">（注：0 是偶数）</span></li></ul></div>
+管理类联考::第一章::奇偶运算性质	<b>【性质】奇偶运算口诀</b>	<div class="latex-box box-green"><b>加减法（同性偶，异性奇）：</b><ul><li>奇 \(\pm\) 奇 = 偶</li><li>偶 \(\pm\) 偶 = 偶</li><li>奇 \(\pm\) 偶 = 奇</li></ul><b>乘法（有偶则偶）：</b><ul><li>奇 \(\times\) 奇 = 奇</li><li>奇 \(\times\) 偶 = 偶</li><li>偶 \(\times\) 偶 = 偶</li></ul></div>
+管理类联考::第一章::奇偶重要结论	<b>【结论】奇偶性重要推论</b>	<div class="latex-box box-purple"><ul><li><b>0 是偶数</b>。</li><li>两个<b>相邻整数</b>必为一奇一偶，其积为偶数。</li><li>若干个数相乘，<b>只要有一个偶数</b>，积即为偶数。</li><li><b>奇数个奇数</b>相加 = 奇数；<b>偶数个奇数</b>相加 = 偶数。</li><li>任意两个自然数的<b>和与差</b>奇偶性相同。</li></ul></div>
+管理类联考::第一章::质数	<b>【定义】质数 (素数)</b>	<div class="latex-box box-purple">大于 1 的正整数，只能被 1 和它本身整除。<br>例如：2, 3, 5, 7, 11...</div>
+管理类联考::第一章::合数	<b>【定义】合数</b>	<div class="latex-box box-purple">大于 1 的正整数，除了 1 和本身外还能被其他正整数整除。<br>例如：4, 6, 8, 9...</div>
+管理类联考::第一章::质数性质	<b>【性质】质数的关键性质</b>	<div class="latex-box box-purple"><ul><li><b>1 既不是质数也不是合数</b>。</li><li><b>2</b> 是最小的质数，也是唯一的<b>偶质数</b>。</li><li>大于 2 的质数必为<b>奇数</b>。</li><li>质数有无穷多个。</li></ul></div>
+管理类联考::第一章::互质数	<b>【定义】互质数</b>	<div class="latex-box box-purple">公约数<b>只有 1</b> 的两个数称为互质数。<br>例如：8 和 9 互质；5 和 7 互质。<br>（注：互质的两个数不一定都是质数）。</div>
+管理类联考::第一章::平方根	<b>【定义】平方根</b>	<div class="latex-box box-purple">若 \(x^2 = a\)，则 \(x\) 叫做 \(a\) 的平方根，记作 \(x = \pm\sqrt{a}\)。<ul><li>正数有两个互为相反数的平方根。</li><li>0 的平方根是 0。</li><li>负数没有实数平方根。</li></ul></div>
+管理类联考::第一章::算术平方根	<b>【定义】算术平方根</b>	<div class="latex-box box-purple">正数 \(a\) 的<b>正</b>平方根称为算术平方根，记为 \(\sqrt{a}\)。<br>性质：\(\sqrt{a} \ge 0\)。<br>重要恒等式：\(\sqrt{a^2} = |a|\)。</div>
+管理类联考::第一章::整除	<b>【定义】整除</b>	<div class="latex-box box-purple">整数 \(a\) 除以非零整数 \(b\)，商为整数且<b>余数为 0</b>。<br>记作 \(b \mid a\) （读作 \(b\) 整除 \(a\)）。</div>
+管理类联考::第一章::整除特征	<b>【特征】常见数的整除特征</b>	<div class="latex-box box-green"><ul><li><b>2/5/10</b>：看个位。</li><li><b>4/25</b>：看末两位。</li><li><b>8/125</b>：看末三位。</li><li><b>3/9</b>：看<b>各位数字之和</b>。</li><li><b>6</b>：同时被 2 和 3 整除。</li><li><b>11</b>：<b>奇数位和 - 偶数位和</b> 能被 11 整除。</li></ul></div>
+管理类联考::第一章::倍数与约数	<b>【定义】倍数与约数</b>	<div class="latex-box box-purple">若 \(a\) 能被 \(b\) 整除 (\(b \mid a\))：<br>则 \(a\) 是 \(b\) 的<b>倍数</b>，\(b\) 是 \(a\) 的<b>约数</b>（因数）。</div>
+管理类联考::第一章::最大公约数与最小公倍数	<b>【定义】最大公约数与最小公倍数</b>	<div class="latex-box box-purple"><ul><li><b>最大公约数 \((a,b)\)</b>：公约数中最大的。</li><li><b>最小公倍数 \([a,b]\)</b>：公倍数中最小的。</li><li><b>核心关系</b>：\((a,b) \times [a,b] = |a \times b|\)。</li></ul></div>
+管理类联考::第一章::比	<b>【定义】比</b>	<div class="latex-box box-purple">两个数相除叫做比：\(a:b = \frac{a}{b}\)。<br>\(a\) 为前项，\(b\) 为后项。</div>
+管理类联考::第一章::比例	<b>【定义】比例</b>	<div class="latex-box box-purple">表示两个比相等的式子：\(a:b = c:d\) 或 \(\frac{a}{b} = \frac{c}{d}\)。<br><b>比例中项</b>：若 \(a:b = b:c\)，则 \(b^2 = ac\)。</div>
+管理类联考::第一章::正比	<b>【定义】正比</b>	<div class="latex-box box-purple">若 \(y = kx\) (\(k \neq 0\))，则 \(y\) 与 \(x\) 成正比。<br>特征：\(\frac{y}{x} = k\) (定值)。</div>
+管理类联考::第一章::反比	<b>【定义】反比</b>	<div class="latex-box box-purple">若 \(y = \frac{k}{x}\) (\(k \neq 0\))，则 \(y\) 与 \(x\) 成反比。<br>特征：\(xy = k\) (定值)。</div>
+管理类联考::第一章::比例基本性质	<b>【性质】比例的基本性质</b>	<div class="latex-box box-green">对于 \(a:b = c:d\)：<br>1. 内项积 = 外项积：\(ad = bc\)。<br>2. 更比：\(a:c = b:d\)。<br>3. 反比：\(b:a = d:c\)。</div>
+管理类联考::第一章::同比定理	<b>【定理】合比定理</b>	<div class="latex-box box-green">\(\frac{a}{b} = \frac{c}{d} \iff \frac{a+b}{b} = \frac{c+d}{d}\)</div>
+管理类联考::第一章::分比定理	<b>【定理】分比定理</b>	<div class="latex-box box-green">\(\frac{a}{b} = \frac{c}{d} \iff \frac{a-b}{b} = \frac{c-d}{d}\)</div>
+管理类联考::第一章::合分比定理	<b>【定理】合分比定理</b>	<div class="latex-box box-green">\(\frac{a}{b} = \frac{c}{d} \iff \frac{a+b}{a-b} = \frac{c+d}{c-d}\)</div>
+管理类联考::第一章::等比定理	<b>【定理】等比定理</b>	<div class="latex-box box-green">若 \(\frac{a}{b} = \frac{c}{d} = \dots = \frac{m}{n} = k\) (且 \(b+d+\dots+n \neq 0\))，则：<br>\[\frac{a+c+\dots+m}{b+d+\dots+n} = k = \frac{a}{b}\]</div>
+管理类联考::第一章::绝对值定义	<b>【定义】绝对值（代数）</b>	<div class="latex-box box-purple">\[|a| = \begin{cases} a, & a > 0 \\ 0, & a = 0 \\ -a, & a < 0 \end{cases}\]<br>口诀：正数原本，负数反号，零是零。</div>
+管理类联考::第一章::绝对值几何意义	<b>【几何意义】绝对值</b>	<div class="latex-box box-purple">\(|a|\)：数轴上点 \(a\) 到原点的距离。<br>\(|x-a|\)：数轴上点 \(x\) 到点 \(a\) 的距离。</div>
+管理类联考::第一章::绝对值基本不等式	<b>【不等式】绝对值基本解法</b>	<div class="latex-box box-green">设 \(a > 0\)：<br><ul><li>\(|x| < a \iff -a < x < a\) （中间）</li><li>\(|x| > a \iff x > a \text{ 或 } x < -a\) （两边）</li></ul></div>
+管理类联考::第一章::绝对值对称性	<b>【性质】绝对值对称性</b>	<div class="latex-box box-purple">\(|-a| = |a|\)<br>（互为相反数的两个数绝对值相等）。</div>
+管理类联考::第一章::绝对值等价性	<b>【性质】绝对值等价变形</b>	<div class="latex-box box-green"><ul><li>\(\sqrt{a^2} = |a|\)</li><li>\(|a|^2 = a^2\)</li><li>\(|ab| = |a||b|\)</li><li>\(|\frac{a}{b}| = \frac{|a|}{|b|}\)</li></ul></div>
+管理类联考::第一章::绝对值自比性	<b>【性质】绝对值自比性</b>	<div class="latex-box box-purple">\(-|a| \le a \le |a|\)<br>符号函数：\(\text{sgn}(x) = \frac{x}{|x|} = \begin{cases} 1, & x>0 \\ -1, & x<0 \end{cases}\)。</div>
+管理类联考::第一章::绝对值非负性	<b>【性质】绝对值非负性</b>	<div class="latex-box box-green">\(|a| \ge 0\)。<br>考点：若 \(|a| + |b| = 0\)，则必有 \(a=0\) 且 \(b=0\)（非负数之和为0）。</div>
+管理类联考::第二章::变化率公式	<b>【公式】变化率</b>	<div class="latex-box box-green">\[\text{变化率} = \frac{|\text{现值}-\text{原值}|}{\text{原值}} \times 100\%\]</div>
+管理类联考::第二章::增长率与下降率	<b>【公式】增长率与下降率</b>	<div class="latex-box box-green">原值 \(a\)，变化率 \(p\)：<br><ul><li>增长后：\(a(1+p\%)\)</li><li>下降后：\(a(1-p\%)\)</li><li><b>先增 \(p\) 后降 \(p\)</b>：\(a(1-p^2\%)\) < \(a\) （一定变小）。</li></ul></div>
+管理类联考::第二章::恢复原值	<b>【公式】恢复原值</b>	<div class="latex-box box-green"><ul><li>原值先<b>降</b> \(p\%\)，需再<b>增</b> \(\frac{p\%}{1-p\%}\) 恢复。</li><li>原值先<b>增</b> \(p\%\)，需再<b>降</b> \(\frac{p\%}{1+p\%}\) 恢复。</li></ul></div>
+管理类联考::第二章::甲比乙大p%	<b>【关系】甲比乙大 p%</b>	<div class="latex-box box-green">\(\frac{\text{甲}-\text{乙}}{\text{乙}} = p\% \iff \text{甲} = \text{乙}(1+p\%)\)<br>注意：甲比乙大 \(p\%\) \(\ne\) 乙比甲小 \(p\%\)。<br>实际上：乙比甲小 \(\frac{p\%}{1+p\%}\)。</div>
+管理类联考::第二章::总量与部分量	<b>【关系】总量与部分量</b>	<div class="latex-box box-green">\(\text{总量} = \frac{\text{部分量}}{\text{该部分所占比例}}\)</div>
+管理类联考::第二章::利润基本公式	<b>【公式】利润问题</b>	<div class="latex-box box-green"><ul><li>\(\text{利润} = \text{售价} - \text{进价}\)</li><li>\(\text{利润率} = \frac{\text{利润}}{\text{进价}} \times 100\%\)</li><li>\(\text{售价} = \text{进价} \times (1 + \text{利润率})\)</li></ul></div>
+管理类联考::第二章::路程基本关系	<b>【公式】路程、速度、时间</b>	<div class="latex-box box-green">\(s = vt\)<br>\(\text{平均速度} = \frac{\text{总路程}}{\text{总时间}}\)</div>
+管理类联考::第二章::相遇问题	<b>【公式】直线相遇</b>	<div class="latex-box box-green">相向而行，同时出发：<br>\[s_{\text{相遇}} = s_{\text{甲}} + s_{\text{乙}} = (v_{\text{甲}} + v_{\text{乙}})t\]</div>
+管理类联考::第二章::追及问题	<b>【公式】直线追及</b>	<div class="latex-box box-green">同向而行，同时出发（甲快）：<br>\[s_{\text{追及}} = s_{\text{甲}} - s_{\text{乙}} = (v_{\text{甲}} - v_{\text{乙}})t = \Delta s_{\text{初始间距}}\]</div>
+管理类联考::第二章::船在水中航行	<b>【公式】流水行船</b>	<div class="latex-box box-green"><ul><li>\(v_{\text{顺}} = v_{\text{船}} + v_{\text{水}}\)</li><li>\(v_{\text{逆}} = v_{\text{船}} - v_{\text{水}}\)</li><li>\(v_{\text{船}} = \frac{v_{\text{顺}} + v_{\text{逆}}}{2}\)</li></ul></div>
+管理类联考::第二章::工程问题基本关系	<b>【公式】工程问题</b>	<div class="latex-box box-green"><ul><li>\(\text{工作量} = \text{效率} \times \text{时间}\)</li><li>通常设总工作量为 1。</li><li>\(\text{效率} = \frac{1}{\text{单独完成时间}}\)。</li></ul></div>
+管理类联考::第二章::合作完成时间	<b>【公式】合作时间</b>	<div class="latex-box box-green">甲单独 \(m\) 天，乙单独 \(n\) 天：<br>\[t_{\text{合作}} = \frac{1}{\frac{1}{m} + \frac{1}{n}} = \frac{mn}{m+n}\]</div>
+管理类联考::第二章::交叉法	<b>【方法】十字交叉法</b>	<div class="latex-box box-green">用于解决混合平均问题（如浓度、平均分）：<br>\[\frac{A \text{的数量}}{B \text{的数量}} = \frac{|\text{整体平均} - B\text{平均}|}{|\text{整体平均} - A\text{平均}|}\]</div>
+管理类联考::第二章::浓度基本公式	<b>【公式】浓度问题</b>	<div class="latex-box box-green"><ul><li>\(\text{浓度} = \frac{\text{溶质}}{\text{溶液}}\)</li><li>\(\text{溶液} = \text{溶质} + \text{溶剂}\)</li><li>\(\text{溶质} = \text{溶液} \times \text{浓度}\)</li></ul></div>
+管理类联考::第二章::浓度不变准则	<b>【准则】浓度不变</b>	<div class="latex-box box-purple">1. 将溶液倒出一部分，剩余溶液<b>浓度不变</b>。<br>2. 溶液分为若干份，每份<b>浓度不变</b>。</div>
+管理类联考::第二章::物质守恒准则	<b>【准则】物质守恒</b>	<div class="latex-box box-purple">稀释（加溶剂）或蒸发（去溶剂）过程中，<b>溶质的质量保持不变</b>。</div>
+管理类联考::第二章::两个集合公式	<b>【公式】容斥原理（两个集合）</b>	<div class="latex-box box-green">\(|A \cup B| = |A| + |B| - |A \cap B|\)<br>全集 = 参加A + 参加B - 参加两项 + 都没参加。</div>
+管理类联考::第二章::三个集合公式（宏观）	<b>【公式】三个集合（宏观公式）</b>	<div class="latex-box box-green">\(|A \cup B \cup C| = \sum |A| - \sum |A \cap B| + |A \cap B \cap C|\)<br>（一重 - 二重 + 三重）</div>
+管理类联考::第二章::三个集合公式（按参加数量）	<b>【公式】三个集合（按次数分类）</b>	<div class="latex-box box-green">设 \(x, y, z\) 分别为只参加 1、2、3 项的人数：<br>1. \(|A \cup B \cup C| = x + y + z\)<br>2. \(\sum |A| = x + 2y + 3z\)</div>
+管理类联考::第二章::分段计费	<b>【模型】分段计费</b>	<div class="latex-box box-purple">关键步骤：<br>1. 找准分段点（临界值）。<br>2. 分别计算每一段的费用。<br>3. 累加求和。</div>
+管理类联考::第三章::整式	<b>【定义】整式</b>	<div class="latex-box box-purple">单项式和多项式的统称。<br>特征：<b>分母中不含字母</b>。</div>
+管理类联考::第三章::分式	<b>【定义】分式</b>	<div class="latex-box box-purple">形如 \(\frac{A}{B}\)，其中 \(A, B\) 为整式，且 \(B\) 中<b>含有字母</b>，\(B \neq 0\)。</div>
+管理类联考::第三章::最简分式	<b>【定义】最简分式</b>	<div class="latex-box box-purple">分子与分母<b>没有公因式</b>的分式。</div>
+管理类联考::第三章::平方差公式	<b>【公式】平方差</b>	<div class="latex-box box-green">\(a^2 - b^2 = (a+b)(a-b)\)</div>
+管理类联考::第三章::完全平方公式	<b>【公式】完全平方</b>	<div class="latex-box box-green">\((a \pm b)^2 = a^2 \pm 2ab + b^2\)</div>
+管理类联考::第三章::三项平方公式	<b>【公式】三项平方</b>	<div class="latex-box box-green">\((a+b+c)^2 = a^2+b^2+c^2 + 2(ab+bc+ca)\)</div>
+管理类联考::第三章::立方和公式	<b>【公式】立方和</b>	<div class="latex-box box-green">\(a^3 + b^3 = (a+b)(a^2 - ab + b^2)\)</div>
+管理类联考::第三章::立方差公式	<b>【公式】立方差</b>	<div class="latex-box box-green">\(a^3 - b^3 = (a-b)(a^2 + ab + b^2)\)</div>
+管理类联考::第三章::因式定理	<b>【定理】因式定理</b>	<div class="latex-box box-green">多项式 \(f(x)\) 含有因式 \((x-a)\) \(\iff f(a) = 0\)。</div>
+管理类联考::第三章::余式定理	<b>【定理】余式定理</b>	<div class="latex-box box-green">多项式 \(f(x)\) 除以 \((x-a)\) 的余式 \(r = f(a)\)。</div>
+管理类联考::第三章::集合定义	<b>【定义】集合</b>	<div class="latex-box box-purple">由确定的、互异的、无序的对象组成的整体。</div>
+管理类联考::第三章::元素与集合关系	<b>【关系】属于与不属于</b>	<div class="latex-box box-purple"><ul><li>\(a \in A\)：\(a\) 是 \(A\) 的元素。</li><li>\(a \notin A\)：\(a\) 不是 \(A\) 的元素。</li></ul></div>
+管理类联考::第三章::集合特性	<b>【特性】集合三特性</b>	<div class="latex-box box-purple">1. 确定性<br>2. 互异性<br>3. 无序性</div>
+管理类联考::第三章::集合间基本关系	<b>【关系】集合关系</b>	<div class="latex-box box-purple"><ul><li>\(A \subseteq B\)：子集。</li><li>\(A \subsetneq B\)：真子集。</li><li>\(A = B\)：相等。</li><li>\(\varnothing\)：空集（所有集合的子集）。</li></ul></div>
+管理类联考::第三章::集合常用结论	<b>【结论】子集个数</b>	<div class="latex-box box-green">若集合有 \(n\) 个元素：<br><ul><li>子集数：\(2^n\)</li><li>真子集数：\(2^n - 1\)</li><li>非空真子集数：\(2^n - 2\)</li></ul></div>
+管理类联考::第三章::一元二次函数标准形式	<b>【形式】一元二次函数</b>	<div class="latex-box box-green">一般式：\(y = ax^2 + bx + c\)<br>顶点式：\(y = a(x-h)^2 + k\)<br>（其中 \(h = -\frac{b}{2a}, k = \frac{4ac-b^2}{4a}\)）</div>
+管理类联考::第三章::一元二次函数性质	<b>【性质】二次函数图像</b>	<div class="latex-box box-purple"><ul><li><b>开口</b>：\(a>0\) 向上；\(a<0\) 向下。</li><li><b>对称轴</b>：\(x = -\frac{b}{2a}\)。</li><li><b>最值</b>：在顶点处取得 \(\frac{4ac-b^2}{4a}\)。</li></ul></div>
+管理类联考::第三章::指数函数图像性质	<b>【性质】指数函数 \(y=a^x\)</b>	<div class="latex-box box-purple"><ul><li>定义域 \(\mathbb{R}\)，值域 \((0, +\infty)\)。</li><li>过定点 \((0,1)\)。</li><li>\(a>1\) 增函数；\(0<a<1\) 减函数。</li></ul></div>
+管理类联考::第三章::指数运算公式	<b>【公式】指数运算</b>	<div class="latex-box box-green"><ul><li>\(a^m \cdot a^n = a^{m+n}\)</li><li>\((a^m)^n = a^{mn}\)</li><li>\((ab)^n = a^n b^n\)</li><li>\(a^{-p} = \frac{1}{a^p}\)</li></ul></div>
+管理类联考::第三章::对数函数图像性质	<b>【性质】对数函数 \(y=\log_a x\)</b>	<div class="latex-box box-purple"><ul><li>定义域 \((0, +\infty)\)，值域 \(\mathbb{R}\)。</li><li>过定点 \((1,0)\)。</li><li>\(a>1\) 增函数；\(0<a<1\) 减函数。</li></ul></div>
+管理类联考::第三章::对数运算公式	<b>【公式】对数运算</b>	<div class="latex-box box-green"><ul><li>\(\log_a(MN) = \log_a M + \log_a N\)</li><li>\(\log_a \frac{M}{N} = \log_a M - \log_a N\)</li><li>\(\log_a M^n = n \log_a M\)</li><li>换底：\(\log_a b = \frac{\ln b}{\ln a}\)</li></ul></div>
+管理类联考::第四章::方程定义	<b>【定义】方程</b>	<div class="latex-box box-purple">含有未知数的等式。<br>解：使方程左右相等的未知数值。</div>
+管理类联考::第四章::一元一次方程	<b>【公式】一元一次方程</b>	<div class="latex-box box-green">\(ax = b\) (\(a \neq 0\))<br>解：\(x = \frac{b}{a}\)。</div>
+管理类联考::第四章::一元二次方程标准形式	<b>【形式】一元二次方程</b>	<div class="latex-box box-green">\(ax^2 + bx + c = 0\) (\(a \neq 0\))</div>
+管理类联考::第四章::判别式	<b>【公式】根的判别式</b>	<div class="latex-box box-green">\(\Delta = b^2 - 4ac\)<br><ul><li>\(\Delta > 0\)：两不等实根。</li><li>\(\Delta = 0\)：两相等实根。</li><li>\(\Delta < 0\)：无实根。</li></ul></div>
+管理类联考::第四章::求根公式	<b>【公式】求根公式</b>	<div class="latex-box box-green">\[x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}\]</div>
+管理类联考::第四章::韦达定理	<b>【定理】韦达定理</b>	<div class="latex-box box-green">若方程 \(ax^2+bx+c=0\) 有两根 \(x_1, x_2\)（需 \(\Delta \ge 0\)）：<br>\[x_1 + x_2 = -\frac{b}{a}, \quad x_1 x_2 = \frac{c}{a}\]</div>
+管理类联考::第四章::韦达定理扩展	<b>【公式】韦达定理常用变形</b>	<div class="latex-box box-green"><ul><li>\(\frac{1}{x_1} + \frac{1}{x_2} = \frac{x_1+x_2}{x_1 x_2}\)</li><li>\(x_1^2 + x_2^2 = (x_1+x_2)^2 - 2x_1 x_2\)</li><li>\(|x_1 - x_2| = \frac{\sqrt{\Delta}}{|a|}\)</li></ul></div>
+管理类联考::第四章::两根符号情况	<b>【条件】两根符号判断</b>	<div class="latex-box box-purple">前提：\(\Delta \ge 0\)。<br><ul><li>两正根：\(x_1+x_2 > 0, x_1 x_2 > 0\)</li><li>两负根：\(x_1+x_2 < 0, x_1 x_2 > 0\)</li><li>一正一负：\(x_1 x_2 < 0\) （此时 \(\Delta > 0\) 恒成立）</li></ul></div>
+管理类联考::第四章::不等式基本性质	<b>【性质】不等式性质</b>	<div class="latex-box box-purple"><ul><li>\(a>b \implies a+c > b+c\)</li><li>\(a>b, c>0 \implies ac > bc\)</li><li>\(a>b, c<0 \implies ac < bc\) （变号）</li><li>\(a>b>0 \implies \frac{1}{a} < \frac{1}{b}\)</li></ul></div>
+管理类联考::第四章::一元二次不等式与二次函数关系	<b>【关系】三个"二次"的关系</b>	<div class="latex-box box-green">\(ax^2+bx+c > 0\) (\(a>0\)) 的解集：<br>1. \(\Delta > 0\)：两根之外 \((-\infty, x_1) \cup (x_2, +\infty)\)。<br>2. \(\Delta < 0\)：全体实数 \(\mathbb{R}\)。</div>
+管理类联考::第四章::绝对值不等式定义法	<b>【方法】定义法解不等式</b>	<div class="latex-box box-purple">利用绝对值几何意义（距离）或零点分段法去掉绝对值符号。</div>
+管理类联考::第四章::|x|>a与|x|<a	<b>【公式】绝对值基本不等式</b>	<div class="latex-box box-green">设 \(a > 0\)：<br><ul><li>\(|x| < a \iff -a < x < a\)</li><li>\(|x| > a \iff x > a \text{ 或 } x < -a\)</li></ul></div>
+管理类联考::第四章::平方法解绝对值不等式	<b>【方法】平方法</b>	<div class="latex-box box-green">解 \(|f(x)| > |g(x)|\) 类型：<br>两边平方 \(\iff f^2(x) > g^2(x)\)<br>\(\iff (f-g)(f+g) > 0\)。</div>
+管理类联考::第四章::分段讨论法	<b>【方法】分段讨论法</b>	<div class="latex-box box-purple">对于多个绝对值相加减（如 \(|x-1| + |x-2| < 4\)）：<br>找零点，分区间，去绝对值，求交集，最后取并集。</div>
+管理类联考::第四章::几何法解绝对值不等式	<b>【方法】几何法</b>	<div class="latex-box box-purple">利用 \(|x-a|\) 表示 \(x\) 到 \(a\) 的距离。<br>如 \(|x-1| + |x+2|\) 表示 \(x\) 到 \(1\) 和 \(-2\) 的距离之和。</div>
+管理类联考::第四章::指数不等式解法	<b>【方法】指数不等式</b>	<div class="latex-box box-green">\(a^{f(x)} > a^{g(x)}\)：<br><ul><li>\(a > 1\)：\(f(x) > g(x)\) （同向）</li><li>\(0 < a < 1\)：\(f(x) < g(x)\) （反向）</li></ul></div>
+管理类联考::第四章::对数不等式解法	<b>【方法】对数不等式</b>	<div class="latex-box box-green">\(\log_a f(x) > \log_a g(x)\)：<br>需先保证真数 \(>0\)。<br><ul><li>\(a > 1\)：\(f(x) > g(x) > 0\)</li><li>\(0 < a < 1\)：\(0 < f(x) < g(x)\)</li></ul></div>
+管理类联考::第四章::算术平均值	<b>【定义】算术平均值</b>	<div class="latex-box box-purple">\(A_n = \frac{x_1 + x_2 + \dots + x_n}{n}\)</div>
+管理类联考::第四章::几何平均值	<b>【定义】几何平均值</b>	<div class="latex-box box-purple">\(G_n = \sqrt[n]{x_1 x_2 \dots x_n}\) （\(x_i > 0\)）</div>
+管理类联考::第四章::均值不等式	<b>【定理】均值不等式 (AM-GM)</b>	<div class="latex-box box-green">对于正数 \(x_i\)：<br>\[\frac{\sum x_i}{n} \ge \sqrt[n]{\prod x_i}\]<br>当且仅当 \(x_1 = x_2 = \dots = x_n\) 时取等号。</div>
+管理类联考::第四章::常用结论	<b>【公式】均值不等式常见形式</b>	<div class="latex-box box-green"><ul><li>\(a^2+b^2 \ge 2ab\)</li><li>\(a+b \ge 2\sqrt{ab}\) \((a,b>0)\)</li><li>\(x + \frac{1}{x} \ge 2\) \((x>0)\)</li></ul></div>
+管理类联考::第四章::均值不等式应用条件	<b>【条件】一正二定三相等</b>	<div class="latex-box box-purple">1. <b>正</b>：各项必须为正数。<br>2. <b>定</b>：积定和最小，和定积最大。<br>3. <b>等</b>：等号成立条件必须能取到。</div>
+管理类联考::第五章::数列定义	<b>【定义】数列</b>	<div class="latex-box box-purple">按一定次序排列的一列数 \(\{a_n\}\)。</div>
+管理类联考::第五章::通项公式	<b>【定义】通项公式</b>	<div class="latex-box box-purple">\(a_n = f(n)\)，表示第 \(n\) 项与序号 \(n\) 的关系。</div>
+管理类联考::第五章::前n项和	<b>【定义】前n项和</b>	<div class="latex-box box-purple">\(S_n = a_1 + a_2 + \dots + a_n\)</div>
+管理类联考::第五章::数列分类	<b>【分类】数列分类</b>	<div class="latex-box box-purple"><ul><li>递增/递减/常/摆动数列。</li><li>有穷/无穷数列。</li></ul></div>
+管理类联考::第五章::递推公式	<b>【定义】递推公式</b>	<div class="latex-box box-purple">已知首项，且任一项与前一项（或前几项）的关系式。<br>如 \(a_{n+1} = 2a_n + 1\)。</div>
+管理类联考::第五章::a_n与S_n关系	<b>【公式】\(a_n\) 与 \(S_n\)</b>	<div class="latex-box box-green">\[a_n = \begin{cases} S_1, & n=1 \\ S_n - S_{n-1}, & n \ge 2 \end{cases}\]</div>
+管理类联考::第五章::常见裂项公式	<b>【公式】常见裂项</b>	<div class="latex-box box-green"><ul><li>\(\frac{1}{n(n+1)} = \frac{1}{n} - \frac{1}{n+1}\)</li><li>\(\frac{1}{\sqrt{n}+\sqrt{n+1}} = \sqrt{n+1} - \sqrt{n}\)</li></ul></div>
+管理类联考::第五章::等差数列定义	<b>【定义】等差数列</b>	<div class="latex-box box-purple">\(a_{n+1} - a_n = d\) （常数）。</div>
+管理类联考::第五章::等差数列通项公式	<b>【公式】等差通项</b>	<div class="latex-box box-green">\(a_n = a_1 + (n-1)d\)</div>
+管理类联考::第五章::等差数列前n项和公式	<b>【公式】等差求和</b>	<div class="latex-box box-green">\(S_n = \frac{n(a_1+a_n)}{2} = na_1 + \frac{n(n-1)}{2}d\)</div>
+管理类联考::第五章::等差数列等和性	<b>【性质】下标性质</b>	<div class="latex-box box-green">若 \(m+n = p+q\)，则 \(a_m + a_n = a_p + a_q\)。</div>
+管理类联考::第五章::等差数列片段和性质	<b>【性质】片段和</b>	<div class="latex-box box-purple">\(S_n, S_{2n}-S_n, S_{3n}-S_{2n}\) 成等差数列，公差 \(n^2d\)。</div>
+管理类联考::第五章::等差数列奇偶项和	<b>【公式】奇偶项性质</b>	<div class="latex-box box-green"><ul><li>\(S_{\text{偶}} - S_{\text{奇}} = \frac{n}{2}d\) （项数偶）</li><li>\(S_{\text{奇}} - S_{\text{偶}} = a_{\text{中}}\) （项数奇）</li></ul></div>
+管理类联考::第五章::等比数列定义	<b>【定义】等比数列</b>	<div class="latex-box box-purple">\(\frac{a_{n+1}}{a_n} = q\) （常数，\(q \ne 0\)）。</div>
+管理类联考::第五章::等比数列通项公式	<b>【公式】等比通项</b>	<div class="latex-box box-green">\(a_n = a_1 q^{n-1}\)</div>
+管理类联考::第五章::等比数列前n项和公式	<b>【公式】等比求和</b>	<div class="latex-box box-green">\(q \ne 1\) 时：<br>\[S_n = \frac{a_1(1-q^n)}{1-q}\]</div>
+管理类联考::第五章::无穷递缩等比数列和	<b>【公式】无穷递缩和</b>	<div class="latex-box box-green">\(|q| < 1\) 时：<br>\[S = \frac{a_1}{1-q}\]</div>
+管理类联考::第五章::等比数列等积性	<b>【性质】下标性质</b>	<div class="latex-box box-green">若 \(m+n = p+q\)，则 \(a_m \cdot a_n = a_p \cdot a_q\)。</div>
+管理类联考::第五章::等比数列片段和性质	<b>【性质】片段和</b>	<div class="latex-box box-purple">\(S_n, S_{2n}-S_n, S_{3n}-S_{2n}\) 成等比数列（需 \(q^n \ne -1\)）。</div>
+管理类联考::第六章::角的概念	<b>【定义】角</b>	<div class="latex-box box-purple">由公共端点的两条射线组成的图形。<br>直角 \(90^\circ\)，平角 \(180^\circ\)，周角 \(360^\circ\)。</div>
+管理类联考::第六章::角平分线性质	<b>【性质】角平分线</b>	<div class="latex-box box-green">角平分线上的点到角两边的<b>距离相等</b>。</div>
+管理类联考::第六章::对顶角与邻补角	<b>【性质】对顶角与邻补角</b>	<div class="latex-box box-purple"><ul><li>对顶角相等。</li><li>邻补角互补（和为 \(180^\circ\)）。</li></ul></div>
+管理类联考::第六章::同位角、内错角、同旁内角	<b>【定义】三线八角</b>	<div class="latex-box box-purple">两条直线被第三条截：<br>F型（同位）、Z型（内错）、U型（同旁内）。</div>
+管理类联考::第六章::垂线性质	<b>【性质】垂线</b>	<div class="latex-box box-purple">1. 过一点有且仅有一条垂线。<br>2. <b>垂线段最短</b>。</div>
+管理类联考::第六章::平行线判定	<b>【判定】平行线</b>	<div class="latex-box box-green"><ul><li>同位角相等 \(\implies\) 平行</li><li>内错角相等 \(\implies\) 平行</li><li>同旁内角互补 \(\implies\) 平行</li></ul></div>
+管理类联考::第六章::平行线性质	<b>【性质】平行线</b>	<div class="latex-box box-green">平行 \(\implies\) 同位角相等、内错角相等、同旁内角互补。</div>
+管理类联考::第六章::三角形内角和	<b>【定理】内角和</b>	<div class="latex-box box-green">三角形内角和 \(A+B+C = 180^\circ\)。</div>
+管理类联考::第六章::三角形外角	<b>【定理】外角定理</b>	<div class="latex-box box-green">外角等于不相邻的两个内角之和。</div>
+管理类联考::第六章::三角形三边关系	<b>【条件】三边关系</b>	<div class="latex-box box-green">两边之和 > 第三边；两边之差 < 第三边。</div>
+管理类联考::第六章::三角形分类	<b>【分类】三角形</b>	<div class="latex-box box-purple">按角：锐角、直角、钝角。<br>按边：不等边、等腰、等边。</div>
+管理类联考::第六章::直角三角形性质	<b>【性质】直角三角形</b>	<div class="latex-box box-green">1. 勾股定理 \(a^2+b^2=c^2\)。<br>2. 斜边中线 = 斜边一半。<br>3. 30度角对边 = 斜边一半。</div>
+管理类联考::第六章::等腰三角形性质	<b>【性质】等腰三角形</b>	<div class="latex-box box-purple">1. 等边对等角。<br>2. <b>三线合一</b>（底边中线、高、顶角平分线重合）。</div>
+管理类联考::第六章::等边三角形性质	<b>【性质】等边三角形</b>	<div class="latex-box box-green">1. 三内角均为 \(60^\circ\)。<br>2. 面积 \(S = \frac{\sqrt{3}}{4}a^2\)。</div>
+管理类联考::第六章::三角形中线	<b>【定义】重心</b>	<div class="latex-box box-purple">中线交点叫重心。重心分中线为 2:1。</div>
+管理类联考::第六章::三角形角平分线	<b>【定义】内心</b>	<div class="latex-box box-purple">角平分线交点叫内心。内心到三边距离相等。</div>
+管理类联考::第六章::三角形高线	<b>【定义】垂心</b>	<div class="latex-box box-purple">高线交点叫垂心。</div>
+管理类联考::第六章::垂直平分线	<b>【定义】外心</b>	<div class="latex-box box-purple">中垂线交点叫外心。外心到三顶点距离相等。</div>
+管理类联考::第六章::三角形中位线	<b>【定理】中位线</b>	<div class="latex-box box-green">中位线平行于第三边，且等于第三边的一半。</div>
+管理类联考::第六章::三角形面积公式（底高）	<b>【公式】面积（底高）</b>	<div class="latex-box box-green">\(S = \frac{1}{2}ah\)</div>
+管理类联考::第六章::三角形面积公式（夹角）	<b>【公式】面积（夹角）</b>	<div class="latex-box box-green">\(S = \frac{1}{2}ab\sin C\)</div>
+管理类联考::第六章::三角形面积公式（海伦公式）	<b>【公式】海伦公式</b>	<div class="latex-box box-green">\(S = \sqrt{p(p-a)(p-b)(p-c)}\)<br>（\(p\) 为半周长）。</div>
+管理类联考::第六章::三角形全等判定	<b>【判定】全等</b>	<div class="latex-box box-green">SSS, SAS, ASA, AAS, HL。</div>
+管理类联考::第六章::三角形相似判定	<b>【判定】相似</b>	<div class="latex-box box-green">1. AA。<br>2. 对应边成比例。<br>3. 两边成比例且夹角相等。</div>
+管理类联考::第六章::四边形内角和	<b>【定理】四边形角度</b>	<div class="latex-box box-green">内角和 \(360^\circ\)，外角和 \(360^\circ\)。</div>
+管理类联考::第六章::多边形内角和	<b>【公式】多边形角度</b>	<div class="latex-box box-green">\(n\) 边形内角和 \((n-2) \cdot 180^\circ\)。</div>
+管理类联考::第六章::多边形对角线公式	<b>【公式】对角线数量</b>	<div class="latex-box box-green">\(N = \frac{n(n-3)}{2}\)</div>
+管理类联考::第六章::平行四边形定义	<b>【定义】平行四边形</b>	<div class="latex-box box-purple">两组对边分别平行的四边形。</div>
+管理类联考::第六章::平行四边形性质	<b>【性质】平行四边形</b>	<div class="latex-box box-purple">对边相等；对角相等；<b>对角线互相平分</b>。</div>
+管理类联考::第六章::平行四边形判定	<b>【判定】平行四边形</b>	<div class="latex-box box-green">1. 两组对边平行。<br>2. 一组对边平行且相等。<br>3. 对角线互相平分。</div>
+管理类联考::第六章::平行四边形面积	<b>【公式】面积</b>	<div class="latex-box box-green">\(S = ah\)</div>
+管理类联考::第六章::矩形定义	<b>【定义】矩形</b>	<div class="latex-box box-purple">有一个角是直角的平行四边形。</div>
+管理类联考::第六章::矩形性质	<b>【性质】矩形</b>	<div class="latex-box box-purple">四个角都是直角；<b>对角线相等</b>。</div>
+管理类联考::第六章::矩形判定	<b>【判定】矩形</b>	<div class="latex-box box-green">1. 有一个直角的平行四边形。<br>2. 对角线相等的平行四边形。</div>
+管理类联考::第六章::矩形面积	<b>【公式】面积</b>	<div class="latex-box box-green">\(S = ab\)</div>
+管理类联考::第六章::菱形定义	<b>【定义】菱形</b>	<div class="latex-box box-purple">有一组邻边相等的平行四边形。</div>
+管理类联考::第六章::菱形性质	<b>【性质】菱形</b>	<div class="latex-box box-purple">四条边相等；<b>对角线互相垂直</b>。</div>
+管理类联考::第六章::菱形判定	<b>【判定】菱形</b>	<div class="latex-box box-green">1. 一组邻边相等的平行四边形。<br>2. 对角线垂直的平行四边形。</div>
+管理类联考::第六章::菱形面积	<b>【公式】面积</b>	<div class="latex-box box-green">\(S = \frac{1}{2} d_1 d_2\)</div>
+管理类联考::第六章::正方形定义	<b>【定义】正方形</b>	<div class="latex-box box-purple">既是矩形又是菱形的平行四边形。</div>
+管理类联考::第六章::正方形性质	<b>【性质】正方形</b>	<div class="latex-box box-purple">四边相等，四角直角，对角线垂直相等且平分。</div>
+管理类联考::第六章::正方形判定	<b>【判定】正方形</b>	<div class="latex-box box-green">矩形 + 邻边相等；菱形 + 直角。</div>
+管理类联考::第六章::正方形面积	<b>【公式】面积</b>	<div class="latex-box box-green">\(S = a^2 = \frac{d^2}{2}\)</div>
+管理类联考::第六章::梯形定义	<b>【定义】梯形</b>	<div class="latex-box box-purple">只有一组对边平行的四边形。</div>
+管理类联考::第六章::等腰梯形性质	<b>【性质】等腰梯形</b>	<div class="latex-box box-purple">两腰相等；底角相等；对角线相等。</div>
+管理类联考::第六章::等腰梯形判定	<b>【判定】等腰梯形</b>	<div class="latex-box box-green">1. 两腰相等。<br>2. 对角线相等。<br>3. 底角相等。</div>
+管理类联考::第六章::梯形面积	<b>【公式】梯形面积</b>	<div class="latex-box box-green">\(S = \frac{(a+b)h}{2}\)</div>
+管理类联考::第六章::梯形中位线	<b>【公式】中位线</b>	<div class="latex-box box-green">\(L = \frac{a+b}{2}\)</div>
+管理类联考::第六章::弧度与角度换算	<b>【公式】弧度制</b>	<div class="latex-box box-green">\(180^\circ = \pi\) 弧度。</div>
+管理类联考::第六章::弧长公式	<b>【公式】弧长</b>	<div class="latex-box box-green">\(l = \alpha r\) （\(\alpha\) 为弧度）。</div>
+管理类联考::第六章::扇形面积公式	<b>【公式】扇形面积</b>	<div class="latex-box box-green">\(S = \frac{1}{2}lr = \frac{1}{2}\alpha r^2\)</div>
+管理类联考::第六章::垂径定理	<b>【定理】垂径定理</b>	<div class="latex-box box-green">垂直于弦的直径，平分弦，且平分弦对的弧。</div>
+管理类联考::第六章::圆心角定理	<b>【定理】圆心角</b>	<div class="latex-box box-purple">等圆中：圆心角相等 \(\iff\) 弧相等 \(\iff\) 弦相等。</div>
+管理类联考::第六章::圆周角定理	<b>【定理】圆周角</b>	<div class="latex-box box-green">圆周角等于同弧圆心角的一半。<br>直径对直角。</div>
+管理类联考::第六章::圆内接四边形性质	<b>【性质】圆内接四边形</b>	<div class="latex-box box-green">对角互补。</div>
+管理类联考::第六章::圆的周长与面积	<b>【公式】圆</b>	<div class="latex-box box-green">\(C = 2\pi r\)<br>\(S = \pi r^2\)</div>
+管理类联考::第七章::两点中点坐标	<b>【公式】中点坐标</b>	<div class="latex-box box-green">\((\frac{x_1+x_2}{2}, \frac{y_1+y_2}{2})\)</div>
+管理类联考::第七章::两点距离公式	<b>【公式】两点距离</b>	<div class="latex-box box-green">\(d = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}\)</div>
+管理类联考::第七章::直线的倾斜角与斜率	<b>【定义】斜率</b>	<div class="latex-box box-purple">\(k = \tan \alpha\)<br>\(\alpha \in [0, \pi)\)。</div>
+管理类联考::第七章::两点斜率公式	<b>【公式】斜率公式</b>	<div class="latex-box box-green">\(k = \frac{y_2-y_1}{x_2-x_1}\)</div>
+管理类联考::第七章::直线方程斜截式	<b>【形式】斜截式</b>	<div class="latex-box box-green">\(y = kx + b\)</div>
+管理类联考::第七章::直线方程点斜式	<b>【形式】点斜式</b>	<div class="latex-box box-green">\(y-y_0 = k(x-x_0)\)</div>
+管理类联考::第七章::直线方程截距式	<b>【形式】截距式</b>	<div class="latex-box box-green">\(\frac{x}{a} + \frac{y}{b} = 1\)</div>
+管理类联考::第七章::直线方程两点式	<b>【形式】两点式</b>	<div class="latex-box box-green">\(\frac{y-y_1}{y_2-y_1} = \frac{x-x_1}{x_2-x_1}\)</div>
+管理类联考::第七章::直线方程一般式	<b>【形式】一般式</b>	<div class="latex-box box-green">\(Ax+By+C=0\)</div>
+管理类联考::第七章::两直线平行	<b>【条件】平行</b>	<div class="latex-box box-green">\(k_1 = k_2\) 且 \(b_1 \neq b_2\)。</div>
+管理类联考::第七章::两直线垂直	<b>【条件】垂直</b>	<div class="latex-box box-green">\(k_1 k_2 = -1\)</div>
+管理类联考::第七章::点到直线距离公式	<b>【公式】点到直线</b>	<div class="latex-box box-green">\(d = \frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}\)</div>
+管理类联考::第七章::两平行线距离公式	<b>【公式】平行线间距</b>	<div class="latex-box box-green">\(d = \frac{|C_1-C_2|}{\sqrt{A^2+B^2}}\)</div>
+管理类联考::第七章::圆的标准方程	<b>【形式】圆标准方程</b>	<div class="latex-box box-green">\((x-a)^2 + (y-b)^2 = r^2\)</div>
+管理类联考::第七章::圆的一般方程	<b>【形式】圆一般方程</b>	<div class="latex-box box-green">\(x^2+y^2+Dx+Ey+F=0\)<br>（\(D^2+E^2-4F>0\)）</div>
+管理类联考::第七章::直线与圆的位置关系	<b>【关系】直线与圆</b>	<div class="latex-box box-purple">\(d\) 为圆心到直线距离：<br>\(d<r\) 相交；\(d=r\) 相切；\(d>r\) 相离。</div>
+管理类联考::第七章::圆与圆的位置关系	<b>【关系】圆与圆</b>	<div class="latex-box box-purple">\(d\) 为圆心距：<br>外离、外切、相交、内切、内含。</div>
+管理类联考::第八章::长方体公式	<b>【公式】长方体</b>	<div class="latex-box box-green">\(V = abc\)<br>\(S = 2(ab+bc+ca)\)</div>
+管理类联考::第八章::正方体公式	<b>【公式】正方体</b>	<div class="latex-box box-green">\(V = a^3\)<br>\(S = 6a^2\)</div>
+管理类联考::第八章::柱体通用公式	<b>【公式】柱体</b>	<div class="latex-box box-green">\(V = Sh\)</div>
+管理类联考::第八章::圆柱公式	<b>【公式】圆柱</b>	<div class="latex-box box-green">\(V = \pi r^2 h\)<br>\(S_{\text{侧}} = 2\pi rh\)</div>
+管理类联考::第八章::球体公式	<b>【公式】球体</b>	<div class="latex-box box-green">\(V = \frac{4}{3}\pi r^3\)<br>\(S = 4\pi r^2\)</div>
+管理类联考::第八章::球截面性质	<b>【性质】球截面</b>	<div class="latex-box box-green">\(R^2 = d^2 + r^2\)</div>
+管理类联考::第九章::加法原理	<b>【原理】加法原理</b>	<div class="latex-box box-purple">分类：\(N = m_1 + \dots + m_n\)。</div>
+管理类联考::第九章::乘法原理	<b>【原理】乘法原理</b>	<div class="latex-box box-purple">分步：\(N = m_1 \times \dots \times m_n\)。</div>
+管理类联考::第九章::排列（阶乘）	<b>【定义】排列</b>	<div class="latex-box box-green">\(A_n^m = \frac{n!}{(n-m)!}\)</div>
+管理类联考::第九章::组合数公式	<b>【公式】组合数</b>	<div class="latex-box box-green">\(C_n^m = \frac{n!}{m!(n-m)!}\)</div>
+管理类联考::第九章::列举法	<b>【方法】列举法</b>	<div class="latex-box box-purple">穷举所有情况，做到不重不漏。</div>
+管理类联考::第九章::取样（组合）	<b>【概念】取样</b>	<div class="latex-box box-purple">不考虑顺序的选取 \(\rightarrow\) 组合。</div>
+管理类联考::第九章::分类取样	<b>【方法】分类取样</b>	<div class="latex-box box-purple">先分类，再计算，最后加和。</div>
+管理类联考::第九章::排列与顺序	<b>【概念】排列</b>	<div class="latex-box box-purple">考虑顺序的选取 \(\rightarrow\) 排列。</div>
+管理类联考::第九章::取排结合	<b>【方法】先取后排</b>	<div class="latex-box box-green">先 \(C\) (选元素)，后 \(A\) (排顺序)。</div>
+管理类联考::第九章::反面思维法	<b>【方法】正难则反</b>	<div class="latex-box box-green">总数 - 不满足条件的 = 满足条件的。</div>
+管理类联考::第十章::随机事件	<b>【定义】随机事件</b>	<div class="latex-box box-purple">可能发生，也可能不发生的事件。</div>
+管理类联考::第十章::必然事件与不可能事件	<b>【定义】确定性事件</b>	<div class="latex-box box-purple">必然事件 \(P=1\)；不可能事件 \(P=0\)。</div>
+管理类联考::第十章::古典概型	<b>【定义】古典概型</b>	<div class="latex-box box-green">有限等可能：\(P(A) = \frac{m}{n}\)。</div>
+管理类联考::第十章::概率性质	<b>【性质】概率公理</b>	<div class="latex-box box-purple">\(0 \le P \le 1\)<br>\(P(A \cup B) = P(A) + P(B)\) (互斥)</div>
+管理类联考::第十章::独立事件定义	<b>【定义】独立事件</b>	<div class="latex-box box-green">\(P(AB) = P(A)P(B)\)</div>
+管理类联考::第十章::独立事件常用结论	<b>【结论】独立性</b>	<div class="latex-box box-green">\(A, B\) 独立 \(\iff \bar{A}, \bar{B}\) 独立。</div>
+管理类联考::第十章::伯努利公式	<b>【公式】伯努利概型</b>	<div class="latex-box box-green">\(P_n(k) = C_n^k p^k (1-p)^{n-k}\)</div>
+管理类联考::第十一章::平均数	<b>【定义】平均数</b>	<div class="latex-box box-purple">\(\bar{x} = \frac{\sum x_i}{n}\)</div>
+管理类联考::第十一章::众数	<b>【定义】众数</b>	<div class="latex-box box-purple">出现次数最多的数。</div>
+管理类联考::第十一章::中位数	<b>【定义】中位数</b>	<div class="latex-box box-purple">排序后位于中间的数（或中间两数的平均）。</div>
+管理类联考::第十一章::极差	<b>【定义】极差</b>	<div class="latex-box box-purple">Max - Min。</div>
+管理类联考::第十一章::方差	<b>【定义】方差</b>	<div class="latex-box box-green">\(s^2 = \frac{1}{n} \sum (x_i - \bar{x})^2\)</div>
+管理类联考::第十一章::标准差	<b>【定义】标准差</b>	<div class="latex-box box-green">\(s = \sqrt{s^2}\)</div>
+管理类联考::第十一章::饼图	<b>【概念】饼图</b>	<div class="latex-box box-purple">表示占比。</div>
+管理类联考::第十一章::折线图	<b>【概念】折线图</b>	<div class="latex-box box-purple">表示趋势。</div>
+管理类联考::第十一章::直方图	<b>【概念】直方图</b>	<div class="latex-box box-purple">表示分布频率。</div>

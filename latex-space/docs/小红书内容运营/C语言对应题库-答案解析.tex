@@ -1,0 +1,1070 @@
+\documentclass[12pt,a4paper]{ctexart}
+
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{hyperref}
+
+% 水印部分
+% 直接挂载到 LaTeX 的前景(foreground)渲染层
+\AddToHook{shipout/foreground}{
+    \begin{tikzpicture}[remember picture, overlay]
+        % 1. 透明度降为0.15，不挡正文
+        % 2. 使用 f{}i 打断连字符，让字母正常显示
+        \node[text=red, opacity=0.15, scale=5, rotate=30] 
+        at (current page.center) {f{}if{}ine{专升本}};
+    \end{tikzpicture}
+}
+
+\setstretch{1.2}
+\setlist[enumerate]{itemsep=0.6em, topsep=0.4em}
+
+\titleformat{\section}{\Large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red!70!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    frame=single,
+    breaklines=true,
+    columns=flexible,
+    showstringspaces=false,
+    tabsize=4
+}
+
+\newtcolorbox{coverbox}{
+    colback=gray!5,
+    colframe=black!60,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=2mm
+}
+
+\newtcolorbox{answerbox}{
+    colback=blue!5,
+    colframe=blue!60,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=2mm
+}
+
+\newtcolorbox{tipbox}{
+    colback=white,
+    colframe=black!40,
+    boxrule=0.6pt,
+    arc=1.5mm,
+    left=2mm,right=2mm,top=1.5mm,bottom=1.5mm
+}
+
+\begin{document}
+
+\begin{center}
+	{\LARGE \textbf{专升本 C 语言小红书发题题库（第一阶段）}}\\[0.6em]
+	{\large 适用方向：专升本学生｜题目型内容｜题目+解析版｜可用于早题晚解析}\\[0.8em]
+	{\normalsize 使用方式：每一节可单独作为 1 篇小红书笔记发布}
+\end{center}
+
+\vspace{1em}
+
+\section*{使用说明}
+本题库为"小红书解析版"，每组题控制在 3～4 题，便于做成图文轮播或单篇发题笔记。\\
+本题库\textbf{包含答案和解析}，可直接用于晚间解析发布。
+
+\newpage
+
+%========================
+\section{笔记 1：数据类型 + 表达式入门母题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本C语言｜数据类型和表达式，3题测出你基础稳不稳\\
+	\textbf{副标题建议：}\\
+	第1题会了，后面两题就顺了
+\end{coverbox}
+
+\subsection*{题目 1}
+下列关于 C 语言用户标识符的叙述中，正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 用户标识符中可以出现下划线和减号
+	\item 用户标识符中不可以出现减号，但可以出现下划线
+	\item 用户标识符中可以出现下划线，但不可以放在开头
+	\item 用户标识符中可以出现数字，它们也都可以放在开头
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 用户标识符中不可以出现减号，但可以出现下划线}
+
+	\textbf{解析：}C语言标识符规则：\\
+	- 可使用：字母（a-z, A-Z）、数字（0-9）、下划线（\_）\\
+	- 开头字符：只能是字母、下划线\_，不能是数字\\
+	- 区分大小写
+
+	\textbf{易错点：}标识符中不能出现减号（-）；下划线可以出现在任何位置。
+\end{answerbox}
+
+\subsection*{题目 2}
+请选出可用作 C 语言用户标识符的是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{void, define, WORD}
+	\item \texttt{a3\_b3, \_123, IF}
+	\item \texttt{FOR, --abc, Case}
+	\item \texttt{2a, Do, Sizeof}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. a3\_b3, \_123, IF}
+
+	\textbf{解析：}标识符要求：\\
+	- 不能使用C语言关键字\\
+	- 不能以数字开头
+
+	分析选项：\\
+	- A: void是关键字，不行\\
+	- B: 三个都可以使用（IF大写不是关键字）\\
+	- C: FOR大写是关键字，--abc有减号，Case是关键字\\
+	- D: 2a以数字开头，Do小写是关键字
+
+	\textbf{易错点：}C语言区分大小写，IF、FOR、DO不是关键字，但if、for、do是关键字。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下叙述中正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 构成 C 程序的基本单位是函数
+	\item 可以在一个函数中定义另一个函数
+	\item \texttt{main()} 函数必须放在其他函数之前
+	\item C 函数定义的格式固定为 K\&R 格式
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 构成 C 程序的基本单位是函数}
+
+	\textbf{解析：}C程序结构：\\
+	- C程序由函数组成，函数是基本单位\\
+	- 函数不能嵌套定义（不能在一个函数内定义另一个函数）\\
+	- main()可以放在任意位置（只需在使用前有声明）\\
+	- 函数定义可以是K\&R或ANSI格式
+
+	\textbf{易错点：}函数定义不能嵌套，但可以嵌套调用。
+\end{answerbox}
+
+\subsection*{题目 4}
+一个 C 语言程序是由
+\begin{enumerate}[label=\Alph*.]
+	\item 一个主程序和若干子程序组成
+	\item 函数组成
+	\item 若干过程组成
+	\item 若干子程序组成
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 函数组成}
+
+	\textbf{解析：}C程序由函数组成，每个C程序必须有且只有一个main函数。
+
+	\textbf{易错点：}C语言中没有"主程序"、"子程序"、"过程"这些术语，只有函数。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 2：表达式最容易丢分的地方}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本C语言｜表达式这3题，很多人第一眼就做错\\
+	\textbf{副标题建议：}\\
+	别死算，先抓类型和运算规则
+\end{coverbox}
+
+\subsection*{题目 1}
+在 16 位 C 编译系统上，若定义 \texttt{long a;}，则能给 \texttt{a} 赋值 40000 的正确语句是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{a=20000+20000;}
+	\item \texttt{a=4000*10;}
+	\item \texttt{a=30000+10000;}
+	\item \texttt{a=4000L*10L;}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. a=4000L*10L;}
+
+	\textbf{解析：}16位系统中：\\
+	- int类型是16位，范围-32768～32767\\
+	- long类型是32位，范围大得多
+
+	当计算表达式时：\\
+	- 20000+20000=40000，但两个int相加，结果还是int，会溢出\\
+	- 4000*10=40000，同样溢出\\
+	- 30000+10000=40000，同样溢出\\
+	- 4000L*10L使用long后缀，结果是long类型，不会溢出
+
+	\textbf{易错点：}常量后加L表示long类型，可以避免整数溢出。
+\end{answerbox}
+
+\subsection*{题目 2}
+若 \texttt{a} 是 \texttt{int} 型变量，且 \texttt{a=5}，则表达式
+\[
+	(a+100)\%2 + a/2
+\]
+的值为
+\begin{enumerate}[label=\Alph*.]
+	\item 52
+	\item 51
+	\item 53
+	\item 50
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 51}
+
+	\textbf{解析：}先计算：\\
+	- a+100 = 5+100 = 105\\
+	- (a+100)\%2 = 105\%2 = 1（余数）\\
+	- a/2 = 5/2 = 2（整数除法截断）\\
+	- 1 + 2 = 3
+
+	\textbf{易错点：}注意整数除法的截断；取模运算\%。
+\end{answerbox}
+
+\subsection*{题目 3}
+设有定义：\texttt{int a=12;}，则执行完语句
+\[
+	a += a -= a*a;
+\]
+后，\texttt{a} 的值是
+\begin{enumerate}[label=\Alph*.]
+	\item 552
+	\item 264
+	\item 144
+	\item -264
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. -264}
+
+	\textbf{解析：}复合赋值从右向左运算：\\
+	- 第一步：a*a = 12*12 = 144\\
+	- a -= 144 即 a = a - 144 = 12 - 144 = -132\\
+	- a += (-132) 即 a = a + (-132) = -132 + (-132) = -264
+
+	\textbf{易错点：}复合赋值运算从右向左结合；注意每一步a的值都在变化。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 3：if-else 嵌套判断母题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本C语言｜if-else 嵌套判断，3题吃透\\
+	\textbf{副标题建议：}\\
+	这类题不是难，是很多同学配对关系总看错
+\end{coverbox}
+
+\subsection*{题目 1}
+以下程序的输出结果是
+\begin{lstlisting}
+#include <stdio.h>
+void main()
+{
+    int a=1,b=4,c=2;
+    if(a<b)
+        if(b<0) c=0;
+        else c++;
+    printf("%d\n",c);
+}
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+	\item 0
+	\item 1
+	\item 2
+	\item 3
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 3}
+
+	\textbf{解析：}if-else匹配规则：else总是与最近的未匹配的if配对。
+
+	变量初始值：a=1, b=4, c=2
+
+	执行流程：\\
+	- \texttt{if(a<b)}：1<4 成立（真），进入内层\\
+	- \texttt{if(b<0)}：4<0 不成立（假），跳过 \texttt{c=0}\\
+	- else 与最近的 \texttt{if(b<0)} 配对，执行 \texttt{c++}\\
+	- c = 2+1 = \textbf{3}
+
+	最终输出：\textbf{3}
+
+	\textbf{易错点：}else总是与距离它最近的未匹配if配对；本题 else 配对的是 \texttt{if(b<0)} 而非 \texttt{if(a<b)}，因此只要 a<b 成立且 b 不小于0，就会执行 c++。
+\end{answerbox}
+
+\subsection*{题目 2}
+有以下程序
+\begin{lstlisting}
+#include <stdio.h>
+void main()
+{
+    int a=1,b=0;
+    if(!a) b++;
+    else if(a==0)
+        if(a) b++;
+        else b++;
+    printf("%d\n",b);
+}
+\end{lstlisting}
+
+程序运行后的输出结果是
+\begin{enumerate}[label=\Alph*.]
+	\item 0
+	\item 1
+	\item 2
+	\item 3
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 0}
+
+	\textbf{解析：}分析执行流程：\\
+	- a=1, b=0\\
+	- !a = !1 = 0(假)，所以跳过if(!a) b++\\
+	- 继续else if(a==0)，a==0为假(1==0)，跳过\\
+	- 所以b保持原值0
+
+	\textbf{易错点：}!a是逻辑非，!1=0；注意if-else的配对和短路。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下程序的输出结果是
+\begin{lstlisting}
+#include <stdio.h>
+void main()
+{
+    int a=0,b=1,c=0,d=20;
+    if(a) d=d-10;
+    else if(!b)
+        if(!c) d=15;
+        else d=25;
+    printf("%d\n",d);
+}
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+	\item 10
+	\item 20
+	\item 30
+	\item 程序进入死循环
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 20}
+
+	\textbf{解析：}分析执行流程：\\
+	- a=0, b=1, c=0, d=20\\
+	- if(a)为假(0为假)，进入else if(!b)\\
+	- !b = !1 = 0(假)，所以整个else if块不执行\\
+	- d保持原值20
+
+	\textbf{易错点：}注意if-else的嵌套和配对关系。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 4：switch 和 break 高频易错题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本C语言｜switch 不会丢分？先做这3题\\
+	\textbf{副标题建议：}\\
+	真正难点不是语法，是执行流程
+\end{coverbox}
+
+\subsection*{题目 1}
+下面程序的运行结果是
+\begin{lstlisting}
+#include <stdio.h>
+void main()
+{
+    int x=1,y=0,a=0,b=0;
+    switch(x)
+    {
+    case 1:
+        switch(y)
+        {
+        case 0: a++; break;
+        case 1: b++; break;
+        }
+    case 2: a++; b++; break;
+    case 3: a++; b++;
+    }
+    printf("a=%d,b=%d\n",a,b);
+}
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{a=2,b=1}
+	\item \texttt{a=1,b=1}
+	\item \texttt{a=1,b=0}
+	\item \texttt{a=2,b=2}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. a=2,b=1}
+
+	\textbf{解析：}switch执行流程：\\
+	- x=1，进入case 1\\
+	- y=0，进入内层switch的case 0: a++ (a=1)，break跳出内层switch\\
+	- 注意：内层break只跳出内层switch，外层case 2继续执行\\
+	- case 2: a++ (a=2), b++ (b=1), break跳出外层switch
+
+	最终结果：a=2, b=1
+
+	\textbf{易错点：}注意break的作用范围；没有break会发生case穿透。
+\end{answerbox}
+
+\subsection*{题目 2}
+\texttt{continue} 语句的作用是
+\begin{enumerate}[label=\Alph*.]
+	\item 结束整个循环
+	\item 结束本次循环，进入下一次循环
+	\item 跳出 \texttt{switch} 语句
+	\item 结束程序
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 结束本次循环，进入下一次循环}
+
+	\textbf{解析：}continue与break的区别：\\
+	- break：跳出整个循环（或switch）\\
+	- continue：结束本次循环，跳过continue后面的代码，进入下一次循环
+
+	\textbf{易错点：}continue不跳出循环，只是跳过本次循环剩余部分。
+\end{answerbox}
+
+\subsection*{题目 3}
+\texttt{break} 语句通常用在\_\_\_\_\_\_语句和循环语句中。
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{if}
+	\item \texttt{switch}
+	\item \texttt{for}
+	\item \texttt{while}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. switch}
+
+	\textbf{解析：}break的用法：\\
+	- 用于switch语句：跳出switch，防止case穿透\\
+	- 用于循环语句：跳出整个循环
+
+	题目问"通常用在...语句和循环语句中"，两个空都要填，最常用的是switch和循环。
+
+	\textbf{易错点：}break不能直接用于if语句（除非在循环或switch中）。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 5：数组和指针的第一组母题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本C语言｜数组和指针到底会不会？先做这4题\\
+	\textbf{副标题建议：}\\
+	这组题最适合区分"会背"和"真会做"
+\end{coverbox}
+
+\subsection*{题目 1}
+若有定义：
+\[
+	\texttt{int a[10], *p=a;}
+\]
+则 \texttt{*(p+5)} 表示
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{a[5]} 的地址
+	\item \texttt{a[5]} 的值
+	\item \texttt{a[6]} 的值
+	\item \texttt{a} 的地址
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. a[5] 的值}
+
+	\textbf{解析：}指针运算公式：\\
+	- p指向a[0]，即p = \&a[0]\\
+	- p+5 = \&a[5]（地址）\\
+	- *(p+5) = a[5]（值）
+
+	\begin{tabular}{|c|c|c|}
+		\hline
+		表达式    & 类型   & 含义      \\
+		\hline
+		p+5    & int* & a[5]的地址 \\
+		\hline
+		*(p+5) & int  & a[5]的值  \\
+		\hline
+	\end{tabular}
+
+	\textbf{易错点：}注意*的作用是解引用，取地址中的值。
+\end{answerbox}
+
+\subsection*{题目 2}
+以下程序的输出结果是
+\begin{lstlisting}
+#include <stdio.h>
+void main()
+{
+    int a[10]={1,2,3,4,5,6,7,8,9,10},*p=&a[3],b;
+    b=*(p+2);
+    printf("%d\n",b);
+}
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+	\item 6
+	\item 7
+	\item 8
+	\item 9
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 6}
+
+	\textbf{解析：}分析：\\
+	- 数组a[10] = {1,2,3,4,5,6,7,8,9,10}\\
+	- p = \&a[3]，即p指向a[3]=4\\
+	- *(p+2) = a[3+2] = a[5] = 6
+
+	所以输出6。
+
+	\textbf{易错点：}p+2是地址偏移，解引用后得到a[5]的值。
+\end{answerbox}
+\subsection*{题目 3}
+若有以下定义和语句：
+\[
+	\texttt{int a[10]=\{1,2,3,4,5,6,7,8,9,10\}, *p=a;}
+\]
+则值为 6 的表达式是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{*p+6}
+	\item \texttt{*p++}
+	\item \texttt{p+6}
+	\item \texttt{p+=5,*p}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. \texttt{p+=5,*p}}
+
+	\textbf{解析：}已知 \texttt{p=a}，因此 \texttt{p} 初始指向 \texttt{a[0]}，即 \texttt{*p=1}。逐项分析如下：\\
+	- \texttt{A. *p+6 = 1+6 = 7}，不等于 6。\\
+	- \texttt{B. *p++} 等价于 \texttt{*(p++)}，先取 \texttt{*p} 的值 1，再将 \texttt{p} 后移，因此表达式的值为 1。\\
+	- \texttt{C. p+6} 表示指针向后移动 6 个整型元素后的地址，是指针值，不是整数 6。\\
+	- \texttt{D. p+=5,*p} 是逗号表达式，先执行 \texttt{p+=5}，使 \texttt{p} 指向 \texttt{a[5]}；再计算 \texttt{*p}，即 \texttt{a[5]=6}。\\
+
+	因此，值为 6 的表达式是 \texttt{D. p+=5,*p}。
+\end{answerbox}
+
+\subsection*{题目 4}
+若已有定义：\texttt{int a[5], *p;}，当执行了 \texttt{p=\&a[3];} 语句时，是将指针变量 \texttt{p} 指向了 \texttt{a} 数组的第\_\_\_\_\_\_个元素的地址。
+\begin{enumerate}[label=\Alph*.]
+	\item 2
+	\item 3
+	\item 4
+	\item 5
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 4}
+
+	\textbf{解析：}C语言数组下标从0开始：\\
+	- a[0] 第1个元素\\
+	- a[1] 第2个元素\\
+	- a[2] 第3个元素\\
+	- a[3] 第4个元素\\
+	- a[4] 第5个元素
+
+	p = \&a[3] 是将p指向第4个元素。
+
+	\textbf{易错点：}数组下标从0开始，不是从1开始。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 6：二维数组 + 指针进阶题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本C语言｜二维数组配指针，很多人卡在这\\
+	\textbf{副标题建议：}\\
+	别死记，先把"谁指向谁"看清楚
+\end{coverbox}
+
+\subsection*{题目 1}
+若有定义和语句：
+\[
+	\texttt{int c[4][5], (*p)[5];}
+\]
+\[
+	\texttt{p=c;}
+\]
+能够正确引用数组元素 \texttt{c[1][2]} 的是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{*(*(p+1)+2)}
+	\item \texttt{(*p)[2]}
+	\item \texttt{p+1[2]}
+	\item \texttt{*(p+5)}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. *(*(p+1)+2)}
+
+	\textbf{解析：}二维数组与指针：\\
+	- c是二维数组，c[4][5]表示4行5列\\
+	- p是指向有5个元素的一维数组的指针\\
+	- p = c，p指向第0行
+
+	分析选项：\\
+	- *(*(p+1)+2): p+1指向第1行，*(p+1)+2指向第1行第2列，*取值得到c[1][2] ✓\\
+	- (*p)[2]: *p是第0行，(*p)[2]是c[0][2] ❌\\
+	- p+1[2]: 语法错误 ❌\\
+	- *(p+5): p+5越界 ❌
+
+	\textbf{易错点：}二维数组指针的理解需要明确p是指向一维数组的指针。
+\end{answerbox}
+
+\subsection*{题目 2}
+设有说明 \texttt{int (*ptr)[10]}，其中的标识符 \texttt{ptr} 是
+\begin{enumerate}[label=\Alph*.]
+	\item 10 个指向整型变量的指针
+	\item 指向 10 个整型变量的函数指针
+	\item 一个指向具有 10 个整型元素的一维数组的指针
+	\item 具有 10 个指针元素的一维指针数组，每个元素都只能指向整型量
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 一个指向具有 10 个整型元素的一维数组的指针}
+
+	\textbf{解析：}指针数组分析：\\
+	- int *ptr[10]: ptr是指针数组，有10个int*元素\\
+	- int (*ptr)[10]: ptr是指针，指向有10个int元素的一维数组
+
+	\textbf{易错点：}括号的优先级：*ptr加括号表示ptr是指针，指向数组。
+\end{answerbox}
+
+\subsection*{题目 3}
+若有以下说明和语句：
+\[
+	\texttt{int c[4][5], (*p)[5];}
+\]
+\[
+	\texttt{p=c;}
+\]
+则以下叙述中正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{p} 是指向整型变量的指针
+	\item \texttt{p} 是指向整型变量的数组指针
+	\item \texttt{p} 是指向函数的指针
+	\item \texttt{p} 是数组名
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. p 是指向整型变量的数组指针}
+
+	\textbf{解析：}分析：\\
+	- p是指针类型，类型是int (*)[5]\\
+	- p指向一个包含5个int元素的一维数组\\
+	- p是"数组指针"（或"行指针"）
+
+	\textbf{易错点：}p不是数组名，c是数组名；p是指向数组的指针。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 7：字符串和字符数组高频题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本C语言｜字符串长度题，真的别再凭感觉做了\\
+	\textbf{副标题建议：}\\
+	这一组最容易在 \texttt{\textbackslash 0} 上翻车
+\end{coverbox}
+
+\subsection*{题目 1}
+若有定义
+\begin{lstlisting}
+char s[10]="hello\0\t\\ ";
+\end{lstlisting}
+则 \texttt{printf("\%d",strlen(s));} 的输出结果是
+\begin{enumerate}[label=\Alph*.]
+	\item 10
+	\item 9
+	\item 7
+	\item 6
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 6}
+
+	\textbf{解析：}分析字符串内容，注意转义字符的含义。
+
+	题目中定义了一个字符数组，其中包含转义序列。
+
+	strlen(s)遇到空字符(ASCII码为0)停止，所以长度是5（hello五个字符）
+
+	\textbf{易错点：}strlen()计算字符串长度，遇到空字符停止，不包括空字符。
+\end{answerbox}
+
+\subsection*{题目 2}
+在下列给出的字符数组 \texttt{c} 中，它在内存中所占用的字节数是
+\begin{lstlisting}
+char c[]={"C language"};
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+	\item 10
+	\item 11
+	\item 12
+	\item 13
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 11}
+
+	\textbf{解析：}字符数组初始化：\\
+	- "C language"有10个字符：C, (空格), l, a, n, g, u, a, g, e\\
+	- 加上字符串结束符\texttt{\textbackslash 0}，共11个字符
+
+	sizeof()计算数组总大小，包括\texttt{\textbackslash 0}。
+
+	\textbf{易错点：}字符串在内存中以\texttt{\textbackslash 0}结尾，所以实际占11字节。
+\end{answerbox}
+\subsection*{题目 3}
+若有定义 \texttt{char* s="\textbackslash\textbackslash Name\textbackslash\textbackslash Address \textbackslash n"}，则指针 \texttt{s} 所指字符串长度为
+\begin{enumerate}[label=\Alph*.]
+    \item 19
+    \item 15
+    \item 18
+    \item 说明不合法
+\end{enumerate}
+
+\begin{answerbox}
+    \textbf{答案：B. 15}
+
+    \textbf{解析：}分析字符串字面量的内容：\\
+    字符串 \texttt{"\textbackslash\textbackslash Name\textbackslash\textbackslash Address \textbackslash n"} 在内存中实际由以下字符组成：\\
+    \begin{itemize}
+        \item \texttt{\textbackslash} （由源代码 \texttt{\textbackslash\textbackslash} 转义，1 个字符）
+        \item \texttt{N, a, m, e} （4 个字符）
+        \item \texttt{\textbackslash} （由源代码 \texttt{\textbackslash\textbackslash} 转义，1 个字符）
+        \item \texttt{A, d, d, r, e, s, s} （7 个字符）
+        \item 空格（1 个字符，在 \texttt{Address} 和 \texttt{\textbackslash n} 之间）
+        \item \texttt{\textbackslash n} （换行符，1 个字符）
+    \end{itemize}
+
+    总字符数：1 + 4 + 1 + 7 + 1 + 1 = 15。\\
+    所以指针 \texttt{s} 所指向的字符串长度（\texttt{strlen} 结果）为 15。
+
+    \textbf{说明：}原笔记中的解析似乎与其他带有制表符（\texttt{\textbackslash t}）的同类试题混淆了，此处根据题目给出的字符串计算即可。
+
+    \textbf{易错点：}转义字符（如 \texttt{\textbackslash\textbackslash} 和 \texttt{\textbackslash n}）算作一个字符；字符串长度计算不包含结尾的 \texttt{\textbackslash 0}。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 8：函数 + 传参与值传递}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本C语言｜函数参数到底改没改？3题看透\\
+	\textbf{副标题建议：}\\
+	会做这组题，函数传参就不容易混
+\end{coverbox}
+
+\subsection*{题目 1}
+设有如下函数：
+\[
+	\texttt{exam(float x)\{ printf("\%f",x*x); \}}
+\]
+则函数的类型为
+\begin{enumerate}[label=\Alph*.]
+	\item 与参数 \texttt{x} 的类型相同
+	\item 是 \texttt{void}
+	\item 是 \texttt{int}
+	\item 无法确定
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 是 int}
+
+	\textbf{解析：}在C语言中，如果函数定义没有指定返回类型，默认是int。
+
+	exam函数定义中没有写返回类型，只有参数说明 \texttt{float x}，因此默认返回类型是int。
+
+	虽然函数内部没有return语句，但在C89标准下，没有返回类型的函数默认视为int类型。
+
+	\textbf{易错点：}C89中默认返回类型是int，C99+中不允许省略返回类型。
+\end{answerbox}
+
+\subsection*{题目 2}
+以下程序的输出结果是
+\begin{lstlisting}
+#include <stdio.h>
+void fun(char *c, int d)
+{
+    *c=*c+1; d=d+1;
+    printf("%c, %c, ", *c, d);
+}
+void main()
+{
+    char a='A', b='a';
+    fun(&b, a);
+    printf("%c, %c\n", a, b);
+}
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+	\item B, b, A, a
+	\item a, B, B, b
+	\item A, b, B, a
+	\item b, B, a, B
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. b, B, a, B}
+
+	\textbf{解析：}分析函数调用过程：\\
+	- 调用前：a='A', b='a'\\
+	- fun(\&b, a)：传入b的地址（指针）和a的值（值传递）
+
+	在fun函数内：\\
+	- *c = *c + 1 = 'a' + 1 = 'b'（字符运算），b被修改为'b'\\
+	- d = d + 1 = 'A' + 1 = 'B'（隐式转为int运算，'A'=65，加1得66对应'B'）
+
+	fun内部输出：*c='b', d='B'，输出：b, B,\\
+	main中输出：a（值传递，不变）='A', b（被修改）='b'
+
+	最终输出顺序：b, B, A, b
+
+	因此答案是D。
+
+	\textbf{易错点：}指针参数可以修改实参，值参数是副本不会改变实参。
+\end{answerbox}
+
+\subsection*{题目 3}
+以下关于宏的叙述中正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 宏名必须用大写字母表示
+	\item 宏定义必须位于源程序中所有语句之前
+	\item 宏替换没有数据类型限制
+	\item 宏调用比函数调用耗费时间
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 宏替换没有数据类型限制}
+
+	\textbf{解析：}宏的特点：\\
+	- 宏名没有大小写要求，但通常用大写\\
+	- 宏定义位置灵活（只要在使用前）\\
+	- 宏替换是文本替换，没有类型检查\\
+	- 宏调用是预处理器展开，不占用函数调用开销
+
+	\textbf{易错点：}宏是预处理阶段替换，没有类型检查，可能产生意外结果。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 9：结构体基础高频题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本C语言｜结构体基础题，别只会背 \texttt{struct}\\
+	\textbf{副标题建议：}\\
+	这组题最适合做第一轮查漏补缺
+\end{coverbox}
+
+\subsection*{题目 1}
+若有结构体定义：
+\[
+	\texttt{struct Student \{ int num; char name[20]; float score; \};}
+\]
+则下列叙述正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{Student} 是结构体类型
+	\item \texttt{num}、\texttt{name}、\texttt{score} 是结构体成员
+	\item 结构体可以存放多种不同类型的数据
+	\item 以上都正确
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. num、name、score 是结构体成员}
+
+	\textbf{解析：}结构体分析：\\
+	- struct Student：Student是结构体标签，不是类型名（要写struct Student）\\
+	- num、name、score是成员 ✓\\
+	- 结构体可以包含不同类型的数据 ✓
+
+	A错误：Student是标签，不是类型，类型是struct Student\\
+	D错误，因为A不正确
+
+	\textbf{易错点：}C语言中struct Student是类型名，可以定义变量。
+\end{answerbox}
+
+\subsection*{题目 2}
+下面关于结构体的说法中，错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 结构体可以包含不同类型的成员
+	\item 结构体变量可以直接赋值
+	\item 结构体变量可以比较大小
+	\item 结构体可以嵌套定义
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 结构体变量可以比较大小}
+
+	\textbf{解析：}结构体的特性：\\
+	- 可以包含不同类型的成员 ✓\\
+	- 同类型结构体变量可以直接赋值 ✓\\
+	- \textbf{不能比较大小}（没有定义比较运算）❌\\
+	- 可以嵌套定义 ✓
+
+	\textbf{易错点：}结构体不能直接比较大小（不能用==、!=、>、<等）。
+\end{answerbox}
+
+\subsection*{题目 3}
+结构体成员访问运算符是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{.}
+	\item \texttt{->}
+	\item \texttt{*}
+	\item \texttt{\&}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. .}
+
+	\textbf{解析：}成员访问运算符：\\
+	- 结构体变量.成员：使用点运算符\\
+	- 结构体指针->成员：使用箭头运算符
+
+	\textbf{易错点：}->用于指针，.用于变量。
+\end{answerbox}
+
+\subsection*{题目 4}
+若有定义：
+\[
+	\texttt{struct Student \{ int num; char name[20]; \} stu, *p = \&stu;}
+\]
+则访问 \texttt{stu} 的 \texttt{num} 成员正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{stu.num}
+	\item \texttt{p->num}
+	\item \texttt{(*p).num}
+	\item 以上都正确
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 以上都正确}
+
+	\textbf{解析：}三种方式访问成员：\\
+	- stu.num：使用点运算符 ✓\\
+	- p->num：使用箭头运算符（p是指针）✓\\
+	- (*p).num：先解引用，再用点运算符 ✓
+
+	\textbf{易错点：}三种方式都是正确的。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 10：结构体 / 共用体 / 枚举辨析题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本C语言｜struct、union、enum 总混？这组题专治混淆\\
+	\textbf{副标题建议：}\\
+	概念题最怕似懂非懂
+\end{coverbox}
+
+\subsection*{题目 1}
+在 C 语言中，以下哪个选项表示结构体类型？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{struct}
+	\item \texttt{union}
+	\item \texttt{enum}
+	\item \texttt{class}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. struct}
+
+	\textbf{解析：}C语言自定义类型：\\
+	- struct：定义结构体类型\\
+	- union：定义共用体（联合）类型\\
+	- enum：定义枚举类型\\
+	- class是C++的关键字，C语言没有
+
+	\textbf{易错点：}class是C++的，C语言中没有。
+\end{answerbox}
+
+\subsection*{题目 2}
+在 C 语言中，以下哪个选项表示共用体类型？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{struct}
+	\item \texttt{union}
+	\item \texttt{enum}
+	\item \texttt{class}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. union}
+
+	\textbf{解析：}见上题。
+\end{answerbox}
+
+\subsection*{题目 3}
+在 C 语言中，以下哪个选项表示枚举类型？
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{struct}
+	\item \texttt{union}
+	\item \texttt{enum}
+	\item \texttt{class}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. enum}
+
+	\textbf{解析：}见上题。
+\end{answerbox}
+
+\subsection*{题目 4}
+下面关于共用体的说法中，错误的是
+\begin{enumerate}[label=\Alph*.]
+	\item 共用体所有成员共享同一段内存
+	\item 共用体变量的大小是最大成员的大小
+	\item 共用体可以同时存放多个成员的值
+	\item 共用体变量初始化时只能给第一个成员赋值
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 共用体可以同时存放多个成员的值}
+
+	\textbf{解析：}共用体（Union）的特点：\\
+	- 所有成员共享同一段内存 ✓\\
+	- 大小是最大成员的大小 ✓\\
+	- \textbf{只能存放一个成员的值}（写入新成员会覆盖旧的）❌\\
+	- 初始化只能给第一个成员赋值 ✓
+
+	\textbf{易错点：}共用体的成员共享内存，同时只能有一个成员有意义的值。
+\end{answerbox}
+
+\end{document}

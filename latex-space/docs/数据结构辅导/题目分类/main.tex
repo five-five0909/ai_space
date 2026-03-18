@@ -1,0 +1,60 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据结构习题集}
+\lhead{分类整理}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{专升本数据结构习题集}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\input{题目分类/01-概述}
+\newpage
+
+\input{题目分类/02-线性表}
+\newpage
+
+\input{题目分类/03-栈和队列}
+\newpage
+
+\input{题目分类/04-串}
+\newpage
+
+\input{题目分类/05-数组和广义表}
+\newpage
+
+\input{题目分类/06-树}
+\newpage
+
+\input{题目分类/07-图}
+\newpage
+
+\input{题目分类/08-查找}
+\newpage
+
+\input{题目分类/09-排序}
+
+\end{document}

@@ -1,0 +1,926 @@
+﻿\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{tasks}
+\usepackage{fancyhdr}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{lastpage}
+\usepackage{etoolbox}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 字体设置
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+% 超链接设置
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={专升本Java程序设计模拟卷-卷1},
+    pdfauthor={fifine-专升本}
+}
+
+% 颜色定义
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{keywordcolor}{RGB}{0,0,150}
+\definecolor{commentcolor}{RGB}{0,128,0}
+\definecolor{stringcolor}{RGB}{163,21,21}
+
+% 自定义蓝色盒子 (基于样式参考)
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+% 标题格式
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% 代码块设置
+\lstdefinestyle{JavaExam}{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    keywordstyle=\color{keywordcolor}\bfseries,
+    commentstyle=\color{commentcolor},
+    stringstyle=\color{stringcolor},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{black!50},
+    tabsize=4,
+    xleftmargin=1em,
+    xrightmargin=1em,
+    aboveskip=1em,
+    belowskip=1em
+}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+% 辅助命令
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\blank}{\underline{\hspace{2em}}}
+\newcommand{\tfblank}{\underline{\hspace{1.5em}}}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\large\bfseries Java 程序设计 A 卷 - 深度解析讲义}
+\fancyfoot[C]{第 \thepage\ 页 共 \pageref{LastPage}\ 页}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\title{\textcolor{myblue}{\textbf{专升本Java程序设计模拟卷-卷1}}}
+\author{fifine-专升本}
+\date{2026年3月2日}
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section*{一、单项选择题深度解析（共 20 小题）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}, itemsep=1em]
+	\item \textbf{下列哪一项不是 Java 语言的特点？}
+	      \begin{tasks}(4)
+		      \task 面向对象 \task 多继承 \task 平台无关性 \task 自动垃圾回收
+	      \end{tasks}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 多继承}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查 Java 语言核心设计哲学与 C++ 的区别
+			      \item \textbf{关键区分点}：Java 类单继承 vs 接口多实现 vs C++ 多继承
+			      \item \textbf{命题人意图}：测试考生是否混淆 Java 与 C++ 的继承模型
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. 面向对象 — 错误（是特点）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{字节码铁证}：
+				                  \begin{lstlisting}[style=JavaExam]
+// 一切皆对象（除基本类型）
+Object obj = new Object();
+// javap 输出
+// public class java.lang.Object
+            \end{lstlisting}
+				            \item \textbf{JVM 规范依据}：JLS §4.3.1，对象是运行时数据区的核心
+				            \item \textbf{设计哲学}：封装、继承、多态三大支柱
+			            \end{itemize}
+
+			      \item \textbf{B. 多继承 — 正确（非特点）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{核心误区澄清}：Java 类只支持单继承（extends 一个类）
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[style=JavaExam]
+// class A extends B, C // 编译错误！
+class A extends B {} // 字节码中只有一个 super\_class
+            \end{lstlisting}
+				            \item \textbf{JVM 机制}：类结构属性中仅有一个父类索引，避免菱形继承问题
+				            \item \textbf{替代方案}：接口（interface）支持多实现
+			            \end{itemize}
+
+			      \item \textbf{C. 平台无关性 — 错误（是特点）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{实现机制}：Write Once, Run Anywhere (WORA)
+				            \item \textbf{JVM 规范依据}：JVMS §2，字节码在任何 JVM 上行为一致
+				            \item \textbf{底层支撑}：字节码屏蔽了 OS 差异
+			            \end{itemize}
+
+			      \item \textbf{D. 自动垃圾回收 — 错误（是特点）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{机制}：GC 线程自动管理堆内存
+				            \item \textbf{JVM 规范依据}：JVMS §2.5.4，垃圾收集堆
+				            \item \textbf{优势}：防止内存泄漏（相对 C++）
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{Java 核心特性}：简单、面向对象、分布式、健壮、安全、架构中立、可移植、解释型、高性能、多线程、动态
+			      \item \textbf{继承限制}：类单继承，接口多实现
+		      \end{enumerate}
+
+		      \textbf{【命题趋势与实战策略】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{考场秒杀}：见到“多继承”选它，Java 类不支持
+			      \item \textbf{高频陷阱}：接口多实现常被误认为类多继承
+		      \end{itemize}
+	      \end{bluebox}
+
+	\item \textbf{在 Java 中，源文件编译后生成的字节码文件扩展名是？}
+	      \begin{tasks}(4)
+		      \task .java \task .class \task .exe \task .jar
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. .class}
+		      \textbf{【核心认知框架】}：考查 Java 编译流程与产物。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. .java}：错误。源代码文件，编译器输入。
+			      \item \textbf{B. .class}：正确。javac 编译输出，包含 JVM 可执行的字节码。
+			      \item \textbf{C. .exe}：错误。Windows 可执行文件，Java 需 JVM 启动。
+			      \item \textbf{D. .jar}：错误。归档文件，包含多个.class 及资源，非直接编译产物。
+		      \end{itemize}
+		      \textbf{【字节码证据】}：\code{javac Test.java} 生成 \code{Test.class}。
+	      \end{bluebox}
+
+	\item \textbf{下列关于 main 方法签名的定义，正确的是？}
+	      \begin{tasks}(4)
+		      \task public static int main(String[] args)
+		      \task public void main(String[] args)
+		      \task public static void main(String[] args)
+		      \task static public void main(String args)
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. public static void main(String[] args)}
+		      \textbf{【核心认知框架】}：考查 JVM 启动入口的严格规范。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. int 返回}：错误。JVM 不处理返回值，必须 void。
+			      \item \textbf{B. 缺 static}：错误。JVM 无需实例即可调用，必须 static。
+			      \item \item \textbf{C. 标准签名}：正确。JLS §12.1.4 规定。
+			      \item \textbf{D. String args}：错误。必须是数组 \code{String[]} 或 \code{String...}。
+		      \end{itemize}
+		      \textbf{【JVM 规范】}：JVMS §5.2，查找 public static void main(String[])。
+	      \end{bluebox}
+
+	\item \textbf{下列哪个关键字用于定义常量？}
+	      \begin{tasks}(4)
+		      \task static \task final \task const \task abstract
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. final}
+		      \textbf{【核心认知框架】}：考查不可变性修饰符。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. static}：错误。仅表示类级别，可变。
+			      \item \textbf{B. final}：正确。禁止重新赋值。
+			      \item \textbf{C. const}：错误。Java 保留字但未使用。
+			      \item \textbf{D. abstract}：错误。修饰类/方法，不可修饰变量。
+		      \end{itemize}
+		      \textbf{【字节码证据】}：\code{ACC\_FINAL} 标志位禁止 \code{putfield}。
+	      \end{bluebox}
+
+	\item \textbf{表达式 \code{5/2} 的结果是？}
+	      \begin{tasks}(4)
+		      \task 2.5 \task 2 \task 2.0 \task 编译错误
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 2}
+		      \textbf{【核心认知框架】}：考查整数除法截断规则。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. 2.5}：错误。浮点除法结果。
+			      \item \textbf{B. 2}：正确。整数除法向零取整。
+			      \item \textbf{C. 2.0}：错误。double 类型表示。
+			      \item \textbf{D. 编译错误}：错误。合法表达式。
+		      \end{itemize}
+		      \textbf{【JVM 指令】}：\code{idiv} 指令执行整数除法。
+	      \end{bluebox}
+
+	\item \textbf{关于数组的定义，错误的是？}
+	      \begin{tasks}(4)
+		      \task int[] a = new int[5];
+		      \task int a[] = {1,2,3};
+		      \task int a[5] = {1,2,3,4,5};
+		      \task int a[] = new int[]{1,2,3};
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. int a[5] = ...}
+		      \textbf{【核心认知框架】}：考查 Java 数组声明语法与 C 的区别。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A/B/D}：正确。合法声明方式。
+			      \item \textbf{C. 声明时指定大小}：错误。Java 声明时不能指定大小，new 时指定。
+		      \end{itemize}
+		      \textbf{【语法规范】}：JLS §10.2，数组类型书写在变量名后或类型后，大小在 new 时。
+	      \end{bluebox}
+
+	\item \textbf{在 Java 中，所有类的根类是？}
+	      \begin{tasks}(4)
+		      \task Object \task Class \task System \task Root
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. Object}
+		      \textbf{【核心认知框架】}：考查类继承体系顶层。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. Object}：正确。JLS §4.3.2。
+			      \item \textbf{B. Class}：错误。类的元数据类。
+			      \item \textbf{C. System}：错误。系统工具类。
+			      \item \textbf{D. Root}：错误。无此类。
+		      \end{itemize}
+		      \textbf{【字节码证据】}：任何类 javap 均显示 \code{extends java/lang/Object}。
+	      \end{bluebox}
+
+	\item \textbf{关于构造方法的描述，错误的是？}
+	      \begin{tasks}(4)
+		      \task 构造方法名必须与类名相同
+		      \task 构造方法无返回值，但可以使用 void 声明
+		      \task 构造方法可以重载
+		      \task 构造方法在创建对象时自动调用
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 构造方法无返回值，但可以使用 void 声明}
+		      \textbf{【核心认知框架】}：考查构造方法语法定义。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. 名同类名}：正确。
+			      \item \textbf{B. 可声明 void}：错误。加 void 变普通方法。
+			      \item \textbf{C. 可重载}：正确。
+			      \item \textbf{D. 自动调用}：正确。
+		      \end{itemize}
+		      \textbf{【字节码证据】}：构造方法名为 \code{<init>}，无返回类型描述。
+	      \end{bluebox}
+
+	\item \textbf{下列哪个关键字用于实现接口？}
+	      \begin{tasks}(4)
+		      \task extends \task implements \task interface \task abstract
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. implements}
+		      \textbf{【核心认知框架】}：考查类与接口关系关键字。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. extends}：错误。用于类继承或接口继承。
+			      \item \textbf{B. implements}：正确。类实现接口。
+			      \item \textbf{C. interface}：错误。定义接口。
+			      \item \textbf{D. abstract}：错误。修饰抽象类/方法。
+		      \end{itemize}
+		      \textbf{【字节码证据】}：类文件结构中 \code{interfaces} 数组。
+	      \end{bluebox}
+
+	\item \textbf{关于抽象类的说法，正确的是？}
+	      \begin{tasks}(4)
+		      \task 抽象类不能包含非抽象方法
+		      \task 抽象类可以被实例化
+		      \task 抽象类中的抽象方法必须在子类中实现（除非子类也是抽象类）
+		      \task 抽象类中不能定义构造方法
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 抽象类中的抽象方法必须在子类中实现（除非子类也是抽象类）}
+		      \textbf{【核心认知框架】}：考查抽象类约束。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. 不能含非抽象}：错误。可以包含。
+			      \item \textbf{B. 可实例化}：错误。禁止 new。
+			      \item \textbf{C. 必须实现}：正确。递归约束。
+			      \item \textbf{D. 不能定义构造}：错误。可定义供子类调用。
+		      \end{itemize}
+		      \textbf{【字节码证据】}：\code{ACC\_ABSTRACT} 标志。
+	      \end{bluebox}
+
+	\item \textbf{下列哪个异常是运行时异常（不受检查异常）？}
+	      \begin{tasks}(4)
+		      \task IOException \task SQLException \task NullPointerException \task ClassNotFoundException
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. NullPointerException}
+		      \textbf{【核心认知框架】}：考查异常体系分类。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A/B/D}：错误。均为 Checked Exception，继承 Exception 非 RuntimeException。
+			      \item \textbf{C. NPE}：正确。继承 RuntimeException。
+		      \end{itemize}
+		      \textbf{【JVM 机制】}：RuntimeException 无需 throws 声明。
+	      \end{bluebox}
+
+	\item \textbf{关于 finally 块的说法，正确的是？}
+	      \begin{tasks}(4)
+		      \task 只有在 try 块没有异常时才会执行
+		      \task 只有在 catch 块执行后才会执行
+		      \task 无论是否发生异常，finally 块都会执行（除非 JVM 退出）
+		      \task 可以没有 try 块单独存在
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 无论是否发生异常，finally 块都会执行（除非 JVM 退出）}
+		      \textbf{【核心认知框架】}：考查异常处理流程。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A/B. 条件执行}：错误。finally 设计为必执行。
+			      \item \textbf{C. 总是执行}：正确。例外：\code{System.exit(0)}。
+			      \item \textbf{D. 单独存在}：错误。语法错误。
+		      \end{itemize}
+		      \textbf{【字节码证据】}：Exception Table 中 finally 跳转逻辑。
+	      \end{bluebox}
+
+	\item \textbf{下列哪个集合类是基于哈希表实现的，且不允许重复元素？}
+	      \begin{tasks}(4)
+		      \task ArrayList \task LinkedList \task HashSet \task TreeSet
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. HashSet}
+		      \textbf{【核心认知框架】}：考查集合实现结构与特性。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A/B. List}：错误。允许重复，基于数组/链表。
+			      \item \textbf{C. HashSet}：正确。基于 HashMap，key 不可重复。
+			      \item \textbf{D. TreeSet}：错误。基于 TreeMap，有序但非哈希。
+		      \end{itemize}
+		      \textbf{【内存结构】}：HashSet 内部维护 HashMap 实例。
+	      \end{bluebox}
+
+	\item \textbf{关于泛型的描述，错误的是？}
+	      \begin{tasks}(4)
+		      \task 泛型可以提高类型安全
+		      \task 泛型在运行时会被类型擦除
+		      \task 泛型可以用于基本数据类型
+		      \task 泛型方法可以在非泛型类中定义
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 泛型可以用于基本数据类型}
+		      \textbf{【核心认知框架】}：考查泛型限制。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A/B/D}：正确。
+			      \item \textbf{C. 基本类型}：错误。必须使用包装类（如 \code{Integer}）。
+		      \end{itemize}
+		      \textbf{【JVM 限制】}：泛型基于对象，基本类型非对象。
+	      \end{bluebox}
+
+	\item \textbf{在 Java 中，启动线程的正确方法是？}
+	      \begin{tasks}(4)
+		      \task 调用 run() 方法 \task 调用 start() 方法 \task 调用 begin() 方法 \task 调用 execute() 方法
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 调用 start() 方法}
+		      \textbf{【核心认知框架】}：考查线程启动机制。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. run()}：错误。普通方法调用，无新线程。
+			      \item \textbf{B. start()}：正确。请求 JVM 创建新线程并调用 run。
+			      \item \textbf{C/D. 其他}：错误。无此方法。
+		      \end{itemize}
+		      \textbf{【JVM 机制】}：\code{start()}  native 方法通知 VM 创建线程。
+	      \end{bluebox}
+
+	\item \textbf{下列哪个类用于实现文件的字节输入流？}
+	      \begin{tasks}(4)
+		      \task FileReader \task FileInputStream \task BufferedReader \task FileWriter
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. FileInputStream}
+		      \textbf{【核心认知框架】}：考查 IO 流分类。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A/C. 字符流}：错误。
+			      \item \textbf{B. 字节输入}：正确。
+			      \item \textbf{D. 字节输出}：错误。
+		      \end{itemize}
+		      \textbf{【继承体系】}：继承自 \code{InputStream}。
+	      \end{bluebox}
+
+	\item \textbf{关于反射机制，下列说法正确的是？}
+	      \begin{tasks}(4)
+		      \task 反射可以在运行时获取类的私有成员
+		      \task 反射会提高程序性能
+		      \task 反射只能在编译时使用
+		      \task 反射不能动态创建对象
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. 反射可以在运行时获取类的私有成员}
+		      \textbf{【核心认知框架】}：考查反射能力与代价。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. 获取私有}：正确。需 \code{setAccessible(true)}。
+			      \item \textbf{B. 提高性能}：错误。反射慢于直接调用。
+			      \item \textbf{C. 编译时}：错误。运行时。
+			      \item \textbf{D. 动态创建}：错误。\code{newInstance()} 可创建。
+		      \end{itemize}
+		      \textbf{【安全机制】}：反射突破封装需权限检查。
+	      \end{bluebox}
+
+	\item \textbf{在 JDBC 中，用于执行 SQL 查询并返回结果集的接口是？}
+	      \begin{tasks}(4)
+		      \task Statement \task PreparedStatement \task ResultSet \task Connection
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. Statement} (注：PreparedStatement 也可，但 Statement 是基础接口)
+		      \textbf{【核心认知框架】}：考查 JDBC 接口职责。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. Statement}：正确。执行 SQL。
+			      \item \textbf{B. PreparedStatement}：正确。预编译。
+			      \item \textbf{C. ResultSet}：错误。结果集数据，非执行者。
+			      \item \textbf{D. Connection}：错误。连接。
+		      \end{itemize}
+		      \textbf{【最佳实践】}：推荐 PreparedStatement 防注入。
+	      \end{bluebox}
+
+	\item \textbf{下列哪个布局管理器将容器划分为东、南、西、北、中五个区域？}
+	      \begin{tasks}(4)
+		      \task FlowLayout \task BorderLayout \task GridLayout \task CardLayout
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. BorderLayout}
+		      \textbf{【核心认知框架】}：考查 Swing 布局。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. 流式}：错误。
+			      \item \textbf{B. 边界}：正确。5 区域。
+			      \item \textbf{C. 网格}：错误。
+			      \item \textbf{D. 卡片}：错误。
+		      \end{itemize}
+	      \end{bluebox}
+
+	\item \textbf{在 UDP 通信中，用于发送和接收数据报的类是？}
+	      \begin{tasks}(4)
+		      \task Socket \task ServerSocket \task DatagramSocket \task DatagramPacket
+	      \end{tasks}
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. DatagramSocket}
+		      \textbf{【核心认知框架】}：考查网络编程 API。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A/B. TCP}：错误。
+			      \item \textbf{C. 套接字}：正确。发送/接收端点。
+			      \item \textbf{D. 数据包}：错误。数据载体，非通信端点。
+		      \end{itemize}
+	      \end{bluebox}
+\end{enumerate}
+
+\section*{二、判断题深度解析（共 10 小题）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}, itemsep=1em]
+	\item \textbf{Java 程序必须显式导入 java.lang 包才能使用 System 类。} \tfblank (B)
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：错误}
+		      \textbf{【核心认知框架】}：考查默认导入机制。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{命题点 (True)}：错误。java.lang 自动导入。
+			      \item \textbf{命题点 (False)}：正确。JLS §7.5.3 规定 java.lang 隐式导入。
+		      \end{itemize}
+		      \textbf{【JVM 规范】}：编译器自动处理，字节码中无需 import 指令。
+		      \textbf{【应背诵知识点】}：java.lang, java.util, java.io 等需显式导入，唯 java.lang 例外。
+	      \end{bluebox}
+
+	\item \textbf{一个 Java 源文件中可以定义多个 public 类。} \tfblank (B)
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：错误}
+		      \textbf{【核心认知框架】}：考查编译单元约束。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{命题点 (True)}：错误。违反 JLS §7.6。
+			      \item \textbf{命题点 (False)}：正确。只能有一个 public 类，且文件名匹配。
+		      \end{itemize}
+		      \textbf{【字节码证据】}：public 类名必须与文件名一致，否则编译器报错。
+	      \end{bluebox}
+
+	\item \textbf{在方法重载中，返回值类型必须相同。} \tfblank (B)
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：错误}
+		      \textbf{【核心认知框架】}：考查重载分辨规则。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{命题点 (True)}：错误。重载不看返回值。
+			      \item \textbf{命题点 (False)}：正确。仅看方法名 + 参数列表。
+		      \end{itemize}
+		      \textbf{【JVM 规范】}：方法签名不包含返回类型。
+	      \end{bluebox}
+
+	\item \textbf{使用 final 修饰的方法可以被继承但不能被重写。} \tfblank (A)
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：正确}
+		      \textbf{【核心认知框架】}：考查 final 方法语义。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{命题点 (True)}：正确。子类可继承调用，不可覆盖实现。
+			      \item \textbf{命题点 (False)}：错误。
+		      \end{itemize}
+		      \textbf{【字节码证据】}：\code{ACC\_FINAL} 标志禁止 \code{invokevirtual} 覆盖。
+	      \end{bluebox}
+
+	\item \textbf{接口中的成员变量默认是 public static final 的。} \tfblank (A)
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：正确}
+		      \textbf{【核心认知框架】}：考查接口字段隐式修饰符。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{命题点 (True)}：正确。JLS §9.3。
+			      \item \textbf{命题点 (False)}：错误。
+		      \end{itemize}
+		      \textbf{【字节码证据】}：编译后自动添加 \code{ACC\_PUBLIC | ACC\_STATIC | ACC\_FINAL}。
+	      \end{bluebox}
+
+	\item \textbf{捕获异常时，父类异常的 catch 块必须放在子类异常的后面。} \tfblank (A)
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：正确}
+		      \textbf{【核心认知框架】}：考查 catch 块匹配顺序。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{命题点 (True)}：正确。否则子类 catch 不可达。
+			      \item \textbf{命题点 (False)}：错误。
+		      \end{itemize}
+		      \textbf{【编译检查】}：编译器检查 unreachable code。
+	      \end{bluebox}
+
+	\item \textbf{ArrayList 是线程安全的集合类。} \tfblank (B)
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：错误}
+		      \textbf{【核心认知框架】}：考查集合线程安全性。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{命题点 (True)}：错误。ArrayList 非同步。
+			      \item \textbf{命题点 (False)}：正确。Vector 是线程安全的。
+		      \end{itemize}
+		      \textbf{【解决方案】}：\code{Collections.synchronizedList} 或 \code{CopyOnWriteArrayList}。
+	      \end{bluebox}
+
+	\item \textbf{泛型通配符 \code{?} 可以用于表示任意类型。} \tfblank (A)
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：正确}
+		      \textbf{【核心认知框架】}：考查泛型通配符用法。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{命题点 (True)}：正确。\code{List<?>}。
+			      \item \textbf{命题点 (False)}：错误。
+		      \end{itemize}
+		      \textbf{【限制】}：只能读不能写（除 null）。
+	      \end{bluebox}
+
+	\item \textbf{线程调用 sleep() 方法后不会释放持有的对象锁。} \tfblank (A)
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：正确}
+		      \textbf{【核心认知框架】}：考查 sleep 与 wait 区别。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{命题点 (True)}：正确。sleep 不释放锁。
+			      \item \textbf{命题点 (False)}：错误。wait 才释放锁。
+		      \end{itemize}
+		      \textbf{【JVM 机制】}：sleep 仅暂停执行，不改变监视器状态。
+	      \end{bluebox}
+
+	\item \textbf{在 Swing 中，JFrame 默认的布局管理器是 FlowLayout。} \tfblank (B)
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：错误}
+		      \textbf{【核心认知框架】}：考查 Swing 默认布局。
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{命题点 (True)}：错误。JFrame 内容面板默认 BorderLayout。
+			      \item \textbf{命题点 (False)}：正确。Panel 默认 FlowLayout。
+		      \end{itemize}
+	      \end{bluebox}
+\end{enumerate}
+
+\section*{三、填空题深度解析（共 5 小题）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}, itemsep=1em]
+	\item Java 的 8 种基本数据类型包括 byte、short、int、\blank、float、double、char 和 \blank。
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：long, boolean}
+		      \textbf{【核心认知框架】}：考查基本类型集合。
+		      \textbf{【填空项深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{long}：64 位整数。
+			      \item \textbf{boolean}：逻辑值，JVM 规范中底层实现各异（int/byte）。
+		      \end{itemize}
+		      \textbf{【JVM 规范】}：JVMS §2.3 定义基本类型。
+		      \textbf{【易错点】}：String 不是基本类型。
+	      \end{bluebox}
+
+	\item 面向对象三大特性是封装、\blank 和 \blank。
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：继承，多态}
+		      \textbf{【核心认知框架】}：考查 OOP 核心概念。
+		      \textbf{【填空项深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{继承}：代码复用，is-a 关系。
+			      \item \textbf{多态}：同一接口不同实现，动态绑定。
+		      \end{itemize}
+		      \textbf{【JVM 体现】}：多态通过 vtable 实现。
+	      \end{bluebox}
+
+	\item 在 Java 中，使用关键字 \blank 导入包，使用 \blank 关键字声明包。
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：import, package}
+		      \textbf{【核心认知框架】}：考查包管理关键字。
+		      \textbf{【填空项深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{import}：编译期辅助，简化类名。
+			      \item \textbf{package}：决定类全限定名，必须第一行。
+		      \end{itemize}
+		      \textbf{【字节码影响】}：package 影响类加载路径，import 不进入字节码。
+	      \end{bluebox}
+
+	\item 线程的生命周期包括新建、就绪、\blank、\blank 和死亡五种状态。
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：运行，阻塞}
+		      \textbf{【核心认知框架】}：考查线程状态机。
+		      \textbf{【填空项深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{运行}：获取 CPU 时间片。
+			      \item \textbf{阻塞}：等待资源/IO/锁。
+		      \end{itemize}
+		      \textbf{【JVM 映射】}：Java 线程状态映射到 OS 线程状态。
+	      \end{bluebox}
+
+	\item 标准输入流对象是 System.\blank，标准输出流对象是 System.\blank。
+	      \begin{bluebox}{深度解析}
+		      \textbf{答案：in, out}
+		      \textbf{【核心认知框架】}：考查系统流。
+		      \textbf{【填空项深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{in}：\code{InputStream}，对应键盘。
+			      \item \textbf{out}：\code{PrintStream}，对应控制台。
+		      \end{itemize}
+		      \textbf{【字段修饰】}：均为 \code{public static final}。
+	      \end{bluebox}
+\end{enumerate}
+
+\section*{四、程序运行结果题深度解析（共 5 小题）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}, itemsep=1em]
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+public class Test1 {
+public static void main(String[] args) {
+int sum = 0;
+for (int i = 1; i <= 5; i++) {
+if (i % 2 == 0) continue;
+sum += i;
+}
+System.out.println(sum);
+}
+}
+    \end{lstlisting}
+	      \begin{bluebox}{深度解析}
+		      \textbf{输出：9}
+		      \textbf{【核心认知框架】}：考查循环控制与条件判断。
+		      \textbf{【执行流程深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{i=1}：奇数，sum=1。
+			      \item \textbf{i=2}：偶数，continue。
+			      \item \textbf{i=3}：奇数，sum=1+3=4。
+			      \item \textbf{i=4}：偶数，continue。
+			      \item \textbf{i=5}：奇数，sum=4+5=9。
+		      \end{itemize}
+		      \textbf{【字节码视角】}：\code{continue} 对应跳转指令跳过累加。
+	      \end{bluebox}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+class Parent {
+String name = "Parent";
+public void show() { System.out.println(name); }
+}
+class Child extends Parent {
+String name = "Child";
+public void show() { System.out.println(name); }
+}
+public class Test2 {
+public static void main(String[] args) {
+Parent obj = new Child();
+obj.show();
+}
+}
+    \end{lstlisting}
+	      \begin{bluebox}{深度解析}
+		      \textbf{输出：Child}
+		      \textbf{【核心认知框架】}：考查多态与方法重写。
+		      \textbf{【执行流程深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{编译类型}：Parent。
+			      \item \textbf{运行类型}：Child。
+			      \item \textbf{方法调用}：\code{invokevirtual} 动态绑定到 Child.show()。
+			      \item \textbf{字段访问}：方法内访问的是本类字段 "Child"。
+		      \end{itemize}
+		      \textbf{【注意点】}：字段无多态，方法有多态。
+	      \end{bluebox}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+public class Test3 {
+public static void main(String[] args) {
+String s1 = "hello";
+String s2 = "hello";
+String s3 = new String("hello");
+System.out.println(s1 == s2);
+System.out.println(s1.equals(s3));
+}
+}
+    \end{lstlisting}
+	      \begin{bluebox}{深度解析}
+		      \textbf{输出：}
+		      true
+		      true
+		      \textbf{【核心认知框架】}：考查字符串池与 equals。
+		      \textbf{【执行流程深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{s1==s2}：均在常量池，引用相同，true。
+			      \item \textbf{s1.equals(s3)}：内容相同，true。
+			      \item \textbf{s1==s3}：若比较则为 false（堆 vs 池）。
+		      \end{itemize}
+		      \textbf{【内存模型】}：字符串常量池机制。
+	      \end{bluebox}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+public class Test4 {
+public static void main(String[] args) {
+try {
+int[] arr = {1, 2, 3};
+System.out.println(arr[3]);
+} catch (ArrayIndexOutOfBoundsException e) {
+System.out.println("数组越界");
+} finally {
+System.out.println("finally");
+}
+System.out.println("结束");
+}
+}
+    \end{lstlisting}
+	      \begin{bluebox}{深度解析}
+		      \textbf{输出：}
+		      数组越界
+		      finally
+		      结束
+		      \textbf{【核心认知框架】}：考查异常处理流程。
+		      \textbf{【执行流程深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{try}：抛出异常。
+			      \item \textbf{catch}：匹配成功，打印。
+			      \item \textbf{finally}：必执行，打印。
+			      \item \textbf{后续}：异常已处理，继续执行，打印。
+		      \end{itemize}
+	      \end{bluebox}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+class MyThread extends Thread {
+public void run() {
+for (int i = 0; i < 3; i++) {
+System.out.print(i + " ");
+}
+}
+}
+public class Test5 {
+public static void main(String[] args) {
+MyThread t1 = new MyThread();
+MyThread t2 = new MyThread();
+t1.start();
+t2.start();
+}
+}
+    \end{lstlisting}
+	      \begin{bluebox}{深度解析}
+		      \textbf{输出：0 1 2 0 1 2  (顺序可能交错)}
+		      \textbf{【核心认知框架】}：考查线程并发不确定性。
+		      \textbf{【执行流程深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{并发}：t1, t2 同时运行。
+			      \item \textbf{调度}：CPU 时间片分配不确定。
+			      \item \textbf{结果}：内容固定，顺序不定。
+		      \end{itemize}
+		      \textbf{【JVM 机制】}：线程调度器决定执行顺序。
+	      \end{bluebox}
+\end{enumerate}
+
+\section*{五、编程题深度解析与设计规范（共 2 小题）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}, itemsep=1em]
+	\item \textbf{设计一个图形类层次结构}
+	      \begin{bluebox}{深度解析与标准实现}
+		      \textbf{【设计模式】}：模板方法模式变体，利用抽象类定义骨架。
+		      \textbf{【核心考点】}：抽象类、继承、多态、封装。
+		      \textbf{【标准代码】}：
+		      \begin{lstlisting}[style=JavaExam]
+abstract class Shape {
+    public abstract double area();
+}
+class Circle extends Shape {
+    private double radius;
+    public Circle(double r) { radius = r; }
+    public double area() { return Math.PI * radius * radius; }
+}
+// Rectangle 类似实现
+// Main 中 Shape[] shapes = {new Circle(1), new Rectangle(1,2)};
+// for(Shape s : shapes) System.out.println(s.area());
+    \end{lstlisting}
+		      \textbf{【设计方案深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{抽象类}：强制子类实现 area()。
+			      \item \textbf{多态}：父类引用指向子类对象。
+			      \item \textbf{封装}：属性私有，通过构造初始化。
+		      \end{itemize}
+		      \textbf{【最佳实践】}：遵循开闭原则，新增图形无需修改调用代码。
+	      \end{bluebox}
+
+	\item \textbf{学生成绩管理系统}
+	      \begin{bluebox}{深度解析与标准实现}
+		      \textbf{【设计原则】}：单一职责，接口回调。
+		      \textbf{【核心考点】}：Comparable 接口，Arrays.sort，封装。
+		      \textbf{【标准代码】}：
+		      \begin{lstlisting}[style=JavaExam]
+class Student implements Comparable<Student> {
+    private int id; private String name; private int score;
+    // 构造、Getter/Setter 省略
+    public int compareTo(Student other) {
+        return other.score - this.score; // 降序
+    }
+    public String toString() { return name + ":" + score; }
+}
+// Main 中 Arrays.sort(students);
+    \end{lstlisting}
+		      \textbf{【设计方案深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{Comparable}：定义自然排序规则。
+			      \item \textbf{toString}：方便打印调试。
+			      \item \textbf{封装}：保护数据完整性。
+		      \end{itemize}
+		      \textbf{【最佳实践】}：比较逻辑需处理溢出（此处分数简单相减可行）。
+	      \end{bluebox}
+\end{enumerate}
+
+\vfill
+\begin{center}
+	\zihao{4}\bfseries —— 讲义结束，祝学习顺利 ——
+\end{center}
+
+\end{document}

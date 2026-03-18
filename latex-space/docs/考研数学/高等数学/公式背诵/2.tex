@@ -1,0 +1,209 @@
+\documentclass[a4paper,12pt]{ctexart}
+
+% ------------------- 宏包引入 -------------------
+\usepackage{geometry}           % 页面布局
+\usepackage{amsmath, amssymb}   % 数学公式与符号
+\usepackage{graphicx}           % 图片支持
+\usepackage{xcolor}             % 颜色支持
+\usepackage{float}              % 浮动体控制
+\usepackage{enumitem}           % 列表定制
+\usepackage{tcolorbox}          % 彩色文本框
+\usepackage{tikz}               % 绘图
+\usepackage{pgfplots}           % 数据绘图
+
+% ------------------- 页面设置 -------------------
+\geometry{left=2.0cm, right=2.0cm, top=2.5cm, bottom=2.5cm}
+\pgfplotsset{compat=1.18}
+\linespread{1.5} % 行间距 1.5 倍
+
+% ------------------- 颜色定义 -------------------
+\definecolor{boxpurple}{RGB}{128, 0, 128}
+\definecolor{notepurple}{RGB}{230, 230, 250}
+\definecolor{highlightred}{RGB}{200, 30, 30}
+
+% ------------------- 自定义环境 -------------------
+
+% 紫色定义框：用于定理、定义
+\newenvironment{purplebox}
+  {\begin{tcolorbox}[colback=white, colframe=boxpurple, boxrule=1pt, sharp corners, title=\textbf{定理/定义}]}
+  {\end{tcolorbox}}
+
+% 红色手写笔记框：用于技巧、补充
+\newenvironment{rednote}
+  {\begin{tcolorbox}[colback=notepurple, colframe=highlightred, boxrule=1pt, title=\textbf{手写笔记/技巧补充}]}
+  {\end{tcolorbox}}
+
+% 突出显示的中文段落
+\newcommand{\zh}[1]{\par\smallskip\noindent\textbf{#1}\par\smallskip}
+
+% ------------------- 文档信息 -------------------
+\title{\textbf{考研数学 - 高数总结 (极值、凹凸性与不等式)}}
+\author{复习笔记}
+\date{\today}
+
+% ------------------- 正文开始 -------------------
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{极值与最值}
+
+\subsection{极值}
+\textbf{1. 必要条件} \\
+设 $y = f(x)$ 在点 $x_0$ 处可导，若 $x_0$ 为 $f(x)$ 的极值点，则 $f'(x_0) = 0$。
+
+\zh{注意：}
+通常把导数为零的点称为函数的\textbf{驻点}。
+\begin{itemize}
+    \item 极值只可能在 \textbf{驻点} 或 \textbf{不可导点} 取得。
+    \item 驻点不一定是极值点（例如 $y=x^3$ 在 $x=0$）。
+\end{itemize}
+
+\textbf{2. 充分条件}
+
+\begin{purplebox}
+\textbf{第一充分条件（判别一阶导数符号）：} \\
+设 $f(x)$ 在 $x_0$ 处连续，且在 $x_0$ 的去心邻域 $\mathring{U}(x_0, \delta)$ 内可导。
+\begin{enumerate}
+    \item 若 $x \in (x_0-\delta, x_0)$ 时 $f'(x) > 0$，且 $x \in (x_0, x_0+\delta)$ 时 $f'(x) < 0$（先增后减），则 $f(x)$ 在 $x_0$ 处取得\textbf{极大值}。
+    \item 若 $x \in (x_0-\delta, x_0)$ 时 $f'(x) < 0$，且 $x \in (x_0, x_0+\delta)$ 时 $f'(x) > 0$（先减后增），则 $f(x)$ 在 $x_0$ 处取得\textbf{极小值}。
+    \item 若 $f'(x)$ 在两侧符号保持不变，则 $x_0$ 不是极值点。
+\end{enumerate}
+\end{purplebox}
+
+\begin{purplebox}
+\textbf{第二充分条件（判别二阶导数符号）：} \\
+若 $f'(x_0) = 0$ 且 $f''(x_0) \neq 0$，则：
+\begin{enumerate}
+    \item $f''(x_0) < 0 \Rightarrow$ 极大值；
+    \item $f''(x_0) > 0 \Rightarrow$ 极小值。
+\end{enumerate}
+\end{purplebox}
+
+\textbf{3. 第三充分条件（高阶导数判别法）：} \\
+若 $f'(x_0) = f''(x_0) = \cdots = f^{(n-1)}(x_0) = 0$，但 $f^{(n)}(x_0) \neq 0$，则：
+\begin{itemize}
+    \item 当 $n$ 为\textbf{偶数}时：$f(x)$ 在 $x_0$ 处有极值（$f^{(n)} > 0$ 极小，$f^{(n)} < 0$ 极大）。
+    \item 当 $n$ 为\textbf{奇数}时：$f(x)$ 在 $x_0$ 处无极值（此时为拐点）。
+\end{itemize}
+
+\subsection{最值求解}
+\textbf{步骤：}
+\begin{enumerate}
+    \item 求出区间内所有驻点和不可导点。
+    \item 计算这些点的函数值。
+    \item 结合端点值（或无穷远处的极限）进行比较，最大者为最大值，最小者为最小值。
+\end{enumerate}
+
+\section{曲线的凹向和拐点}
+
+\subsection{曲线的凹向}
+\begin{purplebox}
+    \textbf{定义：} 设 $f(x)$ 在区间 $I$ 上连续。
+    \begin{itemize}
+        \item 若 $\forall x_1, x_2 \in I$，恒有 $f\left(\frac{x_1+x_2}{2}\right) < \frac{f(x_1)+f(x_2)}{2}$，则称图形是\textbf{凹}的（开口向上，Concave Up）。
+        \item 若恒有 $f\left(\frac{x_1+x_2}{2}\right) > \frac{f(x_1)+f(x_2)}{2}$，则称图形是\textbf{凸}的（开口向下，Concave Down）。
+    \end{itemize}
+    \textbf{判定：} 
+    \begin{itemize}
+        \item $f''(x) > 0 \Rightarrow$ 凹；
+        \item $f''(x) < 0 \Rightarrow$ 凸。
+    \end{itemize}
+\end{purplebox}
+
+\subsection{曲线的拐点}
+\textbf{定义：} 连续曲线 $y=f(x)$ 上凹凸性发生改变的点 $(x_0, f(x_0))$ 称为拐点。
+
+\textbf{必要条件：} 若 $f(x)$ 二阶可导且为拐点，则 $f''(x_0) = 0$。
+
+\textbf{充分条件：}
+\begin{enumerate}
+    \item \textbf{第一充分条件：} $f''(x)$ 在 $x_0$ 左右两侧异号 $\Rightarrow$ 是拐点。
+    \item \textbf{第二充分条件：} $f''(x_0) = 0$ 且 $f'''(x_0) \neq 0 \Rightarrow$ 是拐点。
+\end{enumerate}
+
+\begin{rednote}
+    \textbf{切线与凹凸性的关系：}
+    \begin{itemize}
+        \item 曲线是凹的 ($f'' > 0$) $\Rightarrow$ 曲线位于切线\textbf{上方}。
+        \item 曲线是凸的 ($f'' < 0$) $\Rightarrow$ 曲线位于切线\textbf{下方}。
+    \end{itemize}
+\end{rednote}
+
+\section{曲线的渐近线}
+
+\begin{enumerate}
+    \item \textbf{水平渐近线：}
+    若 $\lim_{x \to \infty} f(x) = A$ (或 $x \to +\infty, x \to -\infty$)，则 $y = A$ 是水平渐近线。
+    
+    \item \textbf{铅直渐近线：}
+    若 $\lim_{x \to x_0} f(x) = \infty$ (或 $x \to x_0^+, x \to x_0^-$)，则 $x = x_0$ 是铅直渐近线。
+    
+    \item \textbf{斜渐近线：}
+    若 $\lim_{x \to \infty} \frac{f(x)}{x} = a$ 且 $\lim_{x \to \infty} (f(x) - ax) = b$ (需均为有限数)，则 $y = ax + b$ 是斜渐近线。
+\end{enumerate}
+
+\section{曲率与曲率半径}
+
+\begin{purplebox}
+    \textbf{1. 曲率公式 $K$}
+    \begin{itemize}
+        \item 直角坐标 $y=y(x)$：
+        \[ K = \frac{|y''|}{(1+y'^2)^{\frac{3}{2}}} \]
+        \item 参数方程 $\begin{cases} x = x(t) \\ y = y(t) \end{cases}$：
+        \[ K = \frac{|y''x' - y'x''|}{(x'^2+y'^2)^{\frac{3}{2}}} \]
+    \end{itemize}
+    \textbf{2. 曲率半径 $R$}
+    \[ R = \frac{1}{K} \]
+\end{purplebox}
+
+\section{补充与提高}
+
+\subsection{方程根的存在性与个数}
+\begin{enumerate}
+    \item \textbf{存在性判定：}
+    \begin{itemize}
+        \item \textbf{零点定理}：连续函数 $f(a)f(b) < 0 \Rightarrow$ 至少一根。
+        \item \textbf{罗尔定理}：$f(a)=f(b) \Rightarrow f'(\xi)=0$。常用于证明导数方程有根，结合原函数法。
+    \end{itemize}
+    \item \textbf{根的个数判定：}
+    \begin{itemize}
+        \item \textbf{单调性法}：单调函数至多一个根。
+        \item \textbf{罗尔定理推论}：若 $f^{(n)}(x) \neq 0$，则方程 $f(x)=0$ 最多有 $n$ 个实根。
+    \end{itemize}
+\end{enumerate}
+
+\section{证明不等式常用方法与基本不等式}
+
+\subsection{五种常用方法}
+1. 单调性； 2. 最大最小值； 3. 拉格朗日中值定理； 4. 泰勒公式； 5. 凹凸性（Jensen不等式）。
+
+\subsection{常用的基本不等式 (必背)}
+
+\begin{rednote}
+\textbf{1. 绝对值不等式}
+\[ ||a| - |b|| \le |a \pm b| \le |a| + |b| \]
+
+\textbf{2. 均值不等式 ($a, b > 0$)}
+\[ \frac{2}{\frac{1}{a} + \frac{1}{b}} \le \sqrt{ab} \le \frac{a+b}{2} \le \sqrt{\frac{a^2+b^2}{2}} \]
+即：调和平均 $\le$ 几何平均 $\le$ 算术平均 $\le$ 平方平均。
+\textbf{三元形式：} $\sqrt[3]{abc} \le \frac{a+b+c}{3}$。
+
+\textbf{3. 伯努利不等式}
+设 $x > -1$，
+\begin{itemize}
+    \item 当 $n > 1$ 或 $n < 0$ 时：$(1+x)^n \ge 1+nx$
+    \item 当 $0 < n < 1$ 时：$(1+x)^n \le 1+nx$
+\end{itemize}
+
+\textbf{4. 乔丹不等式 (Jordan's Inequality)}
+\[ \text{当 } x \in (0, \frac{\pi}{2}] \text{ 时：} \quad \frac{2}{\pi}x < \sin x < x \]
+
+\textbf{5. 常用放缩}
+当 $x > 0$ 时：
+\[ \frac{x}{1+x} < \ln(1+x) < x \]
+\end{rednote}
+
+\end{document}

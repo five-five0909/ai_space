@@ -1,0 +1,31 @@
+# LaTeX compile artifacts
+*.aux
+*.log
+*.toc
+*.bbl
+*.blg
+*.out
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.bcf
+*.run.xml
+*.fls
+*.fdb_latexmk
+*.lof
+*.lot
+*.xdv
+*.dvi
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

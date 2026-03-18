@@ -1,0 +1,472 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbset{autoparskip}
+
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={面向对象（上）-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{面向对象（上） - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月05日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{面向对象（上）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于类和对象的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 类是对象的实例
+		      \item 对象是类的模板
+		      \item 一个类只能创建一个对象
+		      \item 对象是类的具体实例
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 对象是类的具体实例}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查类与对象的本质关系——抽象模板与具体实例
+			      \item \textbf{关键区分点}：类=定义（图纸），对象=实例（楼房）
+			      \item \textbf{命题人意图}：测试对面向对象核心概念的理解，反向设置混淆项
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{类是对象的实例 — 错误（概念颠倒）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码层面}：Class对象存储在方法区，不是实例
+				            \item \textbf{类加载机制}：JVM加载.class文件时创建Class对象
+				            \item \textbf{空间布局}：类存储在方法区，对象存储在堆内存
+				            \item \textbf{字节码铁证}：
+				                  \begin{lstlisting}[language=Java]
+// javap -c 输出
+class User {
+  // 字段、方法定义在方法区的Class对象中
+}
+// 对象存储在堆中
+User user = new User(); // user引用指向堆内存
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{对象是类的模板 — 错误（概念颠倒）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JVM规范}：Class对象是对象的模板（JLS §12.1）
+				            \item \textbf{实例化过程}：new指令根据Class模板在堆中分配内存
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// 类=模板（图纸）
+class House {
+    int rooms;
+    String address;
+
+    public House(int r, String a) {
+        this.rooms = r;
+        this.address = a;
+    }
+}
+
+// 对象=实例（根据图纸建造的楼房）
+House house1 = new House(3, "北京路1号");  // 第一个对象
+House house2 = new House(2, "上海路2号");  // 第二个对象
+// house1和house2是根据House类创建的不同实例
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{一个类只能创建一个对象 — 错误（表述不准确）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{单例模式}：仅当类设计为单例时才只创建一个对象
+				            \item \textbf{常规情况}：类可以创建多个独立对象
+				            \item \textbf{堆内存验证}：
+				                  \begin{lstlisting}[language=Java]
+User user1 = new User();
+User user2 = new User();
+User user3 = new User();
+// user1, user2, user3 指向堆中三个不同的对象
+// 每个对象有独立的实例变量
+System.out.println(user1 == user2);  // false
+				            \end{lstlisting}
+				            \item \textbf{命题陷阱}：将单例模式的特殊性质泛化为所有类
+			            \end{itemize}
+
+			      \item[D] \textbf{对象是类的具体实例 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{JVM规范}：对象是类的实例化（JLS §12.5）
+				            \item \textbf{实例化过程}：
+				                  \begin{enumerate}[label={}, nosep]
+					                  \item 类加载（Class对象创建）
+					                  \item 分配堆内存 + 调用<init>方法初始化
+					                  \item 返回对象引用
+				                  \end{enumerate}
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+// 源码
+User user = new User();
+
+// 字节码（javap -c）
+0:  new           #2                  // class User
+3:  dup
+4:  invokespecial #3                  // Method User."<init>":()V
+7:  astore_1
+// new指令：分配堆内存
+// invokespecial：调用构造方法初始化
+// astore_1：将引用存入局部变量表
+				            \end{lstlisting}
+				            \item \textbf{完整代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// 类定义（模板）
+class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void introduce() {
+        System.out.println("姓名: " + name + ", 年龄: " + age);
+    }
+}
+
+// 使用类创建对象（实例化）
+public class Demo {
+    public static void main(String[] args) {
+        // 对象是Person类的具体实例
+        Person p1 = new Person("张三", 25);  // 实例1
+        Person p2 = new Person("李四", 30);  // 实例2
+
+        // 每个对象是独立的存在
+        p1.introduce();  // 姓名: 张三, 年龄: 25
+        p2.introduce();  // 姓名: 李四, 年龄: 30
+    }
+}
+				            \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{itemize}[label={}, nosep]
+			      \item 类与对象关系：类=抽象模板，对象=具体实例
+			      \item 类可以创建多个对象，每个对象独立存在
+			      \item 选项辨析：
+			            \begin{itemize}[label={}, nosep]
+				            \item "类是对象的实例"→错误，关系颠倒
+				            \item "对象是类的模板"→错误，关系颠倒
+				            \item "一个类只能创建一个对象"→错误（单例除外）
+				            \item "对象是类的具体实例"→正确
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀三步法}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item 看到"类"→联想"模板、图纸、抽象"
+			      \item 看到"对象"→联想"实例、实例化、具体"
+			      \item 类与对象关系：类创建对象（类→对象）
+		      \end{enumerate}
+
+		      \textbf{记忆口诀}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 类是蓝图对象楼，一图多楼不固定
+			      \item 实例化后堆中留，属性独立各不同
+		      \end{itemize}
+
+		      \textbf{高频陷阱}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item 将"模板"与"实例"的关系写反
+			      \item 将单例模式的特殊性泛化
+			      \item 混淆类加载与对象实例化
+		      \end{enumerate}
+
+		      \textbf{5秒决策技巧}：看到"对象是类的实例"→直接选，这是面向对象的定义
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是Java中的对象引用传递？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 基本数据类型参数传递
+		      \item 对象作为参数传递
+		      \item 数组作为参数传递
+		      \item 以上都是
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 对象作为参数传递}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java参数传递的值传递本质 + 引用传递表现
+			      \item \textbf{关键区分点}：基本类型=值复制，对象=引用地址复制
+			      \item \textbf{命题人意图}：测试"Java是值传递"这一核心概念
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{基本数据类型参数传递 — 错误（值传递）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{传递机制}：复制值的副本到方法栈帧
+				            \item \textbf{字节码验证}：
+				                  \begin{lstlisting}[language=Java]
+public static void swap(int a, int b) {
+    int temp = a;  // a是副本
+    a = b;         // 修改副本
+    b = temp;
+}
+// 调用
+int x = 5, y = 10;
+swap(x, y);        // x, y的副本参与交换
+System.out.println(x); // 输出5（原值不变）
+System.out.println(y); // 输出10（原值不变）
+				            \end{lstlisting}
+				            \item \textbf{内存模型}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item main方法栈帧：存储x=5, y=10
+					                  \item swap方法栈帧：存储a=5（副本）, b=10（副本）
+					                  \item 修改a,b不影响x,y（不同栈帧独立）
+				                  \end{itemize}
+				            \item \textbf{命题陷阱}：误认为是"引用传递"（Java不存在C++的引用传递）
+			            \end{itemize}
+
+			      \item[B] \textbf{对象作为参数传递 — 正确（表现类似引用传递）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{传递机制}：传递引用地址的副本（值传递的特殊情况）
+				            \item \textbf{核心概念}：传递的是对象的引用（地址），不是对象本身
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+class User {
+    int age;
+}
+
+public static void modify(User u) {
+    u.age = 30;  // 通过引用修改对象属性
+}
+
+// 调用
+User user = new User();
+user.age = 20;
+modify(user);   // 传递引用地址副本
+System.out.println(user.age); // 输出30（被修改）
+				            \end{lstlisting}
+				            \item \textbf{内存模型验证}：
+				                  \begin{enumerate}[label={}, nosep]
+					                  \item 堆内存：User对象@0x1234，age=20
+					                  \item main栈帧：user引用 → 0x1234
+					                  \item modify栈帧：u引用 → 0x1234（地址副本）
+					                  \item u.age直接访问堆中对象，修改成功
+				                  \end{enumerate}
+				            \item \textbf{关键特性验证}：
+				                  \begin{lstlisting}[language=Java]
+class User {
+    String name;
+}
+
+// 证明是值传递（引用地址为值）
+public static void reassign(User u, User newUser) {
+    u = newUser;  // 修改引用副本，不影响原始引用
+}
+
+User u1 = new User();
+User u2 = new User();
+reassign(u1, u2);
+// u1仍指向原对象（只是副本被修改）
+				            \end{lstlisting}
+				            \item \textbf{完整代码示例}：
+				                  \begin{lstlisting}[language=Java]
+class Person {
+    String name;
+
+    public Person(String name) {
+        this.name = name;
+    }
+}
+
+public class ReferencePassDemo {
+    // 对象作为参数传递（引用地址传递）
+    public static void changeName(Person p, String newName) {
+        // p是引用地址的副本
+        // 通过引用访问堆中的对象
+        p.name = newName;  // 修改原始对象的属性
+    }
+
+    // 重新赋值引用副本
+    public static void changeReference(Person p) {
+        p = new Person("新对象");  // 修改副本引用，不影响原引用
+    }
+
+    public static void main(String[] args) {
+        Person person = new Person("张三");
+        System.out.println("改变前: " + person.name);  // 张三
+
+        changeName(person, "李四");
+        System.out.println("改变属性后: " + person.name);  // 李四
+
+        Person original = person;
+        changeReference(person);
+        System.out.println("改变引用后: " + person.name);  // 李四（原引用不变）
+        System.out.println("same object: " + (person == original));  // true
+    }
+}
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{数组作为参数传递 — 错误（与B类似）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{传递机制}：数组是对象，传递引用地址副本
+				            \item \textbf{与对象相同}：本质相同，都是对象引用传递
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+public static void modifyArray(int[] arr) {
+    arr[0] = 100;  // 修改原数组
+}
+
+int[] array = {1, 2, 3};
+modifyArray(array);
+System.out.println(array[0]);  // 输出100
+				            \end{lstlisting}
+				            \item \textbf{命题陷阱}：D项"以上都是"可能看似正确，但A是基本类型值传递
+			            \end{itemize}
+
+			      \item[D] \textbf{以上都是 — 错误（A是值传递）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误原因}：A项"基本数据类型参数传递"是值传递，不是引用传递
+				            \item \textbf{易混淆点}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 基本类型：值传递（值复制）
+					                  \item 对象/数组：值传递（引用地址复制）
+				                  \end{itemize}
+				            \item \textbf{Java只有值传递}：
+				                  \begin{lstlisting}[language=Java]
+// Java只有值传递（Pass-by-Value）
+// 基本类型：传递值的副本
+int a = 10;
+void method(int x) { x = 20; }  // 不影响a
+
+// 对象类型：传递引用地址的副本
+Object obj = new Object();
+void method(Object o) { o = new Object(); }  // 不影响obj
+void method(Object o) { o.field = 10; }       // 影响obj（通过引用修改）
+				            \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{itemize}[label={}, nosep]
+			      \item Java参数传递规则：只有值传递，没有引用传递
+			      \item 基本类型：传值副本，修改不影响原值
+			      \item 对象/数组：传引用地址副本，可修改原对象但不能换对象
+			      \item 选项辨析：
+			            \begin{itemize}[label={}, nosep]
+				            \item 基本类型→值传递
+				            \item 对象作为参数→引用传递的表现
+				            \item 数组作为参数→引用传递的表现
+				            \item "以上都是"→错误（A不正确）
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀三步法}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item 看到"引用传递"→找对象/数组
+			      \item 看到"基本类型"→排除（值传递）
+			      \item "对象作为参数传递"是标准表述
+		      \end{enumerate}
+
+		      \textbf{记忆口诀}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 基本类型传副本，改了也不变
+			      \item 对象传地址，改属性可以，改对象不行
+			      \item Java只有值传递，引用传递是现象
+		      \end{itemize}
+
+		      \textbf{高频陷阱}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item 认为"传对象=引用传递"（本质仍是值传递）
+			      \item 混淆"修改对象属性"和"重新赋值引用"
+			      \item D项"以上都是"看似正确但包含错误选项
+		      \end{enumerate}
+
+		      \textbf{5秒决策技巧}：看到"对象作为参数传递"→最准确表述，直接选
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

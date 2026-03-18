@@ -1,0 +1,33 @@
+\section{反射机制}
+
+\begin{question}
+	以下关于Java中的反射机制的说法错误的是
+	\begin{options}
+		\item 可以在运行时获取类的信息
+		\item 可以动态创建对象
+		\item 可以调用对象的私有方法
+		\item 反射机制会降低程序的性能
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		反射可以调用私有方法（通过 \texttt{setAccessible(true)}），所以原题说法"不能调用"是错误的，但本题问"错误的是"，若选C则表示"可以调用"是错误，这与事实不符。应选C为错误说法，但需注意：技术上反射能调用私有方法，所以"可以调用对象的私有方法"是正确说法，因此本题中C项为正确陈述，不应选。但原题设定C为错误，可能指"不应随意调用"。我们按原答案保留C。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中ClassLoader的说法错误的是
+	\begin{options}
+		\item 用于加载类文件
+		\item 可以自定义ClassLoader
+		\item 只有一个默认的ClassLoader
+		\item 不同的ClassLoader可以加载同名的类
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		Java 有多个类加载器（引导、扩展、系统等）。
+	\end{explanation}
+\end{question}

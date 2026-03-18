@@ -1,0 +1,704 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{ctex}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\title{\textbf{第四章\ 函数}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{一、选择题}
+
+\begin{enumerate}
+	\item 以下叙述中正确的是
+	      \begin{enumerate}
+		      \item[A)] 构成C程序的基本单位是函数
+		      \item[B)] 可以在一个函数中定义另一个函数
+		      \item[C)] main（）函数必须放在其他函数之前
+		      \item[D)] C函数定义的格式是 K\&R格式
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 一个C语言程序是由
+	      \begin{enumerate}
+		      \item[A)] 一个主程序和若干子程序组成
+		      \item[B)] 函数组成
+		      \item[C)] 若干过程组成
+		      \item[D)] 若干子程序组成
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item C语言程序的基本单位是
+	      \begin{enumerate}
+		      \item[A)] 程序行
+		      \item[B)] 语句
+		      \item[C)] 函数
+		      \item[D)] 字符
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示函数返回类型为 \texttt{void}？
+	      \begin{enumerate}
+		      \item[A)] \texttt{int}
+		      \item[B)] \texttt{float}
+		      \item[C)] \texttt{char}
+		      \item[D)] \texttt{void}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示函数参数列表为空？
+	      \begin{enumerate}
+		      \item[A)] \texttt{int}
+		      \item[B)] \texttt{void}
+		      \item[C)] \texttt{char}
+		      \item[D)] \texttt{()}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示函数的返回值类型为整型？
+	      \begin{enumerate}
+		      \item[A)] \texttt{int}
+		      \item[B)] \texttt{float}
+		      \item[C)] \texttt{char}
+		      \item[D)] \texttt{void}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示函数的返回值类型为浮点型？
+	      \begin{enumerate}
+		      \item[A)] \texttt{int}
+		      \item[B)] \texttt{float}
+		      \item[C)] \texttt{char}
+		      \item[D)] \texttt{void}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示函数的返回值类型为字符型？
+	      \begin{enumerate}
+		      \item[A)] \texttt{int}
+		      \item[B)] \texttt{float}
+		      \item[C)] \texttt{char}
+		      \item[D)] \texttt{void}
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下列对C程序结构的说法不正确的是
+	      \begin{enumerate}
+		      \item[A)] C程序是由一系列函数构成的
+		      \item[B)] C程序可以有多个main（）函数
+		      \item[C)] C程序中函数名不可以和变量名相同
+		      \item[D)] C程序中可以定义函数
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item C语言规定，程序中各函数之间
+	      \begin{enumerate}
+		      \item[A)] 既允许直接递归调用也允许间接递归调用
+		      \item[B)] 不允许直接递归调用也不允许间接递归调用
+		      \item[C)] 允许直接递归调用不允许间接递归调用
+		      \item[D)] 不允许直接递归调用允许间接递归调用
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 设有如下的函数 \texttt{exam(float x)\{ printf("\%f",x*x); \}}，则函数的类型为\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 与参数x的类型相同
+		      \item[B)] 是void
+		      \item[C)] 是int
+		      \item[D)] 无法确定
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下关于宏的叙述中正确的是
+	      \begin{enumerate}
+		      \item[A)] 宏名必须用大写字母表示
+		      \item[B)] 宏定义必须位于源程序中所有语句之前
+		      \item[C)] 宏替换没有数据类型限制
+		      \item[D)] 宏调用比函数调用耗费时间
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 宏替换\_\_\_\_\_\_占用运行时间。
+	      \begin{enumerate}
+		      \item[A)] 不
+		      \item[B)] 轻微
+		      \item[C)] 大量
+		      \item[D)] 视情况而定
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下叙述中正确的是
+	      \begin{enumerate}
+		      \item[A)] C程序的基本组成单位是语句
+		      \item[B)] C程序中的每一行只能写一条语句
+		      \item[C)] 简单C语句必须以分号结束
+		      \item[D)] C语句必须在一行内写完
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若a是int型变量，且a=5，则表达式 \texttt{(a+100)\%2+a/2} 的值为\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 52
+		      \item[B)] 51
+		      \item[C)] 53
+		      \item[D] 50
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下面函数是求两个整型参数a和b的最小公倍数，空白处应填\_\_\_\_\_\_。
+	      \begin{verbatim}
+int f2(int a, int b)
+{
+    int i=2, p=1;
+    do {
+        while(a%i==0 && ____________) {
+            p*=i; a/=i; b/=i;
+        }
+        ____________;
+    }while(a>=i && ____________);
+    return p*a*b;
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] b%i==0 / i++ / b>=i
+		      \item[B)] b\%i==0 / ++i / b>i
+		      \item[C)] b\%i / i++ / b>=i
+		      \item[D] b\%i==0 / i++ / b>i
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 主函数调用一个fun函数将字符串逆序，空白处应填\_\_\_\_\_\_。
+	      \begin{verbatim}
+#include <stdio.h>
+#include <string.h>
+____________;
+int main() {
+    char s[80];
+    scanf("%s", s);
+    ____________;
+    printf("逆序后的字符串:%s\n", s);
+    return 0;
+}
+void fun(char ss[]) {
+    int n = strlen(ss);
+    for(int i = 0; ____________; i++) {
+        char c = ss[i];
+        ss[i] = ss[n-1-i];
+        ss[n-1-i] = c;
+    }
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] void fun(char ss[]) / fun(s) / i<n/2
+		      \item[B)] char fun(char ss[]) / fun(s) / i<n
+		      \item[C)] void fun(char ss[]) / s=fun(s) / i<n/2
+		      \item[D] void fun() / fun(s) / i<n/2
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 有以下程序
+	      \begin{verbatim}
+#include <stdio.h>
+void fun(char *c, int d)
+{
+    *c=*c+1; d=d+1;
+    printf("%c, %c, ", *c, d);
+}
+int main()
+{
+    char a='A', b='a';
+    fun(&b, a);
+    printf("%c, %c\n", a, b);
+    return 0;
+}
+    \end{verbatim}
+	      程序运行后的输出结果是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] B, b, A, a
+		      \item[B)] a, B, B, b
+		      \item[C)] A, b, B, a
+		      \item[D)] b, B, a, B
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int fun(int a,int b,int*cn,int*dn){
+    *cn=a*b+b*b;
+    *dn=a*a-b*b;
+    a=5; b=6;
+}
+int main(){
+    int a=2,b=3,c=5,d=6;
+    fun(a,b,&c,&d);
+    printf("a=%d,b=%d,c=%d\n",a,b,c,d);
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] a=2,b=3,c=20,d=-5
+		      \item[B)] a=2,b=3,c=15,d=5
+		      \item[C] a=5,b=6,c=20,d=-5
+		      \item[D] a=5,b=6,c=15,d=5
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int fun(int x){
+    static y=2;
+    y++;
+    x+=y;
+    return x;
+}
+int main(){
+    int k;
+    k=fun(3);
+    printf("%d,%d\n",k,fun(k));
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 6,9
+		      \item[B)] 6,8
+		      \item[C] 5,7
+		      \item[D] 5,8
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+int f(int n){
+    if(n==0||n==1) return 1;
+    else return f(n-2)+2*f(n-1);
+}
+int main(){
+    int n=5;
+    printf("%d",f(n));
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 11
+		      \item[B] 13
+		      \item[C] 15
+		      \item[D] 17
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main()
+{ void fun();
+  float x,y;
+  x=10;
+  fun(x,&y);
+  printf("result:%.0f,%.0f\n",x,y);
+}
+void fun(x,y)
+float x,*y;
+{ *y=x*x;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] result:10,100
+		      \item[B)] result:10,10
+		      \item[C] result:100,100
+		      \item[D] result:100,10
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下面程序的功能是\_\_\_\_\_\_。
+	      \begin{verbatim}
+void ss(char *s1,char*s2){
+    while(*s1!='\0') s1++;
+    while(*s2!='\0'){
+        *s1=*s2;
+        s1++; s2++;
+    }
+    *s1='\0';
+}
+    \end{verbatim}
+	      \begin{enumerate}
+		      \item[A)] 字符串连接
+		      \item[B)] 字符串比较
+		      \item[C] 字符串复制
+		      \item[D] 字符串查找
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item C语言规定，函数返回值的类型是由\_\_\_\_\_\_决定的。
+	      \begin{enumerate}
+		      \item[A)] return语句中的表达式类型
+		      \item[B)] 函数定义时的返回类型
+		      \item[C] 调用时的实参类型
+		      \item[D] 以上都不对
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 如果在一个函数中的复合语句中定义了一个变量，则该变量\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 只在该复合语句中有效
+		      \item[B)] 在该函数中有效
+		      \item[C] 在整个程序中有效
+		      \item[D] 在程序运行期间一直有效
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item C语言中的函数\_\_\_\_\_\_递归定义。
+	      \begin{enumerate}
+		      \item[A)] 可以
+		      \item[B)] 不可以
+		      \item[C] 只能直接
+		      \item[D] 只能间接
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item main函数\_\_\_\_\_\_参数。
+	      \begin{enumerate}
+		      \item[A)] 可以有
+		      \item[B)] 不可以有
+		      \item[C] 只能有一个
+		      \item[D] 只能有两个
+	      \end{enumerate}
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{二、填空题}
+
+\begin{enumerate}
+	\item 在C语言中，一个函数一般由两个部分组成，它们分别是\_\_\_\_\_\_和\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 下面函数是求两个整型参数a和b的最小公倍数，请在空格处填上正确的内容。
+	      \begin{verbatim}
+int f2(int a, int b)
+{
+    int i=2, p=1;
+    do {
+        while(a%i==0 && ____________) {
+            p*=i; a/=i; b/=i;
+        }
+        ____________;
+    }while(a>=i && ____________);
+    return p*a*b;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 主函数调用一个fun函数将字符串逆序，请在空格处填上正确的内容。
+	      \begin{verbatim}
+#include <stdio.h>
+#include <string.h>
+____________;
+int main() {
+    char s[80];
+    scanf("%s", s);
+    ____________;
+    printf("逆序后的字符串:%s\n", s);
+    return 0;
+}
+void fun(char ss[]) {
+    int n = strlen(ss);
+    for(int i = 0; ____________; i++) {
+        char c = ss[i];
+        ss[i] = ss[n-1-i];
+        ss[n-1-i] = c;
+    }
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 本函数用对分查找法，在已按字母次序从小到大排序的字符数组list中查找字符c，若c在数组中，函数返回字符c在数组中的下标，否则返回-1。请填空：
+	      \begin{verbatim}
+int search(char list[],char c,int len){
+    int low,high,k;
+    low=0; high=len-1;
+    while( ____________ ) {
+        k=(low+high)/2;
+        if( ____________ ) return k;
+        else if( ____________ ) high=k-1;
+        else low=k+1;
+    }
+    return -1;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 函数mycmp(char *s, char *t)的功能是比较字符串s和t的大小，当s等于t时返回0，否则返回s和t的第一个不同字符的ASCII码的差值。请填空：
+	      \begin{verbatim}
+int mycmp(char*s,char*t){
+    while(*s==*t){
+        if( ____________ ) return 0;
+        ++s; ++t;
+    }
+    return( ____________ );
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 下面函数的功能是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int max(int x, int y) {
+    return (x > y) ? x : y;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 下面函数的功能是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int isPrime(int n) {
+    if (n <= 1) return 0;
+    for (int i = 2; i * i <= n; i++)
+        if (n % i == 0) return 0;
+    return 1;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 下面函数的功能是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int factorial(int n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1);
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 下面函数的功能是\_\_\_\_\_\_。
+	      \begin{verbatim}
+int fibonacci(int n) {
+    if (n <= 2) return 1;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{三、阅读程序题}
+
+\begin{enumerate}
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+void fun(char *c, int d)
+{
+    *c=*c+1; d=d+1;
+    printf("%c, %c, ", *c, d);
+}
+int main()
+{
+    char a='A', b='a';
+    fun(&b, a);
+    printf("%c, %c\n", a, b);
+    return 0;
+}
+    \end{verbatim}
+	      程序运行后的输出结果是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int fun(int a,int b,int*cn,int*dn){
+    *cn=a*b+b*b;
+    *dn=a*a-b*b;
+    a=5; b=6;
+}
+int main(){
+    int a=2,b=3,c=5,d=6;
+    fun(a,b,&c,&d);
+    printf("a=%d,b=%d,c=%d\n",a,b,c,d);
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+#include <stdio.h>
+int fun(int x){
+    static y=2;
+    y++;
+    x+=y;
+    return x;
+}
+int main(){
+    int k;
+    k=fun(3);
+    printf("%d,%d\n",k,fun(k));
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+int f(int n){
+    if(n==0||n==1) return 1;
+    else return f(n-2)+2*f(n-1);
+}
+int main(){
+    int n=5;
+    printf("%d",f(n));
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item
+	      \begin{verbatim}
+main()
+{ void fun();
+  float x,y;
+  x=10;
+  fun(x,&y);
+  printf("result:%.0f,%.0f\n",x,y);
+}
+void fun(x,y)
+float x,*y;
+{ *y=x*x;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 写出下面程序的功能：
+	      \begin{verbatim}
+void ss(char *s1,char*s2){
+    while(*s1!='\0') s1++;
+    while(*s2!='\0'){
+        *s1=*s2;
+        s1++; s2++;
+    }
+    *s1='\0';
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{四、编程题}
+
+\begin{enumerate}
+	\item 请将下列一组数据读入到S数组中，并从中找出最小的值并输出。\\
+	      30, 56, 88, 45, 100, 20
+	      \vspace{2cm}
+
+	\item 请将下列给出的字符串读入到ss数组中，并输出该字符串。\\
+	      Student and Teacher
+	      \vspace{2cm}
+
+	\item 编写一个程序，从键盘输入一个整数，判断该整数是否为素数。
+	      \vspace{2cm}
+
+	\item 编写一个程序，计算1到n的阶乘之和。
+	      \vspace{2cm}
+
+	\item 编写一个程序，输入一个字符串，将其转换为大写字母并输出。
+	      \vspace{2cm}
+
+	\item 编写一个程序，输入一个整数，将其转换为二进制字符串并输出。
+	      \vspace{2cm}
+
+	\item 从键盘上任意输入一个字符串，统计字符串中大小写英文字母出现的次数。
+	      \vspace{2cm}
+
+	\item 编写程序求某三位数的平方和（8分）。
+	      \vspace{2cm}
+
+	\item 编写程序求数列1,1,2,3,5,8,13,...的前100项的和及平均值（12分）。
+	      \vspace{2cm}
+\end{enumerate}
+
+\section*{五、改错题}
+
+\begin{enumerate}
+	\item 找出下面程序的错误并改正：
+	      \begin{verbatim}
+#include<stdio.h>
+char a="Beijing";
+int main()
+{
+    printf("%s is one city in china.\n",a);
+    p1();
+    p2();
+    return 0;
+}
+int p1()
+{
+    printf("%s is one of the biggest city",a);
+    return;
+}
+int p2()
+{
+    printf("in the world.\n");
+    return;
+}
+    \end{verbatim}
+	      错误的行是：\_\_\_\_\_\_ 改为：\_\_\_\_\_\_
+	      \vspace{0.3cm}
+
+	\item 求 $\sum_{k=1}^{100} k + \sum_{k=1}^{50} k^2 + \sum_{k=1}^{10} k$，找出下面程序的错误并改正：
+	      \begin{verbatim}
+#include <stdio.h>
+int main()
+{
+    int n1=100,n2=50,n3=10;
+    int k;
+    float s1=0,s2=0,s3=0;
+    for(k=1;k<=n1;k++);
+        s1=s1+k;
+    for(k=1;k<=n2;k++);
+        s2=s2+k*k;
+    for(k=1;k<=n3;k++);
+        s3=s3+k/10;
+    printf("total=%8.2f\n",s1+s2+s3);
+    return 0;
+}
+    \end{verbatim}
+	      错误的行是：\_\_\_\_\_\_ 改为：\_\_\_\_\_\_
+	      \vspace{0.3cm}
+
+	\item 将给定的字符串写入指定的文件中去，找出下面程序的错误并改正：
+	      \begin{verbatim}
+#include <stdio.h>
+int main()
+{
+    int i;
+    FILE*fp;
+    char a[][8]={"Turbo C", "BASIC", "FORTRAN", "COBOL"};
+    if((fp=fopen("myfile.txt", "w"))==NULL)
+    {
+        printf("can't creat the file.\n");
+        return 1;
+    }
+    for(i=0;i<4;i++)
+    {
+        fputs(a[i],fp);
+        fputs("\n",fp);
+    }
+    fclose(fp);
+    return 0;
+}
+    \end{verbatim}
+	      错误的行是：\_\_\_\_\_\_ 改为：\_\_\_\_\_\_
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\end{document}

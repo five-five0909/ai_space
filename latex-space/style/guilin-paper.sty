@@ -1,0 +1,240 @@
+% 文件名：guetpaper.sty
+% 说明：GUET 课程论文样式包
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{guilin-paper}[2025/12/10 GUET Course Paper Style]
+%===========================================================
+%   1. 基础宏包导入
+%===========================================================
+\RequirePackage[scheme=plain]{ctex} % 放在最前，处理中文支持
+\RequirePackage{geometry}     % 页面布局
+\RequirePackage{fontspec}     % 字体支持
+\RequirePackage{titlesec}     % 标题格式定制
+\RequirePackage{setspace}     % 行距控制
+\RequirePackage{ulem}         % 下划线支持
+\RequirePackage{fancyhdr}     % 页眉页脚
+\RequirePackage{xcolor}       % 颜色支持
+\RequirePackage{indentfirst}  % 首行缩进
+\RequirePackage{enumitem}     % 列表调整
+\RequirePackage{graphicx}     % 图片插入
+\RequirePackage{array}        % 表格调整
+\RequirePackage{amsmath}      % 数学公式
+\RequirePackage{booktabs}     % 三线表
+
+%===========================================================
+%   2. 页面与段落设置
+%===========================================================
+% 页面边距
+\geometry{left=3.17cm, right=3.17cm, top=2.54cm, bottom=2.54cm}
+
+% 全局行距：固定值 23 磅
+\setlength{\baselineskip}{23pt}
+% 首行缩进：2字符
+\setlength{\parindent}{2em}
+
+%===========================================================
+%   3. 字体配置 (加载本地 fonts 文件夹)
+%===========================================================
+% 路径说明：../../fonts 是相对于 docs/ks/use_style_demo.tex 的路径
+
+% 1. 基础字体 (宋、黑、楷)
+% 请检查 fonts/chinese/宋体/ 下是否是 simsun.ttc 或 simsun.ttf
+\setCJKmainfont[
+    Path = ../../fonts/chinese/宋体/, 
+    Extension = .ttc,  % Win10/11 宋体通常是 ttc，如果是 ttf 请修改这里
+    AutoFakeBold = true,
+    AutoFakeSlant = true
+]{simsun} 
+
+\setCJKsansfont[
+    Path = ../../fonts/chinese/黑体/, 
+    Extension = .ttf, 
+    AutoFakeBold = true
+]{simhei}
+
+\setCJKmonofont[
+    Path = ../../fonts/chinese/楷体/, 
+    Extension = .ttf, 
+    AutoFakeBold = true
+]{simkai}
+
+% 2. 特殊字体 (封面和标题用)
+
+% (1) 方正小标宋 -> 对应文件夹：fonts/chinese/方正小标宋/
+\setCJKfamilyfont{zhxbs}[
+    Path = ../../fonts/chinese/方正小标宋/, 
+    Extension = .ttf, 
+    AutoFakeBold = true
+]{FZXBSJW} % <--- 请进文件夹确认文件名是否为 FZXBSJW
+\newcommand*{\xiaobiaosong}{\CJKfamily{zhxbs}}
+
+% (2) 等线 -> 对应文件夹：fonts/chinese/等线/
+\setCJKfamilyfont{zhdeng}[
+    Path = ../../fonts/chinese/等线/, 
+    Extension = .ttf, 
+    AutoFakeBold = true
+]{Deng} % <--- 请确认文件名，有时是 Deng.ttf 或 Dengb.ttf
+\newcommand*{\dengxian}{\CJKfamily{zhdeng}}
+
+% (3) 微软雅黑 -> 对应文件夹：fonts/chinese/微软雅黑/
+\setCJKfamilyfont{zhyahei}[
+    Path = ../../fonts/chinese/微软雅黑/, 
+    Extension = .ttf, % 微软雅黑通常是 .ttc
+    AutoFakeBold = true
+]{msyh} 
+\renewcommand*{\yahei}{\CJKfamily{zhyahei}}
+
+% (4) 楷体_GB2312 -> 对应文件夹：fonts/chinese/楷体_GB2312/
+\setCJKfamilyfont{zhkgb}[
+    Path = ../../fonts/chinese/楷体_GB2312/, 
+    Extension = .ttf, 
+    AutoFakeBold = true
+]{楷体_GB2312} % <--- 请确认文件名
+\newcommand*{\kaigb}{\CJKfamily{zhkgb}}
+%===========================================================
+%   4. 变量定义与数据接口
+%===========================================================
+% 定义内部变量
+\newcommand{\@courseName}{}
+\newcommand{\@teacherName}{}
+\newcommand{\@paperTitleLineA}{}
+\newcommand{\@paperTitleLineB}{}
+\newcommand{\@studentName}{}
+\newcommand{\@studentID}{}
+\newcommand{\@studentCollege}{}
+\newcommand{\@studentGrade}{}
+\newcommand{\@studentLocation}{}
+\newcommand{\@studentPhone}{}
+\newcommand{\@studentEmail}{}
+\newcommand{\@studentBirthYear}{}
+\newcommand{\@studentOrigin}{}
+\newcommand{\@studentResearch}{}
+
+% 供主文件调用的设置命令
+\newcommand{\courseName}[1]{\renewcommand{\@courseName}{#1}}
+\newcommand{\teacherName}[1]{\renewcommand{\@teacherName}{#1}}
+\newcommand{\paperTitleLineA}[1]{\renewcommand{\@paperTitleLineA}{#1}}
+\newcommand{\paperTitleLineB}[1]{\renewcommand{\@paperTitleLineB}{#1}}
+\newcommand{\studentName}[1]{\renewcommand{\@studentName}{#1}}
+\newcommand{\studentID}[1]{\renewcommand{\@studentID}{#1}}
+\newcommand{\studentCollege}[1]{\renewcommand{\@studentCollege}{#1}}
+\newcommand{\studentGrade}[1]{\renewcommand{\@studentGrade}{#1}}
+\newcommand{\studentLocation}[1]{\renewcommand{\@studentLocation}{#1}}
+\newcommand{\studentPhone}[1]{\renewcommand{\@studentPhone}{#1}}
+\newcommand{\studentEmail}[1]{\renewcommand{\@studentEmail}{#1}}
+\newcommand{\studentBirthYear}[1]{\renewcommand{\@studentBirthYear}{#1}}
+\newcommand{\studentOrigin}[1]{\renewcommand{\@studentOrigin}{#1}}
+\newcommand{\studentResearch}[1]{\renewcommand{\@studentResearch}{#1}}
+
+% 暴露变量给正文使用 (Get 方法)
+\newcommand{\getStudentName}{\@studentName}
+\newcommand{\getStudentBirthYear}{\@studentBirthYear}
+\newcommand{\getStudentOrigin}{\@studentOrigin}
+\newcommand{\getStudentCollege}{\@studentCollege}
+\newcommand{\getStudentGrade}{\@studentGrade}
+\newcommand{\getStudentResearch}{\@studentResearch}
+\newcommand{\getStudentPhone}{\@studentPhone}
+\newcommand{\getStudentEmail}{\@studentEmail}
+\newcommand{\getPaperTitleLineA}{\@paperTitleLineA}
+\newcommand{\getPaperTitleLineB}{\@paperTitleLineB}
+\newcommand{\getStudentLocation}{\@studentLocation}
+
+
+% 上标引用命令
+\newcommand{\upcite}[1]{\textbf{\textsuperscript{[#1]}}}
+
+%===========================================================
+%   5. 封面生成命令
+%===========================================================
+\newcommand{\makeCoverPage}{
+    \begin{titlepage}
+        \centering
+        \vspace*{-1.5cm}
+        % 自动寻找上一级目录的图片，找不到则用占位符
+        \IfFileExists{../../images/logo.png}{
+            \includegraphics[width=14.15cm, height=3.48cm]{../../images/logo.png}
+        }{
+            \IfFileExists{logo.png}{
+                \includegraphics[width=14.15cm, height=3.48cm]{logo.png}
+            }{
+                \includegraphics[width=10cm, height=2.5cm]{example-image}
+            }
+        }
+        
+        \vspace{1.0cm} 
+        {\zihao{-1}\xiaobiaosong 《{\songti \@courseName}》 \par} 
+        \vspace{0.5cm} 
+        {\fontsize{48pt}{58pt}\selectfont\xiaobiaosong 结课论文 \par} 
+        \vspace{1.5cm} 
+        {\zihao{3}\dengxian 授课教师：\@teacherName \par} 
+        \vspace{2.5cm} 
+        \renewcommand{\arraystretch}{1.6} 
+        
+        {\zihao{3}\heiti 
+        \begin{tabular}{rc}
+            论文题目：& \uline{\makebox[9.5cm][c]{\zihao{3}\yahei \@paperTitleLineA}} \\[-3pt] 
+                    & \uline{\makebox[9.5cm][c]{\zihao{3}\yahei \@paperTitleLineB}} \\ 
+            学生姓名：& \uline{\makebox[9.5cm][c]{\zihao{-2}\kaigb \@studentName}} \\
+            \makebox[4em][s]{学\hfill 号}：& \uline{\makebox[9.5cm][c]{\zihao{-2}\kaigb \@studentID}} \\
+            所在学院：& \uline{\makebox[9.5cm][c]{\zihao{-2}\kaigb \@studentCollege}} \\
+            \makebox[4em][s]{年\hfill 级}：& \uline{\makebox[9.5cm][c]{\zihao{-2}\kaigb \@studentGrade}} \\
+        \end{tabular}
+        }
+        \vfill 
+    \end{titlepage}
+    \newpage
+    \setcounter{page}{1} 
+}
+
+%===========================================================
+%   6. 样式定制
+%===========================================================
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\zihao{5}\songti \@courseName}
+\fancyhead[R]{\zihao{5}\songti 第 \thepage\ 页}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% 标题格式
+\titleformat{\section}{\normalfont\heiti\zihao{-4}}{\hspace{2em}\chinese{section}、}{0em}{}
+\titlespacing*{\section}{0pt}{1.5ex plus .2ex minus .2ex}{1ex plus .2ex minus .2ex}
+
+\titleformat{\subsection}{\normalfont\kaishu\zihao{-4}}{\hspace{2em}（\chinese{subsection}）}{0em}{}
+\titlespacing*{\subsection}{0pt}{1ex plus .1ex minus .1ex}{0.5ex plus .1ex minus .1ex}
+
+\titleformat{\subsubsection}{\normalfont\songti\zihao{5}}{\hspace{2em}\arabic{subsubsection}.}{0em}{}
+\titlespacing*{\subsubsection}{0pt}{0.5ex}{0.2ex}
+
+% 摘要环境
+\newenvironment{PaperAbstract}[1]{
+    \noindent {\zihao{-4}\kaishu \textbf{摘要}：}
+    {\zihao{-4}\kaishu #1} 
+    \par \vspace{1em}
+    \noindent {\zihao{-4}\kaishu \textbf{关键词}：}
+    \zihao{-4}\kaishu 
+}{\vspace{\baselineskip}}
+
+%===========================================================
+%   7. 参考文献环境定义 (PaperBib)
+%===========================================================
+\newenvironment{PaperBib}{
+    \vspace{2em}
+    \noindent {\zihao{5}\heiti \textbf{参考文献：}}
+    \par
+    \zihao{5}\songti
+    \setlength{\baselineskip}{23pt}
+    % 修改说明：
+    % label={\arabic*.}  --> 变成 1. 2. 3. (去掉了方括号)
+    % labelsep=0.2em     --> 数字和后面文字的距离调小一点，紧凑一些
+    \begin{enumerate}[label={\arabic*.}, leftmargin=0em, labelsep=0.2em, itemsep=0pt, parsep=0pt, topsep=0pt]
+}{
+    \end{enumerate}
+}
+% 作者简介
+\newcommand{\makeBio}{
+    \vspace{2em}
+    {\color{red} 
+    \noindent 作者简介：\@studentName（\@studentBirthYear -），性别，\@studentOrigin 人，\@studentCollege \@studentGrade 硕士研究生，主要从事\@studentResearch；联系方式：\@studentPhone ；\@studentEmail 。
+    }
+}
+\endinput

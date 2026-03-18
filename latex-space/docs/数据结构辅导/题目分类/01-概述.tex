@@ -1,0 +1,298 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据结构习题集}
+\lhead{分类整理}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{第一章 概述}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 以下哪种数据结构中任何两个结点之间都没有逻辑关系（ ）
+	      \begin{enumerate}
+		      \item[A.] 树形结构
+		      \item[B.] 集合
+		      \item[C.] 图形结构
+		      \item[D.] 线性结构
+	      \end{enumerate}
+
+	\item 要求同一逻辑结构的所有数据元素具有相同的性质，这意味着（ ）
+	      \begin{enumerate}
+		      \item[A.] 数据元素具有同一的特点
+		      \item[B.] 不仅数据元素包含的数据项的个数相同，而且对应数据项的类型要一致
+		      \item[C.] 每个数据元素都一样
+		      \item[D.] 数据元素所包含的数据项的个数要相等
+	      \end{enumerate}
+
+	\item 以下说法正确的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 数据元素是数据的最小单位
+		      \item[B.] 数据项是数据的基本单位
+		      \item[C.] 数据结构是带有结构的各数据项的集合
+		      \item[D.] 数据结构是带有结构的数据元素的集合
+	      \end{enumerate}
+
+	\item 下面的叙述不是算法的特性的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 有穷性
+		      \item[B.] 输入性
+		      \item[C.] 可行性
+		      \item[D.] 可读性
+	      \end{enumerate}
+
+	\item 下面的叙述中（ ）不是设计一个好的算法应达到的目标。
+	      \begin{enumerate}
+		      \item[A.] 健壮性
+		      \item[B.] 可读性
+		      \item[C.] 高存储量
+		      \item[D.] 正确性
+	      \end{enumerate}
+
+	\item 下面运算中（ ）不是数据结构所具备的基本运算。
+	      \begin{enumerate}
+		      \item[A.] 插入
+		      \item[B.] 排序
+		      \item[C.] 退出
+		      \item[D.] 删除
+	      \end{enumerate}
+
+	\item 数据结构是一门研究非数值计算的程序设计问题中计算机的（ ）以及它们之间的（ ）和运算等的学科。
+	      \begin{enumerate}
+		      \item[A.] 数据元素 \quad B. 计算方法 \quad C. 逻辑存储 \quad D. 算法
+		      \item[A.] 结构 \quad B. 关系 \quad C. 运算 \quad D. 数据映像
+	      \end{enumerate}
+
+	\item 数据结构被形式地定义为 $(K, R)$，其中 $K$ 是（ ）的有限集，$R$ 是 $K$ 上的（ ）的有限集。
+	      \begin{enumerate}
+		      \item[A.] 算法 \quad B. 数据元素 \quad C. 数据操作 \quad D. 逻辑结构
+		      \item[A.] 操作 \quad B. 映像 \quad C. 存储 \quad D. 关系
+	      \end{enumerate}
+
+	\item 在数据结构中，从逻辑上可以把数据结构分成（ ）
+	      \begin{enumerate}
+		      \item[A.] 动态结构和静态结构
+		      \item[B.] 紧凑结构和非紧凑结构
+		      \item[C.] 线性结构和非线性结构
+		      \item[D.] 内部结构和外部结构
+	      \end{enumerate}
+
+	\item 数据结构在计算机内存中的表示是指（ ）
+	      \begin{enumerate}
+		      \item[A.] 数据的存储结构
+		      \item[B.] 数据结构
+		      \item[C.] 数据的逻辑结构
+		      \item[D.] 数据元素之间的关系
+	      \end{enumerate}
+
+	\item 在数据结构中，与所使用的计算机无关的是数据的（ ）结构。
+	      \begin{enumerate}
+		      \item[A.] 逻辑
+		      \item[B.] 存储
+		      \item[C.] 逻辑和存储
+		      \item[D.] 物理
+	      \end{enumerate}
+
+	\item 算法分析的目的是（ ），算法分析的两个主要方面是（ ）
+	      \begin{enumerate}
+		      \item[(1)] A. 找出数据结构的合理性 \quad B. 研究算法中的输入和输出的关系 \quad C. 分析算法的效率以求改进 \quad D. 分析算法的易懂性和文档性
+		      \item[(2)] A. 空间复杂度和时间复杂度 \quad B. 正确性和简明性 \quad C. 可读性和文档性 \quad D. 数据复杂性和程序复杂性
+	      \end{enumerate}
+
+	\item 计算机算法指的是（ ），它必须具备输入、输出和（ ）等 5 个特性。
+	      \begin{enumerate}
+		      \item[(1)] A. 计算方法 \quad B. 排序方法 \quad C. 解决问题的有限运算序列 \quad D. 调度方法
+		      \item[(2)] A. 可行性、可移植性和可扩充性 \quad B. 可行性、确定性和有穷性 \quad C. 确定性、有穷性和稳定性 \quad D. 易读性、稳定性和安全性
+	      \end{enumerate}
+
+	\item 在以下的叙述中，正确的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 线性表的顺序存储结构优于链式存储结构
+		      \item[B.] 二维数组是其数据元素为线性表的线性表
+		      \item[C.] 栈的操作方式是先进先出
+		      \item[D.] 队列的操作方式是先进后出
+	      \end{enumerate}
+
+	\item 在决定选取何种存储结构时，一般不考虑（ ）
+	      \begin{enumerate}
+		      \item[A.] 各结点的值如何
+		      \item[B.] 结点个数的多少
+		      \item[C.] 对数据有哪些运算
+		      \item[D.] 所用编程语言实现这种结构是否方便
+	      \end{enumerate}
+
+	\item 在存储数据时，通常不仅要存储各数据元素的值，而且还要存储（ ）
+	      \begin{enumerate}
+		      \item[A.] 数据的处理方法
+		      \item[B.] 数据元素的类型
+		      \item[C.] 数据元素之间的关系
+		      \item[D.] 数据的存储方法
+	      \end{enumerate}
+
+	\item 数据的逻辑结构是由（ ）局部组成的。
+	      \begin{enumerate}
+		      \item[A.] 2
+		      \item[B.] 3
+		      \item[C.] 4
+		      \item[D.] 5
+	      \end{enumerate}
+
+	\item 算法是对某一类问题求解步骤的有限序列，并具有（ ）个特性。
+	      \begin{enumerate}
+		      \item[A.] 3
+		      \item[B.] 4
+		      \item[C.] 5
+		      \item[D.] 6
+	      \end{enumerate}
+
+	\item 下面说法错误的是（ ）
+	      \begin{enumerate}
+		      \item[(1)] 算法原地工作的含义是指不需要任何额外的辅助空间。
+		      \item[(2)] 在相同的规模 $n$ 下，复杂度 $O(n)$ 的算法在时间上总是优于复杂度 $O(2^n)$ 的算法。
+		      \item[(3)] 所谓时间复杂度是指最坏情况下，估计算法执行时间的一个上界。
+		      \item[(4)] 同一个算法，实现语句的级别越高，执行效率越低。
+		      \item[A.] (1)
+		      \item[B.] (1) (2)
+		      \item[C.] (1) (4)
+		      \item[D.] (3)
+	      \end{enumerate}
+
+	\item （ ）是数据的逻辑结构。
+	      \begin{enumerate}
+		      \item[A.] 链表
+		      \item[B.] 线性表
+		      \item[C.] 十字链表
+		      \item[D.] 顺序表
+	      \end{enumerate}
+
+	\item 数据的基本单位是（ ）
+	      \begin{enumerate}
+		      \item[A.] 数据元素
+		      \item[B.] 记录
+		      \item[C.] 数据项
+		      \item[D.] 数据对象
+	      \end{enumerate}
+
+	\item 基于数据的逻辑关系，数据的逻辑结构划分为（ ）基本结构。
+	      \begin{enumerate}
+		      \item[A.] 4 类
+		      \item[B.] 3 类
+		      \item[C.] 2 类
+		      \item[D.] 5 类
+	      \end{enumerate}
+
+	\item 以下数据结构中，（ ）是线性结构。
+	      \begin{enumerate}
+		      \item[A.] 栈
+		      \item[B.] 特殊矩阵
+		      \item[C.] 二维数组
+		      \item[D.] 二叉树
+	      \end{enumerate}
+
+	\item 算法的空间复杂度是对算法（ ）的度量。
+	      \begin{enumerate}
+		      \item[A.] 空间效率
+		      \item[B.] 时间效率
+		      \item[C.] 健壮性
+		      \item[D.] 可读性
+	      \end{enumerate}
+
+	\item （ ）不是算法具有的 5 个特性之一。
+	      \begin{enumerate}
+		      \item[A.] 可行性
+		      \item[B.] 正确性
+		      \item[C.] 有穷性
+		      \item[D.] 确定性
+	      \end{enumerate}
+
+	\item 下面关于线性表的叙述中，错误的是哪一个？（ ）
+	      \begin{enumerate}
+		      \item[A.] 线性表采用顺序存储，必须占用一片连续的存储单元
+		      \item[B.] 线性表采用顺序存储，便于进行插入和删除操作
+		      \item[C.] 线性表采用链式存储，不必占用一片连续的存储单元
+		      \item[D.] 线性表采用链式存储，便于进行插入和删除操作
+	      \end{enumerate}
+
+	\item 线性表是具有 n 个（ ）的有限序列。
+	      \begin{enumerate}
+		      \item[A.] 字符
+		      \item[B.] 数据元素
+		      \item[C.] 数据项
+		      \item[D.] 表元素
+	      \end{enumerate}
+
+	\item 线性表采用链式存储时，其地址（ ）
+	      \begin{enumerate}
+		      \item[A.] 必须是连续的
+		      \item[B.] 一定是不连续的
+		      \item[C.] 部分地址必须是连续的
+		      \item[D.] 连续与否均可以
+	      \end{enumerate}
+\end{enumerate}
+
+\section*{填空题}
+
+\begin{enumerate}
+	\item 一个数据结构在计算机中的（ ）称为存储结构。
+	\item 数据的逻辑结构包括（ ）、（ ）和（ ）三种结构，树形结构和图形结构合称为（ ）。
+	\item 在线性结构中，第一个结点（ ）前驱结点，其余每个结点有且只有（ ）个前驱结点；最后一个结点（ ）后继结点，其余每个结点有且只有（ ）个后继结点。
+	\item 在树形结构中，根结点没有（ ）结点，其余每个结点有且只有（ ）个前驱结点，叶子结点没有（ ）结点，其余每个结点的后继结点可以（ ）。
+	\item 在图形结构中，每个结点的前驱结点数和后继结点数可以（ ）。
+	\item 线性结构中元素之间存在（ ）关系，树形结构中元素之间存在（ ）关系，图形结构中元素之间存在（ ）关系。
+	\item 算法的 5 个重要特性是（ ）、（ ）、（ ）、（ ）和（ ）。
+	\item 算法可以用不同的语言描述，如果用 C 语言或 PASCAL 语言等高级语言来描述，则算法实现上就是程序了。这种说法是（ ）的。
+	\item 算法效率分析可分为（ ）分析和（ ）分析。
+	\item 数据结构的存储方式有（ ）、（ ）、（ ）和（ ）4 种。
+	\item 数据结构包括（ ）、（ ）、（ ）三个组成部分。
+	\item 数据对象是性质相同的（ ）的集合。
+	\item 数据逻辑结构包括 \underline{线性结构}、\underline{树形结构} 和 \underline{图状结构} 三种类型，树形结构和图状结构合称 \underline{非线性结构}。
+	\item 数据的逻辑结构分为 \underline{集合}、\underline{线性结构}、\underline{树形结构} 和 \underline{图状结构} 4 种。
+	\item 衡量一个算法的优劣主要考虑正确性、可读性、健壮性和 \underline{时间复杂度} 与 \underline{空间复杂度}。
+	\item 评估一个算法的优劣，通常从 \underline{时间复杂度} 和 \underline{空间复杂度} 两个方面考察。
+	\item 算法的 5 个重要特性是 \underline{有穷性}、\underline{确定性}、\underline{可行性}、\underline{输入} 和 \underline{输出}。
+	\item 数据结构的基本存储方法是 \underline{顺序}、\underline{链式}、\underline{索引} 和 \underline{散列} 存储。
+\end{enumerate}
+
+\section*{判断题}
+
+\begin{enumerate}
+	\item 顺序存储方式只能用于存储线性结构。（ ）
+	\item 数据元素是数据的最小单位。（ ）
+	\item 数据结构、数据元素、数据项在计算机中的映像（或表示）分别称为存储结构、结点、数据域。（ ）
+	\item 数据的物理结构是指数据在计算机内实际的存储形式。（ ）
+	\item 数据的逻辑结构是对数据元素之间关系的描述，它与数据元素之间的相对位置无关。（ ）
+	\item 在决定选取何种存储结构时，一般不考虑各结点的值如何。（ ）
+	\item 抽象数据类型 (ADT) 包括定义和实现两方面，其中定义是独立于实现的，定义仅给出一个 ADT 的逻辑特性，不必考虑如何在计算机中实现。（ ）
+	\item 抽象数据类型与计算机内部表示和实现无关。（ ）
+	\item 顺序存储方式插入和删除时效率太低，因此它不如链式存储方式好。（ ）
+	\item 线性表采用链式存储结构时，结点和结点内部的存储空间可以是不连续的。（ ）
+	\item 对任何数据结构链式存储结构一定优于顺序存储结构。（ ）
+	\item 集合与线性表的区别在于是否按关键字排序。（ ）
+	\item 线性表中每个元素都有一个直接前驱和一个直接后继。（ ）
+	\item 线性表就是顺序存储的表。（ ）
+	\item 取线性表的第 i 个元素的时间同 i 的大小有关。（ ）
+	\item 循环链表不是线性表。（ ）
+\end{enumerate}
+
+\end{document}

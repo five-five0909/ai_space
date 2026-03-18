@@ -1,0 +1,327 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbset{autoparskip}
+
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={多线程-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{多线程 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月05日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{多线程}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于线程的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 多线程可以提高程序的执行效率
+		      \item 线程之间共享内存
+		      \item 实现线程的方式有继承Thread类和实现Runnable接口
+		      \item 线程是进程的一部分
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 线程之间共享内存}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java线程的内存模型
+			      \item \textbf{关键区分点}：共享堆内存 vs 独立栈内存
+			      \item \textbf{命题人意图}：测试对线程内存分配机制的准确理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{多线程可以提高程序的执行效率 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{适用场景}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item CPU密集型任务：多核并行计算
+					                  \item IO密集型任务：线程阻塞时其他线程继续执行
+					                  \item 异步任务：主线程不阻塞
+				                  \end{itemize}
+				            \item \textbf{效率提升原因}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item CPU利用率提升（多核）
+					                  \item IO等待时CPU可处理其他任务
+					                  \item 响应速度快（UI线程不阻塞）
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// 单线程执行
+long start = System.currentTimeMillis();
+for (int i = 0; i < 10; i++) {
+    processTask(i);
+}
+long singleTime = System.currentTimeMillis() - start;
+
+// 多线程并行执行
+start = System.currentTimeMillis();
+ExecutorService executor = Executors.newFixedThreadPool(10);
+List<Future<?>> futures = new ArrayList<>();
+for (int i = 0; i < 10; i++) {
+    final int index = i;
+    futures.add(executor.submit(() -> processTask(index)));
+}
+for (Future<?> future : futures) {
+    future.get();
+}
+executor.shutdown();
+long multiTime = System.currentTimeMillis() - start;
+
+// 多线程执行时间通常比单线程短
+// 在多核CPU上，理论上可达N倍加速（N=核心数）
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{线程之间共享内存 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误原因}：表述不准确，应该是"部分共享"
+				            \item \textbf{内存实际分配}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 堆内存（Heap）：所有线程共享
+					                  \item 方法区（Method Area）：所有线程共享
+					                  \item 栈内存（Stack）：每个线程独立
+					                  \item 程序计数器（PC）：每个线程独立
+					                  \item 本地方法栈：每个线程独立
+				                  \end{itemize}
+				            \item \textbf{线程内存模型图}：
+				                  \begin{lstlisting}[language=Java]
+Java内存模型（JMM）：
+┌─────────────────────────────────────┐
+│     方法区（堆内存）- 所有线程共享    │
+│  ┌───────┐  ┌───────┐  ┌───────┐   │
+│  │ 对象1 │  │ 对象2 │  │ 对象3 │   │
+│  └───────┘  └───────┘  └───────┘   │
+└─────────────────────────────────────┘
+        ↑            ↑            ↑
+   线程1共享   线程2共享   线程3共享
+        │            │            │
+┌───────┴────┐ ┌─────┴─────┐ ┌────┴────┐
+│ 线程1栈    │ │ 线程2栈   │ │ 线程3栈  │
+│ (独立私有) │ │ (独立私有) │ │ (独立私有)│
+└────────────┘ └───────────┘ └─────────┘
+// 堆内存共享，栈内存独立
+					      \end{lstlisting}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+public class MemorySharing {
+    // 静态变量（堆内存）：所有线程共享
+    static int sharedCounter = 0;
+
+    public static void main(String[] args) {
+        SharedObject obj = new SharedObject();  // 对象在堆中
+
+        // 线程1访问共享对象
+        new Thread(() -> {
+            obj.increment();  // 可见线程2的修改
+            System.out.println("Thread1: " + sharedCounter);
+        }).start();
+
+        // 线程2访问共享对象
+        new Thread(() -> {
+            obj.increment();
+            System.out.println("Thread2: " + sharedCounter);
+        }).start();
+
+        // 本地变量（栈内存）：每个线程独立
+        Thread t1 = new Thread(() -> {
+            int localVar = 100;  // 线程1栈中的变量
+        });
+        Thread t2 = new Thread(() -> {
+            int localVar = 200;  // 线程2栈中的变量
+            // localVar1和localVar2互不影响
+        });
+    }
+}
+
+class SharedObject {
+    // 对象字段在堆中，多线程共享
+    private int counter = 0;
+
+    public void increment() {
+        this.counter++;
+    }
+}
+// 线程共享堆内存中的对象和静态变量
+// 但每个线程有独立的栈空间存放局部变量
+				      \end{lstlisting}
+				            \item \textbf{重点提示}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 可以共享：堆中的实例对象、静态变量、数组
+					                  \item 不共享：局部变量、方法参数、异常表、栈帧
+					                  \item 同一块栈内存不能被多个线程同时访问（线程安全）
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[C] \textbf{实现线程的方式有继承Thread类和实现Runnable接口 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方式1：继承Thread类}
+				                  \begin{lstlisting}[language=Java]
+class MyThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println("线程运行中");
+    }
+}
+
+// 使用
+MyThread thread = new MyThread();
+thread.start();  // 启动新线程
+// 缺点：Java不支持多继承
+				            \end{lstlisting}
+				            \item \textbf{方式2：实现Runnable接口}
+				                  \begin{lstlisting}[language=Java]
+class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("线程运行中");
+    }
+}
+
+// 使用
+Thread thread = new Thread(new MyRunnable());
+thread.start();
+// 优点：可继承其他类，推荐使用
+				            \end{lstlisting}
+				            \item \textbf{方式3：实现Callable接口（可返回结果）}
+				                  \begin{lstlisting}[language=Java]
+class MyCallable implements Callable<Integer> {
+    @Override
+    public Integer call() throws Exception {
+        return 42;
+    }
+}
+
+// 使用
+FutureTask<Integer> future = new FutureTask<>(new MyCallable());
+new Thread(future).start();
+Integer result = future.get();  // 获取返回值
+// Callable支持返回值和抛出异常
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{线程是进程的一部分 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{进程vs线程}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 进程：资源分配的基本单位（独立的内存空间）
+					                  \item 线程：CPU调度的基本单位（共享进程资源）
+					                  \item 一个进程包含多个线程
+					                  \item 一个进程至少有一个main线程
+				                  \end{itemize}
+				            \item \textbf{内存共享关系}：
+				                  \begin{lstlisting}[language=Java]
+进程资源分配：
+┌─────────────────────────┐
+│     进程                │
+│  ┌───────────────────┐  │
+│  │  代码段（只读）    │  │ ← 所有线程共享
+│  │  数据段            │  │ ← 所有线程共享
+│  │  堆内存            │  │ ← 所有线程共享
+│  │  ┌─ 线程1 栈 ┐    │  │ ← 线程1私有
+│  │  │  局部变量 │    │  │
+│  │  └───────────┘    │  │
+│  │  ┌─ 线程2 栈 ┐    │  │ ← 线程2私有
+│  │  │  局部变量 │    │  │
+│  │  └───────────┘    │  │
+│  └───────────────────┘  │
+└─────────────────────────┘
+// 线程是进程内的执行单元
+					      \end{lstlisting}
+				            \item \textbf{主线程}：JVM启动时创建的main()执行线程
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{itemize}[label={}, nosep]
+			      \item 多线程提高执行效率（有条件）
+			      \item 线程共享堆和方法区，每个线程有独立栈
+			      \item 线程创建方式：继承Thread、实现Runnable、实现Callable
+			      \item 线程是进程内的执行单元，共享进程资源
+			      \item 口诀：线程共享堆内存，独立栈不共享，提高效率条件多，进程包含若干线
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+		      \textbf{考场秒杀}：看到"线程之间共享内存"→注意表述，堆共享栈独立
+		      \textbf{记忆策略}：堆是共享仓库，栈是私有工作台
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

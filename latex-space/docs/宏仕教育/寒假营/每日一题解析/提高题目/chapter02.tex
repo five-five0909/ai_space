@@ -1,0 +1,498 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath, amssymb, geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{cases}
+\usepackage{fancyhdr}
+\geometry{a4paper, margin=1in}
+
+% 定义红色环境
+\newenvironment{redenv}{\color{red}}{}
+
+% 定义详细解析环境
+\newenvironment{detailedanalysis}{%
+    \color{red}
+    \begin{enumerate}[label=\textbf{第\arabic*步：}, leftmargin=*, align=left, itemsep=1.5ex]
+}{%
+    \end{enumerate}
+}
+
+% 定义概念框
+\newenvironment{conceptbox}{%
+    \begin{tcolorbox}[colback=red!5, colframe=red!50!black, title=概念解析, fonttitle=\bfseries]
+}{%
+    \end{tcolorbox}
+}
+
+% 定义公式推导环境
+\newenvironment{formuladerivation}{%
+    \begin{enumerate}[label={\textbf{公式\arabic*：}}, leftmargin=*, align=left]
+}{%
+    \end{enumerate}
+}
+
+% 定义题目和解析的分隔线
+\newcommand{\problemrule}{\noindent\rule{\textwidth}{1.5pt}\vspace{-0.8em}}
+\newcommand{\analysisrule}{\noindent\rule{\textwidth}{0.8pt}\vspace{-0.8em}}
+
+% 宏定义：方便排版选择题选项
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+\newcommand{\blank}[1]{\underline{\hspace{#1}}}
+
+\begin{document}
+
+\section*{第二章 极限（提高）}
+
+% ========== 第1题 ==========
+\problemrule
+\section*{【题目1】连续的条件}
+$ f(x) $ 在点 $ x = x_{0} $ 处有定义，是 $ f(x) $ 在 $ x = x_{0} $ 处连续的 \blank{1cm}。
+\choicesFour{必要条件}{充分条件}{充分必要条件}{无关条件}
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+本题考查函数在某点连续的定义及其必要条件。
+
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{连续的定义}：函数 $f(x)$ 在 $x=x_0$ 处连续需满足三个条件：
+\begin{itemize}
+    \item 在 $x=x_0$ 处有定义；
+    \item $\lim_{x\to x_0} f(x)$ 存在；
+    \item $\lim_{x\to x_0} f(x) = f(x_0)$。
+\end{itemize}
+\item \textbf{分析关系}：若 $f(x)$ 连续，则必有定义；但有定义未必连续（例如跳跃间断点）。
+\item \textbf{结论}："有定义" 是 "连续" 的必要不充分条件。
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{答案}：A
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第2题 ==========
+\problemrule
+\section*{【题目2】极限计算-导数定义}
+$ \lim_{x\to0}\frac{e^{x^{2}}-1}{\cos x-1}= $ \blank{1cm}。
+\choicesFour{$ \infty $}{2}{0}{-2}
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{解题策略构建}
+利用等价无穷小替换。
+
+\item \textbf{详细求解过程}
+当 $x \to 0$ 时：
+$$ e^{x^2} - 1 \sim x^2 $$
+$$ \cos x - 1 \sim -\frac{1}{2}x^2 $$
+代入极限式：
+$$ \lim_{x\to0}\frac{e^{x^{2}}-1}{\cos x-1} = \lim_{x\to0}\frac{x^2}{-\frac{1}{2}x^2} = -2 $$
+
+\item \textbf{最终答案}
+\textbf{答案}：D
+\end{detailedanalysis}
+
+\subsection*{核心公式与推导}
+\begin{formuladerivation}
+\item \textbf{常用等价无穷小} ($x \to 0$)
+$$ e^x - 1 \sim x \implies e^{\Delta} - 1 \sim \Delta $$
+$$ 1 - \cos x \sim \frac{1}{2}x^2 \implies \cos x - 1 \sim -\frac{1}{2}x^2 $$
+\end{formuladerivation}
+\end{redenv}
+
+% ========== 第3题 ==========
+\problemrule
+\section*{【题目3】重要极限辨析}
+下列极限正确的是 \blank{1cm}。
+\choicesTwo
+{$ \lim_{x\to0}\frac{1}{x}\sin x=1 $}
+{$ \lim_{x\to\infty}\frac{1}{x}\sin x=1 $}
+{$ \lim_{x\to0}x\sin\frac{1}{x}=1 $}
+{$ \lim_{x\to\infty}x\sin\frac{1}{x}=0 $}
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+逐个分析选项：
+\begin{enumerate}[label=\Alph*.]
+\item $\lim_{x\to0}\frac{\sin x}{x} = 1$。正确。这是第一重要极限。
+\item $\lim_{x\to\infty}\frac{1}{x}\sin x$。因 $\frac{1}{x} \to 0$，$\sin x$ 有界，所以极限为 0。错误。
+\item $\lim_{x\to0}x\sin\frac{1}{x}$。因 $x \to 0$，$\sin\frac{1}{x}$ 有界，所以极限为 0。错误。
+\item $\lim_{x\to\infty}x\sin\frac{1}{x}$。令 $t=\frac{1}{x}$，则 $t \to 0$。原式变为 $\lim_{t\to0}\frac{\sin t}{t}=1$。选项说等于0，错误。
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{答案}：A
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第4题 ==========
+\problemrule
+\section*{【题目4】无穷大与有界量}
+$ \lim_{x\to\infty}\frac{\cos e^{x}}{x}= $ \blank{1cm}。
+\choicesFour{$ \frac{\pi}{2} $}{0}{1}{$ \infty $}
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+$$ \lim_{x \to \infty} \frac{\cos e^x}{x} $$
+分子 $\cos e^x$ 是有界函数（值域 $[-1, 1]$）。
+分母 $x \to \infty$，即 $\frac{1}{x}$ 是无穷小量。
+\textbf{结论}：无穷小量 $\times$ 有界量 $=$ 无穷小量。
+故极限为 0。
+
+\item \textbf{最终答案}
+\textbf{答案}：B
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第5题 ==========
+\problemrule
+\section*{【题目5】极限存在性判定}
+以下极限中存在的是 \blank{1cm}。
+\choicesFour{$ \lim_{x\to0}2^{\frac{1}{x}} $}{$ \lim_{x\to0}\arctan\frac{1}{x} $}{$ \lim_{x\to0}x\sin\frac{1}{x} $}{$ \lim_{x\to0}\sin\frac{1}{x} $}
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=\Alph*.]
+\item $\lim_{x\to0}2^{\frac{1}{x}}$。
+$x \to 0^+$ 时，$\frac{1}{x} \to +\infty \implies 2^{+\infty} = +\infty$。
+$x \to 0^-$ 时，$\frac{1}{x} \to -\infty \implies 2^{-\infty} = 0$。
+左右极限不相等，极限不存在。
+
+\item $\lim_{x\to0}\arctan\frac{1}{x}$。
+$x \to 0^+$ 时，$\frac{1}{x} \to +\infty \implies \arctan(+\infty) = \frac{\pi}{2}$。
+$x \to 0^-$ 时，$\frac{1}{x} \to -\infty \implies \arctan(-\infty) = -\frac{\pi}{2}$。
+左右极限不相等，极限不存在。
+
+\item $\lim_{x\to0}x\sin\frac{1}{x}$。
+无穷小 $\times$ 有界量 = 0。极限存在。
+
+\item $\lim_{x\to0}\sin\frac{1}{x}$。振荡间断，极限不存在。
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{答案}：C
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第6题 ==========
+\problemrule
+\section*{【题目6】抓大头法则}
+求极限 $ \lim_{x \to \infty} \frac{x - \sin x}{x + \sin x} = $ \blank{2cm}。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+分子分母同时除以 $x$：
+$$ \lim_{x \to \infty} \frac{1 - \frac{\sin x}{x}}{1 + \frac{\sin x}{x}} $$
+因 $\lim_{x \to \infty} \frac{\sin x}{x} = 0$（无穷小 $\times$ 有界量）。
+$$ = \frac{1 - 0}{1 + 0} = 1 $$
+
+\item \textbf{最终答案}
+\textbf{答案}：1
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第7题 ==========
+\problemrule
+\section*{【题目7】无穷大减无穷大}
+求极限 $ \lim_{x\to1}\left(\frac{x}{x-1}-\frac{1}{\ln x}\right)= $ \blank{2cm}。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{解题策略}
+通分，转化为 $\frac{0}{0}$ 型，再用洛必达法则。
+
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{通分}：
+$$ I = \lim_{x \to 1} \frac{x \ln x - (x - 1)}{(x - 1) \ln x} $$
+此时为 $\frac{0}{0}$ 型。
+
+\item \textbf{等价无穷小替换}（分母）：
+当 $x \to 1$ 时，$\ln x \sim x - 1$。
+$$ (x - 1) \ln x \sim (x - 1)^2 $$
+故 $$ I = \lim_{x \to 1} \frac{x \ln x - x + 1}{(x - 1)^2} $$
+
+\item \textbf{洛必达法则}（对分子分母求导）：
+分子导数：$(x \ln x - x + 1)' = \ln x + x \cdot \frac{1}{x} - 1 = \ln x + 1 - 1 = \ln x$。
+分母导数：$((x - 1)^2)' = 2(x - 1)$。
+$$ I = \lim_{x \to 1} \frac{\ln x}{2(x - 1)} $$
+
+\item \textbf{再次洛必达或等价无穷小}：
+$$ \lim_{x \to 1} \frac{x - 1}{2(x - 1)} = \frac{1}{2} $$
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{答案}：$ \frac{1}{2} $
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第8题 ==========
+\problemrule
+\section*{【题目8】对数性质与极限}
+求极限 $ \lim_{x\to\infty}x[\ln(x-2)-\ln(x+1)]= $ \blank{2cm}。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{合并对数}：
+$$ \ln(x-2) - \ln(x+1) = \ln\frac{x-2}{x+1} = \ln\frac{x+1-3}{x+1} = \ln(1 - \frac{3}{x+1}) $$
+\item \textbf{等价无穷小}：
+当 $x \to \infty$ 时，$-\frac{3}{x+1} \to 0$。
+故 $\ln(1 - \frac{3}{x+1}) \sim -\frac{3}{x+1}$。
+\item \textbf{代入求解}：
+$$ \lim_{x\to\infty} x \left( -\frac{3}{x+1} \right) = \lim_{x\to\infty} \frac{-3x}{x+1} = -3 $$
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{答案}：-3
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第9题 ==========
+\problemrule
+\section*{【题目9】等价无穷小代换}
+求极限 $ \lim_{x\to1}\frac{\arcsin(x^{2}-1)}{\ln x}= $ \blank{2cm}。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+当 $x \to 1$ 时，$x^2 - 1 \to 0$。
+\begin{itemize}
+    \item 分子：$\arcsin(x^2 - 1) \sim x^2 - 1 = (x-1)(x+1)$。
+    \item 分母：$\ln x = \ln(1 + (x-1)) \sim x - 1$。
+\end{itemize}
+代入极限：
+$$ \lim_{x\to1} \frac{(x-1)(x+1)}{x-1} = \lim_{x\to1} (x+1) = 2 $$
+
+\item \textbf{最终答案}
+\textbf{答案}：2
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第10题 ==========
+\problemrule
+\section*{【题目10】复合函数极限}
+求极限 $ \lim_{x\to1}\frac{\sin(x^{3}-1)}{x-1}= $ \blank{2cm}。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+当 $x \to 1$ 时，$x^3 - 1 \to 0$。
+分子 $\sin(x^3 - 1) \sim x^3 - 1$。
+$$ \lim_{x\to1} \frac{x^3 - 1}{x - 1} = \lim_{x\to1} \frac{(x-1)(x^2 + x + 1)}{x - 1} = \lim_{x\to1} (x^2 + x + 1) = 3 $$
+
+\item \textbf{最终答案}
+\textbf{答案}：3
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第11题 ==========
+\problemrule
+\section*{【题目11】洛必达法则}
+求极限 $ \lim_{x\to0}\left(\frac{1}{2x}-\frac{1}{e^{2x}-1}\right) $。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{通分}：
+$$ \lim_{x \to 0} \frac{e^{2x} - 1 - 2x}{2x(e^{2x} - 1)} $$
+\item \textbf{分母代换}：
+$e^{2x} - 1 \sim 2x$。
+分母 $\sim 2x \cdot 2x = 4x^2$。
+$$ \lim_{x \to 0} \frac{e^{2x} - 1 - 2x}{4x^2} $$
+\item \textbf{洛必达法则}：
+$$ \lim_{x \to 0} \frac{2e^{2x} - 2}{8x} = \lim_{x \to 0} \frac{2(e^{2x} - 1)}{8x} $$
+\item \textbf{再次代换}：
+$e^{2x} - 1 \sim 2x$。
+$$ \lim_{x \to 0} \frac{2 \cdot 2x}{8x} = \frac{4}{8} = \frac{1}{2} $$
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{答案}：$ \frac{1}{2} $
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第12题 ==========
+\problemrule
+\section*{【题目12】三角函数极限}
+求极限 $ \lim_{x \to 0} \left(\frac{1}{\sin^{2} x} - \frac{1}{x^{2}}\right) $。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{通分}：
+$$ \lim_{x \to 0} \frac{x^2 - \sin^2 x}{x^2 \sin^2 x} $$
+\item \textbf{分母代换}：
+$\sin^2 x \sim x^2$。分母 $\sim x^4$。
+$$ \lim_{x \to 0} \frac{x^2 - \sin^2 x}{x^4} $$
+\item \textbf{泰勒公式}（这是处理高阶无穷小的最快方法）：
+$\sin x = x - \frac{x^3}{6} + o(x^3)$。
+$\sin^2 x = (x - \frac{x^3}{6})^2 + o(x^4) = x^2 - \frac{x^4}{3} + o(x^4)$。
+$$ x^2 - \sin^2 x = x^2 - (x^2 - \frac{x^4}{3}) = \frac{x^4}{3} $$
+\item \textbf{代入}：
+$$ \lim_{x \to 0} \frac{x^4/3}{x^4} = \frac{1}{3} $$
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{答案}：$ \frac{1}{3} $
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第13题 ==========
+\problemrule
+\section*{【题目13】洛必达法则应用}
+求极限 $ \lim_{x \to e} \frac{x - e}{\ln x - 1} $。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+$x \to e$ 时，分子 $e - e = 0$，分母 $\ln e - 1 = 0$。$\frac{0}{0}$ 型。
+利用洛必达法则：
+$$ \lim_{x \to e} \frac{(x-e)'}{(\ln x - 1)'} = \lim_{x \to e} \frac{1}{\frac{1}{x}} = \lim_{x \to e} x = e $$
+
+\item \textbf{最终答案}
+\textbf{答案}：$ e $
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第14题 ==========
+\problemrule
+\section*{【题目14】根式有理化与等价无穷小}
+求极限 $ \lim_{x\to0}\frac{\sqrt{1+\sin x}-\sqrt{1+\tan x}}{x^{3}} $。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{分子有理化}：
+$$ \text{分子} = \frac{(1+\sin x) - (1+\tan x)}{\sqrt{1+\sin x} + \sqrt{1+\tan x}} = \frac{\sin x - \tan x}{\sqrt{1+\sin x} + \sqrt{1+\tan x}} $$
+当 $x \to 0$ 时，$\sqrt{1+\sin x} + \sqrt{1+\tan x} \to 2$。
+\item \textbf{化简}：
+$\sin x - \tan x = \sin x - \frac{\sin x}{\cos x} = \sin x (1 - \frac{1}{\cos x}) = \sin x \frac{\cos x - 1}{\cos x}$。
+利用等价无穷小：$\sin x \sim x$，$\cos x - 1 \sim -\frac{1}{2}x^2$，$\cos x \to 1$。
+所以分子 $\sim x \cdot (-\frac{1}{2}x^2) = -\frac{1}{2}x^3$。
+\item \textbf{代入极限}：
+$$ \lim_{x\to0} \frac{-\frac{1}{2}x^3}{x^3 \cdot 2} = -\frac{1}{4} $$
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{答案}：$ -\frac{1}{4} $
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第15题 ==========
+\problemrule
+\section*{【题目15】Vieta 公式应用}
+求极限 $ \lim_{x\to0}\left(\lim_{n\to\infty}\cos\frac{x}{2}\cos\frac{x}{2^2}\cdots \cos\frac{x}{2^n}\right) $。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{先求内部极限}：
+利用公式 $\sin 2\alpha = 2\sin\alpha\cos\alpha$，即 $\cos\alpha = \frac{\sin 2\alpha}{2\sin\alpha}$。
+令 $P_n = \cos\frac{x}{2}\cos\frac{x}{2^2}\cdots \cos\frac{x}{2^n}$。
+乘以 $\sin\frac{x}{2^n}$：
+$$ P_n \cdot \sin\frac{x}{2^n} = \cos\frac{x}{2}\cdots \cos\frac{x}{2^n} \sin\frac{x}{2^n} = \cos\frac{x}{2}\cdots \frac{1}{2}\sin\frac{x}{2^{n-1}} $$
+依次类推，最后得到：
+$$ P_n \sin\frac{x}{2^n} = \frac{1}{2^n} \sin x $$
+$$ P_n = \frac{\sin x}{2^n \sin\frac{x}{2^n}} = \frac{\sin x}{x} \cdot \frac{x/2^n}{\sin(x/2^n)} $$
+当 $n \to \infty$ 时，$\frac{x}{2^n} \to 0$，故 $\frac{x/2^n}{\sin(x/2^n)} \to 1$。
+所以内部极限 $\lim_{n \to \infty} P_n = \frac{\sin x}{x}$。
+
+\item \textbf{再求外部极限}：
+$$ \lim_{x \to 0} \frac{\sin x}{x} = 1 $$
+\end{enumerate}
+
+\item \textbf{最终答案}
+\textbf{答案}：1
+\end{detailedanalysis}
+
+\subsection*{核心公式与推导}
+\begin{formuladerivation}
+\item \textbf{正弦二倍角公式}
+$\sin 2\alpha = 2\sin \alpha \cos \alpha$
+\item \textbf{Vieta 无穷乘积公式}
+$\frac{\sin x}{x} = \prod_{n=1}^{\infty} \cos\frac{x}{2^n}$
+\end{formuladerivation}
+\end{redenv}
+
+\end{document}

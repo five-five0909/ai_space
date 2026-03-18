@@ -1,0 +1,408 @@
+% -*- coding: utf-8 -*-
+% XeLaTeX 编译
+\documentclass[a3paper, landscape, 11pt, twocolumn]{article}
+
+% 引入宏包
+\usepackage{fontspec}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{lastpage}
+\usepackage{tasks}
+
+% 设置页面边距 (A3横向双栏)
+\geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm, columnsep=1.8cm}
+
+% 颜色定义
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{keywordcolor}{RGB}{0,0,150}
+\definecolor{commentcolor}{RGB}{0,128,0}
+\definecolor{stringcolor}{RGB}{163,21,21}
+
+% Java代码块样式设置
+\lstdefinestyle{JavaExam}{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    keywordstyle=\color{keywordcolor}\bfseries,
+    commentstyle=\color{commentcolor},
+    stringstyle=\color{stringcolor},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{black!50},
+    tabsize=4,
+    xleftmargin=1em,
+    xrightmargin=1em,
+    aboveskip=1em,
+    belowskip=1em
+}
+
+% tasks样式设置
+\settasks{
+    label=\Alph*. ,
+    label-width=1.5em,
+    item-indent=2em,
+    after-item-skip=0.5ex
+}
+
+\newcommand{\blank}{\underline{\hspace{2em}}}
+\newcommand{\tfblank}{\underline{\hspace{1.5em}}}
+
+% 页眉页脚设置
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\Large\bfseries 《Java程序设计》期末考试试卷}
+\fancyfoot[C]{第 \thepage\ 页 共 \pageref{LastPage}\ 页}
+\fancyfoot[R]{得分：\underline{\hspace{2cm}}}
+\fancyfoot[L]{题号：\underline{\hspace{1cm}}}
+\fancyheadoffset{0cm}
+\fancyfootoffset{0cm}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+% 试卷头部信息
+\twocolumn[{
+		\begin{center}
+			\vspace*{-1cm}
+			{\huge\bfseries Java 程序设计模拟试卷（G卷）}\\[1em]
+			{\large 适用专业：计算机科学与技术、软件工程 \hspace{2em} 闭卷 \hspace{2em} 满分：150分 \hspace{2em} 考试时间：120分钟}\\[1em]
+			\renewcommand{\arraystretch}{1.5}
+			\begin{tabular}{|c|c|c|c|c|c|c|}
+				\hline
+				题号  & 一 (40分)        & 二 (20分)        & 三 (20分)        & 四 (30分)        & 五 (40分)        & 总分 (150分)      \\
+				\hline
+				得分  & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} \\
+				\hline
+				阅卷人 &                &                &                &                &                &                \\
+				\hline
+			\end{tabular}\\[1.5em]
+			{\large 姓名：\underline{\hspace{3cm}} \hspace{2em} 学号：\underline{\hspace{4cm}} \hspace{2em} 班级：\underline{\hspace{3cm}}}
+			\vspace{1em}
+			\hrule
+			\vspace{1.5em}
+		\end{center}
+	}]
+
+\section*{一、单项选择题（共 20 小题，每小题 2 分，共 40 分）}
+\textit{（在每小题给出的四个选项中，只有一项是符合题目要求的）}
+
+\begin{enumerate}[label=\arabic*., itemsep=0.8em]
+	\item 下列选项中，哪个是 Java 中合法的标识符？
+	      \begin{tasks}(4)
+		      \task 2ab \task \_ab \task ab-c \task class
+	      \end{tasks}
+
+	\item 以下关于基本数据类型转换的说法，正确的是？
+	      \begin{tasks}(4)
+		      \task byte 类型可以直接自动转换为 char 类型
+		      \task float 类型转换为 double 类型需要强制转换
+		      \task int 类型转换为 float 类型可能丢失精度
+		      \task boolean 类型可以转换为 int 类型
+	      \end{tasks}
+
+	\item 关于数组复制，下列方法中错误的是？
+	      \begin{tasks}(4)
+		      \task 使用 for 循环逐个复制
+		      \task 使用 `System.arraycopy()`
+		      \task 使用 `Arrays.copyOf()`
+		      \task 使用 `=` 直接赋值会复制数组内容
+	      \end{tasks}
+
+	\item 下列关于方法重载（Overload）的描述，正确的是？
+	      \begin{tasks}(4)
+		      \task 方法名相同，参数列表不同
+		      \task 方法名相同，返回值类型不同
+		      \task 方法名相同，访问修饰符不同
+		      \task 方法名相同，参数名不同
+	      \end{tasks}
+
+	\item 在继承关系中，关于构造方法的调用顺序，正确的是？
+	      \begin{tasks}(4)
+		      \task 先执行子类构造方法，再执行父类构造方法
+		      \task 先执行父类构造方法，再执行子类构造方法
+		      \task 只执行子类构造方法
+		      \task 只执行父类构造方法
+	      \end{tasks}
+
+	\item 下列哪个关键字可以阻止类被继承？
+	      \begin{tasks}(4)
+		      \task abstract \task final \task static \task private
+	      \end{tasks}
+
+	\item 关于抽象类和接口的区别，错误的是？
+	      \begin{tasks}(4)
+		      \task 抽象类可以有构造方法，接口不能有构造方法
+		      \task 抽象类中可以有非抽象方法，接口中所有方法默认都是抽象的
+		      \task 一个类只能继承一个抽象类，但可以实现多个接口
+		      \task 抽象类中的成员变量默认是 public static final 的
+	      \end{tasks}
+
+	\item 内部类可以访问外部类的私有成员，这是因为？
+	      \begin{tasks}(4)
+		      \task 内部类自动继承了外部类
+		      \task 内部类持有外部类对象的引用
+		      \task 外部类的私有成员在内部类中自动变为公有
+		      \task 内部类不能访问外部类的私有成员
+	      \end{tasks}
+
+	\item 关于 `equals()` 和 `hashCode()` 的约定，正确的是？
+	      \begin{tasks}(4)
+		      \task 如果两个对象 equals 相等，则 hashCode 必须相等
+		      \task 如果两个对象 hashCode 相等，则 equals 必须相等
+		      \task equals 相等与 hashCode 没有关系
+		      \task hashCode 相等的两个对象一定是同一个对象
+	      \end{tasks}
+
+	\item 在 Java 集合框架中，哪个接口保证元素的唯一性？
+	      \begin{tasks}(4)
+		      \task List \task Set \task Map \task Queue
+	      \end{tasks}
+
+	\item 下列哪个类实现了 `List` 接口，并且底层使用双向链表存储元素？
+	      \begin{tasks}(4)
+		      \task ArrayList \task LinkedList \task Vector \task Stack
+	      \end{tasks}
+
+	\item 关于泛型的通配符 `?`，以下用法正确的是？
+	      \begin{tasks}(4)
+		      \task `List<?> list = new ArrayList<?>();`
+		      \task `List<? extends Number> list = new ArrayList<Integer>();`
+		      \task `List<? super Integer> list = new ArrayList<Number>();`
+		      \task 以上全部正确
+	      \end{tasks}
+
+	\item 创建线程的方式不包括？
+	      \begin{tasks}(4)
+		      \task 继承 Thread 类，重写 run 方法
+		      \task 实现 Runnable 接口，重写 run 方法
+		      \task 实现 Callable 接口，重写 call 方法
+		      \task 继承 Process 类
+	      \end{tasks}
+
+	\item 关于 `synchronized` 关键字的说法，错误的是？
+	      \begin{tasks}(4)
+		      \task 可以修饰实例方法，锁定当前实例对象
+		      \task 可以修饰静态方法，锁定当前类的 Class 对象
+		      \task 可以修饰代码块，锁定任意对象
+		      \task 可以修饰构造方法
+	      \end{tasks}
+
+	\item 在 Java I/O 中，`BufferedReader` 的作用是？
+	      \begin{tasks}(4)
+		      \task 提供缓冲功能，提高字符读取效率
+		      \task 提供字节读取功能
+		      \task 提供对象序列化功能
+		      \task 提供文件随机访问功能
+	      \end{tasks}
+
+	\item 关于序列化，以下说法正确的是？
+	      \begin{tasks}(4)
+		      \task 实现 `Serializable` 接口的类才能被序列化
+		      \task 静态成员变量也会被序列化
+		      \task `transient` 修饰的变量也会被序列化
+		      \task 序列化后的对象反序列化时不需要类定义存在
+	      \end{tasks}
+
+	\item 在反射中，获取 Class 对象的方式不包括？
+	      \begin{tasks}(4)
+		      \task 类名.class
+		      \task 对象.getClass()
+		      \task Class.forName("完整类名")
+		      \task new Class()
+	      \end{tasks}
+
+	\item JDBC 中，负责加载数据库驱动的是哪个类？
+	      \begin{tasks}(4)
+		      \task DriverManager \task Connection \task Statement \task ResultSet
+	      \end{tasks}
+
+	\item Swing 中，`JOptionPane.showMessageDialog()` 方法的作用是？
+	      \begin{tasks}(4)
+		      \task 显示输入对话框
+		      \task 显示确认对话框
+		      \task 显示消息提示对话框
+		      \task 显示文件选择对话框
+	      \end{tasks}
+
+	\item 在事件处理中，一个组件可以注册多个监听器，事件触发时，监听器的执行顺序是？
+	      \begin{tasks}(4)
+		      \task 按照注册的顺序执行
+		      \task 随机执行
+		      \task 只执行最后一个注册的监听器
+		      \task 所有监听器同时执行
+	      \end{tasks}
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\section*{二、判断题（共 10 小题，每小题 2 分，共 20 分）}
+\textit{（正确的选 A，错误的选 B）}
+
+\begin{enumerate}[label=\arabic*., itemsep=0.5em]
+	\item Java 中，`char` 类型占用 2 个字节，可以存储一个汉字。 \\tfblank
+	\item 静态方法中不能使用 `this` 关键字。 \\tfblank
+	\item 子类不能继承父类的构造方法。 \\tfblank
+	\item 接口中可以有 `private` 方法（Java 9 开始支持）。 \\tfblank
+	\item `try-with-resources` 语句中使用的资源类必须实现 `AutoCloseable` 接口。 \\tfblank
+	\item `ArrayList` 和 `Vector` 都是线程安全的。 \\tfblank
+	\item 泛型在运行时会被类型擦除，因此无法在运行时获取泛型的具体类型。 \\tfblank
+	\item 调用 `Thread.sleep()` 方法会使当前线程进入阻塞状态，同时释放持有的锁。 \\tfblank
+	\item `FileInputStream` 和 `FileOutputStream` 是字节流，用于处理二进制文件。 \\tfblank
+	\item 在 UDP 通信中，`DatagramPacket` 类用于封装数据报，包含数据和地址信息。 \\tfblank
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\section*{三、填空题（共 5 小题，每空 2 分，共 20 分）}
+
+\begin{enumerate}[label=\arabic*., itemsep=1em]
+	\item Java 中，成员变量分为实例变量和 \blank 变量，使用关键字 \blank 修饰的成员属于类而不是对象。
+	\item 在一个类中，如果没有显式定义构造方法，编译器会自动提供一个 \blank 构造方法；如果定义了有参构造方法，则系统不再提供该构造方法。
+	\item 异常处理中，使用 \blank 关键字手动抛出异常，使用 \blank 关键字在方法声明时声明可能抛出的异常。
+	\item 线程同步中，使用 \blank 关键字修饰的方法称为同步方法；除了同步方法，还可以使用 \blank 代码块实现同步。
+	\item 集合框架中，`Map` 接口的实现类有 \blank 和 \blank 等。
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\section*{四、程序运行结果题（共 5 小题，每小题 6 分，共 30 分）}
+\textit{（阅读下列程序，写出运行后的输出结果）}
+
+\begin{enumerate}[leftmargin=*, label=\arabic*., itemsep=1em]
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+public class Test1 {
+    public static void main(String[] args) {
+        int i = 0;
+        for (i = 0; i < 5; i++) {
+            if (i == 3) break;
+            System.out.print(i + " ");
+        }
+        System.out.println(i);
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{6cm}}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+class Base {
+    static { System.out.print("Base static "); }
+    Base() { System.out.print("Base constructor "); }
+}
+class Derived extends Base {
+    static { System.out.print("Derived static "); }
+    Derived() { System.out.print("Derived constructor "); }
+}
+public class Test2 {
+    public static void main(String[] args) {
+        new Derived();
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{6cm}}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+public class Test3 {
+    public static void main(String[] args) {
+        String s1 = "hello";
+        String s2 = "he" + "llo";
+        String s3 = "he";
+        String s4 = "llo";
+        String s5 = s3 + s4;
+        System.out.println(s1 == s2);
+        System.out.println(s1 == s5);
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{6cm}}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+public class Test4 {
+    public static void main(String[] args) {
+        try {
+            int a = 10;
+            int b = 0;
+            int c = a / b;
+            System.out.println("结果：" + c);
+        } catch (ArithmeticException e) {
+            System.out.println("除数不能为0");
+        } finally {
+            System.out.println("程序结束");
+        }
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{6cm}}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+class MyClass {
+    private static int x = 10;
+    public static void setX(int x) { MyClass.x = x; }
+    public static int getX() { return x; }
+}
+public class Test5 {
+    public static void main(String[] args) {
+        MyClass.setX(20);
+        MyClass m1 = new MyClass();
+        MyClass m2 = new MyClass();
+        System.out.println(m1.getX() + " " + m2.getX());
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{6cm}}
+\end{enumerate}
+
+\newpage
+\vspace{0.5cm}
+
+\section*{五、编程题（共 2 小题，每小题 20 分，共 40 分）}
+\textit{（要求代码完整、结构清晰、注释合理）}
+
+\begin{enumerate}[leftmargin=*, label=\arabic*., itemsep=1em]
+	\item \textbf{设计一个"图书"类及管理类}
+	      定义 `Book` 类，属性包括 ISBN（`isbn`）、书名（`title`）、作者（`author`）、价格（`price`）。要求：
+	      \begin{itemize}
+		      \item 提供带参构造方法初始化所有属性。
+		      \item 为每个属性提供 getter 和 setter 方法。
+		      \item 重写 `equals()` 和 `hashCode()` 方法，以 ISBN 为唯一标识。
+		      \item 实现 `Comparable<Book>` 接口，按价格降序排序（价格相同则按书名升序）。
+	      \end{itemize}
+	      定义 `Library` 类，使用 `TreeSet<Book>` 存储图书（自动按价格排序）。提供以下方法：
+	      \begin{itemize}
+		      \item `boolean addBook(Book book)`：添加图书，如果 ISBN 重复则添加失败。
+		      \item `boolean removeBook(String isbn)`：根据 ISBN 删除图书。
+		      \item `Book searchBook(String isbn)`：根据 ISBN 查找图书。
+		      \item `List<Book> searchBooksByAuthor(String author)`：根据作者返回图书列表。
+		      \item `void displayAllBooks()`：显示所有图书信息（按排序顺序）。
+	      \end{itemize}
+	      在测试类 `Main` 中，添加至少 5 本图书（包括相同 ISBN 和不同作者的），测试上述所有功能。
+
+	\item \textbf{设计一个"交通工具"接口及其实现类}
+	      定义接口 `Vehicle`，包含抽象方法 `void start()`（启动）、`void stop()`（停止）和 `double getSpeed()`（获取当前速度）。\\
+	      定义两个类 `Car` 和 `Bicycle`，实现 `Vehicle` 接口：
+	      \begin{itemize}
+		      \item `Car` 类包含私有属性 `speed`（速度）和 `fuel`（油量）。提供构造方法初始化，实现接口方法：`start()` 输出"汽车启动"，`stop()` 输出"汽车停止"，`getSpeed()` 返回当前速度。另外定义 `void refuel(double amount)` 方法增加油量。
+		      \item `Bicycle` 类包含私有属性 `speed`。实现接口方法：`start()` 输出"自行车启动"，`stop()` 输出"自行车停止"，`getSpeed()` 返回当前速度。另外定义 `void pedal()` 方法增加速度。
+	      \end{itemize}
+	      在测试类 `Main` 中，创建一个 `Vehicle` 数组，存放一辆汽车和一辆自行车，调用它们的 `start()`、`getSpeed()`、`stop()` 方法，并针对具体类型调用特有方法（需进行类型判断）。
+\end{enumerate}
+
+\vfill
+
+\begin{center}
+	\zihao{4}\bfseries —— 试卷结束，祝考试顺利 ——
+\end{center}
+
+\end{document}

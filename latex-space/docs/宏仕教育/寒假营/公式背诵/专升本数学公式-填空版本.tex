@@ -1,0 +1,798 @@
+\documentclass[UTF8, a4paper, 10pt]{ctexart} % 【改动1】字号改为 10pt
+
+% ==================== 导言区 ====================
+
+% 【改动2】页边距缩小为 1.5cm，极大增加单页容量
+\usepackage{geometry}
+\geometry{a4paper, margin=1.5cm}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{multicol} % 【新增】用于目录分栏
+\usepackage[hidelinks]{hyperref}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+% --- 颜色定义 ---
+\definecolor{maincolor}{RGB}{178, 34, 34} 
+\definecolor{boxback}{RGB}{255, 245, 245} % 背景色调淡一点，看着不累
+
+% --- 【改动3】标题间距大幅压缩 ---
+\ctexset{
+    section = {
+        format = \large\bfseries\color{maincolor}, % 字体由 Large 变为 large
+        name = {第,章},
+        number = \chinese{section},
+        aftername = \quad,
+        beforeskip = 1.0ex plus 0.2ex minus .2ex, % 压缩标题上间距
+        afterskip = 0.5ex plus 0.2ex minus .2ex   % 压缩标题下间距
+    },
+    subsection = {
+        format = \bfseries\color{black}, % 子标题去掉 large，保持正文大小加粗
+        number = \arabic{section}.\arabic{subsection},
+        beforeskip = 0.5ex plus 0.2ex minus .2ex,
+        afterskip = 0.2ex plus 0.2ex minus .2ex
+    }
+}
+
+% --- 【改动4】自定义环境紧凑化 ---
+
+% 1. 概念框 (Concept)
+\newtcolorbox{concept}[1]{
+    colback=boxback,
+    colframe=maincolor,
+    fonttitle=\bfseries\small, % 标题字体变小
+    title={#1},
+    boxrule=0.8pt,
+    arc=1mm,
+    left=2pt, right=2pt, top=2pt, bottom=2pt, % 【关键】内部边距压缩
+    toptitle=1pt, bottomtitle=1pt,             % 标题栏边距压缩
+    fontupper=\small                           % 框内字体设为 small
+}
+
+% 2. 关键公式 (Formula)
+\newenvironment{formula}{
+    \begin{tcolorbox}[
+        colback=white, 
+        colframe=blue!50!black, 
+        title=关键公式, 
+        fonttitle=\bfseries\small, 
+        arc=1mm,
+        left=2pt, right=2pt, top=2pt, bottom=2pt, % 内部紧凑
+        toptitle=1pt, bottomtitle=1pt
+    ]
+    % 【关键】nosep 去除列表间距，leftmargin=* 减少左侧缩进
+    \begin{itemize}[leftmargin=*, nosep, labelsep=3pt] 
+}{
+    \end{itemize}
+    \end{tcolorbox}
+}
+
+% 3. 技巧点拨 (Tips)
+\newenvironment{tips}{
+    \begin{tcolorbox}[
+        colback=green!5, 
+        colframe=green!40!black, 
+        title=技巧点拨, 
+        fonttitle=\bfseries\small, 
+        arc=1mm,
+        left=2pt, right=2pt, top=2pt, bottom=2pt,
+        toptitle=1pt, bottomtitle=1pt
+    ]
+    \begin{itemize}[leftmargin=*, nosep]
+}{
+    \end{itemize}
+    \end{tcolorbox}
+}
+
+% 4. 避坑指南 (Pitfall)
+\newenvironment{pitfall}{
+    \begin{tcolorbox}[
+        colback=yellow!10, 
+        colframe=orange!80!black, 
+        title=避坑指南, 
+        fonttitle=\bfseries\small, 
+        arc=1mm,
+        left=2pt, right=2pt, top=2pt, bottom=2pt,
+        toptitle=1pt, bottomtitle=1pt
+    ]
+    \begin{itemize}[leftmargin=*, nosep, label=\textcolor{red}{\textbf{!}}]
+}{
+    \end{itemize}
+    \end{tcolorbox}
+}
+
+% --- 页眉页脚紧凑化 ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\small 专升本数学 $\cdot$ 高分公式概念默写本} % 页眉字体变小
+\fancyfoot[C]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{13pt}
+
+% ==================== 正文区 ====================
+
+\title{\vspace{-2cm}\textbf{\Large 专升本数学高分公式概念默写本}} % 标题上移
+% \author{\small fifine $\cdot$ 制作} 
+% \date{\vspace{-1cm}\small \today} % 日期上移
+
+\begin{document}
+% ==================== 封面设计 ====================
+\begin{titlepage}
+    % 临时调整封面页边距，使其更美观（封面不需要太窄的边距）
+    \newgeometry{top=3cm, bottom=3cm, left=2cm, right=2cm}
+    
+    \centering
+    
+    % 1. 顶部机构/系列名称
+    % {\Large \bfseries \color{black!60} 鸿仕教育 $\cdot$ 数学教研组 \quad 精编}
+    
+    \vspace{3cm}
+    
+    % 2. 核心标题区 (带边框的盒子)
+    \begin{tcolorbox}[
+        colback=maincolor!5,      % 极淡的红色背景
+        colframe=maincolor,       % 火砖红边框
+        width=0.9\textwidth,      % 宽度
+        arc=3mm, auto outer arc,
+        boxrule=1.5pt,
+        top=1cm, bottom=1cm
+    ]
+        \centering
+        % 主标题
+        {\zihao{-1} \bfseries \color{maincolor} 专升本数学} \\[0.8cm]
+        % 副标题
+        {\zihao{1} \bfseries 高分公式概念默写本-空白背诵}
+    \end{tcolorbox}
+    
+    \vspace{1.5cm}
+    
+    % 3. 核心卖点/关键词
+    {\large \bfseries 
+    核心考点 \quad $\cdot$ \quad 极致浓缩 \quad $\cdot$ \quad 快速提分
+    }
+    
+    \vspace{4cm}
+    
+    % 4. 励志语录 (这也是专升本资料的标配)
+    \begin{tcolorbox}[colback=white, colframe=gray!50, boxrule=0.5pt, width=0.8\textwidth]
+        \centering \itshape \color{gray}
+        ``星光不问赶路人，时光不负有心人。''
+    \end{tcolorbox}
+    
+    \vfill
+    
+    % 5. 底部版本日期
+    {\large \textbf{2026 最新版}} \\
+    \vspace{0.5cm}
+    {\small 编写日期：\today}
+    
+    % 恢复原来的紧凑页边距
+    \restoregeometry
+\end{titlepage}
+% ==================== 封面结束 ====================
+
+% \maketitle
+% {\small \tableofcontents} % 目录字体变小
+
+% --- 【核心修改】双栏目录 ---
+\vspace{-0.5cm} % 减少标题和目录之间的距离
+\begin{multicols}{2} % 开启双栏
+    {
+      \small % 强制缩小目录字体，确保能塞进一页
+      \setlength{\parskip}{0pt} % 消除段落间距
+      \tableofcontents
+    }
+\end{multicols}
+% --------------------------
+
+
+\newpage
+
+% ==================== 预备知识 ====================
+\section{初等数学公式汇总}
+
+\subsection{三角函数}
+\begin{formula}
+    \item \textbf{基本关系}
+    \begin{itemize}[nosep] % 嵌套列表也加上 nosep
+        \item $\sin^2 x + \cos^2 x = \underline{\hspace{3cm}}$
+        \item $1 + \tan^2 x = \underline{\hspace{3cm}}$
+        \item $\sin 2x = \underline{\hspace{3cm}}$
+        \item $\cos 2x = \underline{\hspace{3cm}}$
+    \end{itemize}
+    
+    \item \textbf{和差化积与积化和差}
+    \begin{itemize}[nosep]
+        \item $\sin \alpha + \sin \beta = \underline{\hspace{3cm}}$
+        \item $\cos \alpha + \cos \beta = \underline{\hspace{3cm}}$
+        \item $\sin x \cos y = \underline{\hspace{3cm}}$
+    \end{itemize}
+\end{formula}
+
+\begin{tips}
+    \item \textbf{诱导公式口诀}： \underline{\hspace{5cm}}
+    \begin{itemize}[nosep]
+        \item $x$ 看作锐角，$x + n\frac{\pi}{2}$ 所在象限决定正负。
+        \item $\sin(\frac{\pi}{2} - x) = \underline{\hspace{3cm}}$
+    \end{itemize}
+\end{tips}
+
+\subsection{数列求和}
+\begin{formula}
+    \item \textbf{常用求和公式}
+    \begin{itemize}[nosep]
+        \item 等差： \underline{\hspace{5cm}}
+        \item 等比： \underline{\hspace{5cm}}
+        \item 平方和： \underline{\hspace{5cm}}
+        \item 裂项相消： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{formula}
+
+\subsection{几何公式}
+\begin{formula}
+    \item \textbf{体积与面积}
+    \begin{itemize}[nosep]
+        \item 球体积 $V = \underline{\hspace{3cm}}$
+        \item 圆柱体积 $V = \underline{\hspace{3cm}}$
+        \item 圆锥体积 $V = \underline{\hspace{3cm}}$
+    \end{itemize}
+    \item \textbf{距离公式}
+    \begin{itemize}[nosep]
+        \item 点到直线： \underline{\hspace{5cm}}
+        \item 点到平面： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{formula}
+
+\newpage
+% ==================== 第一章 ====================
+\section{函数}
+
+\subsection{核心概念}
+\begin{concept}{函数的性质}
+    \begin{itemize}[nosep] % 手动添加 nosep
+        \item \textbf{奇偶性}： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item 偶函数： \underline{\hspace{5cm}}
+            \item 奇函数： \underline{\hspace{5cm}}
+            \item 运算规律： \underline{\hspace{5cm}}
+        \end{itemize}
+        \item \textbf{周期性}： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item $y= \underline{\hspace{3cm}}$ 和 $y= \underline{\hspace{3cm}}$ 的最小正周期 $T = \underline{\hspace{3cm}}$。
+            \item $y= \underline{\hspace{3cm}}$ 的最小正周期 $T = \underline{\hspace{3cm}}$。
+        \end{itemize}
+        \item \textbf{单调性}： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{基本初等函数定义域}
+    \begin{itemize}[nosep]
+        \item 分式 $\frac{1}{f(x)}$： \underline{\hspace{5cm}}
+        \item 偶次根式 $\sqrt{f(x)}$： \underline{\hspace{5cm}}
+        \item 对数函数 $\ln f(x)$： \underline{\hspace{5cm}}
+        \item 反正弦/余弦 $\arcsin f(x)$： \underline{\hspace{5cm}}
+        \item 复合函数： \underline{\hspace{5cm}}
+    \end{itemize}
+    \item \textbf{三角函数诱导公式}
+    \begin{itemize}[nosep]
+        \item $\sin(\pi + \alpha) = \underline{\hspace{3cm}}$
+        \item $\sin(\alpha - \pi) = \underline{\hspace{3cm}}$
+        \item $\cos(-x) = \underline{\hspace{3cm}}$ （偶函数）
+        \item $\sin(-x) = \underline{\hspace{3cm}}$ （奇函数）
+    \end{itemize}
+    \item \textbf{重要恒等式}
+    $$ \sin^2 x + \cos^2 x = \underline{\hspace{3cm}}$$
+\end{formula}
+% ======================================
+% \newpage
+% \subsection{图像绘画}
+% \newpage
+
+% ======================================
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{定义域求交集}： \underline{\hspace{5cm}}
+    \item \textbf{解不等式注意方向}： \underline{\hspace{5cm}}
+    \begin{itemize}[nosep]
+        \item 解 $|x| > a$ 得 $x > a$ 或 $x < -a$（两边）。
+        \item 解 $|x| < a$ 得 $-a < x < a$（中间）。
+    \end{itemize}
+    \item \textbf{分母不为零}： \underline{\hspace{5cm}}
+    \item \textbf{具体函数 vs 抽象函数}： \underline{\hspace{5cm}}
+\end{pitfall}
+\newpage
+% ==================== 第二章 ====================
+\section{极限}
+
+\subsection{核心概念}
+\begin{concept}{极限与连续}
+    \begin{itemize}[nosep]
+        \item \textbf{极限存在充要条件}： \underline{\hspace{5cm}}
+        \item \textbf{连续的定义}： \underline{\hspace{5cm}}
+        \item \textbf{无穷小比阶}： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item $\lim \frac{\alpha}{\beta} = \underline{\hspace{3cm}}$ 是 $\beta$ 的\textbf{高阶}无穷小。
+            \item $\lim \frac{\alpha}{\beta} = \underline{\hspace{3cm}}$ 是 $\beta$ 的\textbf{低阶}无穷小。
+            \item $\lim \frac{\alpha}{\beta} = \underline{\hspace{3cm}}$ 与 $\beta$ 是\textbf{同阶}无穷小。
+            \item $\lim \frac{\alpha}{\beta} = \underline{\hspace{3cm}}$ 与 $\beta$ \textbf{等价} ($\alpha \sim \beta$)。
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{两个重要极限}
+    $$ \lim_{x \to 0} \frac{\sin x}{x} = \underline{\hspace{3cm}}$$
+    $$ \lim_{x \to \infty} (1 + \frac{1}{x})^x = \underline{\hspace{3cm}}$$
+    
+    \item \textbf{常用等价无穷小 ($x \to 0$)}
+    \begin{itemize}[nosep]
+        \item $\sin x \sim x, \quad \tan x \sim x, \quad \arcsin x \sim x, \quad \arctan x \sim x$
+        \item $\ln(1+x) \sim x, \quad e^x - 1 \sim x$
+        \item $1 - \cos x \sim \frac{1}{2}x^2, \quad (1+x)^\alpha - 1 \sim \alpha x$
+    \end{itemize}
+
+    \item \textbf{核心泰勒公式 (Maclaurin)}
+    \begin{itemize}[nosep]
+        \item $e^x = \underline{\hspace{3cm}}$
+        % sin 和 cos 并列一行，节省空间
+        \item $\sin x = \underline{\hspace{3cm}}$
+        % ln 和 幂函数 并列一行
+        \item $\ln(1+x) = \underline{\hspace{3cm}}$
+    \end{itemize}
+
+    \item \textbf{洛必达法则}
+    适用于 $\frac{0}{0}$ 或 $\frac{\infty}{\infty}$ 型不定式：
+    $$ \lim \frac{f(x)}{g(x)} = \underline{\hspace{3cm}}$$
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{等价无穷小代换原则}： \underline{\hspace{5cm}}
+    \item \textbf{洛必达法则条件}： \underline{\hspace{5cm}}
+    \item \textbf{震荡极限}： \underline{\hspace{5cm}}
+\end{pitfall}
+\newpage
+% ==================== 第三章 ====================
+\section{连续}
+
+\subsection{核心概念}
+\begin{concept}{间断点分类}
+    \begin{itemize}[nosep]
+        \item \textbf{第一类间断点}（左右极限均存在）： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item 可去间断点： \underline{\hspace{5cm}}
+            \item 跳跃间断点： \underline{\hspace{5cm}}
+        \end{itemize}
+        \item \textbf{第二类间断点}（左右极限至少有一个不存在）： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item 无穷间断点： \underline{\hspace{5cm}}
+            \item 振荡间断点： \underline{\hspace{5cm}}
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{闭区间连续函数性质}
+    \begin{itemize}[nosep]
+        \item \textbf{有界性定理}： \underline{\hspace{5cm}}
+        \item \textbf{最值定理}： \underline{\hspace{5cm}}
+        \item \textbf{零点定理}： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{连续与极限}： \underline{\hspace{5cm}}
+    \item \textbf{分段函数}： \underline{\hspace{5cm}}
+    \item \textbf{零点判定}： \underline{\hspace{5cm}}
+\end{pitfall}
+\newpage
+% ==================== 第四章 ====================
+\section{导数与微分}
+
+\subsection{核心概念}
+\begin{concept}{导数概念}
+    \begin{itemize}[nosep]
+        \item \textbf{定义}： \underline{\hspace{5cm}}
+        \item \textbf{几何意义}： \underline{\hspace{5cm}}
+        \item \textbf{关系}： \underline{\hspace{5cm}}
+        \item \textbf{奇偶性导数}： \underline{\hspace{5cm}}
+        \item \textbf{周期性导数}： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    % 使用 array 环境排版表格，\renewcommand 调整行高防止拥挤
+    \item \textbf{基本求导公式表 (对照记忆版)}
+    % 1.5倍行高，防止分数线碰到边框
+    \[
+    \renewcommand{\arraystretch}{1.5}
+    \setlength{\arraycolsep}{6pt} % 稍微增加列间距
+    \begin{array}{|l|l|}
+        \hline
+        \textbf{基础/正向公式}  &  \underline{\hspace{3cm}} \\
+        \hline
+        (x^\mu)' = \mu x^{\mu-1}  &  \underline{\hspace{3cm}} \\
+        \hline
+        (\sqrt{x})' = \frac{1}{2\sqrt{x}}  &  \underline{\hspace{3cm}} \\
+        \hline
+        (\sin x)' = \cos x  &  \underline{\hspace{3cm}} \\
+        \hline
+        (\tan x)' = \sec^2 x  &  \underline{\hspace{3cm}} \\
+        \hline
+        (\sec x)' = \sec x \tan x  &  \underline{\hspace{3cm}} \\
+        \hline
+        (a^x)' = a^x \ln a  &  \underline{\hspace{3cm}} \\
+        \hline
+        (\log_a x)' = \frac{1}{x \ln a}  &  \underline{\hspace{3cm}} \\
+        \hline
+        (\arcsin x)' = \frac{1}{\sqrt{1-x^2}}  &  \underline{\hspace{3cm}} \\
+        \hline
+        (\arctan x)' = \frac{1}{1+x^2}  &  \underline{\hspace{3cm}} \\
+        \hline
+    \end{array}
+    \]
+    \item \textbf{切线与法线}
+    \begin{itemize}[nosep]
+        \item 切线方程： \underline{\hspace{5cm}}
+        \item 法线方程： \underline{\hspace{5cm}}
+    \end{itemize}
+    \item \textbf{参数方程求导}
+    $\begin{cases} x = \phi(t) \\ y = \psi(t) \end{cases} \implies \frac{dy}{dx} = \frac{\psi'(t)}{\phi'(t)}$
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{复合函数求导}： \underline{\hspace{5cm}}
+    \item \textbf{隐函数求导}： \underline{\hspace{5cm}}
+    \item \textbf{绝对值导数}： \underline{\hspace{5cm}}
+\end{pitfall}
+
+% ==================== 第五章 ====================
+\section{中值定理与导数应用}
+
+\subsection{核心概念}
+\begin{concept}{导数应用}
+    \begin{itemize}[nosep]
+        \item \textbf{极值判定}： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item 第一充分条件： \underline{\hspace{5cm}}
+            \item 第二充分条件： \underline{\hspace{5cm}}
+        \end{itemize}
+        \item \textbf{凹凸性与拐点}： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item 凹凸定义： \underline{\hspace{5cm}}
+            \item 拐点： \underline{\hspace{5cm}}
+        \end{itemize}
+        \item \textbf{渐近线}： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item 水平渐近线： \underline{\hspace{5cm}}
+            \item 垂直渐近线： \underline{\hspace{5cm}}
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{中值定理}
+    \begin{itemize}[nosep]
+        \item \textbf{罗尔定理}： \underline{\hspace{5cm}}
+        \item \textbf{拉格朗日中值定理}： \underline{\hspace{5cm}}
+    \end{itemize}
+    \item \textbf{洛必达法则}（见第二章，此处常用于求渐近线极限）。
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{极值点 vs 驻点}： \underline{\hspace{5cm}}
+    \item \textbf{拐点坐标}： \underline{\hspace{5cm}}
+    \item \textbf{区间写法}： \underline{\hspace{5cm}}
+\end{pitfall}
+\newpage
+% ==================== 第六章 ====================
+\section{不定积分}
+
+\subsection{核心概念}
+\begin{concept}{原函数与不定积分}
+    \begin{itemize}[nosep]
+        \item \textbf{定义}： \underline{\hspace{5cm}}
+        \item \textbf{性质}： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item $\frac{d}{dx} \int f(x) dx = \underline{\hspace{3cm}}$
+            \item $\int f'(x) dx = \underline{\hspace{3cm}}$
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{基本积分公式表 (对照记忆版)}
+    % 1.6倍行高，因为积分符号较高，需要更多空间
+    \[
+    \renewcommand{\arraystretch}{1.6}
+    \setlength{\arraycolsep}{4pt} % 稍微收紧列距以容纳长公式
+    \begin{array}{|l|l|}
+        \hline
+        \textbf{幂/指/对/三角 (正)}  &  \underline{\hspace{3cm}} \\
+        \hline
+        \int x^\mu dx = \frac{x^{\mu+1}}{\mu+1} + C  &  \underline{\hspace{3cm}} \\
+        \hline
+        \int e^x dx = e^x + C  &  \underline{\hspace{3cm}} \\
+        \hline
+        \int \cos x dx = \sin x + C  &  \underline{\hspace{3cm}} \\
+        \hline
+        \int \sec^2 x dx = \tan x + C  &  \underline{\hspace{3cm}} \\
+        \hline
+        \int \sec x \tan x dx = \sec x + C  &  \underline{\hspace{3cm}} \\
+        \hline
+        \int \tan x dx = -\ln|\cos x| + C  &  \underline{\hspace{3cm}} \\
+        \hline
+        \int \sec x dx = \ln|\sec x + \tan x| + C  &  \underline{\hspace{3cm}} \\
+        \hline
+        \int \frac{1}{1+x^2} dx = \arctan x + C  &  \underline{\hspace{3cm}} \\
+        \hline
+        \int \frac{1}{\sqrt{1-x^2}} dx = \arcsin x + C  &  \underline{\hspace{3cm}} \\
+        \hline
+    \end{array}
+    \]
+    \item \textbf{积分方法}
+    \begin{itemize}[nosep]
+        \item \textbf{凑微分法}： \underline{\hspace{5cm}}
+        \item \textbf{分部积分法}： \underline{\hspace{5cm}}
+        \item \textbf{倒代换}： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{常数 C}： \underline{\hspace{5cm}}
+    \item \textbf{对数绝对值}： \underline{\hspace{5cm}}
+    \item \textbf{分部积分顺序}： \underline{\hspace{5cm}}
+\end{pitfall}
+\newpage
+% ==================== 第七章 ====================
+\section{定积分}
+
+\subsection{核心概念}
+\begin{concept}{定积分性质}
+    \begin{itemize}[nosep]
+        \item \textbf{几何意义}： \underline{\hspace{5cm}}
+        \item \textbf{奇偶性}： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item 对称区间 $[-a, a]$ 上，奇函数积分为 0。
+            \item 对称区间 $[-a, a]$ 上，偶函数积分 $= \underline{\hspace{3cm}}$。
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{牛顿-莱布尼茨公式}
+    $$ \int_a^b f(x) dx = \underline{\hspace{3cm}}$$
+    \item \textbf{变上限积分求导}
+    $$ \frac{d}{dx} \int_a^{g(x)} f(t) dt = \underline{\hspace{3cm}}$$
+    \item \textbf{定积分换元}
+    换元必换限：令 $x = \underline{\hspace{3cm}}$，则 $dx = \underline{\hspace{3cm}}$，积分限由 $a,b$ 变为 $\alpha, \beta$。
+    \item \textbf{几何应用}
+    \begin{itemize}[nosep]
+        \item 面积： \underline{\hspace{5cm}}
+        \item 旋转体体积（绕x轴）： \underline{\hspace{5cm}}
+        \item 旋转体体积（绕y轴）： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{换元换限}： \underline{\hspace{5cm}}
+    \item \textbf{变限求导}： \underline{\hspace{5cm}}
+    \item \textbf{广义积分}： \underline{\hspace{5cm}}
+\end{pitfall}
+\newpage
+% ==================== 第八章 ====================
+\section{微分方程}
+
+\subsection{核心概念}
+\begin{concept}{基本概念}
+    \begin{itemize}[nosep]
+        \item \textbf{阶}： \underline{\hspace{5cm}}
+        \item \textbf{通解}： \underline{\hspace{5cm}}
+        \item \textbf{特解}： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{一阶微分方程}
+    \begin{itemize}[nosep]
+        \item \textbf{可分离变量}： \underline{\hspace{5cm}}
+        \item \textbf{一阶线性} $y' + P(x)y = \underline{\hspace{3cm}}$： \underline{\hspace{5cm}}
+        $$ y = \underline{\hspace{3cm}}$$
+    \end{itemize}
+\item \textbf{二阶常系数线性齐次} $y'' + py' + qy = \underline{\hspace{3cm}}$
+    \begin{itemize}[nosep]
+        \item \textbf{特征方程}： \underline{\hspace{5cm}}
+        \item \textbf{万能求根公式}： \underline{\hspace{5cm}}
+    \end{itemize}
+    % 表格化记忆，带全边框
+    \[
+    \renewcommand{\arraystretch}{1.5} % 增加行高，看着不累
+    \setlength{\arraycolsep}{3pt}     % 微调列宽以适应页面
+    \begin{array}{|c|c|l|}
+        \hline
+        \textbf{判别式 } \Delta  &  \underline{\hspace{3cm}} &  \underline{\hspace{3cm}} \\
+        \hline
+        \Delta > 0  &  \underline{\hspace{3cm}} &  \underline{\hspace{3cm}} \\
+        \hline
+        \Delta = 0  &  \underline{\hspace{3cm}} &  \underline{\hspace{3cm}} \\
+        \hline
+        \Delta < 0  &  \underline{\hspace{3cm}} &  \underline{\hspace{3cm}} \\
+        \hline
+    \end{array}
+    \]
+    \begin{itemize}[nosep]
+        \item \textbf{注}： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{识别题型}： \underline{\hspace{5cm}}
+    \item \textbf{公式记忆}： \underline{\hspace{5cm}}
+    \item \textbf{特解常数}： \underline{\hspace{5cm}}
+\end{pitfall}
+\newpage
+% ==================== 第九章 ====================
+\section{多元函数微分学}
+
+\subsection{核心概念}
+\begin{concept}{偏导与全微分}
+    \begin{itemize}[nosep]
+        \item \textbf{关系链}： \underline{\hspace{5cm}}
+        \item \textbf{极值判定}： \underline{\hspace{5cm}}
+        驻点 $(x_0, y_0)$ 满足 $f_x= \underline{\hspace{3cm}}$。令 $A= \underline{\hspace{3cm}}$。
+        \begin{itemize}[nosep]
+            \item $AC - B^2 > 0$ 且 $A > 0 \implies$ 极小值。
+            \item $AC - B^2 > 0$ 且 $A < 0 \implies$ 极大值。
+            \item $AC - B^2 < 0 \implies$ 非极值点。
+            \item $AC - B^2 = \underline{\hspace{3cm}}$ 需进一步讨论。
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{全微分}
+    $$ dz = \underline{\hspace{3cm}}$$
+    \item \textbf{复合函数求导（链式法则）}
+    若 $z = \underline{\hspace{3cm}}$，且 $u= \underline{\hspace{3cm}}$，则：
+    $$ \frac{\partial z}{\partial x} = \underline{\hspace{3cm}}$$
+    \item \textbf{隐函数求导}
+    由方程 $F(x, y, z) = \underline{\hspace{3cm}}$ 确定 $z= \underline{\hspace{3cm}}$，则：
+    $$ \frac{\partial z}{\partial x} = \underline{\hspace{3cm}}$$
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{求导符号}： \underline{\hspace{5cm}}
+    \item \textbf{条件极值}： \underline{\hspace{5cm}}
+\end{pitfall}
+\newpage
+% ==================== 第十章 ====================
+\section{向量代数与空间解析几何}
+
+\subsection{核心概念}
+\begin{concept}{向量运算几何意义}
+    \begin{itemize}[nosep]
+        \item \textbf{数量积} $\mathbf{a} \cdot \mathbf{b} = \underline{\hspace{3cm}}$。若为0，则垂直。
+        \item \textbf{向量积} $\mathbf{a} \times \mathbf{b}$ 为向量，模 $|\mathbf{a}||\mathbf{b}|\sin\theta$，方向垂直于 $\mathbf{a}, \mathbf{b}$。若为0，则平行。
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{平面方程}
+    \begin{itemize}[nosep]
+        \item 点法式： \underline{\hspace{5cm}}
+        \item 一般式： \underline{\hspace{5cm}}
+    \end{itemize}
+    \item \textbf{直线方程}
+    \begin{itemize}[nosep]
+        \item 点向式（对称式）： \underline{\hspace{5cm}}
+        \item 参数式： \underline{\hspace{5cm}}
+    \end{itemize}
+    \item \textbf{位置关系}
+    \begin{itemize}[nosep]
+        \item 平面 $\mathbf{n}_1$ 与 $\mathbf{n}_2$： \underline{\hspace{5cm}}
+        \item 直线 $\mathbf{s}$ 与平面 $\mathbf{n}$： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{线面垂直}： \underline{\hspace{5cm}}
+    \item \textbf{缺项含义}： \underline{\hspace{5cm}}
+\end{pitfall}
+\newpage
+% ==================== 第十一章 ====================
+\section{二重积分}
+
+\subsection{核心概念}
+\begin{concept}{二重积分计算}
+    \begin{itemize}[nosep]
+        \item \textbf{几何意义}： \underline{\hspace{5cm}}
+        \item \textbf{对称性}： \underline{\hspace{5cm}}
+        \begin{itemize}[nosep]
+            \item 关于 $x$ 轴对称区域： \underline{\hspace{5cm}}
+            \item 关于 $y$ 轴对称区域： \underline{\hspace{5cm}}
+            \item 关于 $y= \underline{\hspace{3cm}}$ 对称区域： \underline{\hspace{5cm}}
+        \end{itemize}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{直角坐标系}
+    \begin{itemize}[nosep]
+        \item X-型区域（先 $y$ 后 $x$）： \underline{\hspace{5cm}}
+        \item Y-型区域（先 $x$ 后 $y$）： \underline{\hspace{5cm}}
+    \end{itemize}
+    \item \textbf{极坐标系}
+    $x= \underline{\hspace{3cm}}$。
+    $$ \iint_D f(x,y) dxdy = \underline{\hspace{3cm}}$$
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{交换次序}： \underline{\hspace{5cm}}
+    \item \textbf{极坐标雅可比因子}： \underline{\hspace{5cm}}
+    \item \textbf{极坐标限}： \underline{\hspace{5cm}}
+\end{pitfall}
+\newpage
+% ==================== 第十二章 ====================
+\section{无穷级数}
+
+\subsection{核心概念}
+\begin{concept}{级数敛散性}
+    \begin{itemize}[nosep]
+        \item \textbf{必要条件}： \underline{\hspace{5cm}}
+        \item \textbf{正项级数}： \underline{\hspace{5cm}}
+        \item \textbf{交错级数}： \underline{\hspace{5cm}}
+        \item \textbf{绝对收敛}： \underline{\hspace{5cm}}
+    \end{itemize}
+\end{concept}
+
+\subsection{关键公式}
+\begin{formula}
+    \item \textbf{常用级数}
+    \begin{itemize}[nosep]
+        \item 几何级数 $\sum_{n=0}^\infty q^n$： \underline{\hspace{5cm}}
+        \item P-级数 $\sum_{n=1}^\infty \frac{1}{n^p}$： \underline{\hspace{5cm}}
+    \end{itemize}
+    \item \textbf{幂级数}
+    \begin{itemize}[nosep]
+        \item 收敛半径 $R = \underline{\hspace{3cm}}$。
+        \item 泰勒展开： \underline{\hspace{5cm}}
+        $e^x = \underline{\hspace{3cm}}$
+        $\ln(1+x) = \underline{\hspace{3cm}}$
+        $\sin x = \underline{\hspace{3cm}}$
+    \end{itemize}
+\end{formula}
+
+\subsection{避坑指南}
+\begin{pitfall}
+    \item \textbf{端点敛散性}： \underline{\hspace{5cm}}
+    \item \textbf{缺项级数}： \underline{\hspace{5cm}}
+    \item \textbf{条件收敛}： \underline{\hspace{5cm}}
+\end{pitfall}
+
+\end{document}

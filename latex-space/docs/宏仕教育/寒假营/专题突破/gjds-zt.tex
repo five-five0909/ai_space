@@ -1,0 +1,155 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+% 保持与上一份文件一致的格式设置
+\geometry{left=2cm,right=2cm,top=2.5cm,bottom=2.5cm}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{高阶导数公式推导详解}}
+\fancyhead[R]{自己备课用}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+% 定义颜色
+\definecolor{derivecolor}{RGB}{0, 102, 102} % 深青色用于推导部分
+\newtcolorbox{derivebox}{colback=derivecolor!5!white,colframe=derivecolor,title=\textbf{推导演示板书}}
+
+\begin{document}
+
+\section*{附录：常见 $n$ 阶导数公式的推导细节}
+
+\textbf{授课建议}：讲解时，建议采用“计算前三阶 $\to$ 观察规律 $\to$ 归纳通式”的步骤。
+
+\vspace{1em}
+
+% --- 公式 1: 指数函数 ---
+\subsection*{1. 指数函数 $(e^{ax})^{(n)}$ 的推导}
+
+\begin{derivebox}
+设 $y = e^{ax}$。
+\begin{itemize}
+    \item \textbf{一阶导}：$y' = (e^{ax})' = a \cdot e^{ax}$
+    \item \textbf{二阶导}：$y'' = (a e^{ax})' = a \cdot (a e^{ax}) = a^2 e^{ax}$
+    \item \textbf{三阶导}：$y''' = (a^2 e^{ax})' = a^2 \cdot (a e^{ax}) = a^3 e^{ax}$
+\end{itemize}
+\textbf{规律}：求导 $n$ 次，系数 $a$ 就乘 $n$ 次。
+\[
+\boxed{(e^{ax})^{(n)} = a^n e^{ax}}
+\]
+\end{derivebox}
+
+\newpage
+% --- 公式 2: 正弦函数 ---
+\subsection*{2. 正弦函数 $(\sin ax)^{(n)}$ 的推导}
+\textbf{难点}：如何将 $\cos$ 变回 $\sin$ 以寻找规律？利用诱导公式 $\cos \theta = \sin(\theta + \frac{\pi}{2})$。
+
+\begin{derivebox}
+设 $y = \sin ax$。
+\begin{itemize}
+    \item \textbf{一阶导}：
+    \[ y' = a \cos ax = a \sin\left(ax + \dfrac{\pi}{2}\right) \]
+    
+    \item \textbf{二阶导}：
+    \[ y'' = \left[ a \sin\left(ax + \dfrac{\pi}{2}\right) \right]' = a^2 \cos\left(ax + \dfrac{\pi}{2}\right) = a^2 \sin\left(ax + \dfrac{\pi}{2} + \dfrac{\pi}{2}\right) = a^2 \sin\left(ax + 2 \cdot \dfrac{\pi}{2}\right) \]
+    
+    \item \textbf{三阶导}：
+    \[ y''' = a^3 \sin\left(ax + 3 \cdot \dfrac{\pi}{2}\right) \]
+\end{itemize}
+\textbf{规律}：求导一次，系数乘 $a$，相位增加 $\dfrac{\pi}{2}$。
+\[
+\boxed{(\sin ax)^{(n)} = a^n \sin\left(ax + \dfrac{n\pi}{2}\right)}
+\]
+\end{derivebox}
+
+\newpage
+% --- 公式 3: 余弦函数 ---
+\subsection*{3. 余弦函数 $(\cos ax)^{(n)}$ 的推导}
+\textbf{思路}：利用诱导公式 $\cos' x = -\sin x = \cos(x + \frac{\pi}{2})$。
+
+\begin{derivebox}
+设 $y = \cos ax$。
+\begin{itemize}
+    \item \textbf{一阶导}：
+    \[ y' = -a \sin ax = a \cos\left(ax + \dfrac{\pi}{2}\right) \]
+    
+    \item \textbf{二阶导}：
+    \[ y'' = \left[ a \cos\left(ax + \dfrac{\pi}{2}\right) \right]' = -a^2 \sin\left(ax + \dfrac{\pi}{2}\right) = a^2 \cos\left(ax + 2 \cdot \dfrac{\pi}{2}\right) \]
+    
+    \item \textbf{三阶导}：
+    \[ y''' = a^3 \cos\left(ax + 3 \cdot \dfrac{\pi}{2}\right) \]
+\end{itemize}
+\textbf{规律}：与正弦函数完全一致，只是函数名保持为 $\cos$。
+\[
+\boxed{(\cos ax)^{(n)} = a^n \cos\left(ax + \dfrac{n\pi}{2}\right)}
+\]
+\end{derivebox}
+
+
+\newpage
+
+% --- 公式 4: 幂函数/分式 ---
+\subsection*{4. 分式函数 $\left(\dfrac{1}{x+a}\right)^{(n)}$ 的推导}
+\textbf{技巧}：写成负指数形式 $(x+a)^{-1}$ 更容易看清系数变化。
+
+\begin{derivebox}
+设 $y = (x+a)^{-1}$。
+\begin{itemize}
+    \item \textbf{一阶导}：
+    \[ y' = (-1)(x+a)^{-2} = -\dfrac{1!}{(x+a)^2} \]
+    
+    \item \textbf{二阶导}：
+    \[ y'' = (-1)(-2)(x+a)^{-3} = (-1)^2 \cdot (1 \cdot 2) (x+a)^{-3} = \dfrac{(-1)^2 2!}{(x+a)^3} \]
+    
+    \item \textbf{三阶导}：
+    \[ y''' = (-1)^2 (2) \cdot (-3)(x+a)^{-4} = (-1)^3 \cdot (1 \cdot 2 \cdot 3) (x+a)^{-4} = \dfrac{(-1)^3 3!}{(x+a)^4} \]
+\end{itemize}
+\textbf{观察规律}：
+\begin{enumerate}
+    \item 符号：奇负偶正 $\to (-1)^n$
+    \item 系数：$n!$
+    \item 指数：分母次数为 $n+1$
+\end{enumerate}
+\[
+\boxed{\left(\dfrac{1}{x+a}\right)^{(n)} = \dfrac{(-1)^n n!}{(x+a)^{n+1}}}
+\]
+\end{derivebox}
+
+\newpage
+% --- 公式 5: 对数函数 ---
+\subsection*{5. 对数函数 $(\ln(x+a))^{(n)}$ 的推导}
+\textbf{关键}：对数函数求导一次后，就变成了分式函数，所以它比分式函数“慢一拍”。
+
+\begin{derivebox}
+设 $y = \ln(x+a)$。
+\begin{itemize}
+    \item \textbf{一阶导}：
+    \[ y' = \dfrac{1}{x+a} = (x+a)^{-1} \]
+    \textit{(此时还没出现阶乘，相当于 $0!$)}
+    
+    \item \textbf{二阶导}：
+    \[ y'' = \left[ (x+a)^{-1} \right]' = (-1)(x+a)^{-2} = -\dfrac{1!}{(x+a)^2} \]
+    
+    \item \textbf{三阶导}：
+    \[ y''' = (-1)(-2)(x+a)^{-3} = \dfrac{2!}{(x+a)^3} \]
+    
+    \item \textbf{四阶导}：
+    \[ y^{(4)} = (2!) \cdot (-3)(x+a)^{-4} = -\dfrac{3!}{(x+a)^4} \]
+\end{itemize}
+\textbf{观察规律}（注意 $n$ 与阶乘的关系）：
+\begin{enumerate}
+    \item 阶数是 $n$ 时，分子是 $(n-1)!$。
+    \item 符号项由 $n-1$ 决定（一阶为正，二阶为负），即 $(-1)^{n-1}$。
+\end{enumerate}
+\[
+\boxed{(\ln(x+a))^{(n)} = \dfrac{(-1)^{n-1} (n-1)!}{(x+a)^n}} \quad (n \geq 1)
+\]
+\end{derivebox}
+
+\end{document}

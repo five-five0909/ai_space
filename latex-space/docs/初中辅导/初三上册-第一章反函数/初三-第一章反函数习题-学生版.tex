@@ -1,0 +1,137 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=0pt, parsep=0pt, topsep=0pt, partopsep=0pt}
+\setlist[itemize]{itemsep=0pt, parsep=0pt, topsep=0pt, partopsep=0pt}
+\usepackage[breakable]{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+
+% 页面设置
+\geometry{left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm}
+
+% 颜色定义
+\definecolor{mainblue}{RGB}{0, 102, 204}
+\definecolor{ansbg}{RGB}{245, 245, 245}
+
+% 题头设置
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{九年级上册 · 反比例函数 · 课后练习精编}
+\fancyfoot[C]{\thepage}
+
+% 标题格式
+\title{\textbf{\zihao{2} 第一章 反比例函数 练习题与解析}}
+\author{整理自教材}
+\date{}
+
+% 自定义环境
+\newtcolorbox{questionbox}[1][]{
+  colback=white,
+  colframe=mainblue,
+  fonttitle=\bfseries,
+  title=#1,
+  arc=0mm,
+  boxrule=1pt,
+  left=5pt, right=5pt, top=2pt, bottom=2pt
+}
+
+\newtcolorbox{answerbox}{
+  colback=ansbg,
+  colframe=gray!50,
+  title=\textbf{参考答案与解析},
+  coltitle=black,
+  fonttitle=\bfseries,
+  arc=2mm,
+  boxrule=0.5pt,
+  left=5pt, right=5pt, top=2pt, bottom=2pt,
+  breakable
+}
+
+\begin{document}
+
+\maketitle
+
+\section*{一、 反比例函数的概念 (习题 1.1)}
+
+\begin{questionbox}[基础巩固]
+1. 下列函数是不是反比例函数？若是，请写出它的比例系数。
+\begin{enumerate}[label=(\arabic*)]
+    \item $y = \dfrac{2}{x}$
+    \item $y = x^{-1}$
+    \item $y = -\dfrac{2}{x}$
+    \item $y = \dfrac{1}{2x}$
+\end{enumerate}
+\end{questionbox}
+
+\begin{questionbox}[应用建模]
+2. 已知某空游泳池的容积为 $270 \text{ m}^3$，用恰当的函数表达式来表示进水速度 $v (\text{m}^3/\text{h})$ 与注满该游泳池所需时间 $t (\text{h})$ 之间的关系。
+\end{questionbox}
+
+\begin{questionbox}[函数性质]
+3. 已知反比例函数 $y = -\dfrac{6}{x}$。
+\begin{enumerate}[label=(\arabic*)]
+    \item 写出这个函数的比例系数和自变量的取值范围；
+    \item 求当 $x = -3$ 时函数的值；
+    \item 求当 $y = -2$ 时自变量 $x$ 的值。
+\end{enumerate}
+\end{questionbox}
+
+\begin{questionbox}[B组 拓展提升]
+5. 分别写出下列函数的表达式，并指出其中哪些是正比例函数，哪些是反比例函数。
+\begin{enumerate}[label=(\arabic*)]
+    \item 当速度 $v = 3 \text{ m/s}$ 时，路程 $s (\text{m})$ 关于时间 $t (\text{s})$ 的函数；
+    \item 当电压 $U = 220 \text{ V}$ 时，电阻 $R (\Omega)$ 关于电流 $I (\text{A})$ 的函数；
+    \item 当圆柱体的体积 $V = 100 \text{ cm}^3$ 时，其底面积 $S (\text{cm}^2)$ 关于高 $h (\text{cm})$ 的函数。
+\end{enumerate}
+
+6. 根据下列式子，写出 $y$ 关于 $x$ 的函数表达式，并指出其中哪些是一次函数，哪些是反比例函数。
+\begin{enumerate}[label=(\arabic*)]
+    \item $x + y = 5$
+    \item $xy = 5$
+    \item $xy = -\dfrac{1}{4}$
+    \item $x - y = -\dfrac{1}{4}$
+\end{enumerate}
+\end{questionbox}
+
+% \newpage
+
+\section*{二、 反比例函数的图象与性质 (习题 1.2)}
+
+\begin{questionbox}[图象与点]
+3. 已知点 $(3, -3)$ 在反比例函数 $y = \dfrac{k}{x}$ 的图象上。
+\begin{enumerate}[label=(\arabic*)]
+    \item 求这个函数的表达式；
+    \item 判断点 $A(-1, 9)$，$B(-3, 2)$ 是否在这个函数的图象上；
+    \item 这个函数的图象位于哪些象限？函数值 $y$ 随自变量 $x$ 的增大如何变化？
+\end{enumerate}
+\end{questionbox}
+
+\begin{questionbox}[参数性质]
+4. (1) 已知反比例函数 $y = \dfrac{k-2}{x}$ 的图象位于第一、三象限，求 $k$ 的取值范围；
+
+(2) 已知点 $(-2, y_1)$, $(-3, y_2)$ 在函数 $y = -\dfrac{2}{x}$ 的图象上，试比较 $y_1$ 与 $y_2$ 的大小。
+\end{questionbox}
+
+\begin{questionbox}[函数交点]
+5. 正比例函数 $y=x$ 的图象与反比例函数 $y = \dfrac{k}{x}$ ($k$ 为常数，$k \neq 0$) 的图象的一个交点的横坐标是 2。求当 $x = -3$ 时，反比例函数 $y = \dfrac{k}{x}$ 的对应函数值。
+\end{questionbox}
+
+\vspace{0.2cm}
+
+\section*{三、 反比例函数的应用 (习题 1.3)}
+
+\begin{questionbox}[B组 物理应用]
+3. 在纳鞋底时，先用锥子穿透鞋底，然后用拴有细绳的针顺着小孔眼从鞋底的一面穿到另一面。为什么是用锥子穿透鞋底，而不用小铁棍呢？（请结合压强公式 $p=\dfrac{F}{S}$ 进行分析）
+
+4. 为了降低输电线路上的电能损耗，发电站都采用高压输电。输出电压 $U (\text{V})$ 与输出电流 $I (\text{A})$ 的乘积等于发电功率 $P$ (即 $P = UI$) (W)，且通常把某发电站在某时段内的发电功率 $P$ 看作是恒定不变的。
+\begin{enumerate}[label=(\arabic*), itemsep=5pt]
+    \item 输出电压 $U$ 与输出电流 $I$ 之间成反比例关系吗？为什么？
+    \item 当输出电压提高 1 倍时，由线路损耗电能的计算公式 $Q = I^2Rt$ (其中 $R$ 为常数) 计算在相同对段内该线路的电能损耗减少多少倍。
+\end{enumerate}
+\end{questionbox}
+
+\end{document}

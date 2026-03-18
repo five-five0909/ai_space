@@ -1,0 +1,635 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbset{autoparskip}
+
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={异常-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{异常 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月05日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{异常}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下哪个异常类用于处理数组下标越界异常？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item ArrayIndexOutOfBoundsException
+		      \item NullPointerException
+		      \item ArithmeticException
+		      \item ClassCastException
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. ArrayIndexOutOfBoundsException}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查运行时异常的分类和触发场景
+			      \item \textbf{关键区分点}：数组越界与空指针、类型转换的异常类型区别
+			      \item \textbf{命题人意图}：测试对常见运行时异常的精确识别能力
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{ArrayIndexOutOfBoundsException — 正确（数组越界）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码层面}：JVM执行aaload指令时校验索引范围
+				            \item \textbf{触发场景}：访问索引 < 0 或 >= array.length
+				            \item \textbf{JVM机制}：IndexOutOfBoundsException的子类
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+int[] arr = new int[3];
+int x = arr[3]; // 抛出ArrayIndexOutOfBoundsException
+int y = arr[-1]; // 抛出ArrayIndexOutOfBoundsException
+				            \end{lstlisting}
+				            \item \textbf{延伸}：List.get(index)会抛出IndexOutOfBoundsException
+			            \end{itemize}
+
+			      \item[B] \textbf{NullPointerException — 错误（空指针）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码层面}：JVM执行aload、getfield、invokevirtual等操作时检查引用是否为null
+				            \item \textbf{触发场景}：在null引用上调用实例方法、访问字段
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+String s = null;
+int len = s.length(); // 抛出NullPointerException
+int[] arr = null;
+int x = arr[0]; // 抛出NullPointerException
+				            \end{lstlisting}
+				            \item \textbf{高频陷阱}：NullPointerException是使用最频繁的异常之一
+			            \end{itemize}
+
+			      \item[C] \textbf{ArithmeticException — 错误（算术异常）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码层面}：JVM执行idiv、ldiv指令时检查除数是否为0
+				            \item \textbf{触发场景}：整数除以0、整数求模0
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+int a = 10 / 0; // 抛出ArithmeticException
+int b = 10 % 0; // 抛出ArithmeticException
+double c = 10.0 / 0.0; // 不抛异常，结果为Infinity
+				            \end{lstlisting}
+				            \item \textbf{重要提示}：浮点数除以0不会抛异常，结果是Infinity或NaN
+			            \end{itemize}
+
+			      \item[D] \textbf{ClassCastException — 错误（类型转换异常）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码层面}：JVM执行checkcast指令时进行类型检查
+				            \item \textbf{触发场景}：将对象强制转换为不兼容的类型
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+Object obj = "Hello";
+Integer i = (Integer) obj; // 抛出ClassCastException
+Object num = Integer.valueOf(10);
+String s = (String) num; // 抛出ClassCastException
+				            \end{lstlisting}
+				            \item \textbf{类型安全}：使用instanceof检查可避免此异常
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item NullPointer：空引用访问成员
+			      \item ArrayIndexOutOfBounds：数组索引越界
+			      \item IndexOutOfBounds：集合索引越界（List.get()）
+			      \item ArithmeticException：整数除以0
+			      \item ClassCastException：非法类型转换
+			      \item IllegalArgumentException：非法参数
+			      \item NumberFormatException：字符串转数字失败
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+		      \textbf{考场秒杀}：看到"数组下标越界"→选ArrayIndexOutOfBoundsException
+
+		      \textbf{记忆口诀}：数组越界ArrayIndex，空指针NullPointerException，算术异常除以零，类型转换ClassCast
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{在Java中，以下哪个关键字用于捕获异常？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item try
+		      \item catch
+		      \item throw
+		      \item throws
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. catch}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查异常处理语法结构的关键字功能
+			      \item \textbf{关键区分点}：try、catch、throw、throws四者的语义区别
+			      \item \textbf{命题人意图}：测试对异常处理完整概念体系的准确掌握
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{try — 错误（监控块）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{功能说明}：try块用于声明可能抛出异常的代码区域
+				            \item \textbf{语法结构}：try-catch、try-finally、try-catch-finally
+				            \item \textbf{字节码层面}：JVM使用异常表（Exception Table）记录try块的bytecode范围
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+try {
+    // 可能抛异常的代码
+} catch (Exception e) {
+    // 异常处理
+}
+				            \end{lstlisting}
+				            \item \textbf{高频陷阱}：try块中代码抛出异常后，剩余代码不再执行
+			            \end{itemize}
+
+			      \item[B] \textbf{catch — 正确（捕获异常）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{功能说明}：catch块用于捕获和处理try块中抛出的指定类型异常
+				            \item \textbf{匹配机制}：从上到下依次匹配异常类型，首次匹配成功即执行
+				            \item \textbf{字节码层面}：异常表中定义了不同catch块处理的异常类型和跳转地址
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+try {
+    int[] arr = new int[3];
+    int x = arr[10];
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("数组越界：" + e.getMessage());
+} catch (Exception e) {
+    // 父类异常应该放在最后
+    System.out.println("其他异常");
+}
+				            \end{lstlisting}
+				            \item \textbf{多catch语法}（Java7+）：
+				                  \begin{lstlisting}[language=Java]
+try {
+    // 代码
+} catch (IOException | SQLException e) {
+    // 多异常类型
+}
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{throw — 错误（抛出异常）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{功能说明}：throw用于在代码中显式抛出一个异常对象
+				            \item \textbf{语法规则}：throw后必须跟Throwable的子类对象
+				            \item \textbf{使用场景}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 参数校验失败时抛出IllegalArgumentException
+					                  \item 业务逻辑异常时抛出自定义异常
+					                  \item 捕获异常后包装重新抛出
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+public void setAge(int age) {
+    if (age < 0 || age > 150) {
+        throw new IllegalArgumentException("年龄不合法");
+    }
+    this.age = age;
+}
+
+try {
+    // 业务代码
+    throw new RuntimeException("自定义异常");
+} catch (Exception e) {
+    throw new CustomException("包装异常", e);
+}
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{throws — 错误（声明异常）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{功能说明}：throws用于方法签名，声明该方法可能抛出的检查型异常
+				            \item \textbf{语法位置}：方法参数列表之后，throws + 异常类列表
+				            \item \textbf{调用者责任}：调用throws异常的方法必须处理（try-catch或继续throws）
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+public void readFile(String filename) throws FileNotFoundException, IOException {
+    FileReader fr = new FileReader(filename);
+    // 读取文件
+}
+
+public void callReadFile() {
+    try {
+        readFile("test.txt"); // 必须处理
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+				            \end{lstlisting}
+				            \item \textbf{与throw区别}：throw是语句，throws是声明
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item try：监控可能异常的代码块
+			      \item catch：捕获并处理异常
+			      \item finally：无论是否异常都执行
+			      \item throw：显式抛出异常对象（语句）
+			      \item throws：方法声明可能抛出的异常（声明）
+			      \item 口诀：try里写代码，catch来捕获，throw抛异常，throws声明它
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+		      \textbf{考场秒杀}：看到"捕获异常"→选catch，看到"抛出异常"→选throw/throws
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中异常处理中finally块的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 无论是否发生异常都会执行
+		      \item 只有发生异常才会执行
+		      \item 只有不发生异常才会执行
+		      \item 只有在try块中有return语句时才会执行
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. 无论是否发生异常都会执行}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查finally块的执行保证机制
+			      \item \textbf{关键区分点}：finally的绝对执行性 vs 特殊中断场景
+			      \item \textbf{命题人意图}：测试对finally承诺的准确理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{无论是否发生异常都会执行 — 正确（finally的核心特性）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码层面}：JVM确保finally代码块必定执行，通过多个跳转指令实现
+				            \item \textbf{JVM规范保障}：JLS §14.20.2 规定finally块在try-catch退出后必定执行
+				            \item \textbf{执行场景}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item try块正常执行完毕
+					                  \item try块抛出异常
+					                  \item catch块正常执行完毕
+					                  \item catch块中抛出新异常
+					                  \item try或catch中有return语句
+					                  \item try或catch中有break/continue
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+public int testFinally() {
+    try {
+        int x = 10 / 2; // 正常执行
+        return x;
+    } catch (Exception e) {
+        return -1;
+    } finally {
+        System.out.println("finally一定会执行");
+        return 100; // 遮蔽前面的return
+    }
+}
+// 输出：finally一定会执行，返回值100
+				            \end{lstlisting}
+				            \item \textbf{return + finally}：
+				                  \begin{lstlisting}[language=Java]
+public int demo() {
+    int x = 10;
+    try {
+        return x; // 先保存x的值10
+    } finally {
+        x = 20;  // 不影响返回值
+        System.out.println("finally执行了");
+    }
+}
+// 返回值是10，不是20
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{只有发生异常才会执行 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误原因}：finally块在异常和正常情况下都会执行
+				            \item \textbf{代码反证}：
+				                  \begin{lstlisting}[language=Java]
+try {
+    System.out.println("正常执行");
+} finally {
+    System.out.println("finally执行了"); // 肯定执行
+}
+// 输出：
+// 正常执行
+// finally执行了
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{只有不发生异常才会执行 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误原因}：finally块在发生异常时也会执行
+				            \item \textbf{代码反证}：
+				                  \begin{lstlisting}[language=Java]
+try {
+    int x = 10 / 0; // 抛出异常
+} finally {
+    System.out.println("finally执行了"); // 肯定执行
+}
+// 输出：
+// finally执行了
+// 然后抛出异常信息
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{只有在try块中有return语句时才会执行 — 错误}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误原因}：finally执行与return无关
+				            \item \textbf{代码反证}：
+				                  \begin{lstlisting}[language=Java]
+// 无return的情况
+try {
+    System.out.println("无return");
+} catch (Exception e) {
+    System.out.println("catch");
+} finally {
+    System.out.println("finally执行了");
+}
+// 输出：无return -> finally执行了
+				            \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【finally不执行的特殊情况】}
+		      \begin{itemize}[label={}, nosep]
+			      \item 调用System.exit(0)终止JVM
+			      \item 守护线程在finally执行前死亡
+			      \item CPU断电、进程被kill
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item finally块一定会执行（除JVM退出）
+			      \item return先保存返回值，finally中修改不影响
+			      \item finally中return会覆盖原有返回值
+			      \item finally用于资源释放（关闭连接、释放锁）
+			      \item 口诀：finally总执行，return先存值，遇System.exit(0)也不行
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+		      \textbf{考场秒杀}：看到finally → 无论有无异常必定执行
+
+		      \textbf{高频陷阱清单}：
+		      \begin{itemize}[label={}, nosep]
+			      \item finally中的return会覆盖try/catch中的return
+			      \item finally中修改变量不影响已保存的返回值
+			      \item System.exit(0)会让finally不执行
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪种情况会导致OutOfMemoryError？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 数组越界
+		      \item 除数为0
+		      \item 内存泄漏
+		      \item 空指针异常
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 内存泄漏}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Error与Exception的区别，以及内存管理问题
+			      \item \textbf{关键区分点}：Error代表JVM级错误，Exception代表程序级异常
+			      \item \textbf{命题人意图}：测试对严重错误的归类和成因理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{数组越界 — 错误（Exception）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{异常类型}：ArrayIndexOutOfBoundsException
+				            \item \textbf{异常层级}：RuntimeException → IndexOutOfBoundsException → ArrayIndexOutOfBoundsException
+				            \item \textbf{抛出时刻}：访问非法索引时立即抛出
+				            \item \textbf{JVM行为}：局部错误，不影响整个JVM稳定性
+				            \item \textbf{可处理性}：可通过try-catch捕获并恢复
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+int[] arr = new int[5];
+arr[10] = 100; // ArrayIndexOutOfBoundsException
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{除数为0 — 错误（Exception）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{异常类型}：ArithmeticException
+				            \item \textbf{异常层级}：RuntimeException → ArithmeticException
+				            \item \textbf{触发场景}：整数除以0或对0取模
+				            \item \textbf{JVM行为}：算术运算错误，通过异常机制通知
+				            \item \textbf{特殊设计}：float/double除以0返回Infinity/NaN，不抛异常
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+int a = 10 / 0; // ArithmeticException
+double b = 10.0 / 0.0; // Infinity
+double c = 0.0 / 0.0;  // NaN
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{内存泄漏 — 正确（Error）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误类型}：OutOfMemoryError
+				            \item \textbf{错误层级}：VirtualMachineError → OutOfMemoryError
+				            \item \textbf{Error vs Exception}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Error：JVM级严重错误，通常不可恢复
+					                  \item Exception：程序级异常，可以捕获处理
+					                  \item JVM规范：Error不需要程序主动捕获
+				                  \end{itemize}
+				            \item \textbf{内存泄漏成因}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 静态集合持有对象引用不释放
+					                  \item 未关闭的流对象、数据库连接
+					                  \item ThreadLocal未remove
+					                  \item 缓存无过期策略
+					                  \item 监听器未注销
+				                  \end{itemize}
+				            \item \textbf{JVM内存区域导致的OOM}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Java堆OOM：new对象时堆内存不足
+					                  \item 方法区OOM：加载类过多、动态生成类
+					                  \item 栈OOM：线程栈深度过大、线程过多
+					                  \item 本地内存OOM：直接内存不足（NIO）
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+public class MemoryLeakDemo {
+    static List<byte[]> list = new ArrayList<>();
+
+    public static void main(String[] args) {
+        while (true) {
+            list.add(new byte[1024 * 1024]); // 持续分配1MB
+            // 静态集合持有引用，GC无法回收，最终OOM
+        }
+    }
+}
+// 运行一段时间后抛出：java.lang.OutOfMemoryError: Java heap space
+				            \end{lstlisting}
+				            \item \textbf{堆外内存OOM示例}：
+				                  \begin{lstlisting}[language=Java]
+public class DirectMemoryOOM {
+    static final int _1MB = 1024 * 1024;
+
+    public static void main(String[] args) {
+        List<ByteBuffer> buffers = new ArrayList<>();
+        while (true) {
+            ByteBuffer buffer = ByteBuffer.allocateDirect(_1MB);
+            buffers.add(buffer);
+        }
+    }
+}
+// 抛出：java.lang.OutOfMemoryError: Direct buffer memory
+				            \end{lstlisting}
+				            \item \textbf{解决方案}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 检查代码避免内存泄漏
+					                  \item 增加JVM堆内存：-Xmx
+					                  \item 分析dump文件定位泄漏点
+					                  \item 使用弱引用和软引用优化缓存
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[D] \textbf{空指针异常 — 错误（Exception）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{异常类型}：NullPointerException
+				            \item \textbf{异常层级}：RuntimeException → NullPointerException
+				            \item \textbf{触发场景}：在null引用上调用实例成员
+				            \item \textbf{JVM行为}：引用操作前检查null，失败抛NPE
+				            \item \textbf{常见触发点}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item null.method()
+					                  \item null.field
+					                  \item null[index]
+					                  \item 抛出null
+					                  \item synchronized(null)
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+String s = null;
+int len = s.length(); // NullPointerException
+				            \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【常见Error类型清单】}
+		      \begin{itemize}[label={}, nosep]
+			      \item OutOfMemoryError：内存溢出
+			      \item StackOverflowError：栈溢出（无限递归）
+			      \item NoClassDefFoundError：类找不到
+			      \item AbstractMethodError：抽象方法错误
+			      \item NoSuchMethodError：方法未找到
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item Error：JVM级严重错误，通常不可恢复（OOM、StackOverflow）
+			      \item Exception：程序级异常，可以捕获处理
+			      \item Memory Leak：对象无法被GC回收，最终导致OOM
+			      \item OOM原因：内存泄漏、内存配置不足、大对象分配过多
+			      \item 口诀：Error致命难恢复，Exception异常可捕获，OOM由于内存漏，栈溢出因递归深
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+		      \textbf{考场秒杀}：看到内存泄漏/堆溢出/持续分配内存→OutOfMemoryError
+		      \textbf{看递归无限调用}→StackOverflowError
+
+		      \textbf{高频陷阱清单}：
+		      \begin{itemize}[label={}, nosep]
+			      \item ArrayIndexOutOfBoundsException是Exception，不是Error
+			      \item ArithmeticException是Exception，不是Error
+			      \item NullPointerException是Exception，不是Error
+			      \item OutOfMemoryError是Error，Exception捕获不到（除非捕获Throwable）
+		      \end{itemize}
+
+		      \textbf{高阶延伸}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 如何捕获Error：catch(Throwable t) 或 catch(Error e)
+			      \item 捕获Error可以做什么：优雅关闭、记录日志、尝试恢复（不推荐）
+			      \item JVM参数-Xmx设置堆大小，-Xss设置栈大小
+		      \end{itemize}
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

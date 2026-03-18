@@ -1,0 +1,1096 @@
+\documentclass[12pt,a4paper]{ctexart}
+
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{array}
+% 水印部分
+% 直接挂载到 LaTeX 的前景(foreground)渲染层
+\AddToHook{shipout/foreground}{
+    \begin{tikzpicture}[remember picture, overlay]
+        % 在页面正中心放置置顶水印
+        \node[text=blue, opacity=0.2, scale=5, rotate=30] 
+        at (current page.center) {fifine专升本};
+    \end{tikzpicture}
+}
+\setstretch{1.2}
+\setlist[enumerate]{itemsep=0.6em, topsep=0.4em}
+
+\titleformat{\section}{\Large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+
+\newtcolorbox{coverbox}{
+    colback=gray!5,
+    colframe=black!60,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=2mm
+}
+
+\newtcolorbox{answerbox}{
+    colback=blue!5,
+    colframe=blue!60,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=2mm
+}
+
+\begin{document}
+
+\begin{center}
+	{\LARGE \textbf{专升本数据库原理小红书发题题库（第一阶段）}}\\[0.6em]
+	{\large 适用方向：专升本学生｜图文发题｜题目+解析版｜可用于早题晚解析}\\[0.8em]
+	{\normalsize 使用方式：每一节可单独作为 1 篇小红书笔记发布}
+\end{center}
+
+\vspace{1em}
+
+\section*{使用说明}
+本题库为"小红书解析版"，每组题控制在 3～4 题，便于做成图文轮播。\\
+本题库\textbf{包含答案和解析}，可直接用于晚间解析发布。
+
+\newpage
+
+%========================
+\section{笔记 1：数据库基础概念查漏补缺}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜基础概念这4题，很多人学完还是会混\\
+	\textbf{副标题建议：}\\
+	数据、数据库、数据库系统先分清
+\end{coverbox}
+
+\subsection*{题目 1}
+数据库（DB）是
+\begin{enumerate}[label=\Alph*.]
+	\item 长期存储在计算机内、有组织、可共享的大量数据集合
+	\item 一个用于输入数据的软件
+	\item 若干文件的简单堆积
+	\item 只用于保存文本信息的数据文件
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 长期存储在计算机内、有组织、可共享的大量数据集合}
+
+	\textbf{解析：}数据库的定义：\\
+	- 长期存储在计算机内\\
+	- 有组织（按一定的数据模型组织）\\
+	- 可共享（供多个用户使用）\\
+	- 大量数据集合
+
+	\textbf{易错点：}数据库不是简单的文件堆积，也不是单一的软件或文本文件。
+\end{answerbox}
+
+\subsection*{题目 2}
+数据库管理系统（DBMS）的主要作用是
+\begin{enumerate}[label=\Alph*.]
+	\item 负责管理和控制数据库中的数据
+	\item 只负责数据输入
+	\item 只负责数据输出
+	\item 只负责备份文件
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 负责管理和控制数据库中的数据}
+
+	\textbf{解析：}DBMS的功能：\\
+	- 数据定义（DDL）\\
+	- 数据操纵（DML）\\
+	- 数据库运行管理\\
+	- 数据库的建立和维护
+
+	\textbf{易错点：}DBMS是数据库系统的核心，不仅仅是输入输出或备份。
+\end{answerbox}
+
+\subsection*{题目 3}
+数据库系统（DBS）通常包括
+\begin{enumerate}[label=\Alph*.]
+	\item 数据库、数据库管理系统、应用程序和数据库管理员
+	\item 数据库和操作系统
+	\item 数据库和编译程序
+	\item 数据库和高级语言
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 数据库、数据库管理系统、应用程序和数据库管理员}
+
+	\textbf{解析：}数据库系统的组成：\\
+	- 数据库（DB）\\
+	- 数据库管理系统（DBMS）\\
+	- 应用程序\\
+	- 数据库管理员（DBA）
+
+	\textbf{易错点：}数据库系统是一个完整的系统，包括硬件、软件、人等。
+\end{answerbox}
+
+\subsection*{题目 4}
+数据库系统与文件系统相比，其主要优点之一是
+\begin{enumerate}[label=\Alph*.]
+	\item 数据共享性高，冗余度低
+	\item 数据不能共享
+	\item 数据完全独立于应用程序
+	\item 不需要操作系统支持
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 数据共享性高，冗余度低}
+
+	\textbf{解析：}数据库系统的优点：\\
+	- 数据共享性高\\
+	- 数据冗余度低（可减少数据重复存储）\\
+	- 数据由DBMS统一管理\\
+	- 数据独立性高
+
+	\textbf{易错点：}数据冗余度高是文件系统的缺点。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 2：三级模式和数据独立性高频题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜三级模式这3题，总有人分不清\\
+	\textbf{副标题建议：}\\
+	外模式、模式、内模式到底谁管什么
+\end{coverbox}
+
+\subsection*{题目 1}
+数据库系统三级模式结构中，描述数据库全体逻辑结构和特征的是
+\begin{enumerate}[label=\Alph*.]
+	\item 外模式
+	\item 模式
+	\item 内模式
+	\item 子模式
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 模式}
+
+	\textbf{解析：}数据库三级模式：\\
+	- 外模式（子模式）：用户视图，描述用户能看到的数据\\
+	- 模式（逻辑模式）：全局逻辑结构，描述数据库整体逻辑\\
+	- 内模式（存储模式）：物理存储结构
+
+	\textbf{易错点：}模式是全局逻辑结构，外模式是用户视图，内模式是物理存储。
+\end{answerbox}
+
+\subsection*{题目 2}
+数据库的内模式主要描述的是
+\begin{enumerate}[label=\Alph*.]
+	\item 数据的物理存储结构和存取方式
+	\item 用户看到的数据逻辑结构
+	\item 整个数据库的全局逻辑结构
+	\item 应用程序的执行流程
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 数据的物理存储结构和存取方式}
+
+	\textbf{解析：}见上题。内模式描述数据的物理存储结构和存取方式。
+
+	\textbf{易错点：}内模式关注物理实现，不是逻辑结构。
+\end{answerbox}
+
+\subsection*{题目 3}
+数据库系统中实现逻辑独立性主要依靠
+\begin{enumerate}[label=\Alph*.]
+	\item 外模式 / 模式映像
+	\item 模式 / 内模式映像
+	\item 物理存储介质
+	\item 操作系统管理
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 外模式 / 模式映像}
+
+	\textbf{解析：}数据独立性：\\
+	- 逻辑独立性：外模式/模式映像改变\\
+	- 物理独立性：模式/内模式映像改变
+
+	\textbf{易错点：}外模式/模式映像实现逻辑独立性。
+\end{answerbox}
+
+\subsection*{题目 4}
+数据库系统中实现物理独立性主要依靠
+\begin{enumerate}[label=\Alph*.]
+	\item 外模式 / 模式映像
+	\item 模式 / 内模式映像
+	\item 用户视图
+	\item 数据字典
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 模式 / 内模式映像}
+
+	\textbf{解析：}见上题。模式/内模式映像实现物理独立性。
+
+	\textbf{易错点：}注意区分逻辑独立性和物理独立性的实现机制。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 3：关系模型第一组母题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜关系模型这4题，别只会背表格\\
+	\textbf{副标题建议：}\\
+	关系、元组、属性、码最容易混
+\end{coverbox}
+
+\subsection*{题目 1}
+关系模型中，一个关系通常对应于
+\begin{enumerate}[label=\Alph*.]
+	\item 一张二维表
+	\item 一棵树
+	\item 一个图
+	\item 一个数组
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 一张二维表}
+
+	\textbf{解析：}关系模型的基本结构：\\
+	- 关系（Relation）：对应一张二维表\\
+	- 元组（Tuple）：表中的一行\\
+	- 属性（Attribute）：表中的一列\\
+	- 码（Key）：唯一标识元组的属性组
+
+	\textbf{易错点：}关系模型基于集合论，结构为二维表。
+\end{answerbox}
+
+\subsection*{题目 2}
+在关系中，一行称为一个
+\begin{enumerate}[label=\Alph*.]
+	\item 属性
+	\item 域
+	\item 元组
+	\item 分量
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 元组}
+
+	\textbf{解析：}见上题。关系中：一行 = 元组，一列 = 属性。
+
+	\textbf{易错点：}注意区分基本术语。
+\end{answerbox}
+
+\subsection*{题目 3}
+在关系中，一列称为一个
+\begin{enumerate}[label=\Alph*.]
+	\item 属性
+	\item 元组
+	\item 关键字
+	\item 分量
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 属性}
+
+	\textbf{解析：}见上题。关系中：一列 = 属性。
+
+	\textbf{易错点：}注意区分属性和关键字。
+\end{answerbox}
+
+\subsection*{题目 4}
+能够唯一标识关系中一个元组的属性或属性组称为
+\begin{enumerate}[label=\Alph*.]
+	\item 外码
+	\item 候选码
+	\item 域
+	\item 视图
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 候选码}
+
+	\textbf{解析：}键的概念：\\
+	- 候选码：能唯一标识元组的属性组（可能有多个）\\
+	- 主码：从候选码中选定的唯一标识\\
+	- 外码：引用其他关系的主码
+
+	\textbf{易错点：}候选码是候选的主码，可能有多个。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 4：主码、候选码、外码辨析题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜主码、候选码、外码总混？先做这4题\\
+	\textbf{副标题建议：}\\
+	这一组最适合做一轮查漏补缺
+\end{coverbox}
+
+\subsection*{题目 1}
+在一个关系中，候选码是指
+\begin{enumerate}[label=\Alph*.]
+	\item 能唯一标识元组且不含多余属性的属性组
+	\item 所有属性的集合
+	\item 仅用于排序的属性
+	\item 可以重复取值的属性
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 能唯一标识元组且不含多余属性的属性组}
+
+	\textbf{解析：}候选码的定义：\\
+	- 能唯一标识元组\\
+	- 不含多余属性（最小性）
+
+	\textbf{易错点：}候选码必须满足唯一性和最小性。
+\end{answerbox}
+
+\subsection*{题目 2}
+主码是指
+\begin{enumerate}[label=\Alph*.]
+	\item 任意一个属性
+	\item 从候选码中选定的一个作为主要标识的码
+	\item 所有外码的集合
+	\item 不能唯一标识元组的属性组
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 从候选码中选定的一个作为主要标识的码}
+
+	\textbf{解析：}主码（主键）的定义：\\
+	- 从候选码中选定的一个\\
+	- 用于唯一标识元组
+
+	\textbf{易错点：}主码是候选码的子集，只能选一个。
+\end{answerbox}
+
+\subsection*{题目 3}
+外码的主要作用是
+\begin{enumerate}[label=\Alph*.]
+	\item 实现关系之间的联系
+	\item 唯一标识本关系中的元组
+	\item 提高数据压缩率
+	\item 进行排序
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 实现关系之间的联系}
+
+	\textbf{解析：}外码的作用：\\
+	- 建立两个关系之间的联系\\
+	- 引用其他关系的主码\\
+	- 实现参照完整性
+
+	\textbf{易错点：}外码不是用于标识本关系元组的。
+\end{answerbox}
+
+\subsection*{题目 4}
+下面关于主码和候选码的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 一个关系中只能有一个候选码
+	\item 一个关系中可以有多个候选码，但主码只能选一个
+	\item 主码一定由多个属性组成
+	\item 外码一定同时也是主码
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 一个关系中可以有多个候选码，但主码只能选一个}
+
+	\textbf{解析：}候选码与主码的关系：\\
+	- 一个关系可以有多个候选码\\
+	- 主码只能选一个（从候选码中选择）\\
+	- 主码可以是一个属性，也可以是属性组
+
+	\textbf{易错点：}候选码可以有多个，主码只能选一个。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 5：SQL 基础语句高频题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜SQL 这4题不稳，后面整章都容易乱\\
+	\textbf{副标题建议：}\\
+	SELECT、INSERT、UPDATE、DELETE 先拿稳
+\end{coverbox}
+
+\subsection*{题目 1}
+用于从数据表中查询数据的 SQL 语句是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{SELECT}
+	\item \texttt{INSERT}
+	\item \texttt{UPDATE}
+	\item \texttt{DELETE}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. SELECT}
+
+	\textbf{解析：}SQL数据查询语句：\\
+	- SELECT：查询数据\\
+	- INSERT：插入数据\\
+	- UPDATE：更新数据\\
+	- DELETE：删除数据
+
+	\textbf{易错点：}SELECT是查询，其他是数据操纵语言（DML）。
+\end{answerbox}
+
+\subsection*{题目 2}
+用于向表中插入新记录的 SQL 语句是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{SELECT}
+	\item \texttt{INSERT}
+	\item \texttt{CREATE}
+	\item \texttt{ALTER}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. INSERT}
+
+	\textbf{解析：}见上题。INSERT用于插入新记录。
+
+	\textbf{易错点：}CREATE是创建表（DDL），不是插入数据。
+\end{answerbox}
+
+\subsection*{题目 3}
+用于修改表中已有数据的 SQL 语句是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{DELETE}
+	\item \texttt{UPDATE}
+	\item \texttt{DROP}
+	\item \texttt{GRANT}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. UPDATE}
+
+	\textbf{解析：}UPDATE用于修改已有数据（更新）。
+
+	\textbf{易错点：}DELETE是删除数据，DROP是删除表，GRANT是授权。
+\end{answerbox}
+
+\subsection*{题目 4}
+用于删除表中记录的 SQL 语句是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{REMOVE}
+	\item \texttt{DELETE}
+	\item \texttt{ERASE}
+	\item \texttt{DROP}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. DELETE}
+
+	\textbf{解析：}DELETE用于删除表中记录（行）。
+
+	\textbf{易错点：}SQL标准使用DELETE，不是REMOVE或ERASE。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 6：SQL 查询条件和分组题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜WHERE 和 GROUP BY 这4题，很多人凭感觉做\\
+	\textbf{副标题建议：}\\
+	筛选、排序、分组、聚合别混
+\end{coverbox}
+
+\subsection*{题目 1}
+SQL 语句中用于条件筛选的是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{ORDER BY}
+	\item \texttt{GROUP BY}
+	\item \texttt{WHERE}
+	\item \texttt{HAVING}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. WHERE}
+
+	\textbf{解析：}SQL子句：\\
+	- WHERE：条件筛选（针对行）\\
+	- GROUP BY：分组\\
+	- HAVING：分组后筛选\\
+	- ORDER BY：排序
+
+	\textbf{易错点：}WHERE在GROUP BY之前执行，HAVING在GROUP BY之后执行。
+\end{answerbox}
+
+\subsection*{题目 2}
+SQL 语句中用于对查询结果排序的是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{SORT BY}
+	\item \texttt{ORDER BY}
+	\item \texttt{GROUP BY}
+	\item \texttt{HAVING}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. ORDER BY}
+
+	\textbf{解析：}见上题。ORDER BY用于排序。
+
+	\textbf{易错点：}SQL中是ORDER BY，不是SORT BY。
+\end{answerbox}
+
+\subsection*{题目 3}
+SQL 语句中用于分组统计的是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{GROUP BY}
+	\item \texttt{ORDER BY}
+	\item \texttt{DISTINCT}
+	\item \texttt{UNION}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. GROUP BY}
+
+	\textbf{解析：}见上题。GROUP BY用于分组。
+
+	\textbf{易错点：}分组通常配合聚合函数使用（COUNT、SUM、AVG等）。
+\end{answerbox}
+
+\subsection*{题目 4}
+在分组之后对组进行条件筛选通常使用
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{WHERE}
+	\item \texttt{HAVING}
+	\item \texttt{ORDER BY}
+	\item \texttt{INTO}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. HAVING}
+
+	\textbf{解析：}HAVING用于分组后的条件筛选（针对组）。
+
+	\textbf{易错点：}WHERE用于行级筛选，HAVING用于组级筛选。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 7：数据库安全性高频辨析题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜安全性这4题最容易混\\
+	\textbf{副标题建议：}\\
+	授权、视图、审计、角色一次分清
+\end{coverbox}
+
+\subsection*{题目 1}
+数据库安全性控制中，用于给用户授权的SQL语句是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{REVOKE}
+	\item \texttt{GRANT}
+	\item \texttt{COMMIT}
+	\item \texttt{ROLLBACK}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. GRANT}
+
+	\textbf{解析：}SQL安全控制：\\
+	- GRANT：授权\\
+	- REVOKE：收回授权\\
+	- COMMIT：提交事务\\
+	- ROLLBACK：回滚事务
+
+	\textbf{易错点：}GRANT是授权，REVOKE是收回授权。
+\end{answerbox}
+
+\subsection*{题目 2}
+数据库安全性控制中，用于收回权限的SQL语句是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{GRANT}
+	\item \texttt{REVOKE}
+	\item \texttt{DELETE}
+	\item \texttt{DROP}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. REVOKE}
+
+	\textbf{解析：}见上题。REVOKE用于收回权限。
+
+	\textbf{易错点：}REVOKE是权限控制，不是数据删除。
+\end{answerbox}
+
+\subsection*{题目 3}
+视图在数据库安全性中常见的作用之一是
+\begin{enumerate}[label=\Alph*.]
+	\item 隐藏部分敏感数据
+	\item 提高CPU运算速度
+	\item 替代数据库备份
+	\item 替代事务管理
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 隐藏部分敏感数据}
+
+	\textbf{解析：}视图的作用：\\
+	- 隐藏敏感数据，提供安全保护\\
+	- 简化查询\\
+	- 提供数据独立性
+
+	\textbf{易错点：}视图不能提高CPU速度、替代备份或事务管理。
+\end{answerbox}
+
+\subsection*{题目 4}
+角色（Role）机制的主要优点是
+\begin{enumerate}[label=\Alph*.]
+	\item 便于集中管理一组权限
+	\item 可以代替数据库恢复
+	\item 可以自动修复数据错误
+	\item 保证不发生死锁
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 便于集中管理一组权限}
+
+	\textbf{解析：}角色的优点：\\
+	- 权限的集合，方便权限管理\\
+	- 将权限分配给角色，再将角色分配给用户
+
+	\textbf{易错点：}角色不能代替数据库恢复、修复错误或防止死锁。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 8：完整性约束核心题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜实体完整性、参照完整性、用户定义完整性这4题测一下\\
+	\textbf{副标题建议：}\\
+	概念会背，不等于做题能分清
+\end{coverbox}
+
+\subsection*{题目 1}
+实体完整性规则要求主码
+\begin{enumerate}[label=\Alph*.]
+	\item 可以取空值
+	\item 不能取空值
+	\item 必须重复
+	\item 只能由一个属性组成
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 不能取空值}
+
+	\textbf{解析：}完整性约束：\\
+	- 实体完整性：主码不能为空（NOT NULL）\\
+	- 参照完整性：外码要么为空，要么引用主码值\\
+	- 用户定义完整性：特定业务规则的约束
+
+	\textbf{易错点：}主码必须唯一且非空。
+\end{answerbox}
+
+\subsection*{题目 2}
+参照完整性主要约束的是
+\begin{enumerate}[label=\Alph*.]
+	\item 主码与主码之间的关系
+	\item 外码与被参照关系主码之间的关系
+	\item 所有属性都不能重复
+	\item 所有字段都必须有默认值
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 外码与被参照关系主码之间的关系}
+
+	\textbf{解析：}参照完整性：\\
+	- 外码与被参照关系的主码之间的关系\\
+	- 确保引用完整性
+
+	\textbf{易错点：}参照完整性是关于外码和主码之间的约束。
+\end{answerbox}
+
+\subsection*{题目 3}
+用户定义完整性通常用于约束
+\begin{enumerate}[label=\Alph*.]
+	\item 应用中某些特定属性的取值范围或业务规则
+	\item 数据库文件大小
+	\item 存储设备类型
+	\item 表的物理位置
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 应用中某些特定属性的取值范围或业务规则}
+
+	\textbf{解析：}用户定义完整性：\\
+	- 特定属性的取值范围（如CHECK约束）\\
+	- 业务规则（如唯一性约束）\\
+	- 非空约束、默认值等
+
+	\textbf{易错点：}用户定义完整性是应用相关的约束。
+\end{answerbox}
+
+\subsection*{题目 4}
+下列约束中，最能体现"属性值必须在合法范围内"的是
+\begin{enumerate}[label=\Alph*.]
+	\item 实体完整性
+	\item 参照完整性
+	\item 用户定义完整性
+	\item 模式完整性
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 用户定义完整性}
+
+	\textbf{解析：}用户定义完整性用于约束属性值的合法性范围。
+
+	\textbf{易错点：}实体完整性和参照完整性是数据库层面的通用约束，用户定义完整性是应用特定的。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 9：范式第一组母题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜范式别再死背了，先做这4题\\
+	\textbf{副标题建议：}\\
+	1NF、2NF、3NF 真正容易错的是判断逻辑
+\end{coverbox}
+
+\subsection*{题目 1}
+第一范式（1NF）要求关系中的每一个属性值都必须是
+\begin{enumerate}[label=\Alph*.]
+	\item 可再分的
+	\item 不可再分的原子值
+	\item 数值型
+	\item 字符型
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 不可再分的原子值}
+
+	\textbf{解析：}范式的定义：\\
+	- 1NF：所有属性都是原子值（不可再分）\\
+	- 2NF：满足1NF，消除非主属性对主码的部分依赖\\
+	- 3NF：满足2NF，消除传递依赖
+
+	\textbf{易错点：}1NF是基本要求，所有属性必须是原子值。
+\end{answerbox}
+
+\subsection*{题目 2}
+第二范式（2NF）要求在满足1NF的基础上，消除
+\begin{enumerate}[label=\Alph*.]
+	\item 传递函数依赖
+	\item 部分函数依赖
+	\item 多值依赖
+	\item 连接依赖
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 部分函数依赖}
+
+	\textbf{解析：}见上题。2NF消除非主属性对主码的部分函数依赖。
+
+	\textbf{易错点：}2NF是消除部分依赖，3NF是消除传递依赖。
+\end{answerbox}
+
+\subsection*{题目 3}
+第三范式（3NF）要求在满足2NF的基础上，消除
+\begin{enumerate}[label=\Alph*.]
+	\item 传递函数依赖
+	\item 部分函数依赖
+	\item 平凡函数依赖
+	\item 主属性依赖
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 传递函数依赖}
+
+	\textbf{解析：}见上题。3NF消除非主属性对主码的传递函数依赖。
+
+	\textbf{易错点：}传递依赖是3NF要消除的。
+\end{answerbox}
+
+\subsection*{题目 4}
+规范化的主要目的是
+\begin{enumerate}[label=\Alph*.]
+	\item 增大数据冗余
+	\item 减少数据冗余和更新异常
+	\item 提高磁盘损坏概率
+	\item 取消数据联系
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 减少数据冗余和更新异常}
+
+	\textbf{解析：}规范化的目的：\\
+	- 减少数据冗余\\
+	- 避免更新异常（插入、删除、更新异常）\\
+	- 提高数据完整性
+
+	\textbf{易错点：}规范化不是越大越好，过度规范化可能导致查询性能下降。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 10：数据库设计流程题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜数据库设计流程这4题，很多人顺序就记错\\
+	\textbf{副标题建议：}\\
+	需求分析、概念设计、逻辑设计、物理设计一次分清
+\end{coverbox}
+
+\subsection*{题目 1}
+数据库设计的第一步通常是
+\begin{enumerate}[label=\Alph*.]
+	\item 物理设计
+	\item 逻辑设计
+	\item 需求分析
+	\item 数据装载
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 需求分析}
+
+	\textbf{解析：}数据库设计流程：\\
+	1. 需求分析：了解用户需求\\
+	2. 概念设计：绘制E-R图\\
+	3. 逻辑设计：转换为关系模式\\
+	4. 物理设计：确定存储结构
+
+	\textbf{易错点：}需求分析是数据库设计的第一步。
+\end{answerbox}
+
+\subsection*{题目 2}
+E-R 图设计通常属于数据库设计中的
+\begin{enumerate}[label=\Alph*.]
+	\item 需求分析阶段
+	\item 概念结构设计阶段
+	\item 物理设计阶段
+	\item 运行维护阶段
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 概念结构设计阶段}
+
+	\textbf{解析：}见上题。E-R图是概念设计的工具。
+
+	\textbf{易错点：}E-R图是概念模型的表示工具。
+\end{answerbox}
+
+\subsection*{题目 3}
+把E-R图转换为关系模式通常属于数据库设计中的
+\begin{enumerate}[label=\Alph*.]
+	\item 概念设计
+	\item 逻辑设计
+	\item 物理设计
+	\item 需求调查
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 逻辑设计}
+
+	\textbf{解析：}见上题。E-R图转换为关系模式是逻辑设计阶段的任务。
+
+	\textbf{易错点：}逻辑设计将概念模型转换为数据模型。
+\end{answerbox}
+
+\subsection*{题目 4}
+确定存储结构、存取方法和索引策略通常属于
+\begin{enumerate}[label=\Alph*.]
+	\item 需求分析
+	\item 概念设计
+	\item 逻辑设计
+	\item 物理设计
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 物理设计}
+
+	\textbf{解析：}见上题。存储结构、存取方法是物理设计的内容。
+
+	\textbf{易错点：}物理设计关注的是数据在磁盘上的存储方式。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 11：事务基础高频题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜事务这4题不稳，并发控制会更难\\
+	\textbf{副标题建议：}\\
+	原子性、一致性、隔离性、持久性先拿稳
+\end{coverbox}
+
+\subsection*{题目 1}
+事务的原子性是指
+\begin{enumerate}[label=\Alph*.]
+	\item 事务中的操作要么都做，要么都不做
+	\item 事务执行后数据一定增多
+	\item 事务中只能有一个操作
+	\item 事务不能回滚
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 事务中的操作要么都做，要么都不做}
+
+	\textbf{解析：}事务的ACID特性：\\
+	- 原子性（Atomicity）：事务是最小执行单位，要么全做要么全不做\\
+	- 一致性（Consistency）：事务执行前后数据保持一致\\
+	- 隔离性（Isolation）：并发事务互不干扰\\
+	- 持久性（Durability）：事务提交后修改永久生效
+
+	\textbf{易错点：}原子性强调"全做或全不做"。
+\end{answerbox}
+
+\subsection*{题目 2}
+事务的持久性是指
+\begin{enumerate}[label=\Alph*.]
+	\item 事务执行完成后，对数据库的修改是永久的
+	\item 事务执行时不能被打断
+	\item 事务必须并发执行
+	\item 事务中的数据不能查询
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 事务执行完成后，对数据库的修改是永久的}
+
+	\textbf{解析：}见上题。持久性意味着事务提交后，修改永久保存在磁盘上。
+
+	\textbf{易错点：}持久性保证数据不会丢失。
+\end{answerbox}
+
+\subsection*{题目 3}
+事务的隔离性主要是为了防止
+\begin{enumerate}[label=\Alph*.]
+	\item 一个事务的执行被其他事务干扰
+	\item 数据库掉电
+	\item 存储空间不足
+	\item SQL语法错误
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 一个事务的执行被其他事务干扰}
+
+	\textbf{解析：}见上题。隔离性防止并发事务之间的相互干扰。
+
+	\textbf{易错点：}隔离性通过锁机制或MVCC实现。
+\end{answerbox}
+
+\subsection*{题目 4}
+事务的ACID特性中，C表示
+\begin{enumerate}[label=\Alph*.]
+	\item Correctness
+	\item Consistency
+	\item Control
+	\item Commit
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. Consistency}
+
+	\textbf{解析：}ACID含义：\\
+	- A: Atomicity（原子性）\\
+	- C: Consistency（一致性）\\
+	- I: Isolation（隔离性）\\
+	- D: Durability（持久性）
+
+	\textbf{易错点：}注意ACID的每个字母代表什么。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 12：并发控制和恢复高频题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据库原理｜并发控制和恢复这4题，最容易丢概念分\\
+	\textbf{副标题建议：}\\
+	丢失修改、不可重复读、脏读先分清
+\end{coverbox}
+
+\subsection*{题目 1}
+多个事务并发执行时，一个事务读到了另一个未提交事务修改的数据，这种现象称为
+\begin{enumerate}[label=\Alph*.]
+	\item 丢失修改
+	\item 脏读
+	\item 不可重复读
+	\item 幻读
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 脏读}
+
+	\textbf{解析：}并发问题：\\
+	- 脏读：读到未提交的数据\\
+	- 不可重复读：同一事务两次读取结果不同（因为其他事务修改并提交）\\
+	- 丢失修改：两个事务修改同一数据，后提交的覆盖先提交的
+
+	\textbf{易错点：}脏读是读到未提交的数据。
+\end{answerbox}
+
+\subsection*{题目 2}
+一个事务对同一数据两次读取结果不一致，可能是由于另一个事务在中间修改并提交了数据，这种现象称为
+\begin{enumerate}[label=\Alph*.]
+	\item 脏读
+	\item 不可重复读
+	\item 丢失修改
+	\item 死锁
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 不可重复读}
+
+	\textbf{解析：}见上题。不可重复读是指同一事务两次读取结果不同。
+
+	\textbf{易错点：}注意区分脏读和不可重复读：脏读是未提交，不可重复读是已提交。
+\end{answerbox}
+
+\subsection*{题目 3}
+数据库恢复技术中，日志文件的主要作用是
+\begin{enumerate}[label=\Alph*.]
+	\item 记录事务执行情况，便于故障恢复
+	\item 提高屏幕显示速度
+	\item 替代主数据库文件
+	\item 管理用户权限
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 记录事务执行情况，便于故障恢复}
+
+	\textbf{解析：}日志文件的作用：\\
+	- 记录事务的开始、提交、回滚等信息\\
+	- 用于系统故障恢复\\
+	- 支持事务的回滚
+
+	\textbf{易错点：}日志是恢复机制的核心。
+\end{answerbox}
+
+\subsection*{题目 4}
+数据库系统中，防止并发操作破坏数据一致性的主要技术是
+\begin{enumerate}[label=\Alph*.]
+	\item 完整性约束
+	\item 并发控制
+	\item 数据压缩
+	\item 视图定义
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 并发控制}
+
+	\textbf{解析：}并发控制技术：\\
+	- 封锁机制（锁）\\
+	- 时间戳\\
+	- 乐观并发控制\\
+	- MVCC（多版本并发控制）
+
+	\textbf{易错点：}并发控制通过锁机制保证事务的隔离性。
+\end{answerbox}
+
+\end{document}

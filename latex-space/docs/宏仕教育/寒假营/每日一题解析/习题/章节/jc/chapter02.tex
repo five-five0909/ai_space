@@ -1,0 +1,107 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{graphicx}       % 图片支持
+\usepackage{fancyhdr}       % 页眉页脚
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 使用方法：\choices{选项A}{选项B}{选项C}{选项D}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+
+\title{\textbf{《高等数学》必刷习题——基础版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第二章 极限（基础）}
+
+\begin{enumerate}
+    \item $ \lim_{x\to0}3^{\frac{1}{x}}= $ \underline{\hspace{1cm}}。
+    \choicesFour{1}{0}{$ \infty $}{不存在}
+
+    \item 已知函数 $ f(x)=\frac{|x|}{x} $ ，则 $ \lim_{x\to0}f(x)= $ \underline{\hspace{1cm}}。
+    \choicesFour{1}{$-1$}{0}{不存在}
+
+    \item 极限 $ \lim_{x\to0}\frac{\sin ax}{2x}=1 $ , 则 $a=$ \underline{\hspace{1cm}}。
+    \choicesFour{0}{1}{2}{3}
+
+    \item 极限 $ \lim_{x\to+\infty}\frac{\ln x}{x+2}= $ \underline{\hspace{1cm}}。
+    \choicesFour{0}{1}{2}{$ +\infty $}
+
+    \item 极限 $ \lim_{n\to\infty}\frac{n+(-1)^{n}}{2n}= $ \underline{\hspace{1cm}}。
+    \choicesFour{$ \frac{1}{2} $}{0}{$ \infty $}{不存在}
+
+    \item 极限 $ \lim_{n\to\infty}\sqrt{n^{2}+n}-n= $ \underline{\hspace{2cm}}。
+
+    \item 已知 $ \lim_{x\to\infty}\left(\frac{x-a}{x}\right)^x=2 $ ，则 $a=$ \underline{\hspace{2cm}}。
+
+    \item 极限 $ \lim_{x \to 0} \frac{\ln(1-2x)}{\sin 3x} = $ \underline{\hspace{2cm}}。
+
+    \item 求极限 $ \lim_{n\to\infty}\left(1+\frac{1}{2n}\right)^n= $ \underline{\hspace{2cm}}。
+
+    \item 极限 $ \lim_{x \to 0} \frac{x - \tan x}{x^{2}(e^{x} - 1)} = $ \underline{\hspace{2cm}}。
+
+    \item 求极限 $ \lim_{n\to\infty}\left(\frac{1}{n^{2}+n-1}+\frac{1}{n^{2}+n-2}+\cdots+\frac{1}{n^{2}+n-n}\right) $。
+
+    \item 求下列函数极限：
+    \begin{enumerate}
+        \item $ \lim_{x\to0}x^{2}\sin\frac{1}{x} $
+        \item $ \lim_{x\to\infty}\frac{\arctan x}{x} $
+        \item $ \lim_{n\to\infty}\frac{\cos n^{2}}{n} $
+    \end{enumerate}
+    \item 求下列函数极限
+    \begin{enumerate}
+        \item $ \lim_{x \to 0^{+}} \frac{\sin ax}{\sqrt{1 - \cos x}} $
+        \item $ \lim_{x \to 0} \frac{\cos ax - \cos bx}{x^{2}} $
+    \end{enumerate}
+
+    \item 求下列函数极限
+    \begin{enumerate}
+        \item $ \lim_{x\to0} \frac{\arctan x^{2}}{\sin\frac{x}{2}\arcsin x} $
+        \item $ \lim_{x \to 0} \frac{\frac{x}{\sqrt{1-x^{2}}}}{\ln(1-x)} $
+    \end{enumerate}
+
+    \item 求下列函数极限：
+    \begin{enumerate}
+        \item $ \lim_{x\to0}\frac{1-\cos 4x}{2\sin^{2}x+x\tan^{2}x} $
+        \item $ \lim_{x \to 0} \frac{\cos ax - \cos bx}{x^{2}} $
+        \item $ \lim_{x\to0}\frac{\frac{x}{\sqrt{1-x^{2}}}}{\ln(1-x)} $
+        \item $ \lim_{x\to0}\frac{\ln(\sin^{2}x+e^{x})-x}{\ln(x^{2}+e^{2x})-2x} $
+    \end{enumerate}
+\end{enumerate}
+
+
+\end{document}

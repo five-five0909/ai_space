@@ -1,0 +1,416 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{ctex}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\title{\textbf{第六章\ 结构体}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{一、选择题}
+
+\begin{enumerate}
+	\item 在C语言中，以下哪个选项表示结构体类型？
+	      \begin{enumerate}
+		      \item[A)] struct
+		      \item[B)] union
+		      \item[C)] enum
+		      \item[D)] class
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示共用体类型？
+	      \begin{enumerate}
+		      \item[A)] struct
+		      \item[B)] union
+		      \item[C)] enum
+		      \item[D)] class
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示枚举类型？
+	      \begin{enumerate}
+		      \item[A)] struct
+		      \item[B)] union
+		      \item[C)] enum
+		      \item[D)] class
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下列各数据类型不属于构造类型的是
+	      \begin{enumerate}
+		      \item[A)] 枚举型
+		      \item[B)] 共用型
+		      \item[C)] 结构型
+		      \item[D)] 数组型
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 设有定义：\texttt{int a=12}，则执行完语句 \texttt{a+=a-=a*a;} 后a的值是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 552
+		      \item[B)] 264
+		      \item[C)] 144
+		      \item[D)] -264
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 设有如下的函数
+	      \begin{verbatim}
+typedef struct NODE{ int num; struct NODE*next; } OLD;
+    \end{verbatim}
+	      则以下叙述中正确的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 以上的说明形式非法
+		      \item[B)] NODE是一个结构体类型
+		      \item[C)] OLD是一个结构体类型
+		      \item[D)] OLD是一个结构体变量
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有结构体类型定义 \texttt{struct STU\{int a; float x; char c;\};}，\texttt{sizeof(struct STU)} 的值是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 4
+		      \item[B)] 8
+		      \item[C)] 9
+		      \item[D)] 12
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若int型变量占内存2个字节，double型变量占内存8个字节，有如下定义: \texttt{union data \{ int i; double d; \} a;} 则变量a在内存中所占字节数为\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 2
+		      \item[B)] 8
+		      \item[C)] 10
+		      \item[D)] 16
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 定义共用体类型使用关键字\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] struct
+		      \item[B)] union
+		      \item[C)] enum
+		      \item[D)] typedef
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 定义枚举类型使用关键字\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] struct
+		      \item[B)] union
+		      \item[C)] enum
+		      \item[D)] typedef
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 在C语言中，以下哪个选项表示类类型？
+	      \begin{enumerate}
+		      \item[A)] struct
+		      \item[B)] union
+		      \item[C)] enum
+		      \item[D)] class
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下面关于结构体的说法中，错误的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 结构体可以包含不同类型的成员
+		      \item[B)] 结构体变量可以直接赋值
+		      \item[C)] 结构体变量可以比较大小
+		      \item[D)] 结构体可以嵌套定义
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 下面关于共用体的说法中，错误的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 共用体所有成员共享同一段内存
+		      \item[B)] 共用体变量的大小是最大成员的大小
+		      \item[C)] 共用体可以同时存放多个成员的值
+		      \item[D)] 共用体变量初始化时只能给第一个成员赋值
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 结构体成员访问运算符是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] .
+		      \item[B)] ->
+		      \item[C)] *
+		      \item[D] \&
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有结构体定义：\texttt{struct Student \{ int num; char name[20]; float score; \};}，则下列叙述正确的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] Student是结构体类型
+		      \item[B)] num、name、score是结构体成员
+		      \item[C)] 结构体可以存放多种不同类型的数据
+		      \item[D)] 以上都正确
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 以下程序段中，正确的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] struct \{ int x; int y; \} a = \{1, 2\};
+		      \item[B)] struct Point \{ int x, y; \}; struct Point p = \{1, 2\};
+		      \item[C)] struct \{ int x; int y; \} a; a = \{1, 2\};
+		      \item[D] struct Point p; p = \{1, 2\};
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 若有定义：\texttt{struct Student \{ int num; char name[20]; \} stu, *p = \&stu;}，则访问stu的num成员正确的是\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] stu.num
+		      \item[B)] p->num
+		      \item[C)] (*p).num
+		      \item[D)] 以上都正确
+	      \end{enumerate}
+	      \vspace{0.3cm}
+
+	\item 一个类可以从直接或间接的祖先中继承所有属性和方法。采用这个方法提高了软件的\_\_\_\_\_\_。
+	      \begin{enumerate}
+		      \item[A)] 可靠性
+		      \item[B)] 健壮性
+		      \item[C)] 可重用性
+		      \item[D] 安全性
+	      \end{enumerate}
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{二、填空题}
+
+\begin{enumerate}
+	\item 结构体的定义使用关键字\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 若有结构体类型定义 \texttt{struct STU\{int a; float x; char c;\};}，\texttt{sizeof(struct STU)} 的值是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 若int型变量占内存2个字节，double型变量占内存8个字节，有如下定义: \texttt{union data \{ int i; double d; \} a;} 则变量a在内存中所占字节数为\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 定义共用体类型使用关键字\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 设有如下的函数\\
+	      \texttt{typedef struct NODE\{ int num; struct NODE*next; \} OLD;}\\
+	      则\_\_\_\_\_\_是一个结构体类型。
+	      \vspace{0.3cm}
+
+	\item 结构体成员访问运算符是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 指向结构体的指针访问成员可以使用\_\_\_\_\_\_运算符。
+	      \vspace{0.3cm}
+
+	\item 结构体数组的定义方式是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 若有结构体定义：\texttt{struct Student \{ int num; char name[20]; float score; \};}，则访问结构体数组第i个元素的num成员应写成\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 结构体变量之间\_\_\_\_\_\_直接赋值。（填"可以"或"不可以"）
+	      \vspace{0.3cm}
+
+	\item 结构体变量之间\_\_\_\_\_\_直接比较大小。（填"可以"或"不可以"）
+	      \vspace{0.3cm}
+
+	\item 共用体所有成员\_\_\_\_\_\_同一段内存。（填"共享"或"各有独立的"）
+	      \vspace{0.3cm}
+
+	\item 共用体变量的大小是\_\_\_\_\_\_成员的大小。（填"最大"或"最小"）
+	      \\vspace{0.3cm}
+
+	\item 枚举类型定义使用关键字\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 设有枚举类型定义：\texttt{enum Color \{ RED, GREEN, BLUE \};}，则RED的默认值是\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{三、判断题}
+
+\begin{enumerate}
+	\item 结构体可以包含不同类型的成员。( \ \ )
+	      \vspace{0.3cm}
+
+	\item 结构体变量可以直接赋值。( \ \ )
+	      \vspace{0.3cm}
+
+	\item 结构体变量可以直接比较大小。( \ \ )
+	      \vspace{0.3cm}
+
+	\item 结构体可以嵌套定义。( \ \ )
+	      \vspace{0.3cm}
+
+	\item 共用体所有成员共享同一段内存。( \ \ )
+	      \vspace{0.3cm}
+
+	\item 共用体变量的大小是最大成员的大小。( \ \ )
+	      \vspace{0.3cm}
+
+	\item 共用体可以同时存放多个成员的值。( \ \ )
+	      \vspace{0.3cm}
+
+	\item 共用体变量初始化时只能给第一个成员赋值。( \ \ )
+	      \vspace{0.3cm}
+
+	\item 枚举类型是C语言的一种基本数据类型。( \ \ )
+	      \vspace{0.3cm}
+
+	\item 枚举变量的值只能是枚举定义中的常量。( \ \ )
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{四、程序分析题}
+
+\begin{enumerate}
+	\item 指出下列程序中的错误并改正：
+	      \begin{verbatim}
+#include <stdio.h>
+struct Student {
+    int num;
+    char name[20];
+    float score;
+};
+int main() {
+    struct Student stu;
+    stu = {1001, "Tom", 90.5};
+    printf("%d %s %.1f\n", stu);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 指出下列程序中的错误并改正：
+	      \begin{verbatim}
+#include <stdio.h>
+union Data {
+    int i;
+    float f;
+    char c;
+};
+int main() {
+    union Data d = {10, 20.5, 'A'};
+    printf("%d %f %c\n", d.i, d.f, d.c);
+    return 0;
+}
+    \end{verbatim}
+	      \vspace{0.3cm}
+
+	\item 下面程序的功能是什么？请写出运行结果。
+	      \begin{verbatim}
+#include <stdio.h>
+struct Date {
+    int year;
+    int month;
+    int day;
+};
+int main() {
+    struct Date d = {2023, 3, 15};
+    struct Date *p = &d;
+    printf("%d-%d-%d\n", p->year, p->month, p->day);
+    printf("%d-%d-%d\n", (*p).year, (*p).month, (*p).day);
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 下面程序的功能是什么？请写出运行结果。
+	      \begin{verbatim}
+#include <stdio.h>
+struct Student {
+    int num;
+    char name[20];
+    float score;
+};
+int main() {
+    struct Student stu[3] = {
+        {1001, "Zhang", 85.0},
+        {1002, "Li", 92.5},
+        {1003, "Wang", 78.0}
+    };
+    struct Student *p = stu;
+    for (int i = 0; i < 3; i++) {
+        printf("%d %s %.1f\n", (p+i)->num, (p+i)->name, (p+i)->score);
+    }
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。
+	      \vspace{0.3cm}
+
+	\item 下面程序的功能是什么？请写出运行结果。
+	      \begin{verbatim}
+#include <stdio.h>
+union Test {
+    int i;
+    char c;
+};
+int main() {
+    union Test t;
+    t.i = 0x41424344;
+    printf("i = %d, c = %c\n", t.i, t.c);
+    return 0;
+}
+    \end{verbatim}
+	      输出\_\_\_\_\_\_。（说明：0x41='A', 0x42='B', 0x43='C', 0x44='D'）
+	      \vspace{0.3cm}
+\end{enumerate}
+
+\section*{五、编程题}
+
+\begin{enumerate}
+	\item 定义一个结构体类型Student，包含学号(num)、姓名(name)和成绩(score)三个成员。编写程序，输入3个学生的信息，然后按成绩从高到低输出。
+	      \vspace{2cm}
+
+	\item 定义一个结构体类型Date，包含年(year)、月(month)、日(day)三个成员。编写程序，输入一个日期，计算并输出该日期是这一年的第几天。
+	      \vspace{2cm}
+
+	\item 定义一个结构体类型Complex，包含实部(real)和虚部(imag)两个成员。编写程序，实现两个复数的加法运算。
+	      \vspace{2cm}
+
+	\item 定义一个结构体类型Point，包含x坐标和y坐标两个成员。编写程序，计算两点之间的距离。
+	      \vspace{2cm}
+
+	\item 编写程序，定义一个包含n个学生信息的结构体数组，统计平均成绩并输出高于平均成绩的学生信息。
+	      \vspace{2cm}
+
+	\item 编写程序，使用结构体实现一个简单的人员信息管理系统，包含增加、删除、修改、查询功能。
+	      \vspace{2cm}
+
+	\item 定义一个共用体类型Data，能够存储整型、浮点型和字符型数据。编写程序，演示共用体的使用。
+	      \vspace{2cm}
+
+	\item 定义一个枚举类型Week，包含星期一到星期日七个枚举常量。编写程序，输入数字1-7，输出对应的星期几。
+	      \vspace{2cm}
+\end{enumerate}
+
+\section*{六、简答题}
+
+\begin{enumerate}
+	\item 什么结构体？结构体与数组有什么区别？
+	      \vspace{1cm}
+
+	\item 什么是共用体？共用体与结构体有什么区别？
+	      \vspace{1cm}
+
+	\item 什么是枚举？枚举有什么作用？
+	      \vspace{1cm}
+
+	\item 结构体成员的三种访问方式是什么？它们有什么区别？
+	      \vspace{1cm}
+
+	\item 为什么要使用typedef定义结构体类型？有什么好处？
+	      \vspace{1cm}
+\end{enumerate}
+
+\end{document}

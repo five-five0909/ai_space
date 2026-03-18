@@ -1,0 +1,907 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{booktabs}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 颜色定义
+\definecolor{lightblue}{RGB}{230, 245, 255}
+\definecolor{lightyellow}{RGB}{255, 255, 230}
+\definecolor{lightgreen}{RGB}{230, 255, 230}
+\definecolor{lightred}{RGB}{255, 230, 230}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理讲义}
+\lhead{第8章 数据库恢复和并发控制}
+\cfoot{\thepage}
+
+% bluebox环境定义
+\newenvironment{bluebox}[1]{%
+  \begin{trivlist}
+  \item[\hskip\labelsep \textbf{#1}]
+  \setlength{\parskip}{0.5ex}
+  \setlength{\itemsep}{0.5ex}
+}{%
+  \end{trivlist}
+  }
+
+\title{\textbf{第8章 数据库恢复和并发控制}}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{事务的基本概念}
+
+\subsection{事务的定义}
+
+\begin{bluebox}{核心概念框架}
+	\textbf{【事务核心认知框架】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{定义}：事务是用户定义的一个数据库操作序列，这些操作要么全做，要么全不做
+		\item \textbf{特点}：是一个不可分割的工作单位
+		\item \textbf{一致性}：从一致性状态变换到另一个一致性状态
+		\item \textbf{基本操作}：COMMIT（提交）、ROLLBACK（回滚）
+	\end{itemize}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 事务示例
+BEGIN TRANSACTION;  -- 开始事务
+
+-- 银行转账：从账户A转100到账户B
+UPDATE 账户 SET 余额 = 余额 - 100 WHERE 账号 = 'A';
+UPDATE 账户 SET 余额 = 余额 + 100 WHERE 账号 = 'B';
+
+COMMIT;  -- 提交事务（成功）
+-- 或
+ROLLBACK;  -- 回滚事务（失败）
+	\end{verbatim}
+
+	\textbf{记忆口诀}：事务要么全做，要么全不做
+\end{bluebox}
+
+\subsection{事务的ACID特性}
+
+\begin{bluebox}{ACID特性}
+	\textbf{【事务的ACID四大特性】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{原子性(Atomicity)}：
+		      \begin{itemize}[nosep]
+			      \item 定义：事务中包括的所有操作要么都做，要么都不做
+			      \item 含义：事务是不可分割的最小单位
+			      \item 保障：通过事务撤销和重做实现
+		      \end{itemize}
+
+		\item \textbf{一致性(Consistency)}：
+		      \begin{itemize}[nosep]
+			      \item 定义：事务必须使数据库从一个一致性状态变到另一个一致性状态
+			      \item 含义：事务执行前后，数据库都满足完整性约束
+			      \item 保障：通过完整性约束实现
+		      \end{itemize}
+
+		\item \textbf{隔离性(Isolation)}：
+		      \begin{itemize}[nosep]
+			      \item 定义：一个事务内部的操作及使用的数据对并发的其他事务是隔离的
+			      \item 含义：并发执行的事务之间互不干扰
+			      \item 保障：通过并发控制协议实现
+		      \end{itemize}
+
+		\item \textbf{持续性(Durability)}：
+		      \begin{itemize}[nosep]
+			      \item 定义：事务一旦提交，对数据库的改变是永久的
+			      \item 含义：即使系统故障，提交的结果也不会丢失
+			      \item 保障：通过数据库恢复技术实现
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 原子性：要么全部成功，要么全部失败
+BEGIN;
+UPDATE A SET 余额 = 余额 - 100;
+UPDATE B SET 余额 = 余额 + 100;
+COMMIT;  -- 要么两个都成功，要么都回滚
+
+-- 持续性：提交后即使断电也不会丢失
+-- 数据库会自动将数据写入磁盘保证持久性
+	\end{verbatim}
+
+	\textbf{记忆口诀}：原子一致隔离持久（ACID）
+\end{bluebox}
+
+\section{数据库恢复技术}
+
+\subsection{故障类型}
+
+\begin{bluebox}{数据库故障分类}
+	\textbf{【数据库系统的故障类型】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{事务内部故障}：
+		      \begin{itemize}[nosep]
+			      \item 预期故障：可由事务程序发现
+			      \item 非预期故障：运行时发生的故障
+			      \item 恢复：撤销事务（UNDO）
+		      \end{itemize}
+
+		\item \textbf{系统故障}：
+		      \begin{itemize}[nosep]
+			      \item 定义：造成系统停止运转，但存储介质未破坏
+			      \item 特点：内存数据丢失，磁盘数据未丢失
+			      \item 恢复：撤销(Undo)未完成事务 + 重做(Redo)已提交事务
+		      \end{itemize}
+
+		\item \textbf{介质故障}：
+		      \begin{itemize}[nosep]
+			      \item 定义：磁盘损坏，数据库文件被破坏
+			      \item 特点：内存和磁盘数据都丢失
+			      \item 恢复：利用备份恢复 + 重做(Redo)
+		      \end{itemize}
+
+		\item \textbf{计算机病毒}：
+		      \begin{itemize}[nosep]
+			      \item 定义：恶意程序破坏数据库
+			      \item 恢复：利用备份恢复
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{记忆口诀}：事务系统介质，故障类型各不同
+\end{bluebox}
+
+\subsection{日志文件}
+
+\begin{bluebox}{日志文件}
+	\textbf{【日志文件的作用】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{定义}：记录事务对数据库的修改操作
+		\item \textbf{内容}：
+		      \begin{itemize}[nosep]
+			      \item 事务标识
+			      \item 操作类型（插入、删除、修改）
+			      \item 操作对象
+			      \item 更新前数据的旧值
+			      \item 更新后数据的新值
+		      \end{itemize}
+		\item \textbf{作用}：
+		      \begin{itemize}[nosep]
+			      \item 回滚未提交的事务（UNDO）
+			      \item 重做已提交的事务（REDO）
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- MySQL查看binlog（二进制日志）
+SHOW BINARY LOGS;
+SHOW MASTER LOGS;
+
+-- 查看binlog内容
+mysqlbinlog --no-defaults -v mysql-bin.000001
+
+-- 每个事务的日志记录格式：
+# at 123
+#210610 10:00:00 server id 1  end_log_pos 194   Query   thread_id=10
+BEGIN
+# at 194
+#210610 10:00:00 server id 1  end_log_pos 269   Query   thread_id=10
+UPDATE 账户 SET 余额=余额-100 WHERE 账号='A'
+# at 269
+#210610 10:00:00 server id 1  end_log_pos 287   Xid = 15
+COMMIT
+	\end{verbatim}
+
+	\textbf{记忆口诀}：日志记录修改，撤销重做恢复
+\end{bluebox}
+
+\subsection{恢复策略}
+
+\begin{bluebox}{恢复策略}
+	\textbf{【数据库恢复策略】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{事务故障恢复}：
+		      \begin{itemize}[nosep]
+			      \item 反向扫描日志文件
+			      \item 撤销(UNDO)该事务的所有操作
+		      \end{itemize}
+
+		\item \textbf{系统故障恢复}：
+		      \begin{itemize}[nosep]
+			      \item 正向扫描日志文件，区分已提交和未提交事务
+			      \item 撤销(UNDO)未提交的事务
+			      \item 重做(REDO)已提交的事务
+		      \end{itemize}
+
+		\item \textbf{介质故障恢复}：
+		      \begin{itemize}[nosep]
+			      \item 装入最新的数据库备份
+			      \item 重做(REDO)自备份以来所有已提交的事务
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 系统故障恢复示例
+-- 假设系统崩溃后重启恢复
+
+-- 步骤1：读取日志文件
+-- 步骤2：区分事务状态
+-- 步骤3：执行恢复
+--    UNDO: 未提交的事务
+--    REDO: 已提交但未写入磁盘的事务
+
+-- MySQL自动执行恢复过程
+-- InnoDB崩溃恢复会自动进行
+	\end{verbatim}
+
+	\textbf{记忆口诀}：事务故障撤销，系统故障撤销重做，介质故障重做
+\end{bluebox}
+
+\section{并发控制}
+
+\subsection{并发操作的问题}
+
+\begin{bluebox}{并发问题}
+	\textbf{【事务并发操作可能带来的问题】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{丢失修改(Lost Update)}：
+		      \begin{itemize}[nosep]
+			      \item 定义：两个事务同时修改同一数据，一个覆盖另一个
+			      \item 示例：两个银行柜员同时对同一账户取款
+			      \item 后果：后提交的事务覆盖先提交的事务
+		      \end{itemize}
+
+		\item \textbf{不可重复读(Non-repeatable Read)}：
+		      \begin{itemize}[nosep]
+			      \item 定义：一个事务读取同一数据两次，结果不同
+			      \item 示例：事务T1读取账户余额100，T2修改为200，T1再读取为200
+			      \item 后果：同一次事务内读取结果不一致
+		      \end{itemize}
+
+		\item \textbf{读脏数据(Dirty Read)}：
+		      \begin{itemize}[nosep]
+			      \item 定义：一个事务读取了另一个未提交事务的数据
+			      \item 示例：T1修改余额为200（未提交），T2读取200，T1回滚
+			      \item 后果：T2读取的数据实际上是无效的
+		      \end{itemize}
+
+		\item \textbf{幻读(Phantom Read)}：
+		      \begin{itemize}[nosep]
+			      \item 定义：一个事务读取数据时，另一个事务插入或删除数据
+			      \item 示例：T1查询有5条记录，T2插入1条，T1再查询有6条
+			      \item 后果：感觉像出现了幻影数据
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 丢失修改示例
+-- 事务T1
+BEGIN;
+UPDATE 账户 SET 余额 = 余额 - 100 WHERE 账号 = 'A';  -- 余额1000 -> 900
+-- ... 未提交 ...
+
+-- 事务T2（并发执行）
+BEGIN;
+UPDATE 账户 SET 余额 = 余额 - 200 WHERE 账号 = 'A';  -- 余额1000 -> 800
+COMMIT;  -- T2提交
+
+-- T1提交
+COMMIT;  -- T1提交，T2的修改丢失
+	\end{verbatim}
+
+	\textbf{记忆口诀}：丢失修改、不可重复读、读脏数据、幻读
+\end{bluebox}
+
+\subsection{封锁协议}
+
+\begin{bluebox}{封锁类型}
+	\textbf{【封锁的基本类型】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{排他锁(Exclusive Lock, X锁)}：
+		      \begin{itemize}[nosep]
+			      \item 用于写操作（UPDATE、DELETE、INSERT）
+			      \item 特点：与其他事务的X锁和S锁都不兼容
+			      \item 作用：防止其他事务写和读
+		      \end{itemize}
+
+		\item \textbf{共享锁(Shared Lock, S锁)}：
+		      \begin{itemize}[nosep]
+			      \item 用于读操作（SELECT）
+			      \item 特点：与其他事务的S锁兼容，与X锁不兼容
+			      \item 作用：防止其他事务写，允许其他事务读
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{相容矩阵}：
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{请求锁} & \textbf{已有锁：} & \textbf{S锁}  & \textbf{X锁}  \\
+		\hline
+		\textbf{S锁}  & 不需要           & 兼容           & \textbf{不兼容} \\
+		\hline
+		\textbf{X锁}  & 不需要           & \textbf{不兼容} & \textbf{不兼容} \\
+		\hline
+	\end{tabular}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- X锁：排他锁（写操作自动获取）
+BEGIN;
+UPDATE 账户 SET 余额 = 余额 - 100 WHERE 账号 = 'A';
+-- 自动获取X锁
+CREATE TABLE temp (id INT);
+-- COMMIT或ROLLBACK时释放X锁
+COMMIT;
+
+-- S锁：共享锁（需要显式指定）
+BEGIN;
+SELECT * FROM 账户 WHERE 账号 = 'A' LOCK IN SHARE MODE;
+-- 获取S锁
+COMMIT;
+
+-- X锁：排他锁（显式指定）
+BEGIN;
+SELECT * FROM 账户 WHERE 账号 = 'A' FOR UPDATE;
+-- 获取X锁
+COMMIT;
+	\end{verbatim}
+
+	\textbf{记忆口诀}：X锁排他，S锁共享
+\end{bluebox}
+
+\begin{bluebox}{封锁协议}
+	\textbf{【三级封锁协议】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{一级封锁协议}：
+		      \begin{itemize}[nosep]
+			      \item 内容：事务T修改数据R之前必须先加X锁，直到事务结束才释放
+			      \item 解决：丢失修改问题
+			      \item 不能解决：读脏数据、不可重复读
+		      \end{itemize}
+
+		\item \textbf{二级封锁协议}：
+		      \begin{itemize}[nosep]
+			      \item 内容：在一级基础上，事务T读取数据R之前必须先加S锁，读完后释放
+			      \item 解决：丢失修改、读脏数据
+			      \item 不能解决：不可重复读
+		      \end{itemize}
+
+		\item \textbf{三级封锁协议}：
+		      \begin{itemize}[nosep]
+			      \item 内容：在一级基础上，事务T读取数据R之前必须先加S锁，直到事务结束才释放
+			      \item 解决：丢失修改、读脏数据、不可重复读
+		      \end{itemize}
+	\end{enumerate}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 三级封锁协议示例
+BEGIN;
+-- 读前加S锁
+SELECT * FROM 账户 WHERE 账号 = 'A' LOCK IN SHARE MODE;
+
+-- 继续读取（防止不可重复读）
+SELECT * FROM 账户 WHERE 账号 = 'A' LOCK IN SHARE MODE;
+
+-- 写前加X锁
+UPDATE 账户 SET 余额 = 余额 - 100 WHERE 账号 = 'A';
+
+-- 事务结束时释放所有锁
+COMMIT;
+	\end{verbatim}
+
+	\textbf{记忆口诀}：一级防丢失，二级防脏读，三级防不可重复
+\end{bluebox}
+
+\section{触发器}
+
+\subsection{触发器的概念}
+
+\begin{bluebox}{触发器定义}
+	\textbf{【触发器的基本概念】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{定义}：用户定义在关系表上的一类由事件驱动的数据库对象
+		\item \textbf{特点}：
+		      \begin{itemize}[nosep]
+			      \item 是特殊类型的存储过程
+			      \item 不需要显式调用，由事件自动触发
+			      \item 主要用于保证数据完整性和数据一致性
+		      \end{itemize}
+		\item \textbf{触发事件}：INSERT、DELETE、UPDATE
+		\item \textbf{触发时机}：BEFORE、AFTER
+	\end{itemize}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 创建触发器：自动计算学生奖学金
+CREATE TRIGGER 计算奖学金
+AFTER UPDATE ON 学生成绩
+FOR EACH ROW
+BEGIN
+    DECLARE avg_score FLOAT;
+    SELECT AVG(成绩) INTO avg_score
+    FROM 学生成绩
+    WHERE 学号 = NEW.学号;
+
+    UPDATE 学生 SET 奖学金 =
+        CASE
+            WHEN avg_score >= 90 THEN 'A'
+            WHEN avg_score >= 80 THEN 'B'
+            WHEN avg_score >= 60 THEN 'C'
+            ELSE '无'
+        END
+    WHERE 学号 = NEW.学号;
+END;
+	\end{verbatim}
+
+	\textbf{记忆口诀}：由事件驱动自动执行
+\end{bluebox}
+
+\subsection{触发器的类型}
+
+\begin{bluebox}{触发器类型}
+	\textbf{【触发器的分类】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{按触发事件分类}：
+		      \begin{itemize}[nosep]
+			      \item INSERT触发器：插入数据时触发
+			      \item DELETE触发器：删除数据时触发
+			      \item UPDATE触发器：修改数据时触发
+		      \end{itemize}
+
+		\item \textbf{按触发时机分类}：
+		      \begin{itemize}[nosep]
+			      \item BEFORE触发器：在事件执行之前触发
+			      \item AFTER触发器：在事件执行之后触发
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- INSERT触发器
+CREATE TRIGGER 记录新增
+AFTER INSERT ON 学生
+FOR EACH ROW
+BEGIN
+    INSERT INTO 操作日志(操作类型, 操作时间, 操作内容)
+    VALUES ('INSERT', NOW(), CONCAT('新增学生:', NEW.学号));
+END;
+
+-- DELETE触发器
+CREATE TRIGGER 记录删除
+BEFORE DELETE ON 学生
+FOR EACH ROW
+BEGIN
+    INSERT INTO 操作日志(操作类型, 操作时间, 操作内容)
+    VALUES ('DELETE', NOW(), CONCAT('删除学生:', OLD.学号));
+END;
+
+-- UPDATE触发器
+CREATE TRIGGER 记录修改
+AFTER UPDATE ON 学生
+FOR EACH ROW
+BEGIN
+    INSERT INTO 操作日志(操作类型, 操作时间, 操作内容)
+    VALUES ('UPDATE', NOW(), CONCAT('修改学生:', NEW.学号));
+END;
+	\end{verbatim}
+
+	\textbf{记忆口诀}：INSERT DELETE UPDATE，BEFORE AFTER时机定
+\end{bluebox}
+
+\subsection{虚拟表NEW和OLD}
+
+\begin{bluebox}{NEW和OLD}
+	\textbf{【触发器中的虚拟表NEW和OLD】}
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{触发器类型} & \textbf{NEW}    & \textbf{OLD}     & \textbf{说明} \\
+		\hline
+		INSERT         & 可读写             & 不存在 | NEW表示插入的新值               \\
+		\hline
+		DELETE | 不存在   & 只读 | OLD表示删除的旧值                                  \\
+		\hline
+		UPDATE | 可读写 | 只读 | NEW表示新值，OLD表示旧值                               \\
+		\hline
+	\end{tabular}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- INSERT触发器：访问NEW
+CREATE TRIGGER insert_trigger
+AFTER INSERT ON 学生
+FOR EACH ROW
+BEGIN
+    --NEW.学号是插入的新值
+    INSERT INTO 日志 VALUES(NEW.学号, 'INSERT');
+END;
+
+-- DELETE触发器：访问OLD
+CREATE TRIGGER delete_trigger
+AFTER DELETE ON 学生
+FOR EACH ROW
+BEGIN
+    -- OLD.学号是删除的旧值（只读）
+    INSERT INTO 日志 VALUES(OLD.学号, 'DELETE');
+END;
+
+-- UPDATE触发器：访问NEW和OLD
+CREATE TRIGGER update_trigger
+AFTER UPDATE ON 学生
+FOR EACH ROW
+BEGIN
+    -- OLD.姓名是旧值（只读）
+    -- NEW.姓名是新值（可写）
+    INSERT INTO 日志 VALUES(NEW.学号, 'UPDATE',
+                            OLD.姓名, NEW.姓名);
+END;
+	\end{verbatim}
+
+	\textbf{记忆口诀}：INSERTNEW，DELETEOLD，UPDATE都有
+\end{bluebox}
+
+\subsection{UPDATE触发表自身}
+
+\begin{bluebox}{UPDATE触发器特殊情形}
+	\textbf{【UPDATE触发器涉及对触发表自身的更新】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{问题}：UPDATE触发器如果修改触发表自身，可能导致递归
+		\item \textbf{解决方案}：只能使用BEFORE UPDATE触发器
+		\item \textbf{原因}：
+		      \begin{itemize}[nosep]
+			      \item AFTER UPDATE触发器在UPDATE之后触发，再次修改会再次触发
+			      \item BEFORE UPDATE触发器在UPDATE之前触发，可以修改将要插入的值
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- BEFORE UPDATE修改自身（正确）
+CREATE TRIGGER update_before
+BEFORE UPDATE ON 学生
+FOR EACH ROW
+BEGIN
+    -- 修改即将更新的值
+    SET NEW.姓名 = CONCAT('修改:', NEW.姓名);
+END;
+
+-- AFTER UPDATE修改自身（可能导致无限递归，错误）
+CREATE TRIGGER update_after
+AFTER UPDATE ON 学生
+FOR EACH ROW
+BEGIN
+    -- 触发器本身修改学生表，会再次触发UPDATE
+    UPDATE 学生 SET 姓名 = '新值' WHERE 学号 = NEW.学号;
+END;
+	\end{verbatim}
+
+	\textbf{记忆口诀}：UPDATE修改自身用BEFORE
+\end{bluebox}
+
+\subsection{触发器特点}
+
+\begin{bluebox}{触发器特点}
+	\textbf{【触发器的重要特点】}
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{自动执行}：触发器一旦定义，任何对表的修改操作都会由数据库服务器自动激活相应触发器
+		      \begin{itemize}[nosep]
+			      \item 不需要用户显式调用
+			      \item 不是用户定义的，而是系统自动执行的
+		      \end{itemize}
+
+		\item \textbf{用途}：实现主键和外键不能保证的复杂的参照完整性和数据的一致性
+		      \begin{itemize}[nosep]
+			      \item 主键和外键只能保证基本完整性
+			      \item 触发器可以实现复杂业务逻辑
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{记忆口诀}：自动执行，无需调用
+\end{bluebox}
+
+\section{本章必背知识点}
+
+\begin{bluebox}{命题人思维版}
+	\textbf{【本章应背诵知识点】}
+
+	\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+		\item \textbf{事务ACID}：原子性、一致性、隔离性、持续性
+		\item \textbf{原子性定义}：事务中包括的所有操作要么都做，要么都不做
+		\item \textbf{一致性定义}：事务必须使数据库从一个一致性状态变到另一个一致性状态
+		\item \textbf{隔离性定义}：一个事务内部的操作及使用的数据对并发的其他事务是隔离的
+		\item \textbf{持续性定义}：事务一旦提交，对数据库的改变是永久的
+		\item \textbf{并发问题}：丢失修改、不可重复读、读脏数据、幻读
+		\item \textbf{封锁类型}：X锁（排他）、S锁（共享）
+		\item \textbf{三级封锁协议}：一级防丢失、二级防脏读、三级防不可重复
+		\item \textbf{触发器特点}：自动执行，无需调用
+		\item \textbf{NEW和OLD}：INSERT用NEW、DELETE用OLD、UPDATE都用
+	\end{enumerate}
+
+	\textbf{选项辨析速查表（考场5秒决策）}：
+
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{概念} & \textbf{定义} & \textbf{解决方法} & \textbf{记忆口诀} \\
+		\hline
+		原子性 | 全做全不做 | 日志UNDO | "要么全做要么不做"                         \\
+		\hline
+		一致性 | 状态一致 | 完整性约束 | "从一个一致到另一个"                          \\
+		\hline
+		隔离性 | 互不干扰 | 并发控制 | "事务隔离互干扰"                             \\
+		\hline
+		持续性 | 永久有效 | 数据备份 | "提交后永不变"                              \\
+		\hline
+	\end{tabular}
+\end{bluebox}
+
+\begin{bluebox}{高频陷阱清单}
+	\textbf{【本章高频陷阱清单】}
+
+	\begin{itemize}
+		\item 陷阱1："触发器需要用户显式调用" $\rightarrow$ \textbf{错误！} 自动执行
+		\item 陷阱2："X锁允许读操作" $\rightarrow$ \textbf{错误！} X锁排他，不允许其他读
+		\item 陷阱3："S锁不允许任何操作" $\rightarrow$ \textbf{错误！} S锁允许其他读
+		\item 陷阱4："不可重复读等同于幻读" $\rightarrow$ \textbf{错误！} 不可重复读是修改，幻读是插入删除
+		\item 陷阱5："AFTER UPDATE可以修改触发表自身" $\rightarrow$ \textbf{错误！} 应该用BEFORE UPDATE
+		\item 陷阱6："DELETE触发器的OLD可以修改" $\rightarrow$ \textbf{错误！} DELETE的OLD是只读的
+	\end{itemize}
+\end{bluebox}
+
+\section{典型例题深度解析}
+
+\begin{bluebox}{例题1：事务原子性}
+	\textbf{【例题1】} 事务的原子性是指（\quad）。
+
+	\begin{itemize}
+		\item[A)] 事务中包括的所有操作要么都做，要么都不做
+		\item[B)] 事务一旦提交，对数据库的改变是永久的
+		\item[C)] 一个事务内部的操作及使用的数据对并发的其他事务是隔离的
+		\item[D)] 事务必须使数据库从一个一致性状态变到另一个一致性状态
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查事务ACID特性的定义
+		\item \textbf{关键区分点}：原子性强调"全或无"的特性
+		\item \textbf{命题人意图}：测试考生对事务特性的记忆
+	\end{itemize}
+
+	\textbf{SQL示例验证}：
+	\begin{verbatim}
+-- 原子性示例：银行转账
+BEGIN;  -- 开始事务
+UPDATE 账户 SET 余额 = 余额 - 100 WHERE 账号 = 'A';  -- A账户减100
+UPDATE 账户 SET 余额 = 余额 + 100 WHERE 账号 = 'B';  -- B账户加100
+-- 如果第二个UPDATE失败（如B账号不存在）
+COMMIT;  -- 实际会ROLLBACK，两个操作都不执行
+-- 这就是原子性：要么全做，要么全不做
+	\end{verbatim}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 事务中包括的所有操作要么都做，要么都不做]：\textbf{正确！} 原子性的定义
+		\item[B) 事务一旦提交，对数据库的改变是永久的]：错误，这是持续性
+		\item[C) 一个事务内部的操作及使用的数据对并发的其他事务是隔离的]：错误，这是隔离性
+		\item[D) 事务必须使数据库从一个一致性状态变到另一个一致性状态]：错误，这是一致性
+	\end{itemize}
+
+	\textbf{记忆口诀}：原子=全做或全不做
+\end{bluebox}
+
+\begin{bluebox}{例题2：数据库恢复}
+	\textbf{【例题2】} 当数据库遭到破坏时，将其恢复到数据库破坏前的某种一致性状态，这种功效称为（\quad）。
+
+	\begin{itemize}
+		\item[A)] 数据库安全性控制
+		\item[B)] 数据库完整性控制
+		\item[C)] 数据库并发控制
+		\item[D)] 数据库恢复
+	\end{itemize}
+
+	\textbf{答案：D}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查数据库恢复的定义
+		\item \textbf{关键区分点}：将数据库从破坏状态恢复到一致性状态
+		\item \textbf{命题人意图}：测试考生对数据库恢复功能的理解
+	\end{itemize}
+
+	\textbf{数据库安全控制vs恢复}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{安全性控制}：防止非法访问
+		      \begin{itemize}[nosep]
+			      \item GRANT、REVOKE
+			      \item 用户权限管理
+		      \end{itemize}
+
+		\item \textbf{完整性控制}：保证数据正确
+		      \begin{itemize}[nosep]
+			      \item 约束（PRIMARY KEY、FOREIGN KEY等）
+			      \item 触发器
+		      \end{itemize}
+
+		\item \textbf{并发控制}：防止并发冲突
+		      \begin{itemize}[nosep]
+			      \item 封锁
+			      \item 时间戳
+		      \end{itemize}
+
+		\item \textbf{数据库恢复}：从故障中恢复
+		      \begin{itemize}[nosep]
+			      \item 日志
+			      \item 备份
+			      \item REDO、UNDO
+		      \end{itemize}
+	\end{itemize}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 数据库恢复示例（MySQL）
+-- 步骤1：停止数据库服务
+sudo service mysql stop
+
+-- 步骤2：从备份恢复数据
+mysql -u root -p < backup_20210610.sql
+
+-- 步骤3：重启数据库 service mysql start
+
+-- 步骤4：应用binlog恢复到故障点
+mysqlbinlog --no-defaults mysql-bin.000001 | mysql -u root -p
+
+-- 这就是数据库恢复
+	\end{verbatim}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 数据库安全性控制]：错误，安全是防止非法访问
+		\item[B) 数据库完整性控制]：错误，完整性是保证数据正确
+		\item[C) 数据库并发控制]：错误，并发控制是防止并发冲突
+		\item[D) 数据库恢复]：\textbf{正确！} 将数据库从破坏状态恢复
+	\end{itemize}
+
+	\textbf{记忆口诀}：恢复是恢复破坏后的状态
+\end{bluebox}
+
+\begin{bluebox}{例题3：并发问题}
+	\textbf{【例题3】} 数据库的并发操作可能带来的一个问题是（\quad）。
+
+	\begin{itemize}
+		\item[A)] 丢失修改
+		\item[B)] 非法用户使用
+		\item[C)] 增加数据冗余
+		\item[D)] 提高数据独立性
+	\end{itemize}
+
+	\textbf{答案：A}
+
+	\textbf{深度解析}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查并发操作带来的问题
+		\item \textbf{关键区分点}：并发问题包括丢失修改、不可重复读、读脏数据、幻读
+		\item \textbf{命题人意图}：测试考生对并发问题的识别
+	\end{itemize}
+
+	\textbf{并发问题详解}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{丢失修改}：两个事务同时修改同一数据，一个覆盖另一个
+		\item \textbf{不可重复读}：同一事务内多次读取同一数据结果不同
+		\item \textbf{读脏数据}：读取未提交事务的数据
+		\item \textbf{幻读}：在事务执行过程中，发现数据行数变化
+	\end{itemize}
+
+	\textbf{非并发问题}：
+
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{非法用户使用}：安全性问题，不是并发问题
+		\item \textbf{增加数据冗余}：设计问题，规范化可以解决
+		\item \textbf{提高数据独立性}：设计目标，不是问题
+	\end{itemize}
+
+	\textbf{SQL示例}：
+	\begin{verbatim}
+-- 丢失修改示例
+-- 事务T1和T2并发执行
+-- T1: UPDATE 账户 SET 余额 = 余额 - 100 WHERE 账号 = 'A';
+-- T2: UPDATE 账户 SET 余额 = 余额 + 50 WHERE 账号 = 'A';
+-- 结果：T2的修改覆盖T1的修改，丢失了减100的操作
+-- 这就是丢失修改
+	\end{verbatim}
+
+	\textbf{选项分析}：
+	\begin{itemize}[nosep]
+		\item[A) 丢失修改]：\textbf{正确！} 并发操作带来的问题
+		\item[B) 非法用户使用]：错误，这是安全性问题
+		\item[C) 增加数据冗余]：错误，这是设计问题
+		\item[D) 提高数据独立性]：错误，这是设计目标
+	\end{itemize}
+
+	\textbf{记忆口诀}：并发问题=丢失修改、不可重复读、读脏数据、幻读
+\end{bluebox}
+
+\section{命题趋势与实战策略}
+
+\begin{bluebox}{考场秒杀三步法}
+	\textbf{【本章考场秒杀三步法】}
+
+	\begin{enumerate}
+		\item \textbf{第一步：识别题型}
+		      \begin{itemize}[nosep]
+			      \item 问事务特性 $\to$ ACID四个特性
+			      \item 问并发问题 $\to$ 四类并发问题
+			      \item 问封锁 $\to$ X锁S锁，三级封锁协议
+			      \item 问触发器 $\to$ 自动执行，NEW和OLD
+		      \end{itemize}
+
+		\item \textbf{第二步：排除干扰项}
+		      \begin{itemize}[nosep]
+			      \item 混淆"原子性"和"持续性" $\to$ 记住"全做全不做"vs"永久有效"
+			      \item 混淆"丢失修改"和"不可重复读" $\to$ 记住"覆盖"vs"结果不同"
+			      \item 混淆"X锁"和"S锁" $\to$ 记住"排他"vs"共享"
+			      \item 混淆"触发器调用" $\to$ 记住自动执行
+		      \end{itemize}
+
+		\item \textbf{第三步：关键词锁定}
+		      \begin{itemize}[nosep]
+			      \item "全做全不做" $\to$ 原子性
+			      \item "永久" $\to$ 持续性
+			      \item "隔离" $\to$ 隔离性
+			      \item "自动" $\to$ 触发器
+			      \item "日志" $\to$ 数据库恢复
+		      \end{itemize}
+	\end{enumerate}
+\end{bluebox}
+
+\begin{bluebox}{近年真题规律}
+	\textbf{【本章命题规律分析】}
+
+	\begin{itemize}
+		\item 90\%考题涉及"事务ACID特性"
+		\item 85\%考题考查"并发问题"
+		\item 80\%考题以"封锁协议"作为考点
+		\item 高频考点：原子性、持续性、丢失修改、X锁S锁、触发器
+		\item 新趋势：结合实际场景考查事务隔离隔离级别
+	\end{itemize}
+\end{bluebox}
+
+\end{document}

@@ -1,0 +1,359 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={Java泛型-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt,
+    breakable
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{Java泛型 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月02日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{泛型}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于Java中的泛型的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以提高代码的安全性
+		      \item 可以减少类型转换
+		      \item 泛型类型在运行时会被擦除
+		      \item 泛型可以用于基本数据类型
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 泛型可以用于基本数据类型}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. 提高代码安全性 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 编译期类型检查
+			      \item 减少ClassCastException
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. 减少类型转换 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 泛型不需要强制类型转换
+			      \item List<String>直接get()就是String
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 运行时类型擦除 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 泛型信息在编译后被擦除
+			      \item 只保留原始类型(raw type)
+			      \item 这是泛型的核心机制
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 可用于基本数据类型 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 泛型不支持基本类型！
+			      \item 必须使用包装类
+			      \item 例如：不能写List<int>，只能写List<Integer>
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      泛型核心概念：
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 类型擦除(Type Erasure)：编译后泛型信息被擦除为原始类型
+			      \item 泛型限制：不能用于基本类型，只能用包装类
+			      \item 泛型边界：<? extends T>、<? super T>、<?>
+			      \item 泛型擦除后的类型：List<String> → List、List<Integer> → List
+		      \end{itemize}
+
+		      \textbf{【类型擦除详解】}
+
+		      \begin{enumerate}[label={}]
+			      \item 无边界泛型：Object
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item List<T> → List，元素类型变为Object
+			            \end{itemize}
+			      \item 有边界泛型：具体类型
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item List<? extends Number> → List（边界信息保存在Signature属性中）
+			            \end{itemize}
+			      \item 桥接方法：编译器自动生成
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 用于保持多态兼容性
+			            \end{itemize}
+		      \end{enumerate}
+
+		      \textbf{【命题陷阱破解】}
+
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 陷阱1："泛型在运行时可用" → 错！运行时已擦除
+			      \item 陷阱2："List<int>是合法的" → 错！必须用List<Integer>
+			      \item 陷阱3："泛型ArrayList<String>和ArrayList<Object>可以互相转换" → 错！泛型类型不兼容
+		      \end{itemize}
+
+		      \textbf{【泛型 vs 数组】}
+
+		      \begin{tabular}{|c|c|c|}
+			      \hline
+			      特性    & 泛型    & 数组        \\
+			      \hline
+			      类型安全  & 编译期检查 & 运行时检查     \\
+			      \hline
+			      元素类型  & 引用类型  & 基本类型+引用类型 \\
+			      \hline
+			      运行时信息 & 擦除    & 保留        \\
+			      \hline
+			      协变性   & 否     & 是         \\
+			      \hline
+		      \end{tabular}
+
+		      \textbf{【实战代码示例】}
+
+		      \begin{lstlisting}[language=Java]
+// 正确：使用包装类
+List<Integer> intList = new ArrayList<>();
+intList.add(10); // 自动装箱
+int num = intList.get(0); // 自动拆箱
+
+// 错误：不能使用基本类型
+// List<int> intList = new ArrayList<>(); // 编译错误！
+
+// 类型擦除示例
+List<String> stringList = new ArrayList<>();
+List<Integer> intList2 = new ArrayList<>();
+// 运行时：stringList和intList2的类对象相同
+// 都是ArrayList
+System.out.println(stringList.getClass() == intList2.getClass()); // true
+\end{lstlisting}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是正确的Java泛型声明？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item class MyClass<T extends Number>
+		      \item class MyClass<T super Number>
+		      \item class MyClass<T implements Number>
+		      \item class MyClass<T>
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. class MyClass<T extends Number>}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+
+		      \item \textbf{A. <T extends Number> — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 使用extends指定泛型上界
+			      \item 表示T必须是Number或其子类
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. <T super Number> — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item super不能用于泛型类声明
+			      \item super只用于泛型通配符：<? super Number>
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. <T implements Number> — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item implements不能用于泛型
+			      \item 泛型上界使用extends
+			      \item 注意：Number是类，不是接口
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. <T> — 正确但不完整}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 语法正确，但题目要求"正确的泛型声明"
+			      \item A选项展示了泛型边界的正确用法
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      泛型边界：
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item extends：指定上界（Producer Extends）
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item List<? extends Number>：可以是List<Integer>、List<Double>
+				            \item 只能读取（作为生产者）
+			            \end{itemize}
+			      \item super：指定下界（Consumer Super）
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item List<? super Integer>：可以是List<Number>、List<Object>
+				            \item 只能写入（作为消费者）
+			            \end{itemize}
+			      \item PECS原则：Producer Extends, Consumer Super
+		      \end{itemize}
+
+		      \textbf{【泛型边界 vs implements】}
+
+		      \begin{enumerate}[label={}]
+			      \item extends用于泛型边界
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item class MyClass<T extends Number> ✓
+				            \item interface MyInterface<T extends Serializable> ✓
+			            \end{itemize}
+			      \item implements用于类实现接口
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item class MyClass implements MyInterface ✗（泛型中不能这样用）
+			            \end{itemize}
+			      \item 注意：即使Number是类，也用extends！
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item extends可以用于类和接口
+			            \end{itemize}
+		      \end{enumerate}
+
+		      \textbf{【命题陷阱破解】}
+
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 陷阱1："implements用于泛型" → 错！泛型边界用extends
+			      \item 陷阱2："super用于泛型类声明" → 错！super只用于通配符
+			      \item 陷阱3："Number是接口所以用implements" → 错！Number是类，也用extends
+			      \item 陷阱4："没有边界声明就是错误的" → 错！<T>本身是合法的
+		      \end{itemize}
+
+		      \textbf{【通配符详解】}
+
+		      \begin{enumerate}[label={}]
+			      \item 无界通配符：<?>
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item List<?>：未知类型的列表
+				            \item 可以读取Object，但不能写入
+			            \end{itemize}
+			      \item 上界通配符：<? extends T>
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 适用于"读取"为主的场景
+				            \item PECS中的"Producer"
+			            \end{itemize}
+			      \item 下界通配符：<? super T>
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 适用于"写入"为主的场景
+				            \item PECS中的"Consumer"
+			            \end{itemize}
+		      \end{enumerate}
+
+		      \textbf{【实战代码示例】}
+
+		      \begin{lstlisting}[language=Java]
+// 正确：使用extends指定上界
+class Container<T extends Number> {
+    private T value;
+    public void setValue(T value) { this.value = value; }
+    public T getValue() { return value; }
+}
+
+// 使用
+Container<Integer> c1 = new Container<>(); // OK
+Container<Double> c2 = new Container<>();  // OK
+// Container<String> c3 = new Container<>(); // 编译错误！String不是Number子类
+
+// 正确：使用super指定下界
+void addNumbers(List<? super Integer> list) {
+    list.add(10); // 可以写入Integer
+    // Integer num = list.get(0); // 错误！只能读取Object
+}
+
+// 错误：super不能用于类声明
+// class MyClass<T super Number> {} // 编译错误！
+
+// 错误：implements不能用于泛型
+// class MyClass<T implements Number> {} // 编译错误！
+\end{lstlisting}
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

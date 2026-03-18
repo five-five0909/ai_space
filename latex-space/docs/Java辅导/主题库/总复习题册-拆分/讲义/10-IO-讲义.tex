@@ -1,0 +1,896 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt,
+    breakable
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\newcounter{question}
+
+\newenvironment{question}[1][]{%
+    \refstepcounter{question}%
+    \par\noindent\textbf{\thequestion. #1}%
+    \par\vspace{0.4em}%
+}{\par\vspace{0.8em}}
+
+\newenvironment{options}{%
+    \begin{enumerate}[label=\Alph*.]
+}{\end{enumerate}}
+
+\newenvironment{answer}{\par\noindent\textbf{答案:}\ }{\par}
+\newenvironment{explanation}{\par\noindent\textbf{解析:}\ }{\par}
+
+\begin{document}
+
+\section{I/O}
+
+\begin{question}
+	以下哪个类用于实现文件读取？
+	\begin{options}
+		\item FileReader
+		\item FileWriter
+		\item BufferedReader
+		\item BufferedWriter
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{FileReader} 用于读取字符文件。
+	\end{explanation}
+\end{question}
+
+\begin{bluebox}{答案与深度解析}
+	\textbf{答案：A}
+
+	% ======== 阶段一：核心认知框架 ========
+	\textbf{【核心认知框架>}
+	\begin{itemize}[label={}, leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查Java I/O流的基本分类与用途
+		\item \textbf{关键区分点}：Reader/Writer处理字符流，InputStream/OutputStream处理字节流
+		\item \textbf{命题人意图}：测试考生对Java I/O类库命名的理解
+	\end{itemize}
+
+	% ======== 阶段二：选项深度拆解 ========
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{A. FileReader — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{继承关系}：
+			      \begin{center}
+				      \begin{tabular}{l}
+					      \texttt{FileReader}        \\
+					      $\downarrow$ extends       \\
+					      \texttt{InputStreamReader} \\
+					      $\downarrow$ extends       \\
+					      \texttt{Reader}            \\
+				      \end{tabular}
+			      \end{center}
+
+			\item \textbf{使用铁证}：
+			      \begin{lstlisting}[language=Java]
+try (FileReader reader = new FileReader("test.txt")) {
+    int ch;
+    while ((ch = reader.read()) != -1) {
+        System.out.print((char) ch);
+    }
+}
+      \end{lstlisting}
+
+			\item \textbf{特点}：
+			      \begin{itemize}[label={}, nosep]
+				      \item 以\textbf{字符}为单位读取
+				      \item 使用系统默认字符编码
+				      \item 内部包装 FileInputStream
+			      \end{itemize}
+
+			\item \textbf{命题陷阱破解}：
+			      \begin{itemize}[label={}, nosep]
+				      \item 干扰项："\texttt{FileWriter} 也可以读" → 方向错误！
+				      \item \textbf{必考结论}：\texttt{Reader} 系列用于读，\texttt{Writer} 系列用于写
+			      \end{itemize}
+		\end{itemize}
+
+		\item \textbf{B. FileWriter — 错误（写入）}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{核心功能}：用于\textbf{写入}字符文件，不是读取
+
+			\item \textbf{继承关系}：
+			      \begin{center}
+				      \begin{tabular}{l}
+					      \texttt{FileWriter}         \\
+					      $\downarrow$ extends        \\
+					      \texttt{OutputStreamWriter} \\
+					      $\downarrow$ extends        \\
+					      \texttt{Writer}             \\
+				      \end{tabular}
+			      \end{center}
+
+			\item \textbf{使用对比}：
+			      \begin{lstlisting}[language=Java]
+// FileWriter 用于写入
+try (FileWriter writer = new FileWriter("output.txt")) {
+    writer.write("Hello World");
+}
+
+// FileReader 用于读取
+try (FileReader reader = new FileReader("output.txt")) {
+    reader.read();
+}
+      \end{lstlisting}
+
+			\item \textbf{命题陷阱破解}：
+			      \begin{itemize}[label={}, nosep]
+				      \item 干扰项："都带File肯定功能类似" → 只对了一半！
+				      \item \textbf{必考结论}：看后缀 - \texttt{Reader}读，\texttt{Writer}写
+			      \end{itemize}
+		\end{itemize}
+
+		\item \textbf{C. BufferedReader — 错误（需包装）}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{本质}：\textbf{装饰器类}，需要包装其他Reader
+			      \begin{lstlisting}[language=Java]
+// 错误用法：不能直接使用
+BufferedReader reader = new BufferedReader("test.txt"); // 编译错误！
+
+// 正确用法：包装FileReader
+try (BufferedReader reader = new BufferedReader(
+        new FileReader("test.txt"))) {
+    String line = reader.readLine();
+}
+    \end{lstlisting}
+
+			\item \textbf{BufferedReader特点}：
+			      \begin{itemize}[label={}, nosep]
+				      \item 提供\textbf{缓冲}功能，减少IO次数
+				      \item 提供 \texttt{readLine()} 方法（常用！）
+				      \item 默认8KB缓冲区
+			      \end{itemize}
+
+			\item \textbf{命题陷阱破解}：
+			      \begin{itemize}[label={}, nosep]
+				      \item 干扰项："Buffered系列更高级，应该用它" → 忽略需要包装！
+				      \item \textbf{必考结论}：装饰器不能单独使用，必须包装底层流
+			      \end{itemize}
+		\end{itemize}
+
+		\item \textbf{D. BufferedWriter — 错误（写入）}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{功能}：缓冲字符输出流，用于\textbf{写入}
+
+			\item \textbf{使用铁证}：
+			      \begin{lstlisting}[language=Java]
+try (BufferedWriter writer = new BufferedWriter(
+        new FileWriter("output.txt"))) {
+    writer.write("Line 1");
+    writer.newLine();
+    writer.write("Line 2");
+}
+      \end{lstlisting}
+
+			\item \textbf{与BufferedReader对比}：
+			      \begin{center}
+				      \begin{tabular}{|c|c|c|}
+					      \hline
+					      \textbf{类}     & \textbf{功能} & \textbf{特有方法} \\
+					      \hline
+					      BufferedReader & 读取          & readLine()    \\
+					      \hline
+					      BufferedWriter & 写入          & newLine()     \\
+					      \hline
+				      \end{tabular}
+			      \end{center}
+
+			\item \textbf{命题陷阱破解}：
+			      \begin{itemize}[label={}, nosep]
+				      \item 干扰项："Buffered比File更高级，应该用C/D" → 审题要看清"读"还是"写"
+				      \item \textbf{必考结论}：先确定方向（读/写），再选具体类
+			      \end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+	% ======== 阶段三：应背诵知识点 ========
+	\textbf{【应背诵知识点（命题地人思维版）>}
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{Java I/O分类}：
+		      \begin{itemize}[label={}, nosep]
+			      \item \textbf{字节流}：InputStream/OutputStream
+			      \item \textbf{字符流}：Reader/Writer
+			      \item \textbf{处理流}：Buffered、Print、Data等（需包装）
+		      \end{itemize}
+
+		\item \textbf{选项辨析速查表}：
+		      \begin{center}
+			      \begin{tabular}{|c|c|c|c|}
+				      \hline
+				      \textbf{选项}    & \textbf{功能} & \textbf{是否需包装} & \textbf{记忆口诀}    \\
+				      \hline
+				      FileReader     & 读取字符        & 否              & "Reader读"        \\
+				      \hline
+				      FileWriter     & 写入字符        & 否              & "Writer写"        \\
+				      \hline
+				      BufferedReader & 读取缓冲        & 需              & "Buffer包装Reader" \\
+				      \hline
+				      BufferedWriter & 写入缓冲        & 需              & "Buffer包装Writer" \\
+				      \hline
+			      \end{tabular}
+		      \end{center}
+
+		\item \textbf{高频陷阱清单}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 陷阱1：装饰器类单独使用 → 编译错误
+			      \item 陷阱2：只看前缀忽略后缀 → 读写混淆
+			      \item 陷阱3：Buffered比File"更好" → 场景不同
+		      \end{itemize}
+	\end{itemize}
+
+	% ======== 阶段四：命题趋势与实战策略 ========
+	\textbf{【命题趋势与实战策略>}
+	\begin{itemize}[label={}, leftmargin=*, nosep]
+		\item \textbf{考场秒杀三步法}：
+		      \begin{enumerate}
+			      \item \textbf{先定方向}：题目问"读取" → Reader系列
+			      \item \textbf{再看层级}：简单文件 → FileReader；需要缓冲 → BufferedReader包装
+			      \item \textbf{避免陷阱}：Buffered系列必须包装
+		      \end{enumerate}
+	\end{itemize}
+\end{bluebox}
+
+\begin{question}
+	以下哪个类用于实现文件写入？
+	\begin{options}
+		\item FileReader
+		\item FileWriter
+		\item BufferedReader
+		\item BufferedWriter
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		\texttt{FileWriter} 用于写入字符文件。
+	\end{explanation}
+\end{question}
+
+\begin{bluebox}{答案与深度解析}
+	\textbf{答案：B}
+
+	% ======== 阶段一：核心认知框架 ========
+	\textbf{【核心认知框架>}
+	\begin{itemize}[label={}, leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查Java文件写入类的识别
+		\item \textbf{关键区分点}：FileWriter是写入文件的基础类
+		\item \textbf{命题人意图}：测试考生对I/O类命名的理解
+	\end{itemize}
+
+	% ======== 阶段二：选项深度拆解 ========
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{A. FileReader — 错误（读取）}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{用途}：用于读取，不是写入
+			\item \textbf{命题陷阱}：带File但后缀是Reader，表示读取
+		\end{itemize}
+
+		\item \textbf{B. FileWriter — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{用途}：用于写入字符文件
+			\item \textbf{使用铁证}：
+			      \begin{lstlisting}[language=Java]
+try (FileWriter writer = new FileWriter("test.txt")) {
+    writer.write("Hello");
+    writer.append(" World");
+}
+      \end{lstlisting}
+		\end{itemize}
+
+		\item \textbf{C. BufferedReader — 错误（读取+需包装）}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{用途}：读取缓冲流，需要包装FileReader
+		\end{itemize}
+
+		\item \textbf{D. BufferedWriter — 错误（需包装）}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{用途}：写入缓冲流，需要包装FileWriter
+			\item \textbf{注意}：可以选，但题目问"哪个类"，FileWriter更基础
+		\end{itemize}
+	\end{itemize}
+
+	% ======== 阶段三：应背诵知识点 ========
+	\textbf{【应背诵知识点（命题人思维版）>}
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{速记口诀}：Writer写，Reader读
+
+		\item \textbf{选项辨析}：
+		      \begin{center}
+			      \begin{tabular}{|c|c|c|}
+				      \hline
+				      选项             & 功能   & 备注  \\
+				      \hline
+				      FileReader     & 读取   & 基础类 \\
+				      \hline
+				      FileWriter     & 写入   & 基础类 \\
+				      \hline
+				      BufferedReader & 读取缓冲 & 需包装 \\
+				      \hline
+				      BufferedWriter & 写入缓冲 & 需包装 \\
+				      \hline
+			      \end{tabular}
+		      \end{center}
+	\end{itemize}
+\end{bluebox}
+
+\begin{question}
+	以下关于Java中的流的说法错误的是
+	\begin{options}
+		\item 分为字节流和字符流
+		\item 字节流以字节为单位处理数据
+		\item 字符流以字符为单位处理数据
+		\item 字节流和字符流可以相互转换
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		字节流和字符流不能直接相互转换，需通过编码转换（如 \texttt{InputStreamReader}）。
+	\end{explanation}
+\end{question}
+
+\begin{bluebox}{答案与深度解析}
+	\textbf{答案：D}
+
+	% ======== 阶段一：核心认知框架 ========
+	\textbf{【核心认知框架>}
+	\begin{itemize}[label={}, leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查Java I/O流的分类体系
+		\item \textbf{关键区分点}：字节流和字符流是两种不同的处理方式，需要通过特定转换器转换
+		\item \textbf{命题人意图}：测试考生对I/O流分类的掌握
+	\end{itemize}
+
+	% ======== 阶段二：选项深度拆解 ========
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{A. 分为字节流和字符流 — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{分类体系}：
+			      \begin{center}
+				      \begin{tabular}{|c|c|c|}
+					      \hline
+					      \textbf{类型} & \textbf{基类}              & \textbf{处理单位}  \\
+					      \hline
+					      字节流         & InputStream/OutputStream & 字节（8位）         \\
+					      \hline
+					      字符流         & Reader/Writer            & 字符（16位Unicode） \\
+					      \hline
+				      \end{tabular}
+			      \end{center}
+		\end{itemize}
+
+		\item \textbf{B. 字节流以字节为单位处理数据 — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{字节流铁证}：
+			      \begin{lstlisting}[language=Java]
+FileInputStream fis = new FileInputStream("test.txt");
+int b = fis.read(); // 每次读取1个字节（0-255）
+      \end{lstlisting}
+		\end{itemize}
+
+		\item \textbf{C. 字符流以字符为单位处理数据 — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{字符流铁证}：
+			      \begin{lstlisting}[language=Java]
+FileReader fr = new FileReader("test.txt");
+int c = fr.read(); // 每次读取1个字符（Unicode）
+      \end{lstlisting}
+		\end{itemize}
+
+		\item \textbf{D. 字节流和字符流可以相互转换 — 错误}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{转换铁证（间接转换）}：
+			      \begin{lstlisting}[language=Java]
+// 字节流转字符流：InputStreamReader
+InputStream is = new FileInputStream("test.txt");
+Reader reader = new InputStreamReader(is, "UTF-8");
+
+// 字符流转字节流：OutputStreamWriter
+Writer writer = new OutputStreamWriter(
+    new FileOutputStream("test.txt"), "UTF-8");
+      \end{lstlisting}
+
+			\item \textbf{核心要点}：
+			      \begin{itemize}[label={}, nosep]
+				      \item \textbf{不能直接转换}：没有直接的字节流转字符流方法
+				      \item \textbf{需要转换器}：InputStreamReader / OutputStreamWriter
+				      \item \textbf{指定编码}：可以指定字符编码（UTF-8、GBK等）
+			      \end{itemize}
+
+			\item \textbf{命题陷阱破解}：
+			      \begin{itemize}[label={}, nosep]
+				      \item 干扰项："字符流就是字节流转换来的" → 忽略中间桥梁！
+				      \item \textbf{必考结论}：需要\textbf{显式使用转换器}，不是自动转换
+			      \end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+	% ======== 阶段三：应背诵知识点 ========
+	\textbf{【应背诵知识点（命题人思维版）>}
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{流分类速查表}：
+		      \begin{center}
+			      \begin{tabular}{|c|c|c|c|}
+				      \hline
+				      \textbf{流类型} & \textbf{基类}  & \textbf{单位} & \textbf{示例}      \\
+				      \hline
+				      字节输入流        & InputStream  & 字节          & FileInputStream  \\
+				      \hline
+				      字节输出流        & OutputStream & 字节          & FileOutputStream \\
+				      \hline
+				      字符输入流        & Reader       & 字符          & FileReader       \\
+				      \hline
+				      字符输出流        & Writer       & 字符          & FileWriter       \\
+				      \hline
+			      \end{tabular}
+		      \end{center}
+
+		\item \textbf{转换器}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 字节→字符：\texttt{InputStreamReader}
+			      \item 字符→字节：\texttt{OutputStreamWriter}
+		      \end{itemize}
+
+		\item \textbf{高频陷阱清单}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 陷阱1：认为可以自动转换 → 需显式使用转换器
+			      \item 陷阱2：忽略字符编码 → 转换时可指定编码
+		      \end{itemize}
+	\end{itemize}
+
+	% ======== 阶段四：命题趋势与实战策略 ========
+	\textbf{【命题趋势与实战策略】}
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{考场秒杀三步法}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item \textbf{回忆分类}：字节流 vs 字符流
+			      \item \textbf{转换规则}：需要InputStreamReader/OutputStreamWriter
+			      \item \textbf{选D}：D选项"可以直接转换"是错的
+		      \end{enumerate}
+	\end{itemize}
+\end{bluebox}
+
+\begin{question}
+	以下哪个方法用于创建一个新文件？
+	\begin{options}
+		\item createNewFile()
+		\item mkdir()
+		\item mkdirs()
+		\item exists()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{File.createNewFile()} 创建新文件。
+	\end{explanation}
+\end{question}
+
+\begin{bluebox}{答案与深度解析}
+	\textbf{答案：A}
+
+	% ======== 阶段一：核心认知框架 ========
+	\textbf{【核心认知框架>}
+	\begin{itemize}[label={}, leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查File类的方法功能区分
+		\item \textbf{关键区分点}：文件操作方法名相似但功能不同
+		\item \textbf{命题人意图}：测试考生对File API的掌握
+	\end{itemize}
+
+	% ======== 阶段二：选项深度拆解 ========
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{A. createNewFile() — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{功能}：创建新文件
+			\item \textbf{铁证}：
+			      \begin{lstlisting}[language=Java]
+File file = new File("test.txt");
+boolean created = file.createNewFile(); // 创建新文件
+      \end{lstlisting}
+
+			\item \textbf{特点}：
+			      \begin{itemize}[label={}, nosep]
+				      \item 若文件已存在，返回false
+				      \item 若父目录不存在，会抛出IOException
+			      \end{itemize}
+		\end{itemize}
+
+		\item \textbf{B. mkdir() — 错误（创建目录）}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{功能}：创建单层目录
+			\item \textbf{区别}：创建目录而非文件
+		\end{itemize}
+
+		\item \textbf{C. mkdirs() — 错误（创建多层目录）}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{功能}：创建多层目录（含父目录）
+		\end{itemize}
+
+		\item \textbf{D. exists() — 错误（检查存在）}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{功能}：检查文件/目录是否存在
+		\end{itemize}
+	\end{itemize}
+
+	% ======== 阶段三：应背诵知识点 ========
+	\textbf{【应背诵知识点（命题人思维版）>}
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{File方法速查}：
+		      \begin{center}
+			      \begin{tabular}{|c|c|c|}
+				      \hline
+				      \textbf{方法}   & \textbf{功能} & \textbf{返回值} \\
+				      \hline
+				      createNewFile & 创建文件        & boolean      \\
+				      \hline
+				      mkdir         & 创建单层目录      & boolean      \\
+				      \hline
+				      mkdirs        & 创建多层目录      & boolean      \\
+				      \hline
+				      exists        & 检查存在性       & boolean      \\
+				      \hline
+			      \end{tabular}
+		      \end{center}
+
+		\item \textbf{记忆口诀}：createNewFile创文件，mkdir创单层，mkdirs创多层
+	\end{itemize}
+\end{bluebox}
+
+\begin{question}
+	以下哪个方法用于删除一个文件？
+	\begin{options}
+		\item delete()
+		\item remove()
+		\item clear()
+		\item erase()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{File.delete()} 删除文件或目录。
+	\end{explanation}
+\end{question}
+
+\begin{bluebox}{答案与深度解析}
+	\textbf{答案：A}
+
+	% ======== 阶段一：核心认知框架 ========
+	\textbf{【核心认知框架>}
+	\begin{itemize}[label={}, leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查File类的删除方法
+		\item \textbf{关键区分点}：File类只有delete方法，没有remove/clear/erase
+		\item \textbf{命题人意图}：测试考生对File API的掌握
+	\end{itemize}
+
+	% ======== 阶段二：选项深度拆解 ========
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{A. delete() — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{功能}：删除文件或空目录
+			\item \textbf{铁证}：
+			      \begin{lstlisting}[language=Java]
+File file = new File("test.txt");
+boolean deleted = file.delete(); // 删除文件
+      \end{lstlisting}
+		\end{itemize}
+
+		\item \textbf{B/C/D — 错误}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{注意}：这些方法在File类中不存在
+		\end{itemize}
+	\end{itemize}
+
+	% ======== 阶段三：应背诵知识点 ========
+	\textbf{【应背诵知识点（命题人思维版）>}
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{速记}：File类删除只有delete()方法
+
+		\item \textbf{delete()特点}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 文件：直接删除
+			      \item 目录：仅当目录为空时才能删除
+		      \end{itemize}
+	\end{itemize}
+\end{bluebox}
+
+\begin{question}
+	以下关于Java中序列化的说法错误的是
+	\begin{options}
+		\item 可以将对象转换为字节序列
+		\item 可以通过实现Serializable接口实现序列化
+		\item 静态成员变量不能被序列化
+		\item 所有成员变量都会被序列化
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		被 \texttt{transient} 修饰的变量不会被序列化。
+	\end{explanation}
+\end{question}
+
+\begin{bluebox}{答案与深度解析}
+	\textbf{答案：D}
+
+	% ======== 阶段一：核心认知框架 ========
+	\textbf{【核心认知框架>}
+	\begin{itemize}[label={}, leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查Java序列化机制的细节
+		\item \textbf{关键区分点}：序列化有例外情况（static、transient）
+		\item \textbf{命题人意图}：测试考生对序列化边界条件的理解
+	\end{itemize}
+
+	% ======== 阶段二：选项深度拆解 ========
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{A. 可以将对象转换为字节序列 — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{序列化定义}：对象 $\rightarrow$ 字节序列
+			\item \textbf{反序列化}：字节序列 $\rightarrow$ 对象
+		\end{itemize}
+
+		\item \textbf{B. 可以通过实现Serializable接口实现序列化 — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{标记接口}：Serializable没有方法，只起标记作用
+			\item \textbf{铁证}：
+			      \begin{lstlisting}[language=Java]
+public class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private int age;
+}
+      \end{lstlisting}
+		\end{itemize}
+
+		\item \textbf{C. 静态成员变量不能被序列化 — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{原因}：静态变量属于类，不属于对象
+			\item \textbf{铁证}：
+			      \begin{lstlisting}[language=Java]
+public class Person implements Serializable {
+    static int count = 0; // 静态变量
+
+    public static void main(String[] args) throws Exception {
+        Person p = new Person();
+        p.count = 100;
+
+        // 序列化
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(p);
+        oos.close();
+
+        // 反序列化
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        Person p2 = (Person) ois.readObject();
+
+        System.out.println(p2.count); // 输出0，非100！static未被序列化
+    }
+}
+      \end{lstlisting}
+		\end{itemize}
+
+		\item \textbf{D. 所有成员变量都会被序列化 — 错误}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{例外1：transient}：
+			      \begin{lstlisting}[language=Java]
+public class Person implements Serializable {
+    String name;
+    transient String password; // 不会被序列化
+
+    public static void main(String[] args) throws Exception {
+        Person p = new Person();
+        p.name = "Tom";
+        p.password = "secret";
+
+        // 序列化后反序列化
+        // password会变成null
+    }
+}
+      \end{lstlisting}
+
+			\item \textbf{例外2：static}：见选项C说明
+
+			\item \textbf{例外3：非Serializable对象}：
+			      \begin{itemize}[label={}, nosep]
+				      \item 成员变量类型未实现Serializable
+				      \item 序列化时会抛出NotSerializableException
+			      \end{itemize}
+
+			\item \textbf{命题陷阱破解}：
+			      \begin{itemize}[label={}, nosep]
+				      \item 干扰项："所有字段都会被保存" → 忽略例外情况！
+				      \item \textbf{必考结论}：\textbf{static + transient} 不参与序列化
+			      \end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+	% ======== 阶段三：应背诵知识点 ========
+	\textbf{【应背诵知识点（命题人思维版）>}
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{序列化核心规则}：
+		      \begin{center}
+			      \begin{tabular}{|c|c|c|}
+				      \hline
+				      \textbf{类型}         & \textbf{是否序列化} & \textbf{原因} \\
+				      \hline
+				      普通字段                & \checkmark     & 默认行为        \\
+				      \hline
+				      static字段            & \textbf{X}     & 属于类非对象      \\
+				      \hline
+				      transient字段         & \textbf{X}     & 显式排除        \\
+				      \hline
+				      实现Serializable的对象字段 & \checkmark     & 递归序列化       \\
+				      \hline
+			      \end{tabular}
+		      \end{center}
+
+		\item \textbf{选项辨析速查表}：
+		      \begin{tabular}{|c|c|c|c|}
+			      \hline
+			      \textbf{选项}    & \textbf{正误} & \textbf{记忆口诀} \\
+			      \hline
+			      转字节序列          & \checkmark  & 序列化本质         \\
+			      \hline
+			      实现Serializable & \checkmark  & 标记接口          \\
+			      \hline
+			      static不序列化     & \checkmark  & 属于类           \\
+			      \hline
+			      所有都序列化         & \textbf{X}  & transient排除   \\
+			      \hline
+		      \end{tabular}
+
+		\item \textbf{高频陷阱清单}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 陷阱1：static被序列化 → 错！属于类
+			      \item 陷阱2：transient被序列化 → 错！显式排除
+			      \item 陷阱3：所有字段都保存 → 错！有例外
+		      \end{itemize}
+	\end{itemize}
+
+	% ======== 阶段四：命题趋势与实战策略 ========
+	\textbf{【命题趋势与实战策略>}
+	\begin{itemize}[label={}, leftmargin=*, nosep]
+		\item \textbf{考场秒杀三步法}：
+		      \begin{enumerate}[label={}, nosep]
+			      \item \textbf{记住两个例外}：static + transient
+			      \item \textbf{Serializable接口}：标记接口
+			      \item \textbf{serialVersionUID}：建议显式声明
+		      \end{enumerate}
+
+		\item \textbf{高阶延伸}：
+		      \begin{itemize}[label={}, nosep]
+			      \item Externalizable：自定义序列化
+			      \item writeObject/readObject：自定义序列化逻辑
+			      \item JSON/XML替代方案：跨语言/可读性好
+		      \end{itemize}
+	\end{itemize}
+\end{bluebox}
+
+\begin{question}
+	以下哪个方法用于反序列化？
+	\begin{options}
+		\item readObject()
+		\item deserialize()
+		\item restoreObject()
+		\item recoverObject()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{ObjectInputStream.readObject()} 用于反序列化。
+	\end{explanation}
+\end{question}
+
+\begin{bluebox}{答案与深度解析}
+	\textbf{答案：A}
+
+	% ======== 阶段一：核心认知框架 ========
+	\textbf{【核心认知框架>}
+	\begin{itemize}[label={}, leftmargin=*, nosep]
+		\item \textbf{题目本质}：考查Java反序列化API
+		\item \textbf{关键区分点}：只有readObject()是标准API
+		\item \textbf{命题人意图}：测试考生对序列化API的掌握
+	\end{itemize}
+
+	% ======== 阶段二：选项深度拆解 ========
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{A. readObject() — 正确}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{来源}：ObjectInputStream类
+			\item \textbf{铁证}：
+			      \begin{lstlisting}[language=Java]
+FileInputStream fis = new FileInputStream("person.ser");
+ObjectInputStream ois = new ObjectInputStream(fis);
+Person p = (Person) ois.readObject(); // 反序列化
+ois.close();
+      \end{lstlisting}
+		\end{itemize}
+
+		\item \textbf{B/C/D — 错误}
+		\begin{itemize}[label={}, leftmargin=*, nosep]
+			\item \textbf{注意}：这些方法不是Java标准API中的方法
+		\end{itemize}
+	\end{itemize}
+
+	% ======== 阶段三：应背诵知识点 ========
+	\textbf{【应背诵知识点（命题人思维版）>}
+	\begin{itemize}[label={}, nosep]
+		\item \textbf{序列化/反序列化API}：
+		      \begin{center}
+			      \begin{tabular}{|c|c|c|}
+				      \hline
+				      \textbf{操作} & \textbf{类}         & \textbf{方法}   \\
+				      \hline
+				      序列化         & ObjectOutputStream & writeObject() \\
+				      \hline
+				      反序列化        & ObjectInputStream  & readObject()  \\
+				      \hline
+			      \end{tabular}
+		      \end{center}
+
+		\item \textbf{速记口诀}：序列化用write，反序列化用read
+	\end{itemize}
+\end{bluebox}
+
+\end{document}

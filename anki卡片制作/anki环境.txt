@@ -1,0 +1,208 @@
+正面卡片css：
+<div class="notion-card">
+    <div class="tag-container">
+        {{#tags}}
+            <span class="notion-tag">🏷️ {{tags}}</span>
+        {{/tags}}
+    </div>
+    <div class="front-text">{{Front}}</div>
+</div>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+======================================================================
+背面卡片css：
+<div class="notion-card">
+    <div class="tag-container">
+        {{#tags}}
+            <span class="notion-tag">🏷️ {{tags}}</span>
+        {{/tags}}
+    </div>
+    <div class="front-text">{{Front}}</div>
+    
+    <div class="divider"></div>
+    
+    <div class="back-text">
+        {{back}}
+    </div>
+</div>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+================================================================================
+卡片全局样式：
+/* =========================================
+   1. 字体策略：回归系统默认 (最稳方案)
+   ========================================= */
+.card {
+    /* 优先使用微软雅黑(Win)和苹方(Mac)，去除所有不稳定的网络字体 */
+    font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+    font-size: 20px; /* 基础字号 */
+    text-align: left;
+    color: #37352f; /* Notion 经典黑 */
+    background-color: #f7f6f3; /* Notion 背景灰 */
+    line-height: 1.6;
+}
+
+/* =========================================
+   2. MathJax 公式急救 (核心修复)
+   ========================================= */
+
+/* 2.1 公式整体缩放 */
+/* 稍微放大一点点(1.1倍)即可，不要太大，否则分数线会炸 */
+.MathJax, .mjx-chtml, .mjx-container {
+    font-size: 1.1em !important; 
+    color: inherit;
+    outline: none;
+}
+
+/* 2.2 【关键修复】强制钳制公式内的中文 */
+/* 针对截图中“误差 ≈ 精确值/分母”爆炸的问题 */
+.mjx-mtext, mjx-mtext, .MathJax_Preview {
+    font-family: "Microsoft YaHei", sans-serif !important; /* 强制跟随正文字体 */
+    font-size: 0.9em !important; /* 强制缩小！让它比旁边的数学符号稍微小一点点 */
+    font-weight: normal !important;
+}
+
+/* 2.3 修复分式(Fraction)过于拥挤或巨大的问题 */
+.mjx-frac {
+    font-size: 100% !important;
+}
+
+/* 2.4 行内公式垂直对齐修正 */
+mjx-container[display="true"] {
+    margin: 0.5em 0 !important;
+}
+
+/* =========================================
+   3. Notion 风格卡片容器 (保持美观)
+   ========================================= */
+.notion-card {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #e9e9e8;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06); /* 阴影改淡，更清爽 */
+    max-width: 700px;
+    margin: 15px auto;
+    padding: 30px 40px; /* 增加内部呼吸感 */
+}
+
+/* =========================================
+   4. 正文排版优化
+   ========================================= */
+
+/* 标题 (Front) */
+.front-text {
+    font-family: "Microsoft YaHei", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    display: block;
+}
+
+/* 重点文字 (Bold) - Notion 红 */
+b, strong { 
+    color: #d4403a; 
+    font-weight: 700;
+}
+
+/* 代码块/术语 (Code) - 浅灰底红字 */
+code {
+    background: #f1f1ef;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: Consolas, "Lucida Console", monospace; /* 等宽字体 */
+    font-size: 0.9em;
+    color: #eb5757;
+    border: 1px solid #e0e0e0; /* 增加微边框增加质感 */
+}
+
+/* 标签栏 (Tags) */
+.tag-container {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.notion-tag {
+    background-color: #f1f1ef;
+    color: #5f5e5b;
+    font-size: 13px;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+/* 分割线 */
+.divider {
+    height: 1px;
+    background-color: #edece9;
+    margin: 20px 0;
+}
+
+/* =========================================
+   5. 暗黑模式 (自动适配)
+   ========================================= */
+.nightMode .card { background-color: #191919; color: #dcdcdc; }
+.nightMode .notion-card { 
+    background-color: #202020; 
+    border-color: #333; 
+    box-shadow: none;
+}
+.nightMode .front-text { color: #fff; }
+.nightMode .notion-tag { background-color: #333; color: #bbb; }
+.nightMode code { background: #2d2d2d; color: #ff7b7b; border-color: #444; }
+.nightMode b, .nightMode strong { color: #ff6b6b; }
+
+/* --- 保持之前的字体设置 (Microsoft YaHei) 和 MathJax 修复 --- */
+/* ... (保留你上一版修改的 font-family 和 mathjax 设置) ... */
+
+/* --- 新增：模拟 LaTeX 的颜色定义 --- */
+:root {
+    --myblue: #4673c8;       /* 对应 latex 的 myblue */
+    --highlightred: #c81e1e; /* 对应 latex 的 highlightred */
+    --myorange: #eb7832;     /* 对应 latex 的 myorange */
+}
+
+/* --- 新增：模拟 LaTeX 的 tcolorbox (紫色框/绿色框) --- */
+.latex-box {
+    background-color: white;
+    border: 2px solid; /* 边框 */
+    border-radius: 4px; /* 直角稍微倒一点圆角，好看点 */
+    padding: 15px;
+    margin: 15px 0;
+    position: relative;
+}
+
+.box-purple { border-color: #800080; } /* 对应 purplebox */
+.box-green { border-color: #2e8b57; }  /* 对应 greenbox */
+
+/* --- 章节标题样式 --- */
+h2 {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    color: #333;
+    font-size: 1.2em;
+}
+
+/* --- 列表样式 --- */
+ul, ol {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+li { margin-bottom: 8px; }

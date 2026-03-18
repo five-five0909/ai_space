@@ -1,0 +1,65 @@
+\section{异常}
+
+\begin{question}
+	以下哪个异常类用于处理数组下标越界异常？
+	\begin{options}
+		\item ArrayIndexOutOfBoundsException
+		\item NullPointerException
+		\item ArithmeticException
+		\item ClassCastException
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{ArrayIndexOutOfBoundsException} 表示访问数组时索引超出范围。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	在Java中，以下哪个关键字用于捕获异常？
+	\begin{options}
+		\item try
+		\item catch
+		\item throw
+		\item throws
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		\texttt{catch} 用于捕获并处理异常。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中异常处理中finally块的说法正确的是
+	\begin{options}
+		\item 无论是否发生异常都会执行
+		\item 只有发生异常才会执行
+		\item 只有不发生异常才会执行
+		\item 只有在try块中有return语句时才会执行
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{finally} 块总会被执行（除非 JVM 退出）。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪种情况会导致OutOfMemoryError？
+	\begin{options}
+		\item 数组越界
+		\item 除数为0
+		\item 内存泄漏
+		\item 空指针异常
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		内存泄漏导致内存耗尽，最终抛出 \texttt{OutOfMemoryError}。
+	\end{explanation}
+\end{question}

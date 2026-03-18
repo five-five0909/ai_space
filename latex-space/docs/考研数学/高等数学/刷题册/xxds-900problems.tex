@@ -1,0 +1,1503 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{线性代数习题集}
+\fancyfoot[C]{\thepage}
+
+% 链接设置
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\title{线性代数习题集}
+\author{整理版}
+\date{2026年2月4日}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{第一章 行列式}
+
+\subsection{A 类}
+
+\subsubsection*{填空题}
+
+\begin{enumerate}
+    \item 行列式 $ \begin{vmatrix} 1 & 0 & 0 & 5 \\ 0 & 1 & 3 & 0 \\ 0 & 2 & 2 & 0 \\ 1 & 0 & 0 & 3 \end{vmatrix} = $ \underline{\hspace{2cm}}.
+
+    \item 行列式 $ \begin{vmatrix} \lambda & 0 & 0 & \mu \\ \mu & \lambda & \mu & \mu \\ \lambda & \mu & \lambda & \mu \\ \mu & \mu & \mu & \lambda \end{vmatrix} = $ \underline{\hspace{2cm}}.
+
+    \item 行列式 $ \begin{vmatrix} 1 & 4 & 3 & 2 \\ 2 & 1 & 4 & 3 \\ 3 & 2 & 1 & 4 \\ 4 & 3 & 2 & 1 \end{vmatrix} = $ \underline{\hspace{2cm}}.
+
+    \item $n$ 阶行列式 $ \begin{vmatrix} 5 & 2 & \cdots & 2 \\ 2 & 5 & \cdots & 2 \\ \vdots & \vdots & & \vdots \\ 2 & 2 & \cdots & 5 \end{vmatrix} = $ \underline{\hspace{2cm}}.
+
+    \item 行列式 $ \begin{vmatrix} b^{2} + c^{2} & a^{2} + c^{2} & a^{2} + b^{2} \\ a & b & c \\ a^{2} & b^{2} & c^{2} \end{vmatrix} = $ \underline{\hspace{2cm}}.
+
+    \item 设 $ a_{1}, a_{2}, a_{3} $ 为互不相等的实数，则 $ \begin{vmatrix} 3 & 3 & 3 \\ 3a_{1} + 5 & 3a_{2} + 5 & 3a_{3} + 5 \\ 3a_{1}^{2} + 5a_{1} + 7 & 3a_{2}^{2} + 5a_{2} + 7 & 3a_{3}^{2} + 5a_{3} + 7 \end{vmatrix} = $ \underline{\hspace{2cm}}.
+
+    \item 行列式 $ \begin{vmatrix} 1 & 1 & 1 & 1 \\ 2 & 2^{2} & 2^{3} & 2^{4} \\ 3 & 3^{2} & 3^{3} & 3^{4} \\ 4 & 4^{2} & 4^{3} & 4^{4} \end{vmatrix} = $ \underline{\hspace{2cm}}.
+
+    \item $n$ 阶行列式 $ \begin{vmatrix} 2 & 1 \\ 1 & 2 & 1 \\ & \ddots & \ddots & \ddots \\ & & 1 & 2 & 1 \\ & & & 1 & 2 \\ \end{vmatrix}_{n\times n} = $ \underline{\hspace{2cm}}.
+
+    \item $n$ 阶行列式 $ \begin{vmatrix} 1-a & a \\ -1 & 1-a & a \\ &\ddots & \ddots & \ddots \\ & -1 & 1-a & a \\ & & -1 & 1-a \end{vmatrix} = $ \underline{\hspace{2cm}}.
+
+    \item 记行列式 $ \begin{vmatrix} x-1 & x-2 & x+1 & x+2 \\ 2x-2 & 2x-3 & 2x & 2x+1 \\ 3x-3 & 3x-4 & 3x+1 & 3x+2 \\ 4x & 4x+4 & 6x & 6x+6 \end{vmatrix} $ 为 $ f(x) $，则方程 $ f(x)=0 $ 的根的个数为 \underline{\hspace{2cm}}.
+
+    \item 多项式 $ f(x)=\begin{vmatrix}x&x&1&-x\\1&2x&2&-1\\2&1&3x&1\\3&-1&1&4x\end{vmatrix} $ 中 $ x^{3} $ 项的系数为 \underline{\hspace{2cm}}.
+
+    \item 设 $ D=\begin{vmatrix} a & b & c & d \\ e & f & g & h \\ l & l & l & k \\ k & k & k & l \end{vmatrix} $，则 D 的第一行元素的代数余子式之和 $ A_{11}+A_{12}+A_{13}+A_{14}= $ \underline{\hspace{2cm}}.
+
+    \item 设 $ D=\begin{vmatrix}1&2&3&4\\-f&2f&e&2e\\0&2f&2e&e\\0&f&e&e\end{vmatrix} $，则 $ a_{11},a_{12} $ 的余子式之和 $ M_{11}+M_{12}= $ \underline{\hspace{2cm}}.
+
+    \item 设 4 阶矩阵 $ \mathbf{A} = (\alpha, \gamma_1, 2\gamma_2, 3\gamma_3) $， $ \mathbf{B} = (\beta, \gamma_1, -\gamma_2, \gamma_3) $，其中 $ \alpha, \beta, \gamma_1, \gamma_2, \gamma_3 $ 均为 4 维列向量，且已知行列式 $ |\mathbf{A}| = 6 $， $ |\mathbf{B}| = 2 $，则行列式 $ |\mathbf{A} + \mathbf{B}| = $ \underline{\hspace{2cm}}.
+
+    \item 设 A, B 为 3 阶矩阵，且 $ |A|=2, |B|=-2, |A^*+B|=2 $，则 $ |A-B^*|= $ \underline{\hspace{2cm}}.
+
+    \item 设矩阵 $ A = \begin{pmatrix} 2 & 1 & 0 \\ 1 & 3 & 0 \\ 0 & 0 & 4 \end{pmatrix} $，可逆矩阵 B 满足 $ ABA^* - BA^* = BAB^* $，其中 $ A^* $， $ B^* $ 分别为 A，B 的伴随矩阵，则 $ \left|B^*\right| = $ \underline{\hspace{2cm}}.
+
+    \item 已知 3 阶矩阵 $ \mathbf{A} = (\alpha_1, \alpha_2, \alpha_3) $，且 $ |\mathbf{A}| \neq 0 $。若 $ \mathbf{A}^2 = (\alpha_1 + \alpha_2 + \alpha_3, \alpha_1 + 2\alpha_2 + 4\alpha_3, \alpha_1 + 3\alpha_2 + 9\alpha_3) $，则 $ |\mathbf{A}| = $ \underline{\hspace{2cm}}.
+
+    \item 设 A 为 $ 2n+1 $ 阶矩阵，且 $ 9AA^{\mathrm{T}} = E $，其中 E 为单位矩阵．若 $ |A| > 0 $，则 $ \left|A - \frac{1}{3}E\right| = $ \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsection{B 类}
+
+\subsubsection*{填空题}
+
+\begin{enumerate}
+    \item 多项式 $ f(x)=\begin{vmatrix}1&x&-1&x^{2}+1\\x&1&x^{2}+1&-1\\-1&x^{2}+1&1&x\\x^{2}+1&-1&x&1\end{vmatrix} $ 的常数项是 \underline{\hspace{2cm}}.
+
+    \item 设 5 阶矩阵 A 满足 $ \left|\lambda\mathrm{E}-\mathrm{A}\right|=\left(\lambda+1\right)^{2}\left(\lambda+a\right)^{3} $，且 $ \left|A\right|=64 $，则 $ \mathrm{tr}(\mathrm{A})= $ \underline{\hspace{2cm}}.
+
+    \item 设 x 为 n 维单位列向量, 矩阵 $ A = E + a x x^{T} $. 若 $ |A| = 0 $, 则 a = \underline{\hspace{2cm}}.
+
+    \item 设矩阵 $ A = \begin{pmatrix} 1 & -1 & 4 \\ 2 & 3 & -1 \\ -1 & 1 & 0 \end{pmatrix} $，B 为 3 阶正交矩阵。若存在上三角矩阵 P，使得 B = AP，则 P 的对角线上各元素乘积的绝对值为 \underline{\hspace{2cm}}.
+
+    \item 设 3 阶矩阵 A 为上三角矩阵, 向量 $ \boldsymbol{\alpha}=(1,1,1)^{\mathrm{T}} $ 满足 $ A\boldsymbol{\alpha}=3\boldsymbol{\alpha}, A^{\mathrm{T}}\boldsymbol{\alpha}=3\boldsymbol{\alpha}, A $ 的特征值之和为 3, 则 $ |A|= $ \underline{\hspace{2cm}}.
+
+    \item 设 A,B 均为 n 阶矩阵, 且 $ \left|A\right|=a,\left|B\right|=b,C=\begin{pmatrix}O&A\\ B&BA\end{pmatrix} $，则 $ \left|C\right|= $ \underline{\hspace{2cm}}.
+
+    \item 设 A 为 n 阶矩阵， $ \begin{vmatrix} A & a \\ \beta^{T} & b \end{vmatrix} = x, \begin{vmatrix} A & a \\ \beta^{T} & c \end{vmatrix} = y $，且 $ b \neq c $，则 $ |A| = $ \underline{\hspace{2cm}}.
+
+    \item 已知 A, B 为 2n 阶可逆矩阵， $ A^{-1} + B^{-1} = (A + B)^{-1} $， $ |A| = 1 $，则 $ \left|AB^{-1} + BA^{-1}\right| = $ \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsection{C 类}
+
+\subsubsection*{一、填空题}
+
+\begin{enumerate}
+    \item 设 A 为 n 阶矩阵， $ \alpha $ 为 n 维列向量．已知 $ |A| \neq 0, b \neq 0 $ 且 $ A^{T} = -A $， $ \begin{vmatrix} A & \alpha \\ a^{T} & b \end{vmatrix} = c $，则 $ |A| = $ \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{二、解答题}
+
+\begin{enumerate}[start=2]
+    \item 设 3 阶矩阵 $ \mathbf{A} = \left( a_{ij} \right) = \begin{pmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{pmatrix} $，A 的所有代数余子式之和为 $ \alpha $，
+    $ \mathbf{A}(x) = \begin{pmatrix} a_{11} + x & a_{12} + x & a_{13} + x \\ a_{21} + x & a_{22} + x & a_{23} + x \\ a_{31} + x & a_{32} + x & a_{33} + x \end{pmatrix} $， $ \mathbf{A}(x) $ 的所有代数余子式之和为 $ b(x) $。
+    
+    (I) 求 $ \left|A(x)\right|-\left|A\right| $;
+    
+    (II) 求 $ b(1)-a $
+\end{enumerate}
+
+\section{第二章 矩阵}
+
+\subsection{A 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 已知矩阵 A, B, C 为 n 阶矩阵, 且 AB = BC , 则下列说法中, 正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若 A = E，且 $ B \neq O $，则 C = E。
+        \item 若 A = O，且 $ B \neq O $，则 C = O。
+        \item 若 B 可逆, 则 A = C .
+        \item 若 B 可逆, 则 A 与 C 等价.
+    \end{enumerate}
+
+    \item 下列矩阵中, 与 $ A=\begin{pmatrix}1&0&2&-1\\2&1&3&1\\3&2&4&3\end{pmatrix} $ 等价的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \begin{pmatrix} 2 & 0 & 2 & 2 \\ 2 & 0 & 2 & 3 \\ 2 & 0 & 2 & 4 \end{pmatrix} $
+        \item $ \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 1 \\ 0 & 0 & 0 & 1 \end{pmatrix} $
+        \item $ \begin{pmatrix} 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 1 \\ 1 & 0 & 1 & 0 \end{pmatrix} $
+        \item $ \begin{pmatrix} 1 & 0 & 1 & 1 \\ 2 & 0 & 2 & 2 \\ 3 & 0 & 3 & 3 \end{pmatrix} $
+    \end{enumerate}
+
+    \item 设 A 为 n 阶非零矩阵，E 为 n 阶单位矩阵，若 $ A^{4}=O $，则 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 对于任意非零常数 a, b, c, d, aE + bA 可逆, cE + dA\textsuperscript{2}
+        \item 对于任意非零常数 a, b, aE + bA 可逆, 存在非零常数 c, d , 使得 $ cE + dA^{2} $
+        \item 存在非零常数 a, b，使得 $ aE + bA $ 不可逆，对于任意非零常数 $ c, d, cE + dA^{2} $ 可逆.
+        \item 存在非零常数 a, b, c, d，使得 $ aE + bA $ 不可逆， $ cE + dA^{2} $ 不可逆.
+    \end{enumerate}
+
+    \item 设 A 为 3 阶矩阵，P 为 3 阶可逆矩阵，且 $ P^{-1}AP=\begin{pmatrix}1&0&0\\0&2&0\\0&0&3\end{pmatrix} $ 。若 $ P=\left(\alpha_{1},\alpha_{2},\alpha_{3}\right),Q=\left(\alpha_{1}+\alpha_{2},\alpha_{2}+\alpha_{3},\alpha_{3}\right) $ ，则 $ Q^{-1}AQ= $ ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \begin{pmatrix}1&0&0\\0&2&0\\0&0&3\end{pmatrix} $
+        \item $ \begin{pmatrix}1&0&0\\1&2&0\\1&1&3\end{pmatrix} $
+        \item $ \begin{pmatrix}1&0&0\\1&2&0\\-1&1&3\end{pmatrix} $
+        \item $ \begin{pmatrix}1&1&-1\\0&2&1\\0&0&3\end{pmatrix} $
+    \end{enumerate}
+
+    \item 设 $ n $ 为大于等于 3 的奇数, $ n $ 阶非零矩阵 $ A $ 满足 $ A = A^* $, 则下列说法中, 正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ A = -A^{-1} $
+        \item $ A^T = -A^* $
+        \item $ A^{-1} = A^* $
+        \item $ |A| = 0 $
+    \end{enumerate}
+
+    \item 设 A, B 为 4 阶可逆矩阵, $ A^{*}, B^{*} $ 分别为 A, B 的伴随矩阵, 将 $ A^{*} $ 的第 2 行乘以 3 加到第 1 行上得矩阵 $ B^{*} $, 则 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 将 A 的第 1 列乘以 3 加到第 2 列上得 B .
+        \item 将 A 的第 1 行乘以 3 加到第 2 行上得 B .
+        \item 将 A 的第 1 列乘以 -3 加到第 2 列上得 B .
+        \item 将 A 的第 1 行乘以 -3 加到第 2 行上得 B .
+    \end{enumerate}
+
+    \item 已知矩阵 A, B 均为 $ n \times m $ 矩阵 $ (n, m \geq 2) $，则下列命题中，正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若 $ AB^{T} $ 可逆, 则 $ r(A)+r(B)\geq m $
+        \item 若 $ AB^{T}=E_{n} $，则 $ r(A)+r(B)\geq m $．
+        \item 若 $ AB^{T} $ 不可逆，则 $ r(A)+r(B)\leq m $
+        \item 若 $ AB^{T}=O $，则 $ r(A)+r(B)\leq m $
+    \end{enumerate}
+
+    \item 设 A, B 均为 $ n (n \geq 2) $ 阶矩阵, 满足 A - B - AB = kE, 则下列 k 值中, 使 $ r(A + E) + r(B - E) $ 最小的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item -2
+        \item -1
+        \item 1
+        \item 2
+    \end{enumerate}
+
+    \item 设 A, B 是 n 阶矩阵, $ A^{*} $ 是 A 的伴随矩阵, 若 $ r(B) = 2 $, 且 AB = O, 则 $ r(A^{*}) = $ ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 0
+        \item 1
+        \item 2
+        \item 3
+    \end{enumerate}
+
+    \item 已知矩阵 A 是 $ m \times n $ 矩阵，B 是 $ n \times m $ 矩阵，则下列说法中，正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若 $ \left|AB\right|\neq0 $ ，则 A 行满秩， B 列满秩.
+        \item $ \left|AB\right|=\left|BA\right| $
+        \item $ \left|AB\right|\neq\left|BA\right| $
+        \item $ \mathrm{tr}(\mathrm{AB}) \neq \mathrm{tr}(\mathrm{BA}) $
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=11]
+    \item 设矩阵 $ A=\begin{pmatrix}1&1\\ 1&1\end{pmatrix} $，E 为 2 阶单位矩阵，矩阵 B 满足 $ BA=A+B-E $，则 $ |B|= $ \underline{\hspace{2cm}}.
+
+    \item 已知 n 阶矩阵 A 满足 $ |A| = \frac{1}{n} $，则 $ \left|n A^{*} - (n A)^{-1}\right| = $ \underline{\hspace{2cm}}.
+
+    \item 设 $ n \geq 2 $ 阶矩阵 A 可逆，且 $ \left(\mathbf{A}^{*}\right)^{-1} = \left(\mathbf{A}^{\mathrm{T}}\right)^{*} $，若 $ |A| < 0 $，则 $ |A| = $ \underline{\hspace{2cm}}.
+
+    \item 设矩阵 $ A=\begin{pmatrix}0&1&0&0\\0&0&1&0\\0&0&0&1\\1&0&0&0\end{pmatrix} $，则使得 $ A^{k}=E $ 成立的最小正整数为 \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=15]
+    \item 已知矩阵 $ A = \begin{pmatrix} 1 & 2 & 3 \\ 0 & 1 & 2 \\ 0 & 0 & 1 \end{pmatrix} $，且 $ A^{3} - A^{2}B - AB + E = O $，其中 E 是 3 阶单位矩阵，求矩阵 B.
+
+    \item 设矩阵 $ A = \begin{pmatrix} 1 & 1 & 0 & 0 \\ 1 & -1 & 0 & 0 \\ 0 & 0 & 0 & -1 \\ 0 & 0 & 1 & 0 \end{pmatrix} $，矩阵 B 满足 $ \left[\left(\frac{1}{2}A\right)^{*}\right]^{-1}BA^{-1} = 4AB + 16E $，求矩阵 B.
+
+    \item 设 $ A=\begin{pmatrix}0&a&b\\a&0&c\\b&c&0\end{pmatrix} $ 为可逆矩阵，E 为 3 阶单位矩阵， $ B=\begin{pmatrix}1&0&0\\0&4&0\\0&0&0\end{pmatrix} $
+    
+    (Ⅰ) 计算 E-AB，并指出 A 中元素满足什么条件时，E-AB 为可逆矩阵；
+    
+    (II) 当 E-AB 可逆时, 证明 $ \left(\mathrm{E}-\mathrm{AB}\right)^{-1}\mathrm{A}=\left[\left(\mathrm{A}^{-1}-\mathrm{B}\right)^{-1}\right]^{\mathrm{T}} $
+
+    \item 设 $ A=\begin{pmatrix}1&2&4\\0&-1&2\\-1&3&1\end{pmatrix},\Lambda=\begin{pmatrix}1&0&0\\0&1&0\\0&0&-|A|\end{pmatrix} $
+    
+    (I) 求 $ \left|A\right| $;
+    
+    (II) 求下三角矩阵 P 与上三角矩阵 Q，使得 $ A = P \Lambda Q $
+
+    \item 已知 n 阶矩阵 A 满足等式 $ A^2 - 3A + 2E = O $，其中 E 为 n 阶单位矩阵。计算 $ r(A) + r(A - E) + r(A - 2E) + r(A - 3E) $。
+\end{enumerate}
+
+\subsection{B 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 设 A 为 $ m \times n $ 矩阵， $ r(A) = m $，则下列说法中，正确的是 ( \underline{\hspace{1cm}} )
+    
+    ① 若 P 为 m 阶矩阵，且 PA = A，则 P = E。
+    
+    ② 若 P 为 n 阶矩阵，且 AP = A，则 P = E。
+    
+    ③ A 能通过一系列初等行变换化为形式 $ \left(\mathrm{E}_{m},\mathrm{O}\right) $ 。
+    
+    ④ A 能通过一系列初等列变换化为形式 $ \left(\mathrm{E}_{m},\mathrm{O}\right) $ 。
+    \begin{enumerate}[label=(\Alph*)]
+        \item ① ③
+        \item ① ④
+        \item ② ③
+        \item ② ④
+    \end{enumerate}
+
+    \item 定义运算 $ [X,Y]=XY-YX $ ，其中 X 和 Y 为同阶方阵．对于 2 阶方阵 A,B,C ，下列命题中，正确的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ [A,B]=[B,A] $
+        \item $ \left[\mathbf{A},\mathbf{B}\right]^{2}=\mathbf{E} $
+        \item $ \left[\left[\mathrm{A},\mathrm{B}\right],\mathrm{C}\right]=\mathrm{O} $
+        \item $ \left[\left[\mathrm{A},\mathrm{B}\right]^{2},\mathrm{C}\right]=\mathrm{O} $
+    \end{enumerate}
+
+    \item 设 3 阶矩阵 $ A = \begin{pmatrix} 0 & a & a \\ b & 0 & 0 \\ b & 0 & 0 \end{pmatrix} $，则下列关于 $ A^{n}(n \geq 2) $ 的说法中，正确的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ A^{n} $ 的各项元素仅与 a 有关.
+        \item $ A^{n} $ 的各项元素仅与 b 有关.
+        \item 若 n 为奇数, 则 $ A^{n} $ 的各项元素仅与 ab 有关.
+        \item 若 n 为偶数, 则 $ A^{n} $ 的各项元素仅与 ab 有关.
+    \end{enumerate}
+
+    \item 设 A, B 均为 2 阶矩阵, $ A^{*}, B^{*} $ 分别为 A, B 的伴随矩阵. 若 $ |A| = 3, |B| = -1 $, 则分块矩阵 $ \begin{pmatrix} O & A \\ B & E \end{pmatrix}^{*} = $ ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \begin{pmatrix}-B^{*}A^{*}&3B^{*}\\-A^{*}&O\end{pmatrix} $
+        \item $ \begin{pmatrix}-A^{*}B^{*}&3B^{*}\\-A^{*}&O\end{pmatrix} $
+        \item $ \begin{pmatrix}-B^{*}A^{*}&-A^{*}\\-3B^{*}&O\end{pmatrix} $
+        \item $ \begin{pmatrix}-A^{*}B^{*}&-A^{*}\\-3B^{*}&O\end{pmatrix} $
+    \end{enumerate}
+
+    \item 设 A, B 为 n 阶矩阵, 记 $ r(X) $ 为矩阵 X 的秩, $ (X, Y) $ 表示分块矩阵, 则下列说法中, 不正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ r(\mathrm{A},\mathrm{AB}) \leq r(\mathrm{A},\mathrm{B}) $
+        \item $ r(\mathrm{BA},\mathrm{B}) \leq r(\mathrm{A},\mathrm{B}) $
+        \item $ r(\mathrm{A},\mathrm{AB}) \leq r(\mathrm{A},\mathrm{BA}) $
+        \item $ r(\mathrm{AB},\mathrm{B}) \leq r(\mathrm{BA},\mathrm{B}) $
+    \end{enumerate}
+
+    \item 设 $ A $ 为 $ n(n \geq 3) $ 阶非零矩阵，则下列命题中，正确命题的个数是（ \underline{\hspace{1cm}} ）
+    
+    ① 当 $ r\left(\left(A^*\right)^*\right) = r\left(A^*\right) $ 时， $ r\left(A, A^*\right) \neq n - 1 $．
+    
+    ② 当 $ r\left(\left(A^*\right)^*\right) = r\left(A^*\right) $ 时， $ r\left(A - A^*\right) \neq n - 1 $．
+    
+    ③ 当 $ r\left(\left(A^*\right)^*\right) < r\left(A^*\right) $ 时， $ r\left(A, A^*\right) = n $．
+    
+    ④ 当 $ r\left(\left(A^*\right)^*\right) < r\left(A^*\right) $ 时， $ r\left(A - A^*\right) = n $．
+    \begin{enumerate}[label=(\Alph*)]
+        \item 0
+        \item 1
+        \item 2
+        \item 3
+    \end{enumerate}
+
+    \item 设 $ A $ 为 $ n(n \geq 2) $ 阶非零矩阵, 且满足 $ a_{ij} = A_{ij}, i, j = 1, 2, \cdots, n $, 其中 $ A_{ij} $ 为 $ a_{ij} $ 的代数余子式, 则下列说法中, 正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ A $ 为可逆矩阵.
+        \item $ A $ 为对称矩阵.
+        \item $ |A| < 0 $
+        \item $ A $ 的所有元素的平方和为 $ n $
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=8]
+    \item 设 n 阶矩阵 A 满足方程 $ A^{3}=A^{2}+A $，则 $ \left(A^{2}+A+E\right)^{-1}= $ \underline{\hspace{2cm}}.
+
+    \item 设 $ \alpha=(1,0,2)^{\mathrm{T}},\beta=(4,1,-2)^{\mathrm{T}} $ 。记 $ A=\alpha\beta^{\mathrm{T}} $ ，则 $ (\mathrm{E}+\mathrm{A})^{n}= $ \underline{\hspace{2cm}}.
+
+    \item 设 n 维列向量 $ \alpha = \left( \frac{1}{4}, 0, \cdots, 0, \frac{\sqrt{3}}{4} \right)^{\mathrm{T}} $，矩阵 $ A = E - 2\alpha\alpha^{\mathrm{T}}, B = E + 4\alpha\alpha^{\mathrm{T}} $，其中 E 为 n 阶单位矩阵，则 $ \left| E + A^{n}B^{n} \right| = $ \underline{\hspace{2cm}}.
+
+    \item 设矩阵 $ A=\begin{pmatrix}1&0&0&1\\0&1&0&1\\0&0&1&1\\1&1&1&1\end{pmatrix} $，则 A 的所有元素的代数余子式之和为 \underline{\hspace{2cm}}.
+
+    \item 设 A, B 为 n 阶矩阵, 则 $ \begin{vmatrix} A^{2} & AB \\ BA & B^{2} \end{vmatrix} = $ \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=13]
+    \item 已知 A 为 3 阶可逆矩阵, 将 A 的第 1 列与第 2 列互换得到矩阵 B , 再将 B 的第 1 列乘以 -2 得到矩阵 C . 若矩阵 P 满足 PA\textsuperscript{*} = C\textsuperscript{*}, 求矩阵 P .
+
+    \item 设矩阵 $ A=\begin{pmatrix}4&9&-3\\-a&-2&a\\-a&-3&a+1\end{pmatrix} $，且满足 $ A=-2(A-3E)^{-1} $，
+    
+    (I) 确定 a ;
+    
+    (II) 设矩阵 X 满足方程 $ A X A - 4 A X + X A - 4 X - 12 A = O $，求矩阵 X.
+\end{enumerate}
+
+\subsection{C 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 对于 n 阶矩阵 A 和 B，下列命题中, 正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若 AB 可逆, 则 E-AB 可逆.
+        \item 若 AB 不可逆, 则 E-AB 可逆.
+        \item 若 E-BA 可逆, 则 E-AB 可逆.
+        \item 若 E-BA 不可逆, 则 E-AB 可逆.
+    \end{enumerate}
+
+    \item 设矩阵 A 为 $ 4 \times 2 $ 矩阵，B 为 $ 2 \times 4 $ 矩阵，且满足 $ AB = \begin{pmatrix} 1 & 0 & -1 & 0 \\ 0 & 1 & 0 & -1 \\ -1 & 0 & 1 & 0 \\ 0 & -1 & 0 & 1 \end{pmatrix} $，则 BA = ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \begin{pmatrix}1 & 0 \\ 0 & 3\end{pmatrix} $
+        \item $ \begin{pmatrix}2 & 0 \\ 0 & 2\end{pmatrix} $
+        \item $ \begin{pmatrix}4 & 0 \\ 0 & 0\end{pmatrix} $
+        \item 由已知条件不能确定.
+    \end{enumerate}
+
+    \item 设 $ A = \begin{pmatrix} a_{ij} \end{pmatrix} $ 为 n 阶矩阵，且其元素满足 $ a_{ij} = -a_{ji} $， $ \beta $ 为 n 维非零列向量，矩阵 $ B = \begin{pmatrix} A & \beta \\ \beta^{T} & 0 \end{pmatrix} $，则 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若 $ r(A)=n $ ，则 n 为奇数，且 $ r(B)=n $ 。
+        \item 若 $ r(A) = n $，则 n 为奇数，且 $ r(B) = n + 1 $
+        \item 若 $ r(A) = n $，则 n 为偶数，且 $ r(B) = n $
+        \item 若 $ r(A) = n $，则 n 为偶数，且 $ r(B) = n + 1 $
+    \end{enumerate}
+\end{enumerate}
+
+\section{第三章 向量}
+
+\subsection{A 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 已知向量组 $ \boldsymbol{\alpha}_{1}=(1,2,1)^{\mathrm{T}},\boldsymbol{\alpha}_{2}=(3,5,1)^{\mathrm{T}},\boldsymbol{\alpha}_{3}=(3,7,5)^{\mathrm{T}},\boldsymbol{\alpha}_{4}=(-1,1,1)^{\mathrm{T}},\boldsymbol{\alpha}_{5}=(-5,1,5)^{\mathrm{T}} $，则下列各选项中的向量组线性相关的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \alpha_{1},\alpha_{2},\alpha_{3} $
+        \item $ \alpha_{1},\alpha_{2},\alpha_{5} $
+        \item $ \alpha_{2},\alpha_{4},\alpha_{5} $
+        \item $ \alpha_{3},\alpha_{4},\alpha_{5} $
+    \end{enumerate}
+
+    \item 下列关于向量组 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 的陈述中, 不正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若存在实数 k，使得 $ \alpha_{1} + k\alpha_{3}, \alpha_{2} $ 线性相关，则 $ \alpha_{1}, \alpha_{2}, \alpha_{3} $ 必线性相关.
+        \item 若存在实数 k，使得 $ \alpha_{1} + k\alpha_{3}, \alpha_{2} $ 线性无关，则 $ \alpha_{1}, \alpha_{2}, \alpha_{3} $ 可能线性无关.
+        \item 若对任意实数 k，均有 $ \alpha_{1} + k\alpha_{3}, \alpha_{2} $ 线性相关，则 $ \alpha_{1}, \alpha_{2}, \alpha_{3} $ 必线性相关.
+        \item 若对任意实数 k，均有 $ a_{1} + k a_{3}, a_{2} $ 线性无关，则 $ a_{1}, a_{2}, a_{3} $ 必线性无关.
+    \end{enumerate}
+
+    \item 已知向量组 $ I: \alpha_1 = (0, 1, 2, 3)^\mathrm{T}, \alpha_2 = (3, 0, 1, 2)^\mathrm{T}, \alpha_3 = (2, 3, 0, 1)^\mathrm{T} $ 和向量组 $ I: \beta_1 = (2, 1, 1, 2)^\mathrm{T}, \beta_2 = (0, -2, 1, 1)^\mathrm{T}, \beta_3 = (4, 4, 1, 3)^\mathrm{T} $，则下列说法中，正确的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item 向量组 I 可由向量组 II 线性表示，但向量组 II 不能由向量组 I 线性表示.
+        \item 向量组 II 可由向量组 I 线性表示，但向量组 I 不能由向量组 II 线性表示.
+        \item 向量组 I 和向量组 II 可互相线性表示.
+        \item 向量组 I 和向量组 II 均不可由对方线性表示.
+    \end{enumerate}
+
+    \item 设向量组 $ I: \alpha_1, \alpha_2, \cdots, \alpha_t $ 可由向量组 $ \Pi: \beta_1, \beta_2, \cdots, \beta $，线性表示，向量组 $ I $ 和 $ II $ 的秩分别为 $ r_1, r_2 $，则（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若 t = s ，则 $ r_{1} = r_{2} $ 。
+        \item 若 $ r_{1} = t $ ，则 $ s \geq t $ 。
+        \item 若 t < s ，则 $ r_{1} < r_{2} $
+        \item 若 $ r_{2}=s $ ，则 $ s \geq t $
+    \end{enumerate}
+
+    \item 已知向量组 $ I: \alpha_1, \alpha_2, \cdots, \alpha_t $ 的秩为 $ r_1 $，向量组 II: $ \beta_1, \beta_2, \cdots, \beta_s $ 的秩为 $ r_2 $，则下列命题中，正确的个数为（ \underline{\hspace{1cm}} ）
+    
+    ① 若向量组 I 能被向量组 II 线性表示, 则 $ r_{1} \leq r_{2} $
+    
+    ② 若向量组 I 不能被向量组 II 线性表示, 则 $ r_{1} > r_{2} $
+    
+    ③ 若向量组Ⅰ和向量组Ⅱ等价，则 $ r_{1}=r_{2} $
+    
+    ④ 若向量组Ⅰ和向量组Ⅱ不等价，则 $ r_{1} \neq r_{2} $
+    \begin{enumerate}[label=(\Alph*)]
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}
+
+    \item 设 A, B, C 均为 n 阶矩阵, 则下列命题中, 正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若矩阵 A 与 C 等价, 则矩阵 A 的行向量组与矩阵 C 的行向量组等价.
+        \item 若矩阵 A 的行向量组与矩阵 C 的行向量组等价, 则矩阵 A 与 C 等价.
+        \item 若 AB = C，且矩阵 A 的行向量组与矩阵 C 的行向量组等价，则矩阵 B 可逆.
+        \item 若 AB = C，且矩阵 B 可逆，则矩阵 A 的行向量组与矩阵 C 的行向量组等价.
+    \end{enumerate}
+
+    \item 设向量组 $ I:\alpha_{1},\alpha_{2},\alpha_{3} $ 可由向量组 II: $ \alpha_{1},\alpha_{2},\beta $ 线性表示，则（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若 $ \alpha_{3} $ 与 $ \beta $ 线性无关, 则 $ \alpha_{3} $ 可由 $ \alpha_{1}, \alpha_{2} $
+        \item 与 $ \beta $ 线性无关, 则向量组 I 与向量组 II 等价.
+        \item 若向量组 I 与向量组 II 等价, 则 $ \alpha_{3} $ 与 $ \beta $ 线性相关.
+        \item 若 $ \alpha_{3} $ 与 $ \beta $ 线性相关但与 $ \alpha_{1} $ 线性无关, 则向量组 I 与向量组 II 等价.
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=8]
+    \item 设向量组 $ \alpha_{1}=\begin{pmatrix} a \\ 1 \\ 1 \end{pmatrix}, \alpha_{2}=\begin{pmatrix} 1 \\ a \\ -1 \end{pmatrix}, \alpha_{3}=\begin{pmatrix} 1 \\ -1 \\ a \end{pmatrix} $ 线性相关，但其中任意两个向量均线性无关，则 $ a= $ \underline{\hspace{2cm}}.
+
+    \item 若向量 $ \beta = (0, 1, -1, b)^{\mathrm{T}} $ 可以表示为 $ \alpha_1 = (1, 2, 3, 4)^{\mathrm{T}}, \alpha_2 = (1, 3, 2, 3)^{\mathrm{T}}, \alpha_3 = (1, 4, a, 2)^{\mathrm{T}} $， $ \alpha_4 = (1, 4, 1, a + 1)^{\mathrm{T}} $ 的线性组合，且表示方法不唯一，则 $ ab = $ \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=10]
+    \item 已知向量组 $ \alpha_{1}=\begin{pmatrix}0\\ 1\\ 2\end{pmatrix},\alpha_{2}=\begin{pmatrix}2\\ 0\\ 1\end{pmatrix},\alpha_{3}=\begin{pmatrix}a\\ 2\\ 1\end{pmatrix} $ 与向量组 $ \beta_{1}=\begin{pmatrix}b\\ 1\\ 0\end{pmatrix},\beta_{2}=\begin{pmatrix}1\\ 0\\ -1\end{pmatrix},\beta_{3}=\begin{pmatrix}8\\ 7\\ 6\end{pmatrix} $ 具有相同的秩，且 $ \beta_{1} $ 不能由 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性表示，求 a,b 的值.
+
+    \item 设向量组 $ I: \alpha_1 = (1, 0, -1)^\mathrm{T}, \alpha_2 = (0, 1, -1)^\mathrm{T}, \alpha_3 = (1, 2, 4)^\mathrm{T} $ 不能由向量组 II: $ \beta_1 = (2, 2, 2)^\mathrm{T} $， $ \beta_2 = (2, 4, 6)^\mathrm{T} $， $ \beta_3 = (1, 5, a)^\mathrm{T} $ 线性表示，求 $ a $ 的值，并将 $ \beta_1, \beta_2, \beta_3 $ 用 $ \alpha_1, \alpha_2, \alpha_3 $ 线性表示。
+
+    \item 确定常数 $ a $，使向量组 $ \boldsymbol{\alpha}_{1}=(1,1,4)^{\mathrm{T}},\boldsymbol{\alpha}_{2}=(1,a,4)^{\mathrm{T}},\boldsymbol{\alpha}_{3}=(-1,-1,a)^{\mathrm{T}} $ 可由向量组 $ \beta_{1}=(\boldsymbol{a}+2,1,1)^{\mathrm{T}},\boldsymbol{\beta}_{2}=(1,a+2,1)^{\mathrm{T}},\boldsymbol{\beta}_{3}=(1,1,a+2)^{\mathrm{T}} $ 线性表示，但向量组 $ \beta_{1},\beta_{2},\beta_{3} $ 不能由向量组 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性表示.
+
+    \item 已知 $ \boldsymbol{\alpha}_{1}=(1,0,-1,a)^{\mathrm{T}},\boldsymbol{\alpha}_{2}=(0,1,a,a)^{\mathrm{T}},\boldsymbol{\alpha}_{3}=(-a,a,a,0)^{\mathrm{T}},\boldsymbol{\beta}=(b,0,1,2)^{\mathrm{T}} $，问：
+    
+    (I) a,b 满足什么条件时， $ \beta $ 不能由 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性表示？
+    
+    (II) a,b 满足什么条件时， $ \beta $ 能由 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 唯一地线性表示？并写出此表示式（要求表示式中不含 b）.
+
+    \item 已知向量组 $ A: \alpha_{1} = (1, 1, 0, 1)^{\mathrm{T}}, \alpha_{2} = (a, a + 1, a, a + 1)^{\mathrm{T}}, \alpha_{3} = (1, 2, a + 1, a + 2)^{\mathrm{T}} $, $ \boldsymbol{\alpha}_{4}=\left(a,a-1,0,a\right)^{\mathrm{T}},\boldsymbol{\alpha}_{5}=\left(a,a+1,3,a+3\right)^{\mathrm{T}} $，且 $ \alpha_{1},\alpha_{2},\alpha_{3},\alpha_{4} $ 是该向量组的一个极大无关组，但 $ \alpha_{1},\alpha_{2},\alpha_{3},\alpha_{5} $ 不是该向量组的极大无关组。求 $ a $，并用 $ \alpha_{1},\alpha_{2},\alpha_{3},\alpha_{4} $ 表示 $ \alpha_{5} $。
+\end{enumerate}
+
+\subsection{B 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 设向量组 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性无关，已知 $ \beta_{1}=(k+1)\alpha_{1}+(k-1)\alpha_{2}-(k+1)\alpha_{3},\beta_{2}=\alpha_{1}+ \alpha_{2}+\alpha_{3},\beta_{3}=\alpha_{1}+(1-k)\alpha_{2}+\alpha_{3} $，当向量组 $ \beta_{1},\beta_{2},\beta_{3} $ 线性无关时，参数 k 满足的条件是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ k \neq 0 $ 或 $ k \neq -1 $
+        \item $ k \neq 0 $ 且 $ k \neq -1 $
+        \item k = 0
+        \item k = -1
+    \end{enumerate}
+
+    \item 设向量组 $ A: \alpha_1, \alpha_2, \cdots, \alpha_n $ 包含 $ n $ 个 $ m $ 维向量 $ (n > m) $，则下列命题中，正确的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若 $ \alpha_1 \neq 0 $，则 $ \alpha_1 $ 必能由其他向量线性表示。
+        \item 若 $ \alpha_{1} \neq 0 $，则必存在 $ 2 \leq k \leq n $，使得 $ \alpha_{k} $ 能由 $ \alpha_{1}, \alpha_{2}, \cdots, \alpha_{k-1} $ 线性表示.
+        \item 矩阵 $ \mathbf{A} = (\alpha_1, \alpha_2, \cdots, \alpha_n) $ 必可经过初等行变换化为矩阵 $ \left(\mathbf{E}, \mathbf{O}\right) $ 或 $ \begin{pmatrix} \mathbf{E} & \mathbf{O} \\ \mathbf{O} & \mathbf{O} \end{pmatrix} $ 的形式.
+        \item 矩阵 $ \mathbf{A} = (\alpha_1, \alpha_2, \cdots, \alpha_n) $ 必可经过初等列变换化为矩阵 $ \left(\mathbf{E}, \mathbf{O}\right) $ 或 $ \begin{pmatrix} \mathbf{E} & \mathbf{O} \\ \mathbf{O} & \mathbf{O} \end{pmatrix} $ 的形式.
+    \end{enumerate}
+
+    \item 设 $ \alpha_{1}, \alpha_{2}, \alpha_{3} $ 与 $ \beta_{1}, \beta_{2}, \beta_{3} $ 为 3 维列向量组的两个不同的极大无关组，且 $ (\alpha_{1}, \alpha_{2}, \alpha_{3}) = (\beta_{1}, \beta_{2}, \beta_{3}) $ A. 向量 $ \xi_{i} (i = 1, 2, 3) $ 满足 $ \xi_{i} = x_{1i} \alpha_{1} + x_{2i} \alpha_{2} + x_{3i} \alpha_{3} = y_{1i} \beta_{1} + y_{2i} \beta_{2} + y_{3i} \beta_{3} $，且 $ (x_{1i}, x_{2i}, x_{3i}) = (y_{1i}, y_{2i}, y_{3i}) $ B，则（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若矩阵 $ \left(y_{ij}\right) $ 可逆，则 B = A 。
+        \item 若矩阵 $ \left(y_{ij}\right) $ 可逆，则 B = A\textsuperscript{-1} 。
+        \item 若矩阵 $ \left(y_{ij}\right) $ 可逆，则 B\textsuperscript{T} = A 。
+        \item 若矩阵 $ \left(y_{ij}\right) $ 可逆，则 B\textsuperscript{T} = A\textsuperscript{-1}
+    \end{enumerate}
+
+    \item 设 $ n (n \geq 3) $ 阶矩阵 $ A = (a_{ij}) $ 不可逆， $ A_{ij} $ 是 $ a_{ij} $ 的代数余子式，其中 $ A_{11} \neq 0 $，则下列行向量中，必为 A 的伴随矩阵 $ A^{*} $ 的行向量组的一个极大无关组的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \left(A_{11}, A_{12}, \cdots, A_{1n}\right) $
+        \item $ \left(A_{11}, A_{21}, \cdots, A_{n1}\right) $
+        \item $ \left(A_{12}, A_{22}, \cdots, A_{12}\right) $
+        \item 以上都不正确.
+    \end{enumerate}
+
+    \item 已知 $ \alpha_{1}, \alpha_{2}, \alpha_{3}, \alpha_{4} $ 是 3 维非零列向量，则下列命题中，正确命题的个数为（ \underline{\hspace{1cm}} ）
+    
+    ① 若 $ r(\alpha_{1},\alpha_{2},\alpha_{3})=3 $ ，则 $ \alpha_{4} $ 可由 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性表示.
+    
+    ② 若 $ \alpha_{4} $ 可由 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性表示，则 $ 2 \leq r(\alpha_{1},\alpha_{2},\alpha_{3}) \leq 3 $
+    
+    ③ 若 $ r(\alpha_{1},\alpha_{2},\alpha_{3})=2 $ ，则 $ \alpha_{4} $ 必不能由 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性表示.
+    
+    ④ 若 $ \alpha_{4} $ 不能由 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性表示，则 $ r(\alpha_{1},\alpha_{2},\alpha_{3})\leq2 $
+    \begin{enumerate}[label=(\Alph*)]
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}
+
+    \item 设向量 $ \alpha_{1}=(1,1,0,0)^{\mathrm{T}},\alpha_{2}=(1,0,1,0)^{\mathrm{T}},\alpha_{3}=(1,0,0,1)^{\mathrm{T}},\alpha_{4}=(\lambda,1,x,x^{2})^{\mathrm{T}},\alpha_{s}=\left(\lambda,1,\frac{1}{x},\frac{1}{x^{2}}\right)^{1} $ 。若对所有 $ x \neq 0 $ ，向量组 I : $ \alpha_{1},\alpha_{2},\alpha_{3},\alpha_{4} $ 与向量组 II : $ \alpha_{1},\alpha_{2},\alpha_{3},\alpha_{5} $ 恒等价，则 $ \lambda $ 的取值范围是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \lambda < \frac{3}{4} $
+        \item $ \lambda < \frac{3}{4} $ 或 $ \lambda = 1 $
+        \item $ \lambda > \frac{5}{4} $
+        \item $ \lambda > \frac{5}{4} $ 或 $ \lambda = 1 $
+    \end{enumerate}
+
+    \item 设 A, B 为 n 阶矩阵, 则下列命题中, 错误的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若 B 和 AB 都是正交矩阵, 则 A 也是一个正交矩阵.
+        \item 若 B 和 A+B 都是正交矩阵, 则 A 也是一个正交矩阵.
+        \item 若 A 是正交矩阵，x 是 n 维列向量，则 x 和 Ax 的长度相等.
+        \item 若 A 是正交矩阵，x,y 是相互正交的两个 n 维列向量，则 Ax,Ay 也相互正交.
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=8]
+    \item 设矩阵 $ A = \begin{pmatrix} 1 & 2 & -1 \\ 2 & 1 & 1 \\ 3 & 0 & 2 \end{pmatrix} $, $ \alpha = (a, b, 1)^{\mathrm{T}} $，若 $ A\alpha $ 与 $ \alpha $ 线性相关，则 $ a = $ \underline{\hspace{2cm}}.
+
+    \item 已知向量组 $ \alpha_{1}, \alpha_{2}, \alpha_{3}, \alpha_{4} $ 的秩为 2，且 $ \alpha_{1} + 2\alpha_{2} + 3\alpha_{3} = 0, \alpha_{1} + 3\alpha_{4} = 0 $，则该向量组中不同的极大无关组的个数是 \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=10]
+    \item 设 $ A=\begin{pmatrix}1&-2&3\\-1&2&-3\\1&4&-3\end{pmatrix},\xi_{1}=\begin{pmatrix}1\\-1\\-1\end{pmatrix} $
+    
+    (I) 求满足 $ A\xi_{2}=2\xi_{1}, A^{2}\xi_{3}=6\xi_{1} $ 的所有向量 $ \xi_{2}, \xi_{3} $
+    
+    (II) 对(I) 中的任意向量 $ \xi_{2}, \xi_{3} $，证明 $ \xi_{1}, \xi_{2}, \xi_{3} $ 线性无关.
+
+    \item 设 A 为 3 阶矩阵， $ \alpha_{1}, \alpha_{2} $ 为 A 的分别属于特征值 1, 2 的特征向量，向量 $ \alpha_{3} $ 满足 $ A\alpha_{3}=2\alpha_{1}+\alpha_{2}+3\alpha_{3} $，且 $ \alpha_{1}+\alpha_{2}+\alpha_{3}\neq0 $。
+    
+    (Ⅰ) 证明 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性无关；
+    
+    (II) 令 $ \mathrm{P}=\left(\alpha_{1},\alpha_{2},\alpha_{3}\right) $，求 $ P^{-1}AP $.
+
+    \item 设 $ n $ 维列向量组 $ \alpha_1, \cdots, \alpha_s $ 是齐次线性方程组 $ Ax = 0 $ 的一个基础解系， $ \beta $ 是 $ n $ 维非零列向量，向量组 $ \beta, \beta + \alpha_1, \cdots, \beta + \alpha_s $ 线性相关。证明： $ \beta $ 也是齐次线性方程组 $ Ax = 0 $ 的一个解。
+\end{enumerate}
+
+\subsection{C 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 设 A 为 3 阶正交矩阵且 $ A^3 = E $。已知 $ \alpha, \beta $ 均为 3 维非零向量，且满足 $ \alpha, A\alpha $ 线性无关， $ \alpha $， $ A\alpha, A^2\alpha $ 线性相关， $ \beta^\mathrm{T}\alpha = \beta^\mathrm{T}A\alpha = 0 $。下列命题中，错误的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \alpha, A^2\alpha $ 线性无关。
+        \item $ \beta, A\beta $ 线性无关。
+        \item $ \alpha, A\alpha, \beta $ 线性无关。
+        \item $ \beta, A\beta, A^2\beta $ 线性相关。
+    \end{enumerate}
+
+    \item 设 A 为 2 阶矩阵， $ \alpha_{1}, \alpha_{2} $ 为 2 维列向量，其中 $ \alpha_{1} \neq 0, A\alpha_{1} = -\alpha_{1}, A\alpha_{2} = \alpha_{1} - \alpha_{2} $，则下列向量组中，线性相关的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \alpha_{1}, A^{899} \alpha_{2} $
+        \item $ \alpha_{1}, A^{899} \alpha_{2} - \alpha_{2} $
+        \item $ \alpha_{1}, A^{900} \alpha_{2} $
+        \item $ \alpha_{1}, A^{900} \alpha_{2} - \alpha_{2} $
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、解答题}
+
+\begin{enumerate}[start=3]
+    \item 设 $ \alpha_{1} $ 为 3 阶矩阵 A 的属于特征值 1 的特征向量. 3 维列向量 $ \alpha_{2}, \alpha_{3} $ 满足 $ A\alpha_{2} = -2\alpha_{3} $, $ A\alpha_{3}=\alpha_{2}+2\alpha_{3} $，且 $ \alpha_{3}\neq0 $。证明：
+    
+    (I) $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性无关;
+    
+    (II) $ A^{3}-3A^{2}+4A=2E $
+\end{enumerate}
+
+\section{第四章 线性方程组}
+
+\subsection{A 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 设 A 是 $ (n+1) \times n $ 矩阵，b 是 $ n+1 $ 维列向量，行列式 $ |A, b| \neq 0 $，则非齐次线性方程组 Ax = b ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 有唯一解.
+        \item 有无穷多解.
+        \item 无解.
+        \item 不能确定解的情况.
+    \end{enumerate}
+
+    \item 设矩阵 $ A = \begin{pmatrix} 1 & 1 & 1 \\ 1 & 3 & 2a \\ 2 & 4 & a^{3} + 2a + 2 \end{pmatrix} $, $ b = \begin{pmatrix} 2 \\ d \\ d^{2} \end{pmatrix} $，则非齐次线性方程组 $ Ax = b $ 无解的充分必要条件为（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item a=-1,d=-1或d=2
+        \item a=1,d=-1或d=2
+        \item a=-1,d$\neq$-1 且 d$\neq$2
+        \item a=1,d$\neq$-1 且 d$\neq$2
+    \end{enumerate}
+
+    \item 设 A 为 3 阶非零矩阵, 下列命题中, 是齐次线性方程组 Ax=0 有非零解的充分条件的个数为 ( \underline{\hspace{1cm}} )
+    
+    ① 非齐次线性方程组 $ A^{*}x=b $ 有唯一解.
+    
+    ② 非齐次线性方程组 $ A^{*}x=b $ 有无穷多解.
+    
+    ③ 非齐次线性方程组 $ AA^{T}x=b $ 有唯一解.
+    
+    ④ 非齐次线性方程组 $ AA^{T}x=b $ 有无穷多解.
+    \begin{enumerate}[label=(\Alph*)]
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}
+
+    \item 设矩阵 $ \mathbf{A} = (\alpha_1, \alpha_2, \alpha_3, \alpha_4) $，非齐次线性方程组 $ \mathbf{A}\mathbf{x} = \mathbf{b} $ 的通解为 $ x = k_1 \begin{pmatrix} 1 \\ 0 \\ 1 \\ 0 \end{pmatrix} + k_2 \begin{pmatrix} -1 \\ 0 \\ 2 \\ 1 \end{pmatrix} + \begin{pmatrix} 3 \\ 1 \\ 2 \\ 0 \end{pmatrix} $，其中 $ k_1, k_2 $ 为任意常数，则下列说法中，错误的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item b 必可由 $ \alpha_{1},\alpha_{2} $ 线性表示.
+        \item b 必可由 $ \alpha_{2},\alpha_{3} $ 线性表示.
+        \item b 必可由 $ \alpha_{1},\alpha_{3},\alpha_{4} $ 线性表示.
+        \item b 必可由 $ \alpha_{2},\alpha_{3},\alpha_{4} $ 线性表示.
+    \end{enumerate}
+
+    \item 已知 $ \alpha_1 = (2, 1, 0)^\mathrm{T} $, $ \alpha_2 = (1, 0, -1)^\mathrm{T} $ 是方程组 $ \begin{cases} a_1 x_1 + a_2 x_2 + a_3 x_3 = b_1, \\ x_1 - 2 x_2 + x_3 = b_2, \\ 2 x_1 - x_2 - x_3 = 3 \end{cases} $ 的两个解，则该方程组的通解为（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ k(1, 1, 1)^\mathrm{T} + (2, 1, 0)^\mathrm{T} $，其中 $ k $ 为任意常数。
+        \item $ k(-1, 1, 1)^\mathrm{T} + (2, 1, 0)^\mathrm{T} $，其中 $ k $ 为任意常数。
+        \item $ k(1, -1, 1)^\mathrm{T} + (1, 0, -1)^\mathrm{T} $，其中 $ k $ 为任意常数。
+        \item $ k(1, 1, -1)^\mathrm{T} + (1, 0, -1)^\mathrm{T} $，其中 $ k $ 为任意常数。
+    \end{enumerate}
+
+    \item 设 $ \alpha_{1}, \alpha_{2}, \alpha_{3}, \alpha_{4} $ 是齐次线性方程组 Ax=0 的一个基础解系，则下列各组向量中，仍为 Ax=0 的基础解系的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \alpha_{1}+\alpha_{2},\alpha_{2}+\alpha_{3},\alpha_{3}+\alpha_{4},\alpha_{4}+\alpha_{1} $
+        \item $ \alpha_{1}+\alpha_{2}+\alpha_{3},\alpha_{2}+\alpha_{3}+\alpha_{4},\alpha_{3}+\alpha_{4}+\alpha_{1},\alpha_{4}+\alpha_{1}+\alpha_{2} $
+        \item $ \alpha_{1}-\alpha_{2},\alpha_{2}-\alpha_{3},\alpha_{3}-\alpha_{4},\alpha_{4}-\alpha_{1} $
+        \item $ \alpha_{1}-2\alpha_{2},2\alpha_{1}+\alpha_{3},-4\alpha_{2}-\alpha_{4},-\alpha_{3}+\alpha_{4} $
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=7]
+    \item 已知方程组 $ \begin{cases} x_{1} + 2x_{2} + x_{3} = 1, \\ 2x_{1} + 3x_{2} + (a + 2)x_{3} = 3, \\ x_{1} + ax_{2} - 2x_{3} = 4 \end{cases} $，无解，则 a= \underline{\hspace{2cm}}.
+
+    \item 设 A 为 $ m \times n $ 矩阵，B 为 $ n \times m $ 矩阵．已知 ABx = 0 只有零解，则方程组 Ax = 0 的基础解系中的向量个数为 \underline{\hspace{2cm}}.
+
+    \item 已知方程组 $ \begin{cases} x_1 + 2x_2 + 3x_3 + 4x_4 = 0, \\ x_1 + (a^2 + 1)x_2 + 3x_3 + (a + 3)x_4 = 0, \\ -x_1 + (a - 3)x_2 - 3x_3 + (a - 5)x_4 = 0 \end{cases} $ 的基础解系中恰有两个解向量，则 $ a = $ \underline{\hspace{2cm}}.
+
+    \item 已知矩阵 $ A = (\alpha_1, \alpha_2, \alpha_3, \alpha_4) $ 是一个 $ 3 \times 4 $ 的行满秩矩阵，且 $ \alpha_3 + \alpha_4 = 0 $， $ b = \alpha_1 + \alpha_2 $，则方程组 $ Ax = b $ 的通解为 \underline{\hspace{2cm}}.
+
+    \item 设四元非齐次线性方程组 Ax = b 的系数矩阵 A 的秩 $ r(A) = 3 $，且它的三个解向量 $ \alpha_{1}, \alpha_{2}, \alpha_{3} $ 满足 $ \alpha_{1} + 2\alpha_{2} = (2, 4, 6, -2)^{\mathrm{T}}, \alpha_{1} + 2\alpha_{3} = (0, 2, -2, 0)^{\mathrm{T}} $，则 Ax = b 的通解为 \underline{\hspace{2cm}}.
+
+    \item 设 n 阶矩阵 A 的各行元素之和均为 0, 且其伴随矩阵 $ A^{*} $ 为非零矩阵, 则 Ax=0 的通解为 \underline{\hspace{2cm}}.
+
+    \item 已知线性方程组 $ \begin{cases}2x_{1}+x_{3}=1,\\x_{1}+ax_{2}+x_{3}=0\end{cases} $ 与 $ \begin{cases}x_{1}+2x_{2}+x_{3}=0,\\ax_{1}+x_{2}=2\end{cases} $ 有公共解，则 a= \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=14]
+    \item 设矩阵 $ A=\begin{pmatrix}1&a&0&0\\0&1&a&0\\0&0&1&a\\b&0&0&1\end{pmatrix},b=\begin{pmatrix}1\\-1\\0\\0\end{pmatrix} $.
+    
+    (I) 计算行列式 $ \left|A\right| $
+    
+    (II) 当 a 为何值时, 方程组 Ax = b 有无穷多解, 并求其通解.
+
+    \item 设矩阵 $ A=\begin{pmatrix}2&-1&1\\1&a&1\\0&a+2&a\end{pmatrix},b=\begin{pmatrix}1\\1\\1\end{pmatrix} $
+    
+    (Ⅰ) 当 a 为何值时, 方程组 Ax = b 无解, 有唯一解, 有无穷多解?
+    
+    (II) 当方程组有无穷多解时，求其通解.
+
+    \item 设矩阵 $ A = \begin{pmatrix} 1 & 2 & 1 & 3 \\ 0 & 1 & -1 & -4 \\ -1 & 2 & 0 & 6 \end{pmatrix} $，E 为 3 阶单位矩阵.
+    
+    (Ⅰ) 求方程组 Ax = 0 的一个基础解系;
+    
+    (II) 求满足 AB=E 的所有矩阵 B .
+
+    \item 设 A, B, X 均为 3 阶矩阵，其中
+    $$ \mathbf{A}=\begin{pmatrix}{{{2}}}&{{{3}}}&{{{3}}} \\{{{2}}}&{{{2}}}&{{{2}}} \\{{{a^{2}+5}}}&{{{a+9}}}&{{{2a^{2}+6}}}\end{pmatrix},\mathbf{B}=\begin{pmatrix}{{{1}}}&{{{2}}}&{{{2}}} \\{{{2}}}&{{{1}}}&{{{1}}} \\{{{a^{2}+3}}}&{{{a+6}}}&{{{a^{2}+4}}}\end{pmatrix}. $$
+    问 a 为何值时, 矩阵方程 AX-B=BX 无解、有唯一解、有无穷多解? 在有解时, 解此方程.
+
+    \item 设矩阵 $ A=\begin{pmatrix}1&2\\ a&0\end{pmatrix},B=\begin{pmatrix}1&b\\ 0&-1\end{pmatrix} $
+    
+    (Ⅰ) 当 a, b 满足什么条件时, 存在矩阵 C 使得 AC - CA = B;
+    
+    (II) 进一步, 若 $ \left|A\right|=\frac{1}{2} $，求所有矩阵 C .
+
+    \item 已知 $ \alpha_1 = (1, 2, 3, 4)^\mathrm{T} $, $ \alpha_2 = (2, 3, 4, 1)^\mathrm{T} $ 都是方程组 $ Ax = b $ 的解， $ \beta = (3, 4, 1, 2)^\mathrm{T} $ 是方程组 $ Ax = 0 $ 的解，且 $ r(A) = 2 $ 。求 $ Ax = b $ 的通解。
+
+    \item 已知 $ n \times m $ 矩阵 $ \mathbf{A} = (\alpha_1, \alpha_2, \cdots, \alpha_m) $ 的秩为 $ m $。若非零矩阵 $ \mathbf{B} $ 的列向量组是线性方程组 $ \mathbf{A}^{\mathrm{T}} \mathbf{x} = 0 $ 的一个基础解系，求线性方程组 $ \mathbf{B}^{\mathrm{T}} \mathbf{y} = 0 $ 的通解。
+
+    \item 已知齐次线性方程组 (i) $ \begin{cases} x_{1} + 2x_{2} + 3x_{3} = 0, \\ 2x_{1} + 3x_{2} + 5x_{3} = 0, \\ x_{1} + ax_{2} + bx_{3} = 0 \end{cases} $ 和 (ii) $ \begin{cases} x_{1} + x_{2} + cx_{3} = 0, \\ 2x_{1} + b^{2}x_{2} + (c + 1)x_{3} = 0 \end{cases} $ 同解, 求 a, b, c 的值.
+
+    \item 设四元齐次线性方程组
+    (i)
+    $$ \begin{cases}x_{1}-x_{2}=0,\\x_{2}+x_{4}=0,\end{cases}(ii)\begin{cases}-x_{1}+x_{2}+x_{4}=0,\\x_{1}-x_{3}+x_{4}=0.\end{cases} $$
+    (Ⅰ) 求方程组（i）与（ii）的基础解系；
+    
+    (II) 求方程组（i）与（ii）的公共解.
+\end{enumerate}
+
+\subsection{B 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 设 A 为 $ n (n \geq 2) $ 阶矩阵，B 为 n 阶可逆矩阵，b 为 n 维列向量，则下列命题中，错误的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若方程组 Ax = b 有解, 则方程组 ABx = b 有解.
+        \item 若方程组 Ax = b 有解, 则方程组 $ BAx = b $ 有解.
+        \item 若方程组 Ax = 0 有非零解, 则方程组 ABx = 0 有非零解.
+        \item 若方程组 Ax = 0 有非零解, 则方程组 BAx = 0 有非零解.
+    \end{enumerate}
+
+    \item 设 A 为 $ n \times m $ 矩阵，且 $ m \neq n $ 。若 $ AA^{T} = E_{n} $，则（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item Ax = 0 只有零解.
+        \item Ax = b 必有解.
+        \item $ A^{T}x=b $ 必有解.
+        \item 若 m 维列向量组 $ \beta_{1},\beta_{2},\cdots,\beta_{s} $ 线性无关，则 $ A\beta_{1},A\beta_{2},\cdots,A\beta_{s} $ 必线性无关.
+    \end{enumerate}
+
+    \item 设 A 为 n 阶矩阵，E 为 n 阶单位矩阵，则下列条件中，为线性方程组 $ (E-A)x=0 $ 只有零解的充分条件的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ A^{T}A = E $，且 $ |A| = -1 $。
+        \item $ A^{T}A=E $，且 $ |A|=1 $
+        \item $ \mathbf{A}^{\mathrm{T}} = -\mathbf{A} $
+        \item 存在某 n 维列向量 $\alpha$ 使得 $ A = \alpha \alpha^{T} $
+    \end{enumerate}
+
+    \item 设 3 阶实对称矩阵 $ \mathbf{A} = (\boldsymbol{\alpha}_1, \boldsymbol{\alpha}_2, \boldsymbol{\alpha}_3) $, $ \boldsymbol{\alpha}_1 - \boldsymbol{\alpha}_2 + \boldsymbol{\alpha}_3 = (1, -1, 1)^\mathrm{T} $, $ \mathbf{A}^3 + (a^5 - 1)\mathbf{A}^2 + 2a^3\mathbf{A} + a\mathbf{E} = \mathbf{O} $，且 $ \mathrm{tr}(\mathbf{A}) = 1 $，则 $ \mathbf{A}\mathbf{x} = 0 $ 的通解为（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ k(1,1,0)^{\mathrm{T}} $，其中 k 为任意常数.
+        \item $ k(-1,0,1)^{\mathrm{T}} $，其中 k 为任意常数.
+        \item $ k(1,1,0)^{\mathrm{T}} + l(-1,0,1)^{\mathrm{T}} $，其中 k,l 为任意常数.
+        \item $ k(1,-1,1)^{\mathrm{T}} + l(-1,0,1)^{\mathrm{T}} $，其中 k, l 为任意常数.
+    \end{enumerate}
+
+    \item 设 A 为非零矩阵， $ \alpha_{1}, \alpha_{2}, \alpha_{3} $ 是齐次线性方程组 Ax = 0 的一个基础解系，k, l, m 是非零常数，则下列各组向量中，仍为 Ax = 0 的基础解系的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ k\alpha_{1}^{\mathrm{T}}\alpha_{2}\alpha_{3}, l\alpha_{2}^{\mathrm{T}}\alpha_{3}\alpha_{1}, m\alpha_{3}^{\mathrm{T}}\alpha_{1}\alpha_{2} $
+        \item $ \alpha_{1}^{\mathrm{T}}\alpha_{2}\alpha_{3}+k\alpha_{2}^{\mathrm{T}}\alpha_{3}\alpha_{1},\alpha_{2}^{\mathrm{T}}\alpha_{3}\alpha_{1}+l\alpha_{3}^{\mathrm{T}}\alpha_{1}\alpha_{2},\alpha_{3}^{\mathrm{T}}\alpha_{1}\alpha_{2}+m\alpha_{1}^{\mathrm{T}}\alpha_{2}\alpha_{3}. $
+        \item $ k\alpha_{1} + l\alpha_{2}, l\alpha_{2} + m\alpha_{3}, m\alpha_{3} + k\alpha_{1} $
+        \item $ k\alpha_{1} + l\alpha_{2} + m\alpha_{3}, l\alpha_{1} + m\alpha_{2} + k\alpha_{3}, m\alpha_{1} + k\alpha_{2} + l\alpha_{3} $.
+    \end{enumerate}
+
+    \item 设矩阵 $ A = \begin{pmatrix} 2 & \lambda + 2 & 5 & 7 \\ 1 & 3 & \lambda + 3 & 2 \\ 1 & 1 & 2 & 3 \end{pmatrix} $，则下列条件中，不能使方程组 Ax = 0 的任意两个解均线性相关的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \lambda = -2 $
+        \item $ \lambda = -1 $
+        \item $ \lambda = 0 $
+        \item $ \lambda = 1 $
+    \end{enumerate}
+
+    \item 设 3 阶矩阵 $ A = \begin{pmatrix} b - 1 & -1 & 1 - a \\ 2 & b - 2 & a - 2 \\ -a & -a & b - 1 \end{pmatrix} $, $ \alpha = \begin{pmatrix} a \\ 1 \\ b - 1 \end{pmatrix} $, $ \beta = \begin{pmatrix} a + 1 \\ 2 \\ b + 1 \end{pmatrix} $ 均为 Ax = b 的解, 则下列命题中, 错误的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ b = \begin{pmatrix} 0 \\ 1 \\ -1 \end{pmatrix} $
+        \item $ (0,0,-1)^{\mathrm{T}} $ 是 Ax = b 的解.
+        \item O 是 A 的一个特征值.
+        \item $ r\left(\mathbf{A}^{*}\right)=0 $
+    \end{enumerate}
+
+    \item 设矩阵 $ A = \begin{pmatrix} \frac{3}{2} & -\frac{1}{2} \\ \frac{1}{2} & \frac{1}{2} \end{pmatrix} $，向量 $ \alpha $ 满足 $ A\alpha = \begin{pmatrix} 1 \\ 1 \end{pmatrix} + \alpha $，则下列向量中可能为 $ A^{11}\alpha $ 的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \begin{pmatrix}9\\11\end{pmatrix} $
+        \item $ \begin{pmatrix}10\\11\end{pmatrix} $
+        \item $ \begin{pmatrix}11\\9\end{pmatrix} $
+        \item $ \begin{pmatrix}11\\10\end{pmatrix} $
+    \end{enumerate}
+
+    \item 设 $ A $ 为 $ n(n \geq 3) $ 阶矩阵， $ A^\mathrm{T}x = 0 $ 与 $ A^*x = 0 $ 有非零公共解，则（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ r(A^*) = n - 1 $．
+        \item $ r(A^*) < n - 1 $．
+        \item $ r(A^*) = 1 $．
+        \item $ r(A^*) = 0 $．
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=10]
+    \item 已知函数 $ f(x)=ax^{3}+bx^{2}+cx+d $ 的图形过点 $ (1,1),(2,1),(3,9),(4,31) $，则 $ f(x)= $ \underline{\hspace{2cm}}.
+
+    \item 若 3 阶矩阵 A 有三个特征值 0,3,5,u,v,w 分别为属于 0,3,5 的一个特征向量,则线性方程组 $ Ax = v + w $ 的通解为 \underline{\hspace{2cm}}.
+
+    \item 设 $ A = \left( a_{ij} \right)_{3 \times 3} $ 是正交矩阵，且 $ a_{22} = 1, b = \left( 0, 1, 0 \right)^{\mathrm{T}} $，则线性方程组 Ax = b 的解是 \underline{\hspace{2cm}}.
+
+    \item 设 3 阶矩阵 $ \mathbf{A} = (\alpha_1, \alpha_2, \alpha_3) $ 满足 $ \mathbf{A} \alpha_1 = (1, 0, 1)^{\mathrm{T}} $, $ \mathbf{A} \alpha_2 = (0, 1, 0)^{\mathrm{T}} $, $ \mathbf{A} \alpha_3 = (0, 0, 0)^{\mathrm{T}} $, $ \alpha_3 \neq 0 $，则线性方程组 $ \mathbf{A} \mathbf{x} = (1, 1, 1)^{\mathrm{T}} $ 的通解为 \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=14]
+    \item 设矩阵 $ A = \begin{pmatrix} 1 & 1 \\ 1 & 0 \\ 0 & -1 \end{pmatrix} $.
+    
+    (I) 求所有满足 BA = E 的矩阵 B，并求 AB 的特征值；
+    
+    (II) 在满足 BA = E 的基础上, 找到一个矩阵 B, 使得 AB 有一个特征向量为 $ \beta = (1, 2, 3)^{\mathrm{T}} $
+
+    \item 设 4 维列向量 $ \alpha_1, \alpha_2, \alpha_3, \alpha_4 $ 两两线性无关， $ \alpha_1 + 2\alpha_2 + \alpha_3 = 0 $，且 $ \alpha_4 $ 不能由 $ \alpha_1, \alpha_2, \alpha_3 $ 线性表示。记矩阵 $ \mathbf{A} = (\alpha_1, \alpha_2, \alpha_3, \alpha_4) $，求非齐次线性方程组 $ \mathbf{A}\mathbf{x} = \alpha_2 + \alpha_4 $ 的通解。
+
+    \item 设 3 阶矩阵 $ \mathbf{A} = (\alpha_1, \alpha_2, \alpha_3) $ 的列向量满足 $ \alpha_3 = \alpha_1 + 2\alpha_2 $，且存在非零列向量 $ \mathbf{v} $，使得 $ (\mathbf{A} + \mathbf{E}) \mathbf{v} \neq 0, (\mathbf{A} + \mathbf{E})^2 \mathbf{v} = 0 $.
+    
+    (I) 证明 $ r(A)=2 $ ;
+    
+    (II) 设 $ \beta = \alpha_{1} + 2\alpha_{2} + 3\alpha_{3} $，求方程组 $ Ax = \beta $ 的通解.
+\end{enumerate}
+
+\subsection{C 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 设 A 为 $ m \times n $ 矩阵，B 为 $ n \times m $ 矩阵，且 $ m \neq n $。若 $ A^{T}A = E_{n} $，则（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item Ax = 0 必有非零解.
+        \item Ax = b 必有解.
+        \item $ r(\mathbf{A}\mathbf{B}) = r(\mathbf{B}) $
+        \item $ r(\mathbf{B}\mathbf{A}) = r(\mathbf{B}) $
+    \end{enumerate}
+
+    \item 设 A 为 3 阶非零矩阵, 则下列条件中, 不是 Ax = 0 与 $ A^*x = 0 $ 有非零公共解的充分条件的个数是（ \underline{\hspace{1cm}} ）
+    
+    ① $ r\begin{pmatrix} A \\ A^{*} \end{pmatrix} < 3 $
+    
+    ② $ r\left(\mathrm{A},\mathrm{A}^{*}\right) < 3 $
+    
+    ③ $ r(\mathbf{A}) = 2 $，且 $ \mathbf{A}^* $ 是对称矩阵.
+    
+    ④ $ r(\mathbf{A}) = 2 $，且 $ \mathbf{A}^* $ 不是对称矩阵.
+    \begin{enumerate}[label=(\Alph*)]
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}
+
+    \item 若 n 阶矩阵 A 的各行、各列元素之和均为 0，则下列命题中，正确的是（ \underline{\hspace{1cm}} ）
+    
+    ① $ A^{*} $ 必为实对称矩阵.
+    
+    ② $ A^{*} $ 的每个元素都相等.
+    
+    ③ 若 $ r(A)=n-1 $ ，则 A 必为实对称矩阵.
+    
+    ④ Ax=0 与 $ A^{*}x=0 $ 必有非零公共解.
+    \begin{enumerate}[label=(\Alph*)]
+        \item ①②
+        \item ①②③
+        \item ①④
+        \item ①③④
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、解答题}
+
+\begin{enumerate}[start=4]
+    \item 设 n 维列向量 $ \alpha_{i}=(a_{i1},a_{i2},\cdots,a_{in})^{\mathrm{T}} $，其中 $ i=1,2,\cdots,r,r\leq n $，且向量组 $ \alpha_{1},\alpha_{2},\cdots,\alpha_{r} $ 线性无关， $ \beta $ 为齐次线性方程组 $ \begin{pmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & & \vdots \\ a_{r1} & a_{r2} & \cdots & a_{rn} \end{pmatrix}\begin{pmatrix} x_{1} \\ x_{2} \\ \vdots \\ x_{n} \end{pmatrix}=\begin{pmatrix} 0 \\ 0 \\ \vdots \\ 0 \end{pmatrix} $ 的非零解，证明：向量组 $ \alpha_{1},\alpha_{2},\cdots,\alpha_{r},\beta $ 的秩为 $ r+1 $．
+\end{enumerate}
+
+\section{第五章 矩阵的特征值与特征向量}
+
+\subsection{A 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 下列矩阵中,与矩阵 $ \begin{pmatrix}1&0&1\\0&1&2\\0&0&2\end{pmatrix} $ 相似的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \begin{pmatrix}1&0&0\\0&1&0\\0&2&2\end{pmatrix} $
+        \item $ \begin{pmatrix}1&1&0\\0&1&0\\2&0&2\end{pmatrix} $
+        \item $ \begin{pmatrix}1&1&0\\0&1&2\\0&0&2\end{pmatrix} $
+        \item $ \begin{pmatrix}1&0&1\\2&1&2\\1&1&2\end{pmatrix} $
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=2]
+    \item 设 3 阶矩阵 A 的特征值为 $ 1, \lambda, -\lambda $．若行列式 $ \left|\lambda A\right| = -32 $，则 $ \lambda = $ \underline{\hspace{2cm}}.
+
+    \item 已知 3 阶矩阵 A 有特征值 1,3,4 ，则 $ \left|A^{*}+2A-9E\right|= $ \underline{\hspace{2cm}}.
+
+    \item 设矩阵 $ A = \begin{pmatrix} a & -1 & 0 \\ 4 & b & 3 \\ 1 & 0 & -a \end{pmatrix} $, $ |A| = -3 $．若 $ \alpha = (1, 1, -1)^{\mathrm{T}} $ 为 $ A^{*} $ 的属于特征值 $ \lambda $ 的一个特征向量, 则 $ \lambda = $ \underline{\hspace{2cm}}.
+
+    \item 设矩阵 $ A=\begin{pmatrix}0&1&-1\\1&0&1\\-1&1&0\end{pmatrix} $，则 $ A^{4} $ 的最大特征值为 \underline{\hspace{2cm}}.
+
+    \item 矩阵 $ A=\begin{pmatrix}1&4&-7\\2&8&-12\\3&12&-17\end{pmatrix} $ 的最小特征值为 \underline{\hspace{2cm}}.
+
+    \item 已知矩阵 A 与 B 相似, 其中 $ A=\begin{pmatrix}2&1&1\\-2&x&2\\1&2&2\end{pmatrix},B=\begin{pmatrix}8&20&10\\y&2&1\\-5&-15&-6\end{pmatrix} $，将矩阵 B 的特征值记成 $ \lambda_{1},\lambda_{2},\lambda_{3} $，则 $ \left(\lambda_{1}+\lambda_{2}+\lambda_{3}\right)^{2}-\lambda_{1}\lambda_{2}\lambda_{3}= $ \underline{\hspace{2cm}}.
+
+    \item 已知 $ \begin{pmatrix}3\\2\\1\end{pmatrix} $ 为 3 阶矩阵 A 的属于特征值 1 的一个特征向量，A 的第一列为 $ \alpha_{1} $，第二列为 $ \alpha_{2} $，则 \underline{\hspace{2cm}}.
+
+    \item 设 4 阶矩阵 $ A=\begin{pmatrix}1&0&0&1\\0&1&t-2&2-t\\0&t+3&1&-3-t\\1&t^{2}&t^{3}&1\end{pmatrix} $ 只有一个线性无关的特征向量，且 t>0 ，则 t= \underline{\hspace{2cm}}.
+
+    \item 设矩阵 $ B = \begin{pmatrix} 1 & 0 & 1 \\ 0 & -1 & 0 \\ 1 & 0 & 1 \end{pmatrix} $，已知矩阵 A 与 B 相似，则秩 $ r(E + A) + r(E - A) = $ \underline{\hspace{2cm}}.
+
+    \item 设 $ \alpha, \beta $ 为 3 维列向量， $ \beta^{T} $ 为 $ \beta $ 的转置，若矩阵 $ \alpha\beta^{T} $ 相似于 $ \begin{pmatrix}1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1\end{pmatrix} $，则 $ \beta^{T}\alpha= $ \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=12]
+    \item 设矩阵 $ A=\begin{pmatrix}0&1&1\\1&0&1\\1&1&0\end{pmatrix},P=\begin{pmatrix}0&1&0\\0&2&1\\1&0&3\end{pmatrix} $， $ B=P^{-1}AP $，求 $ B+E $ 的特征值与特征向量，其中 $ A^{*} $ 为 A 的伴随矩阵，E 为 3 阶单位矩阵.
+
+    \item 若矩阵 $ A = \begin{pmatrix} 5 & 3 & 0 \\ 1 & 3 & 0 \\ 0 & a & 2 \end{pmatrix} $ 相似于对角矩阵 $ \Lambda $，试确定常数 a 的值，并求一个可逆矩阵 P，使得 $ P^{-1}AP = \Lambda $
+
+    \item 设矩阵 $ A=\begin{pmatrix}\frac{3}{2}&1&-\frac{1}{2}\\\frac{1}{2}&a&-\frac{1}{2}\\\frac{1}{2}&-1&\frac{1}{2}\end{pmatrix} $，已知方程组 Ax=0 有非零解.
+    
+    (I) 求 a 的值;
+    
+    (II) 求一个可逆矩阵 P，使得 $ P^{-1}AP $ 为对角矩阵.
+
+    \item 设矩阵 $ A = \begin{pmatrix} 2 & 0 & 1 \\ 1 & 1 & 1 \\ a & 0 & -1 \end{pmatrix} $ 有一个二重特征值，求 a 的值，并讨论 A 是否可相似对角化.
+
+    \item 设 A 为 3 阶实对称矩阵， $ A^* $ 为 A 的伴随矩阵．已知 $ |A| = -12, \mathrm{tr}(A) = 1 $，且 $ (1,0,-2)^\mathrm{T} $ 是方程组 $ \left(A^* - 4E\right)x = 0 $ 的一个解，其中 E 为 3 阶单位矩阵．求一个正交矩阵 Q，使得 $ Q^\mathrm{T}AQ $ 为对角矩阵．
+
+    \item 设矩阵 $ A = \begin{pmatrix} 2 & 4 & 4 \\ 4 & 2 & 4 \\ 4 & 4 & 2 \end{pmatrix} $.
+    
+    (Ⅰ) 求 A 的特征值及其对应的特征向量;
+    
+    (II) 计算 $ A^{2n}\begin{pmatrix}1\\-1\\-3\end{pmatrix} $.
+
+    \item 设 A 为 3 阶实对称矩阵, 其特征值为 2, 2, $\lambda$ . 若 $ |A|=4 $ , 且 $ (2,1,0)^{\mathrm{T}}, (0,1,2)^{\mathrm{T}} $ 为 A 的两个特征向量, 求矩阵 A .
+
+    \item 设 3 阶实对称矩阵 A 的特征值 $ \lambda_1 = 1, \lambda_2 = 0, \lambda_3 = 2 $，且 $ \alpha_1 = (1, 1, 1)^\mathrm{T} $ 是 A 的属于 $ \lambda_1 $ 的一个特征向量。记 $ B = A^2 - 2A + 2E $，其中 E 为 3 阶单位矩阵。
+    
+    (Ⅰ) 验证 $ \alpha_{1} $ 是矩阵 B 的特征向量, 并求 B 的全部特征值与特征向量;
+    
+    (II) 求矩阵 B .
+
+    \item 已知矩阵 $ A=\begin{pmatrix}2&1&3\\1&x&3\\0&0&2\end{pmatrix} $ 与 $ B=\begin{pmatrix}1&4&0\\0&2&0\\0&0&y\end{pmatrix} $ 相似.
+    
+    (I) 求 x, y ;
+    
+    (II) 求可逆矩阵 P，使得 $ P^{-1}AP=B $
+
+    \item 证明矩阵 $ \begin{pmatrix}0&0&0&0\\0&1&1&0\\0&1&1&0\\0&0&0&0\end{pmatrix} $ 与 $ \begin{pmatrix}0&0&0&2\\0&0&0&2\\0&0&0&2\\0&0&0&2\end{pmatrix} $ 相似.
+
+    \item 设 A 为 2 阶矩阵， $ \alpha $ 和 $ \beta $ 为 2 维列向量，且 $ A\alpha, A\beta $ 线性无关。矩阵 $ \mathbf{P} = (\alpha, \beta) $
+    
+    (Ⅰ) 证明：P 为可逆矩阵.
+    
+    (II) 若 $ A\alpha=\beta, A\beta=2\alpha $，求 $ P^{-1}AP $，并判断 A 是否相似于对角矩阵.
+\end{enumerate}
+
+\subsection{B 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 设 $ A $ 为 $ n(n \geq 2) $ 阶矩阵, 若 $ 1 $ 不是 $ A $ 的特征值, 且 $ |A| = -1 $, 则下列命题中, 正确的是 ( \underline{\hspace{1cm}} )
+    
+    ① $ 2 $ 不是 $ A + A^{-1} $ 的特征值.
+    
+    ② $ 2 $ 不是 $ A + A^* $ 的特征值.
+    
+    ③ $ -1 $ 不是 $ A + A^T - A A^T $ 的特征值.
+    
+    ④ $ 1 $ 不是 $ A - A^* + A A^* $ 的特征值.
+    \begin{enumerate}[label=(\Alph*)]
+        \item ①②
+        \item ③④
+        \item ①④
+        \item ②③
+    \end{enumerate}
+
+    \item 设 $ n(n \geq 3) $ 阶矩阵 $ A = E - k \alpha \alpha^{T} $，其中 $ k \neq 0, \alpha \neq 0 $。若 $ A^{2} = E $，则下列命题中，错误的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ n - \mathrm{tr}(\mathrm{A}) $ 为偶数.
+        \item $ |A| = -1 $
+        \item A 可相似对角化.
+        \item A 有 n-1 个线性无关的属于特征值 -1 的特征向量.
+    \end{enumerate}
+
+    \item 设矩阵 $ A=\begin{pmatrix}a&2a&1-3a\\1&2&-2\\\frac{a}{3}&\frac{2}{3}a&1-a\end{pmatrix} $，且 $ f(x)=x^{3}-3x^{2}+2x $，则下列命题中，错误的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ r(A)=2 $
+        \item $ |A|=0 $
+        \item $ f(A) = O $
+        \item $ r(A), |A|, f(A) $ 至少有一个与 a 的取值有关.
+    \end{enumerate}
+
+    \item 设 4 阶矩阵 $ A = \begin{pmatrix} 1 & a & 1 & a \\ 1 & 0 & -2 & -2 \\ -1 & a & 3 & a \\ 0 & 0 & 0 & 2 \end{pmatrix} $ 的四个特征值都为正，且恰有两个不同的特征值，其中一个特征值为 2，则下列结论中，正确的个数为（ \underline{\hspace{1cm}} ）
+    
+    ① $ \left|A\right|=4a $ ② 2 是 A 的单特征值. ③ A 可相似对角化. ④ a 的值无法确定.
+    \begin{enumerate}[label=(\Alph*)]
+        \item 0
+        \item 1
+        \item 2
+        \item 3
+    \end{enumerate}
+
+    \item 设 A 为 3 阶非零矩阵，A 的特征多项式为 $ f(\lambda) $. 下列命题中, 错误的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 若 $ f(1)=0 $ ，则方程组 $ A^{2}x=x $ 有非零解.
+        \item 若 $ f(1)=0 $ ，则方程组 $ A^{2}x=Ax $ 有非零解.
+        \item 若方程组 $ A^{3}x=x $ 对所有 3 维列向量 x 均成立，则 $ f(1)=0 $
+        \item 若方程组 $ A^{3}x=Ax $ 对所有 3 维列向量 x 均成立，则 $ f(1)=0 $
+    \end{enumerate}
+
+    \item 下列关于实对称矩阵的命题中, 正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 存在实对称矩阵 A，使得 $ \mathrm{tr}\left(\mathrm{A}^{2}\right)<0 $
+        \item 存在实对称矩阵 A，使得 $ A^{2} + E $ 不可逆.
+        \item 不存在实对称矩阵 A，使得 $ A^{2}=A $，但 $ \mathrm{tr}(A)\neq r(A) $.
+        \item 以上说法均不正确.
+    \end{enumerate}
+
+    \item 设 A,B 是 3 阶可逆矩阵， $ |A|>\frac{1}{2} $， $ |B|>\frac{1}{2} $，则下列各项中，是 A 与 B 相似的充分条件的为 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ A + A^{T} $ 与 $ B + B^{T} $ 相似.
+        \item $ A^{T} + A^{-1} $ 与 $ B^{T} + B^{-1} $ 相似.
+        \item $ A^{*} + A^{-1} $ 与 $ B^{*} + B^{-1} $ 相似.
+    \end{enumerate}
+
+    \item 设 A 为 2 阶矩阵，E 为 2 阶单位矩阵， $ A^{2} + E = O $，则下列结论中，正确的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ |A|=1 $
+        \item $ A^{T}=A $
+        \item $ A^{T}=-A $
+        \item A 不是正交矩阵.
+    \end{enumerate}
+
+    \item 设 A 为 3 阶实矩阵，并且满足 $ A^{4}=E $，其中 E 为 3 阶单位矩阵，则下列结论中，正确的是（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item 必有 $ A^{2}=E $
+        \item 必有 $ A^{2} = -E $
+        \item 若 A 相似于对角矩阵, 则 $ \mathrm{tr}(A) $ 必为奇数.
+        \item 若 A 不相似于对角矩阵, 则 $ \mathrm{tr}(A) $ 必为偶数.
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=10]
+    \item 设 A 为 3 阶矩阵， $ \alpha_1, \alpha_2, \alpha_3 $ 为线性无关的向量组．若 $ A\alpha_1 = \alpha_2 + \alpha_3 $， $ A\alpha_2 = \alpha_1 + \alpha_3 $， $ A\alpha_3 = \alpha_1 + \alpha_2 $，则 $ |A| = $ \underline{\hspace{2cm}}.
+
+    \item 设 3 阶实对称矩阵 A 仅有两个不同的特征值 $ \lambda, \mu $，且 $ A^* = \begin{pmatrix} 1 & 1 & 1 \\ a & 1 & 1 \\ b & c & d \end{pmatrix} $，则 $ \lambda^2 + \mu^2 = $ \underline{\hspace{2cm}}.
+
+    \item 设 A 为 3 阶实对称矩阵, 特征值为 $ 1, 2, 3, \alpha = (1, -1, 0)^{\mathrm{T}}, \beta = (1, 1, -2)^{\mathrm{T}} $ 分别为 A 的属于特征值 1 和 2 的特征向量, 则 A 的第一行元素之和为 \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=13]
+    \item 设 A, B, C 均为 3 阶矩阵, 满足 AB = -2B, CA\textsuperscript{T} = 2C, 其中 B = $ \begin{pmatrix} 1 & 2 & 3 \\ -1 & 1 & 0 \\ 2 & -1 & 1 \end{pmatrix} $, C = $ \begin{pmatrix} 1 & -2 & 1 \\ -2 & 4 & -2 \\ 1 & -2 & 1 \end{pmatrix} $.
+    
+    (I) 求矩阵 A;
+    
+    (II) 证明:对于任意的3维列向量 $ x_{0},A^{100}x_{0} $与 $ x_{0} $必线性相关.
+
+    \item 已知矩阵 $ A=\begin{pmatrix}0&2&3\\1&1&0\\0&0&0\end{pmatrix} $.
+    
+    (I) 求 $ A^{n}, n $ 为正偶数.
+    
+    (II) 设 3 阶矩阵 B 满足 $ B^2 = BA $。记 $ B^{2n} = (\alpha_1, \alpha_2, \alpha_3) $， $ B^{4n} = (\beta_1, \beta_2, \beta_3) $，将 $ \beta_1, \beta_2, \beta_3 $ 分别表示为 $ \alpha_1, \alpha_2, \alpha_3 $ 的线性组合。
+
+    \item 设 3 阶矩阵 A 有三个不同的特征值 0, 1, 2, $ \alpha_{1}, \alpha_{2}, \alpha_{3} $ 分别为属于 0, 1, 2 的一个特征向量. 记 $ \beta = \alpha_{1} + \alpha_{2} + \alpha_{3} $.
+    
+    (Ⅰ) 证明 $ \beta, A\beta, A^{2}\beta $ 线性无关；
+    
+    (II) 确定 a, b, c，使得矩阵 $ B = \begin{pmatrix} 0 & 0 & a \\ 1 & 0 & b \\ 0 & 1 & c \end{pmatrix} $ 与矩阵 A 相似，并求可逆矩阵 P，使得 $ P^{-1}AP = B $，并将结果用 $ A, \beta $ 表示；
+    
+    (III) 求 $ B^{900} $ 的各列元素之和.
+
+    \item 设 u, v, w 是三个 3 维列向量, 其中 u, v 线性无关. 3 阶矩阵 A 满足 $ Au = v, Av = u, Aw = u + v + w $.
+    
+    (I) 证明： $ u + v, w, u - v $ 线性无关.
+    
+    (II) 求 $ r\left(\mathrm{A}^{50}-\mathrm{E}\right) $
+
+    \item 设 A 为 3 阶实对称矩阵, $ \alpha=\begin{pmatrix}1\\ 0\\ 1\end{pmatrix} $ 为属于特征值 3 的一个特征向量.
+    
+    (I) 若 A 满足 $ r(3\mathrm{E}-\mathrm{A})>1 $ ，且 $ A^{2}-4A+3E=O $ ，求 A .
+    
+    (II) A 为第 (I) 问中所求矩阵, $ B = \begin{pmatrix} 3 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{pmatrix} $. 是否存在可逆矩阵 P 为矩阵方程 AX - XB = O 的解? 若存在, 求 P, 若不存在, 说明理由.
+
+    \item 设 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 是两两正交的 4 维单位列向量组， $ \beta_{1}=\frac{1}{3}\alpha_{1}+\frac{2}{3}\alpha_{2}-\frac{2}{3}\alpha_{3},\beta_{2}=\frac{2}{3}\alpha_{1}-\frac{2}{3}\alpha_{2}-\frac{1}{3}\alpha_{3},\beta_{3}=\frac{2}{3}\alpha_{1}+\frac{1}{3}\alpha_{2}+\frac{2}{3}\alpha_{3}. $
+    
+    (I) 证明 $ \beta_{1},\beta_{2},\beta_{3} $ 也是两两正交的单位列向量组.
+    
+    (II) 记矩阵 $ \mathbf{B} = (\beta_1, \beta_2, \beta_3) $，证明方程组 $ B^T x = 0 $ 有非零解.
+    
+    (III) 设单位列向量 $ \beta_4 $ 为方程组 $ B^T x = 0 $ 的一个非零解，且 $ C\beta_i = (-1)^i \beta_i (i = 1, 2, 3, 4) $，证明 C 为实对称矩阵。
+\end{enumerate}
+
+\subsection{C 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 若矩阵 A, B 为 n 阶正交矩阵, 则下列命题中, 正确命题的个数为 ( \underline{\hspace{1cm}} )
+    
+    ① $ \left|A\right|=\pm1 $
+    
+    ② 若 A 存在实特征值, 则必为 $ \pm1 $ .
+    
+    ③ AB 也是正交矩阵.
+    
+    ④ 若 $ \left|A\right|=-\left|B\right| $，则 $ A+B $ 必不可逆.
+    \begin{enumerate}[label=(\Alph*)]
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}
+
+    \item 设 A 为 3 阶实对称矩阵，A 的各行元素之和均为 0，若 A 的全部非零特征值为 1, 6，则下列命题中，正确的个数为（ \underline{\hspace{1cm}} ）
+    
+    ① $ A^{*} $ 的全部元素均不为 0． ② $ \left(\boldsymbol{A}^{*}\right)^{*}\neq\boldsymbol{O} $
+    
+    ③ 6 是 $ A^{*} $ 的唯一非零特征值. ④ $ A^{*}x=0 $ 与 Ax=0 有非零公共解.
+    \begin{enumerate}[label=(\Alph*)]
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=3]
+    \item 设 A 为可相似对角化的 4 阶矩阵， $ \alpha $ 为 4 维非零列向量．若 $ \alpha, A\alpha, A^{2}\alpha, A^{3}\alpha $ 线性无关，则 A 的不同特征值的个数为 \underline{\hspace{2cm}}.
+
+    \item 设 3 阶矩阵 $ A = (a_{ij}) $ 满足各行元素之和均为 2，且 $ |A| = \frac{1}{2} $ 。若矩阵 $ B(t) = (a_{ij} + t) $，则 $ |B(1)| = $ \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=5]
+    \item 设 3 阶矩阵 $ A = (a_{ij}) $ 满足 A 的各列元素之和均为 1.
+    
+    (I) 若 $ \xi $ 为各分量之和为 1 的 3 维列向量, 求 $ A\xi $ 的各分量之和.
+    
+    (II) 若 k 为任意正整数, 证明: $ A^{k} $ 的各列元素之和均为 1, 且 1 为 $ A^{k} $ 的一个特征值.
+    
+    (III) 记 $ \alpha=(1,1,1)^{\mathrm{T}} $，若 $ \beta $ 为 $ A^{k} $ 的属于特征值 $ \lambda(\lambda\neq1) $ 的特征向量，求 $ \alpha^{T}\beta $
+
+    \item 设 A 为 3 阶实对称矩阵, B 为可相似对角化的 3 阶正交矩阵, 满足 $ \left|A\right|=\left|B\right| $, $ r\left(\mathrm{E}+\mathrm{B}\right)=r\left(2\mathrm{E}-\mathrm{A}\right)=1. $
+    
+    (I) 求 A 的所有特征值;
+    
+    (II) 若 A, B 所有的公共特征向量均与 $ (0,1,1)^{\mathrm{T}} $ 线性相关，且 $ (1,1,-1)^{\mathrm{T}} $ 与 $ (0,1,1)^{\mathrm{T}} $ 为 A 的属于不同特征值的特征向量，求 A.
+
+    \item 设 A, B 均为 2 阶实对称矩阵, A 的特征值为 1, 2, B 的特征值为 2, 3. 证明:
+    
+    (I) 若存在 $ \xi $，使得 $ \frac{\xi^{T}A\xi}{\xi^{T}\xi}=2 $，则 $ \xi $ 为 A 的属于特征值 2 的特征向量；
+    
+    (II) 若存在 $ \xi $，使得 $ \frac{\xi^{T}A\xi}{\xi^{T}\xi}=2,\frac{\xi^{T}B\xi}{\xi^{T}\xi}=3 $，则 AB=BA.
+\end{enumerate}
+
+\section{第六章 二次型}
+
+\subsection{A 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 设 $ \alpha, \beta $ 均为 3 维列向量, 二次型 $ f = x^{T} \alpha \beta^{T} x $，则下列关于 f 的秩的说法中, 正确的个数为（ \underline{\hspace{1cm}} ）
+    
+    ① 可能为 0．② 可能为 1．③ 可能为 2．④ 可能为 3．
+    \begin{enumerate}[label=(\Alph*)]
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}
+
+    \item 设二次型 $ f(x_{1},x_{2},x_{3}) $ 在正交变换 x=Py 下的标准形为 $ y_{1}^{2}-2y_{2}^{2}+3y_{3}^{2} $，其中 $ \mathrm{P}=\left(\mathrm{e}_{1},\mathrm{e}_{2},\mathrm{e}_{3}\right) $。若 $ Q=\left(\mathrm{e}_{2},\mathrm{e}_{1},-\mathrm{e}_{3}\right) $，则 $ f(x_{1},x_{2},x_{3}) $ 在正交变换 x=Qy 下的标准形为（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ -2y_{1}^{2}+y_{2}^{2}+3y_{3}^{2} $
+        \item $ -2y_{1}^{2}+y_{2}^{2}-3y_{3}^{2} $
+        \item $ y_{1}^{2}-2y_{2}^{2}+3y_{3}^{2} $
+        \item $ 2y_{1}^{2}+y_{2}^{2}+3y_{3}^{2} $
+    \end{enumerate}
+
+    \item 设 A 是 3 阶实对称矩阵，E 是 3 阶单位矩阵，若 $ A^2 - A = 20E $，且 $ |A| = -100 $，则二次型 $ x^T A x $ 的规范形为 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ y_1^2 + y_2^2 - y_3^2 $
+        \item $ -y_1^2 - y_2^2 - y_3^2 $
+        \item $ 5y_1^2 + 5y_2^2 - 4y_3^2 $
+        \item $ 5y_1^2 - 5y_2^2 + 4y_3^2 $
+    \end{enumerate}
+
+    \item 已知二次型 $ f(x_1, x_2, x_3, x_4) = \mathbf{x}^\mathrm{T} \mathbf{A} \mathbf{x} $ 的正惯性指数为 2，其中 A 为实对称矩阵， $ r(A) = 3 $，且 $ A^3 + 2A^2 - 8A = 0 $，则（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ f(x_{1},x_{2},x_{3},x_{4}) $ 在正交变换下的标准形为 $ 4y_{1}^{2}+2y_{2}^{2}-2y_{3}^{2} $
+        \item $ f(x_{1},x_{2},x_{3},x_{4}) $ 在正交变换下的标准形为 $ 4y_{1}^{2}+4y_{2}^{2}-2y_{3}^{2} $
+        \item $ f(x_{1},x_{2},x_{3},x_{4}) $ 的规范形为
+        \item $ f(x_{1},x_{2},x_{3},x_{4}) $ 的规范形为 $ y_{1}^{2}+y_{2}^{2}-y_{3}^{2} $
+    \end{enumerate}
+
+    \item 二次型 $ f(x_{1},x_{2},x_{3})=(x_{1}+2x_{2})^{2}+(2x_{3}-3x_{2})^{2}-(x_{1}-x_{2}+2x_{3})^{2} $ 的正惯性指数与负惯性指数依次为 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 2, 0
+        \item 1, 1
+        \item 2, 1
+        \item 1, 2
+    \end{enumerate}
+
+    \item 已知 a > 0，二次型 $ f(x_{1}, x_{2}, x_{3}) = -7x_{1}^{2} + 2x_{2}^{2} - 4x_{3}^{2} - 2ax_{1}x_{2} + 20x_{1}x_{3} + 8ax_{2}x_{3} $ 的正惯性指数与负惯性指数相同，则 f 所对应矩阵的最大特征值为（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item 3
+        \item 6
+        \item 9
+        \item 12
+    \end{enumerate}
+
+    \item 设 A, B 为 n 阶正定矩阵, P 为 n 阶可逆矩阵, 则下列矩阵中, 不一定是正定矩阵的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ A^{*} + B^{*} $
+        \item $ (A + B)^{*} $
+        \item $ P^{T}AP + B $
+        \item $ P^{T}AP - B $
+    \end{enumerate}
+
+    \item 设 $ n(n \geq 3) $ 阶正定矩阵 $ A = \begin{pmatrix} 1 & a & a & \cdots & a \\ a & 1 & a & \cdots & a \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ a & \cdots & a & 1 & a \\ a & a & \cdots & a & 1 \end{pmatrix} $，则 a 不可能为（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \frac{1}{n-1} $
+        \item $ \frac{1}{n} $
+        \item $ -\frac{1}{n-1} $
+        \item $ -\frac{1}{n} $
+    \end{enumerate}
+
+    \item 现有两个命题：① $ A^{*} $ 对称当且仅当 A 对称；② $ A^{*} $ 正定当且仅当 A 正定. 下列说法中，正确的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item ①, ② 均正确.
+        \item ① 正确, ② 错误.
+        \item ① 错误，② 正确.
+        \item ①，② 均错误.
+    \end{enumerate}
+
+    \item 下列矩阵中,与 $ \begin{pmatrix}1&0&0\\0&-1&0\\0&0&0\end{pmatrix} $ 合同的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \begin{pmatrix}\sqrt{2}&-1&0\\1&0&-1\\0&1&-\sqrt{2}\end{pmatrix} $
+        \item $ \begin{pmatrix}1&-1&-1\\-1&1&1\\-1&1&1\end{pmatrix} $
+        \item $ \begin{pmatrix}1&0&1\\0&1&0\\1&0&1\end{pmatrix} $
+        \item $ \begin{pmatrix}1&1&1\\1&0&1\\1&1&1\end{pmatrix} $
+    \end{enumerate}
+
+    \item 设矩阵 $ A = \begin{pmatrix} 0 & -1 & 1 \\ -1 & 0 & 1 \\ 1 & 1 & 0 \end{pmatrix} $, $ B = \begin{pmatrix} -1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix} $，则 A 与 B（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item 合同且相似.
+        \item 合同但不相似.
+        \item 相似但不合同.
+        \item 不相似且不合同.
+    \end{enumerate}
+
+    \item 设矩阵 $ A=\begin{pmatrix}1&1&1\\1&1&1\\1&1&1\end{pmatrix},B=\begin{pmatrix}0&0&1\\0&0&2\\0&0&3\end{pmatrix},C=\begin{pmatrix}1&0&0\\0&0&0\\0&0&0\end{pmatrix} $，则必有（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item A 与 B 相似，A 与 C 合同.
+        \item A 与 B 相似，B 与 C 合同.
+        \item A 与 C 相似, A 与 B 不合同.
+        \item A 与 C 不相似, A 与 C 不合同.
+    \end{enumerate}
+
+    \item 设二次型 $ f(x_{1},x_{2},x_{3})=x_{1}^{2}+ax_{2}^{2}+x_{3}^{2}+2bx_{1}x_{3} $ 经可逆线性变换 x=Py 可化为二次型 $ g(y_{1},y_{2},y_{3})=-y_{1}^{2}-3y_{2}^{2}+3y_{3}^{2}+8y_{2}y_{3} $，则参数 a,b 的取值范围为（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item a>0,-1<b<1
+        \item a<0,-1<b<1
+        \item a>0,b>1 或 b<-1
+        \item a<0,b>1 或 b<-1
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=14]
+    \item 二次型 $ f(x_{1},x_{2},x_{3})=x_{1}^{2}+3x_{2}^{2}+5x_{3}^{2}+4x_{1}x_{2}+6x_{1}x_{3}+8x_{2}x_{3} $ 的秩为 \underline{\hspace{2cm}}.
+
+    \item 设二次型 $ f(x_{1},x_{2},x_{3})=\left(x_{1}+x_{2}\right)^{2}+\left(x_{1}+x_{3}\right)^{2}+\left(x_{2}+ax_{3}\right)^{2} $，当 a=\underline{\hspace{2cm}} 时，f 的秩最小.
+
+    \item 设 A 为二次型 $ f(x_{1}, x_{2}) $ 对应的对称矩阵，且 A 的各列元素之和均为 1, |A| = 0，则 $ f(x_{1}, x_{2}) $ 在正交变换下的标准形为 \underline{\hspace{2cm}}.
+
+    \item 设二次型 $ f(x_{1},x_{2},x_{3})=2x_{1}^{2}+2x_{2}^{2}+3x_{3}^{2}-4x_{1}x_{2}-2x_{2}x_{3}+2ax_{1}x_{3} $ 的规范形为 $ y_{1}^{2}+y_{2}^{2} $，则 a= \underline{\hspace{2cm}}.
+
+    \item 二次型 $ f(x_{1},x_{2},x_{3})=x_{1}^{2}+x_{2}^{2}-3x_{3}^{2}+2x_{1}x_{2}-2x_{1}x_{3}+2x_{2}x_{3} $，则 f 的正惯性指数为 \underline{\hspace{2cm}}.
+
+    \item 设 $ a \neq 0 $，则二次型 $ f(x_{1}, x_{2}, x_{3}) = x_{1}^{2} + 2ax_{1}x_{3} $ 的负惯性指数为 \underline{\hspace{2cm}}.
+
+    \item 设二次型 $ f(x_{1},x_{2},x_{3})=x_{1}^{2}+ax_{2}^{2}+x_{3}^{2}+2x_{1}x_{2}+2ax_{1}x_{3}+2x_{2}x_{3} $ 的正、负惯性指数相同，则 $ a= $ \underline{\hspace{2cm}}.
+
+    \item 若二次型 $ f(x_{1},x_{2},x_{3})=x_{1}^{2}+2x_{2}^{2}+2x_{3}^{2}+4tx_{1}x_{2}+2x_{1}x_{3} $ 是正定的，则 t 的取值范围是 \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=22]
+    \item 设二次型 $ f(x_1, x_2, x_3) = \mathbf{x}^\mathrm{T} \mathbf{A} \mathbf{x} $，其中 $ A $ 为实对称矩阵。已知 $ A $ 的各行元素之和均为 4，且存在 3 维非零列向量 $ \alpha, \beta $，使得 $ A = E + \alpha \beta^\mathrm{T} $。
+    
+    (Ⅰ) 求 A 的特征值与特征向量;
+    
+    (II) 求正交变换 x = Qy 将 $ f(x_{1}, x_{2}, x_{3}) $ 化为标准形.
+
+    \item 已知矩阵 $ A = \begin{pmatrix} 1 & 1 & 0 \\ a & -1 & 0 \\ 0 & 1 & 1 \\ 1 & b & -1 \end{pmatrix} $，二次型 $ f(x_1, x_2, x_3) = \mathbf{x}^{\mathrm{T}} \mathbf{A}^{\mathrm{T}} \mathbf{A} \mathbf{x} $ 的秩为 2．
+    
+    (I) 求 a, b 的值;
+    
+    (II) 求正交变换 x = Qy 将 $ f(x_{1}, x_{2}, x_{3}) $ 化为标准形.
+
+    \item 已知二次型 $ f(x_{1},x_{2},x_{3})=x_{1}^{2}+3x_{2}^{2}+x_{3}^{2}+2ax_{1}x_{2}+2x_{2}x_{3}+2x_{1}x_{3} $ 通过正交变换化为标准形 $ y_{1}^{2}+4y_{2}^{2} $，求参数 a 以及所用的正交变换.
+
+    \item 已知矩阵 $ A = \begin{pmatrix} 1 & -2 & 2 \\ 1 & 1 & 1 \\ 1 & 2 & 0 \end{pmatrix} $, $ B = A^2 - kA + (k^2 - 2k - 1)E $. 若 B 为正定矩阵, 求参数 k 的取值范围.
+\end{enumerate}
+
+\subsection{B 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 设二次型 $ f(x_{1},x_{2},x_{3})=\sum_{i=1}^{3}\left(x_{i}-\overline{x}\right)^{2} $，其中 $ \overline{x}=\frac{x_{1}+x_{2}+x_{3}}{3} $，记其对应的矩阵为 A，则（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ r(\mathbf{A}) + r(\mathbf{E} - \mathbf{A}) = 4 $
+        \item $ r(\mathbf{A}) + r(\mathbf{E} + \mathbf{A}) = 4 $
+        \item $ r(\mathbf{A}) + r(\mathbf{E} - \mathbf{A}) = 5 $
+        \item $ r(\mathbf{A}) + r(\mathbf{E} + \mathbf{A}) = 5 $
+    \end{enumerate}
+
+    \item 设二次型 $ f(x_{1},x_{2},x_{3})=(x_{1}+ax_{3})^{2}+(x_{1}+x_{2})^{2}-\left[x_{1}+(a+2)x_{2}-2x_{3}\right]^{2} $ 的负惯性指数为 0，则 $ a= $ ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item 1
+        \item -1
+        \item 2
+        \item -2
+    \end{enumerate}
+
+    \item 设 A 为 n 阶正定矩阵, 特征值为 $ \lambda_{n} \geq \lambda_{n-1} \geq \cdots \geq \lambda_{1} > 1 $, Q 为正交矩阵, 则下列命题中, 正确命题的个数是 ( \underline{\hspace{1cm}} )
+    
+    ① $ A + Q^{T} A^{-1} Q $ 是正定矩阵.
+    
+    ② $ A + Q^{T} A^{-1} Q $ 的最小特征值为 $ \lambda_{1} + \frac{1}{\lambda_{1}} $.
+    
+    ③ $ A + Q^{T} A^{-1} Q $ 的最大特征值为 $ \lambda_{n} + \frac{1}{\lambda_{n}} $.
+    
+    ④ 若 $ \alpha $ 为 A 的特征向量，则 $ Q^{T}\alpha $ 为 $ Q^{T}A^{-1}Q $ 的特征向量.
+    \begin{enumerate}[label=(\Alph*)]
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}
+
+    \item 设 A 为 n 阶实矩阵, $ A \neq A^{T} $, $ B = \begin{pmatrix} E & A \\ A^{T} & O \end{pmatrix} $, 则下列矩阵中, 可能与 B 合同的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \begin{pmatrix} E_{n} & O \\ O & E_{n} \end{pmatrix} $
+        \item $ \begin{pmatrix} E_{n} & O \\ O & -E_{n} \end{pmatrix} $
+        \item $ \begin{pmatrix} E_{p} & O \\ O & -E_{q} \end{pmatrix} $，其中 $ p > q $．
+        \item $ \begin{pmatrix} E_{p} & O \\ O & -E_{q} \end{pmatrix} $，其中 $ p < q $．
+    \end{enumerate}
+
+    \item 设 A, B 均为 2 阶实对称矩阵, 则下列条件中, 不是 AB = BA 的充分条件的是 ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item AB 与 BA 相似.
+        \item $ A^{2}-AB $ 与 E 相似.
+        \item $ A^{2}-AB $ 与 E 合同.
+        \item 存在正交矩阵 Q，使得 $ Q^{T}AQ, Q^{T}BQ $ 均为对角矩阵.
+    \end{enumerate}
+
+    \item 设 n 阶实矩阵 $ A = \left( a_{ij} \right) $ 满足 $ a_{ij} + a_{ji} = 0 $，则下列命题中，正确命题的个数为（ \underline{\hspace{1cm}} ）
+    
+    ① A 为可逆矩阵. ② E+A 为可逆矩阵.
+    
+    ③对于任意的非零向量 x，均有 $ x^{T}Ax=0 $
+    
+    ④ 若 $ A \neq O $，则 A 不可能合同于一个非零对角矩阵.
+    \begin{enumerate}[label=(\Alph*)]
+        \item 0
+        \item 1
+        \item 2
+        \item 3
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、填空题}
+
+\begin{enumerate}[start=7]
+    \item 已知矩阵 $ A = \begin{pmatrix} a & 1 \\ 1 & a \end{pmatrix} $，正定矩阵 C 满足 $ C^{2} = (a + 2)E - A $，则 C 的所有元素之和为 \underline{\hspace{2cm}}.
+
+    \item 设二次型 $ f(x_{1},x_{2},x_{3})=x_{1}^{2}+x_{2}^{2}+x_{3}^{2}+4x_{1}x_{2}+4x_{1}x_{3}+4x_{2}x_{3} $，记 $ \mathbf{x}=(x_{1},x_{2},x_{3})^{\mathrm{T}} $，则在 $ x^{T}x=1 $ 的条件下， $ f(x_{1},x_{2},x_{3}) $ 的最大值为 \underline{\hspace{2cm}}.
+\end{enumerate}
+
+\subsubsection*{三、解答题}
+
+\begin{enumerate}[start=9]
+    \item 设 n 元二次型 $ f(x_{1},x_{2},\cdots,x_{n})=\sum_{i=1}^{n}\left(x_{i}-\overline{x}\right)^{2} $，其中 $ \overline{x}=\frac{x_{1}+x_{2}+\cdots+x_{n}}{n} $，记其对应的矩阵为 A.
+    
+    (I) 求 $ r(A) $;
+    
+    (II) 当 n=3 时, 找到一个可逆线性变换, 将 $ f(x_{1}, x_{2}, x_{3}) $ 化为标准形 $ 2y_{1}^{2} + \frac{3}{2}y_{2}^{2} $.
+
+    \item 设二次型 $ f(x_{1}, x_{2}) = ax_{1}^{2} - 4x_{1}x_{2} + x_{2}^{2} $ 经过正交变换 $ \begin{pmatrix} x_{1} \\ x_{2} \end{pmatrix} = Q \begin{pmatrix} y_{1} \\ y_{2} \end{pmatrix} $ 化为二次型 $ g(y_{1}, y_{2}) = by_{1}^{2} + 4y_{1}y_{2} + 4y_{2}^{2} $.
+    
+    (I) 求 a, b 的值;
+    
+    (II) 求正交矩阵 Q
+
+    \item 设二次型 $ f(x_{1},x_{2},x_{3})=x_{1}^{2}+x_{2}^{2}+x_{3}^{2}+2ax_{1}x_{2}+2x_{1}x_{3}+4ax_{2}x_{3} $ 经过可逆线性变换 $ \begin{pmatrix} x_{1} \\ x_{2} \\ x_{3} \end{pmatrix}=\mathbf{P}\begin{pmatrix} y_{1} \\ y_{2} \\ y_{3} \end{pmatrix} $ 化为二次型 $ g(y_{1},y_{2},y_{3})=y_{1}^{2}+y_{2}^{2}+2y_{3}^{2}+2y_{1}y_{2}+2y_{1}y_{3}+2y_{2}y_{3} $.
+    
+    (I) 求 a 的值;
+    
+    (II) 求可逆矩阵 P .
+
+    \item 已知二次型 $ f(x_{1},x_{2},x_{3})=cx_{1}^{2}-(b^{2}+1)x_{2}^{2}+cx_{3}^{2}+2x_{1}x_{3} $ 可通过可逆线性变换化为 $ g(y_{1},y_{2},y_{3})=(2c^{2}-1)y_{1}^{2}+(c^{2}+1)y_{2}^{2}+(c^{2}-2)y_{3}^{2}+2(c^{2}+1)y_{1}y_{2}-2(c^{2}-2)y_{1}y_{3} $. 求可逆线性变换 y=Pz 将二次型 $ g(y_{1},y_{2},y_{3}) $ 化为规范形.
+
+    \item 设 $ A $ 为 $ m $ 阶实对称矩阵， $ \mathbf{B} = (\beta_1, \beta_2, \cdots, \beta_n) $ 为 $ m \times n $ 矩阵．若 $ \mathbf{B}^\mathrm{T} \mathbf{A} \mathbf{B} $ 是正定矩阵，其中 $ \mathbf{B}^\mathrm{T} $ 是 $ \mathbf{B} $ 的转置，证明：
+    
+    (I) $ m \geq n $;
+    
+    (II) 若存在 m 维非零列向量 $ \xi $，使得 $ \xi^{T}A\xi=0 $，则 $ r(B)<r(B,\xi) $.
+
+    \item 设实对称矩阵 A 满足 $ r(A - E) = 1 $，二次型 $ f(x_1, x_2, x_3) = \mathbf{x}^\mathrm{T} \mathbf{A} \mathbf{x} $ 在正交变换 x = Qy 下化为标准形。已知 $ f(1, 0, -1) = 0 $，且对任意 $ (x_1, x_2, x_3) $， $ f(x_1, x_2, x_3) \geq 0 $。
+    
+    (Ⅰ) 求二次型 $ f(x_{1}, x_{2}, x_{3}) $ 的规范形；
+    
+    (II) 求矩阵 A，并证明对于任意正数 $ a, A + aE $ 均为正定矩阵.
+
+    \item 设二次型 $ f(x_{1},x_{2},x_{3})=(x_{1}+ax_{2}-2x_{3})^{2}+(2x_{2}+3x_{3})^{2}+[x_{1}+(a+2)x_{2}+ax_{3}]^{2} $，且 $ a\neq1 $。记 A 为该二次型对应的对称矩阵。已知 $ \alpha_{1},\alpha_{2},\alpha_{3} $ 为 3 维非零列向量，且满足 $ \alpha_{i}^{\mathrm{T}}\left(\mathrm{A}^{*}+\right. $ $ A^{-1}\alpha_{j}=0(i\neq j) $. 证明： $ \alpha_{1},\alpha_{2},\alpha_{3} $ 线性无关.
+
+    \item 设矩阵 A 为二次型 $ f(x_1, x_2, x_3) = \mathbf{x}^\mathrm{T} \mathbf{A} \mathbf{x} $ 对应的实对称矩阵，满足 $ r(E + A) = 1 $。若当 $ x_1^2 + x_2^2 + x_3^2 = 1 $ 时， $ f(x_1, x_2, x_3) $ 的最大值为 2，且 $ f(1, -1, 1) = 6 $，求矩阵 A。
+\end{enumerate}
+
+\subsection{C 类}
+
+\subsubsection*{一、选择题}
+
+\begin{enumerate}
+    \item 若矩阵 A, B 均为 n 阶正定矩阵, 则下列命题中, 正确命题的个数为 ( \underline{\hspace{1cm}} )
+    
+    ① 若 A-B 正定, 则 $ \mathrm{tr}(\mathrm{A}) > \mathrm{tr}(\mathrm{B}) $
+    
+    ② 若 $ \mathrm{tr}(\mathrm{A}) > \mathrm{tr}(\mathrm{B}) $ ，则 A-B 正定.
+    
+    ③ 若 AB 为正定矩阵, 则 AB = BA .
+    
+    ④ 若 AB = BA，则 AB 为正定矩阵.
+    \begin{enumerate}[label=(\Alph*)]
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}
+
+    \item 设 A 为 n 阶实矩阵， $ A \neq A^{T} $， $ B = \begin{pmatrix} E & A \\ A^{T} & O \end{pmatrix} $，则（ \underline{\hspace{1cm}} ）
+    \begin{enumerate}[label=(\Alph*)]
+        \item 不存在非零向量 $ \alpha $，使得 $ \alpha^{T}A\alpha=0 $
+        \item 不存在非零向量 $ \alpha $，使得 $ \alpha^{T}B\alpha=0 $
+        \item 若对任意 $ y \neq 0 $，都有 $ y^{T}A^{T}Ay \neq 0 $，则 B 的正惯性指数大于 n。
+        \item 若非零向量 $ \alpha, \beta $ 满足 $ A^{T}\alpha = \alpha, A\beta = -\beta $ ，则 $ \left(\alpha^{T}, \beta^{T}\right)B\begin{pmatrix} \alpha \\ \beta \end{pmatrix} > 0 $
+    \end{enumerate}
+
+    \item 设 A 为 2 阶实对称矩阵，特征值为 $ \lambda_{1}, \lambda_{2}, B $ 为 2 阶正定矩阵，特征值为 $ \mu_{1}, \mu_{2} $ 。记 $ M = \max_{x \neq 0} \frac{x^{T} A x}{x^{T} B x}, m = \min_{x \neq 0} \frac{x^{T} A x}{x^{T} B x} $，则 $ M m = $ ( \underline{\hspace{1cm}} )
+    \begin{enumerate}[label=(\Alph*)]
+        \item $ \lambda_{1}\lambda_{2} $
+        \item $ \frac{\mu_{1}\mu_{2}}{\lambda_{1}\lambda_{2}} $
+        \item $ \frac{\lambda_{1}\lambda_{2}}{\mu_{1}\mu_{2}} $
+        \item 由已知条件不能确定.
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{二、解答题}
+
+\begin{enumerate}[start=4]
+    \item 设二次型 $ f(x_1, x_2, x_3) = \mathbf{x}^\mathrm{T} \mathbf{A} \mathbf{x} $，其中 $ A $ 为实对称矩阵，且 $ A^2 - 2A - 3E = \mathbf{O} $。若 $ f $ 的正惯性指数为 $ 2 $，且 $ f(1,1,1) = -3 $，求 $ f(1,2, -3) $。
+
+    \item 设 $ D=\begin{pmatrix} A & Q \\ Q^{T} & A \end{pmatrix} $ 为正定矩阵，其中 A 为 n 阶正定矩阵，特征值依次为 $ 0 < \lambda_{1} \leq \cdots \leq \lambda_{n} $，Q 为 n 阶正交矩阵.
+    
+    (I) 证明： $ A-Q^{T}A^{-1}Q $ 为正定矩阵.
+    
+    (II) 又若 $ Q = (\alpha_{1}, \cdots, \alpha_{n}), AQ = (\lambda_{1} \alpha_{1}, \cdots, \lambda_{n} \alpha_{n}) $，证明： $ |A| > 1 $.
+\end{enumerate}
+
+\end{document}

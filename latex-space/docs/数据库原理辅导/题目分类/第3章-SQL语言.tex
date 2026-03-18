@@ -1,0 +1,431 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理习题集}
+\lhead{第3章 关系数据库标准语言SQL}
+\cfoot{\thepage}
+
+\title{\textbf{第3章 关系数据库标准语言SQL}}
+\date{}
+
+\begin{document}
+
+\section{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item SQL语句中用于数据检索的命令是（\quad）。
+	      \begin{enumerate}
+		      \item SELECT
+		      \item DELETE
+		      \item INSERT
+		      \item UPDATE
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item SQL的GRANT和REVOKE语句是用来维护数据库的（\quad）的。
+	      \begin{enumerate}
+		      \item 安全性
+		      \item 完整性
+		      \item 并发控制
+		      \item 恢复
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在SQL语言中，使用（\quad）语句进行授权。
+	      \textbf{答案：GRANT}
+
+	\item 取出关系中的某些列，并消去重复元组的关系代数运算称为（\quad）。
+	      \begin{enumerate}
+		      \item 投影运算
+		      \item 去列运算
+		      \item 连接运算
+		      \item 选择运算
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在MySQL中，可以使用（\quad）语句来创建视图。
+	      \begin{enumerate}
+		      \item CREATE SELECT
+		      \item REPLACE VIEW
+		      \item CREATE VIEW
+		      \item CREATE FUNCTION
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在SQL的算术表达式中，如果其中有空值，则表达式（\quad）。
+	      \begin{enumerate}
+		      \item 结果为空值
+		      \item 空值按0计算
+		      \item 由用户确定空值内容再计算结果
+		      \item 指出运算错误，终止执行
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 使用（\quad）子句来限制被SELECT语句返回的行数。
+	      \begin{enumerate}
+		      \item ORDER BY
+		      \item LIMIT
+		      \item HAVING
+		      \item GROUP BY
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 不属于需求分析报告内容的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库的应用功能目标
+		      \item 数据字典
+		      \item 数据约束
+		      \item 数据分类表
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 下列不是数据库中 SQL 命令语句的是（\quad）。
+	      \begin{enumerate}
+		      \item DBA
+		      \item DDL
+		      \item DML
+		      \item DCL
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 下列 SQL 语句中不属于数据定义语言的是（\quad）。
+	      \begin{enumerate}
+		      \item ALTER
+		      \item DROP
+		      \item INSERT
+		      \item CREATE
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在SELECT语句中，允许使用（\quad）子句，将结果集中的数据行根据选择列的值进行逻辑分组，以便能汇总表内容的子集。
+	      \begin{enumerate}
+		      \item GROUP BY
+		      \item ORDER BY
+		      \item HAVING
+		      \item LIMIT
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item SQL是介于关系代数和（\quad）之间的结构化查询语言。
+	      \begin{enumerate}
+		      \item 数据模型
+		      \item 关系演算
+		      \item 数据系统
+		      \item 关系演变
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item SQL中用于删除基本表的命令是（\quad）。
+	      \begin{enumerate}
+		      \item DROP
+		      \item DELETE
+		      \item UPDATE
+		      \item ZAP
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 当修改基表数据时，视图（\quad）。
+	      \begin{enumerate}
+		      \item 可以看到修改结果
+		      \item 需要重建
+		      \item 无法看到修改结果
+		      \item 不许修改带视图的基表
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在MySQL中，通常用来指定一个已有数据库作为当前工作数据库的语句是（\quad）。
+	      \begin{enumerate}
+		      \item GET
+		      \item SHOW
+		      \item DROP
+		      \item USE
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据定义语言中，（\quad）语句用于对数据库或数据库对象进行修改。
+	      \begin{enumerate}
+		      \item REPEAT
+		      \item ALTER
+		      \item DROP
+		      \item CREATE
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 视图用于查询检索，主要体现的应用中不包括（\quad）。
+	      \begin{enumerate}
+		      \item 简化检索步骤
+		      \item 利用视图简化复杂的表连接
+		      \item 使用视图重新格式化检索出的数据
+		      \item 使用视图过滤不想要的数据
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在SQL语句中，（\quad）用于创建数据库或数据库对象。
+	      \begin{enumerate}
+		      \item CREATE
+		      \item DROP
+		      \item ALTER
+		      \item SELECT
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 授权数据对象的（\quad），则授权子系统的越灵活。
+	      \begin{enumerate}
+		      \item 粒度越小
+		      \item 粒度越大
+		      \item 约束越少
+		      \item 约束越多
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在使用GRANT语句给新建的MySQL用户授权时，下列权限级别中，最有效率的权限是（\quad）。
+	      \begin{enumerate}
+		      \item 表权限
+		      \item 列权限
+		      \item 数据库权限
+		      \item 用户权限（全局权限）
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 有这样的三个表即学生表S、课程表C和学生选课表SC，它们的结构如下：S(S\#，SN，SEX，AGE，DEPT) C(C\#，CN) SC (S\#,C\#, GRADE)... 检索学生姓名及其所选修课程的课程号和成绩。正确的SELECT语句是（\quad）。
+	      \begin{enumerate}
+		      \item SELECT S.SN，SC.C\#，SC.GRADE FROM S，SC WHERE S.S\#=SC.S\#
+		      \item SELECT S.SN，SC.C\#，SC.GRADE FROM S WHERE S.S\#=SC.S\#
+		      \item SELECT S.SN，SC.C\#，SC.GRADE FROM SC WHERE S.S\#=SC.GRADE
+		      \item SELECT S.SN，SC.C\#，SC.GRADE FROM S.SC
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 若用SELECT语句查询多个列时，则各个列名之间需要用（\quad）进行分隔。
+	      \begin{enumerate}
+		      \item 逗号
+		      \item 顿号
+		      \item 破折号
+		      \item 分号
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item SQL语句中，条件"年龄BETWEEN 20 AND 30"表示年龄在20至30之间，且（\quad）。
+	      \begin{enumerate}
+		      \item 包括20岁和30岁
+		      \item 不包括20岁和30岁
+		      \item 包括20岁但不包括30岁
+		      \item 包括30岁但不包括20岁
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 以下不能作为关系数据库的关系的是（\quad）。
+	      \begin{enumerate}
+		      \item M(学号，姓名，简历)
+		      \item N(学号，班主任，专业)
+		      \item S(学号，系，宿舍号)
+		      \item T(学号，班级，系)
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在Transact-SQL语法中，SELECT语句中使用关键字（\quad）可以把重复行屏蔽。
+	      \textbf{答案：DISTINCT}
+
+	\item 在Transact-SQL语法中，将多个查询结果返回一个结果集合的运算符是（\quad）。
+	      \textbf{答案：UNION}
+
+	\item SQL Server 的数据库主文件的扩展名为（\quad）。
+	      \textbf{答案：.mdf}
+
+	\item 删除视图命令是：（\quad）。
+	      \textbf{答案：DROP VIEW}
+
+	\item 视图是从（\quad）中导出的表。
+	      \textbf{答案：基本表}
+
+	\item 数据库中实际存放的是视图的（\quad）。
+	      \textbf{答案：定义}
+
+	\item （\quad）对应到数据库中的概念就是视图。
+	      \begin{enumerate}
+		      \item 模式
+		      \item 内模式
+		      \item 外模式
+		      \item 逻辑模式
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 在数据库系统中，视图可以提供数据的（\quad）。
+	      \begin{enumerate}
+		      \item 安全性
+		      \item 完整性
+		      \item 并发性
+		      \item 可恢复性
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 下列统计函数中不能忽略空值(NULL)的是（\quad）。
+	      \begin{enumerate}
+		      \item SUM
+		      \item AVG
+		      \item MAX
+		      \item COUNT
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 以下不是SQL内置函数的是（\quad）。
+	      \begin{enumerate}
+		      \item HAVING
+		      \item SUM
+		      \item COUNT
+		      \item AVG
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在SQL查询语句select中，用来指定表中全部字段的参量是（\quad）。
+	      \begin{enumerate}
+		      \item *
+		      \item *.*
+		      \item All
+		      \item Every
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在使用ALTER TABLE语句来更新与列或表有关的各种约束时，需要注意的内容中正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 完整性约束能直接被修改
+		      \item 若要修改某个约束，实际上是用ALTER TABLE语句先删除该约束，然后再增加一个与该约束同名的新约束
+		      \item 使用DROP TABLE语句，可以独立地删除完整性约束，而不会删除表本身
+		      \item 使用ALTER TABLE语句删除一个表，则表中所有的完整性约束都会自动被删除
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 使用（\quad）语句，可以独立地删除完整性约束，而不会删除表本身。
+	      \begin{enumerate}
+		      \item DROP TABLE
+		      \item DELETE TABLE
+		      \item CREATE TABLE
+		      \item ALTER TABLE
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item SQL Server 中索引类型包括的三种类型分别是（\quad）、（\quad）和非聚集索引。
+	      \textbf{答案：唯一索引；聚集索引}
+
+	\item 需求分析报告完成的内容不包括（\quad）。
+	      \begin{enumerate}
+		      \item 数据库的应用功能目标
+		      \item 数据字典
+		      \item 数据约束
+		      \item 编写代码
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 数据库进行需求分析时，需要编写需求分析报告，用来存储和检索各种数据描述的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据字典
+		      \item 数据流程图
+		      \item 任务分类表
+		      \item 数据约束
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item SELECT 语句中的条件可以用 WHERE 或 HAVING 引出，但 HAVING 必须在 GROUP BY 之后使用。（\quad）
+	      \textbf{答案：正确}
+
+	\item SELECT 查询数据时，如果使用右连接，则是限制右边表的记录。（\quad）
+	      \textbf{答案：错误}
+
+	\item 空值不同于空字符串或数值零，通常表示未填写、未知（Unknown）、不可用或将在以后添加的数据。（\quad）
+	      \textbf{答案：正确}
+
+	\item 一个关系中只能有一个（\quad）。
+	      \begin{enumerate}
+		      \item 主码
+		      \item 候选码
+		      \item 外码
+		      \item 超码
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在MySQL中，用于表示列值非空的语句是（\quad）。
+	      \begin{enumerate}
+		      \item NOT EMPTY
+		      \item NOT UNIQUE
+		      \item NOT NULL
+		      \item NOT EXISTS
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 设关系R(A，B，C)，主码为A；S(D，A)，主码为D，外码为A，参照R中的属性A。关系R的元组\{(1，2，3)，(2，1，3)，(3，7，8)\}和S的元组\{(d1，2)，(d2，NULL)，(d3，4)，(d4，1)\}。关系S中违反参照完整性规则的元组是（\quad）。
+	      \begin{enumerate}
+		      \item (d1，2)
+		      \item (d2，NULL)
+		      \item (d3，4)
+		      \item (d4，1)
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item MySQL提供的支持语言不包括（\quad）。
+	      \begin{enumerate}
+		      \item 数据定义语言
+		      \item 数据标准语言
+		      \item 数据操纵语言
+		      \item 数据控制语言
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 关于游标说法错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 使用 CLOSE 语句关闭游标
+		      \item 使用游标前必须先声明（定义）它
+		      \item 游标多次使用需要多次声明
+		      \item 每个游标不再需要时都应该被关闭
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 已知R(A，B，C)、S(A，B)，则R-S的属性为（\quad）。
+	      \begin{enumerate}
+		      \item C
+		      \item A，B，C
+		      \item A
+		      \item A，B
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 设关系R和S具有相同的关系模式，则与 $R \cup S$ 等价的是（\quad）。
+	      \begin{enumerate}
+		      \item R - (R - S)
+		      \item S - (R - S)
+		      \item R + S
+		      \item R
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 下列关于数据库特点的叙述中，错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据库能够减少数据冗余
+		      \item 数据库中的数据可以共享
+		      \item 数据库中的表能够避免一切数据的重复
+		      \item 数据库中的表既相对独立，又相互联系
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 如果对行的更新违反了某个约束或规则，或者新值的数据类型与列不兼容，则取消该语句、返回错误并且不更新任何记录。（\quad）
+	      \textbf{答案：正确}
+
+	\item 删除表时，与该表相关联的规则和约束不会被删除。（\quad）
+	      \textbf{答案：错误}
+\end{enumerate}
+
+\end{document}

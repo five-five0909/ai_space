@@ -1,0 +1,103 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{fancyhdr}       % 页眉页脚
+\usepackage{cases}          % 分段函数增强
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 纵向排列的选项 (1列)
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+% 填空题下划线
+\newcommand{\blank}[1]{\underline{\hspace{#1}}}
+
+\title{\textbf{《高等数学》必刷习题——提高版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第五章 中值定理与导数（提高）}
+
+\begin{enumerate}
+    \item 曲线 $ y=\frac{1}{f(x)} $ 有水平渐近线的充分条件是 \blank{1cm}。
+    \choicesTwo
+    {$ \lim_{x\to\infty}f(x)=0 $}
+    {$ \lim_{x\to\infty}f(x)=\infty $}
+    {$ \lim_{x\to0}f(x)=0 $}
+    {$ \lim_{x\to0}f(x)=\infty $}
+
+    \item 曲线 $ y = \frac{x}{1 - x^{2}} $ 的渐近线有 \blank{1cm}。
+    \choicesFour{1 条}{2 条}{3 条}{4 条}
+
+    \item 点 $(1,2)$ 是 $ f(x)=(x-a)^{3}+b $ 对应图形的拐点，则 \blank{1cm}。
+    \choicesFour{$ a=0,b=1 $}{$ a=2,b=3 $}{$ a=1,b=2 $}{$ a=-1,b=-6 $}
+
+    \item 函数 $ y = |\ln x| $ 对应图形的拐点是 \blank{1cm}。
+    \choicesFour{$ (1,0) $}{$ (e,1) $}{$ (2,\ln 2) $}{不存在}
+
+    \item 设函数 $ f(x)=(x-1)(x-2)(x-3) $ ，则方程 $ f'(x)=0 $ 有 \blank{1cm}。
+    \choicesFour{一个实根}{二个实根}{三个实根}{无实根}
+
+    \item 设函数 $ f(x) = x^{3} + ax^{2} + bx + c $ , 且 $ f(0) = f'(0) = 0 $ , 则下列结论不正确的是 \blank{1cm}。
+    \choicesTwo
+    {$ b = c = 0 $}
+    {当 $a > 0$ 时， $ f(0) $ 为极小值}
+    {当 $a < 0$ 时， $ f(0) $ 为极大值}
+    {当 $ a \neq 0 $ 时， $ (0, f(0)) $ 为拐点}
+
+    \item 函数 $ y=\frac{x}{\ln x} $ 的单调增加的区间是 \blank{2cm}。
+
+    \item 函数 $ y=(x-2)^{3} $ 的驻点是 \blank{2cm}。
+
+    \item 函数 $ y=-x^{3}+x^{2} $ 的凸区间是 \blank{2cm}。
+
+    \item 曲线 $ y = \frac{x^{2}-2x+2}{x-1} $ 的垂直渐近线的方程是 \blank{2cm}。
+
+    \item 求曲线 $ y = x^{3} - 3x^{2} + 3 $ 的拐点 \blank{2cm}。
+
+    \item 若 $ f(x) $ 在 $ [0,1] $ 上连续，在 $ (0,1) $ 内可导，且 $ f(0)=f(1)=0, f(1)=1 $ 。
+    证明在 $ (0,1) $ 内至少有一点 $ \xi $ 使 $ f'(\xi)=1 $ 。
+
+    \item 求斜边长为定长 $L$ 的直角三角形的最大面积。
+
+    \item 讨论 $ y = xe^{-x} $ 的增减性、凹凸性、极值、拐点。
+
+    \item 已知某产品的需求函数 $ Q = 28 - 2p $ 和总成本函数 $ C(Q) = 30 + 2Q $ , 其中 $Q$ 为销售量，$p$ 为价格，求当 $p$ 为多少可获得最大利润？
+
+    \item 证明不等式 $ e^{x} < (1 + x)^{(1 + x)} $ ($x > 0$)。
+\end{enumerate}
+
+\end{document}

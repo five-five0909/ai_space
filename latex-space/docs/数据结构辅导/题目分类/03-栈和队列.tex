@@ -1,0 +1,580 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据结构习题集}
+\lhead{分类整理}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{第三章 栈和队列}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 栈和队列的共同点是（ ）
+	      \begin{enumerate}
+		      \item[A.] 都是先进后出
+		      \item[B.] 都是先进先出
+		      \item[C.] 只允许在端点处插入和删除元素
+		      \item[D.] 没有共同点
+	      \end{enumerate}
+
+	\item 栈的特点是（ ），队列的特点是（ ）
+	      \begin{enumerate}
+		      \item[A.] 先进先出
+		      \item[B.] 先进后出
+	      \end{enumerate}
+
+	\item 队列的入队操作是在（ ）进行的。
+	      \begin{enumerate}
+		      \item[A.] 队头
+		      \item[B.] 队尾
+		      \item[C.] 任意位置
+		      \item[D.] 指定位置
+	      \end{enumerate}
+
+	\item 队列的出队操作是在（ ）进行的。
+	      \begin{enumerate}
+		      \item[A.] 队头
+		      \item[B.] 队尾
+		      \item[C.] 任意位置
+		      \item[D.] 指定位置
+	      \end{enumerate}
+
+	\item 以下给出的操作中，（ ）是允许对队列进行的操作。
+	      \begin{enumerate}
+		      \item[A.] 删除队首元素
+		      \item[B.] 取出最近进队的元素
+		      \item[C.] 按元素大小排序
+		      \item[D.] 中间插入元素
+	      \end{enumerate}
+
+	\item 一个栈的进栈序列是 a, b, c, d, e，则栈的不可能的输出序列是（ ）
+	      \begin{enumerate}
+		      \item[A.] edcba
+		      \item[B.] decba
+		      \item[C.] dceab
+		      \item[D.] abcde
+	      \end{enumerate}
+
+	\item 设有一个栈，元素依次进栈的顺序为 A、B、C、D、E。下列（ ）是不可能的了出栈序列。
+	      \begin{enumerate}
+		      \item[A.] A, B, C, D, E
+		      \item[B.] B, C, D, E, A
+		      \item[C.] E, A, B, C, D
+		      \item[D.] E, D, C, B, A
+	      \end{enumerate}
+
+	\item 若已知一个栈的进栈序列是 $1, 2, 3, \dots, n$，其输出序列为 $p_1, p_2, p_3, \dots, p_n$，若 $p_1=n$，则 $p_i$ 为（ ）
+	      \begin{enumerate}
+		      \item[A.] $i$
+		      \item[B.] $n-i$
+		      \item[C.] $n-i+1$
+		      \item[D.] 不确定
+	      \end{enumerate}
+
+	\item 若已知一个栈的进栈序列是 $1, 2, 3, \dots, n$，其输出序列为 $p_1, p_2, p_3, \dots, p_n$，若 $p_n=n$，则 $p_i (1 \le i < n)$ 为（ ）
+	      \begin{enumerate}
+		      \item[A.] $i$
+		      \item[B.] $n-i$
+		      \item[C.] $n-i+1$
+		      \item[D.] 不确定
+	      \end{enumerate}
+
+	\item 若已知一个栈的进栈序列是 $1, 2, 3, \dots, n$，其输出序列为 $p_1, p_2, p_3, \dots, p_n$，若 $p_1=3$，则 $p_2$ 为（ ）
+	      \begin{enumerate}
+		      \item[A.] 可能是 2
+		      \item[B.] 一定是 2
+		      \item[C.] 可能是 1
+		      \item[D.] 一定是 1
+	      \end{enumerate}
+
+	\item 若已知一个栈的进栈序列是 $1, 2, 3, \dots, n$，其输出序列为 $1, 2, 3, \dots, n$，若 $p_i=1$，则 $p_{i+1}$ 为（ ）
+	      \begin{enumerate}
+		      \item[A.] 可能是 2
+		      \item[B.] 一定是 2
+		      \item[C.] 不可能是 2
+		      \item[D.] 不可能是 3
+	      \end{enumerate}
+
+	\item 若已知一个栈的入栈序列是 1、2、3、4，其出栈序列不可能为（ ）
+	      \begin{enumerate}
+		      \item[A.] 4、3、2、1
+		      \item[B.] 3、4、1、2
+		      \item[C.] 2、3、4、1
+		      \item[D.] 1、4、3、2
+	      \end{enumerate}
+
+	\item 判定一个栈 ST（最多元素为 MaxSize）为空的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{ST->top != -1}
+		      \item[B.] \texttt{ST->top == -1}
+		      \item[C.] \texttt{ST->top != MaxSize-1}
+		      \item[D.] \texttt{ST->top == MaxSize-1}
+	      \end{enumerate}
+
+	\item 判定一个栈 ST（最多元素为 MaxSize）为栈满的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{ST->top != -1}
+		      \item[B.] \texttt{ST->top == -1}
+		      \item[C.] \texttt{ST->top != MaxSize-1}
+		      \item[D.] \texttt{ST->top == MaxSize-1}
+	      \end{enumerate}
+
+	\item 判定一个顺序栈 st (最多元素为 MaxSize) 为空的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] st->top != -1
+		      \item[B.] st->top == -1
+		      \item[C.] st->top != MaxSize
+		      \item[D.] st->top == MaxSize
+	      \end{enumerate}
+
+	\item 判定一个顺序栈 st (最多元素为 MaxSize) 为满的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] st->top != -1
+		      \item[B.] st->top == -1
+		      \item[C.] st->top != MaxSize
+		      \item[D.] st->top == MaxSize-1
+	      \end{enumerate}
+
+	\item 假定一个顺序队列的队首和队尾指针分别为 $f$ 和 $r$，则判断队空的条件为（ ）
+	      \begin{enumerate}
+		      \item[A.] $f+1==r$
+		      \item[B.] $r+1==f$
+		      \item[C.] $f==0$
+		      \item[D.] $f==r$
+	      \end{enumerate}
+
+	\item 一个队列的入队序列是 1, 2, 3, 4，则队列的输出序列是（ ）
+	      \begin{enumerate}
+		      \item[A.] 4, 3, 2, 1
+		      \item[B.] 1, 2, 3, 4
+		      \item[C.] 1, 4, 3, 2
+		      \item[D.] 3, 2, 4, 1
+	      \end{enumerate}
+
+	\item 判定一个队列 QU（最多元素为 MaxSize）为空的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{QU->rear - QU->front == MaxSize}
+		      \item[B.] \texttt{QU->rear - QU->front - 1 == MaxSize}
+		      \item[C.] \texttt{QU->front == QU->rear}
+		      \item[D.] \texttt{QU->front == QU->rear + 1}
+	      \end{enumerate}
+
+	\item 判定一个循环队列 qu (最多元素为 MaxSize) 为空的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] qu->rear - qu->front == MaxSize
+		      \item[B.] qu->front - 1 == MaxSize
+		      \item[C.] qu->front == qu->rear
+		      \item[D.] (选项缺失)
+	      \end{enumerate}
+
+	\item 在循环队列中，若 front 与 rear 分别表示对头元素和队尾元素的位置，则判断循环队列空的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] front == rear + 1
+		      \item[B.] rear == front + 1
+		      \item[C.] front == rear
+		      \item[D.] front == 0
+	      \end{enumerate}
+
+	\item 循环顺序队列中是否可以插入下一个元素，（ ）
+	      \begin{enumerate}
+		      \item[A.] 与队头指针和队尾指针的值有关
+		      \item[B.] 只与队尾指针的值有关，与队头指针的值无关
+		      \item[C.] 只与数组大小有关，与队首指针和队尾指针的值无关
+		      \item[D.] 与曾经进行过多少次插入操作有关
+	      \end{enumerate}
+
+	\item 判定一个循环队列 QU（最多元素为 MaxSize）为空的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{QU->front == QU->rear}
+		      \item[B.] \texttt{QU->front != QU->rear}
+		      \item[C.] \texttt{QU->front == (QU->rear+1)\%MaxSize}
+		      \item[D.] \texttt{QU->front != (QU->rear+1)\%MaxSize}
+	      \end{enumerate}
+
+	\item 判定一个循环队列 QU（最多元素为 MaxSize）为满队列的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{QU->front == QU->rear}
+		      \item[B.] \texttt{QU->front != QU->rear}
+		      \item[C.] \texttt{QU->front == (QU->rear+1)\%MaxSize}
+		      \item[D.] \texttt{QU->front != (QU->rear+1)\%MaxSize}
+	      \end{enumerate}
+
+	\item 循环队列用数组 $A[0, m-1]$ 存放其元素值，已知其头尾指针分别是 front 和 rear，则当前队列中的元素个数是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{(rear-front+m)\%m}
+		      \item[B.] \texttt{rear-front+1}
+		      \item[C.] \texttt{rear-front-1}
+		      \item[D.] \texttt{rear-front}
+	      \end{enumerate}
+
+	\item 若用一个大小为 6 的一维数组来实现循环队列，且当前 rear 和 front 的值分别为 0 和 3。当从队列中删除一个元素，再加入两个元素后，rear 和 front 的值分别是（ ）
+	      \begin{enumerate}
+		      \item[A.] 1 和 5
+		      \item[B.] 2 和 4
+		      \item[C.] 4 和 2
+		      \item[D.] 5 和 1
+	      \end{enumerate}
+
+	\item 若用一个大小为 6 的数组来实现循环队列，且当前 rear 和 front 的值分别为 0 和 3，当从队列中删除一个元素，再加入两个元素后，rear 和 front 的值分别为（ ）
+	      \begin{enumerate}
+		      \item[A.] 1 和 5
+		      \item[B.] 2 和 4
+		      \item[C.] 4 和 2
+		      \item[D.] 5 和 1
+	      \end{enumerate}
+
+	\item 最不适合用作链队列的链表是（ ）
+	      \begin{enumerate}
+		      \item[A.] 只有队头指针的非循环双链表
+		      \item[B.] 只有队头指针的循环双链表
+		      \item[C.] 只有队尾指针的循环双链表
+		      \item[D.] 只有队尾指针的循环单链表
+	      \end{enumerate}
+
+	\item 在一个链队列中，假设 f 和 r 分别为队头和队尾指针，则插入 s 所指结点的运算是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{f->next=s; f=s;}
+		      \item[B.] \texttt{r->next=s; r=s;}
+		      \item[C.] \texttt{s->next=r; r=s;}
+		      \item[D.] \texttt{s->next=f; f=s;}
+	      \end{enumerate}
+
+	\item 在一个链队列中，假设 f 和 r 分别为队头和队尾指针，则删除一个结点的运算是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{r=f->next;}
+		      \item[B.] \texttt{r=r->next;}
+		      \item[C.] \texttt{f=f->next;}
+		      \item[D.] \texttt{f=r->next;}
+	      \end{enumerate}
+
+	\item 设有个顺序栈 S，元素的入栈顺序是 $S_1, S_2, S_3, S_4, S_5, S_6$，如果 6 个元素出栈的顺序是 $S_2, S_4, S_3, S_6, S_5, S_1$，则栈的容量至少应该是（ ）
+	      \begin{enumerate}
+		      \item[A.] 2
+		      \item[B.] 3
+		      \item[C.] 5
+		      \item[D.] 6
+	      \end{enumerate}
+
+	\item 和顺序栈相比，链栈比较明显的优势是（ ）
+	      \begin{enumerate}
+		      \item[A.] 通常不会出现栈满的情况
+		      \item[B.] 通常不会出现栈空的情况
+		      \item[C.] 插入操作更容易实现
+		      \item[D.] 删除操作更容易实现
+	      \end{enumerate}
+
+	\item 和顺序栈相比，链栈有一个比较明显的优势是（ ）
+	      \begin{enumerate}
+		      \item[A.] 通常不会出现栈满的情况
+		      \item[B.] 通常不会出现栈空的情况
+		      \item[C.] 插入操作更容易实现
+		      \item[D.] 删除操作更容易实现
+	      \end{enumerate}
+
+	\item 如果以链表作为栈的存储结构，则退栈操作时（ ）
+	      \begin{enumerate}
+		      \item[A.] 必须判别栈是否满
+		      \item[B.] 判别栈元素类型
+		      \item[C.] 必须判别栈是否空
+		      \item[D.] 对栈不作任何判别
+	      \end{enumerate}
+
+	\item 设 C 语言定义数组 \texttt{data[m+1]} 作为循环队列的存储空间，front, rear 分别为队头，队尾指针，则执行出队操作的语句是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{front=front+1}
+		      \item[B.] \texttt{front=(front+1)\%m}
+		      \item[C.] \texttt{front=(front+1)\%(m+1)}
+		      \item[D.] \texttt{rear=(rear+1)\%m}
+	      \end{enumerate}
+
+	\item 输入序列为 ABC，可以变为 CBA 时，经过的栈操作为（ ）
+	      \begin{enumerate}
+		      \item[A.] push, pop, push, pop, push, pop
+		      \item[B.] push, push, push, pop, pop, pop
+		      \item[C.] push, push, pop, pop, push, pop
+		      \item[D.] push, pop, push, push, pop, pop
+	      \end{enumerate}
+
+	\item 若一个栈以向量存储，初始栈顶指针 top 为 $n+1$，则下面进栈的正确操作是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{top=top+1; V[top]=x}
+		      \item[B.] \texttt{V[top]=x; top=top+1}
+		      \item[C.] \texttt{top=top-1; V[top]=x}
+		      \item[D.] \texttt{V[top]=x; top=top-1}
+	      \end{enumerate}
+
+	\item 栈在（ ）中应用。
+	      \begin{enumerate}
+		      \item[A.] 递归调用
+		      \item[B.] 子程序调用
+		      \item[C.] 表达式求值
+		      \item[D.] A, B, C
+	      \end{enumerate}
+
+	\item 表达式 $a*(b+c)-d$ 的后缀表达式是（ ）
+	      \begin{enumerate}
+		      \item[A.] abcd*+-
+		      \item[B.] abc+*d-
+		      \item[C.] abc*+d-
+		      \item[D.] -+*abcd
+	      \end{enumerate}
+
+	\item 最不适合用作链栈的链表是（ ）
+	      \begin{enumerate}
+		      \item[A.] 只有表头指针没有表尾指针的循环双链表
+		      \item[B.] 只有表尾指针没有表头指针的循环双链表
+		      \item[C.] 只有表尾指针没有表头指针的循环单链表
+		      \item[D.] 只有表头指针没有表尾指针的循环单链表
+	      \end{enumerate}
+
+	\item 向一个栈顶指针为 HS 的链栈中插入一个 s 所指结点时，则执行（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{HS->next=s;}
+		      \item[B.] \texttt{s->next=HS->next; HS->next=s;}
+		      \item[C.] \texttt{s->next=HS; HS=s;}
+		      \item[D.] \texttt{s->next=HS; HS=HS->next;}
+	      \end{enumerate}
+
+	\item 从一个栈顶指针为 HS 的链栈中删除一个结点时，用 x 保存被删除结点的值，则执行（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{x=HS; HS=HS->next;}
+		      \item[B.] \texttt{x=HS->data;}
+		      \item[C.] \texttt{HS=HS->next; x=HS->data;}
+		      \item[D.] \texttt{x=HS->data; HS=HS->next;}
+	      \end{enumerate}
+
+	\item 向一个栈顶指针为 h 的带头结点的链栈中插入指针 s 所指的结点时，应执行（ ）操作。
+	      \begin{enumerate}
+		      \item[A.] h->next = h
+		      \item[B.] s->next = h
+		      \item[C.] s->next = h->next
+		      \item[D.] s->next = h->next; h->next = s
+	      \end{enumerate}
+
+	\item 若已知一个栈的进栈序列是 $1, 2, 3, \dots, n$，其输出序列为 $p_1, p_2, p_3, \dots, p_n$，若 $p_1=3$，则 $p_2$ 为（ ）
+	      \begin{enumerate}
+		      \item[A.] 可能是 2
+		      \item[B.] 一定是 2
+		      \item[C.] 可能是 1
+		      \item[D.] 一定是 1
+	      \end{enumerate}
+
+	\item 设计一个判别表达式中左、右括号是否配对出现的算法，采用（ ）数据结构最佳。
+	      \begin{enumerate}
+		      \item[A.] 线性表的顺序存储结构
+		      \item[B.] 队列
+		      \item[C.] 线性表的链式存储结构
+		      \item[D.] 栈
+	      \end{enumerate}
+
+	\item 允许对队列进行的操作有（ ）
+	      \begin{enumerate}
+		      \item[A.] 对队列中的元素排序
+		      \item[B.] 取出最近进队的元素
+		      \item[C.] 在队头元素之前插入元素
+		      \item[D.] 删除队头元素
+	      \end{enumerate}
+
+	\item 对于循环队列（ ）
+	      \begin{enumerate}
+		      \item[A.] 无法判断队列是否为空
+		      \item[B.] 无法判断队列是否为满
+		      \item[C.] 队列不可能满
+		      \item[D.] 以上说法都不对
+	      \end{enumerate}
+
+	\item 队列的"先进先出"特性是指（ ）
+	      \begin{enumerate}
+		      \item[A.] 最早插入队列中的元素总是最后被删除
+		      \item[B.] 当同时进行插入、删除操作时，总是插入操作优先
+		      \item[C.] 每当有删除操作时，总是要先做一次插入操作
+		      \item[D.] 每次从队列中删除的总是最早插入的元素
+	      \end{enumerate}
+
+	\item 用不带头结点的单链表存储队列，其头指针指向队头结点，尾指针指向队尾结点，则在进行出队操作时（ ）
+	      \begin{enumerate}
+		      \item[A.] 仅修改队头指针
+		      \item[B.] 仅修改队尾指针
+		      \item[C.] 队头、队尾指针都可能要修改
+		      \item[D.] 队头、队尾指针都要修改
+	      \end{enumerate}
+
+	\item 队列采用循环队列存储的优点是（ ）
+	      \begin{enumerate}
+		      \item[A.] 便于增加队列存储空间
+		      \item[B.] 防止队列溢出
+		      \item[C.] 便于随机存取
+		      \item[D.] 避免数据元素的移动
+	      \end{enumerate}
+
+	\item 队列的出队操作是指（ ）操作。
+	      \begin{enumerate}
+		      \item[A.] 队头删除
+		      \item[B.] 队尾删除
+		      \item[C.] 队头插入
+		      \item[D.] 队尾插入
+	      \end{enumerate}
+
+	\item 可以采用（ ）这种数据结构，实现表达式中左右括号是否配对出现判别的运算。
+	      \begin{enumerate}
+		      \item[A.] 队列
+		      \item[B.] 栈
+		      \item[C.] 集合
+		      \item[D.] 树
+	      \end{enumerate}
+
+	\item 可以采用（ ）这种数据结构，实现图的广度优先遍历运算。
+	      \begin{enumerate}
+		      \item[A.] 队列
+		      \item[B.] 树
+		      \item[C.] 栈
+		      \item[D.] 集合
+	      \end{enumerate}
+
+	\item 设 A, B, C, D 四元素依次进栈，进栈的过程中允许出栈，则出栈序列不可能是（ ）
+	      \begin{enumerate}
+		      \item[A.] ABCD
+		      \item[B.] CDBA
+		      \item[C.] DBCA
+		      \item[D.] BCAD
+	      \end{enumerate}
+
+	\item 以下（ ）不是队列的基本运算？
+	      \begin{enumerate}
+		      \item[A.] 从队尾插入一个新元素
+		      \item[B.] 从队列中删除第 i 个元素
+		      \item[C.] 判断一个队列是否为空
+		      \item[D.] 读取队头元素的值
+	      \end{enumerate}
+
+	\item 若用一个大小为 6 的数组来实现循环队列，现两栈共享空间 $V[1..m]$，top[1]、top[2] 分别代表第 1 和第 2 个栈的栈顶，栈 1 的底在 $V[1]$，栈 2 的底在 $V[m]$，则栈满的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] $|top[2] - top[1]| = 0$
+		      \item[B.] $top[1] + 1 = top[2]$
+		      \item[C.] $top[1] + top[2] = m$
+		      \item[D.] $top[1] = top[2]$
+	      \end{enumerate}
+
+	\item 假设以数组 $A[0..n-1]$ 存放循环队列的元素，其头指针 front 指向队头元素、尾指针 rear 指向队尾元素下一个，则在少用一个元素空间的前提下，队列空的判定条件为（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{(front+1)\%n == rear}
+		      \item[B.] \texttt{(rear+1)\%n == front}
+		      \item[C.] \texttt{rear+1 == front}
+		      \item[D.] \texttt{rear == front}
+	      \end{enumerate}
+
+	\item 循环队列存储在数组元素 $A[0]$ 至 $A[m]$ 中，队头和队尾下标分别为 front 和 rear，那么入队时修改 rear 的操作为（ ）
+	      \begin{enumerate}
+		      \item[A.] $rear = rear + 1$
+		      \item[B.] $rear = (rear + 1) \% (m-1)$
+		      \item[C.] $rear = (rear + 1) \% m$
+		      \item[D.] $rear = (rear + 1) \% (m+1)$
+	      \end{enumerate}
+
+	\item 在一个长度为 n 的链式栈中入栈实现算法的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(\log n)$
+		      \item[C.] $O(n)$
+		      \item[D.] $O(n^2)$
+	      \end{enumerate}
+
+	\item 在一个长度为 n 的链式栈中出栈实现算法的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(n)$
+		      \item[C.] $O(\log n)$
+		      \item[D.] $O(n^2)$
+	      \end{enumerate}
+
+	\item 在一个长度为 n 的链队列中入队实现算法的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n^2)$
+		      \item[B.] $O(\log n)$
+		      \item[C.] $O(1)$
+		      \item[D.] $O(n)$
+	      \end{enumerate}
+\end{enumerate}
+
+\section*{填空题}
+
+\begin{enumerate}
+	\item 栈的特点是（ ），队列的特点是（ ）。
+	\item 设栈采用顺序存储结构，若已知 $i-1$ 个元素进栈，则将第 $i$ 个元素进栈时，进栈算法的时间复杂度为（ ）。
+	\item 若用不带头结点的单链表来表示链栈 S，则创建一个空栈所要执行的操作是（ ）。
+	\item 在具有 n 个单元循环队列中，队满时共有（ ）个元素。
+	\item 循环队列的引进目的是解决（ ）问题。
+	\item 在队列中，新插入的结点只能添加到（ ）。
+	\item （ ）可以作为实现递归函数调用的一种数据结构。
+	\item 通常元素进栈的操作方式是（ ）。
+	\item 通常元素退栈的操作方式是（ ）。
+	\item 一个栈的输入序列是 12345，则栈的输出序列 43512 是（ ）。
+	\item 在作进栈运算时应先判别栈是否（满）；在作退栈运算时应先判别栈是否（ ），当栈中元素为 n 个，作进栈运算时发生上溢，则说明该栈的最大容量为（ ）。
+	\item \underline{栈} 是限定仅在表尾进行插入或删除操作的线性表，其运算遵循 \underline{后进先出} 的原则。
+	\item 空串是零个字符的串，其长度等于零。空白串是由一个或多个空格字符组成的串，其长度等于其包含的空格个数。
+	\item 设栈采用顺序存储结构，若已知 $i-1$ 个元素进栈，则将第 $i$ 个元素进栈时，进栈算法的时间复杂度为 $O(1)$。
+	\item 在具有 n 个单元循环队列中，队满时共有 n-1 个元素。
+	\item 循环队列的引进目的是解决"假溢出"问题。
+	\item 在队列中，新插入的结点只能添加到队尾。
+	\item 栈可以作为实现递归函数调用的一种数据结构。
+	\item 通常元素进栈的操作是先移动栈顶指针，后存入元素；元素退栈的操作是先取出元素，后移动栈顶指针。
+	\item 一个栈的输入序列是 12345，则栈的输出序列 43512 是不可能实现的。
+	\item 在作进栈运算时应先判别栈是否已满；在作退栈运算时应先判别栈是否已空，当栈中元素为 n 个，作进栈运算时发生上溢，则说明该栈的最大容量为 n。
+	\item 设有两个长度为 n 的单链表，结点类型相同，若以 h1 为表头指针的链表是非循环的，以 h2 为表头指针的链表是循环的，则对于两个链表来说，删除最后一个结点的操作，其时间复杂度都是 $O(n)$。
+\end{enumerate}
+
+\section*{判断题}
+
+\begin{enumerate}
+	\item 队列是一种插入和删除操作分别在表的两端进行的线性表，是一种先进后出的结构。（ ）
+	\item 栈是限定仅在表尾进行插入和删除操作的线性表，遵循后进先出的原则。（ ）
+	\item 队列是限定仅在表尾进行插入操作的线性表，遵循先进先出的原则。（ ）
+	\item 循环队列不会产生上溢。（ ）
+	\item 栈和队列都是线性表。（ ）
+	\item 栈和队列的共同点是只允许在端点处插入和删除元素。（ ）
+	\item 队列是一种插入和删除操作分别在表的两端进行的线性表，是一种先进后出的结构。（ ）
+	\item 栈和队列都是线性表的具体应用。（ ）
+	\item 循环队列的优点是可以克服顺序队列的假上溢现象。（ ）
+	\item 栈和队列都不允许在元素中间进行插入和删除操作。（ ）
+\end{enumerate}
+
+\section*{简答题}
+
+\begin{enumerate}
+	\item 用栈实现将中缀表达式 $8-(3+5)*(5-6/2)$ 转换成后缀表达式，画出栈的变化过程图。
+	\item 栈和队列的共同点和区别是什么？
+	\item 怎样判定循环队列的空和满？
+	\item 画出后缀表达式 $ABC*D/-E-$，求值时操作数栈和运算符栈的变化过程。
+	\item 在一个循环队列中只有尾指针（记为 rear，结点结构为数据域 data，指针域 next），请给出这种队列的入队和出队操作的实现过程。
+\end{enumerate}
+
+\section*{算法题}
+
+\begin{enumerate}
+	\item 分别写出顺序栈、链栈，顺序队列、链队列的进栈，出栈，入队列、出队列的算法。
+	\item 利用栈和队列的特点，编写算法判断一个字符串是否为回文。
+	\item 编写算法将一个十进制数转换成二进制。
+\end{enumerate}
+
+\end{document}

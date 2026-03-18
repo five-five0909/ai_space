@@ -1,0 +1,770 @@
+\documentclass[a4paper,11pt]{ctexart}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=2.0cm, bottom=2.0cm, headsep=0.3cm, footskip=1cm}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{needspace}
+\usepackage{multirow}
+
+\AtBeginDocument{
+  \hypersetup{colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan}
+}
+
+\setlist{nosep, itemsep=0.8ex, parsep=0.1em}
+\setlist[itemize]{leftmargin=1.8em}
+\setlist[enumerate]{leftmargin=1.8em}
+
+% ===== 颜色定义 =====
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebg}{rgb}{0.98,0.98,0.98}
+\definecolor{tipsblue}{rgb}{0.85,0.93,1.0}
+\definecolor{highlightyellow}{rgb}{1.0,0.97,0.8}
+
+% ===== 代码块样式 =====
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=6pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=Python,
+    frame=single,
+    framerule=0.5pt,
+    rulecolor=\color{gray!40}
+}
+\lstset{style=mystyle}
+
+% ===== 彩色框 =====
+\newtcolorbox{problembox}[1][]{
+    colback=white,
+    colframe=blue!60!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=10pt, after skip=8pt
+}
+
+\newtcolorbox{solutionbox}[1][]{
+    enhanced, breakable,
+    colback=green!3!white,
+    colframe=green!50!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=10pt
+}
+
+\newtcolorbox{metaphorbox}[1][]{
+    colback=orange!5!white,
+    colframe=orange!70!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+\newtcolorbox{beginnerbox}[1][]{
+    colback=tipsblue,
+    colframe=blue!50!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+\newtcolorbox{appbox}[1][]{
+    colback=green!3!white,
+    colframe=green!60!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=10pt
+}
+
+\newtcolorbox{keybox}[1][]{
+    colback=highlightyellow,
+    colframe=orange!80!black,
+    title=\textbf{#1},
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=3pt, outer arc=3pt,
+    coltitle=black,
+    before skip=8pt, after skip=8pt
+}
+
+% ===== 页眉页脚 =====
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{深度学习-第1章}
+\fancyhead[L]{深度学习概述 · 练习题}
+\fancyfoot[C]{\thepage}
+\addtolength{\headheight}{2pt}
+
+\parskip=2pt plus 1pt minus 0.5pt
+\linespread{1.35}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+
+\title{\textbf{深度学习\\第1章\quad 深度学习概述}\\[0.5em]
+{\large\color{gray}——AI、机器学习、深度学习：搞清楚这三者的关系，你就站在了正确的起跑线上}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% ===== 章节导读 =====
+\begin{beginnerbox}[本章题目导览：你将挑战哪些核心问题？]
+    第1章是整门课的"地图"——在动手写代码之前，先搞清楚深度学习是什么、从哪里来、能做什么、为什么现在才火。本章共 6 道题，覆盖概述的全部核心知识点：
+
+    \begin{itemize}
+        \item \textbf{Q1-01（辨析填空）}：AI、机器学习、深度学习的层级关系——三者是什么关系？各自的边界在哪里？传统机器学习和深度学习的核心区别是什么？
+        \item \textbf{Q1-02（时间线梳理）}：深度学习的发展历程——从感知机到 AlexNet 到 ChatGPT，关键里程碑事件是什么？两次"AI 寒冬"因何而起、因何结束？
+        \item \textbf{Q1-03（概念对比）}：深度学习的三大核心特点——自动特征提取、端到端学习、大数据驱动，各自的含义、优势和代价是什么？
+        \item \textbf{Q1-04（应用场景分析）}：深度学习在各领域的应用——计算机视觉、自然语言处理、语音识别、推荐系统，各领域的代表模型和突破性进展。
+        \item \textbf{Q1-05（对比分析）}：深度学习 vs 传统机器学习的适用边界——什么情况下用深度学习更好？什么情况下传统方法反而更合适？
+        \item \textbf{Q1-06（开放分析）}：深度学习成功的三要素——数据、算力、算法，三者缺一不可，以及当前深度学习面临的主要挑战和局限。
+    \end{itemize}
+\end{beginnerbox}
+
+\section{第 1 章\quad 深度学习概述}
+
+"深度学习"这个词几乎每天都出现在新闻里。但它究竟是什么？和"人工智能""机器学习"有什么关系？为什么这几年突然这么火？学它有什么用？
+
+在一头扎进矩阵运算和反向传播之前，本章先退一步，从全局视角看清楚深度学习的"地图"：
+
+\begin{itemize}
+    \item 它在 AI 大家族里处于什么位置；
+    \item 它的发展经历了哪些起起落落；
+    \item 它有哪些独特的优势，又有哪些不可忽视的局限；
+    \item 它在现实世界里能解决哪些问题。
+\end{itemize}
+
+带着这张地图学后面的章节，你会清楚地知道"我在学什么""我学的这块拼图放在哪里"。
+
+\begin{metaphorbox}[先建立一个总感觉：深度学习在 AI 里是什么位置？]
+    \textbf{把人工智能想象成一座大城市，机器学习是其中一个区，深度学习是这个区里最热闹的一条街。}
+
+    \begin{itemize}
+        \item \textbf{人工智能（AI）} = 整座城市：凡是让计算机表现出"像人一样的智能"行为的技术，都住在这里——专家系统、搜索算法、机器学习、机器人控制……；
+        \item \textbf{机器学习（ML）} = 城市里的"学习区"：不靠手写规则，而是让计算机\textbf{从数据中自动学习规律}的那一类方法——决策树、SVM、随机森林、神经网络……；
+        \item \textbf{深度学习（DL）} = 学习区里最火的街道：用多层神经网络学习数据的表示，特别擅长处理图像、语音、文本这类高维、非结构化数据，近十年主导了 AI 的进步。
+    \end{itemize}
+
+    \textbf{关系口诀}：深度学习 $\subset$ 机器学习 $\subset$ 人工智能。
+\end{metaphorbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q1-01\quad AI、机器学习、深度学习：三者关系辨析]
+    \textbf{题目描述：}\\
+    文档第 1.1 节介绍了深度学习的定义及其在人工智能大家族中的位置。这三个概念是整门课的出发点，必须彻底厘清。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，对比三个概念的核心信息：
+
+        \begin{center}
+        \begin{tabular}{p{2.5cm} p{4.5cm} p{4.5cm}}
+            \toprule
+            概念 & 核心定义（一句话） & 典型方法/代表技术 \\
+            \midrule
+            人工智能（AI） & \underline{\hspace{4.0cm}} & 专家系统、搜索算法、\underline{\hspace{2.0cm}} \\[1.5em]
+            机器学习（ML） & \underline{\hspace{4.0cm}} & 决策树、SVM、\underline{\hspace{2.5cm}} \\[1.5em]
+            深度学习（DL） & \underline{\hspace{4.0cm}} & CNN、RNN、\underline{\hspace{2.5cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{传统机器学习 vs 深度学习}：两者的最根本区别是什么？从"特征工程"的角度，解释为什么深度学习被称为"端到端（End-to-End）学习"。
+
+        \item \textbf{判断题}：以下说法是否正确？请逐一判断并说明理由：
+        \begin{enumerate}[a.]
+            \item "所有深度学习算法都是机器学习算法"
+            \item "所有机器学习算法都属于人工智能"
+            \item "深度学习就是用了很多层的神经网络，层数越多效果一定越好"
+            \item "深度学习能解决所有 AI 问题，传统机器学习已经过时"
+        \end{enumerate}
+
+        \item \textbf{感知机是深度学习的祖先}：McCulloch-Pitts 神经元（1943年）和 Rosenblatt 感知机（1958年）被认为是现代深度学习的起源。用一句话解释感知机是什么，并指出它和现代深度神经网络最关键的区别。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 1 章 1.1 深度学习简介]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：为什么区分这三个概念很重要？]
+    \begin{itemize}
+        \item \textbf{避免混用}：很多媒体把"AI""机器学习""深度学习"当同义词用，这会造成理解上的混乱。比如"AI 下棋"（AlphaGo 用的是强化学习 + 深度学习），"AI 推荐"（大多是传统机器学习 + 深度学习的混合），概念混用让你无法判断背后用了什么技术。
+        \item \textbf{知道边界才知道该用什么工具}：数据量小、特征明确 $\to$ 传统机器学习可能更好；数据量大、原始数据高维（图像/语音/文本）$\to$ 深度学习更有优势。搞清楚三者关系，你才能在实际问题中做出正确的技术选型。
+        \item \textbf{深度学习 $\neq$ 万能}：深度学习是强大的工具，但它需要大量数据、大量算力、专业调参，在某些场景（小数据、需要可解释性、计算资源有限）并不是最优选择。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 三概念对比表：}
+
+    \begin{center}
+    \begin{tabular}{p{2.5cm} p{4.3cm} p{4.0cm}}
+        \toprule
+        概念 & 核心定义 & 典型方法 \\
+        \midrule
+        AI & 使计算机表现出类似人类智能行为的科学与技术 & 专家系统、搜索算法、机器学习、机器人 \\[0.8em]
+        ML & 让计算机从数据中自动学习规律，无需显式编程 & 决策树、SVM、随机森林、神经网络 \\[0.8em]
+        DL & 使用多层神经网络自动学习数据的层次化表示 & CNN、RNN、Transformer、GAN \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 传统机器学习 vs 深度学习——特征工程的角度：}
+
+    \textbf{传统机器学习}：需要人工设计特征（特征工程）。以图像识别为例，工程师需要手工设计"边缘检测""纹理描述符"等特征，再将这些特征输入分类器（如 SVM）。特征好坏严重依赖领域知识和经验。
+
+    \textbf{深度学习（端到端学习）}：将原始数据（像素值）直接输入网络，网络自动从底层特征（边缘）到高层语义（人脸）逐层学习特征表示，无需人工干预。输入端是原始数据，输出端是最终结果，"端到端"意味着中间过程完全由网络自主学习。
+
+    \textbf{(3) 判断题：}
+
+    \begin{enumerate}[a.]
+        \item \textbf{正确}。深度学习是机器学习的一个子集，所有深度学习方法都符合机器学习"从数据中学习"的定义；
+        \item \textbf{正确}。机器学习是人工智能的子集，所有机器学习方法都属于人工智能的范畴；
+        \item \textbf{错误}。层数越多不一定效果越好。层数过多会导致梯度消失/爆炸、过拟合等问题，且计算代价急剧增加。深度不是关键，合适的架构、正则化和训练技巧才是；
+        \item \textbf{错误}。传统机器学习在小数据场景、需要可解释性（医疗、金融合规）、计算资源受限等情况下仍有不可替代的优势。两者是互补关系，而非替代关系。
+    \end{enumerate}
+
+    \textbf{(4) 感知机与深度神经网络的区别：}
+
+    感知机是一种\textbf{单层线性分类器}：对输入的加权求和，超过阈值输出1，否则输出0，只能解决线性可分问题。
+
+    与现代深度神经网络最关键的区别：\textbf{深度}（多层）和\textbf{激活函数的可微性}。现代网络用多层非线性激活函数（ReLU、Sigmoid 等）叠加，通过反向传播优化，能学习任意复杂的非线性映射；感知机只有一层，激活函数不可微，无法用梯度下降训练多层结构。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q1-02\quad 深度学习发展历程：关键里程碑与两次寒冬]
+    \textbf{题目描述：}\\
+    文档第 1.1 节梳理了深度学习的历史脉络。深度学习并非一夜成名，它经历了几十年的沉浮——理解这段历史，才能理解"为什么现在才爆发"。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 将以下历史事件按时间顺序排列，并在每个事件后填写其重要意义（2--3句话）：
+
+        \begin{center}
+        \begin{tabular}{p{0.8cm} p{3.5cm} p{7.0cm}}
+            \toprule
+            排序 & 事件 & 重要意义 \\
+            \midrule
+            \underline{\quad} & AlexNet 赢得 ImageNet（2012年） & \underline{\hspace{6.5cm}} \\[1.5em]
+            \underline{\quad} & Rosenblatt 提出感知机（1958年） & \underline{\hspace{6.5cm}} \\[1.5em]
+            \underline{\quad} & GPT 系列 / ChatGPT 发布（2018--2022年） & \underline{\hspace{6.5cm}} \\[1.5em]
+            \underline{\quad} & Hinton 等提出反向传播（1986年） & \underline{\hspace{6.5cm}} \\[1.5em]
+            \underline{\quad} & Transformer 论文发布（2017年） & \underline{\hspace{6.5cm}} \\[1.5em]
+            \underline{\quad} & 第一次 AI 寒冬（1970s--1980s） & \underline{\hspace{6.5cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{两次 AI 寒冬}：深度学习历史上经历了两次"寒冬"。分别说明：
+        \begin{enumerate}[a.]
+            \item 第一次寒冬（1970s--1980s）的主要原因；
+            \item 第二次寒冬（1990s--2000s）的主要原因；
+            \item 2012年 AlexNet 打破寒冬的三个关键因素（提示：数据、算力、算法各贡献了什么）。
+        \end{enumerate}
+
+        \item \textbf{ImageNet 时刻}：2012年 AlexNet 在 ImageNet 竞赛中，将图像分类 Top-5 错误率从约26\%降至16.4\%，降幅超过10个百分点。这个结果为什么被称为"深度学习的分水岭"？在此之前，业界对神经网络的普遍态度是什么？
+
+        \item \textbf{Transformer 的革命性}：2017年"Attention is All You Need"论文提出的 Transformer 架构，彻底改变了 NLP 领域，并逐渐扩展到视觉、多模态等领域。用两句话解释 Transformer 相比 RNN 的核心优势。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 1 章 1.1 深度学习简介]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：为什么深度学习现在才爆发，而不是1960年代？]
+    \begin{itemize}
+        \item \textbf{神经网络的思想早就有了}：McCulloch-Pitts 神经元（1943年）、感知机（1958年），甚至反向传播（1986年）都比"深度学习爆发"早了几十年。思想不是瓶颈。
+        \item \textbf{三个瓶颈同时突破才引爆了革命}：(1) \textbf{数据}——ImageNet（2009年）提供了120万张标注图片，2000年代之前根本没有这么多高质量数据；(2) \textbf{算力}——GPU 从游戏加速芯片进化为通用并行计算平台（NVIDIA CUDA，2006年），矩阵运算速度提升100倍以上；(3) \textbf{算法}——ReLU 激活函数、Dropout 正则化、批归一化等技巧解决了深层网络的训练难题。
+        \item \textbf{历史教训}：技术突破往往需要多个条件同时成熟才能引爆，单一因素的改进可能沉寂几十年，等待其他条件跟上。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 历史事件排序与意义：}
+
+    \begin{center}
+    \begin{tabular}{p{0.8cm} p{3.5cm} p{6.8cm}}
+        \toprule
+        排序 & 事件 & 重要意义 \\
+        \midrule
+        1 & 感知机（1958年） & 第一个可自动学习的神经元模型，开创了从数据中"学习"的先河，是神经网络研究的起点 \\[0.8em]
+        2 & 第一次AI寒冬（1970s） & 感知机无法解决非线性问题（Minsky证明异或问题），研究经费大幅削减，神经网络研究停滞约十年 \\[0.8em]
+        3 & 反向传播（1986年） & Hinton等人将反向传播推广至多层网络，理论上解决了多层网络的训练问题，是神经网络复兴的关键 \\[0.8em]
+        4 & AlexNet（2012年） & 深度学习的现代起点，GPU加速+大数据+深度网络三位一体，Top-5错误率一举降低10个百分点，震惊学术界 \\[0.8em]
+        5 & Transformer（2017年） & 以自注意力机制替代递归结构，支持完全并行训练，成为现代大模型的基础架构 \\[0.8em]
+        6 & GPT/ChatGPT（2018--2022年） & 大语言模型走向公众，生成式AI爆发，标志着AI进入"大模型时代" \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 两次寒冬的原因及破局：}
+
+    \begin{enumerate}[a.]
+        \item \textbf{第一次寒冬（1970s--1980s）}：Minsky 和 Papert 在《感知机》（1969年）中严格证明了单层感知机无法解决异或等非线性问题，当时多层网络的训练方法（反向传播）尚未普及，研究陷入死胡同，资金枯竭；
+        \item \textbf{第二次寒冬（1990s--2000s）}：SVM、随机森林等传统机器学习方法在有限数据下表现更好，且有坚实的统计理论支撑；神经网络梯度消失问题未解决，深层网络训练极困难；计算能力和数据量均不足；
+        \item \textbf{AlexNet 破局三要素}：\textbf{数据}——ImageNet 提供120万张标注图片，训练数据量前所未有；\textbf{算力}——两块 GTX 580 GPU 并行训练，比 CPU 快约50倍；\textbf{算法}——ReLU 激活函数缓解梯度消失，Dropout 防止过拟合，数据增强扩充训练集。
+    \end{enumerate}
+
+    \textbf{(3) AlexNet 为何是"分水岭"：}
+
+    此前业界普遍认为神经网络是"下一个 AI 寒冬"的受害者——在有限数据下效果不如 SVM，深层网络训练困难，缺乏理论保证。AlexNet 的10个百分点突破远超所有传统方法的最优成绩，让怀疑者无法辩驳。此后每年 ImageNet 冠军都是深度学习，传统特征工程方法几乎绝迹，整个 CV 领域在两三年内完成了范式转移。
+
+    \textbf{(4) Transformer 相比 RNN 的核心优势：}
+
+    RNN 必须按序列顺序逐步处理（$t$ 时刻依赖 $t-1$ 时刻的输出），无法并行训练，长序列时梯度消失严重。Transformer 用\textbf{自注意力机制}让序列中任意两个位置直接交互，打破了顺序依赖，\textbf{支持完全并行训练}，且能捕捉长距离依赖关系——这使得训练数千亿参数的大模型成为可能。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q1-03\quad 深度学习的三大核心特点]
+    \textbf{题目描述：}\\
+    文档第 1.2 节总结了深度学习区别于传统方法的核心特点。这些特点既是深度学习的优势，也决定了它的适用边界。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{自动特征提取}：传统图像识别流程通常是"手工设计特征（如 SIFT、HOG）$\to$ 送入分类器"。深度学习是"原始像素 $\to$ CNN $\to$ 预测类别"。
+
+        \begin{enumerate}[a.]
+            \item 解释"自动特征提取"的含义：CNN 的不同层分别学到了什么级别的特征？
+            \item 自动特征提取的最大优势是什么？最大代价是什么？
+        \end{enumerate}
+
+        \item \textbf{端到端学习}：填写下表，对比传统流水线和端到端学习的差异：
+
+        \begin{center}
+        \begin{tabular}{p{3.0cm} p{4.5cm} p{4.0cm}}
+            \toprule
+            & 传统流水线 & 端到端学习 \\
+            \midrule
+            流程 & 步骤1 $\to$ 步骤2 $\to$ \ldots $\to$ 最终输出 & \underline{\hspace{3.5cm}} \\[1.5em]
+            各步骤优化 & 各步骤\textbf{独立优化}，可能次优 & \underline{\hspace{3.5cm}} \\[1.5em]
+            典型例子 & 语音识别：音频$\to$声学特征$\to$音素$\to$词语$\to$文本 & \underline{\hspace{3.5cm}} \\[1.5em]
+            主要挑战 & 各模块接口设计复杂 & \underline{\hspace{3.5cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{大数据驱动}：深度学习的性能通常随数据量增加而持续提升，而传统机器学习在数据量超过一定阈值后性能趋于平稳。
+
+        \begin{enumerate}[a.]
+            \item 解释为什么深度学习对数据量的需求远高于传统机器学习（从参数数量和过拟合的角度）；
+            \item 当数据量不足时，有哪些常用的应对策略？（至少列举三种）
+        \end{enumerate}
+
+        \item \textbf{可解释性问题}：深度学习模型通常被称为"黑盒"，而传统方法（如决策树、线性回归）具有较好的可解释性。在以下场景中，可解释性的重要程度如何？为什么？
+        \begin{enumerate}[a.]
+            \item 医疗诊断辅助系统（预测某患者是否患有癌症）；
+            \item 社交媒体图片内容审核（判断是否违规）；
+            \item 自动驾驶汽车的行人检测系统。
+        \end{enumerate}
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 1 章 1.2 深度学习的特点]}}
+\end{problembox}
+
+\begin{metaphorbox}[生活比喻：自动特征提取像什么？]
+    \textbf{把深度学习识别猫比作一个从来没见过猫的人学认猫的过程：}
+
+    \begin{itemize}
+        \item \textbf{传统方法（手工特征）} = 专家事先告诉他："猫有尖耳朵、竖瞳孔、胡须，你去找这些特征"。如果专家的描述不够全面，他就认不出某些角度的猫；
+        \item \textbf{深度学习（自动特征提取）} = 给他看10万张猫的照片，让他自己总结规律。他先学会识别边缘，再学会识别形状，再学会识别整体轮廓——每一层网络都在提炼更抽象的"猫的概念"；
+        \item \textbf{代价} = 需要10万张照片（数据）、足够的时间（计算）、且学到的"猫的概念"我们看不懂（可解释性差）。
+    \end{itemize}
+\end{metaphorbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 自动特征提取：}
+
+    \begin{enumerate}[a.]
+        \item CNN 的不同层学到不同抽象级别的特征：\textbf{浅层}（第1-2层）学到低级特征——边缘、颜色梯度、纹理；\textbf{中层}（第3-5层）学到中级特征——局部形状、纹理组合；\textbf{深层}（靠近输出层）学到高级语义特征——"眼睛""轮子""人脸"等抽象概念。这种层次化的特征学习是深度学习"深"的核心意义；
+        \item \textbf{最大优势}：无需领域专家手工设计特征，同一套框架（如 ResNet）能迁移到各种视觉任务，泛化能力强；\textbf{最大代价}：需要大量标注数据、大量计算资源，且学到的特征难以解释（可解释性差）。
+    \end{enumerate}
+
+    \textbf{(2) 端到端学习对比表：}
+
+    \begin{center}
+    \begin{tabular}{p{3.0cm} p{4.0cm} p{4.0cm}}
+        \toprule
+        & 传统流水线 & 端到端学习 \\
+        \midrule
+        流程 & 多步骤，各步骤独立设计 & 原始输入直接到最终输出，中间由网络自动学习 \\[0.8em]
+        优化方式 & 各步骤独立优化，可能次优 & 以最终目标为导向，全局联合优化 \\[0.8em]
+        典型例子 & 语音识别多模块流水线 & 深度语音识别：音频波形$\to$文本（CTC/Attention） \\[0.8em]
+        主要挑战 & 各模块接口复杂，误差累积 & 需要大量配对数据（原始输入+最终标签） \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(3) 大数据驱动：}
+
+    \begin{enumerate}[a.]
+        \item 深度学习模型参数量通常在百万到千亿级别（如 GPT-3 有1750亿参数），参数越多理论上需要越多数据才能"填满"（避免过拟合）。传统方法（如线性回归、SVM）参数量少，少量数据即可获得稳定的统计估计；
+        \item 数据不足时的应对策略：\textbf{数据增强}（翻转、旋转、裁剪图像，增加样本多样性）；\textbf{迁移学习}（使用预训练模型，将大数据上学到的特征迁移到小数据任务）；\textbf{正则化}（Dropout、权值衰减，降低过拟合风险）；\textbf{合成数据}（GAN 或规则生成人工数据）；\textbf{半监督学习}（利用大量无标注数据辅助训练）。
+    \end{enumerate}
+
+    \textbf{(4) 可解释性的重要程度：}
+
+    \begin{enumerate}[a.]
+        \item \textbf{医疗诊断——可解释性极重要}：医生需要理解"为什么"判断患癌，才能验证逻辑是否合理、纠正潜在偏差；法规（如欧盟 GDPR）要求对影响个人的自动化决策提供解释；错误诊断后果严重，需要人工审查能力；
+        \item \textbf{内容审核——可解释性中等重要}：用户申诉时需要知道为何被判违规；但处理量极大（每天数十亿内容），完全人工解释不可行，黑盒系统可接受，但需要审计机制；
+        \item \textbf{自动驾驶行人检测——可解释性非常重要}：事故后需要分析系统在何种输入下失效，监管机构需要验证系统安全性；但实时推理场景下"解释"比"正确识别"更紧迫，可解释性用于事后分析和系统改进。
+    \end{enumerate}
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q1-04\quad 深度学习应用场景全景扫描]
+    \textbf{题目描述：}\\
+    文档第 1.3 节介绍了深度学习在各领域的应用。深度学习的威力在具体应用中才能真正感受到——理解典型应用场景，有助于建立"深度学习能做什么"的直觉。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，梳理四大领域的典型应用和代表模型：
+
+        \begin{center}
+        \begin{tabular}{p{2.5cm} p{3.5cm} p{2.5cm} p{3.0cm}}
+            \toprule
+            应用领域 & 典型任务 & 代表模型/架构 & 深度学习带来的突破 \\
+            \midrule
+            计算机视觉 & 图像分类、目标检测、\underline{\hspace{1.5cm}} & AlexNet、\underline{\hspace{1.5cm}}、YOLO & \underline{\hspace{2.5cm}} \\[1.5em]
+            自然语言处理 & 机器翻译、\underline{\hspace{1.5cm}}、文本生成 & \underline{\hspace{1.5cm}}、BERT、GPT & \underline{\hspace{2.5cm}} \\[1.5em]
+            语音识别 & 语音转文字、\underline{\hspace{1.5cm}} & \underline{\hspace{1.5cm}}、Whisper & \underline{\hspace{2.5cm}} \\[1.5em]
+            推荐系统 & 商品推荐、\underline{\hspace{1.5cm}} & \underline{\hspace{1.5cm}}、Wide \& Deep & \underline{\hspace{2.5cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{计算机视觉的里程碑}：ImageNet 竞赛（ILSVRC）从2012年到2017年，Top-5 错误率从约16\%降至约3\%（已超越人类平均水平约5\%）。列举这期间两个重要的网络架构创新，并说明各自解决了什么问题。
+
+        \item \textbf{大语言模型（LLM）的涌现能力}：GPT-3（2020年）、GPT-4（2023年）等大语言模型展示出"涌现能力"——随着模型规模增大，突然获得了小模型完全不具备的能力（如数学推理、代码生成）。解释"涌现"现象，并举一个具体例子说明涌现能力与模型规模的关系。
+
+        \item \textbf{跨领域迁移}：Transformer 架构最初为 NLP 设计，如今已被广泛应用于视觉（Vision Transformer，ViT）、语音、蛋白质结构预测（AlphaFold2）等领域。解释为什么一个架构能在如此不同的领域都取得好效果——Transformer 的哪个设计思想具有普适性？
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 1 章 1.3 深度学习应用场景]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：深度学习不是一个模型，而是一套方法论]
+    \begin{itemize}
+        \item \textbf{同一类问题，不同架构}：图像用 CNN（局部感受野，平移不变性）；序列用 RNN/Transformer（处理时间依赖）；生成任务用 GAN/VAE/扩散模型……每种架构的设计都针对该类数据的结构特点。
+        \item \textbf{迁移学习是现代深度学习的"基础设施"}：在大数据上预训练一个强大的基础模型（如 BERT、ResNet），再用少量目标任务数据微调。这意味着即使你的任务数据很少，也能站在"巨人的肩膀上"——这是深度学习进入实际应用的关键技术。
+        \item \textbf{深度学习的边界正在模糊}：早期各领域各自为战（CV 用 CNN，NLP 用 LSTM）；现在 Transformer 统一了大半个 AI 领域，多模态大模型（GPT-4V、Gemini）同时处理图像、文本、语音，领域边界越来越模糊。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 四大领域应用梳理：}
+
+    \begin{center}
+    \begin{tabular}{p{2.5cm} p{3.2cm} p{2.8cm} p{2.8cm}}
+        \toprule
+        领域 & 典型任务 & 代表模型 & 突破 \\
+        \midrule
+        计算机视觉 & 图像分类、目标检测、图像分割/生成 & AlexNet、ResNet、YOLO & 超越人类识别精度，实时目标检测 \\[0.8em]
+        NLP & 机器翻译、情感分析、文本生成 & Transformer、BERT、GPT & 理解上下文语义，生成连贯自然语言 \\[0.8em]
+        语音识别 & 语音转文字、语音合成 & DeepSpeech、Whisper & 接近人类转录精度，多语言支持 \\[0.8em]
+        推荐系统 & 商品推荐、内容推荐、广告点击 & 深度协同过滤、Wide \& Deep & 个性化推荐效果显著提升 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) ImageNet 竞赛的架构创新：}
+
+    \begin{itemize}
+        \item \textbf{VGGNet（2014年）}：证明了网络深度是关键——用3×3小卷积核堆叠替代大卷积核，在提升深度的同时控制参数量，将 Top-5 错误率降至7.3\%；
+        \item \textbf{ResNet（2015年）}：引入残差连接（跳跃连接），解决了超深网络（152层）的梯度消失问题，使错误率降至3.6\%，并奠定了"残差块"作为深度网络基本单元的地位。
+    \end{itemize}
+
+    \textbf{(3) 涌现能力（Emergent Abilities）：}
+
+    涌现是指模型在达到某个规模阈值后，\textbf{突然}获得小模型完全没有的能力——性能不是随规模平滑提升，而是在某个临界点跃升。
+
+    具体例子：GPT-3（1750亿参数）展示了少样本（few-shot）学习能力——只需在提示词中给出2--3个示例，模型就能完成从未见过的任务（如翻译、算数题），而同类型但较小的模型（如1亿参数）几乎没有这种能力。这一能力在模型规模超过某个阈值时几乎"突然出现"，研究者至今尚未完全理解其机制。
+
+    \textbf{(4) Transformer 的普适性——自注意力机制：}
+
+    Transformer 的核心是\textbf{自注意力（Self-Attention）机制}：它允许序列中\textbf{任意两个位置}直接计算相互关联性，不依赖位置的临近性，也不依赖时间步的递归。这种"全局交互"能力具有普适性：
+    \begin{itemize}
+        \item 文本中：任意两个词可以直接建立语义关联（"银行"和"利率"的联系跨越多个词）；
+        \item 图像中（ViT）：将图像切成 patch，任意两个 patch 可以直接交互（远处的天空和地面可以同时影响预测）；
+        \item 蛋白质（AlphaFold2）：氨基酸序列中任意两个残基可以直接计算相互作用，预测三维折叠结构。
+    \end{itemize}
+    只要数据可以被表示为"元素的序列/集合"，自注意力机制就能建模元素间的全局交互——这正是 Transformer 跨领域成功的核心原因。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q1-05\quad 深度学习 vs 传统机器学习：适用边界分析]
+    \textbf{题目描述：}\\
+    文档第 1.2 节指出，深度学习并非万能，传统机器学习在特定场景下仍有不可替代的优势。理解两者的适用边界，才能在实际问题中做出正确的技术选型。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item 填写下表，从多个维度对比深度学习与传统机器学习：
+
+        \begin{center}
+        \begin{tabular}{p{3.0cm} p{3.5cm} p{3.5cm} p{2.0cm}}
+            \toprule
+            维度 & 传统机器学习 & 深度学习 & 谁更优 \\
+            \midrule
+            数据需求量 & 较少（数百到数千） & \underline{\hspace{3.0cm}} & \underline{\hspace{1.5cm}} \\[1.2em]
+            计算资源需求 & \underline{\hspace{3.0cm}} & 高（通常需要GPU） & \underline{\hspace{1.5cm}} \\[1.2em]
+            特征工程 & \underline{\hspace{3.0cm}} & 自动提取，无需手工 & \underline{\hspace{1.5cm}} \\[1.2em]
+            可解释性 & \underline{\hspace{3.0cm}} & 通常较差（黑盒） & \underline{\hspace{1.5cm}} \\[1.2em]
+            非结构化数据 & \underline{\hspace{3.0cm}} & 擅长（图像/语音/文本） & \underline{\hspace{1.5cm}} \\[1.2em]
+            训练时间 & \underline{\hspace{3.0cm}} & 通常很长 & \underline{\hspace{1.5cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{场景判断}：以下业务场景中，你会优先选择深度学习还是传统机器学习？说明理由（每题2--3句）：
+        \begin{enumerate}[a.]
+            \item 银行根据客户的10个财务指标（收入、负债率等）预测是否违约，训练集有5000条记录；
+            \item 电商平台从用户上传的商品图片中自动生成商品标题；
+            \item 工厂生产线上的零件缺陷检测（图像输入），每类缺陷只有50张样本；
+            \item 医院利用结构化 EMR（电子病历）数据预测30天内再入院风险，数据有10万条，需要向医生解释每个预测的原因。
+        \end{enumerate}
+
+        \item \textbf{"没有免费的午餐"定理}：机器学习领域有一个著名的"没有免费的午餐"（No Free Lunch, NFL）定理，指出不存在一个在所有问题上都最优的算法。结合这个定理，解释为什么即使深度学习在众多任务上表现优异，我们仍然需要了解传统机器学习方法。
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 1 章 1.2 深度学习的特点]}}
+\end{problembox}
+
+\begin{metaphorbox}[生活比喻：深度学习 vs 传统机器学习像什么工具的关系？]
+    \begin{itemize}
+        \item \textbf{传统机器学习} = 精密手术刀：数据干净、特征明确时，快速精准，结果可解释，副作用小（计算量少）；
+        \item \textbf{深度学习} = 全自动 CNC 加工机床：原材料（原始数据）直接放进去，自动加工出精密零件，但机器价格贵（GPU）、调试复杂、需要大量原材料（数据），不适合小批量定制（小数据场景）；
+        \item \textbf{正确的工程师不执着于工具，而执着于解决问题}：问题简单用简单工具，问题复杂才动用重型工具。深度学习是"终极重型工具"，但拿它处理一个可以用线性回归解决的问题，就像用 CNC 机床切一片面包。
+    \end{itemize}
+\end{metaphorbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 对比表填写：}
+
+    \begin{center}
+    \begin{tabular}{p{3.0cm} p{3.2cm} p{3.2cm} p{1.8cm}}
+        \toprule
+        维度 & 传统ML & 深度学习 & 谁更优 \\
+        \midrule
+        数据需求 & 少（数百到数千） & 多（通常万级以上） & 传统ML \\[0.8em]
+        计算资源 & 低，CPU即可 & 高，通常需GPU & 传统ML \\[0.8em]
+        特征工程 & 需大量手工设计 & 自动提取 & 深度学习 \\[0.8em]
+        可解释性 & 通常较好（决策树等） & 通常较差 & 传统ML \\[0.8em]
+        非结构化数据 & 较弱，需先转化 & 擅长 & 深度学习 \\[0.8em]
+        训练时间 & 通常很短 & 通常很长 & 传统ML \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(2) 场景判断：}
+
+    \begin{enumerate}[a.]
+        \item \textbf{优先传统机器学习（逻辑回归/XGBoost）}：结构化表格数据，特征已经工程化（10个财务指标），仅5000条记录，数据量不足以训练深度学习；传统方法（逻辑回归/XGBoost）在此类问题上成熟且效果稳定；
+        \item \textbf{优先深度学习（多模态模型，CNN + GPT）}：图像输入（非结构化），需要理解图像内容并生成自然语言文本，是典型的深度学习优势任务（图文多模态），传统方法几乎无法胜任；
+        \item \textbf{优先迁移学习（预训练 CNN + 微调）或传统方法}：每类只有50张样本，数据量极少，直接训练深度学习极易过拟合；应使用在 ImageNet 预训练的 CNN 进行迁移学习，或结合传统图像处理方法；若样本实在太少，甚至可以考虑人工特征 + SVM；
+        \item \textbf{优先可解释的传统机器学习（逻辑回归/梯度提升树 + SHAP）}：结构化 EMR 数据、10万条（足够），但医生需要解释每个预测原因（可解释性是硬需求）；可用逻辑回归或梯度提升树，配合 SHAP 等可解释性工具给出每个特征的贡献。
+    \end{enumerate}
+
+    \textbf{(3) NFL 定理与传统机器学习的价值：}
+
+    NFL 定理指出，在所有可能的问题上对所有算法取平均，任何两个算法的期望性能相同。这意味着深度学习在某些任务上的优势，必然伴随着在另一些任务上的劣势——没有一个算法能在所有问题上都最优。
+
+    因此，即使深度学习在图像、NLP 等领域大放异彩，传统机器学习（线性模型、树模型等）在小数据、需要可解释性、计算资源受限的场景下依然是最优选择。了解传统方法让你在面对实际问题时，能根据数据规模、资源约束、解释性需求等因素，选择\textbf{最适合}的工具，而不是盲目追求"最新最深的模型"。
+\end{solutionbox}
+
+
+%% ============================================================
+\Needspace{5\baselineskip}
+\begin{problembox}[Q1-06\quad 深度学习成功的三要素与当前挑战]
+    \textbf{题目描述：}\\
+    文档第 1.2 节指出，深度学习的成功离不开数据、算力和算法三个要素的协同爆发。同时，深度学习目前仍面临若干重要挑战，理解这些挑战有助于把握这一领域的未来方向。
+
+    \vspace{0.3cm}
+    \textbf{问题：}
+    \begin{enumerate}[(1)]
+        \item \textbf{三要素分析}：对"数据、算力、算法"三个要素，分别回答：
+        \begin{enumerate}[a.]
+            \item \textbf{数据}：ImageNet 数据集在深度学习爆发中起了什么作用？"数据飞轮"（Data Flywheel）是什么概念，举一个互联网产品的例子说明；
+            \item \textbf{算力}：GPU 为什么比 CPU 更适合深度学习训练？用一个类比解释两者的区别；
+            \item \textbf{算法}：除了更深的网络，2010年代还有哪些算法创新使深度网络变得可训练？（至少列举三个，并简述各自的贡献）
+        \end{enumerate}
+
+        \item \textbf{当前挑战}：填写下表，梳理深度学习面临的主要挑战：
+
+        \begin{center}
+        \begin{tabular}{p{2.5cm} p{4.0cm} p{4.5cm}}
+            \toprule
+            挑战类别 & 具体表现 & 目前的主要应对策略 \\
+            \midrule
+            数据效率 & 需要大量标注数据，标注成本高 & \underline{\hspace{4.0cm}} \\[1.5em]
+            可解释性 & 模型决策过程不透明，难以审查 & \underline{\hspace{4.0cm}} \\[1.5em]
+            鲁棒性 & 对对抗样本和分布偏移敏感 & \underline{\hspace{4.0cm}} \\[1.5em]
+            能耗与碳排放 & 大模型训练耗电量惊人 & \underline{\hspace{4.0cm}} \\[1.5em]
+            偏见与公平性 & 训练数据中的偏见被模型放大 & \underline{\hspace{4.0cm}} \\
+            \bottomrule
+        \end{tabular}
+        \end{center}
+
+        \item \textbf{开放问题——深度学习的"下一步"}：当前深度学习仍是以"大数据驱动的模式拟合"为主，而人类学习只需要少量例子就能快速泛化（少样本学习）。请结合以下两个研究方向，分析各自试图解决深度学习的哪个根本局限：
+        \begin{enumerate}[a.]
+            \item \textbf{大语言模型的上下文学习（In-Context Learning，ICL）}：GPT-4 只需在提示词中给几个例子，就能完成新任务，无需重新训练；
+            \item \textbf{神经符号系统（Neuro-Symbolic AI）}：将神经网络的感知能力与符号推理的逻辑能力结合。
+        \end{enumerate}
+    \end{enumerate}
+
+    \vspace{0.2cm}
+    {\color{gray}\small\textit{来源溯源：[文档第 1 章 1.2 深度学习的特点 / 1.3 深度学习应用场景]}}
+\end{problembox}
+
+\begin{beginnerbox}[小白必读：为什么 GPU 对深度学习这么重要？]
+    \begin{itemize}
+        \item \textbf{深度学习的核心计算是矩阵乘法}：无论前向传播还是反向传播，本质都是大规模矩阵运算——$[N,D]\times[D,M]$ 这样的乘法，每个输出元素都需要 $D$ 次乘加运算，彼此之间完全独立，天然适合并行。
+        \item \textbf{CPU vs GPU}：CPU 有少量（4--64个）强大的通用核心，擅长串行复杂逻辑；GPU 有数千个相对简单的核心（如 NVIDIA A100 有6912个CUDA核心），擅长同时执行数千个简单的乘加运算。矩阵乘法恰好是"大量简单计算的集合"，GPU 如鱼得水。
+        \item \textbf{数字感受一下}：训练 ResNet-50（约2500万参数）在单个 CPU 上可能需要数周，在 8 块 A100 GPU 上只需要约1小时。这100倍以上的速度差距，是深度学习从"理论可行"变成"实际可用"的关键。
+    \end{itemize}
+\end{beginnerbox}
+
+\begin{solutionbox}[参考答案与详细解析]
+    \textbf{(1) 三要素分析：}
+
+    \textbf{(a) 数据——ImageNet 与数据飞轮：}
+
+    ImageNet（2009年）提供了超过120万张人工标注的图片，覆盖1000个类别，是深度学习时代第一个足够大的视觉数据集。它为 AlexNet 的训练提供了充足的"燃料"，使网络能够学到丰富的视觉特征而不过拟合。
+
+    \textbf{数据飞轮}：产品使用者越多，产生的数据越多；用数据训练的模型越好；模型越好，吸引更多用户——形成正向循环。例子：TikTok 的推荐算法，用户观看行为数据训练模型，模型推送更精准的内容，吸引更多用户留存，用户产生更多数据……飞轮越转越快。
+
+    \textbf{(b) 算力——GPU vs CPU 类比：}
+
+    CPU 像一个能力极强的"全能专家"：一次只做一件复杂的事，但每件事都做得又快又好。GPU 像一个巨大的"流水线工厂"：有数千个工人同时做简单的重复工作（矩阵中每个元素的乘加运算）。矩阵乘法恰恰是"大量独立的简单乘加"，工厂模式完胜专家模式。
+
+    \textbf{(c) 算法创新：}
+    \begin{itemize}
+        \item \textbf{ReLU 激活函数}（Nair \& Hinton，2010年）：正值区域梯度恒为1，有效缓解梯度消失，使深层网络训练成为可能；
+        \item \textbf{Dropout}（Srivastava 等，2014年）：随机关闭神经元，防止过拟合，相当于集成大量子网络；
+        \item \textbf{批归一化（Batch Normalization）}（Ioffe \& Szegedy，2015年）：稳定各层激活值分布，允许使用更大学习率，大幅加速训练并提升性能；
+        \item \textbf{残差连接（Skip Connection）}（He 等，2015年）：允许梯度直接跳过多层传播，使超过100层的网络得以训练。
+    \end{itemize}
+
+    \textbf{(2) 当前挑战与应对策略：}
+
+    \begin{center}
+    \begin{tabular}{p{2.5cm} p{3.8cm} p{4.3cm}}
+        \toprule
+        挑战 & 具体表现 & 主要应对策略 \\
+        \midrule
+        数据效率 & 需大量标注数据，成本高 & 迁移学习、半监督学习、主动学习、数据增强 \\[0.8em]
+        可解释性 & 决策过程不透明 & SHAP、注意力可视化、LIME 等可解释AI方法 \\[0.8em]
+        鲁棒性 & 对对抗样本/分布偏移敏感 & 对抗训练、数据增强、领域适应 \\[0.8em]
+        能耗/碳排放 & 大模型训练耗电量巨大 & 模型压缩、知识蒸馏、高效架构设计（如MobileNet） \\[0.8em]
+        偏见/公平性 & 训练偏见被模型放大 & 数据去偏、公平性约束训练、偏见审计 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \textbf{(3) 两个研究方向分析：}
+
+    \begin{enumerate}[a.]
+        \item \textbf{上下文学习（ICL）试图解决：数据效率问题}。传统深度学习需要大量标注数据微调才能适应新任务；ICL 让大模型通过提示词中的少量示例"隐式学习"新任务，无需更新参数。本质上是利用大模型在预训练阶段积累的"世界知识"，以极低的数据成本快速泛化——试图弥合深度学习与人类少样本学习能力之间的差距；
+
+        \item \textbf{神经符号系统试图解决：逻辑推理能力和系统性泛化问题}。纯神经网络擅长感知（识别图像中的猫），但在严格逻辑推理（如数学证明、规则推导）上表现不稳定，且缺乏系统性泛化（理解了"红色大球"和"蓝色小球"，却不能自动理解"蓝色大球"）。神经符号系统将神经网络的感知能力与符号AI的逻辑能力结合，试图同时拥有两者的优点——在保持深度学习感知能力的同时，获得符号推理的精确性和可解释性。
+    \end{enumerate}
+
+    \begin{keybox}[深度学习三要素的历史时间线]
+        \begin{itemize}
+            \item \textbf{算法}（反向传播，1986年）$\to$ 等了26年……
+            \item \textbf{数据}（ImageNet，2009年）$\to$ 等了3年……
+            \item \textbf{算力}（GPU 大规模应用，2012年）$\to$ 三要素同时就位
+            \item \textbf{2012年 AlexNet}：爆炸！深度学习时代开始
+        \end{itemize}
+    \end{keybox}
+\end{solutionbox}
+
+\begin{appbox}[现实应用场景]
+    \textbf{深度学习正在重塑每一个行业——但它不是魔法：}\\
+    医疗影像（CT 肺癌筛查准确率超越部分放射科医生）、自动驾驶（特斯拉 FSD、Waymo）、科学发现（AlphaFold2 预测蛋白质结构，解决了50年悬而未决的生物学难题）、创意生产（Midjourney、Sora 生成图像和视频）……这些应用的背后，都是本课程所讲的技术。但同样重要的是：深度学习的每一个成功背后，都有大量数据工程、模型调优、计算资源投入和领域知识——它是强大的工具，但需要使用者理解其原理和边界，才能发挥真正的价值。
+\end{appbox}
+
+% ===== 本章小结 =====
+\section{本章小结：带着这张地图，出发}
+
+学完这 6 道题，第1章的核心内容可以用这几句话收拢：
+
+\begin{itemize}
+    \item \textbf{层级关系}：深度学习 $\subset$ 机器学习 $\subset$ 人工智能；三者是包含关系，不是替代关系；
+    \item \textbf{核心突破}：从感知机（1958年）到 AlexNet（2012年），根本变化是：多层 + 平滑激活函数 + 反向传播，让梯度下降在深层网络中成为可能；
+    \item \textbf{爆发三要素}：数据（ImageNet）+ 算力（GPU）+ 算法（ReLU/BN/残差连接）缺一不可，三者在2012年前后同时就位，引发深度学习革命；
+    \item \textbf{三大特点}：自动特征提取（告别特征工程）、端到端学习（全局优化）、大数据驱动（性能随数据增长）——这三点决定了深度学习的优势，也决定了它的局限；
+    \item \textbf{适用边界}：大数据 + 非结构化数据（图像/语音/文本）$\to$ 深度学习优先；小数据 + 结构化数据 + 需要可解释性 $\to$ 传统机器学习可能更好；
+    \item \textbf{仍在进化}：数据效率、可解释性、鲁棒性、公平性——这些挑战正在推动下一代 AI 方法的研究。
+\end{itemize}
+
+\begin{metaphorbox}[给零基础读者的一句总比喻]
+    \textbf{如果把深度学习比作一台高性能跑车：}
+    \begin{itemize}
+        \item \textbf{AI} = 交通工具这个大类（自行车、汽车、飞机都是）；
+        \item \textbf{机器学习} = 汽车这个小类（能自动行驶，靠燃料/数据驱动）；
+        \item \textbf{深度学习} = 其中最强的跑车：极速（性能），但油耗高（数据和算力）、结构复杂（难调参）、不适合窄胡同（小数据场景）；
+        \item \textbf{传统机器学习} = 省油的普通轿车：日常通勤（小数据、结构化场景）绰绰有余，不必动用跑车；
+        \item \textbf{正确的工程师} = 会根据出行目的选车的人：去山区越野选 SUV，市区代步选经济车，长途高速才上跑车——工具没有优劣，只有合不合适。
+    \end{itemize}
+
+    \textbf{本章是出发前看地图的环节。从下一章开始，我们要发动引擎了。}
+\end{metaphorbox}
+
+\end{document}

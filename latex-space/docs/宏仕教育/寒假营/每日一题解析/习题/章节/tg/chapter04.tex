@@ -1,0 +1,107 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{fancyhdr}       % 页眉页脚
+\usepackage{cases}          % 分段函数增强
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 纵向排列的选项 (1列)
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+% 填空题下划线
+\newcommand{\blank}[1]{\underline{\hspace{#1}}}
+
+\title{\textbf{《高等数学》必刷习题——提高版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第四章 导数与微分（提高）}
+
+\begin{enumerate}
+    \item 设 $ f(0)=0 $ 且 $ \lim_{x\to0}\frac{f(x)}{x} $ 存在，则 $ \lim_{x\to0}\frac{f(x)}{x}= $ \blank{1cm}。
+    \choicesFour{$ f'(x) $}{$ f'(0) $}{$ f(0) $}{$ \frac{1}{2}f'\left(\frac{1}{2}\right) $}
+
+    \item 函数 $ y=f(x) $ 在点 $ x_{0} $ 处的左导数 $ f'_{-}(x_{0}) $ 和右导数 $ f'_{+}(x_{0}) $ 都存在,是 $ f(x) $ 在 $ x_{0} $ 可导的 \blank{1cm}。
+    \choicesTwo
+    {充分必要条件}
+    {充分但非必要条件}
+    {必要但非充分条件}
+    {既非充分又非必要条件}
+
+    \item 函数 $ f(x)=|\sin x| $ 在 $ x=0 $ 处 \blank{1cm}。
+    \choicesTwo
+    {可导}
+    {连续但不可导}
+    {不连续}
+    {极限不存在}
+
+    \item 设 $ y = \tan^{2}x $ , 则 $ dy = $ \blank{1cm}。
+    \choicesTwo
+    {$ 2\tan x \sec^{2} x dx $}
+    {$ 2\sin x \cos^{2} x dx $}
+    {$ 2\sec x \tan^{2} dx $}
+    {$ 2\cos x \sin^{2} x dx $}
+
+    \item 设 $ F(x)=f(x)+f(-x) $ ，且 $ f'(x) $ 存在，则 $ F'(x) $ 是 \blank{1cm}。
+    \choicesTwo
+    {奇函数}
+    {偶函数}
+    {非奇非偶的函数}
+    {无法判定其奇偶性}
+
+    \item 设周期函数 $ f(x) $ 在 $ (-\infty, \infty) $ 周期为 3, 则曲线 $ y = f(x) $ 在点 $ (4, f(4)) $ 的切线斜率为 \blank{2cm}。
+
+    \item 若 $ y = e^{x}(\sin x + \cos x) $ ，则 $ \frac{dy}{dx} = $ \blank{2cm}。
+
+    \item 曲线 $ xy + \ln y - 1 = 0 $ 在点 $(1,1)$ 处的法线方程是 \blank{2cm}。
+
+    \item 已知 $ \begin{cases} x = a(\sin t - t\cos t) \\ y = a(\cos t + t\sin t) \end{cases} $ ，则 $ \left.\frac{dy}{dx}\right|_{t=\frac{3}{4}\pi} = $ \blank{2cm}。
+
+    \item 若 $ f(x) = x^{2} \ln x $ , 则 $ f''(2) = $ \blank{2cm}。
+
+    \item 对方程 $ e^{y} + xy = e^{2} $ 所确定的函数 $ y = y(x) $ 求 $ \frac{d^{2}y}{dx^{2}} $。
+
+    \item 设函数 $ f(x)=\begin{cases}ax+b, & x<1\\ x^{2}, & x\geq1\end{cases} $ 在 $x=1$ 处可导，求 $a,b$ 的值。
+
+    \item 求函数 $ y = \ln(x + \sqrt{x^{2} + a^{2}}) $ 的导数。
+
+    \item 对方程 $ \ln(\sqrt{x^{2}+y^{2}})=\arctan\frac{y}{x} $ 所确定的函数 $ y=y(x) $ 求 $ \frac{d^{2}y}{dx^{2}} $。
+
+    \item 求函数 $ y = \frac{x}{2} \sqrt{a^{2} - x^{2}} + \frac{a^{2}}{2} \arcsin \frac{x}{a} \quad (a > 0) $ 的导数。
+\end{enumerate}
+
+\end{document}

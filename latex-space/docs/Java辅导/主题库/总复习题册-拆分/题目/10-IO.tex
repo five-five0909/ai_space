@@ -1,0 +1,113 @@
+\section{I/O}
+
+\begin{question}
+	以下哪个类用于实现文件读取？
+	\begin{options}
+		\item FileReader
+		\item FileWriter
+		\item BufferedReader
+		\item BufferedWriter
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{FileReader} 用于读取字符文件。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个类用于实现文件写入？
+	\begin{options}
+		\item FileReader
+		\item FileWriter
+		\item BufferedReader
+		\item BufferedWriter
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		\texttt{FileWriter} 用于写入字符文件。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中的流的说法错误的是
+	\begin{options}
+		\item 分为字节流和字符流
+		\item 字节流以字节为单位处理数据
+		\item 字符流以字符为单位处理数据
+		\item 字节流和字符流可以相互转换
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		字节流和字符流不能直接相互转换，需通过编码转换（如 \texttt{InputStreamReader}）。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于创建一个新文件？
+	\begin{options}
+		\item createNewFile()
+		\item mkdir()
+		\item mkdirs()
+		\item exists()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{File.createNewFile()} 创建新文件。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于删除一个文件？
+	\begin{options}
+		\item delete()
+		\item remove()
+		\item clear()
+		\item erase()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{File.delete()} 删除文件或目录。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中序列化的说法错误的是
+	\begin{options}
+		\item 可以将对象转换为字节序列
+		\item 可以通过实现Serializable接口实现序列化
+		\item 静态成员变量不能被序列化
+		\item 所有成员变量都会被序列化
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		被 \texttt{transient} 修饰的变量不会被序列化。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于反序列化？
+	\begin{options}
+		\item readObject()
+		\item deserialize()
+		\item restoreObject()
+		\item recoverObject()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{ObjectInputStream.readObject()} 用于反序列化。
+	\end{explanation}
+\end{question}

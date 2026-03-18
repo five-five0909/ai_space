@@ -1,0 +1,419 @@
+\documentclass[11pt, a4paper]{ctexart}
+
+% 页面设置
+\usepackage[margin=2.5cm]{geometry}
+
+% 宏包引入
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% 颜色定义
+\definecolor{mainblue}{RGB}{0, 70, 140}
+\definecolor{accentred}{RGB}{200, 30, 30}
+\definecolor{bglight}{RGB}{245, 245, 245}
+
+% 设置样式
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{现代文阅读理解——记叙文阅读}
+\fancyfoot[C]{\thepage}
+
+% 标题格式
+\ctexset{
+    section = {
+        format = \Large\bfseries\color{mainblue},
+        number = \chinese{section}、
+    },
+    subsection = {
+        format = \large\bfseries\color{black},
+        number = （\chinese{subsection}）
+    },
+    subsubsection = {
+        format = \bfseries\color{black},
+        number = \arabic{subsubsection}.
+    }
+}
+
+% 自定义环境
+\newtcolorbox{tipsbox}[1]{
+    colback=bglight,
+    colframe=mainblue,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=2mm
+}
+
+\newtcolorbox{examplebox}[1]{
+    colback=white,
+    colframe=gray!50!white,
+    coltitle=black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=0mm,
+    boxrule=0.5pt
+}
+
+\begin{document}
+
+\begin{center}
+    {\Huge \bfseries 专题四：现代文阅读理解} \\
+    \vspace{1cm}
+    {\huge \bfseries 记叙文阅读}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{考情分析}
+
+\textbf{考纲要求：}
+能理清文章的思路，概括文章的内容要点，把握文章的中心思想，理解文中重要词句的含义，理解文章的主要写作方法及其作用，理解记叙性语言生动、形象的特点，把握作品形象，概括观点态度等。
+
+\section{文体特征}
+
+\subsection{记叙文的含义}
+记叙文是以记人、叙事、写景、状物为主要内容，结合议论和抒情，以记叙为主要表达方式的一种文体。（注：一般记叙文含散文和小说。）
+
+\textbf{最突出的特点：} “以事感人，以情动人”。通过具体的事件叙述、形象的人物活动描写来表现文章的中心思想和作者的感情立场，读后使人受到其人其事的感染和影响。
+
+\subsection{记叙文的六要素}
+时间，地点，人物，（事件的）起因、经过和结果。
+\begin{itemize}
+    \item 这些要素在文中既可以直接交代，也可以间接交代。
+    \item 掌握记叙的要素，有助于分析文章的结构，理清事情发生、发展的脉络。
+\end{itemize}
+
+\subsection{记叙文的结构}
+记叙文选材广泛，形式多样，主要结构安排方式：
+\begin{enumerate}
+    \item 按时间先后安排结构；
+    \item 按人物的活动、地点的转移安排结构；
+    \item 按事件情节的发展阶段（发生、发展、结果）安排结构；
+    \item 按事件的一定关系安排结构。
+\end{enumerate}
+\textbf{注意：} 记叙文中的\textbf{过渡段}不可忽视，大多起承上启下的作用，使文章过渡自然，浑然一体。同时，过渡段既是对上文的小结，点明主要内容，又是对下文的提示。
+
+\subsection{记叙文的人称及作用}
+\begin{enumerate}
+    \item \textbf{第一人称（我）：}
+    \begin{itemize}
+        \item 定义：以“我”的口吻展开记叙。“我”可以是作者本人，也可以是作品中的虚构人物。“我”起说明和见证作用。
+        \item \textbf{作用：} 亲切自然，真实可信，容易拉近与读者的距离；便于抒发情感，进行详细的心理描写；使文章更具真实性、故事性（曲折性）；便于直抒胸臆。
+    \end{itemize}
+    \item \textbf{第二人称（你/您）：}
+    \begin{itemize}
+        \item \textbf{作用：} 增加亲切感，拉近距离；便于直接对话和抒情，有呼告效果，增强感染力；用于物时，有拟人化效果。
+    \end{itemize}
+    \item \textbf{第三人称（他/她）：}
+    \begin{itemize}
+        \item \textbf{作用：} 旁观者身份，比较直接、客观地展现生活，不受时空限制，自由灵活，便于叙事和议论。
+    \end{itemize}
+\end{enumerate}
+
+\subsection{记叙文的记叙顺序及作用}
+\begin{enumerate}
+    \item \textbf{顺叙：} 按事情发展的先后顺序来写。
+    \begin{itemize}
+        \item \textbf{作用：} 使叙事有头有尾，条理清晰，脉络分明。
+    \end{itemize}
+    \item \textbf{倒叙：} 先把结局或最突出的片段提到前面，再按顺序叙述。
+    \begin{itemize}
+        \item \textbf{作用：} 突出中心思想；使结构富于变化，避免平铺直叙；制造悬念，引人入胜。
+        \item \textbf{注意“呼应”：} 开头结局与回忆结局呼应；开头眼前事物与回忆结束回到眼前呼应等。
+    \end{itemize}
+    \item \textbf{插叙：} 叙事时中断，插入相关事件或片段（在篇中）。
+    \begin{itemize}
+        \item \textbf{作用：} 补充、对比、衬托、解释说明；推动情节发展；突出人物性格；突出主题；为下文作铺垫；丰富内容，使结构紧凑。
+    \end{itemize}
+    \item \textbf{补叙：} 行文中用三两句话对前边的人或事作简单的补充交代。
+    \begin{itemize}
+        \item \textbf{作用：} 有助于表现主题，使结构完整，行文跌宕起伏。补叙是事件的有机组成部分，去掉会影响完整性。
+    \end{itemize}
+\end{enumerate}
+
+\subsection{记叙文的线索}
+\textbf{含义：} 贯穿全文，将材料串联下来的一条主线。
+\textbf{设置方式：} 实物、人物（特征）、事件、时间、地点、思想感情。
+\textbf{类型及作用：}
+\begin{itemize}
+    \item \textbf{明线：} 贯穿全文，使文章浑然一体，结构严谨。
+    \item \textbf{暗线：} 与明线共同贯穿，为情感抒发提供切入点。
+    \item \textbf{双重线索：} 两条线索相辅相成（如虚实结合、纵横交叉）。
+\end{itemize}
+\textbf{找线索关键点：} 标题、反复出现的事物、议论抒情句、作者情感变化、明显的时间/空间标志。
+
+\subsection{记叙文的表达方式}
+包括记叙、描写、议论、抒情、说明。
+\begin{enumerate}
+    \item \textbf{记叙：} 交代要素，搭建框架，使叙事条理清晰。
+    \item \textbf{描写：} 生动形象，塑造人物，营造氛围。
+        \begin{itemize}
+            \item \textbf{人物描写：}
+                \begin{itemize}
+                    \item \textbf{外貌（肖像）：} 交代身份地位，暗示性格命运。
+                    \item \textbf{语言：} 表现思想感情，反映性格特征，推动情节。
+                    \item \textbf{动作（行动）：} 表现人物心理、性格，推动情节。
+                    \item \textbf{心理：} 揭示内心世界，突出中心。
+                    \item \textbf{神态：} 表现内心，刻画性格。
+                \end{itemize}
+            \item \textbf{环境描写：}
+                \begin{itemize}
+                    \item \textbf{自然环境：} 交代背景，渲染气氛，烘托情感，预示命运，推动情节。
+                    \item \textbf{社会环境：} 交代时代背景、习俗、人际关系，深化主题。
+                \end{itemize}
+            \item \textbf{场面描写：} 人、事、景、物的综合画面。作用：塑造形象，渲染气氛，突出主题。（注：场面描写是“动态”的，环境描写往往是“静态”的）。
+            \item \textbf{细节描写：} 侧重微小但关键的动作或物件。
+        \end{itemize}
+    \item \textbf{议论：} 点明主旨，升华主题，增强说服力。
+    \item \textbf{抒情：} 表达喜怒哀乐，引起共鸣，渲染基调。
+    \item \textbf{说明：} 简明扼要解释事物特征，具有客观性、科学性。
+\end{enumerate}
+
+\subsection{刻画人物形象的方法（正面与侧面）}
+\begin{enumerate}
+    \item \textbf{正面描写（直接描写）：} 见上文“人物描写”分类。
+    \item \textbf{侧面描写（间接描写）：}
+    \begin{itemize}
+        \item \textbf{通过他人反应/评价：} 增强客观性，多角度展现。
+        \item \textbf{通过环境描写衬托：} 渲染氛围，暗示心境或命运。
+        \item \textbf{通过事件/情节展现：} 在冲突中展现性格，避免扁平化。
+    \end{itemize}
+\end{enumerate}
+
+\subsection{常见的表现手法及其作用}
+\begin{enumerate}
+    \item \textbf{对比：} 凸显差异，强化冲突，揭示主题。（如《故乡》中闰土的对比）。
+    \item \textbf{衬托（烘托）：} 正衬（同类）和反衬（相反）。突出主体，渲染氛围。
+    \item \textbf{象征：} 具象化抽象道理，深化主题，含蓄（如《海燕》）。
+    \item \textbf{抑扬（先抑后扬/先扬后抑）：} 形成波澜，突出特质，增强冲击力（如《荔枝蜜》）。
+    \item \textbf{伏笔与照应：} 结构严谨，逻辑清晰，引发思考（如《项链》）。
+    \item \textbf{借景抒情（寓情于景）：} 含蓄委婉，渲染氛围（如《岳阳楼记》）。
+    \item \textbf{托物言志（咏物抒怀）：} 表达理想志向，富有哲理（如《爱莲说》）。
+    \item \textbf{虚实结合：} 拓展空间，丰富层次，突出情感（如《水调歌头》）。
+    \item \textbf{烘托渲染：} “烘托”侧重陪衬，“渲染”侧重浓墨重彩描绘氛围。
+    \item \textbf{以小见大：} 通过细节或平凡小事反映宏大主题（如《背影》）。
+\end{enumerate}
+
+\subsection{常见的修辞方法及其作用}
+\begin{itemize}
+    \item \textbf{比喻：} 化平淡为生动，化深奥为浅显，化抽象为具体。
+    \item \textbf{拟人：} 人格化，生动形象。
+    \item \textbf{排比：} 增强语势，条理清晰，利于抒情。
+    \item \textbf{夸张：} 情感强烈，突出本质，引发想象。
+    \item \textbf{设问：} 引起注意，启发思考。
+    \item \textbf{反问：} 加强语气，强化情感。
+    \item \textbf{对比：} 鲜明突出（注意区分修辞手法与表现手法）。
+    \item \textbf{反复：} 强调，承上启下，突出主旨。
+    \item \textbf{引用：} 增加文化底蕴，增强说服力。
+    \item \textbf{借代：} 以简代繁，生动形象。
+    \item \textbf{反语：} 幽默讽刺，或表现深沉情感。
+\end{itemize}
+
+\subsection{散文与小说文体知识}
+\textbf{散文：}
+\begin{itemize}
+    \item 特点：形散神聚；意境深邃；语言优美凝练。
+    \item 鉴赏：叙事性（感悟情感）、抒情性（抓情感脉络）、说理性（情理交融）。
+\end{itemize}
+
+\textbf{小说：}
+\begin{itemize}
+    \item 三要素：人物形象、故事情节（开端、发展、高潮、结局）、环境（自然、社会）。
+    \item 常用手法：悬念、巧合、伏笔、铺垫等。
+    \item 鉴赏：分析人物，把握情节，理解环境，挖掘主题。
+\end{itemize}
+
+\section{考点精讲与备战演练}
+
+\subsection{考点一：理解标题的含义及作用}
+
+\begin{tipsbox}{答题技巧}
+1. \textbf{拟写标题：} 寻找线索、明确主旨、研读开头结尾、抓住核心（人物/事物/事件）。要求简洁、凝练、鲜明。\\
+2. \textbf{理解含义：} 表层含义（字面、内容） + 深层含义（比喻/象征义、主旨、情感）。\\
+3. \textbf{标题作用（妙处）：} 概括内容、行文线索、点明主旨、吸引读者、修辞效果（双关、象征等）。
+\end{tipsbox}
+
+\begin{examplebox}{典例分析 1：孙燕华《忆大师之智 得幽默意趣》}
+\textbf{题目：} 结合全文内容，为本文拟一个恰当的标题。（2分）\\
+\textbf{解析：} 文章主要写了杨绛、冰心、启功三位大师的幽默趣事。\\
+\textbf{答案：} 智者的幽默 或 智者幽默心 （抓住“智者”“幽默”关键词即可）
+\end{examplebox}
+
+\begin{examplebox}{典例分析 2：《天空没有多余的星星》}
+\textbf{题目：} 你是如何理解文章标题“天空没有多余的星星”的？（3分）\\
+\textbf{文章概要：} 描写一个身体残疾、相貌丑陋但心地善良、勤劳肯干的工人李忠义。他默默做好事，最终因意外去世，工友们深切怀念他。\\
+\textbf{答案：} 表层含义：天空中每颗星星都有自己的位置、价值；\\
+深层含义：一个人不管多平凡，但在社会大家庭中，只要他认真地工作、生活，就都会有各自的价值（社会是一个和谐的大家庭，人们彼此需要，每个人都有自己的位置，即使再平凡，只要努力，也都能实现自己的人生价值）。
+\end{examplebox}
+
+\begin{examplebox}{典例分析 3：《描花的日子》}
+\textbf{题目：} 分析本文标题的作用。（4分）\\
+\textbf{答案：} 是行文的线索；概括了文章的主要内容；暗示了一家人和谐、幸福的生活；能激发读者的阅读兴趣。
+\end{examplebox}
+
+\begin{examplebox}{典例分析 4：《评语》}
+\textbf{题目：} 本文标题“评语”不能改为“误读”，请简述理由。（6分）\\
+\textbf{文章概要：} “我”误将老师评语中的“欠”字看成“又”字（活泼欠用功 -> 活泼又用功），受到激励而进步。多年后“我”当老师，书写工整避免误读。\\
+\textbf{答案：} 用“评语”为题，有利于凸显教师鼓励性评语具有激励作用这一主旨，而“误读”则不能；“评语”能作为线索贯穿全文，而“误读”则不能。
+\end{examplebox}
+
+\subsection{考点二：概括文章内容}
+
+\begin{tipsbox}{答题技巧}
+1. \textbf{三要素法：} 人物 + 事件 + 结果。\\
+2. \textbf{扩充标题法：} 对标题进行补充。\\
+3. \textbf{摘录法：} 摘录中心句、过渡句。\\
+4. \textbf{合并法：} 归纳各段段意，合并相同意思。\\
+\textbf{注意：} 区分详略，抓住主要事件。
+\end{tipsbox}
+
+\begin{examplebox}{典例分析 1：季羡林《槐花》}
+\textbf{题目：} 文章③～⑮段写了两件事，请用简洁的语言分别加以概括。（6分）\\
+\textbf{文章概要：} 印度朋友在北大看槐花很惊讶；作者回忆在印度看木棉花大为慨叹，而当地人却习以为常。\\
+\textbf{答案：} 印度朋友看见槐花非常惊讶，引起“我”对槐花的注意；“我”看到木棉花大为慨叹，印度朋友迷惑不解。
+\end{examplebox}
+
+\begin{examplebox}{典例分析 2：《评语》}
+\textbf{题目：} 本文按照时间顺序写了两部分内容，请概括。（6分）\\
+\textbf{答案：}
+(1) 小学三年级时，由于“我”误读了老师的评语，“我”有了努力学习的动力，并提高了成绩。一学期后，“我”才发现误读了评语。
+(2) 十多年后，“我”当了老师，写评语时尽量书写工整，不引起学生的误读，并且收到了学生给“我”的评语。
+\end{examplebox}
+
+\begin{examplebox}{典例分析 3：《天空没有多余的星星》}
+\textbf{题目：} 文章③④⑤段写了李忠义做的哪几件小事？（3分）\\
+\textbf{答案：} 坚持出黑板报；背着生病工友去医院并陪护；风中拉好银幕。
+\end{examplebox}
+
+\begin{examplebox}{典例分析 4：《贫寒是凛冽的酒》}
+\textbf{题目：} 文中哪几件事体现了“我们”的生活是贫寒的？请用简洁的语言概括。（至少四件事）（2分）\\
+\textbf{答案：} “我们”因烧不起暖气而砸冰出门；过年因没钱不能回老家；母亲买鸭架子为“我”补身子；母亲为省钱买将死的泥鳅；家具简单，最高级电器是复读机；用电饭锅烧开水；“我”在锅里炒衣服。（任答四件）
+\end{examplebox}
+
+\subsection{考点三：分析重点段落作用}
+
+\begin{tipsbox}{答题技巧}
+\textbf{内容上：} 分析含义（表层/深层）、点明主旨、升华主题、抒发情感、画龙点睛。\\
+\textbf{结构上：}
+\begin{itemize}
+    \item \textbf{首段：} 开篇点题、统摄全篇、设置悬念、渲染气氛、铺垫伏笔。
+    \item \textbf{尾段：} 总结全文、深化主旨、呼应前文/标题、卒章显志、引发思考。
+    \item \textbf{过渡段：} 承上启下。
+\end{itemize}
+\end{tipsbox}
+
+\begin{examplebox}{典例分析 1：李榕桦《几生修得到梅花》}
+\textbf{题目：} 文章第⑥段（结尾段）在全文有怎样的作用？请分别从结构和内容角度具体分析。（4分）\\
+\textbf{答案：}
+\textbf{结构上：} 照应开头，总结全文，再次点明梅花特立独行的风骨。
+\textbf{内容上：} 深化主题，将梅花的精神升华为华夏民族的心魂和中华民族代代相袭的品格和精神。
+\end{examplebox}
+
+\begin{examplebox}{典例分析 2：《描花的日子》}
+\textbf{题目：} 纵观全文，第①段内容（写四季景色和冬天的冷）似乎和下文“描花”这件事关系不大。你认为第①段能否去掉？为什么？（3分）\\
+\textbf{答案：}
+\textbf{示例一：能。} 第①段中有关四季的内容和文章主要内容“描花”关系不大。去掉后行文更简洁，内容更集中。
+\textbf{示例二：不能。} 第①段奠定了全文的感情基调，且“冬天冷死了...所有的路都封了”为下文“出不了门，一家人要围在一起”作了铺垫。
+\end{examplebox}
+
+\subsection{考点四：理解、赏析重点语句}
+
+\begin{tipsbox}{答题模板}
+\begin{itemize}
+    \item \textbf{修辞角度：} 运用了...修辞手法，生动形象地写出了...，表达了...情感。
+    \item \textbf{描写角度：} 运用了...描写（外貌/动作等），刻画了...形象，突出了...。
+    \item \textbf{句式/哲理：} 句式整齐/设问/反问，强调了...；揭示了...道理。
+\end{itemize}
+\end{tipsbox}
+
+\begin{examplebox}{典例分析 1：《其实很简单》}
+\textbf{题目：} 结合语境，品味下面语句。“大街上人来人往。有的视而不见，有的驻足远观，有的且看且退。谁也不敢制止歹徒行劫。”（这个场面描写有何作用？）（3分）\\
+\textbf{答案：} 运用排比的手法，写出了路人的冷漠和恐惧；突出了当时情况的凶险（歹徒的凶恶）；与下文文弱小伙挺身而出的场面形成鲜明的对比。
+\end{examplebox}
+
+\begin{examplebox}{典例分析 2：邹扶澜《最初的温暖》}
+\textbf{题目：} 请简析第⑮段（结尾段：信是主持人写的，王丽晨已病逝）在全文中的表达效果。（3分）\\
+\textbf{答案：} 交代文中那封信的来历；为文章画上完整的句号；使文章产生跌宕起伏的艺术效果（欧·亨利式结尾）。
+\end{examplebox}
+
+\subsection{考点五：理解、赏析重点词语}
+
+\begin{tipsbox}{答题技巧}
+\textbf{词不离句}。先解释表层义，再结合语境分析深层义（情感、性格、结构作用）。
+\textbf{常用术语：} 生动形象、准确、具体、强调、渲染、伏笔、照应。
+\end{tipsbox}
+
+\begin{examplebox}{典例分析 1：《其实很简单》}
+\textbf{题目：} “众人...一窝蜂地射向歹徒...”（画线词语妙在何处？）（2分）\\
+\textbf{答案：} “一窝蜂”写出了人之多，“射”写出了速度之快；这些词语形象地表现了众人被小伙的英雄壮举感染，一起出手制服歹徒时的情状。
+\end{examplebox}
+
+\subsection{考点六：分析、概括人物形象}
+
+\begin{tipsbox}{答题方法}
+1. \textbf{从事件中提炼：} 做什么事 $\to$ 表现什么性格。\\
+2. \textbf{从描写中分析：} 语言、动作、神态 $\to$ 内心世界。\\
+3. \textbf{从评价中概括：} 作者或他人的评价。\\
+\textbf{常用词汇：} 善良、勤劳、坚强、乐观、机智、无私、迂腐、势利等。
+\end{tipsbox}
+
+\begin{examplebox}{典例分析 1：凸凹《故乡红叶》}
+\textbf{题目：} 请对“父亲”这一人物形象及“我”对“父亲”的思想情感作赏析。（5分）\\
+\textbf{文章概要：} 我回乡赏红叶，父亲却在劳作。父亲不理解赏景，但理解“我”。父亲给“我”留酒。\\
+\textbf{答案：}
+\textbf{“父亲”形象：} 父亲在地堰边埋头干活，以此心安，表现了父亲的朴实和勤劳；让“我”去观赏红叶，表现了父亲对儿女的理解和宽厚；特意留雄自酿，表现了父亲对儿女的关爱。
+\textbf{“我”的情感：} 因父亲辛勤劳作、不断衰老而忧伤、内疚和思念；因父亲对“我”的理解和关爱而感激。
+\end{examplebox}
+
+\subsection{考点七：辨析写作手法及作用}
+
+\begin{tipsbox}{常见手法及作用}
+\begin{itemize}
+    \item \textbf{对比：} 突出差异，鲜明主题。
+    \item \textbf{衬托（正/反）：} 突出主体，渲染氛围。
+    \item \textbf{伏笔照应：} 结构严谨，情节合理。
+    \item \textbf{先抑后扬：} 制造波澜，印象深刻。
+    \item \textbf{托物言志：} 含蓄深刻，表达志向。
+    \item \textbf{以小见大：} 细节入题，主题深刻。
+\end{itemize}
+\end{tipsbox}
+
+\begin{examplebox}{典例分析 1：戴希《列车上》}
+\textbf{题目：} 联系全文，简要分析小说结尾的妙处。（5分）\\
+\textbf{文章概要：} “我”在车厢想聊天被冷遇。见义勇为抓歹徒时无人敢动。最后揭示“我”是装孬种，因为怕在6岁儿子面前出事，但儿子说“爸抓歹徒”，为了儿子才挺身而出。\\
+\textbf{答案：} 阳光男孩的主动交流与前文其他人的表现形成反差（对比），引发我们对人际交流问题的思考。结尾戛然而止，意味深长，给人以回味和思考的空间。
+\end{examplebox}
+
+\subsection{考点八：内容理解与拓展探究}
+
+\begin{tipsbox}{答题要求}
+1. \textbf{理解内容：} 结合上下文，联系主旨。\\
+2. \textbf{谈启示/看法：} 观点鲜明，积极健康，言之有理，联系实际。\\
+3. \textbf{补写/续写：} 符合人物性格，符合语境风格。\\
+4. \textbf{主题探究：} 依据文本，自圆其说。
+\end{tipsbox}
+
+\begin{examplebox}{典例分析 1：《对美的向往之心...》}
+\textbf{题目：} 选文结尾“对美的向往之心，让这个世界重新看到了希望”一句让你产生了怎样的感悟？（3分）\\
+\textbf{文章概要：} 摄影师在索马里难民营，看到难民虽然贫苦但在拍照前洗脸梳头，小女孩用泥做项链，虽死但留下了对美的追求。\\
+\textbf{答案：} 索马里人民在水深火热的生活境遇中，依然向往着美好生活，这种苦难中的坚强让人敬畏，更让我们人类对世界的和平与发展充满希望。
+\end{examplebox}
+
+\section*{记叙文阅读的黄金法则}
+\begin{enumerate}
+    \item 能用原文作答的不用自己的话答。
+    \item 联系上下文作答，答案要尽量与文章具体内容结合，这样的答案才能做到来自文本，而不是游离文本。
+    \item 不用修饰性语言答题。回答主观阅读题要直来直去，简洁明了，不要拐弯抹角。
+    \item 回答问题要围绕“中心意思”作答，答案都争取做到与中心意思有关。
+    \item 要做到词不离句，句不离段，段不离篇，篇不离旨。
+    \item 紧密联系实际，传达社会正能量，有正确的价值观。只要是传达负能量的基本不会给分。
+\end{enumerate}
+
+\end{document}

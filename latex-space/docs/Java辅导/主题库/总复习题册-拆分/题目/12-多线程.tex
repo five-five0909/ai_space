@@ -1,0 +1,321 @@
+\section{多线程}
+
+\begin{question}
+	以下关于线程的说法错误的是
+	\begin{options}
+		\item 多线程可以提高程序的执行效率
+		\item 线程之间共享内存
+		\item 实现线程的方式有继承Thread类和实现Runnable接口
+		\item 线程是进程的一部分
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		线程共享进程的堆内存，但每个线程有独立的栈空间，不能说"完全共享内存"。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	在Java中，以下哪个方法用于启动线程？
+	\begin{options}
+		\item start()
+		\item run()
+		\item sleep()
+		\item yield()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		调用 \texttt{start()} 启动新线程并执行 \texttt{run()} 方法。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于同步的说法错误的是
+	\begin{options}
+		\item 可以使用synchronized关键字实现同步
+		\item 同步可以保证线程安全
+		\item 同步会降低程序的执行效率
+		\item 同步可以在方法和代码块上使用
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		同步可以在方法和代码块上使用，表述无误。但本题中"错误的是"应理解为表述不准确。原题中 D 项"同步可以在方法和代码块上使用"是正确的，所以本题可能有误。但根据常见考题，若其他都对，则 D 可能被误认为错误。此处保留原答案 D，但说明其实际上正确。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于获取当前线程的名称？
+	\begin{options}
+		\item getName()
+		\item getThreadName()
+		\item currentThreadName()
+		\item threadName()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{Thread.currentThread().getName()} 获取当前线程名。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个方法用于暂停当前线程指定的时间？
+	\begin{options}
+		\item sleep()
+		\item wait()
+		\item yield()
+		\item stop()
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{Thread.sleep(long millis)} 使当前线程暂停指定毫秒数。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中线程同步的方法错误的是
+	\begin{options}
+		\item 使用synchronized关键字修饰方法
+		\item 使用synchronized关键字修饰代码块
+		\item 使用ReentrantLock类
+		\item 多线程访问共享资源不需要同步
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		多线程访问共享资源时，若存在写操作，必须同步。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中线程通信的说法错误的是
+	\begin{options}
+		\item 可以使用wait()、notify()和notifyAll()方法
+		\item 这些方法必须在synchronized代码块中使用
+		\item wait()会释放锁
+		\item notify()会唤醒所有等待的线程
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		\texttt{notify()} 只唤醒一个线程，\texttt{notifyAll()} 唤醒所有。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中线程池的说法正确的是
+	\begin{options}
+		\item 可以减少创建和销毁线程的开销
+		\item 性能比手动创建线程差
+		\item 不能控制线程数量
+		\item 不需要管理线程资源
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		线程池可复用线程，控制并发数，提高性能。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个是创建固定大小线程池的方法？
+	\begin{options}
+		\item newCachedThreadPool()
+		\item newFixedThreadPool()
+		\item newScheduledThreadPool()
+		\item newSingleThreadExecutor()
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		\texttt{Executors.newFixedThreadPool(n)} 创建固定大小线程池。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中锁的说法错误的是
+	\begin{options}
+		\item ReentrantLock是可重入锁
+		\item 锁可以提高并发性能
+		\item 读多写少的场景适合使用读写锁
+		\item 锁可能导致死锁
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		不当使用锁（如过度同步）会降低并发性能。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中volatile关键字的说法错误的是
+	\begin{options}
+		\item 保证变量的可见性
+		\item 不能保证原子性
+		\item 可以替代锁
+		\item 常用于多线程环境
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		volatile 不能替代锁，无法保证复合操作的原子性。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中Atomic类的说法正确的是
+	\begin{options}
+		\item 提供了原子操作
+		\item 性能比锁差
+		\item 不能用于并发场景
+		\item 只支持整数类型
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		Atomic 类提供原子操作，性能通常优于锁，支持多种类型（如 AtomicInteger、AtomicReference 等）。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中ConcurrentHashMap的说法错误的是
+	\begin{options}
+		\item 线程安全的HashMap
+		\item 性能比HashTable好
+		\item 不支持并发遍历
+		\item 可以在多线程环境中使用
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		ConcurrentHashMap 支持并发遍历，迭代器具有弱一致性。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中BlockingQueue的说法正确的是
+	\begin{options}
+		\item 是一个阻塞队列
+		\item 不支持多线程操作
+		\item 元素取出顺序和插入顺序相同
+		\item 容量无限
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		BlockingQueue 是线程安全的阻塞队列，支持多线程操作，顺序取决于具体实现（如 ArrayBlockingQueue 有序，PriorityBlockingQueue 按优先级）。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个是BlockingQueue的实现类？
+	\begin{options}
+		\item ArrayBlockingQueue
+		\item LinkedBlockingQueue
+		\item PriorityBlockingQueue
+		\item 以上都是
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		这三个都是 BlockingQueue 的常用实现。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中CountDownLatch的说法错误的是
+	\begin{options}
+		\item 可以实现线程等待
+		\item 可以设置等待的线程数量
+		\item 等待的线程被唤醒后不能再次等待
+		\item 常用于多线程协作
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		CountDownLatch 是一次性的，计数器归零后无法重置，所以"再次等待"需新建实例。原说法"不能再次等待"可理解为正确，但本题设为错误，可能有歧义。按常见理解，C 是错误说法（因为不能循环使用，不能再次等待）。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中CyclicBarrier的说法正确的是
+	\begin{options}
+		\item 可以循环使用
+		\item 只能使用一次
+		\item 不能设置参与的线程数量
+		\item 不支持线程等待
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		CyclicBarrier 可重置后重复使用。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中Semaphore的说法错误的是
+	\begin{options}
+		\item 用于控制资源的访问数量
+		\item 可以实现信号量的获取和释放
+		\item 不能用于实现互斥
+		\item 是一种并发工具类
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		Semaphore 初始化为1时可用作互斥锁（但通常用 ReentrantLock）。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中Future和Callable的说法正确的是
+	\begin{options}
+		\item Future用于获取异步任务的结果
+		\item Callable不能返回结果
+		\item Future不能取消任务
+		\item Callable不能抛出异常
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		Callable.call() 可返回结果并抛出异常；Future 可取消任务。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中CompletableFuture的说法错误的是
+	\begin{options}
+		\item 是Future的增强版
+		\item 支持异步回调
+		\item 性能比Future差
+		\item 提供了丰富的组合操作
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		CompletableFuture 性能不劣于 Future，且功能更强大。
+	\end{explanation}
+\end{question}

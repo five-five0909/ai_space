@@ -1,0 +1,418 @@
+% -*- coding: utf-8 -*-
+% XeLaTeX 编译
+\documentclass[a3paper, landscape, 11pt, twocolumn]{article}
+
+% 引入宏包
+\usepackage{fontspec}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{lastpage}
+
+% 设置页面边距 (A3横向双栏)
+\geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm, columnsep=1.8cm}
+
+% 颜色定义
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{keywordcolor}{RGB}{0,0,150}
+\definecolor{commentcolor}{RGB}{0,128,0}
+\definecolor{stringcolor}{RGB}{163,21,21}
+
+% Java代码块样式设置
+\lstdefinestyle{JavaExam}{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    keywordstyle=\color{keywordcolor}\bfseries,
+    commentstyle=\color{commentcolor},
+    stringstyle=\color{stringcolor},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{black!50},
+    tabsize=4,
+    xleftmargin=1em,
+    xrightmargin=1em,
+    aboveskip=1em,
+    belowskip=1em
+}
+
+% 列表样式
+\newlist{options}{enumerate}{1}
+\setlist[options]{label=\Alph*., nosep, leftmargin=*, itemsep=0.5em}
+
+% 选择题选项命令
+% 注意：选择具体使用方式在题目中定义
+
+% 页眉页脚设置
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\Large\bfseries 《Java程序设计》期末考试试卷}
+\fancyfoot[C]{第 \thepage\ 页 共 \pageref{LastPage}\ 页}
+\fancyfoot[R]{得分：\underline{\hspace{2cm}}}
+\fancyfoot[L]{题号：\underline{\hspace{1cm}}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% 填空题横线
+\newcommand{\blank}{\underline{\hspace{2cm}}}
+
+\begin{document}
+
+% 试卷头部
+\twocolumn[{
+			\begin{center}
+				\vspace*{-1cm}
+				{\huge\bfseries 《Java程序设计》期末考试试卷（B 卷）}\\[0.8em]
+				{\large 考试时间：120 分钟 \hspace{2em} 总分：150 分}\\[1em]
+				\hrule
+				\vspace{0.8em}
+				\begin{tabularx}{0.95\linewidth}{|c|X|c|X|c|X|}
+					\hline
+					\makecell{题号} & \makecell{一                                                                        \\(40分)} & \makecell{二\\(20分)} & \makecell{三\\(20分)} & \makecell{四\\(30分)} & \makecell{五\\(40分)} \\
+					\hline
+					得分            & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} \\
+					\hline
+				\end{tabularx}\\[1em]
+				{\large 姓名：\underline{\hspace{3cm}} \hspace{1.5em} 学号：\underline{\hspace{4cm}} \hspace{1.5em} 班级：\underline{\hspace{3cm}}}
+				\vspace{0.8em}
+				\hrule
+				\vspace{1em}
+			\end{center}
+		}]
+
+\section*{一、单项选择题（共 20 小题，每小题 2 分，共 40 分）}
+\textit{（在每小题给出的四个选项中，只有一项是符合题目要求的）}
+
+\begin{enumerate}[label=\arabic*., itemsep=1em]
+	\item 下列哪个是 Java 中合法的标识符？
+	      \begin{options}
+		      \item 2variable
+		      \item \_myVar
+		      \item my-var
+		      \item class
+	      \end{options}
+
+	\item 以下关于 JVM 的说法，正确的是？
+	      \begin{options}
+		      \item JVM 是 Java 编译器
+		      \item 不同平台需要不同的 JVM
+		      \item JVM 可以直接执行 Java 源代码
+		      \item JVM 属于硬件设备
+	      \end{options}
+
+	\item 在 Java 中，下列哪个关键字用于导入包？
+	      \begin{options}
+		      \item package
+		      \item import
+		      \item include
+		      \item uses
+	      \end{options}
+
+	\item 下列哪个不是 Java 的基本数据类型？
+	      \begin{options}
+		      \item int
+		      \item boolean
+		      \item String
+		      \item char
+	      \end{options}
+
+	\item 表达式 \lstinline|10 % 3| 的结果是？
+	      \begin{options}
+		      \item 3
+		      \item 3.33
+		      \item 1
+		      \item 0
+	      \end{options}
+
+	\item 关于数组 length 属性的说法，正确的是？
+	      \begin{options}
+		      \item 数组的 length 是一个方法
+		      \item 数组的 length 表示数组可容纳的最大元素个数
+		      \item 数组的 length 可以手动修改
+		      \item 二维数组的 length 表示所有元素的个数
+	      \end{options}
+
+	\item 下列哪个修饰符可以使成员只能在本类中访问？
+	      \begin{options}
+		      \item public
+		      \item protected
+		      \item private
+		      \item 默认（无修饰符）
+	      \end{options}
+
+	\item 关于 this 关键字的描述，错误的是？
+	      \begin{options}
+		      \item this 可以调用本类的其他构造方法
+		      \item this 可以代表当前对象
+		      \item this 可以在静态方法中使用
+		      \item this 可以区分成员变量和局部变量
+	      \end{options}
+
+	\item 下列哪个类是所有 Java 异常类的父类？
+	      \begin{options}
+		      \item Exception
+		      \item Error
+		      \item Throwable
+		      \item RuntimeException
+	      \end{options}
+
+	\item 在 try-catch-finally 结构中，如果 try 块中有 return，那么 finally 块何时执行？
+	      \begin{options}
+		      \item 在 return 之前执行
+		      \item 在 return 之后执行
+		      \item 不执行
+		      \item 根据是否有异常决定
+	      \end{options}
+
+	\item 下列哪个集合类是有序且允许重复元素的？
+	      \begin{options}
+		      \item HashSet
+		      \item TreeSet
+		      \item ArrayList
+		      \item HashMap
+	      \end{options}
+
+	\item 关于泛型方法，说法正确的是？
+	      \begin{options}
+		      \item 泛型方法只能在泛型类中定义
+		      \item 泛型方法的类型参数可以在返回值前声明
+		      \item 泛型方法不能是静态的
+		      \item 泛型方法的参数类型必须是具体的
+	      \end{options}
+
+	\item 在 Java 中，实现多线程可以通过继承哪个类？
+	      \begin{options}
+		      \item Runnable
+		      \item Thread
+		      \item Process
+		      \item MultiThread
+	      \end{options}
+
+	\item 关于 synchronized 关键字的说法，错误的是？
+	      \begin{options}
+		      \item 可以修饰方法
+		      \item 可以修饰代码块
+		      \item 可以修饰类
+		      \item 可以保证原子性和可见性
+	      \end{options}
+
+	\item 下列哪个类用于将字节流转换为字符流？
+	      \begin{options}
+		      \item InputStreamReader
+		      \item BufferedReader
+		      \item FileReader
+		      \item OutputStreamWriter
+	      \end{options}
+
+	\item 关于序列化的说法，正确的是？
+	      \begin{options}
+		      \item 所有类默认都可以序列化
+		      \item 实现 Serializable 接口的类才能序列化
+		      \item static 成员变量也会被序列化
+		      \item transient 修饰的变量会被序列化
+	      \end{options}
+
+	\item 在 JDBC 中，哪个方法用于执行 INSERT、UPDATE、DELETE 操作？
+	      \begin{options}
+		      \item executeQuery()
+		      \item executeUpdate()
+		      \item execute()
+		      \item executeBatch()
+	      \end{options}
+
+	\item 关于 BorderLayout 的说法，正确的是？
+	      \begin{options}
+		      \item 组件可以放在 CENTER、NORTH、SOUTH、EAST、WEST 五个位置
+		      \item 每个区域只能放一个组件，但组件可以覆盖多个区域
+		      \item 默认情况下，JFrame 的内容面板使用 FlowLayout
+		      \item 如果不指定位置，组件默认放在 NORTH 区域
+	      \end{options}
+
+	\item 在事件处理中，ActionEvent 对应的监听器接口是？
+	      \begin{options}
+		      \item ActionListener
+		      \item MouseListener
+		      \item KeyListener
+		      \item WindowListener
+	      \end{options}
+
+	\item 在 TCP 编程中，用于监听客户端连接的类是？
+	      \begin{options}
+		      \item Socket
+		      \item ServerSocket
+		      \item DatagramSocket
+		      \item MulticastSocket
+	      \end{options}
+\end{enumerate}
+
+\section*{二、判断题（共 10 小题，每小题 2 分，共 20 分）}
+\textit{（正确的选 A，错误的选 B）}
+
+\begin{enumerate}[label=\arabic*., itemsep=0.8em]
+	\item Java 是纯面向对象的语言，所有代码都必须写在类中。 （ \quad A/B \quad ）
+	\item 静态方法可以直接调用非静态成员变量。 （ \quad A/B \quad ）
+	\item 子类构造方法必须显式调用父类构造方法。 （ \quad A/B \quad ）
+	\item 接口中的方法默认都是 public abstract 的。 （ \quad A/B \quad ）
+	\item 抛出异常的语句后面不能再有其他语句。 （ \quad A/B \quad ）
+	\item HashMap 允许使用 null 作为键和值。 （ \quad A/B \quad ）
+	\item 泛型在编译时会进行类型擦除，因此运行时无法获取泛型类型信息。 （ \quad A/B \quad ）
+	\item 线程的 yield() 方法会使线程进入阻塞状态。 （ \quad A/B \quad ）
+	\item File 类既可以操作文件，也可以操作目录。 （ \quad A/B \quad ）
+	\item PreparedStatement 可以防止 SQL 注入攻击。 （ \quad A/B \quad ）
+\end{enumerate}
+
+\section*{三、填空题（共 5 小题，每空 2 分，共 20 分）}
+
+\begin{enumerate}[label=\arabic*., itemsep=1em]
+	\item Java 的注释有三种：单行注释使用 \underline{\hspace{4cm}}，多行注释使用 \underline{\hspace{4cm}}，文档注释使用 \underline{\hspace{4cm}}。
+
+	\item 在 Java 中，使用 \underline{\hspace{4cm}} 关键字定义抽象方法，使用 \underline{\hspace{4cm}} 关键字定义接口。
+
+	\item 异常处理中，捕获异常的关键字是 \underline{\hspace{4cm}}，抛出异常的关键字是 \underline{\hspace{4cm}}。
+
+	\item 集合框架中，实现 List 接口的常用类有 \underline{\hspace{4cm}} 和 \underline{\hspace{4cm}}。
+
+	\item 线程启动后，执行的是 \underline{\hspace{4cm}} 方法中的代码，使当前线程暂停指定时间的方法是 \underline{\hspace{4cm}}。
+\end{enumerate}
+
+\section*{四、程序运行结果题（共 5 小题，每小题 6 分，共 30 分）}
+\textit{（阅读下列程序，写出运行后的输出结果）}
+
+\begin{enumerate}[label=\arabic*., itemsep=1em]
+	\item
+	      \begin{lstlisting}[style=JavaExam]
+public class TestA {
+    public static void main(String[] args) {
+        int i = 0;
+        while (i < 5) {
+            i++;
+            if (i == 3) continue;
+            System.out.print(i + " ");
+        }
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{5cm}}
+
+	\item
+	      \begin{lstlisting}[style=JavaExam]
+class Base {
+    public Base() {
+        System.out.print("Base ");
+    }
+    public void show() {
+        System.out.println("Base show");
+    }
+}
+class Derived extends Base {
+    public Derived() {
+        System.out.print("Derived ");
+    }
+    public void show() {
+        System.out.println("Derived show");
+    }
+}
+public class TestB {
+    public static void main(String[] args) {
+        Base obj = new Derived();
+        obj.show();
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{5cm}}
+
+	\item
+	      \begin{lstlisting}[style=JavaExam]
+public class TestC {
+    public static void main(String[] args) {
+        Integer a = 100;
+        Integer b = 100;
+        Integer c = 200;
+        Integer d = 200;
+        System.out.println(a == b);
+        System.out.println(c == d);
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{5cm}}
+
+	\item
+	      \begin{lstlisting}[style=JavaExam]
+public class TestD {
+    public static void main(String[] args) {
+        try {
+            int[] arr = {10, 20, 30};
+            System.out.println(arr[1]);
+            System.out.println(arr[5]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Index Error");
+        } catch (Exception e) {
+            System.out.println("Other Error");
+        } finally {
+            System.out.println("Finally Done");
+        }
+        System.out.println("End");
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{5cm}}
+
+	\item
+	      \begin{lstlisting}[style=JavaExam]
+import java.util.*;
+public class TestE {
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        Iterator<String> it = list.iterator();
+        while (it.hasNext()) {
+            String s = it.next();
+            if (s.equals("B")) it.remove();
+        }
+        System.out.println(list);
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{5cm}}
+\end{enumerate}
+
+\newpage
+
+\section*{五、编程题（共 2 小题，每小题 20 分，共 40 分）}
+\textit{（要求代码完整、结构清晰、注释合理）}
+
+\begin{enumerate}[label=\arabic*., itemsep=1em]
+	\item \textbf{设计一个员工工资系统} \\
+	      定义抽象类 \texttt{Employee}，包含私有成员 \texttt{name}（姓名）和 \texttt{id}（工号），以及抽象方法 \texttt{double getSalary()}。\\
+	      派生出两个子类：\texttt{Manager}（经理）和 \texttt{Worker}（工人）。\\
+	      \texttt{Manager} 类有额外属性 \texttt{bonus}（奖金），\texttt{Worker} 类有额外属性 \texttt{hoursWorked}（工作小时数）和 \texttt{hourlyRate}（每小时工资）。\\
+	      实现 \texttt{getSalary()} 方法：经理的工资为基本工资（可设定为 8000）+ 奖金；工人的工资为 \texttt{hoursWorked * hourlyRate}。\\
+	      在测试类 \texttt{Main} 中，创建一个 \texttt{Employee} 数组，存放至少两个经理和两个工人，计算并输出所有人的工资总额。
+	      \vspace{6cm}
+
+	\item \textbf{实现一个简单的银行账户类} \\
+	      定义一个 \texttt{BankAccount} 类，属性包括账号（\texttt{accountNumber}）、户主姓名（\texttt{owner}）、余额（\texttt{balance}）。\\
+	      提供构造方法、getter/setter 方法，以及以下方法：
+	      \begin{itemize}
+		      \item \texttt{void deposit(double amount)}：存款，金额必须为正，否则抛出 \texttt{IllegalArgumentException}。
+		      \item \texttt{void withdraw(double amount)}：取款，金额必须为正且不超过余额，否则抛出异常。
+		      \item \texttt{double getBalance()}：返回余额。
+	      \end{itemize}
+	      重写 \texttt{toString()} 方法，返回账户信息。\\
+	      在测试类中创建两个账户，进行存款、取款操作，并输出操作后的账户信息。同时处理可能发生的异常。
+	      \vspace{6cm}
+\end{enumerate}
+
+\begin{center}
+	\textbf{—— 试卷结束，祝考试顺利 ——}
+\end{center}
+
+\end{document}

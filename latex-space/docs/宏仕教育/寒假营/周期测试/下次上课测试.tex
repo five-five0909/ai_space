@@ -1,0 +1,413 @@
+\documentclass[12pt, a4paper]{article}
+
+%--- 宏包引入 ---
+\usepackage[UTF8]{ctex}       % 中文支持
+\usepackage{amsmath, amssymb} % 数学公式与符号
+\usepackage{geometry}         % 页面设置
+\usepackage{fancyhdr}         % 页眉页脚
+\usepackage{enumitem}         % 列表环境定制
+\usepackage{lastpage}         % 获取总页数
+\usepackage{xcolor}           % 颜色支持
+\usepackage{tcolorbox}        % 文本框支持
+\usepackage{graphicx}         % 图片支持
+
+%--- 页面设置 ---
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+%--- 自定义颜色 ---
+\definecolor{hongshired}{RGB}{200, 0, 0} % 简单的深红色
+
+%--- 定义环境和命令 ---
+
+% 定义红色环境
+\newenvironment{redenv}{\color{red}}{}
+
+% 定义详细解析环境
+\newenvironment{detailedanalysis}{%
+    \color{red}
+    \begin{enumerate}[label=\textbf{第\arabic*步：}, leftmargin=*, align=left, itemsep=1.5ex]
+}{%
+    \end{enumerate}
+}
+
+% 定义概念框
+\newenvironment{conceptbox}{%
+    \begin{tcolorbox}[colback=red!5, colframe=red!50!black, title=概念解析, fonttitle=\bfseries]
+}{%
+    \end{tcolorbox}
+}
+
+% 定义公式推导环境
+\newenvironment{formuladerivation}{%
+    \begin{enumerate}[label={\textbf{公式\arabic*：}}, leftmargin=*, align=left]
+}{%
+    \end{enumerate}
+}
+
+% 定义题目和解析的分隔线
+\newcommand{\problemrule}{\noindent\rule{\textwidth}{1.5pt}\vspace{-0.8em}}
+\newcommand{\analysisrule}{\noindent\rule{\textwidth}{0.8pt}\vspace{-0.8em}}
+
+
+%--- 页眉页脚设置 ---
+\pagestyle{fancy}
+\fancyhf{} % 清空默认设置
+\fancyhead[L]{鸿仕教育·寒假集训}
+\fancyhead[C]{高等数学}
+\fancyhead[R]{下次上课测试·解析版}
+\fancyfoot[C]{第 \thepage\ 页 \quad 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.5pt} 
+
+\begin{document}
+
+%--- 卷头 ---
+\begin{center}
+    \textbf{\Large 重生之我一定会是本科生} \\[0.5em]
+    \large \textbf{详细解析与评分标准}
+\end{center}
+
+\vspace{1em}
+
+\noindent \textbf{一、解答题详细解析}
+
+% ========== 第1题 ==========
+\problemrule
+\section*{【题目1】幂指函数极限计算}
+求极限 $\lim\limits_{x \to 0} (x + e^x)^{\frac{1}{x}}$.
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+观察极限形式：当 $x \to 0$ 时，底数 $x + e^x \to 0 + 1 = 1$，指数 $\frac{1}{x} \to \infty$。
+这是一个典型的 $1^\infty$ 型未定式极限。
+
+\item \textbf{解题策略构建}
+对于 $1^\infty$ 型极限 $\lim u(x)^{v(x)}$，通常有两种处理方法：
+\begin{itemize}
+    \item 方法一：利用重要结论 $\lim (1+\alpha)^{\frac{1}{\alpha}} = e$ 变形。
+    \item 方法二：利用“幂指变对指”恒等式 $u^v = e^{v \ln u}$。
+\end{itemize}
+\textbf{推荐方法}：直接使用推广公式 $\lim u^v = e^{\lim v(u-1)}$。
+
+\item \textbf{详细求解过程}
+\textbf{步骤1：代入公式}
+令 $u = x + e^x, v = \frac{1}{x}$。
+原式 $= e^L$，其中 $L = \lim\limits_{x \to 0} \frac{1}{x} [(x + e^x) - 1] = \lim\limits_{x \to 0} \frac{x + e^x - 1}{x}$.
+
+\textbf{步骤2：计算指数部分的极限}
+对于 $L = \lim\limits_{x \to 0} \frac{x + e^x - 1}{x}$，这是 $\frac{0}{0}$ 型极限。
+应用洛必达法则（L'Hospital's Rule）：
+\[
+L = \lim\limits_{x \to 0} \frac{(x + e^x - 1)'}{(x)'} = \lim\limits_{x \to 0} \frac{1 + e^x}{1}
+\]
+
+\textbf{步骤3：求出最终值}
+\[
+L = 1 + e^0 = 1 + 1 = 2
+\]
+所以原极限 $= e^L = e^2$.
+
+\item \textbf{最终答案}
+\[ \lim\limits_{x \to 0} (x + e^x)^{\frac{1}{x}} = e^2 \]
+\end{detailedanalysis}
+
+\subsection*{核心公式与推导}
+\begin{formuladerivation}
+\item \textbf{$1^\infty$型极限速算公式}
+若 $\lim u(x) = 1, \lim v(x) = \infty$，则：
+\[ \lim u(x)^{v(x)} = e^{\lim v(x)[u(x)-1]} \]
+\textbf{推导}：利用 $u^v = e^{v \ln u} = e^{v \ln(1+(u-1))} \sim e^{v(u-1)}$ (当 $u \to 1$ 时 $u-1 \to 0$, $\ln(1+t) \sim t$).
+\end{formuladerivation}
+
+\subsection*{考点深度分析}
+\begin{conceptbox}
+\textbf{易错点}：
+1. 这里不建议直接用 $x \sim \sin x$ 等代换，因为是和的形式，需谨慎。
+2. 洛必达求导时，注意 $(e^x)' = e^x$ 不要漏掉。
+3. 最后结果是 $e^L$ 而不是 $L$。
+\end{conceptbox}
+\end{redenv}
+
+
+% ========== 第2题 ==========
+\problemrule
+\section*{【题目2】参数方程求导}
+设参数方程 $\begin{cases} x = e^{t^2+1} \\ y = 2\ln t \end{cases}$ 所确定的函数为 $y=y(x)$, 求 $\frac{dy}{dx}$.
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+本题考查由参数方程确定的函数的导数计算。
+已知 $x(t)$ 和 $y(t)$，要求 $\frac{dy}{dx}$。
+
+\item \textbf{详细求解过程}
+\textbf{步骤1：分别对参数 $t$ 求导}
+\[ \frac{dx}{dt} = (e^{t^2+1})' = e^{t^2+1} \cdot (t^2+1)' = 2t e^{t^2+1} \]
+\[ \frac{dy}{dt} = (2\ln t)' = 2 \cdot \frac{1}{t} = \frac{2}{t} \]
+
+\textbf{步骤2：应用参数方程求导公式}
+\[ \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{2/t}{2t e^{t^2+1}} \]
+
+\textbf{步骤3：化简结果}
+\[ \frac{dy}{dx} = \frac{2}{t} \cdot \frac{1}{2t e^{t^2+1}} = \frac{1}{t^2 e^{t^2+1}} \]
+
+\item \textbf{最终答案}
+\[ \frac{dy}{dx} = \frac{1}{t^2 e^{t^2+1}} \]
+\end{detailedanalysis}
+
+\subsection*{核心公式与推导}
+\begin{formuladerivation}
+\item \textbf{参数方程一阶导数公式}
+\[ \frac{dy}{dx} = \frac{y'(t)}{x'(t)} \]
+注意前提 $x'(t) \neq 0$。
+\end{formuladerivation}
+\end{redenv}
+
+
+% ========== 第3题 ==========
+\problemrule
+\section*{【题目3】不定积分计算}
+求不定积分 $\int \frac{\sin x}{e^x} dx$.
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+被积函数为指数函数与三角函数的乘积：$e^{-x} \sin x$。
+这是一类典型的可以使用“分部积分法”解决的积分，通常需要两次分部积分出现循环。
+
+\item \textbf{详细求解过程}
+记 $I = \int e^{-x} \sin x dx$.
+
+\textbf{步骤1：第一次分部积分}
+设 $u = \sin x, dv = e^{-x}dx$，则 $du = \cos x dx, v = -e^{-x}$.
+\[ I = -e^{-x}\sin x - \int (-e^{-x})\cos x dx = -e^{-x}\sin x + \int e^{-x}\cos x dx \]
+
+\textbf{步骤2：第二次分部积分}
+对 $\int e^{-x}\cos x dx$ 再用分部积分。
+设 $u = \cos x, dv = e^{-x}dx$，则 $du = -\sin x dx, v = -e^{-x}$.
+\[ \int e^{-x}\cos x dx = -e^{-x}\cos x - \int (-e^{-x})(-\sin x) dx = -e^{-x}\cos x - \int e^{-x}\sin x dx \]
+\[ = -e^{-x}\cos x - I \]
+
+\textbf{步骤3：解方程求 $I$}
+代回 $I$ 的表达式：
+\[ I = -e^{-x}\sin x + (-e^{-x}\cos x - I) \]
+\[ I = -e^{-x}(\sin x + \cos x) - I \]
+移项得：
+\[ 2I = -e^{-x}(\sin x + \cos x) \]
+\[ I = -\frac{1}{2}e^{-x}(\sin x + \cos x) + C \]
+
+\item \textbf{最终答案}
+\[ \int \frac{\sin x}{e^x} dx = -\frac{e^{-x}}{2}(\sin x + \cos x) + C \]
+\end{detailedanalysis}
+
+\subsection*{考点深度分析}
+\begin{conceptbox}
+\textbf{解题技巧}：
+此类 $\int e^{ax} \sin bx \, dx$ 或 $\int e^{ax} \cos bx \, dx$ 的积分，被称为“循环积分”。
+一定要记得最后加常数 $C$。
+\end{conceptbox}
+\end{redenv}
+
+
+% ========== 第4题 ==========
+\problemrule
+\section*{【题目4】单调性与极值}
+求函数 $f(x) = 2x^3 - 3x^2$ 的单调区间和极值.
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+题目要求通过导数研究函数的单调性和极值。
+定义域为 $x \in (-\infty, +\infty)$。
+
+\item \textbf{详细求解过程}
+\textbf{步骤1：求导数}
+\[ f'(x) = 6x^2 - 6x \]
+
+\textbf{步骤2：求驻点}
+令 $f'(x) = 0$，即 $6x(x-1) = 0$，解得 $x_1 = 0, x_2 = 1$.
+
+\textbf{步骤3：列表分析}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$x$ & $(-\infty, 0)$ & 0 & $(0, 1)$ & 1 & $(1, +\infty)$ \\
+\hline
+$f'(x)$ & + & 0 & - & 0 & + \\
+\hline
+$f(x)$ & $\nearrow$ & 极大 & $\searrow$ & 极小 & $\nearrow$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{步骤4：计算极值}
+极大值 $f(0) = 2(0)^3 - 3(0)^2 = 0$.
+极小值 $f(1) = 2(1)^3 - 3(1)^2 = -1$.
+
+\item \textbf{最终答案}
+\begin{itemize}
+    \item 单调递增区间：$(-\infty, 0)$ 和 $(1, +\infty)$
+    \item 单调递减区间：$(0, 1)$
+    \item 极大值：$f(0)=0$；极小值：$f(1)=-1$.
+\end{itemize}
+\end{detailedanalysis}
+\end{redenv}
+
+
+% ========== 第5题 ==========
+\problemrule
+\section*{【题目5】凹凸性与拐点}
+求函数 $y = \frac{2x^2}{(1+x)^2}$ 的凹凸区间和拐点.
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+研究凹凸性和拐点需要计算二阶导数 $y''$。
+\textbf{注意定义域}：$x \neq -1$。
+
+\item \textbf{详细求解过程}
+\textbf{步骤1：化简函数求一阶导}
+\[ y = 2 \left( \frac{x}{1+x} \right)^2 = 2 \left( \frac{1+x-1}{1+x} \right)^2 = 2 \left( 1 - \frac{1}{1+x} \right)^2 \]
+令 $u = 1 - \frac{1}{1+x}$，则 $y = 2u^2$。
+\[ y' = 4u \cdot u' = 4 \left( 1 - \frac{1}{1+x} \right) \cdot \frac{1}{(1+x)^2} = \frac{4[(1+x)-1]}{(1+x)^3} = \frac{4x}{(1+x)^3} \]
+
+\textbf{步骤2：求二阶导数}
+\[ y'' = \left( \frac{4x}{(1+x)^3} \right)' = \frac{4(1+x)^3 - 4x \cdot 3(1+x)^2}{(1+x)^6} \]
+约去 $(1+x)^2$：
+\[ y'' = \frac{4(1+x) - 12x}{(1+x)^4} = \frac{4 + 4x - 12x}{(1+x)^4} = \frac{4 - 8x}{(1+x)^4} \]
+
+\textbf{步骤3：分析符号}
+令 $y'' = 0$，得 $4 - 8x = 0 \Rightarrow x = 1/2$.
+分母 $(1+x)^4 > 0$（在定义域内），故 $y''$ 符号由 $4-8x$ 决定。
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$x$ & $(-\infty, -1)$ & $(-1, 1/2)$ & $1/2$ & $(1/2, +\infty)$ \\
+\hline
+$y''$ & + & + & 0 & - \\
+\hline
+凹凸性 & 凹 & 凹 & 拐点 & 凸 \\
+\hline
+\end{tabular}
+\end{center}
+注：此处“凹”指凹口向上（$y''>0$），“凸”指凹口向下（$y''<0$）。
+
+\textbf{步骤4：求拐点坐标}
+当 $x = 1/2$ 时，
+\[ y = \frac{2(1/2)^2}{(1 + 1/2)^2} = \frac{2 \cdot 1/4}{9/4} = \frac{1/2}{9/4} = \frac{2}{9} \]
+拐点为 $(1/2, 2/9)$.
+
+\item \textbf{最终答案}
+\begin{itemize}
+    \item 凹区间：$(-\infty, -1)$ 和 $(-1, 1/2)$
+    \item 凸区间：$(1/2, +\infty)$
+    \item 拐点：$(1/2, 2/9)$
+\end{itemize}
+\end{detailedanalysis}
+\end{redenv}
+
+
+% ========== 第6题 ==========
+\problemrule
+\section*{【题目6】微分计算}
+设函数 $y = x^2 \left( \ln^2 x - \ln x + \frac{1}{2} \right)$, 求 $dy$.
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+本题考查复合函数的导数/微分运算，主要涉及乘法法则和对数函数求导。
+
+\item \textbf{详细求解过程}
+\textbf{步骤1：利用乘法法则求导}
+\[ y' = (x^2)' \cdot (\ln^2 x - \ln x + 1/2) + x^2 \cdot (\ln^2 x - \ln x + 1/2)' \]
+\[ (x^2)' = 2x \]
+\[ (\ln^2 x - \ln x + 1/2)' = 2\ln x \cdot \frac{1}{x} - \frac{1}{x} = \frac{2\ln x - 1}{x} \]
+
+\textbf{步骤2：代入整理}
+\[ y' = 2x(\ln^2 x - \ln x + 1/2) + x^2 \cdot \frac{2\ln x - 1}{x} \]
+\[ = 2x\ln^2 x - 2x\ln x + x + x(2\ln x - 1) \]
+\[ = 2x\ln^2 x - 2x\ln x + x + 2x\ln x - x \]
+\[ = 2x\ln^2 x \]
+
+\textbf{步骤3：写成微分形式}
+\[ dy = y' dx = 2x \ln^2 x dx \]
+
+\item \textbf{最终答案}
+\[ dy = 2x \ln^2 x dx \]
+\end{detailedanalysis}
+\end{redenv}
+
+
+% ========== 第7题 ==========
+\problemrule
+\section*{【题目7】几何应用求最值}
+设底面为等边三角形的直三棱柱，体积为 $V$。要使表面积最小，问底面三角形边长为多少？
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+这是一个几何最值应用题。
+目标函数：表面积 $S$。
+约束条件：体积 $V$ 为常数。
+自变量：底面边长 $x$。
+
+\item \textbf{详细求解过程}
+\textbf{步骤1：建立函数关系}
+设底面边长为 $x$，高为 $h$。
+底面积（等边三角形）：$A_b = \frac{\sqrt{3}}{4}x^2$.
+体积 $V = A_b \cdot h = \frac{\sqrt{3}}{4}x^2 h \Rightarrow h = \frac{4V}{\sqrt{3}x^2}$.
+
+表面积 $S = 2A_b + 3xh$ （2个底面 + 3个侧面）
+\[ S(x) = 2 \cdot \frac{\sqrt{3}}{4}x^2 + 3x \cdot \frac{4V}{\sqrt{3}x^2} \]
+\[ S(x) = \frac{\sqrt{3}}{2}x^2 + \frac{12V}{\sqrt{3}x} = \frac{\sqrt{3}}{2}x^2 + \frac{4\sqrt{3}V}{x} \]
+
+\textbf{步骤2：求导寻找驻点}
+\[ S'(x) = \frac{\sqrt{3}}{2} \cdot 2x - 4\sqrt{3}V \cdot \frac{1}{x^2} = \sqrt{3}x - \frac{4\sqrt{3}V}{x^2} \]
+令 $S'(x) = 0$:
+\[ \sqrt{3}x = \frac{4\sqrt{3}V}{x^2} \Rightarrow x^3 = 4V \Rightarrow x = \sqrt[3]{4V} \]
+
+\textbf{步骤3：判断极值类型}
+求二阶导：
+\[ S''(x) = \sqrt{3} - 4\sqrt{3}V (-2x^{-3}) = \sqrt{3} + \frac{8\sqrt{3}V}{x^3} \]
+因 $x, V > 0$，故 $S''(x) > 0$，该驻点为极小值点，也是最小值点。
+
+\item \textbf{最终答案}
+当底面三角形边长为 $x = \sqrt[3]{4V}$ 时，表面积最小。
+\end{detailedanalysis}
+
+\subsection*{核心公式与推导}
+\begin{formuladerivation}
+\item \textbf{等边三角形面积}
+$A = \frac{\sqrt{3}}{4}a^2$.
+\item \textbf{直棱柱体积与表面积}
+$V = Sh$, $S_{total} = 2S_{base} + C_{base}h$.
+\end{formuladerivation}
+\end{redenv}
+
+\end{document}

@@ -1,0 +1,622 @@
+\documentclass[12pt, a4paper]{ctexart}
+
+%==================== 导言区：宏包加载 ====================
+\usepackage{amsmath, amssymb, amsthm} % 数学公式与符号
+\usepackage{geometry}                 % 页面设置
+\usepackage{xcolor}                   % 颜色支持
+\usepackage{fancyhdr}                 % 页眉页脚
+\usepackage{enumitem}                 % 列表定制
+\usepackage{tcolorbox}                %以此美化文本框
+\usepackage{titlesec}                 % 标题格式调整
+
+%==================== 页面布局设置 ====================
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+%==================== 自定义视觉样式 ====================
+
+% 1. 定义分隔线样式
+\newcommand{\TopSeparator}{
+    \par\noindent\rule{\textwidth}{1.5pt}\vspace{0.5em} % 粗实线 ━━━━
+}
+\newcommand{\AnalysisSeparator}{
+    \par\noindent\rule{\textwidth}{0.5pt}\vspace{0.2em}\hrule\vspace{0.5em} % 双线效果 ════
+}
+
+% 2. 定义红色解析环境
+%在这个环境内的所有文字和公式都会自动变成红色
+\newenvironment{RedAnalysis}{
+    \par
+    \color{red} % 设置后续字体为红色
+}{
+    \par
+    \color{black} % 结束时恢复黑色
+}
+
+% 3. 标题格式微调
+\titleformat{\section}{\large\bfseries\heiti}{}{0em}{}[\vspace{-0.5em}]
+\titleformat{\subsection}{\bfseries\kaishu}{}{0em}{}
+
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+%==================== 文档开始 ====================
+\begin{document}
+
+% 标题信息
+\title{\textbf{第七章 定积分（解析）}}
+\author{数学习题讲义}
+\date{\today}
+\maketitle
+
+% --- 题目 1 ---
+\TopSeparator
+\section*{题目1}
+
+\textbf{【题目重现】} \\
+已知 $ f(x) $ 为 $ [1, +\infty] $ 上的连续函数，且 $ F(x) = \int_{1}^{x^{2}} \frac{f(t)}{t} dt, x \in (1, +\infty) $ 。则 $ F'(x) = $ \underline{\hspace{1cm}}。
+\choicesFour{$ 2f(x) $}{$ 2xf(x^{2}) $}{$ \frac{f(x^{2})}{x} $}{$ \frac{2f(x^{2})}{x} $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+变限积分求导问题。复合函数求导链式法则。
+
+\textbf{详细步骤} \\
+1. 令 $u = x^2$，则 $F(x) = \int_1^u \frac{f(t)}{t} dt$。
+2. 求导：
+   \[ F'(x) = \frac{d}{dx} \int_1^{x^2} \frac{f(t)}{t} dt = \frac{f(x^2)}{x^2} \cdot (x^2)' \]
+   \[ = \frac{f(x^2)}{x^2} \cdot 2x = \frac{2x f(x^2)}{x^2} = \frac{2f(x^2)}{x} \]
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. \textbf{变限积分求导}：$\frac{d}{dx} \int_a^{\varphi(x)} f(t) dt = f(\varphi(x)) \cdot \varphi'(x)$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 2 ---
+\TopSeparator
+\section*{题目2}
+
+\textbf{【题目重现】} \\
+定积分 $ \int_{-2}^{0}|x+1|dx $ 的值为 \underline{\hspace{1cm}}。
+\choicesFour{-2}{2}{-1}{1}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+含有绝对值，需要分段去掉绝对值符号。零点在 $x = -1$。
+
+\textbf{详细步骤} \\
+1. 分拆区间：
+   \[ \int_{-2}^{0} |x+1| dx = \int_{-2}^{-1} -(x+1) dx + \int_{-1}^{0} (x+1) dx \]
+2. 计算第一部分：
+   \[ \int_{-2}^{-1} -(x+1) dx = -[\frac{1}{2}x^2+x]_{-2}^{-1} = -[(\frac{1}{2}-1) - (2-2)] = -(-\frac{1}{2}) = \frac{1}{2} \]
+   （或者利用几何意义：底为1高为1的三角形面积 $\frac{1}{2}$）
+3. 计算第二部分：
+   \[ \int_{-1}^{0} (x+1) dx = [\frac{1}{2}x^2+x]_{-1}^{0} = 0 - (\frac{1}{2}-1) = \frac{1}{2} \]
+4. 总和：$\frac{1}{2} + \frac{1}{2} = 1$。
+
+\textbf{第四步：最终答案} \\
+D
+
+\subsection*{二、核心公式}
+1. \textbf{定积分几何意义}：函数图像与x轴围成的面积。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 3 ---
+\TopSeparator
+\section*{题目3}
+
+\textbf{【题目重现】} \\
+定积分 $ \int_{-1}^{1}\frac{x^{4}\tan x}{2x^{2}+\cos x}dx $ 的值为 \underline{\hspace{1cm}}。
+\choicesFour{0}{1}{-1}{2}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+积分区间对称关于原点 $[-1, 1]$，首先检查被积函数的奇偶性。
+
+\textbf{详细步骤} \\
+1. 设 $f(x) = \frac{x^4 \tan x}{2x^2 + \cos x}$。
+   - $x^4$ 是偶函数。
+   - $\tan x$ 是奇函数。
+   - $2x^2$ 是偶函数，$\cos x$ 是偶函数 $\Rightarrow$ 分母是偶函数。
+   - 分子：偶 $\times$ 奇 = 奇。
+   - 整体：奇 / 偶 = 奇函数。
+2. 奇函数在对称区间上的积分为 0。
+
+\textbf{第四步：最终答案} \\
+A
+
+\subsection*{二、核心公式}
+1. \textbf{对称区间积分性质}：
+   - 奇函数 $\int_{-a}^a f(x) dx = 0$。
+   - 偶函数 $\int_{-a}^a f(x) dx = 2\int_0^a f(x) dx$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 4 ---
+\TopSeparator
+\section*{题目4}
+
+\textbf{【题目重现】} \\
+设 $ p = \int_{0}^{\frac{\pi}{2}} \sin^{2}x \, dx $ , $ q = \int_{0}^{\frac{\pi}{2}} \cos^{2}x \, dx $ , $ r = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \sin^{2}x \, dx $ , 则 \underline{\hspace{1cm}}。
+\choicesFour{$ p = q = r $}{$ p = q < r $}{$ p < q < r $}{$ p > q > r $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+利用三角函数积分性质（Wallis公式）和对称性比较大小。
+
+\textbf{详细步骤} \\
+1. 比较 $p$ 和 $q$：
+   根据性质，$\int_0^{\pi/2} \sin^n x dx = \int_0^{\pi/2} \cos^n x dx$。
+   所以 $p = q$。
+2. 计算 $p$ 和 $q$ 的具体值（或比较区间）：
+   $p = \int_{0}^{\frac{\pi}{2}} \sin^{2}x \, dx$。
+3. 分析 $r$：
+   $r = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \sin^{2}x \, dx$。
+   因为 $\sin^2 x$ 是偶函数，所以 $r = 2 \int_0^{\frac{\pi}{2}} \sin^2 x dx = 2p$。
+4. 因为 $\sin^2 x > 0$（在大部分区间），积分值为正，所以 $2p > p$。
+   得 $p = q < r$。
+
+\textbf{第四步：最终答案} \\
+B
+
+\subsection*{二、核心公式}
+1. \textbf{区间倍增}：偶函数在 $[-a, a]$ 积分为 $[0, a]$ 的两倍。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 5 ---
+\TopSeparator
+\section*{题目5}
+
+\textbf{【题目重现】} \\
+$ \int_{a}^{b}f'(2x)dx= $ \underline{\hspace{1cm}}。
+\choicesTwo
+{$ f(b) - f(a) $}
+{$ f(2b) - f(2a) $}
+{$ \frac{1}{2}[f(2b)-f(2a)] $}
+{$ 2[f(2b)-f(2a)] $}
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+注意被积函数是 $f'(2x)$ 而不是 $f'(x)$。需凑微分。
+
+\textbf{详细步骤} \\
+1. 令 $u = 2x$，则 $dx = \frac{1}{2} du$。
+   - $x=a \Rightarrow u=2a$
+   - $x=b \Rightarrow u=2b$
+2. 原积分 $= \int_{2a}^{2b} f'(u) \cdot \frac{1}{2} du$。
+3. $= \frac{1}{2} [f(u)]_{2a}^{2b} = \frac{1}{2}[f(2b) - f(2a)]$。
+   
+   **或者**直接凑微分：
+   $\int_{a}^{b} f'(2x) dx = \frac{1}{2} \int_{a}^{b} f'(2x) d(2x)$
+   $= \frac{1}{2} [f(2x)]_a^b = \frac{1}{2}[f(2b) - f(2a)]$。
+
+\textbf{第四步：最终答案} \\
+C
+
+\subsection*{二、核心公式}
+1. \textbf{凑微分法定积分}。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 6 ---
+\TopSeparator
+\section*{题目6}
+
+\textbf{【题目重现】} \\
+设 $ \varphi'(x) = \int_{0}^{\ln x} t^{2} dt $ , 则 $ \varphi'(x) = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+题目直接给出 $\varphi'(x)$ 的表达式为定积分，要求计算出该定积分的结果。
+
+\textbf{详细步骤} \\
+1. 计算右边的定积分：
+   \[ \int_0^{\ln x} t^2 dt = [\frac{1}{3}t^3]_0^{\ln x} \]
+2. 代入上下限：
+   \[ = \frac{1}{3}(\ln x)^3 - 0 = \frac{1}{3}\ln^3 x \]
+
+\textbf{第四步：最终答案} \\
+$ \frac{1}{3}\ln^3 x $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：定积分计算（牛顿-莱布尼茨公式）。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 7 ---
+\TopSeparator
+\section*{题目7}
+
+\textbf{【题目重现】} \\
+函数 $ f(x) $ 满足 $ \int_{0}^{2x} f(t) dt = 1 + x^{3} $ ，则 $ f(8) = $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+积分上限函数，两边求导。
+
+\textbf{详细步骤} \\
+1. 对等式两边关于 $x$ 求导：
+   左边：$\frac{d}{dx} \int_0^{2x} f(t) dt = f(2x) \cdot (2x)' = 2f(2x)$。
+   右边：$(1+x^3)' = 3x^2$。
+2. 得到：$2f(2x) = 3x^2 \Rightarrow f(2x) = \frac{3}{2}x^2$。
+3. 要求 $f(8)$，即令 $2x = 8 \Rightarrow x = 4$。
+4. 代入 $x=4$：
+   $f(8) = \frac{3}{2} \cdot (4)^2 = \frac{3}{2} \cdot 16 = 24$。
+
+\textbf{第四步：最终答案} \\
+24
+
+\subsection*{二、核心公式}
+1. \textbf{变限积分求导}：$\frac{d}{dx} \int_a^{g(x)} f(t) dt = f(g(x))g'(x)$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 8 ---
+\TopSeparator
+\section*{题目8}
+
+\textbf{【题目重现】} \\
+$ \int_{0}^{\pi}\cos x \, dx= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{详细步骤} \\
+\[ \int_{0}^{\pi}\cos x \, dx = [\sin x]_0^{\pi} = \sin \pi - \sin 0 = 0 - 0 = 0 \]
+
+\textbf{第四步：最终答案} \\
+0
+
+\subsection*{二、核心公式}
+1. \textbf{三角积分}：$\int \cos x dx = \sin x$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 9 ---
+\TopSeparator
+\section*{题目9}
+
+\textbf{【题目重现】} \\
+定积分 $ \int_{0}^{1}\frac{dx}{100+x^{2}}= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+标准积分公式 $\int \frac{1}{a^2+x^2} dx = \frac{1}{a} \arctan \frac{x}{a}$。此时 $a=10$。
+
+\textbf{详细步骤} \\
+1. 套用公式：
+   \[ \int_{0}^{1}\frac{dx}{100+x^{2}} = [\frac{1}{10} \arctan \frac{x}{10}]_0^1 \]
+2. 代入计算：
+   \[ = \frac{1}{10} \arctan \frac{1}{10} - \frac{1}{10} \arctan 0 \]
+   \[ = \frac{1}{10} \arctan \frac{1}{10} \]
+
+\textbf{第四步：最终答案} \\
+$ \frac{1}{10} \arctan \frac{1}{10} $
+
+\subsection*{二、核心公式}
+1. \textbf{标准积分}：$\int \frac{dx}{a^2+x^2} = \frac{1}{a} \arctan \frac{x}{a} + C$。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 10 ---
+\TopSeparator
+\section*{题目10}
+
+\textbf{【题目重现】} \\
+定积分 $ \int_{1}^{2}\frac{\sqrt{x-1}}{x}dx= $ \underline{\hspace{2cm}}。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+根式代换。令 $t = \sqrt{x-1}$。
+
+\textbf{详细步骤} \\
+1. 令 $t = \sqrt{x-1}$，则 $x = t^2 + 1$， $dx = 2t dt$。
+2. 换限：
+   $x=1 \Rightarrow t=0$。
+   $x=2 \Rightarrow t=1$。
+3. 积分变换：
+   \[ \int_0^1 \frac{t}{t^2+1} \cdot 2t dt = 2 \int_0^1 \frac{t^2}{t^2+1} dt \]
+   \[ = 2 \int_0^1 \frac{t^2+1-1}{t^2+1} dt = 2 \int_0^1 (1 - \frac{1}{t^2+1}) dt \]
+   \[ = 2 [ t - \arctan t ]_0^1 \]
+   \[ = 2 ( (1 - \arctan 1) - (0 - 0) ) \]
+   \[ = 2 (1 - \frac{\pi}{4}) = 2 - \frac{\pi}{2} \]
+
+\textbf{第四步：最终答案} \\
+$ 2 - \frac{\pi}{2} $
+
+\subsection*{二、核心公式}
+1. \textbf{第二类换元法（定积分）}：换元必换限。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 11 ---
+\TopSeparator
+\section*{题目11}
+
+\textbf{【题目重现】} \\
+求定积分 $ \int_{1}^{5}e^{\sqrt{2x-1}}dx $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+复合函数积分，根式代换。
+
+\textbf{详细步骤} \\
+1. 令 $t = \sqrt{2x-1}$，则 $t^2 = 2x-1 \Rightarrow x = \frac{1}{2}(t^2+1)$。
+   $dx = t dt$。
+2. 换限：
+   $x=1 \Rightarrow t=1$。
+   $x=5 \Rightarrow t=\sqrt{9}=3$。
+3. 积分变换：
+   \[ \int_1^3 e^t \cdot t dt = \int_1^3 t e^t dt \]
+4. 分部积分：
+   \[ [t e^t]_1^3 - \int_1^3 e^t dt \]
+   \[ = (3e^3 - 1e^1) - [e^t]_1^3 \]
+   \[ = 3e^3 - e - (e^3 - e) \]
+   \[ = 3e^3 - e - e^3 + e = 2e^3 \]
+
+\textbf{第四步：最终答案} \\
+$ 2e^3 $
+
+\subsection*{二、核心公式}
+1. \textbf{定积分分部积分法}。
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 12 ---
+\TopSeparator
+\section*{题目12}
+
+\textbf{【题目重现】} \\
+求定积分 $ \int_{1}^{4}\frac{1+\ln x}{\sqrt{x}}dx $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+可以拆分为两项，或者令 $t=\sqrt{x}$。
+
+\textbf{详细步骤} \\
+令 $t=\sqrt{x}$，则 $x=t^2, dx=2tdt$。
+换限：$x=1 \to t=1; x=4 \to t=2$。
+积分变换：
+\[ \int_1^2 \frac{1+\ln t^2}{t} \cdot 2t dt = 2 \int_1^2 (1 + 2\ln t) dt \]
+\[ = 2 [t]_1^2 + 4 \int_1^2 \ln t dt \]
+第一部分：$2(2-1) = 2$。
+第二部分：$\int \ln t dt = t\ln t - t$。
+$4[t\ln t - t]_1^2 = 4((2\ln 2 - 2) - (0 - 1)) = 4(2\ln 2 - 1) = 8\ln 2 - 4$。
+总和：$2 + 8\ln 2 - 4 = 8\ln 2 - 2$。
+
+\textbf{第四步：最终答案} \\
+$ 8\ln 2 - 2 $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：定积分计算技巧。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 13 ---
+\TopSeparator
+\section*{题目13}
+
+\textbf{【题目重现】} \\
+求定积分 $ \int_{0}^{\sqrt{3}} \arctan x \, dx $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+分部积分法。
+
+\textbf{详细步骤} \\
+1. 令 $u = \arctan x, dv = dx$。
+2. \[ I = [x \arctan x]_0^{\sqrt{3}} - \int_0^{\sqrt{3}} \frac{x}{1+x^2} dx \]
+3. 第一部分：
+   $\sqrt{3} \arctan \sqrt{3} - 0 = \sqrt{3} \cdot \frac{\pi}{3} = \frac{\pi}{\sqrt{3}}$（即 $\frac{\sqrt{3}\pi}{3}$）。
+4. 第二部分：
+   \[ \int_0^{\sqrt{3}} \frac{x}{1+x^2} dx = \frac{1}{2}\int_0^{\sqrt{3}} \frac{d(1+x^2)}{1+x^2} = \frac{1}{2} [\ln(1+x^2)]_0^{\sqrt{3}} \]
+   \[ = \frac{1}{2} (\ln 4 - \ln 1) = \frac{1}{2} \ln 4 = \ln 2 \]
+5. 结果：$\frac{\sqrt{3}}{3}\pi - \ln 2$。
+
+\textbf{第四步：最终答案} \\
+$ \frac{\sqrt{3}}{3}\pi - \ln 2 $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：分部积分法。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 14 ---
+\TopSeparator
+\section*{题目14}
+
+\textbf{【题目重现】} \\
+$ f(x)=\begin{cases}xe^{-x}, & x\leq0\\ 3x^{2}, & 0<x\leq1\end{cases} $ ，求 $ \int_{-3}^{1}f(x)dx $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+分段函数定积分，利用积分区问的可加性，在分界点 $x=0$ 处拆分。
+
+\textbf{详细步骤} \\
+1. 拆分：
+   \[ I = \int_{-3}^0 xe^{-x} dx + \int_0^1 3x^2 dx \]
+2. 计算第一部分 $I_1 = \int_{-3}^0 xe^{-x} dx$：
+   分部积分：$u=x, dv=e^{-x}dx \Rightarrow v=-e^{-x}$。
+   \[ I_1 = [-xe^{-x}]_{-3}^0 - \int_{-3}^0 -e^{-x} dx \]
+   \[ = (0 - (-3e^3)) + \int_{-3}^0 e^{-x} dx \]
+   \[ = 3e^3 + [-e^{-x}]_{-3}^0 = 3e^3 + (-1 - (-e^3)) \]
+   \[ = 3e^3 - 1 + e^3 = 4e^3 - 1 \]
+3. 计算第二部分 $I_2 = \int_0^1 3x^2 dx$：
+   \[ I_2 = [x^3]_0^1 = 1 - 0 = 1 \]
+4. 总和：$I = 4e^3 - 1 + 1 = 4e^3$。
+
+\textbf{第四步：最终答案} \\
+$ 4e^3 $
+
+\subsection*{三、考点分析}
+\begin{itemize}
+    \item \textbf{知识点归类}：分段函数积分。
+\end{itemize}
+
+\end{RedAnalysis}
+
+\vspace{2em}
+
+% --- 题目 15 ---
+\TopSeparator
+\section*{题目15}
+
+\textbf{【题目重现】} \\
+求定积分 $ \int_{0}^{\pi} x(\sin x)^{3}dx $。
+
+\AnalysisSeparator
+
+\begin{RedAnalysis}
+
+\subsection*{一、逐步解析}
+
+\textbf{第一步：问题分析} \\
+形如 $\int_0^{\pi} x f(\sin x) dx$ 的积分，可以使用专用公式简化。
+公式：$\int_0^{\pi} x f(\sin x) dx = \frac{\pi}{2} \int_0^{\pi} f(\sin x) dx$。
+
+\textbf{详细步骤} \\
+1. 应用公式：
+   \[ I = \frac{\pi}{2} \int_0^{\pi} \sin^3 x dx \]
+2. 利用对称性：
+   $\sin^3 x$ 在 $[0, \pi]$ 关于 $\pi/2$ 对称，且 $\int_0^{\pi} = 2\int_0^{\pi/2}$。
+   \[ I = \frac{\pi}{2} \cdot 2 \int_0^{\pi/2} \sin^3 x dx = \pi \int_0^{\pi/2} \sin^3 x dx \]
+3. 利用Wallis公式：
+   $\int_0^{\pi/2} \sin^3 x dx = \frac{2}{3} \cdot 1 = \frac{2}{3}$。
+4. 结果：$\pi \cdot \frac{2}{3} = \frac{2\pi}{3}$。
+
+\textbf{第四步：最终答案} \\
+$ \frac{2\pi}{3} $
+
+\subsection*{二、核心公式}
+1. \textbf{重要结论}：$\int_0^{\pi} x f(\sin x) dx = \frac{\pi}{2} \int_0^{\pi} f(\sin x) dx$。
+2. \textbf{Wallis公式}：$\int_0^{\pi/2} \sin^n x dx$。
+
+\end{RedAnalysis}
+
+\end{document}

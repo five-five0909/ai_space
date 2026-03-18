@@ -1,0 +1,158 @@
+\section{Java编程基础}
+
+\begin{question}
+	在Java中，以下哪个关键字用于定义常量？
+	\begin{options}
+		\item final
+		\item static
+		\item abstract
+		\item interface
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		在Java中，使用 \texttt{final} 关键字定义常量，一旦赋值不可修改。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个是Java中的合法标识符？
+	\begin{options}
+		\item 123abc
+		\item @abc
+		\item \_abc
+		\item class
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		Java标识符必须以字母、下划线或美元符号开头，不能以数字开头，也不能是关键字。\texttt{\_abc} 合法。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	Java中用于声明整数类型变量的关键字是
+	\begin{options}
+		\item int
+		\item float
+		\item double
+		\item long
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{int} 是基本整数类型；\texttt{float} 和 \texttt{double} 是浮点型；\texttt{long} 是长整型。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下代码的输出结果是
+	\begin{lstlisting}
+int a = 5;
+int b = 2;
+System.out.println(a / b);
+\end{lstlisting}
+	\begin{options}
+		\item 2.5
+		\item 2
+		\item 3
+		\item 2.0
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		两个整数相除结果取整，5 / 2 = 2（向下取整）。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下哪个是Java中的逻辑与运算符？
+	\begin{options}
+		\item \&\&
+		\item ||
+		\item !
+		\item \&
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		\texttt{\&\&} 是短路逻辑与运算符；\texttt{\&} 是按位与；\texttt{||} 是逻辑或；\texttt{!} 是逻辑非。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下代码的输出结果是
+	\begin{lstlisting}
+boolean flag = false;
+if (flag) {
+    System.out.println("True");
+} else {
+    System.out.println("False");
+}
+\end{lstlisting}
+	\begin{options}
+		\item True
+		\item False
+		\item 编译错误
+		\item 运行时错误
+	\end{options}
+	\begin{answer}
+		B
+	\end{answer}
+	\begin{explanation}
+		\texttt{flag} 为 \texttt{false}，执行 else 分支，输出 "False"。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	在Java中，for循环的三个表达式都可以省略吗？
+	\begin{options}
+		\item 可以
+		\item 不可以
+		\item 第一个和第三个可以省略，第二个不可以
+		\item 第一个和第二个可以省略，第三个不可以
+	\end{options}
+	\begin{answer}
+		A
+	\end{answer}
+	\begin{explanation}
+		for循环的三个表达式均可省略，但分号不能省，例如 \texttt{for(;;)} 是无限循环。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于数组的说法错误的是
+	\begin{options}
+		\item 数组是相同类型元素的有序集合
+		\item 数组的长度在创建后不能改变
+		\item 数组可以存储不同类型的元素
+		\item 可以通过索引访问数组元素
+	\end{options}
+	\begin{answer}
+		C
+	\end{answer}
+	\begin{explanation}
+		数组只能存储相同类型的元素。
+	\end{explanation}
+\end{question}
+
+\begin{question}
+	以下关于Java中的可变参数的说法错误的是
+	\begin{options}
+		\item 可变参数必须是方法的最后一个参数
+		\item 可变参数可以接受零个或多个参数
+		\item 可变参数在方法内部被视为数组
+		\item 可变参数可以和普通参数一起使用，且位置任意
+	\end{options}
+	\begin{answer}
+		D
+	\end{answer}
+	\begin{explanation}
+		可变参数必须是最后一个参数。
+	\end{explanation}
+\end{question}

@@ -1,0 +1,93 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{graphicx}       % 图片支持
+\usepackage{fancyhdr}       % 页眉页脚
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 使用方法：\choices{选项A}{选项B}{选项C}{选项D}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+
+\title{\textbf{《高等数学》必刷习题——基础版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第六章 不定积分（基础）}
+
+\begin{enumerate}
+    \item 不定积分 $ \int\frac{dx}{x(x+1)} $ 的结果为 \underline{\hspace{1cm}}。
+    \choicesFour{$ \ln|\frac{x+1}{x}|+C $}{$ \ln|\frac{x}{x+1}|+C $}{$ \ln\frac{x+1}{x}+C $}{$ \ln\frac{x}{x+1}+C $}
+
+    \item 若 $ \int f(x)dx = F(x) + C, $ 则 $ \int e^{-x}f(e^{-x})dx = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ -F(e^{-x})+C $}{$ F(e^{-x})+C $}{$ \frac{F(e^{-x})}{x}+C $}{$ F(e^{x})+C $}
+
+    \item 若 $ \int f(x)dx = x^{2}e^{2x} + C $ ，则 $ f(x) = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ 2xe^{x} $}{$ 2x^{2}e^{2x} $}{$ xe^{2x} $}{$ 2xe^{2x}(1+x) $}
+
+    \item $ \int d(\arcsin\sqrt{x}) = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ \arcsin\sqrt{x} $}{$ \arcsin\sqrt{x}+C $}{$ \arccos\sqrt{x} $}{$ \arccos\sqrt{x}+C $}
+
+    \item $ \int xf(x^{2})f'(x^{2})dx = $ \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \frac{1}{2}f(x^{2})+C $}
+    {$ \frac{1}{2}f^{2}(x^{2})+C $}
+    {$ \frac{1}{4}f^{2}(x^{2})+C $}
+    {$ \frac{1}{4}x^{2}f^{2}(x^{2})+C $}
+
+    \item 已知 $ \int f(x)dx = \sin x \cos x + C $ , 则 $ f(x) = $ \underline{\hspace{2cm}}。
+
+    \item 设 $ f(x) $ 在 $ (-\infty,+\infty) $ 内连续，则 $ \frac{d}{dx}[\int f(x)dx]= $ \underline{\hspace{2cm}}。
+
+    \item 若 $ \int xf(x)dx=\frac{1}{2}x^{2}+C, $ 则 $ \int\frac{1}{f(x)}dx= $ \underline{\hspace{2cm}}。
+
+    \item 已知 $ \int f(\sqrt{x})\frac{1}{\sqrt{x}}dx = x + \ln x + C $ ，则 $ f(x) = $ \underline{\hspace{2cm}}。
+
+    \item 设 $ f(x) = e^{-x} $ ，则 $ \int \frac{f'(\ln x)}{x} dx = $ \underline{\hspace{2cm}}。
+
+    \item 计算 $ \int x^{2} \arctan x \, dx $。
+
+    \item 求不定积分 $ \int x^{2}e^{-x} \, dx $。
+
+    \item 求不定积分 $ \int(x+1)\sin x \, dx $。
+
+    \item 求不定积分 $ \int\frac{dx}{\sqrt{2x-3}+1} $。
+
+    \item 求不定积分 $ \int\frac{x^{2}}{1+x^{2}}\arctan x \, dx $。
+\end{enumerate}
+
+
+\end{document}

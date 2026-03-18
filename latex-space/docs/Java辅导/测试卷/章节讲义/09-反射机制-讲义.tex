@@ -1,0 +1,554 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbset{autoparskip}
+
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={反射机制-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{反射机制 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月05日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{反射机制}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于Java中的反射机制的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以在运行时获取类的信息
+		      \item 可以动态创建对象
+		      \item 可以调用对象的私有方法
+		      \item 反射机制会降低程序的性能
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 可以调用对象的私有方法}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查反射的核心能力和局限性
+			      \item \textbf{关键区分点}：虽然反射理论上可以调用私有方法，但本题将"不能调用"设为错误表述，导致C选项在理解上有歧义
+			      \item \textbf{命题人意图}：测试对反射的能力和适用场景的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{可以在运行时获取类的信息 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{功能说明}：反射允许在运行时获取类的完整结构信息
+				            \item \textbf{可获取信息}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 类名、包名、父类、接口
+					                  \item 字段（public/private/protected）
+					                  \item 构造器
+					                  \item 方法（public/private/protected）
+					                  \item 注解
+					                  \item 泛型信息（部分）
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+import java.lang.reflect.*;
+
+public class ReflectionDemo {
+    public static void main(String[] args) throws Exception {
+        // 获取Class对象
+        Class<?> clazz = String.class;
+
+        // 获取类名
+        System.out.println("类名: " + clazz.getName());
+
+        // 获取父类
+        System.out.println("父类: " + clazz.getSuperclass());
+
+        // 获取实现的接口
+        Class<?>[] interfaces = clazz.getInterfaces();
+        for (Class<?> i : interfaces) {
+            System.out.println("接口: " + i.getName());
+        }
+
+        // 获取所有public字段
+        Field[] fields = clazz.getFields();
+
+        // 获取所有声明字段（包括private）
+        Field[] allFields = clazz.getDeclaredFields();
+
+        // 获取所有public方法
+        Method[] methods = clazz.getMethods();
+
+        // 获取所有声明方法（包括private）
+        Method[] allMethods = clazz.getDeclaredMethods();
+
+        // 获取所有构造器
+        Constructor<?>[] constructors = clazz.getConstructors();
+    }
+}
+// 反射可运行时获取类的完整结构信息
+				      \end{lstlisting}
+				            \item \textbf{字节码层面}：反射通过JVM的Local Variable Table和Constant Pool查找类信息
+			            \end{itemize}
+
+			      \item[B] \textbf{可以动态创建对象 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{功能说明}：通过反射在运行时创建实例
+				            \item \textbf{创建方式}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Constructor.newInstance()
+					                  \item Class.newInstance()（已过时）
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+import java.lang.reflect.*;
+
+public class DynamicCreation {
+    public static void main(String[] args) throws Exception {
+        // 获取String的Class对象
+        Class<?> stringClass = String.class;
+
+        // 获取带有参数的构造器
+        Constructor<?> constructor =
+            stringClass.getConstructor(byte[].class);
+
+        // 创建对象
+        byte[] bytes = {72, 101, 108, 108, 111};
+        String str = (String) constructor.newInstance(bytes);
+        System.out.println(str);  // 输出：Hello
+
+        // 获取无参构造器创建对象（类必须有无参构造器）
+        Class<?> objClass = Object.class;
+        Object obj = objClass.getDeclaredConstructor().newInstance();
+        System.out.println(obj);  // 输出：java.lang.Object@...
+      }
+  }
+
+// 反射可动态创建任意可见性类的对象（需满足构造器可访问性）
+				      \end{lstlisting}
+				            \item \textbf{性能影响}：反射创建对象比new慢5-10倍
+			            \end{itemize}
+
+			      \item[C] \textbf{可以调用对象的私有方法 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{本题表述的特殊性}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 技术上反射**可以**调用私有方法（通过setAccessible(true)）
+					                  \item 但原题将"不能调用"设为错误，所以"可以调用"应该是正确的
+					                  \item 题目答案为C，表示原题认为"可以调用"是**错误表述**
+					                  \item 这与Java反射实际能力相悖，可能是题目设计时的误解
+				                  \end{itemize}
+				            \item \textbf{反射实际上可以调用私有方法}：
+				                  \begin{lstlisting}[language=Java]
+import java.lang.reflect.*;
+
+public class PrivateMethodInvocation {
+    public static void main(String[] args) throws Exception {
+        MyClass obj = new MyClass();
+
+        // 获取Class对象
+        Class<?> clazz = obj.getClass();
+
+        // 获取私有方法
+        Method privateMethod = clazz.getDeclaredMethod("privateMethod");
+
+        // 暴力反射：绕过访问控制
+        privateMethod.setAccessible(true);
+
+        // 调用私有方法
+        privateMethod.invoke(obj);  // 输出：私有方法被调用
+    }
+}
+
+class MyClass {
+    private void privateMethod() {
+        System.out.println("私有方法被调用");
+    }
+}
+// 技术上反射可以调用私有方法
+					      \end{lstlisting}
+				            \item \textbf{题目答案解读}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item C选项"可以调用对象的私有方法"是**技术事实**
+					                  \item 但本题答案选C，可能是从"设计规范"角度而非"技术能力"角度考虑
+					                  \item 或者题目原意是想考查"反射默认不能调用私有成员"的理解
+					                  \item 建议用户以实际技术能力为准：反射可以调用私有成员（需setAccessible）
+				                  \end{itemize}
+				            \item \textbf{访问控制机制}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 反射默认遵守访问控制（private不可访问）
+					                  \item setAccessible(true)可绕过安全检查
+					                  \item 需要有足够的安全权限
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[D] \textbf{反射机制会降低程序的性能 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{性能损耗原因}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 动态解析类型和方法签名
+					                  \item 跳过JIT编译器的优化
+					                  \item 安全检查（访问控制）
+					                  \item 参数装箱拆箱
+					                  \item 方法查找开销
+				                  \end{itemize}
+				            \item \textbf{性能对比}：
+				                  \begin{lstlisting}[language=Java]
+public class PerformanceCompare {
+    public static void main(String[] args) throws Exception {
+        int iterations = 10000000;
+        String str = "Hello";
+
+        // 直接调用
+        long start = System.nanoTime();
+        for (int i = 0; i < iterations; i++) {
+            str.length();
+        }
+        long directTime = System.nanoTime() - start;
+
+        // 反射调用
+        Class<?> clazz = str.getClass();
+        Method method = clazz.getMethod("length");
+        method.setAccessible(true);
+
+        start = System.nanoTime();
+        for (int i = 0; i < iterations; i++) {
+            method.invoke(str);
+        }
+        long reflectTime = System.nanoTime() - start;
+
+        System.out.println("直接调用: " + directTime / 1000000 + "ms");
+        System.out.println("反射调用: " + reflectTime / 1000000 + "ms");
+        // 反射调用比直接调用慢5-10倍
+    }
+}
+// 反射性能明显低于直接调用
+				      \end{lstlisting}
+				            \item \textbf{优化建议}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 缓存Method/Field/Constructor对象
+					                  \item 避免在热代码路径使用反射
+					                  \item 考虑使用方法句柄（MethodHandle）优化
+				                  \end{itemize}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【反射核心能力总结】}
+		      \begin{itemize}[label={}, nosep]
+			      \item 获取类信息：字段、方法、构造器、注解
+			      \item 动态创建对象：Constructor.newInstance()
+			      \item 动态调用方法：Method.invoke()
+			      \item 访问私有成员：setAccessible(true)
+			      \item 修改字段值：Field.set()
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{itemize}[label={}, nosep]
+			      \item 反射可以运行时获取类信息：正确
+			      \item 反射可以动态创建对象：正确
+			      \item 反射会降低性能：正确（5-10倍）
+			      \item 反射调用私有方法：技术上可以（setAccessibility(true)），但需谨慎使用
+			      \item 注意：本题答案为C，表示题目将"可以调用私有方法"视为错误表述
+			      \item 口诀：反射可查类信息，动态创建对象，调用私有需setAccess，性能损耗要注意
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+		      \textbf{考场秒杀}：看到关于反射的表述，注意"性能降低"通常是正确的
+		      \textbf{注意事项}：本题答案C有争议，实际技术能力与答案不一致，需特别注意
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中ClassLoader的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 用于加载类文件
+		      \item 可以自定义ClassLoader
+		      \item 只有一个默认的ClassLoader
+		      \item 不同的ClassLoader可以加载同名的类
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 只有一个默认的ClassLoader}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java类加载器的层次结构和特性
+			      \item \textbf{关键区分点}：JVM有多个类加载器，支持自定义
+			      \item \textbf{命题人意图}：测试对类加载机制的深度理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{用于加载类文件 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{核心功能}：ClassLoader负责将.class文件加载到JVM内存
+				            \item \textbf{加载流程}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 读取二进制.class文件
+					                  \item 转换为方法区运行时数据结构
+					                  \item 生成Class对象
+				                  \end{itemize}
+				            \item \textbf{相关方法}：
+				                  \begin{lstlisting}[language=Java]
+ClassLoader loader = Thread.currentThread().getContextClassLoader();
+
+// 加载类（如果类已加载则返回缓存的Class对象）
+Class<?> clazz = loader.loadClass("java.lang.String");
+
+// 或使用Class.forName()（使用调用类的ClassLoader）
+clazz = Class.forName("com.example.MyClass");
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{可以自定义ClassLoader — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{支持自定义}：继承ClassLoader类实现类加载逻辑
+				            \item \textbf{应用场景}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 热部署（无需重启即可更新类）
+					                  \item 应用隔离（不同应用使用不同版本类库）
+					                  \item 加密类加载（解密后加载）
+					                  \item 从数据库/网络加载类
+					                  \item OSGi框架
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+import java.io.*;
+
+public class CustomClassLoader extends ClassLoader {
+    private String classPath;
+
+    public CustomClassLoader(String classPath) {
+        this.classPath = classPath;
+    }
+
+    @Override
+    protected Class<?> findClass(String name) throws ClassNotFoundException {
+        try {
+            byte[] classData = loadClassData(name);
+            return defineClass(name, classData, 0, classData.length);
+        } catch (IOException e) {
+            throw new ClassNotFoundException(name);
+        }
+    }
+
+    private byte[] loadClassData(String name) throws IOException {
+        String path = classPath + File.separator + name.replace('.', File.separatorChar) + ".class";
+        try (InputStream in = new FileInputStream(path);
+             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = in.read(buffer)) != -1) {
+                out.write(buffer, 0, len);
+            }
+            return out.toByteArray();
+        }
+    }
+}
+
+// 使用自定义ClassLoader加载类
+CustomClassLoader loader = new CustomClassLoader("/path/to/classes");
+Class<?> clazz = loader.loadClass("com.example.MyClass");
+// 可以实现自定义类加载逻辑
+				      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{只有一个默认的ClassLoader — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{错误原因}：JVM有三个核心类加载器（双亲委派模型）
+				            \item \textbf{类加载器层次结构}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Bootstrap ClassLoader（启动类加载器）
+					                  \item Extension ClassLoader（扩展类加载器）
+					                  \item Application ClassLoader（应用类加载器/系统类加载器）
+					                  \item 自定义ClassLoader
+				                  \end{itemize}
+				            \item \textbf{三层类加载器详解}：
+				                  \begin{lstlisting}[language=Java]
+import java.lang.ClassLoader;
+
+public class ClassLoaderHierarchy {
+    public static void main(String[] args) {
+        // 获取当前线程的ClassLoader
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        System.out.println("System Loader: " + loader);
+        // 输出：jdk.internal.loader.ClassLoaders$AppClassLoader@...
+
+        // 父ClassLoader
+        ClassLoader parent = loader.getParent();
+        System.out.println("Extension Loader: " + parent);
+        // 输出：jdk.internal.loader.ClassLoaders$PlatformClassLoader@...
+
+        // 父父ClassLoader（Bootstrap ClassLoader为null）
+        ClassLoader bootstrap = parent.getParent();
+        System.out.println("Bootstrap Loader: " + bootstrap);
+        // 输出：null（Bootstrap使用C++实现，Java层面为null）
+    }
+}
+// JVM有多个ClassLoader，不是只有一个
+					      \end{lstlisting}
+				            \item \textbf{双亲委派模型}：
+				                  \begin{lstlisting}[language=Java]
+ClassLoader层次：
+    ↑
+    |  Bootstrap ClassLoader
+    |  (加载JDK核心类：rt.jar等)
+    ↑
+    |  Extension ClassLoader
+    |  (加载扩展类：ext目录)
+    ↑
+    |  System ClassLoader
+    |  (加载应用类：classpath)
+    ↑
+    |  Custom ClassLoader
+    |  (用户自定义加载器)
+
+加载顺序：先委派父加载器尝试加载，才能自己加载
+// 多个ClassLoader协同加载类，不是只有一个
+					      \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{不同的ClassLoader可以加载同名的类 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{类加载的唯一性标识}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item Class = (类全限定名, ClassLoader)
+					                  \item 不同ClassLoader加载同名类 → 不同的Class对象
+					                  \item 两个Class对象不等价
+				                  \end{itemize}
+				            \item \textbf{代码证据}：
+				                  \begin{lstlisting}[language=Java]
+import java.lang.reflect.*;
+
+public class NamespaceIsolation {
+    public static void main(String[] throws Exception {
+        // 创建两个不同的ClassLoader
+        ClassLoader loader1 = new CustomClassLoader("/path1");
+        ClassLoader loader2 = new CustomClassLoader("/path2");
+
+        // 加载同名的类（假设两个路径都有com.example.ClassA）
+        Class<?> class1 = loader1.loadClass("com.example.ClassA");
+        Class<?> class2 = loader2.loadClass("com.example.ClassA");
+
+        // 判断是否是同一个类
+        System.out.println("Same class? " + (class1 == class2));
+        // 输出：false
+
+        // 创建对象并测试
+        Object obj1 = class1.getDeclaredConstructor().newInstance();
+        Object obj2 = class2.getDeclaredConstructor().newInstance();
+
+        // 尝试转型
+        // ClassA a = (ClassA) obj2;  // ClassCastException!
+        // 不同ClassLoader加载的同一类名类，不能相互转型
+    }
+}
+// 不同ClassLoader加载同名类产生不同的Class对象
+				      \end{lstlisting}
+				            \item \textbf{应用场景}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 应用隔离（如Tomcat）
+					                  \item OSGi模块化
+					                  \item 动态更新（热替换）
+				                  \end{itemize}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【类加载器总结】}
+		      \begin{itemize}[label={}, nosep]
+			      \item Bootstrap：加载核心类库（C++实现）
+			      \item Extension/JDK9之后Platform：加载扩展类
+			      \item Application/System：加载应用类
+			      \item 自定义：实现特殊加载需求
+			      \item 双亲委派：父加载器优先加载
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点】}
+		      \begin{itemize}[label={}, nosep]
+			      \item Java有多个ClassLoader（不是只有一个）
+			      \item 三层核心加载器：Bootstrap、Extension、System
+			      \item 可以自定义ClassLoader
+			      \item 不同ClassLoader可加载同名类（产生不同Class对象）
+			      \item 类唯一性 = 类名 + ClassLoader
+			      \item 口诀：加载器不只一个，三层架构双亲委，同名 不同加载器不算同一类
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+		      \textbf{考场秒杀}：看到"只有一个ClassLoader"→错，JVM有多个
+		      \textbf{记忆}：Bootstrap → Extension → System（三级结构）
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

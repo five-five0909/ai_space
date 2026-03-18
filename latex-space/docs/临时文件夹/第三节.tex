@@ -1,0 +1,244 @@
+\documentclass[11pt, a4paper]{ctexart}
+
+% 页面设置
+\usepackage[margin=2.5cm]{geometry}
+
+% 宏包引入
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% 颜色定义
+\definecolor{mainblue}{RGB}{0, 70, 140}
+\definecolor{accentred}{RGB}{200, 30, 30}
+\definecolor{bglight}{RGB}{245, 245, 245}
+
+% 设置样式
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{诗歌鉴赏——表达技巧与思想内容}
+\fancyfoot[C]{\thepage}
+
+% 标题格式
+\ctexset{
+    section = {
+        format = \Large\bfseries\color{mainblue},
+        number = \chinese{section}、
+    },
+    subsection = {
+        format = \large\bfseries\color{black},
+        number = （\chinese{subsection}）
+    },
+    subsubsection = {
+        format = \bfseries\color{black},
+        number = \arabic{subsubsection}.
+    }
+}
+
+% 自定义环境
+\newtcolorbox{tipsbox}[1]{
+    colback=bglight,
+    colframe=mainblue,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=2mm
+}
+
+\newtcolorbox{examplebox}[1]{
+    colback=white,
+    colframe=gray!50!white,
+    coltitle=black,
+    fonttitle=\bfseries,
+    title=#1,
+    arc=0mm,
+    boxrule=0.5pt
+}
+
+\begin{document}
+
+\begin{center}
+    {\Huge \bfseries 第三节 诗歌的表达技巧} \\
+    \vspace{0.5cm}
+    {\Huge \bfseries 第四节 诗歌的语言及思想内容}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{诗歌的表达技巧}
+
+\textbf{学习重点：}
+区分表达技巧中的表达方式、表现手法、修辞手法，识记诗词鉴赏中的基本表达方式（记叙、描写、议论、抒情），表现手法（用典、联想、想象、衬托或烘托、渲染、象征、对比、对照、抑扬、照应、直抒胸臆、借景抒情、融情于景、托物言志），修辞手法（比喻、比拟、对偶、排比）。
+
+表达技巧是一个非常宽泛的概念。诗词的表达技巧包括三方面：\textbf{表达方式}（记叙、描写、议论、抒情等）、\textbf{表现手法}（用典、联想、想象、衬托或烘托、渲染、象征、对比、对照、抑扬、照应、直抒胸臆、借景抒情、融情于景、托物言志等）、\textbf{修辞手法}（比喻、借代、夸张、对偶、比拟、排比、设问、反问等）。
+
+这是诗词鉴赏考核的重点，答题要领为：\textbf{内容（写什么）、方法（怎么写）、效果（怎么样）}。（注意：这三者的顺序可以按需调换。）
+
+\subsection{表达技巧分类与提问方式}
+\begin{enumerate}
+    \item \textbf{修辞手法}：比喻、拟人、借代、排比、夸张等。
+    \item \textbf{表达方式}：记叙、抒情、描写、议论等。（重点是抒情和描写）
+    \item \textbf{表现手法}：赋、比、兴；联想、想象；欲扬先抑；衬托、烘托；象征，动静等。
+    \item \textbf{篇章结构}：卒章显志、首尾呼应、过渡、铺垫等。
+\end{enumerate}
+
+\begin{tipsbox}{常见提问方式}
+\textbf{【直接提问】}
+\begin{enumerate}
+    \item 这首诗(或某句)运用了什么修辞?请简要分析。
+    \item 请从动、静(或其他)的角度赏析这首诗。
+    \item 说说这首诗是怎样营造意境的(或表现了怎样的景与情)?
+    \item 某个字是怎样贯穿全篇的?试作简要分析。
+    \item 某句在结构上起什么作用?
+\end{enumerate}
+\textbf{【笼统提问】} 试从表现手法的角度赏析这首诗。
+\end{tipsbox}
+
+\subsection{修辞手法}
+古人十分注重修辞手法的运用：采用比喻、比拟、象征、起兴等手法使描写的事物更为形象生动；采用夸张、衬托、对比、设问、反问等突出主旨；采用通感、借代、双关、叠字、对偶、反复等使字句更为精巧。
+
+\begin{tipsbox}{提问方式与答题模式}
+\textbf{【直接提问】} （1）该句（诗）运用了什么修辞手法？ （2）该句（诗）使用了哪些表达技巧？ （3）请从修辞的角度对该句进行赏析。\\
+\textbf{【间接提问】} 该句(联、诗)是如何描写景物的(或如何表达感情的)?\\
+\textbf{【答题模式】 点修辞 + 析内容 + 说效果。}\\
+(1) 指出修辞手法。(2) 结合诗句解释该修辞在诗中是怎样运用的。(3) 指出艺术效果(情感等)。
+\end{tipsbox}
+
+\subsection{抒情手法}
+常见的抒情手法有直接抒情和间接抒情，后者包括借景抒情、情景交融、托物言志、寓情于事、借古讽今等。
+
+\begin{table}[htbp]
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{|c|X|c|X|}
+\hline
+\textbf{手法} & \textbf{简介} & \textbf{手法} & \textbf{简介} \\
+\hline
+直接抒情 & 直接对有关的人物或事件表明爱憎态度 & 托物言志 & 借某物自身特征表达志向或情感 \\
+\hline
+寓情于景 & 把自身感情寄寓在景物之中，通过写景抒发 & 寓情于事 & 诗人把自己的情感寓于叙事之中 \\
+\hline
+情景交融 & 诗句因情布景，以景衬情，情景交融 & 借古讽今 & 借历史上的人或事件来讽喻当今 \\
+\hline
+\end{tabularx}
+\end{table}
+
+\begin{tipsbox}{提问方式与答题模式}
+\textbf{【提问方式】} (1) 请从“景”与“情”的角度，赏析某联(句)。 (2) 本诗某句抒情方式有何特点? (3) 这首诗表达了什么心情?怎样表现的? (4) 赏析写作手法并简析作者的情感。\\
+\textbf{【答题模式】} (1) 指出手法 $\rightarrow$ (2) 结合内容分析运用 $\rightarrow$ (3) 简析其在塑造形象、表情达意中的妙用。
+\end{tipsbox}
+
+\subsection{表现手法}
+\begin{enumerate}
+    \item \textbf{用典}：用事（借历史故事借古抒怀）和引用化用前人诗句（加深意境，寻意于言外）。
+    \item \textbf{联想/想象}：联想是由一事物想到另一事物；想象是创造新观念（如刘禹锡《望洞庭》“白银盘里一青螺”）。
+    \item \textbf{衬托/烘托}：正衬/反衬（如“蝉噪林逾静”）；烘托指侧面描写作为陪衬（如“月出惊山鸟”）。
+    \item \textbf{渲染}：对环境、景物作多方面描写形容以突出形象（如杜甫《登高》首联连用六个特写）。
+    \item \textbf{象征}：借具体形象暗示特定人物或事理，表达深刻寓意。
+    \item \textbf{对比/抑扬}：对比是把不同事物做对照（如昔盛今衰）；抑扬分为先扬后抑或先抑后扬以突出一方。
+    \item \textbf{照应}：诗中对前面写的内容做回答，使结构紧凑（如首联点题，尾联照应）。
+    \item \textbf{直抒胸臆}：即景抒情，直接表达富有哲理性的思想（如“欲穷千里目，更上一层楼”）。
+    \item \textbf{借景抒情/托物言志}：正面不着一字，感情全寓于景物或寄托于某物（如白居易《杨柳枝词》）。
+\end{enumerate}
+
+\subsection{描写手法}
+\begin{enumerate}
+    \item \textbf{正侧面描写}：正面（如“惊涛拍岸，卷起千堆雪”）；侧面（如《夜雪》“时闻折竹声”）。
+    \item \textbf{虚实结合}：眼前现实为实，过去/想象/虚构为虚。实景与虚景互相映衬表达情感（如《夜雨寄北》）。
+    \item \textbf{动静结合}：动态与静态相互映衬，构成情趣（如《山居秋暝》“明月松间照，清泉石上流”）。
+    \item \textbf{白描与工笔}：白描纯用线条勾勒不加渲染（如《天净沙·秋思》）；工笔则是细腻刻画重点对象。
+\end{enumerate}
+
+\subsection{篇章结构与综合示例}
+主要有：以小见大、卒章显志、借古讽今、托物言志、以景结情、欲扬先抑或欲抑先扬等。
+
+\begin{examplebox}{示例1：《早行》陈与义}
+\textit{露侵驼褐晓寒轻，星斗阑干分外明。寂寞小桥和梦过，稻田深处草虫鸣。}\\
+\textbf{问：}此诗主要用了什么表现手法？有何效果？\\
+\textbf{答：}用了\textbf{反衬}手法。“星斗明亮”反衬夜色之暗；“草虫鸣”反衬环境寂静。两处反衬突出了出行之早，表现了孤寂之情。
+\end{examplebox}
+
+\begin{examplebox}{示例2：《送韩十四江东觐省》杜甫}
+\textit{（注：颈联为“黄牛峡静滩声转，白马江寒树影稀”）}\\
+\textbf{问：}请从表达技巧的角度对颈联进行赏析。\\
+\textbf{答：}
+①\textbf{以静衬动}：以峡岸之静衬江水汹涌，表忧虑。
+②\textbf{寓情于景}：寒风树影写凄凉之景，表伤感。
+③\textbf{虚实结合}：“黄牛峡”句属虚写(想象)；“白马江”句属实写(眼前实景)。
+④\textbf{听视觉结合}：“滩声”为听觉，“树影”为视觉。
+\end{examplebox}
+
+\section{诗歌的语言及思想内容}
+
+\subsection{诗歌的语言 (炼字、诗眼、语言风格)}
+
+\subsubsection{炼字与诗眼}
+炼字是对诗中每一个字进行推敲搭配。常见对象：\\
+\textbf{1. 动词}：表现生动传神（如“感时花\textbf{溅}泪，恨别鸟\textbf{惊}心”）。\\
+\textbf{2. 形容词}：绘景摹状，尤其是形容词活用为动词（如“\textbf{枯}藤\textbf{老}树昏鸦”、“春风又\textbf{绿}江南岸”）。\\
+\textbf{3. 虚词}：疏通文气、活跃情韵（如“花\textbf{自}飘零水\textbf{自}流”、“\textbf{才}下眉头，\textbf{却}上心头”）。
+
+\textbf{诗眼}是诗歌中最能开拓意旨和表现力最强的关键词。全局诗眼表现主旨（如《书愤》的“愤”）；局部诗眼增强形象、翻出新意（如“春色满园关不\textbf{住}，一枝红杏\textbf{出}墙来”）。
+
+\subsubsection{语言风格}
+\begin{enumerate}
+    \item \textbf{平实质朴/清新自然}：不加修饰，语出自然（陶渊明平淡；王维、孟浩然清新）。
+    \item \textbf{含蓄隽永/婉约细腻}：意在言外，感情细如抽丝（李商隐《夜雨寄北》；李清照《武陵春》）。
+    \item \textbf{绚丽飘逸}：色彩缤纷、景象绮丽、变幻莫测（李白《望庐山瀑布》；杜牧《山行》）。
+    \item \textbf{雄浑/豪迈}：气势浩瀚，感情激荡（高适、岑参的边塞诗；苏轼、辛弃疾的豪放词）。
+    \item \textbf{沉郁顿挫/悲壮慷慨}：感情深沉蕴藉，壮志难酬，忧国忧民（杜甫《登高》；陈子昂《登幽州台歌》）。
+    \item \textbf{旷达}：疏狂不羁，通脱豁达（苏轼《念奴娇·赤壁怀古》）。
+\end{enumerate}
+\textit{速记提示：陶渊明朴素、杜甫沉郁、白居易通俗、李白豪迈飘逸、王维清新、陆游慷慨、李清照早期清新后期哀婉。}
+
+\subsection{语言类考查类型及答题步骤}
+
+\begin{tipsbox}{考查类型及答题步骤}
+\textbf{1. 炼字型 (某字好不好？好在哪里？)}\\
+\textbf{步骤：} ①释义(解释该字在句中含义) $\rightarrow$ ②描景(带入原句描绘景象，点出手法) $\rightarrow$ ③析情(表达了什么感情/效果)。\\
+\textit{示例：《南浦别》“一看肠一断”的“看”字。答：“看”即回望(释义)。离人孤独离去频频回望，泪眼朦胧(描景)。淋漓尽致地表现了离别的酸楚(析情)。}
+
+\vspace{0.3cm}
+\textbf{2. 炼句型 (这句好在哪？有什么艺术效果？)}\\
+\textbf{步骤：} ①阐明诗句表义及深层含义 $\rightarrow$ ②分析在写景、抒情方面的表达作用 $\rightarrow$ ③说明艺术效果。
+
+\vspace{0.3cm}
+\textbf{3. 分析语言特色}\\
+\textbf{步骤：} ①点明特色(用1-2个词准确概括，如“清新自然”) $\rightarrow$ ②结合原诗分析(具体字词分析) $\rightarrow$ ③分析感情。\\
+\textit{示例：《越女词》。答：语言清新自然(特色)。用“见客”“笑入”等平常动作塑造了美丽动人的形象(分析)。抒发了对纯真爱情的赞美(感情)。}
+\end{tipsbox}
+
+\subsection{诗歌的思想内容}
+概括主旨、思想感情及作者观点。常见题材包括：送别抒怀、羁旅思乡、思妇闺情、山水田园、怀古咏史、咏物言志、边塞征战、人生感慨、民生疾苦等。
+
+\begin{tipsbox}{答题步骤}
+①明确观点 $\rightarrow$ ②结合诗句分析(运用了何种技巧) $\rightarrow$ ③紧扣观点，总结抒发的情感。
+\end{tipsbox}
+
+\subsection{意象与意境}
+\textbf{意象 = 物象 $\times$ 情思}。即诗中熔铸了作者思想情感的具体事物（如“缺月”、“孤鸿”）。\\
+\textbf{意境 = 意象 + 氛围}。作者的思想感情与生活图景融为一体的艺术境界。
+
+\begin{table}[htbp]
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{|c|X|c|X|}
+\hline
+\textbf{意境风格} & \textbf{常见特点描述词} & \textbf{意境风格} & \textbf{常见特点描述词} \\
+\hline
+豪放类 & 雄浑开阔、雄奇瑰丽、浩瀚辽阔、旷达洒脱 & 婉约类 & 缠绵悱恻、哀婉动人、委婉含蓄、朦胧缥缈 \\
+\hline
+清幽类 & 清新明丽、宁静恬淡、淡雅闲适、恬静优美 & 超脱类 & 超脱世俗、远离尘嚣、高雅脱俗、风致雅洁 \\
+\hline
+伤感类 & 凄清冷寂、孤寂冷清、哀怨低沉、苍凉悲壮 & 华美类 & 富丽堂皇、华美绚丽、瑰丽神奇、色彩斑斓 \\
+\hline
+\end{tabularx}
+\end{table}
+
+\end{document}

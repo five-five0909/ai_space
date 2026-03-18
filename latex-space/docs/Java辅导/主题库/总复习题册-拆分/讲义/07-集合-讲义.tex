@@ -1,0 +1,739 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={Java集合-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt,
+    breakable
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{Java集合 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月02日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{集合}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下关于Java集合框架的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item List允许重复元素
+		      \item Set允许重复元素
+		      \item Map存储键值对，键可以重复
+		      \item 以上都不对
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. List允许重复元素}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. List允许重复元素 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item List是有序集合，允许重复元素
+			      \item 典型实现：ArrayList、LinkedList
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. Set允许重复元素 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Set是不允许重复的集合
+			      \item 判断重复：equals()和hashCode()
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. Map键可以重复 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Map的键(key)必须唯一
+			      \item 值(value)可以重复
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 以上都不对 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item A选项正确
+		      
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      集合特性速查：
+		      \begin{tabular}{|c|c|c|c|}
+			      \hline
+			      接口   & 有序 & 允许重复 & 典型实现                  \\
+			      \hline
+			      List & ✓  & ✓    & ArrayList, LinkedList \\
+			      \hline
+			      Set  & -  & ✗    & HashSet, TreeSet      \\
+			      \hline
+			      Map  & -  & 键✗值✓ & HashMap, TreeMap      \\
+			      \hline
+		      \end{tabular}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{在Java中，以下哪个集合实现了链表结构？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item ArrayList
+		      \item LinkedList
+		      \item HashSet
+		      \item HashMap
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. LinkedList}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. ArrayList — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 基于动态数组实现
+			      \item 随机访问效率高，插入删除效率低
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. LinkedList — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 基于双向链表实现
+			      \item 插入删除效率高，随机访问效率低
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. HashSet — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 基于哈希表实现
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. HashMap — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 基于哈希表+链表/红黑树实现
+		      
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      数据结构对应：
+		      \begin{itemize}[label={}, nosep]
+			      \item 数组：ArrayList
+			      \item 链表：LinkedList
+			      \item 哈希表：HashSet、HashMap
+			      \item 树：TreeSet、TreeMap
+			      \item 链表+哈希表：LinkedHashSet、LinkedHashMap
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个集合是无序且不允许重复元素的？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item ArrayList
+		      \item HashSet
+		      \item LinkedHashSet
+		      \item TreeSet
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. HashSet}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. ArrayList — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 有序，允许重复
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. HashSet — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 无序（不保证顺序）
+			      \item 不允许重复（基于hashCode和equals）
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. LinkedHashSet — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 有序（保持插入顺序）
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. TreeSet — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 有序（基于红黑树，排序顺序）
+		      
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      Set实现类对比：
+		      \begin{itemize}[label={}, nosep]
+			      \item HashSet：无序，性能最好
+			      \item LinkedHashSet：插入顺序
+			      \item TreeSet：自然顺序/自定义排序
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于HashMap的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 存储键值对
+		      \item 键不允许重复
+		      \item 是线程安全的
+		      \item 基于哈希表实现
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 是线程安全的}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. 存储键值对 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Map接口的核心特性
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. 键不允许重复 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 键唯一，值可重复
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 线程安全 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item HashMap非线程安全
+			      \item Hashtable和ConcurrentHashMap是线程安全的
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 基于哈希表实现 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item JDK8+：数组+链表+红黑树
+		      
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      HashMap vs Hashtable：
+		      \begin{itemize}[label={}, nosep]
+			      \item 线程安全：Hashtable(✓) vs HashMap(✗)
+			      \item null支持：HashMap允许null键值，Hashtable不允许
+			      \item 性能：HashMap更好
+			      \item 迭代器：HashMap用Iterator，Hashtable用Enumeration
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法可以判断一个集合是否为空？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item isEmpty()
+		      \item isBlank()
+		      \item isNullOrEmpty()
+		      \item isNotNull()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. isEmpty()}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. isEmpty() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Collection接口定义的方法
+			      \item 所有集合都支持
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. isBlank() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item String类的方法（判断空白字符串）
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. isNullOrEmpty() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 不是集合的标准方法
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. isNotNull() — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 不是集合的方法
+		      
+		      
+	      
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中Lambda表达式的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以简化匿名内部类的写法
+		      \item 不支持函数式接口
+		      \item 不能作为方法参数
+		      \item 性能比普通方法差
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. 可以简化匿名内部类的写法}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. 简化匿名内部类 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Lambda是函数式接口的简洁实现
+			      \item (参数) -> 表达式/语句块
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. 不支持函数式接口 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Lambda就是用于实现函数式接口的
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 不能作为方法参数 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Lambda可以作为参数传递
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 性能比普通方法差 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 在运行时没有明显性能差异
+			      \item JIT编译后会内联
+		      
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      Lambda表达式：
+		      \begin{itemize}[label={}, nosep]
+			      \item 语法：(parameters) -> expression 或 (parameters) -> \{ statements; \}
+			      \item 函数式接口：只包含一个抽象方法的接口
+			      \item 常见函数式接口：Runnable、Callable、Comparator、Function
+			      \item 方法引用：ClassName::method
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是函数式接口？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 接口中有多个抽象方法
+		      \item 接口中有一个抽象方法
+		      \item 接口中有静态方法
+		      \item 接口中有默认方法
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 接口中有一个抽象方法}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. 多个抽象方法 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这不是函数式接口
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. 一个抽象方法 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 函数式接口定义
+			      \item 可以包含default和static方法
+		      
+
+					  \end{itemize}
+		      \item \textbf{C/D. 静态/默认方法 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些不影响函数式接口的判定
+		      
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      函数式接口：
+		      \begin{itemize}[label={}, nosep]
+			      \item @FunctionalInterface注解（可选）
+			      \item 只能有一个抽象方法
+			      \item 可以有多个default和static方法
+			      \item 常见：Runnable、Supplier<T>、Consumer<T>、Function<T,R>、Predicate<T>
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中方法引用的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以减少代码量
+		      \item 有四种类型的方法引用
+		      \item 不能引用静态方法
+		      \item 是Lambda表达式的一种简洁写法
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 不能引用静态方法}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. 减少代码量 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 方法引用是Lambda的简化形式
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. 四种类型 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 静态方法引用：ClassName::staticMethod
+			      \item 实例方法引用（对象）：instance::method
+			      \item 实例方法引用（类型）：ClassName::method
+			      \item 构造方法引用：ClassName::new
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 不能引用静态方法 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 可以引用！如System.out::println
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. Lambda简洁写法 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 方法引用本质上就是Lambda表达式
+		      
+		      
+	      
+	      
+					  \end{itemize}
+					  \end{itemize}
+\end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中Stream流的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以对集合进行高效的操作
+		      \item 只能顺序处理数据
+		      \item 不支持并行处理
+		      \item 不能进行数据过滤
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. 可以对集合进行高效的操作}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. 高效操作集合 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Stream提供函数式操作
+			      \item 支持链式调用
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. 只能顺序处理 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Stream支持并行处理：parallelStream()
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 不支持并行处理 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 支持！parallelStream()利用多核
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 不能过滤 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item filter()用于过滤数据
+		      
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      Stream操作分类：
+		      \begin{itemize}[label={}, nosep]
+			      \item 中间操作：filter、map、sorted、distinct...
+			      \item 终端操作：forEach、collect、reduce、count...
+			      \item 惰性求值：中间操作不执行，等终端操作触发
+			      \item parallelStream()：并行流，提升性能
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于创建Stream流？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item stream()
+		      \item createStream()
+		      \item makeStream()
+		      \item generateStream()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. stream()}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. stream() — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item Collection接口的默认方法
+			      \item collection.stream()
+		      
+
+					  \end{itemize}
+		      \item \textbf{B/C/D — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 这些方法不存在
+		      
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      创建Stream：
+		      \begin{itemize}[label={}, nosep]
+			      \item 集合：collection.stream() / collection.parallelStream()
+			      \item 数组：Arrays.stream(array)
+			      \item 静态方法：Stream.of()、Stream.iterate()、Stream.generate()
+			      \item 文件：Files.lines()
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中Stream流的终端操作的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 终端操作会触发流的执行
+		      \item forEach()是终端操作
+		      \item 终端操作只能执行一次
+		      \item 终端操作后可以继续进行中间操作
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 终端操作后可以继续进行中间操作}
+
+		      \textbf{【核心认知框架】}
+
+		      \textbf{【选项原理深度拆解】}
+					  \begin{itemize}[label={}, leftmargin=*, nosep]
+
+		      
+		      \item \textbf{A. 触发执行 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 终端操作触发中间操作执行
+		      
+
+					  \end{itemize}
+		      \item \textbf{B. forEach是终端操作 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item forEach是常见终端操作
+		      
+
+					  \end{itemize}
+		      \item \textbf{C. 只能执行一次 — 正确}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 流是消耗性的，一次使用后失效
+		      
+
+					  \end{itemize}
+		      \item \textbf{D. 可继续中间操作 — 错误}
+					  \begin{itemize}[label={}, nosep]
+		      
+			      \item 终端操作后流被关闭，不能再操作
+		      
+		      
+
+		      
+					  \end{itemize}
+					  \end{itemize}
+\textbf{【应背诵知识点】}
+
+		      Stream特点：
+		      \begin{itemize}[label={}, nosep]
+			      \item 惰性求值：中间操作不立即执行
+			      \item 一次性：终端操作后流关闭
+			      \item 内部迭代：不同于传统的外部迭代
+			      \item 常见终端操作：forEach、collect、reduce、count、min、max
+		      \end{itemize}
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

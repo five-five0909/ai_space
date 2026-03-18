@@ -1,0 +1,428 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据结构习题集}
+\lhead{分类整理}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{第二章 线性表}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 链表不具备的特点是（ ）
+	      \begin{enumerate}
+		      \item[A.] 可随机访问任一结点
+		      \item[B.] 插入删除不需要移动元素
+		      \item[C.] 不必事先估计存储空间
+		      \item[D.] 所需空间与其长度成正比
+	      \end{enumerate}
+
+	\item 不带头结点的单链表 head 为空的判定条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{head == NULL}
+		      \item[B.] \texttt{head->next == NULL}
+		      \item[C.] \texttt{head->next == head}
+		      \item[D.] \texttt{head != NULL}
+	      \end{enumerate}
+
+	\item 带头结点的单链表 head 为空的判定条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{head == NULL}
+		      \item[B.] \texttt{head->next == NULL}
+		      \item[C.] \texttt{head->next == head}
+		      \item[D.] \texttt{head != NULL}
+	      \end{enumerate}
+
+	\item 带头结点的双循环链表 L 为空表的条件是（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{L == NULL}
+		      \item[B.] \texttt{L->next == NULL}
+		      \item[C.] \texttt{L->prior == NULL}
+		      \item[D.] \texttt{L->next == L}
+	      \end{enumerate}
+
+	\item 非空的循环单链表 head 的尾结点（由 p 所指向）满足（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{p->next == NULL}
+		      \item[B.] \texttt{p == NULL}
+		      \item[C.] \texttt{p->next == head}
+		      \item[D.] \texttt{p == head}
+	      \end{enumerate}
+
+		\item 链表的 p 所item 在循环双指结点之前插入 s 所指结点的操作是( )
+	      \begin{enumerate}
+		      \item[A.] \texttt{p->prior=s; s->next=p; p->prior->next=s; s->prior=p->prior;}
+		      \item[B.] \texttt{p->prior=s; p->prior->next=s; s->next=p; s->prior=p->prior;}
+		      \item[C.] \texttt{s->next=p; s->prior=p->prior; p->prior=s; p->right->next=s;}
+		      \item[D.] \texttt{s->next=p; s->prior=p->prior; p->prior->next=s; p->prior=s;}
+	      \end{enumerate}
+
+	\item 若某表最常用的操作是在最后一个结点之后插入一个结点或删除最后一个结点，则采用（ ）存储方式最节省运算时间。
+	      \begin{enumerate}
+		      \item[A.] 单链表
+		      \item[B.] 给出表头指针的单循环链表
+		      \item[C.] 双链表
+		      \item[D.] 带头结点的双循环链表
+	      \end{enumerate}
+
+	\item 某线性表最常用的操作是在最后一个结点之后插入一个结点或删除第一个结点，故采用（ ）存储方式最节省运算时间。
+	      \begin{enumerate}
+		      \item[A.] 单链表
+		      \item[B.] 仅有头结点的单循环链表
+		      \item[C.] 双链表
+		      \item[D.] 仅有尾指针的单循环链表
+	      \end{enumerate}
+
+	\item 如果最常用的操作是取第 i 个结点及其前驱，则采用（ ）存储方式最节省时间。
+	      \begin{enumerate}
+		      \item[A.] 单链表
+		      \item[B.] 双链表
+		      \item[C.] 单循环链表
+		      \item[D.] 顺序表
+	      \end{enumerate}
+
+	\item 在一个具有 n 个结点的有序单链表中插入一个新结点并仍然保持有序的时间复杂度是（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(n)$
+		      \item[C.] $O(n^2)$
+		      \item[D.] $O(n \log n)$
+	      \end{enumerate}
+
+	\item 在一个长度为 $n (n>1)$ 的单链表上，设有头和尾两个指针，执行（ ）操作与链表长度有关。
+	      \begin{enumerate}
+		      \item[A.] 删除单链表中的第一个元素
+		      \item[B.] 删除单链表中的最后一个元素
+		      \item[C.] 在单链表第一个元素前插入一个新元素
+		      \item[D.] 在单链表最后一个元素后插入一个新元素
+	      \end{enumerate}
+
+	\item 设线性表有 n 个元素，以下算法中，（ ）在顺序表上实现比在链表上实现效率更高。
+	      \begin{enumerate}
+		      \item[A.] 输出第 $i (0 \le i \le n-1)$ 个元素值
+		      \item[B.] 交换第 0 个元素与第 1 个元素的值
+		      \item[C.] 顺序输出这 n 个元素的值
+		      \item[D.] 输出与给定值 x 相等的元素在线性表中的序号
+	      \end{enumerate}
+
+	\item 设线性表中有 2n 个元素，算法（ ），在单链表上实现比在顺序表上实现效率更高。
+	      \begin{enumerate}
+		      \item[A.] 删除所有值为 x 的元素
+		      \item[B.] 在最后一个元素的后面插入一个新元素
+		      \item[C.] 顺序输出前 k 个元素
+		      \item[D.] 交换第 i 个元素和第 $2n-i-1$ 个元素的值 ($i=0, 1, \dots, n-1$)
+	      \end{enumerate}
+
+	\item 与单链表相比，双链表的优点之一是（ ）
+	      \begin{enumerate}
+		      \item[A.] 插入、删除操作更简单
+		      \item[B.] 可以进行随机访问
+		      \item[C.] 可以省略表头指针或表尾指针
+		      \item[D.] 顺序访问相邻结点更灵活
+	      \end{enumerate}
+
+	\item 如果对线性表的运算只有 4 种，即删除第一个元素，删除最后一个元素，在第一个元素前面插入新元素，在最后一个元素的后面插入新元素，则最好使用（ ）
+	      \begin{enumerate}
+		      \item[A.] 只有表尾指针没有表头指针的循环单链表
+		      \item[B.] 只有表尾指针没有表头指针的非循环双链表
+		      \item[C.] 只有表头指针没有表尾指针的循环双链表
+		      \item[D.] 既有表头指针也有表尾指针的循环单链表
+	      \end{enumerate}
+
+	\item 如果对线性表的运算只有 2 种，即删除第一个元素，在最后一个元素的后面插入新元素，则最好使用（ ）
+	      \begin{enumerate}
+		      \item[A.] 只有表头指针没有表尾指针的循环单链表
+		      \item[B.] 只有表尾指针没有表头指针的循环单链表
+		      \item[C.] 非循环双链表
+		      \item[D.] 循环双链表
+	      \end{enumerate}
+
+	\item 设有两个长度为 n 的单链表，结点类型相同，若以 h1 为表头指针的链表是非循环的，以 h2 为表头指针的链表是循环的，则（ ）
+	      \begin{enumerate}
+		      \item[A.] 对于两个链表来说，删除第一个结点的操作，其时间复杂度都是 $O(1)$
+		      \item[B.] 对于两个链表来说，删除最后一个结点的操作，其时间复杂度都是 $O(n)$
+		      \item[C.] 循环链表要比非循环链表占用更多的内存空间
+		      \item[D.] h1 和 h2 是不同类型的变量
+	      \end{enumerate}
+
+	\item 在长度为 n 的（ ）上，删除第一个元素，其算法的时间复杂度为 $O(n)$。
+	      \begin{enumerate}
+		      \item[A.] 只有表头指针的不带表头结点的循环单链表
+		      \item[B.] 只有表尾指针的不带表头结点的循环单链表
+		      \item[C.] 只有表尾指针的带表头结点的循环单链表
+		      \item[D.] 只有表头指针的带表头结点的循环单链表
+	      \end{enumerate}
+
+	\item 线性表是（ ）
+	      \begin{enumerate}
+		      \item[A.] 一个有限序列，可以为空
+		      \item[B.] 一个有限序列，不能为空
+		      \item[C.] 一个无限序列，可以为空
+		      \item[D.] 一个无限序列，不能为空
+	      \end{enumerate}
+
+	\item 设单链表中指针 p 指向结点 M，指针 f 指向将要插入的新结点 X：
+	      \begin{enumerate}
+		      \item[(1)] 当 X 插在链表中两个数据元素 M 和 N 之间时，只要先修改（ ）后修改（ ）即可。
+		      \item[(2)] 当 X 插在链表中最后一个结点 M 之后时，只要先修改（ ）后修改（ ）即可。
+		      \item[A.] \texttt{p->next=f}
+		      \item[B.] \texttt{p->next=p->next->next}
+		      \item[C.] \texttt{p->next=f->next}
+		      \item[D.] \texttt{f->next=p->next}
+		      \item[E.] \texttt{f->next=NULL}
+		      \item[F.] \texttt{f->next=p}
+	      \end{enumerate}
+
+	\item 在单循环链表中指针 p 指向结点 A，若要删除 A 之后的结点，则指针的操作方式为（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{p->next = p->next->next}
+		      \item[B.] \texttt{p = p->next}
+		      \item[C.] \texttt{p = p->next->next}
+		      \item[D.] \texttt{p->next = p}
+	      \end{enumerate}
+
+	\item 给定有 n 个元素的向量，建立一个有序单链表的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(n)$
+		      \item[C.] $O(n^2)$
+		      \item[D.] $O(n \log n)$
+	      \end{enumerate}
+
+	\item 从一个具有 n 个结点的单链表中查找其值等于 x 的结点时，在查找成功的情况下，需平均比较（ ）个元素。
+	      \begin{enumerate}
+		      \item[A.] $n/2$
+		      \item[B.] $n$
+		      \item[C.] $(n+1)/2$
+		      \item[D.] $(n-1)/2$
+	      \end{enumerate}
+
+	\item 带有头结点的单链表 L 中，第一个结点元素的指针是（ ）
+	      \begin{enumerate}
+		      \item[A.] L
+		      \item[B.] L->next
+		      \item[C.] H
+		      \item[D.] 不确定
+	      \end{enumerate}
+
+	\item 线性表的顺序存储结构是一种（ ）
+	      \begin{enumerate}
+		      \item[A.] 随机存取的存储结构
+		      \item[B.] 顺序存取的存储结构
+		      \item[C.] 索引存取的存储结构
+		      \item[D.] Hash 存取的存储结构
+	      \end{enumerate}
+
+	\item 在 n 个结点的线性表的数组实现中，算法的时间复杂度是 $O(1)$ 的操作是（ ）
+	      \begin{enumerate}
+		      \item[A.] 访问第 $i (1 \le i \le n)$ 个结点和求第 $i$ 个结点的直接前驱 ($1 < i \le n$)
+		      \item[B.] 在第 $i (1 \le i \le n)$ 个结点后插入一个新结点
+		      \item[C.] 删除第 $i (1 \le i \le n)$ 个结点
+		      \item[D.] 以上都不对
+	      \end{enumerate}
+
+	\item 若长度为 n 的线性表采用顺序存储结构，在其第 i 个位置插入一个新元素的算法的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(1)$
+		      \item[C.] $O(n)$
+		      \item[D.] $O(n^2)$
+	      \end{enumerate}
+
+	\item 对于顺序存储的线性表，访问结点和增加、删除结点的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(n), O(n)$
+		      \item[B.] $O(n), O(1)$
+		      \item[C.] $O(1), O(n)$
+		      \item[D.] $O(1), O(1)$
+	      \end{enumerate}
+
+	\item 线性表 ($a_1, a_2, \dots, a_n$) 以链式方式存储，访问第 i 位置元素的时间复杂度为（ ）
+	      \begin{enumerate}
+		      \item[A.] $O(1)$
+		      \item[B.] $O(1)$
+		      \item[C.] $O(n)$
+		      \item[D.] $O(n^2)$
+	      \end{enumerate}
+
+	\item 单链表中，增加一个头结点的目的是为了（ ）
+	      \begin{enumerate}
+		      \item[A.] 使单链表至少有一个结点
+		      \item[B.] 标识表结点中首结点的位置
+		      \item[C.] 方便运算的实现
+		      \item[D.] 说明单链表是线性表的链式存储
+	      \end{enumerate}
+
+	\item 在单链表指针为 p 的结点之后插入指针为 S 的结点，正确的操作是（ ）
+	      \begin{enumerate}
+		      \item[A.] p->next=p->next=s
+		      \item[B.] s->next=p->next; p->next=s
+		      \item[C.] p->next=s; s->next=p->next
+		      \item[D.] p->next=s
+	      \end{enumerate}
+
+	\item 在一个长度为 n 的顺序表的第 i 个位置上插入一个元素 ($1 \le i \le n+1$)，元素的移动次数为：（ ）
+	      \begin{enumerate}
+		      \item[A.] $n-i+1$
+		      \item[B.] $n-i$
+		      \item[C.] $i$
+		      \item[D.] $i-1$
+	      \end{enumerate}
+
+	\item 对于只在表的首、尾两端进行插入操作的线性表，宜采用的存储结构为（ ）
+	      \begin{enumerate}
+		      \item[A.] 顺序表
+		      \item[B.] 用头指针表示的循环单链表
+		      \item[C.] 用尾指针表示的循环单链表
+		      \item[D.] 单链表
+	      \end{enumerate}
+
+	\item 下述哪一条是顺序存储结构的优点？（ ）
+	      \begin{enumerate}
+		      \item[A.] 插入运算方便
+		      \item[B.] 可方便地用于各种逻辑结构的存储表示
+		      \item[C.] 存储密度大
+		      \item[D.] 删除运算方便
+	      \end{enumerate}
+
+	\item 线性表采用顺序存储的优点是（ ）
+	      \begin{enumerate}
+		      \item[A.] 便于删除
+		      \item[B.] 避免数据元素的移动
+		      \item[C.] 便于随机存取
+		      \item[D.] 便于插入
+	      \end{enumerate}
+
+	\item 需要分配较大空间，插入和删除不需要移动元素的线性表，其存储结构是（ ）
+	      \begin{enumerate}
+		      \item[A.] 单链表
+		      \item[B.] 静态链表
+		      \item[C.] 线性链表
+		      \item[D.] 顺序存储结构
+	      \end{enumerate}
+
+	\item 采用带头结点双向链表存储的线性表，在删除一个元素时，需要修改指针（ ）次。
+	      \begin{enumerate}
+		      \item[A.] 1
+		      \item[B.] 2
+		      \item[C.] 3
+		      \item[D.] 4
+	      \end{enumerate}
+
+	\item 线性表采用带头结点单链表实现，head 为头指针，则判断表空的条件为（ ）
+	      \begin{enumerate}
+		      \item[A.] \texttt{head == NULL}
+		      \item[B.] \texttt{head->next != NULL}
+		      \item[C.] \texttt{head != NULL}
+		      \item[D.] \texttt{head->next == NULL}
+	      \end{enumerate}
+
+	\item （ ）是数据的不可分割的最小单位。
+	      \begin{enumerate}
+		      \item[A.] 数据类型
+		      \item[B.] 数据项
+		      \item[C.] 数据元素
+		      \item[D.] 数据对象
+	      \end{enumerate}
+\end{enumerate}
+
+\section*{填空题}
+
+\begin{enumerate}
+	\item 在单链表中，要删除某一指定的结点，必须找到该结点的（ ）结点。
+	\item 访问单链表中的结点，必须沿着（ ）依次进行。
+	\item 在双链表中，每个结点都有两个指针域，一个指向（ ），另一个指向（ ）。
+	\item 在（ ）链表上，删除最后一个结点，其算法的时间复杂度为 $O(1)$。
+	\item 在非循环的（ ）链表中，可以用表尾指针代替表头指针。
+	\item 在一个单链表中的 p 所指结点之前插入一个 s 所指结点时，可执行如下操作：
+	      (1) \texttt{s->next=( )}; (2) \texttt{p->next=s}; (3) \texttt{t=p->data}; (4) \texttt{p->data=( )}; (5) \texttt{s->data=( )};
+	\item 在一个单链表中删除 p 所指结点时，应执行以下操作：
+	      \texttt{q=p->next; p->data=p->next->data; p->next=( ); free(q);}
+	\item 在一个单链表中 p 所指结点之后插入一个 s 所指结点时，应执行 \texttt{s->next=( )} 和 \texttt{p->next=( )} 的操作。
+	\item 对于一个具有 n 个结点的单链表，在*p 结点后插入一个新的结点的时间复杂度是（ ），在给定值为 x 的结点后插入一个新结点的时间复杂度是（ ）。
+	\item 在一个长度为 n 的顺序表的第 $i (1 \le i \le n)$ 个元素之前插入一个元素需向后移动（ ）个元素。
+	\item 在长度为 n 的顺序表中，删除第 $i (1 \le i \le n)$ 个元素，需向前移动（ ）个元素。
+	\item 线性表常用的存储结构有（ ）和（ ）。
+	\item 线性表的逻辑结构是（ ），其所含结点的个数称为线性表的（ ）。
+	\item 当对一个线性表经常进行存取操作，而很少进行插入和删除操作时，则采用（ ）存储结构为宜，当经常进行的是插入删除操作时，则采用（ ）存储结构为宜。
+	\item 在单链表中，要删除某一指定的结点，必须找到该结点的 \underline{前驱结点}。
+	\item 在双链表中，每个结点有两个指针域，一个指向 \underline{前驱结点}，另一个指向 \underline{后继结点}。
+	\item 在顺序表中插入或删除一个数据元素，需要平均移动 \underline{$n/2$} (或 n) 个数据元素，移动数据元素的个数与位置有关。
+	\item 当线性表的元素总数基本稳定，且很少进行插入和删除操作，但要求以最快的速度存取线性表的元素是，应采用 \underline{顺序} 存储结构。
+	\item 根据线性表的链式存储结构中每一个结点包含的指针个数，将线性链表分成 \underline{单链表} 和 \underline{双链表}。
+	\item 顺序存储结构是通过 \underline{下标} 表示元素之间的关系的；链式存储结构是通过 \underline{指针} 表示元素之间的关系的。
+	\item 带头结点的循环链表 L 中只有一个元素结点的条件是 \underline{L->next->next == L}。
+	\item 在一个长度为 n 的顺序表中删除第 i 个元素时，需向前移动 \underline{$n-i-1$} 个元素。
+\end{enumerate}
+
+\section*{判断题}
+
+\begin{enumerate}
+	\item 顺序存储的线性表可以随机存取。（ ）
+	\item 线性表中的元素可以是各种类型的，但同一线性表中的数据元素具有相同的性质，因此属于同一数据对象。（ ）
+	\item 在线性表的顺序存储结构中，逻辑上相邻的两个元素在物理位置上并不一定是相邻的。（ ）
+	\item 线性表的链式存储结构优于顺序存储结构。（ ）
+	\item 在线性表的顺序存储结构中，插入和删除元素时，移动元素的个数与该元素的位置有关。（ ）
+	\item 顺序存储方式只能用于存储线性结构。（ ）
+	\item 链表的每个结点中都恰好包含一个指针。（ ）
+	\item 链表是采用链式存储结构的线性表，进行插入、删除操作时，在链表中比在顺序表中效率高。（ ）
+	\item 双向链表可随机访问任一结点。（ ）
+	\item 在单链表中，给定任一结点的地址 p，则可用下述语句将新结点 s 插入结点 p 的后面：p->next = s; s->next = p->next; （ ）
+\end{enumerate}
+
+\section*{简答题}
+
+\begin{enumerate}
+	\item 头指针、头结点和首结点的区别是什么？
+	\item 线性表的两种存储结构各有哪些优缺点？
+	\item 对链表设置头结点的作用是什么？
+\end{enumerate}
+
+\section*{算法题}
+
+\begin{enumerate}
+	\item 建立一个由 n 个结点构成的单链表 $L=(1, 2, 3, \dots, n)$。
+	\item 求单链表中数据域为 x 的结点个数。
+	\item 求某一循环单链表的表长。
+	\item 在头指针为 head 的单链表中查找值为 x 的元素。
+	\item 复制一个单链表（依次查找头指针为 head1 的单链表中的每个结点，对每个结点复制一个新结点并链接到头指针为 head2 的单链表中）。
+	\item 将单链表中所有值为 x 的元素替换成 y。
+	\item 编写函数，通过一次遍历确定单链表中值最大的结点，返回其地址。
+	\item 编写函数将一个带头结点的单链表中的所有结点逆置。
+	\item 编写函数删除单链表中第 i 个结点。
+	\item 在长度大于 1 的循环单链表中，既无头结点也无头指针，p 指向链表中某一结点，编写算法删除该结点的前驱结点。
+	\item 在单链表中删除值为 x 的所有元素。
+	\item 已知带头结点的单链表中的元素按递增顺序排列，编写函数删除表中所有值大于 min 且小于 max 的元素。
+	\item 已知带头结点的单链表中的元素是无序的，编写函数删除表中所有值大于 min 且小于 max 的元素。
+	\item 编写函数，对一单链表反复找出表中最小元素，并在输出该元素后删除它，直到表为空时结束。
+	\item 有一个单链表，其结点的元素值以递增有序排列，编写函数删除该单链表中多余的元素值相同的结点。
+	\item 试写出一个在不带头结点的单链表的第 i 个元素之前插入一个新元素 x 的算法。
+	\item 有一个有序单链表，表头指针为 head，编写函数向该单链表中插入一个元素为 x 的结点，使插入后该链表仍然有序。
+	\item 设 A, B 是两个线性表，其表中元素递增有序，长度分别为 m 和 n，试写算法分别以顺序存储和链式存储将 A 和 B 归并成一个仍按元素值递增有序的线性表 C。
+	\item 编写一个算法将一个头结点指针为 pa 的单链表 A 分解成两个单链表 A 和 B，其头结点指针分别为 pa 和 pb，使得 A 链表中含有原链表 A 中序号为奇数的元素，而 B 链表中含有原链表 A 中序号为偶数的元素，且保持原来的相对顺序。
+	\item 有一个循环双链表，每个结点由两个指针（prior 和 next）以及 data 三个域构成，p 指向其中某一结点，编写函数删除 P 所指结点。
+	\item 设有个循环双链表，其中有一结点的指针为 p，编写一个算法将 p 与其后继结点进行交换。
+\end{enumerate}
+
+\end{document}

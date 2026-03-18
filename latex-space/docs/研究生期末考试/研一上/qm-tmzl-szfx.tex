@@ -1,0 +1,870 @@
+\documentclass[a4paper,11pt]{ctexart}
+
+% ==================== 导言区 ====================
+
+% 引入数学公式和符号宏包
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{bm}
+
+% 页面边距设置
+\usepackage{geometry}
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 表格宏包
+\usepackage{booktabs}
+\usepackage{array}
+
+% 颜色与框图宏包 (用于制作公式框)
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+
+% 自定义“理论公式框”样式 - 更加醒目且正式
+\newtcolorbox{theorybox}[1]{
+    colback=gray!5,          % 背景色：极淡灰
+    colframe=black!75,       % 边框色：深灰
+    coltitle=white,          % 标题文字颜色
+    title={\textbf{【理论依据】} #1}, % 标题内容前缀
+    fonttitle=\small\sffamily, % 标题字体
+    boxrule=1pt,             % 边框宽度
+    arc=2pt,                 % 圆角
+    left=8pt, right=8pt, top=8pt, bottom=8pt, % 内边距
+    before skip=12pt,        % 框前间距
+    after skip=12pt          % 框后间距
+}
+
+% 标题格式设置
+\ctexset{
+    section = {
+        format = \Large\bfseries\raggedright,
+        name = {,},
+        number = \chinese{section},
+        aftername = {、}
+    }
+}
+
+% 超链接设置 (生成的目录可点击)
+\usepackage[hidelinks]{hyperref}
+
+% ==================== 正文开始 ====================
+\begin{document}
+
+% 封面/目录
+\tableofcontents
+\newpage
+
+% ==================== 第一章 ====================
+\section{第一章}
+
+1. 设 $x>0$, $x$ 的相对误差为 $\delta$, 求 $\ln x$ 的误差.
+
+\begin{theorybox}{函数误差传播公式}
+设 $x^*$ 是 $x$ 的近似值，$\varepsilon(x^*) = x^* - x$ 为绝对误差。
+对于可微函数 $f(x)$，其误差传播公式为：
+\[ \varepsilon(f(x^*)) \approx f'(x^*) \cdot \varepsilon(x^*) \]
+相对误差定义：$e_r(x^*) = \frac{\varepsilon(x^*)}{x^*}$。
+\end{theorybox}
+
+\textbf{解: } 设 $x$ 的近似数为 $x^*$, 则由假设有 $\frac{x^*-x}{x^*} = \delta$. 对于 $f(x) = \ln x$, 因 $f'(x) = \frac{1}{x}$, 故由
+\[
+\varepsilon(f(x^*)) \approx |f'(x^*)| \varepsilon(x^*)
+\]
+得
+\[
+\ln x - \ln x^* = \varepsilon(f(x^*)) \approx \left| \frac{1}{x^*} \right| (x^* - x) = \frac{1}{x^*} (x^* - x) = e_r(x^*) = \delta,
+\]
+即 $e(\ln x^*) \approx \delta$.
+
+\vspace{2em}
+
+2. 设 $x$ 的相对误差为 $2\%$, 求 $x^n$ 的相对误差.
+
+\begin{theorybox}{条件数定义}
+计算函数值问题的条件数 $C_p$ 定义为：
+\[ C_p = \left| \frac{x f'(x)}{f(x)} \right| \]
+它反映了输入数据的相对误差对输出结果相对误差的影响倍数：
+\[ |\varepsilon_r(f(x^*))| \approx C_p \cdot |\varepsilon_r(x^*)| \]
+\end{theorybox}
+
+\textbf{解: } 设 $f(x) = x^n$, 则此计算函数值问题的条件数为
+\[
+C_p = \left| \frac{x f'(x)}{f(x)} \right| = \left| \frac{x \cdot n x^{n-1}}{x^n} \right| = n,
+\]
+又因为计算函数值问题的条件数定义为函数值的相对误差与自变量相对误差的比值, 即 $\varepsilon_r((x^*)^n) \approx C_p \cdot \varepsilon_r(x^*)$, 所以 $\varepsilon_r((x^*)^n) \approx n \cdot 2\% = 0.02n$.
+
+\vspace{2em}
+
+5. 计算球体体积要使相对误差限为 $1\%$, 问度量半径 $R$ 时允许的相对误差限是多少?
+
+\begin{theorybox}{球体体积与误差反求}
+球体体积公式：$V = \frac{4}{3}\pi R^3$。
+利用条件数公式 $C_p = \left| \frac{R \cdot V'}{V} \right|$ 建立 $\varepsilon_r(V)$ 与 $\varepsilon_r(R)$ 的关系。
+\end{theorybox}
+
+\textbf{解: } 球体体积公式为 $V = \frac{4}{3}\pi R^3$, 体积计算的条件数
+\[
+C_p = \left| \frac{R \cdot V'}{V} \right| = \left| \frac{R \cdot 4\pi R^2}{\frac{4}{3}\pi R^3} \right| = 3,
+\]
+所以, $\varepsilon_r(V^*) \approx C_p \cdot \varepsilon_r(R^*) = 3 \varepsilon_r(R^*)$.
+又因为 $\varepsilon_r(V^*) = 1\%$, 所以度量半径 $R$ 时允许的相对误差限
+\[
+\varepsilon_r(R^*) = \frac{1}{3} \varepsilon_r(V^*) = \frac{1}{3} \times 1\% \approx 0.0033.
+\]
+
+\vspace{2em}
+
+9. 正方形的边长大约为 100 cm, 应怎样测量才能使其面积误差不超过 1 $\text{cm}^2$?
+
+\begin{theorybox}{绝对误差限的计算}
+给定函数绝对误差限 $\varepsilon(f(x^*))$，反求自变量绝对误差限 $\varepsilon(x^*)$：
+\[ \varepsilon(x^*) \approx \frac{\varepsilon(f(x^*))}{|f'(x^*)|} \]
+\end{theorybox}
+
+\textbf{解: } 正方形的面积函数为 $A(x) = x^2$, 所以 $\varepsilon(A^*) \approx |A'(x^*)| \cdot \varepsilon(x^*) = 2x^* \cdot \varepsilon(x^*)$.
+当 $x^* = 100$ 时, 则 $\varepsilon(A^*) = 2x^* \cdot \varepsilon(x^*) = 200 \cdot \varepsilon(x^*)$. 若 $\varepsilon(A^*) \leqslant 1$, 则
+\[
+\varepsilon(x^*) \leqslant \frac{1}{200} = \frac{1}{2} \times 10^{-2},
+\]
+即测量中边长误差限不超过 0.005 cm 时, 才能使面积误差不超过 1 $\text{cm}^2$.
+
+\newpage
+
+% ==================== 第二章 ====================
+\section{第二章}
+
+1. 当 $x = 1, -1, 2$ 时, $f(x) = 0, -3, 4$, 求 $f(x)$ 的二次插值多项式.
+(1) 用单项式基底.
+(2) 用拉格朗日插值基底.
+(3) 用牛顿基底.
+证明三种方法得到的多项式是相同的.
+
+\begin{theorybox}{插值多项式的三种形式}
+\textbf{1. 单项式基底}: $p_n(x) = a_0 + a_1 x + \dots + a_n x^n$，需解: 线性方程组。
+\textbf{2. 拉格朗日插值}: $L_n(x) = \sum_{k=0}^n y_k l_k(x)$，其中 $l_k(x) = \prod_{j \neq k} \frac{x-x_j}{x_k-x_j}$。
+\textbf{3. 牛顿插值}: $N_n(x) = f(x_0) + f[x_0,x_1](x-x_0) + \dots + f[x_0,\dots,x_n]\prod_{i=0}^{n-1}(x-x_i)$。
+\textbf{唯一性定理}: 满足插值条件的 $n$ 次多项式是唯一的。
+\end{theorybox}
+
+\textbf{证明} 插值条件为 $x_0 = 1, y_0 = 0; x_1 = -1, y_1 = -3; x_2 = 2, y_2 = 4$. 三个插值点可以确定二次插值多项式.
+
+\textbf{(1) 若用单项式基底}, 则设 $p_2(x) = a_0 + a_1 x + a_2 x^2$, 由插值条件, 有
+\[
+\begin{cases}
+a_0 + a_1 + a_2 = 0, \\
+a_0 - a_1 + a_2 = -3, \\
+a_0 + 2a_1 + 4a_2 = 4,
+\end{cases}
+\]
+解: 之得
+\[
+a_0 = -\frac{7}{3}, \quad a_1 = \frac{3}{2}, \quad a_2 = \frac{5}{6},
+\]
+故 $p_2(x) = -\frac{7}{3} + \frac{3}{2}x + \frac{5}{6}x^2$.
+
+\textbf{(2) 若用拉格朗日基底}, 则
+\begin{align*}
+l_0(x) &= \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} = \frac{(x+1)(x-2)}{(1+1)(1-2)} = -\frac{1}{2}(x+1)(x-2), \\
+l_1(x) &= \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)} = \frac{(x-1)(x-2)}{(-1-1)(-1-2)} = \frac{1}{6}(x-1)(x-2), \\
+l_2(x) &= \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)} = \frac{(x-1)(x+1)}{(2-1)(2+1)} = \frac{1}{3}(x-1)(x+1),
+\end{align*}
+故
+\begin{align*}
+p_2(x) &= y_0 l_0(x) + y_1 l_1(x) + y_2 l_2(x) \\
+&= -\frac{1}{2}(x-1)(x-2) + \frac{4}{3}(x-1)(x+1).
+\end{align*}
+
+\textbf{(3) 若用牛顿基底}, 则
+\begin{align*}
+f(x_0) &= y_0 = 0, \\
+f[x_0, x_1] &= \frac{y_1 - y_0}{x_1 - x_0} = \frac{-3 - 0}{-1 - 1} = \frac{3}{2}, \\
+f[x_1, x_2] &= \frac{y_2 - y_1}{x_2 - x_1} = \frac{4 + 3}{2 + 1} = \frac{7}{3}, \\
+f[x_0, x_1, x_2] &= \frac{f[x_1, x_2] - f[x_0, x_1]}{x_2 - x_0} = \frac{\frac{7}{3} - \frac{3}{2}}{2 - 1} = \frac{5}{6},
+\end{align*}
+故
+\begin{align*}
+p_2(x) &= f(x_0) + f[x_0, x_1](x-x_0) + f[x_0, x_1, x_2](x-x_0)(x-x_1) \\
+&= \frac{3}{2}(x-1) + \frac{5}{6}(x-1)(x+1).
+\end{align*}
+整理可知三种方法得到的是同一个多项式 $p_2(x) = -\frac{7}{3} + \frac{3}{2}x + \frac{5}{6}x^2$.
+
+\vspace{2em}
+
+2. 给出 $f(x) = \ln x$ 的数值表:
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c}
+\toprule
+$x$ & 0.4 & 0.5 & 0.6 & 0.7 & 0.8 \\
+\midrule
+$\ln x$ & $-0.916\,291$ & $-0.693\,147$ & $-0.510\,826$ & $-0.356\,675$ & $-0.223\,144$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+用线性插值及二次插值计算 $\ln 0.54$ 的近似值.
+
+\begin{theorybox}{插值节点选择与公式应用}
+\textbf{选点原则}：为了减小插值误差 $|R_n(x)| = \frac{|f^{(n+1)}(\xi)|}{(n+1)!}|\prod(x-x_i)|$，应选择与计算点 $x$ 距离最近的节点进行插值。
+\textbf{线性插值}：利用两个点，公式 $L_1(x) = y_0 \frac{x-x_1}{x_0-x_1} + y_1 \frac{x-x_0}{x_1-x_0}$。
+\textbf{二次插值}：利用三个点，使用拉格朗日二次插值公式。
+\end{theorybox}
+
+\textbf{解: }
+\textbf{线性插值}: 由于 $x=0.54$, 介于 0.5 和 0.6 之间, 故取 $x_0=0.5, x_1=0.6$, 这时插值余项中的 $w(x) = (x-x_0)(x-x_1)$ 的绝对值最小. 于是 $y_0 = -0.693\,147, y_1 = -0.510\,826$. 代入拉格朗日线性插值多项式, 得
+\begin{align*}
+L_1(0.54) &= \frac{x-x_1}{x_0-x_1} \cdot y_0 + \frac{x-x_0}{x_1-x_0} \cdot y_1 \\
+&= \frac{0.54-0.6}{0.5-0.6} \times (-0.693\,147) + \frac{0.54-0.5}{0.6-0.5} \times (-0.510\,826) \\
+&\approx -0.620\,219,
+\end{align*}
+所以 $\ln 0.54 \approx L_1(0.54) \approx -0.620\,219$.
+
+\textbf{二次插值}: 由于 $x=0.54$ 与 0.5, 0.6 及 0.4 的距离较近, 故取 $x_0=0.4, x_1=0.5, x_2=0.6$, 这时插值余项中的 $w(x)=(x-x_0)(x-x_1)(x-x_2)$ 的绝对值最小. 于是 $y_0=-0.916\,291, y_1=-0.693\,147, y_2=-0.510\,826$. 代入拉格朗日二次插值多项式, 得
+\begin{align*}
+L_2(0.54) &= \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} \cdot y_0 + \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)} \cdot y_1 + \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)} \cdot y_2 \\
+&= \frac{(0.54-0.5)(0.54-0.6)}{(0.4-0.5)(0.4-0.6)} \times (-0.916\,291) \\
+&\quad + \frac{(0.54-0.4)(0.54-0.6)}{(0.5-0.4)(0.5-0.6)} \times (-0.693\,147) \\
+&\quad + \frac{(0.54-0.4)(0.54-0.5)}{(0.6-0.4)(0.6-0.5)} \times (-0.510\,826) \\
+&\approx -0.615\,320
+\end{align*}
+所以 $\ln 0.54 \approx L_2(0.54) \approx -0.615\,320$.
+
+\vspace{2em}
+
+8. $f(x) = x^7 + x^4 + 3x + 1$, 求 $f[2^0, 2^1, \cdots, 2^7]$ 及 $f[2^0, 2^1, \cdots, 2^8]$.
+
+\begin{theorybox}{差商与导数关系}
+\textbf{定理}：$f(x)$ 的 $n$ 阶差商与 $f(x)$ 的 $n$ 阶导数存在如下关系：
+\[ f[x_0, x_1, \cdots, x_n] = \frac{f^{(n)}(\xi)}{n!}, \quad \xi \in (\min x_i, \max x_i) \]
+\textbf{推论}：若 $f(x)$ 是 $n$ 次多项式，则其 $n$ 阶差商为常数（$a_n$），大于 $n$ 阶的差商为 0。
+\end{theorybox}
+
+\textbf{解: } 根据差商与微商的关系式
+\[
+f[x_0, x_1, \cdots, x_n] = \frac{f^{(n)}(\xi)}{n!}, \quad \xi \in [x_0, x_n],
+\]
+有
+\[
+f[2^0, 2^1, \cdots, 2^7] = \frac{f^{(7)}(\xi)}{7!}, \quad \xi \in [2^0, 2^7];
+\]
+\[
+f[2^0, 2^1, \cdots, 2^8] = \frac{f^{(8)}(\eta)}{8!}, \quad \eta \in [2^0, 2^8].
+\]
+若 $f(x) = x^7 + x^4 + 3x + 1$, 则 $f^{(7)}(\xi) = 7!, f^{(8)}(\xi) = 0$, 故
+\[
+f[2^0, 2^1, \cdots, 2^7] = 1, \quad f[2^0, 2^1, \cdots, 2^8] = 0.
+\]
+
+\newpage
+
+% ==================== 第三章 ====================
+\section{第三章}
+
+4. 计算下列函数 $f(x)$ 关于 $C[0,1]$ 的 $\|f\|_\infty, \|f\|_1$ 与 $\|f\|_2$:
+(1) $f(x) = (x-1)^3$;
+(2) $f(x) = \left| x - \frac{1}{2} \right|$;
+(3) $f(x) = x^m(1-x)^n, m$ 与 $n$ 为正整数.
+
+\begin{theorybox}{函数范数定义}
+对于连续函数空间 $C[a,b]$ 上的函数 $f(x)$：
+1. \textbf{无穷范数} (最大范数): $\|f\|_\infty = \max_{a \leqslant x \leqslant b} |f(x)|$
+2. \textbf{1-范数}: $\|f\|_1 = \int_a^b |f(x)| dx$
+3. \textbf{2-范数} (欧几里得范数): $\|f\|_2 = \sqrt{\int_a^b f^2(x) dx}$
+\end{theorybox}
+
+\textbf{解: } (1) $f(x) = (x-1)^3$,
+\begin{align*}
+\|f\|_\infty &= \max_{0 \leqslant x \leqslant 1} |f(x)| = \max_{0 \leqslant x \leqslant 1} |(x-1)^3| = 1, \\
+\|f\|_1 &= \int_0^1 |f(x)| dx = \int_0^1 |(x-1)^3| dx = \int_0^1 (1-x)^3 dx = \left[-\frac{(1-x)^4}{4}\right]_0^1 = \frac{1}{4}, \\
+\|f\|_2 &= \left( \int_0^1 f^2(x) dx \right)^{1/2} = \left( \int_0^1 (x-1)^6 dx \right)^{1/2} = \left( \left[\frac{(x-1)^7}{7}\right]_0^1 \right)^{1/2} = \frac{1}{\sqrt{7}}.
+\end{align*}
+
+(2) $f(x) = \left| x - \frac{1}{2} \right|$,
+\begin{align*}
+\|f\|_\infty &= \max_{0 \leqslant x \leqslant 1} \left| x - \frac{1}{2} \right| = \frac{1}{2}, \\
+\|f\|_1 &= \int_0^1 |f(x)| dx = \int_0^{1/2} \left( \frac{1}{2} - x \right) dx + \int_{1/2}^1 \left( x - \frac{1}{2} \right) dx = \frac{1}{8} + \frac{1}{8} = \frac{1}{4}, \\
+\|f\|_2 &= \left( \int_0^1 f^2(x) dx \right)^{1/2} = \left( \int_0^1 \left( x - \frac{1}{2} \right)^2 dx \right)^{1/2} = \left( \int_0^1 (x^2 - x + 0.25) dx \right)^{1/2} = \frac{1}{\sqrt{12}}.
+\end{align*}
+
+(3) 由 $f(x) = x^m(1-x)^n$, 知当 $x \in [0, 1]$ 时, $f(x) \geqslant 0$,
+\[
+f'(x) = m x^{m-1}(1-x)^n + x^m n (1-x)^{n-1}(-1) = x^{m-1}(1-x)^{n-1}[m(1-x) - nx].
+\]
+故当 $x \in \left( 0, \frac{m}{n+m} \right)$ 时, $f'(x) > 0, f(x)$ 在 $\left( 0, \frac{m}{n+m} \right)$ 内单调递增; 当 $x \in \left( \frac{m}{n+m}, 1 \right)$ 时, $f'(x) < 0, f(x)$ 在 $\left( \frac{m}{n+m}, 1 \right)$ 内单调递减. 因此
+\begin{align*}
+\|f\|_\infty &= \max_{0 \leqslant x \leqslant 1} |f(x)| = \max \left\{ |f(0)|, \left| f\left( \frac{m}{n+m} \right) \right|, |f(1)| \right\} = \frac{m^m n^n}{(n+m)^{m+n}}, \\
+\|f\|_1 &= \int_0^1 |f(x)| dx = \int_0^1 (\sin^2 t)^m (1 - \sin^2 t)^n d(\sin^2 t) \quad (\text{令 } x=\sin^2 t) \\
+&= \int_0^{\frac{\pi}{2}} \sin^{2m} t \cdot \cos^{2n} t \cdot \cos t \cdot 2 \cdot \sin t dt = \frac{n! m!}{(n+m+1)!}, \\
+\|f\|_2 &= \left( \int_0^1 x^{2m}(1-x)^{2n} dx \right)^{1/2} = \left[ \int_0^{\frac{\pi}{2}} \sin^{4m} t \cdot \cos^{4n} t d(\sin^2 t) \right]^{1/2} \\
+&= \left[ \int_0^{\frac{\pi}{2}} 2 \sin^{4m+1} t \cdot \cos^{4n+1} t dt \right]^{1/2} = \sqrt{\frac{(2n)!(2m)!}{[2(n+m)+1]!}}.
+\end{align*}
+
+\vspace{2em}
+
+16. 观测物体的直线运动, 得出以下数据:
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c|c}
+\toprule
+时间 $t/\text{s}$ & 0 & 0.9 & 1.9 & 3.0 & 3.9 & 5.0 \\
+\midrule
+距离 $s/\text{m}$ & 0 & 10 & 30 & 50 & 80 & 110 \\
+\bottomrule
+\end{tabular}
+\end{center}
+求运动方程.
+
+\begin{theorybox}{最小二乘法 (线性拟合)}
+设有数据点 $(x_i, y_i)$，拟合函数 $S = at+b$。
+根据最小二乘原理，系数 $a, b$ 满足法方程组：
+\[
+\begin{bmatrix}
+n & \sum t_i \\
+\sum t_i & \sum t_i^2
+\end{bmatrix}
+\begin{bmatrix}
+b \\ a
+\end{bmatrix}
+=
+\begin{bmatrix}
+\sum s_i \\
+\sum t_i s_i
+\end{bmatrix}
+\]
+\end{theorybox}
+
+\textbf{解: } 设运动方程为 $S = at+b$, 由给定数据得
+\[
+\sum_{i=1}^6 1 = 6, \quad \sum_{i=1}^6 x_i = 14.7, \quad \sum_{i=1}^6 x_i^2 = 53.63, \quad \sum_{i=1}^6 y_i = 280, \quad \sum_{i=1}^6 x_i y_i = 1078,
+\]
+于是得法方程
+\[
+\begin{cases}
+6b + 14.7a = 280, \\
+14.7b + 53.63a = 1078,
+\end{cases}
+\]
+解: 得 $b = -7.855\,047\,8, a = 22.253\,76$, 所以运动方程为
+\[
+S = 22.253\,76 t - 7.855\,047\,8.
+\]
+
+\vspace{2em}
+
+17. 已知实验数据如下:
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c}
+\toprule
+$x_i$ & 19 & 25 & 31 & 38 & 44 \\
+\midrule
+$y_i$ & 19.0 & 32.3 & 49.0 & 73.3 & 97.8 \\
+\bottomrule
+\end{tabular}
+\end{center}
+用最小二乘法求形如 $y = a + bx^2$ 的经验公式, 并计算均方误差.
+
+\begin{theorybox}{广义最小二乘法与均方误差}
+拟合函数 $y = a\varphi_0(x) + b\varphi_1(x)$，其中 $\varphi_0=1, \varphi_1=x^2$。
+内积定义：$(f, g) = \sum_{i=1}^m f(x_i)g(x_i)$。
+法方程组：
+\[
+\begin{cases}
+(\varphi_0, \varphi_0)a + (\varphi_0, \varphi_1)b = (\varphi_0, y) \\
+(\varphi_1, \varphi_0)a + (\varphi_1, \varphi_1)b = (\varphi_1, y)
+\end{cases}
+\]
+均方误差：$\|\delta\|_2 = \sqrt{\|y\|_2^2 - a(\varphi_0, y) - b(\varphi_1, y)}$。
+\end{theorybox}
+
+\textbf{解: } 由题意 $\Phi = \text{span}\{1, x^2\}, \varphi_0(x) = 1, \varphi_1(x) = x^2$, 因而
+\[
+(\varphi_0, \varphi_0) = \sum_{i=1}^5 1^2 = 5, \quad (\varphi_1, \varphi_1) = \sum_{i=1}^5 x_i^4 = 7\,277\,699,
+\]
+\[
+(\varphi_0, \varphi_1) = (\varphi_1, \varphi_0) = \sum_{i=1}^5 x_i^2 = 5327,
+\]
+\[
+(\varphi_0, y) = \sum_{i=1}^5 y_i = 271.4, \quad (\varphi_1, y) = \sum_{i=1}^5 x_i^2 y_i = 369\,321.5,
+\]
+从而得法方程
+\[
+\begin{cases}
+5a + 5327b = 271.4, \\
+5327a + 7\,277\,699b = 369\,321.5,
+\end{cases}
+\]
+解: 得 $a = 0.972\,604\,6, b = 0.050\,035\,1$, 所以经验公式为
+\[
+y = 0.972\,604\,6 + 0.050\,035\,1 x^2,
+\]
+均方误差为
+\[
+\|\delta\|_2 = [\|y\|_2^2 - a(\varphi_0, y) - b(\varphi_1, y)]^{1/2} = (0.016\,93)^{1/2} = 0.130.
+\]
+
+\newpage
+
+% ==================== 第四章 ====================
+\section{第四章}
+
+1. 确定下列求积公式中的待定参数, 使其代数精度尽量高, 并指明所构造出的求积公式具有的代数精度:
+(1) $\int_{-h}^h f(x)dx \approx A_{-1}f(-h) + A_0f(0) + A_1f(h)$;
+(2) $\int_{-2h}^{2h} f(x)dx \approx A_{-1}f(-h) + A_0f(0) + A_1f(h)$;
+(3) $\int_{-1}^1 f(x)dx \approx [f(-1) + 2f(x_1) + 3f(x_2)]/3$;
+(4) $\int_0^h f(x)dx \approx h[f(0) + f(h)]/2 + ah^2[f'(0) - f'(h)]$.
+
+\begin{theorybox}{代数精度的确定方法}
+\textbf{定义}：若求积公式对所有次数不超过 $m$ 的多项式精确成立，而对 $m+1$ 次多项式不精确成立，则称其具有 $m$ 次代数精度。
+\textbf{求解: 步骤}：
+1. 将 $f(x) = 1, x, x^2, \dots$ 依次代入求积公式左右两端。
+2. 令左右相等，建立方程组求解: 待定参数。
+3. 继续验证更高次幂，直到公式不再成立。
+\end{theorybox}
+
+\textbf{解: } (1) 将 $f(x) = 1, x, x^2$ 分别代入公式两端并令其左右相等, 得
+\[
+\begin{cases}
+A_{-1} + A_0 + A_1 = 2h, \\
+-h A_{-1} + h A_1 = 0, \\
+h^2 A_{-1} + h^2 A_1 = \frac{2}{3}h^3.
+\end{cases}
+\]
+解: 得 $A_{-1} = A_1 = \frac{h}{3}, A_0 = \frac{4h}{3}$, 所求公式至少具有 2 次代数精度.
+又由于
+\begin{align*}
+\int_{-h}^h x^3 dx &= \frac{1}{4}x^4 \Big|_{-h}^h = 0 = \frac{h}{3}(-h)^3 + \frac{h}{3}(h)^3, \\
+\int_{-h}^h x^4 dx &= \frac{1}{5}x^5 \Big|_{-h}^h = \frac{2}{5}h^5 \neq \frac{2}{3}h^5 = \frac{h}{3}(-h)^4 + \frac{h}{3}(h)^4,
+\end{align*}
+故 $\int_{-h}^h f(x)dx \approx \frac{h}{3}f(-h) + \frac{4h}{3}f(0) + \frac{h}{3}f(h)$ 具有 3 次代数精度.
+
+(2) 将 $f(x) = 1, x, x^2$ 分别代入公式两端并令其左右相等, 得
+\[
+\begin{cases}
+A_{-1} + A_0 + A_1 = 4h, \\
+-h A_{-1} + h A_1 = 0, \\
+h^2 A_{-1} + h^2 A_1 = \frac{2}{3}(2h)^3.
+\end{cases}
+\]
+解: 得 $A_{-1} = A_1 = \frac{8h}{3}, A_0 = -\frac{4h}{3}$, 所求公式至少具有 2 次代数精度.
+又由于
+\begin{align*}
+\int_{-2h}^{2h} x^3 dx &= \frac{1}{4}x^4 \Big|_{-2h}^{2h} = 0 = \frac{8}{3}h[(-h)^3 + (h)^3], \\
+\int_{-2h}^{2h} x^4 dx &= \frac{1}{5}x^5 \Big|_{-2h}^{2h} = \frac{64}{5}h^5 \neq \frac{16}{3}h^5 = \frac{8}{3}h[(-h)^4 + (h)^4],
+\end{align*}
+故 $\int_{-2h}^{2h} f(x)dx \approx \frac{8h}{3}f(-h) - \frac{4h}{3}f(0) + \frac{8h}{3}f(h)$ 具有 3 次代数精度.
+
+(3) 将 $f(x) = 1$ 代入公式, 有
+\[
+2 = \int_{-1}^1 1 dx = [f(-1) + 2f(x_1) + 3f(x_2)]/3 = 2;
+\]
+令公式对 $f(x) = x, x^2$ 准确成立, 即
+\begin{align*}
+\int_{-1}^1 x dx &= 0 \Rightarrow -1 + 2x_1 + 3x_2 = 0, \\
+\int_{-1}^1 x^2 dx &= \frac{2}{3} \Rightarrow 1 + 2x_1^2 + 3x_2^2 = 2,
+\end{align*}
+解: 得
+\[
+\begin{cases}
+x_1 = -0.289\,897\,9, \\
+x_2 = 0.526\,598\,6
+\end{cases}
+\text{或}
+\begin{cases}
+x_1 = 0.689\,897\,9, \\
+x_2 = -0.126\,598\,6.
+\end{cases}
+\]
+将 $f(x) = x^3$ 代入已确定的求积公式, 有
+\[
+\int_{-1}^1 x^3 dx = \frac{1}{4}x^4 \Big|_{-1}^1 = \frac{1}{2} \neq \frac{1}{3} [f(-1) + 2f(x_1) + 3f(x_2)],
+\]
+故求积公式具有 2 次代数精度. 求积公式为
+\[
+\int_{-1}^1 f(x) dx \approx \frac{1}{3} [f(-1) + 2f(-0.289\,897\,9) + 3f(0.526\,598\,6)],
+\]
+或
+\[
+\int_{-1}^1 f(x) dx \approx \frac{1}{3} [f(-1) + 2f(0.689\,897\,9) + 3f(-0.126\,598\,6)].
+\]
+
+(4) 将 $f(x) = 1, x$ 代入公式, 有
+\[
+h = \int_0^h 1 dx = \frac{h}{2}[1+1] + 0 = h,
+\]
+\[
+\frac{h^2}{2} = \int_0^h x dx = \frac{h}{2}[0+h] + ah^2[1-1] = \frac{h^2}{2},
+\]
+令公式对 $f(x) = x^2$ 准确成立, 即
+\[
+\frac{h^3}{3} = \int_0^h x^2 dx = \frac{h}{2}[0+h^2] + ah^2[2 \times 0 - 2h],
+\]
+解: 得 $a = -\frac{1}{12}$.
+将 $f(x) = x^3, x^4$ 代入已确定的求积公式, 有
+\[
+\frac{h^4}{4} = \int_0^h x^3 dx = \frac{h}{2}[0+h^3] + \frac{h^2}{12}[0-3h^2] = \frac{h^4}{4},
+\]
+\[
+\frac{h^5}{5} = \int_0^h x^4 dx \neq \frac{1}{6}h^5 = \frac{h}{2}[0+h^4] + \frac{h^2}{12}[0-4h^3],
+\]
+故求积公式具有 3 次代数精度.
+
+\vspace{2em}
+
+4. 用辛普森公式求积分 $\int_0^1 e^{-x} dx$ 并估计误差.
+
+\begin{theorybox}{辛普森公式与误差估计}
+\textbf{Simpson 公式}：$S = \frac{b-a}{6}\left[ f(a) + 4f\left(\frac{a+b}{2}\right) + f(b) \right]$。
+\textbf{余项公式}：$R[f] = -\frac{b-a}{180} \left( \frac{b-a}{2} \right)^4 f^{(4)}(\eta)$，其中 $\eta \in (a,b)$。
+本题中 $f(x)=e^{-x}, f^{(4)}(x)=e^{-x}$，且 $e^{-x}$ 在 $[0,1]$ 单调递减。
+\end{theorybox}
+
+\textbf{解: } 由辛普森公式
+\[
+S = \frac{b-a}{6}\left[ f(a) + 4f\left(\frac{a+b}{2}\right) + f(b) \right],
+\]
+故有
+\[
+S = \frac{1-0}{6} [e^{-0} + 4e^{-\frac{1}{2}} + e^{-1}] = 0.632\,333\,7,
+\]
+误差
+\[
+|R[f]| = \left| -\frac{b-a}{180} \left( \frac{b-a}{2} \right)^4 f^{(4)}(\eta) \right| \leqslant \frac{1}{180} \times \frac{1}{2^4} \times e^0 = 0.000\,347\,2.
+\]
+
+\newpage
+
+% ==================== 第五章 ====================
+\section{第五章}
+
+8. 用直接三角分解:  (杜利特尔 (Doolittle) 分解: ) 求解: 线性方程组
+\[
+\begin{cases}
+\frac{1}{4}x_1 + \frac{1}{5}x_2 + \frac{1}{6}x_3 = 9, \\
+\frac{1}{3}x_1 + \frac{1}{4}x_2 + \frac{1}{5}x_3 = 8, \\
+\frac{1}{2}x_1 + x_2 + 2x_3 = 8
+\end{cases}
+\]
+的解: .
+
+\begin{theorybox}{Doolittle 分解: 算法}
+将矩阵 $A$ 分解: 为 $A = LU$，其中 $L$ 为单位下三角矩阵（对角线为1），$U$ 为上三角矩阵。
+计算公式：
+1. $u_{1j} = a_{1j}$
+2. $l_{i1} = a_{i1}/u_{11}$
+3. $u_{ij} = a_{ij} - \sum_{k=1}^{i-1} l_{ik}u_{kj}$
+4. $l_{ij} = (a_{ij} - \sum_{k=1}^{j-1} l_{ik}u_{kj}) / u_{jj}$
+求解: 步骤：先解:  $Ly=b$，再解:  $Ux=y$。
+\end{theorybox}
+
+\textbf{解: } 设
+\[
+A = \begin{bmatrix}
+\frac{1}{4} & \frac{1}{5} & \frac{1}{6} \\
+\frac{1}{3} & \frac{1}{4} & \frac{1}{5} \\
+\frac{1}{2} & 1 & 2
+\end{bmatrix} =
+\begin{bmatrix}
+1 & 0 & 0 \\
+l_{21} & 1 & 0 \\
+l_{31} & l_{32} & 1
+\end{bmatrix}
+\begin{bmatrix}
+u_{11} & u_{12} & u_{13} \\
+0 & u_{22} & u_{23} \\
+0 & 0 & u_{33}
+\end{bmatrix},
+\]
+则由对应元素相等, 有 $\frac{1}{4} = u_{11}, \frac{1}{3} = l_{21}u_{11} \Rightarrow l_{21} = \frac{4}{3}, \frac{1}{2} = l_{31}u_{11} \Rightarrow l_{31} = 2$,
+$\frac{1}{5} = u_{12}, \quad \frac{1}{4} = l_{21}u_{12} + u_{22} \Rightarrow u_{22} = -\frac{1}{60}, \quad 1 = l_{31}u_{12} + l_{32}u_{22} \Rightarrow l_{32} = -36$,
+$\frac{1}{6} = u_{13}, \quad \frac{1}{5} = l_{21}u_{13} + u_{23} \Rightarrow u_{23} = -\frac{1}{45}, \quad 2 = l_{31}u_{13} + l_{32}u_{23} + u_{33} \Rightarrow u_{33} = \frac{13}{15}$.
+故 $A$ 的杜利特尔分解: 为
+\[
+A = LU = \begin{bmatrix}
+1 & 0 & 0 \\
+\frac{4}{3} & 1 & 0 \\
+2 & -36 & 1
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{4} & \frac{1}{5} & \frac{1}{6} \\
+0 & -\frac{1}{60} & -\frac{1}{45} \\
+0 & 0 & \frac{13}{15}
+\end{bmatrix},
+\]
+解:  $Ly=b$, 得
+\[
+y_1 = 9, \quad y_2 = -4, \quad y_3 = -154,
+\]
+解:  $Ux=y$, 得
+\[
+x_3 = -177.69, \quad x_2 = 476.92, \quad x_1 = -227.08.
+\]
+
+\newpage
+
+% ==================== 第六章 ====================
+\section{第六章}
+
+1. 设线性方程组
+\[
+\begin{cases}
+5x_1 + 2x_2 + x_3 = -12, \\
+-x_1 + 4x_2 + 2x_3 = 20, \\
+2x_1 - 3x_2 + 10x_3 = 3.
+\end{cases}
+\]
+(1) 考察用雅可比迭代法, 高斯-塞德尔迭代法解: 此方程组的收敛性;
+(2) 用雅可比迭代法及高斯-塞德尔迭代法解: 此方程组, 要求当 $\|x^{(k+1)} - x^{(k)}\|_\infty < 10^{-4}$ 时迭代终止.
+
+\begin{theorybox}{迭代法的收敛性与格式}
+\textbf{收敛判别}：若系数矩阵 $A$ 严格对角占优，则 Jacobi 和 Gauss-Seidel 迭代均收敛。
+\textbf{Jacobi 格式}：$x_i^{(k+1)} = \frac{1}{a_{ii}}(b_i - \sum_{j \neq i} a_{ij}x_j^{(k)})$。
+\textbf{Gauss-Seidel 格式}：$x_i^{(k+1)} = \frac{1}{a_{ii}}(b_i - \sum_{j<i} a_{ij}x_j^{(k+1)} - \sum_{j>i} a_{ij}x_j^{(k)})$。
+\end{theorybox}
+
+\textbf{解: } (1) 因系数矩阵严格对角占优, 故雅可比迭代、高斯-塞德尔迭代均收敛.
+(2) 雅可比迭代格式为
+\[
+\begin{cases}
+x_1^{(k+1)} = -\frac{2}{5}x_2^{(k)} - \frac{1}{5}x_3^{(k)} - \frac{12}{5}, \\
+x_2^{(k+1)} = \frac{1}{4}x_1^{(k)} - \frac{1}{2}x_3^{(k)} + 5, \\
+x_3^{(k+1)} = -\frac{1}{5}x_1^{(k)} + \frac{3}{10}x_2^{(k)} + \frac{3}{10}.
+\end{cases}
+\]
+取 $x^{(0)} = (1, 1, 1)^T$, 则迭代 17 次可达到精度要求, 即
+\[
+x^{(17)} = (-4.000\,018\,6, 2.999\,991\,5, 2.000\,001\,2)^T.
+\]
+高斯-塞德尔迭代格式为
+\[
+\begin{cases}
+x_1^{(k+1)} = -\frac{2}{5}x_2^{(k)} - \frac{1}{5}x_3^{(k)} - \frac{12}{5}, \\
+x_2^{(k+1)} = \frac{1}{4}x_1^{(k+1)} - \frac{1}{2}x_3^{(k)} + 5, \\
+x_3^{(k+1)} = -\frac{1}{5}x_1^{(k+1)} + \frac{3}{10}x_2^{(k+1)} + \frac{3}{10}.
+\end{cases}
+\]
+取 $x^{(0)} = (1, 1, 1)^T$, 则迭代 8 次可达到精度要求, 即
+\[
+x^{(8)} = (-4.000\,018\,6, 2.999\,991\,5, 2.000\,001\,2)^T.
+\]
+
+\vspace{2em}
+
+2. 设线性方程组
+\[
+(1) \begin{cases}
+x_1 + 0.4x_2 + 0.4x_3 = 1, \\
+0.4x_1 + x_2 + 0.8x_3 = 2, \\
+0.4x_1 + 0.8x_2 + x_3 = 3;
+\end{cases}
+\quad
+(2) \begin{cases}
+x_1 + 2x_2 - 2x_3 = 1, \\
+x_1 + x_2 + x_3 = 1, \\
+2x_1 + 2x_2 + x_3 = 1.
+\end{cases}
+\]
+试考察解: 此线性方程组的雅可比迭代法及高斯-塞德尔迭代法的收敛性.
+
+\begin{theorybox}{迭代矩阵与谱半径}
+迭代法收敛的充要条件：迭代矩阵 $B$ 的谱半径 $\rho(B) < 1$。
+\textbf{Jacobi 迭代矩阵}：$B_J = -D^{-1}(L+U)$。
+\textbf{G-S 迭代矩阵}：$B_S = -(D+L)^{-1}U$。
+计算特征值 $\lambda$，则 $\rho(B) = \max|\lambda_i|$。
+\end{theorybox}
+
+\textbf{解: } (1) 雅可比迭代法的迭代矩阵
+\[
+B_J = D^{-1}(L+U) = \begin{bmatrix}
+0 & -0.4 & -0.4 \\
+-0.4 & 0 & -0.8 \\
+-0.4 & -0.8 & 0
+\end{bmatrix},
+\]
+$|\lambda I - B_J| = (\lambda - 0.8)(\lambda^2 + 0.8\lambda - 0.32)$,
+$\rho(B_J) = 1.092\,820\,3 > 1$, 所以雅可比迭代法不收敛.
+
+高斯-塞德尔迭代法的迭代矩阵
+\[
+B_S = (D-L)^{-1}U = \begin{bmatrix}
+0 & -0.4 & -0.4 \\
+0 & 0.16 & -0.64 \\
+0 & 0.032 & 0.672
+\end{bmatrix},
+\]
+$\rho(B_S) \leqslant \|B_S\|_\infty = 0.8 < 1$, 故高斯-塞德尔迭代法收敛.
+
+(2) 雅可比迭代法的迭代矩阵
+\[
+B_J = D^{-1}(L+U) = \begin{bmatrix}
+0 & -2 & 2 \\
+-1 & 0 & -1 \\
+-2 & -2 & 0
+\end{bmatrix},
+\]
+$|\lambda I - B_J| = \lambda^3, \rho(B_J) = 0 < 1$, 所以雅可比迭代法收敛.
+高斯-塞德尔迭代法的迭代矩阵
+\[
+B_S = (D-L)^{-1}U = \begin{bmatrix}
+0 & -2 & 2 \\
+0 & 2 & -3 \\
+0 & 0 & 2
+\end{bmatrix},
+\]
+$|\lambda I - B_S| = \lambda(\lambda-2)^2, \rho(B_S) = 2 > 1$, 故高斯-塞德尔迭代法不收敛.
+
+\vspace{2em}
+
+4. 设 $A = \begin{bmatrix} 10 & a & 0 \\ b & 10 & b \\ 0 & a & 5 \end{bmatrix}$, $\det A \neq 0$, 用 $a, b$ 表示解: 线性方程组 $Ax=f$ 的雅可比迭代与高斯-塞德尔迭代收敛的充分必要条件.
+
+\begin{theorybox}{参数化矩阵的收敛性分析}
+通过写出含参数 $a, b$ 的迭代矩阵 $B_J$ 和 $B_S$，求出其特征值 $\lambda$ 关于 $a,b$ 的表达式。
+令 $\max |\lambda| < 1$ 解: 不等式。
+\end{theorybox}
+
+\textbf{解: } 雅可比迭代法的迭代矩阵
+\[
+B_J = \begin{bmatrix} 10 & & \\ & 10 & \\ & & 10 \end{bmatrix}^{-1}
+\begin{bmatrix} 0 & -a & 0 \\ -b & 0 & -b \\ 0 & -a & 0 \end{bmatrix} =
+\begin{bmatrix} 0 & -\frac{a}{10} & 0 \\ -\frac{b}{10} & 0 & -\frac{b}{10} \\ 0 & -\frac{a}{5} & 0 \end{bmatrix},
+\]
+$|\lambda I - B_J| = \lambda \left( \lambda^2 - \frac{3ab}{100} \right)$, $\rho(B_J) = \frac{\sqrt{3|ab|}}{10}$.
+雅可比迭代法收敛的充分必要条件是 $|ab| < \frac{100}{3}$.
+
+高斯-塞德尔迭代法的迭代矩阵
+\[
+B_S = \begin{bmatrix} 10 & & \\ b & 10 & \\ 0 & a & 10 \end{bmatrix}^{-1}
+\begin{bmatrix} 0 & -a & 0 \\ 0 & 0 & -b \\ 0 & 0 & 0 \end{bmatrix} =
+\begin{bmatrix} 0 & -\frac{a}{10} & 0 \\ 0 & \frac{ab}{100} & -\frac{b}{10} \\ 0 & -\frac{a^2b}{500} & \frac{ab}{50} \end{bmatrix},
+\]
+$|\lambda I - B_S| = \lambda^2 \left( \lambda - \frac{3ab}{100} \right)$, $\rho(B_S) = \frac{3|ab|}{100}$.
+高斯-塞德尔迭代法收敛的充分必要条件是 $|ab| < \frac{100}{3}$.
+
+\vspace{2em}
+
+6. 用雅可比迭代与高斯-塞德尔迭代解: 线性方程组
+$Ax = b$, 证明若取 $A = \begin{bmatrix} 3 & 0 & -2 \\ 0 & 2 & 1 \\ -2 & 1 & 2 \end{bmatrix}$, 则两种方法均收敛, 试比较哪种方法收敛快?
+
+\begin{theorybox}{收敛速度比较}
+渐进收敛速度 $R(B) = -\ln \rho(B)$。
+谱半径 $\rho(B)$ 越小，收敛速度越快。
+通过比较 $\rho(B_J)$ 与 $\rho(B_S)$ 的大小来判断。
+\end{theorybox}
+
+\textbf{解: } 雅可比迭代法的迭代矩阵
+\[
+B_J = D^{-1}(L+U) = \begin{bmatrix}
+0 & 0 & \frac{2}{3} \\
+0 & 0 & -\frac{1}{2} \\
+1 & -\frac{1}{2} & 0
+\end{bmatrix}, \quad
+\rho(B_J) = \sqrt{\frac{11}{12}} < 1,
+\]
+故雅可比迭代法收敛.
+高斯-塞德尔迭代法的迭代矩阵
+\[
+B_S = (D-L)^{-1}U = \begin{bmatrix} 3 & 0 & 0 \\ 0 & 2 & 0 \\ -2 & 1 & 2 \end{bmatrix}^{-1}
+\begin{bmatrix} 0 & 0 & 2 \\ 0 & 0 & -1 \\ 0 & 0 & 0 \end{bmatrix} =
+\begin{bmatrix}
+0 & 0 & \frac{2}{3} \\
+0 & 0 & -\frac{1}{2} \\
+0 & 0 & \frac{11}{12}
+\end{bmatrix}, \quad
+\rho(B_S) = \frac{11}{12} < 1,
+\]
+故高斯-塞德尔迭代法收敛.
+因 $\rho(B_S) = \frac{11}{12} < \sqrt{\frac{11}{12}} = \rho(B_J)$, 故高斯-塞德尔迭代法收敛较快.
+
+\newpage
+
+% ==================== 第七章 ====================
+\section{第七章}
+
+1. 用二分法求方程 $x^3 - x - 1 = 0$ 的正根, 要求误差小于 $0.05$.
+
+\textbf{解: } 设 $f(x) = x^3 - x - 1$, 因为 $f(0) = -1 < 0, f(2) = 5 > 0$, 所以在 $[0,2]$ 为 $f(x)$ 的有根区间.
+又 $f'(x) = 3x^2 - 1$, 故当 $0 < x < \frac{1}{\sqrt{3}}$ 时, $f(x)$ 单调递减, 当 $x > \frac{1}{\sqrt{3}}$ 时, $f(x)$ 单调递增.
+而 $f\left(\frac{1}{\sqrt{3}}\right) = -\frac{5}{4}, f(0) = -1$, 由单调性知 $f(x)$ 的唯一正根 $x^* \in (1.5, 2)$.
+
+根据二分法的误差估计式, 要求误差小于 $0.05$, 只需 $\frac{1}{2^{k+1}} < 0.05$, 解得 $k+1 > 5.322$, 故至少应分 6 次. 具体计算结果见下表.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c}
+\toprule
+$k$ & $a_k$ & $b_k$ & $x_k$ & $f(x_k)$的符号 & $k$ & $a_k$ & $b_k$ & $x_k$ & $f(x_k)$的符号 \\
+\midrule
+0 & 1 & 2 & 1.5 & $-$ & 3 & 1.5 & 1.625 & 1.562 5 & $-$ \\
+1 & 1.5 & 2 & 1.75 & $+$ & 4 & 1.562 5 & 1.625 & 1.593 75 & $-$ \\
+2 & 1.5 & 1.75 & 1.625 & $+$ & 5 & 1.593 75 & 1.625 & 1.609 375 & $-$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+因此 $x^* \approx x_5 = 1.609\,375$.
+
+\vspace{2em}
+
+2. 为求方程 $x^3 - x^2 - 1 = 0$ 在 $x_0 = 1.5$ 附近的一个根, 设将方程改写成下列等价形式, 并建立相应的迭代公式.
+(1) $x = 1 + 1/x^2$, 迭代公式 $x_{k+1} = 1 + 1/x_k^2$;
+(2) $x^3 = x^2 + 1$, 迭代公式 $x_{k+1} = \sqrt[3]{x_k^2 + 1}$;
+(3) $x^2 = \frac{1}{x-1}$, 迭代公式 $x_{k+1} = 1/\sqrt{x_k - 1}$.
+
+试分析每种迭代公式的收敛性, 并选出一种公式求出具有四位有效数字的近似根.
+
+\textbf{解: } 考虑 $x_0 = 1.5$ 的邻域 $[1.3, 1.6]$.
+
+(1) 当 $x \in [1.3, 1.6]$ 时, $\varphi(x) = 1 + \frac{1}{x^2} \in [1.3, 1.6]$, $|\varphi'(x)| = \left| -\frac{2}{x^3} \right| \leqslant \frac{2}{1.3^3} \approx 0.910 = L < 1$, 故迭代 $x_{k+1} = 1 + \frac{1}{x_k^2}$ 在 $[1.3, 1.6]$ 上整体收敛.
+
+(2) 当 $x \in [1.3, 1.6]$ 时, $\varphi(x) = (1 + x^2)^{1/3} \in [1.3, 1.6]$,
+\[
+|\varphi'(x)| = \left| \frac{2}{3} \frac{x}{(1+x^2)^{2/3}} \right| < \frac{2}{3} \frac{1.6}{(1+1.3^2)^{2/3}} \approx 0.522 = L < 1,
+\]
+故迭代 $x_{k+1} = \sqrt[3]{x_k^2+1}$ 在 $[1.3, 1.6]$ 上整体收敛.
+
+(3) 当 $x \in [1.3, 1.6]$ 时, $\varphi(x) = \frac{1}{\sqrt{x-1}}$, $|\varphi'(x)| = \left| \frac{-1}{2(x-1)^{3/2}} \right| > \frac{1}{2(1.6-1)} > 1$.
+故迭代 $x_{k+1} = 1/\sqrt{x_k-1}$ 发散.
+
+由于 (2) 中的 $L$ 较小, 故取 (2) 的迭代公式计算. 若使结果具有四位有效数字, 只需
+\[
+|x_k - x^*| \leqslant \frac{L}{1-L} |x_k - x_{k+1}| < \frac{1}{2} \times 10^{-3},
+\]
+即
+\[
+|x_k - x_{k+1}| < \frac{1-L}{L} \times \frac{1}{2} \times 10^{-3} < 0.5 \times 10^{-3}.
+\]
+取 $x_0 = 1.5$, 计算结果见下表.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c c | c c | c c}
+\toprule
+$k$ & $x_k$ & $k$ & $x_k$ & $k$ & $x_k$ \\
+\midrule
+1 & 1.481 248 034 & 3 & 1.468 817 314 & 5 & 1.466 243 010 \\
+2 & 1.472 705 730 & 4 & 1.467 047 973 & 6 & 1.465 876 820 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+由于 $|x_6 - x_5| < \frac{1}{2} \times 10^{-3}$, 故可取 $x^* \approx x_6 = 1.466$.
+
+\newpage
+
+% ==================== 第九章 ====================
+\section{第九章}
+
+1. 用欧拉法解初值问题
+\[
+y' = x^2 + 100y^2, \quad y(0) = 0.
+\]
+取步长 $h=0.1$, 计算到 $x=0.3$ (保留到小数点后 4 位).
+
+\textbf{解: } 欧拉法公式为
+\[
+y_{n+1} = y_n + h f(x_n, y_n) = y_n + h(x_n^2 + 100y_n^2), \quad n = 0, 1, 2.
+\]
+代入 $y_0 = 0$, 计算结果为
+\begin{align*}
+y(0.1) \approx y_1 &= 0, \\
+y(0.2) \approx y_2 &= 0.0010, \\
+y(0.3) \approx y_3 &= 0.0050.
+\end{align*}
+
+\end{document}

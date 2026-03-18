@@ -1,0 +1,652 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{graphicx}       % 图片支持
+\usepackage{fancyhdr}       % 页眉页脚
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 使用方法：\choices{选项A}{选项B}{选项C}{选项D}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+
+\title{\textbf{《高等数学》必刷习题——基础版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{第一章 函数（基础）}
+
+\begin{enumerate}
+    \item 以下区间是函数 $ y = \sin x $ 的单调递增区间的是 \underline{\hspace{1cm}}。
+    \choicesFour{$ [0,\frac{\pi}{2}] $}{$ [0,\pi] $}{$ [\frac{\pi}{2},\pi] $}{$ [\pi,\frac{3\pi}{2}] $}
+
+    \item $ y = \frac{e^{x} - e^{-x}}{2} $ 是 \underline{\hspace{1cm}}。
+    \choicesFour{奇函数}{偶函数}{非奇非偶函数}{无法确定}
+
+    \item 函数 $ y = |x \cos(-x)| $ 是 \underline{\hspace{1cm}}。
+    \choicesFour{有界函数}{偶函数}{单调函数}{周期函数}
+
+    \item 设 $ f(x) $ 的定义域为 $ [1,2] $ ，则函数 $ f(x^{2}) $ 的定义域是 \underline{\hspace{1cm}}。
+    \choicesFour{$ [1,2] $}{$ [1,\sqrt{2}] $}{$ \left[-\sqrt{2},\sqrt{2}\right] $}{$ \left[-\sqrt{2},-1\right] \cup \left[1,\sqrt{2}\right] $}
+
+    \item 下列各对函数中，\underline{\hspace{1cm}} 中的两个函数是相同的。
+    \choices
+    {$ f(x)=\frac{x^{2}-1}{x-1} $, $ g(x)=x+1 $}
+    {$ f(x)=\sqrt{x^{2}} $, $ g(x)=x $}
+    {$ f(x) = \ln x^{2} $, $ g(x) = 2\ln x $}
+    {$ f(x) = \sin^{2}x + \cos^{2}x $, $ g(x) = 1 $}
+
+    \item 若 $ f(x) = \log_{a} x \quad (a > 0, a \neq 1) $ ，则 $ f(x) + f(y) $ 等于 \underline{\hspace{1cm}}。
+    \choicesFour{$ f(x+y) $}{$ f(xy) $}{$ f(x-y) $}{$ f(\frac{y}{x}) $}
+
+    \item 下列给定区间中是函数 $ f(x)=|x^{2}-1| $ 的单调有界区间的是 \underline{\hspace{1cm}}。
+    \choicesFour{$ [-1,1] $}{$ (1,+\infty) $}{$ [-2,-1] $}{$ [-2,0] $}
+
+    \item 不等式 $ \frac{|x-1|-1}{|x-3|}>0 $ 的解集(用区间表示)为 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ (- \infty, 0) $}
+    {$ (- \infty, 3) \cup (3, +\infty) $}
+    {$ (2,3) \cup (3, +\infty) $}
+    {$ (- \infty, 0) \cup (2, 3) \cup (3, +\infty) $}
+
+    \item 已知函数 $ f(x) $ 的定义域为 $ [0,1] $ ，则函数 $ f(\ln x) $ 的定义域是 \underline{\hspace{1cm}}。
+    \choicesFour{$ [1,e] $}{$ [e,+\infty) $}{$ (0,e] $}{$ (1,e) $}
+
+    \item 假设函数 $ f(x) = \sin\frac{x}{2} + \cos\frac{x}{3} $ ，则 $ f(x) $ 的周期为 \underline{\hspace{2cm}}。
+
+    \item 如果函数 $ f(x) $ 的定义域是 $ \left[-\frac{1}{3},3\right] $ ，则 $ f(\frac{1}{x}) $ 的定义域是 \underline{\hspace{2cm}}。
+
+    \item 函数 $ f(x) = x \frac{a^{x}-1}{a^{x}+1} $ 的图像关于 \underline{\hspace{2cm}} 对称。
+
+    \item 求 $ y=\frac{2x}{\sqrt{2-x}}+\ln(1+x) $ 的定义域 \underline{\hspace{2cm}}。
+
+    \item 设 $ f(x) $ 是奇函数， $ g(x) $ 是偶函数，则 $ f(x)g(x) $ 是 \underline{\hspace{2cm}}。
+
+    \item 函数 $ y=\sqrt{x^{2}-x-6}-\arcsin\frac{2x-3}{9} $ 的定义域是 \underline{\hspace{2cm}}。
+\end{enumerate}
+
+\section*{第二章 极限（基础）}
+
+\begin{enumerate}
+    \item $ \lim_{x\to0}3^{\frac{1}{x}}= $ \underline{\hspace{1cm}}。
+    \choicesFour{1}{0}{$ \infty $}{不存在}
+
+    \item 已知函数 $ f(x)=\frac{|x|}{x} $ ，则 $ \lim_{x\to0}f(x)= $ \underline{\hspace{1cm}}。
+    \choicesFour{1}{$-1$}{0}{不存在}
+
+    \item 极限 $ \lim_{x\to0}\frac{\sin ax}{2x}=1 $ , 则 $a=$ \underline{\hspace{1cm}}。
+    \choicesFour{0}{1}{2}{3}
+
+    \item 极限 $ \lim_{x\to+\infty}\frac{\ln x}{x+2}= $ \underline{\hspace{1cm}}。
+    \choicesFour{0}{1}{2}{$ +\infty $}
+
+    \item 极限 $ \lim_{n\to\infty}\frac{n+(-1)^{n}}{2n}= $ \underline{\hspace{1cm}}。
+    \choicesFour{$ \frac{1}{2} $}{0}{$ \infty $}{不存在}
+
+    \item 极限 $ \lim_{n\to\infty}\sqrt{n^{2}+n}-n= $ \underline{\hspace{2cm}}。
+
+    \item 已知 $ \lim_{x\to\infty}\left(\frac{x-a}{x}\right)^x=2 $ ，则 $a=$ \underline{\hspace{2cm}}。
+
+    \item 极限 $ \lim_{x \to 0} \frac{\ln(1-2x)}{\sin 3x} = $ \underline{\hspace{2cm}}。
+
+    \item 求极限 $ \lim_{n\to\infty}\left(1+\frac{1}{2n}\right)^n= $ \underline{\hspace{2cm}}。
+
+    \item 极限 $ \lim_{x \to 0} \frac{x - \tan x}{x^{2}(e^{x} - 1)} = $ \underline{\hspace{2cm}}。
+
+    \item 求极限 $ \lim_{n\to\infty}\left(\frac{1}{n^{2}+n-1}+\frac{1}{n^{2}+n-2}+\cdots+\frac{1}{n^{2}+n-n}\right) $。
+
+    \item 求下列函数极限：
+    \begin{enumerate}
+        \item $ \lim_{x\to0}x^{2}\sin\frac{1}{x} $
+        \item $ \lim_{x\to\infty}\frac{\arctan x}{x} $
+        \item $ \lim_{n\to\infty}\frac{\cos n^{2}}{n} $
+    \end{enumerate}
+    \item 求下列函数极限
+    \begin{enumerate}
+        \item $ \lim_{x \to 0^{+}} \frac{\sin ax}{\sqrt{1 - \cos x}} $
+        \item $ \lim_{x \to 0} \frac{\cos ax - \cos bx}{x^{2}} $
+    \end{enumerate}
+
+    \item 求下列函数极限
+    \begin{enumerate}
+        \item $ \lim_{x\to0} \frac{\arctan x^{2}}{\sin\frac{x}{2}\arcsin x} $
+        \item $ \lim_{x \to 0} \frac{\frac{x}{\sqrt{1-x^{2}}}}{\ln(1-x)} $
+    \end{enumerate}
+
+    \item 求下列函数极限：
+    \begin{enumerate}
+        \item $ \lim_{x\to0}\frac{1-\cos 4x}{2\sin^{2}x+x\tan^{2}x} $
+        \item $ \lim_{x \to 0} \frac{\cos ax - \cos bx}{x^{2}} $
+        \item $ \lim_{x\to0}\frac{\frac{x}{\sqrt{1-x^{2}}}}{\ln(1-x)} $
+        \item $ \lim_{x\to0}\frac{\ln(\sin^{2}x+e^{x})-x}{\ln(x^{2}+e^{2x})-2x} $
+    \end{enumerate}
+\end{enumerate}
+
+\section*{第三章 连续（基础）}
+
+\begin{enumerate}
+    \item 函数 $ f(x) $ 在 $\mathbb{R}$ 上连续， $x=2$ 是 $ f(x)=\frac{x^{2}-4}{x-2} $ 的 \underline{\hspace{1cm}}。
+    \choicesFour{可去间断点}{跳跃间断点}{无穷间断点}{连续点}
+
+    \item $ x \rightarrow 0^{+} $ 时，下列函数 \underline{\hspace{1cm}} 是无穷小量。
+    \choicesFour{$ e^{\frac{1}{x}} $}{$ x\sin\frac{1}{x} $}{$ \ln x $}{$ \frac{1}{x}\sin x $}
+
+    \item 当 $ x \rightarrow 0 $ 时，与 $ x + x^{3} $ 等价的无穷小量为 \underline{\hspace{1cm}}。
+    \choicesFour{$ \frac{1}{x} $}{1}{$ x $}{$ x^{2} $}
+
+    \item 函数 $ f(x)=\lim_{n\to\infty}\frac{1+x}{1+x^{2n}} $ 的间断点情况是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {不存在间断点}
+    {存在间断点 $ x = 1 $}
+    {存在间断点 $ x = 0 $}
+    {存在间断点 $ x = -1 $}
+
+    \item 设 $ x_{n}=\frac{n}{2}[1+(-1)^{n}] $ ，则 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \{x_{n}\} $ 有界}
+    {$ \{x_{n}\} $ 无界}
+    {$ \{x_{n}\} $ 单调增加}
+    {$ n\to\infty $ 时， $ \{x_{n}\} $ 为无穷大}
+
+    \item $ x = 0 $ 是函数 $ f(x) = \frac{\tan x}{x} $ 的第 \underline{\hspace{1cm}} 类间断点。
+
+    \item $ f(x)=\begin{cases}x\sin\frac{1}{x}, & x\neq0,\\ k, & x=0\end{cases} $ 在 $x=0$ 处连续,则常数 $k=$ \underline{\hspace{2cm}}。
+
+    \item 已知当 $ x \to 0 $ 时， $ (1 + ax^{2})^{3} - 1 $ 与 $ 1 - \cos x $ 是等价无穷小，则常数 $ a = $ \underline{\hspace{2cm}}。
+
+    \item $ f(x)=\begin{cases}(1-x)^{\frac{1}{x}}, & x<0,\\ 2^{x}+k, & x\geq0\end{cases} $ 在 $ x=0 $ 处连续,则常数 $ k= $ \underline{\hspace{2cm}}。
+
+    \item 函数 $ y=\frac{x}{\tan x} $ 的间断点为 \underline{\hspace{2cm}}。
+
+    \item 已知函数 $ f(x)=\begin{cases}(1+ax)^{\frac{1}{x}}, & x>0\\ 2b-e, & x=0\\ b+\ln(1+x^{2}), & x<0\end{cases} $ 在 $x=0$ 处连续，求实数 $a$ 和 $b$ 的值。
+
+    \item 当 $ a, b $ 为何值时， $ \lim_{x \to 0} \frac{\sin x}{a - e^{x}} (b - \cos x) = 2 $。
+
+    \item $ f(x) = \begin{cases} \frac{\cos x}{x+2}, & x \geq 0 \\ \frac{\sqrt{a} - \sqrt{a - x}}{x}, & x < 0 \quad (a > 0) \end{cases} $
+    \begin{enumerate}
+        \item 当 $a$ 为何值时， $x=0$ 是 $ f(x) $ 的连续点？
+        \item 当 $a$ 为何值时， $x=0$ 是 $ f(x) $ 的间断点？是什么类型的间断点？
+    \end{enumerate}
+
+    \item 讨论极限 $ \lim_{x \to 0} \frac{1 - 2^{\frac{1}{x}}}{1 + 2^{\frac{1}{x}}} $ 是否存在？
+
+    \item 研究函数 $ f(x)=\lim_{n\to\infty}\frac{1-x^{2n}}{1+x^{2n}}x $ 的连续性，并画出图形。
+\end{enumerate}
+
+\section*{第四章 导数与微分（基础）}
+
+\begin{enumerate}
+    \item 若函数 $ f(x) $ 在 $ x_{0} $ 处可导，则极限 $ \lim_{\Delta x \to 0} \frac{f(x_{0} + 3\Delta x) - f(x_{0})}{\Delta x} $ 可表示为 \underline{\hspace{1cm}}。
+    \choicesFour{$ -f'(x_{0}) $}{$ 3f'(x_{0}) $}{$ \frac{1}{3}f'(x_{0}) $}{$ -3f'(x_{0}) $}
+
+    \item 设 $ y = 2^{\cos x} $ ，则 $ y' = $ \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ 2^{x} \ln 2 $}
+    {$ -2^{\cos x} \sin x $}
+    {$ -2^{\cos x} \ln 2 \sin x $}
+    {$ -2^{\frac{1}{\cos x}} \sin x $}
+
+    \item 曲线 $ y = \ln x $ 与直线 $ y = x $ 平行的切线方程为 \underline{\hspace{1cm}}。
+    \choicesFour{$x-y=0$}{$x-y-1=0$}{$ x-y+1=0 $}{$ x-y+2=0 $}
+
+    \item 若曲线 $ y=x^{2}+ax+b $ 和 $ y=x^{3}+x $ 在点 $(1,2)$ 处相切，则 $a,b$ 之值为 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$a=2,b=-1$}
+    {$a=1,b=-3$}
+    {$a=0,b=-2$}
+    {$a=-3,b=1$}
+
+    \item 设 $ f(x)=\begin{cases}x, & x<0\\ xe^{x}, & x\geq0\end{cases} $ 在点 $x=0$ 处，下列结论错误的是 \underline{\hspace{1cm}}。
+    \choicesFour{连续}{可导}{不可导}{可微}
+
+    \item 设 $ f(x)=\begin{cases}\frac{1-\mathrm{e}^{x^{2}}}{x}, & x \neq 0 \\ 0, & x = 0\end{cases} $ 则 $ f'(0)= $ \underline{\hspace{2cm}}。
+
+    \item $ \frac{d^2}{dx^{2}}(x^{2}-3x^{4})= $ \underline{\hspace{2cm}}。
+
+    \item 若 $ e^{y} = xy $ ，则 $ y'= $ \underline{\hspace{2cm}}。
+
+    \item $ d(\arcsin\sqrt{x}) = $ \underline{\hspace{2cm}}。
+
+    \item 设 $ f(x) = x(x + 1)(x + 2)(x + 3) $ ，则 $ f'(0) = $ \underline{\hspace{2cm}}。
+
+    \item 求函数 $ y = x^{x} $ 的导数。
+
+    \item 求函数 $ y = \ln(x + \sqrt{x^{2} + a^{2}}) $ 的导数。
+
+    \item 设 $ f(x)=\begin{cases}\frac{\ln(1+2x)}{x}\\2\end{cases} \quad -\frac{1}{2}<x<\frac{1}{2} $ 且 $ x\neq0 $ , 求 $ f^{(100)}(0) $。
+
+    \item 曲线 $ y = x^{3} - x + 2 $ 上哪一点的切线与直线 $ 2x - y - 1 = 0 $ 平行？
+
+    \item 求下列参数方程所确定的函数的导数：
+    $$ \begin{cases}x=t-t^{2}\\ y=1-t^{2}\end{cases} $$
+\end{enumerate}
+
+\section*{第五章 中值定理与导数（基础）}
+
+\begin{enumerate}
+    \item 设 $ f(x)=x\ln x $ , 则 $ f(x) $ \underline{\hspace{1cm}}。
+    \choicesTwo
+    {在 $ (0, \frac{1}{e}) $ 内单调减少}
+    {在 $ (\frac{1}{e}, +\infty) $ 内单调减少}
+    {在 $ (0, +\infty) $ 内单调减少}
+    {在 $ (0, +\infty) $ 内单调增加}
+
+    \item 曲线 $ y=6x-24x^{2}+x^{4} $ 的凸区间是 \underline{\hspace{1cm}}。
+    \choicesFour{$ (-2,2) $}{$ (-\infty,0) $}{$ (0,+\infty) $}{$ (-\infty,+\infty) $}
+
+    \item 函数 $ y = \sin x $ 在区间 $ [0, \pi] $ 上满足罗尔定理的 $ \xi = $ \underline{\hspace{1cm}}。
+    \choicesFour{0}{$ \frac{\pi}{4} $}{$ \frac{\pi}{2} $}{$ \pi $}
+
+    \item 曲线 $ y=\frac{x^{2}}{1+x} $ 的铅垂渐近线的方程是 \underline{\hspace{1cm}}。
+    \choicesFour{$ y = -1 $}{$ y = 1 $}{$ x = -1 $}{$ x = 1 $}
+
+    \item 函数 $ f(x)=ax^{2}+b $ 在区间 $ (0,+\infty) $ 内单调增加，则 $a,b$ 应满足 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$a<0,b=0$}
+    {$a>0,b$ 为任意实数}
+    {$a<0,b\neq0$}
+    {$a<0,b$ 为任意实数}
+
+    \item 若在区间 $I$ 上， $ f'(x)>0, f''(x)<0 $ , 则曲线 $ y=f(x) $ 在 $I$ 是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {单调减少且为凹弧}
+    {单调减少且为凸弧}
+    {单调增加且为凹弧}
+    {单调增加且为凸弧}
+
+    \item 关于曲线 $ y=\frac{2x^{3}}{(1-x)^{2}} $ ，以下说法正确的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {既有水平渐近线，又有垂直渐近线}
+    {只有水平渐近线}
+    {有垂直渐近线 $ x = 1 $}
+    {没有渐近线}
+
+    \item 在 $ (a,b) $ 区间内任意一点，函数 $ f(x) $ 的曲线弧总位于其切线的上方，则该曲线在 $ (a,b) $ 内是 \underline{\hspace{1cm}}。
+    \choicesFour{凹}{凸}{单调上升}{单调下降}
+
+    \item 当 $ x=\frac{\pi}{4} $ 时，函数 $ f(x)=a\cos x-\frac{1}{4}\cos 4x $ 取得极值，则 $a=$ \underline{\hspace{2cm}}。
+
+    \item 函数 $ f(x)=\ln x $ 在区间 $[1,2]$ 上满足拉格朗日中值公式的 $ \xi= $ \underline{\hspace{2cm}}。
+
+    \item 设函数 $ f(x) $ 在 $ [1,2] $ 上连续，在 $ (1,2) $ 内可导，且 $ f(1) = 4f(2) $ 。
+    证明：存在一点 $ \xi \in (1,2) $ ，使得 $ 2f(\xi) + \xi f'(\xi) = 0 $ 。
+
+    \item 用拉格朗日中值定理证明: 当 $x>0$ 时， $ \frac{x}{1+x}<\ln(1+x)<x $ 。
+
+    \item 证明：当 $x>0$ 时， $ \ln(1+x)>x-\frac{1}{2}x^{2} $ 。
+
+    \item 求函数 $ y = x^{3} - 3x^{2} - 9x + 5 $ 的单调区间与极值。
+
+    \item 生产某种设备固定成本 1000 万元，每生产一台成本增加 20 万元，已知需求价格函数 $ P(Q) = 200 - Q $ ，问销量 $Q$ 为多少时，总利润 $L$ 最大，最大利润是多少？
+\end{enumerate}
+
+\section*{第六章 不定积分（基础）}
+
+\begin{enumerate}
+    \item 不定积分 $ \int\frac{dx}{x(x+1)} $ 的结果为 \underline{\hspace{1cm}}。
+    \choicesFour{$ \ln|\frac{x+1}{x}|+C $}{$ \ln|\frac{x}{x+1}|+C $}{$ \ln\frac{x+1}{x}+C $}{$ \ln\frac{x}{x+1}+C $}
+
+    \item 若 $ \int f(x)dx = F(x) + C, $ 则 $ \int e^{-x}f(e^{-x})dx = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ -F(e^{-x})+C $}{$ F(e^{-x})+C $}{$ \frac{F(e^{-x})}{x}+C $}{$ F(e^{x})+C $}
+
+    \item 若 $ \int f(x)dx = x^{2}e^{2x} + C $ ，则 $ f(x) = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ 2xe^{x} $}{$ 2x^{2}e^{2x} $}{$ xe^{2x} $}{$ 2xe^{2x}(1+x) $}
+
+    \item $ \int d(\arcsin\sqrt{x}) = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ \arcsin\sqrt{x} $}{$ \arcsin\sqrt{x}+C $}{$ \arccos\sqrt{x} $}{$ \arccos\sqrt{x}+C $}
+
+    \item $ \int xf(x^{2})f'(x^{2})dx = $ \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \frac{1}{2}f(x^{2})+C $}
+    {$ \frac{1}{2}f^{2}(x^{2})+C $}
+    {$ \frac{1}{4}f^{2}(x^{2})+C $}
+    {$ \frac{1}{4}x^{2}f^{2}(x^{2})+C $}
+
+    \item 已知 $ \int f(x)dx = \sin x \cos x + C $ , 则 $ f(x) = $ \underline{\hspace{2cm}}。
+
+    \item 设 $ f(x) $ 在 $ (-\infty,+\infty) $ 内连续，则 $ \frac{d}{dx}[\int f(x)dx]= $ \underline{\hspace{2cm}}。
+
+    \item 若 $ \int xf(x)dx=\frac{1}{2}x^{2}+C, $ 则 $ \int\frac{1}{f(x)}dx= $ \underline{\hspace{2cm}}。
+
+    \item 已知 $ \int f(\sqrt{x})\frac{1}{\sqrt{x}}dx = x + \ln x + C $ ，则 $ f(x) = $ \underline{\hspace{2cm}}。
+
+    \item 设 $ f(x) = e^{-x} $ ，则 $ \int \frac{f'(\ln x)}{x} dx = $ \underline{\hspace{2cm}}。
+
+    \item 计算 $ \int x^{2} \arctan x \, dx $。
+
+    \item 求不定积分 $ \int x^{2}e^{-x} \, dx $。
+
+    \item 求不定积分 $ \int(x+1)\sin x \, dx $。
+
+    \item 求不定积分 $ \int\frac{dx}{\sqrt{2x-3}+1} $。
+
+    \item 求不定积分 $ \int\frac{x^{2}}{1+x^{2}}\arctan x \, dx $。
+\end{enumerate}
+
+\section*{第七章 定积分（基础）}
+
+\begin{enumerate}
+    \item 已知 $ f(x) $ 为 $ [1, +\infty] $ 上的连续函数，且 $ F(x) = \int_{1}^{x^{2}} \frac{f(t)}{t} dt, x \in (1, +\infty) $ 。则 $ F'(x) = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ 2f(x) $}{$ 2xf(x^{2}) $}{$ \frac{f(x^{2})}{x} $}{$ \frac{2f(x^{2})}{x} $}
+
+    \item 定积分 $ \int_{-2}^{0}|x+1|dx $ 的值为 \underline{\hspace{1cm}}。
+    \choicesFour{-2}{2}{-1}{1}
+
+    \item 定积分 $ \int_{-1}^{1}\frac{x^{4}\tan x}{2x^{2}+\cos x}dx $ 的值为 \underline{\hspace{1cm}}。
+    \choicesFour{0}{1}{-1}{2}
+
+    \item 设 $ p = \int_{0}^{\frac{\pi}{2}} \sin^{2}x \, dx $ , $ q = \int_{0}^{\frac{\pi}{2}} \cos^{2}x \, dx $ , $ r = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \sin^{2}x \, dx $ , 则 \underline{\hspace{1cm}}。
+    \choicesFour{$ p = q = r $}{$ p = q < r $}{$ p < q < r $}{$ p > q > r $}
+
+    \item $ \int_{a}^{b}f'(2x)dx= $ \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ f(b) - f(a) $}
+    {$ f(2b) - f(2a) $}
+    {$ \frac{1}{2}[f(2b)-f(2a)] $}
+    {$ 2[f(2b)-f(2a)] $}
+
+    \item 设 $ \varphi'(x) = \int_{0}^{\ln x} t^{2} dt $ , 则 $ \varphi'(x) = $ \underline{\hspace{2cm}}。
+
+    \item 函数 $ f(x) $ 满足 $ \int_{0}^{2x} f(t) dt = 1 + x^{3} $ ，则 $ f(8) = $ \underline{\hspace{2cm}}。
+
+    \item $ \int_{0}^{\pi}\cos x \, dx= $ \underline{\hspace{2cm}}。
+
+    \item 定积分 $ \int_{0}^{1}\frac{dx}{100+x^{2}}= $ \underline{\hspace{2cm}}。
+
+    \item 定积分 $ \int_{1}^{2}\frac{\sqrt{x-1}}{x}dx= $ \underline{\hspace{2cm}}。
+
+    \item 求定积分 $ \int_{1}^{5}e^{\sqrt{2x-1}}dx $。
+
+    \item 求定积分 $ \int_{1}^{4}\frac{1+\ln x}{\sqrt{x}}dx $。
+
+    \item 求定积分 $ \int_{0}^{\sqrt{3}} \arctan x \, dx $。
+
+    \item $ f(x)=\begin{cases}xe^{-x}, & x\leq0\\ 3x^{2}, & 0<x\leq1\end{cases} $ ，求 $ \int_{-3}^{1}f(x)dx $。
+
+    \item 求定积分 $ \int_{0}^{\pi} x(\sin x)^{3}dx $。
+\end{enumerate}
+
+\section*{第八章 微分方程（基础）}
+
+\begin{enumerate}
+    \item 下列是二阶微分方程的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ (y')^{2}-3y=0 $}
+    {$ (y')^{2}+x^{2}y'=0 $}
+    {$ y'y+x^{2}=0 $}
+    {$ y''+yx^{2}=0 $}
+
+    \item 下列是线性微分方程的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ y''+(\ln x)y'+\cos x \cdot y=0 $}
+    {$ y''-2y+y^{2}=e^{2} $}
+    {$ y'-xy+1=\ln x $}
+    {$ (y')^{2}-y'=3x+7 $}
+
+    \item 微分方程 $ \frac{dy}{dx}=\frac{2x+\sin x}{e^{y}} $ 的通解是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ e^{y}=x^{2}+\cos x+C $}
+    {$ e^{y}=x^{2}-\cos x+C $}
+    {$ e^{y}=x^{2}+\sin x+C $}
+    {$ e^{y}=x^{2}-\sin x+C $}
+
+    \item 微分方程 $ y'' + 7y' - 8y = 0 $ 的通解是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ y = C_{1}e^{-x} + C_{2}e^{8x} $}
+    {$ y = C_{1}e^{-x} + C_{2}e^{-8x} $}
+    {$ y = C_{1}e^{x} + C_{2}e^{8x} $}
+    {$ y = C_{1}e^{x} + C_{2}e^{-8x} $}
+
+    \item 微分方程 $ y' = 2xy $ 的通解是 $ y = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ Ce^{x^{2}} $}{$ e^{y^{2}}+C $}{$ x^{2}+C $}{$ e^{x}+C $}
+
+    \item 微分方程 $ y'' = e^{x} + \sin x $ 的通解是 \underline{\hspace{2cm}}。
+
+    \item 微分方程 $ y' - y \tan x - \sec x = 0 $ 的通解为 \underline{\hspace{2cm}}。
+
+    \item 求微分方程 $ y'' - 4y' + 2y = 0 $ 的通解。
+
+    \item 微分方程 $ y'' + 6y' + 9y = 0 $ 的通解为 \underline{\hspace{2cm}}。
+
+    \item 微分方程 $ \frac{dy}{dx} = -\frac{x}{y} $ 的通解为 \underline{\hspace{2cm}}。
+
+    \item 求微分方程 $ (x^{2}-y)dx-(x-y)dy=0 $ 的通解。
+
+    \item 求微分方程 $ y' + y = e^{x} + 1 $ 的通解。
+
+    \item 若 $ f(x) $ 连续，且 $ f(x) + 2 \int_{0}^{x} f(t) dt = x^{2} $ ，求 $ f(x) $ 。
+
+    \item 求微分方程 $ y'' - 6y' + 9y = 0 $ 的满足初始条件 $ y(0) = 1, y'(0) = 2 $ 的特解。
+
+    \item 求方程 $ \frac{dy}{dx}=\frac{e^{x}}{y+y^{3}} $ 的通解。
+\end{enumerate}
+
+\section*{第九章 多元微积分（基础）}
+
+\begin{enumerate}
+    \item 设二元函数 $ z = e^{xy} + xy $ ，则 $ \frac{\partial z}{\partial x}|_{(1,2)} = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ e^{2}+1 $}{$ 2e^{2}+2 $}{$ e+1 $}{$ 2e+1 $}
+
+    \item 若可微函数 $ z = f(x, y) $ 在点 $ (x_{0}, y_{0}) $ 取得极小值，下列各项说法正确的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ f(x_0,y) $ 在 $ y=y_{0} $ 处的导数大于 0}
+    {$ f(x_0,y) $ 在 $ y=y_{0} $ 处的导数等于 0}
+    {$ f(x_0,y) $ 在 $ y=y_{0} $ 处的导数小于 0}
+    {$ f(x_0,y) $ 在 $ y=y_{0} $ 处的导数不存在}
+
+    \item 对于函数 $ f(x,y) $ 的每一个驻点 $ (x_{0},y_{0}) $ ，令 $ A=f_{xx}(x_{0},y_{0}) $ ， $ B=f_{xy}(x_{0},y_{0}) $ ， $ C = f_{yy}(x_{0}, y_{0}) $ , 若 $ AC - B^{2} < 0 $ , 则函数 \underline{\hspace{1cm}}。
+    \choicesFour{有极大值}{有极小值}{没有极值}{不定}
+
+    \item 多元函数 $ f(x, y) $ 在点 $ (x_{0}, y_{0}) $ 处关于 $ y $ 的偏导数 $ f_{y}^{\prime}(x_{0}, y_{0}) = $ \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x, y_0) - f(x_0, y_0)}{\Delta x} $}
+    {$ \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x, y_0 + \Delta y) - f(x_0, y_0)}{\Delta x} $}
+    {$ \lim_{\Delta y \to 0} \frac{f(x_0, y_0 + \Delta y) - f(x_0, y_0)}{\Delta y} $}
+    {$ \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x, y_0 + \Delta y) - f(x_0, y_0)}{\Delta y} $}
+
+    \item 若 $ f(x,y)=2x^{2}+y $ , 则 $ f_{x}^{'}= $ \underline{\hspace{1cm}}。
+    \choicesFour{4}{0}{2}{-1}
+
+    \item 求极限 $ \lim_{(x,y)\to(0,0)}\frac{\sqrt{xy+1}-1}{xy}= $ \underline{\hspace{2cm}}。
+
+    \item 函数 $ z = \sqrt{y - x^{2} + 1} $ 定义域为 \underline{\hspace{2cm}}。
+
+    \item 设 $ z = x^{y} $ ，则 $ \frac{\partial z}{\partial x} = $ \underline{\hspace{2cm}}。
+
+    \item 设 $ f(x, y, z) = x^{y}y^{z} $ ，则 $ \frac{\partial f}{\partial y} = $ \underline{\hspace{2cm}}。
+
+    \item 已知函数 $ z = x^{2} \arctan(2y) $ ，则全微分 $ dz = $ \underline{\hspace{2cm}}。
+
+    \item 设 $ u = e^{\frac{x}{y}} $ , 求 $ \frac{\partial^{2}u}{\partial x \partial y} $。
+
+    \item 求由方程 $ e^{z}-xyz=0 $ 所确定的二元函数 $ z=f(x,y) $ 的全微分。
+
+    \item 求函数 $ f(x,y)=\frac{1}{3}x^{3}+2x-3xy+\frac{3}{2}y^{2} $ 的极值，并判断是极大值还是极小值。
+
+    \item 设 $ z = z(x, y) $ 是由 $ x^{2}z + 2y^{2}z^{2} + y = 0 $ 确定的函数，求 $ \frac{\partial z}{\partial y} $。
+
+    \item 已知 $ z = f(xy, 2x + 3y) $ ，其中 $ f(u, v) $ 具有连续偏导数，求 $ \frac{\partial z}{\partial x} $。
+\end{enumerate}
+
+\section*{第十章 向量代数与空间解析几何（基础）}
+
+\begin{enumerate}
+    \item 已知点 $ A(2,2,\sqrt{2}) $ , $ B(1,3,0) $ ,则向量 $ \overrightarrow{AB} $ 的模和方向角为 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$2, (\frac{2\pi}{3},\frac{\pi}{3},\frac{\pi}{4})$}
+    {$1, (\frac{2\pi}{3},\frac{\pi}{3},\frac{3\pi}{4})$}
+    {$2, (\frac{2\pi}{3},\frac{\pi}{3},\frac{3\pi}{4})$}
+    {$1, (\frac{2\pi}{3},\frac{\pi}{3},\frac{\pi}{4})$}
+
+    \item 设数 $ \lambda_{1}, \lambda_{2}, \lambda_{3} $ 不全为零，使得 $ \lambda_{1}\mathbf{a} + \lambda_{2}\mathbf{b} + \lambda_{3}\mathbf{c} = 0 $ ，则 $\mathbf{a}, \mathbf{b}, \mathbf{c}$ 三向量 \underline{\hspace{1cm}}。
+    \choicesFour{线性无关}{共线}{共面}{共点}
+
+    \item 下列各平面中，与平面 $ x + 2y - 3z = 6 $ 垂直的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ 2x+4y-6z=1 $}
+    {$ 2x + 4y - 6z = 12 $}
+    {$ \frac{x}{-1}+\frac{y}{2}+\frac{z}{3}=1 $}
+    {$ -x+2y+z=1 $}
+
+    \item 直线 $\begin{cases}x+y+z-4=0\\ x-y-z+2=0\end{cases}$ 与直线 $\begin{cases}x-2y-z-1=0\\ x-y-2z=0\end{cases}$ 的位置关系 \underline{\hspace{1cm}}。
+
+    \item 空间曲线 $ x=t,y=t^{2},z=t^{3} $ 在点 $(1,1,1)$ 的法平面方程 \underline{\hspace{2cm}}。
+
+    \item 已知两点 $ A(-1,2,0) $ 和 $ B(2,-3,\sqrt{2}) $ ，则与向量 $ \overrightarrow{AB} $ 同方向的单位向量为 \underline{\hspace{2cm}}。
+
+    \item 设 $ \mathbf{a} \neq 0 $ , 则与向量 $\mathbf{a}$ 同方向的单位向量 $ \mathbf{e} = $ \underline{\hspace{2cm}}。
+
+    \item 设已知两点 $ M_{1}(2,2,\sqrt{2}) $ 和 $ M_{2}(1,3,0) $ ，则向量的模 $ \left|\overrightarrow{M_{1}M_{2}}\right|= $ \underline{\hspace{2cm}}。
+
+    \item 向量 $ (1,0,1) $ 与 $ (1,\sqrt{2},1) $ 的夹角是 \underline{\hspace{2cm}}。
+
+    \item 设 $ \mathbf{a} = \{1, 2, 3\} $ , $ \mathbf{b} = \{0, 1, -2\} $ , 则 $ (\mathbf{a} + \mathbf{b}) \times (\mathbf{a} - \mathbf{b}) = $ \underline{\hspace{2cm}}。
+
+    \item 向量 $ \left|\mathbf{a}\right|=13,\left|\mathbf{b}\right|=19,\left|\mathbf{a}+\mathbf{b}\right|=24 $ , 则 $ \left|\mathbf{a}-\mathbf{b}\right|= $ \underline{\hspace{2cm}}。
+
+    \item 点 $ (1,2,3) $ 到平面 $ 2x + y - 2z + 4 = 0 $ 的距离是 \underline{\hspace{2cm}}。
+
+    \item 通过三点 $ (0,0,0) $ , $ (1,0,1) $ , $ (2,1,0) $ 的平面方程是 \underline{\hspace{2cm}}。
+
+    \item 过点 $ (1,0,1) $ 和平面 $ x+y-z-1=0 $ 、平面 $ 2x+z+1=0 $ 平行的直线方程。
+
+    \item 求通过点 $ M_{1}(3,-5,1) $ ， $ M_{2}(4,1,2) $ 且垂直于平面 $ x-8y+3z-1=0 $ 的平面方程。
+\end{enumerate}
+
+\section*{第十一章 二重积分（基础）}
+
+\begin{enumerate}
+    \item 设区域 $ D = \{(x, y) \mid 1 \leq x^{2} + y^{2} \leq 2\} $ ，则二重积分 $ \iint_{D} dx dy = $ \underline{\hspace{1cm}}。
+    \choicesFour{$ \pi $}{$ 2\pi $}{$ 3\pi $}{$ 4\pi $}
+
+    \item 已知 $ F(x, y) = \ln(1 + x^{2} + y^{2}) + \iint_{D} \, dx \, dy $ , 其中 $D$ 为 $xOy$ 坐标平面上的有界闭区域且 $ f(x, y) $ 在 $D$ 上连续，则 $ F(x, y) $ 在点 $(1, 2)$ 处的全微分为 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \frac{1}{3}dx+\frac{2}{3}dy $}
+    {$ \frac{1}{3}dx+\frac{2}{3}dy+f(1,2) $}
+    {$ \frac{2}{3}dx+\frac{1}{3}dy $}
+    {$ \frac{2}{3}dx+\frac{1}{3}dy+f(1,2) $}
+
+    \item 如果闭区域 $D$ 由 $x$ 轴，$y$ 轴及 $ x+y=1 $ 围成。则 $ \iint_{D}(x+y)^{2}d\sigma $ \underline{\hspace{1cm}} $ \iint_{D}(x+y)^{3}d\sigma $。
+    \choicesFour{大于}{小于}{等于}{不确定}
+
+    \item 设平面区域 $ D=\{(x,y)|x^{2}+y^{2}\leq1\} $ ， $ D_{1}=\{(x,y)|x^{2}+y^{2}\leq1,x\geq0,y\geq0\} $ 则下列等式一定成立的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \iint_{D}\sqrt{x^{2}+y^{2}}dxdy=4\iint_{D_{1}}\sqrt{x^{2}+y^{2}}dxdy $}
+    {$ \iint_{D} xydxdy = 4 \iint_{D_{1}} xydxdy $}
+    {$ \iint_{D} f(x,y)dxdy = 4 \iint_{D_{1}} f(x,y)dxdy $}
+    {$ \iint_{D} xdxdy = 4 \iint_{D_{1}} xdxdy $}
+
+    \item 积分区域 $D$ 为 $ x^{2}+y^{2}\leq2 $ , 则 $ \iint_{D}xd\sigma= $ \underline{\hspace{1cm}}。
+    \choicesFour{$ 2\pi $}{$ \pi $}{1}{0}
+
+    \item $D$ 是以原点为圆心，半径为 5 的圆形区域。则 $ \iint_{D} d\sigma $ \underline{\hspace{2cm}}。
+
+    \item 设区域 $D$ 是由直线 $y = 1, x = 2$ 及 $y = x$ 所围成的三角形闭区域，则二重积分 $ \iint_{D} xy \, dx \, dy = $ \underline{\hspace{2cm}}。
+
+    \item 区域 $D$ 是 $ x^{2} + y^{2} \leq a^{2} $ ，计算 $ \iint_{D} e^{-x^{2}-y^{2}} \, dx \, dy = $ \underline{\hspace{2cm}}。
+
+    \item $ D = \{(x, y) \mid 1 \leq x^{2} + y^{2} \leq 4\} $ 求 $ \iint_{D} \ln(x^{2} + y^{2}) \, dx \, dy = $ \underline{\hspace{2cm}}。
+
+    \item 设 $D$ 是矩形： $ 0 \leq x \leq a, 0 \leq y \leq b $ ，则 $ \iint_{D} dxdy = $ \underline{\hspace{2cm}}。
+
+    \item 求二重积分 $ \iint_{D}(2x+y)dxdy $ , 其中 $D$ 是由直线 $y=3, y=x$ 及曲线 $xy=1$ 围成的闭区域。
+
+    \item 计算二重积分 $ \iint_{D} xy \, dx \, dy $ , 其中 $D$ 是由直线 $ y = x, y = 5x $ 及 $ y = -x + 6 $ 所围成的闭区域。
+
+    \item 计算二重积分 $ \iint_{D} xydxdy $ , 其中 $D$ 为直线 $ y = 1, x = 2 $ 及 $ y = x $ 所围成的闭区域。
+
+    \item 求二重积分 $ \iint_{D} x^{2} dx dy $ , 其中 $D$ 是由 $ x = 0, y = 2x, y = 2 $ 所围成的区域。
+
+    \item 求 $ I = \iint_{D} (3x + 2y) d\sigma $ ，其中 $D$ 是由两坐标轴及直线 $ x + y = 2 $ 所围成的闭区域。
+\end{enumerate}
+
+\section*{第十二章 无穷级数（基础）}
+
+\begin{enumerate}
+    \item 级数 $ \sum_{n=1}^{\infty}\frac{1}{n(n+1)} $ 的前 $n$ 项部分和 $ s_{n} $ 满足 $ \lim_{n\to\infty}s_{n}= $ \underline{\hspace{1cm}}。
+    \choicesFour{1}{$ \infty $}{$ \frac{1}{2} $}{0}
+
+    \item 如果级数 $ \sum_{n=1}^{\infty}u_{n}(u_{n}\neq0) $ 收敛，则必有 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \sum_{n=1}^{\infty}\frac{1}{u_{n}} $ 发散}
+    {$ \sum_{n=1}^{\infty}\left(\frac{1}{n}+u_{n}\right) $ 收敛}
+    {$ \sum_{n=1}^{\infty}|u_{n}| $ 收敛}
+    {$ \sum_{n=1}^{\infty}(-1)^{n}u_{n} $ 收敛}
+
+    \item 若级数 $ \sum_{n=1}^{\infty} a_{n} $ 收敛，下列结论正确的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \sum_{n=1}^{\infty}|a_{n}| $ 收敛}
+    {$ \sum_{n=1}^{\infty}(-1)^{n}a_{n} $ 收敛}
+    {$ \sum_{n=1}^{\infty}a_{n}a_{n+1} $ 收敛}
+    {$ \sum_{n=1}^{\infty}\frac{a_{n}+a_{n+1}}{2} $ 收敛}
+
+    \item 下列级数中收敛的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \sum_{n=1}^{+\infty}\left(\frac{1}{\sqrt[3]{n^{2}}}+1\right) $}
+    {$ \sum_{n=1}^{+\infty}\left(\frac{1}{n^{3}}+1\right) $}
+    {$ \sum_{n=1}^{+\infty}(-1)^{n}\frac{n}{n+4} $}
+    {$ \sum_{n=1}^{+\infty}\left(\frac{1}{\sqrt{n^{3}}}+\frac{1}{3^{n}}\right) $}
+
+    \item 以下级数收敛的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$ \sum_{n=1}^{\infty}\frac{n^{2}+1}{n^{3}+2n^{2}} $}
+    {$ \sum_{n=1}^{\infty}\sin\frac{n\pi}{3} $}
+    {$ \sum_{n=1}^{\infty}\ln\left(1+\frac{1}{n^{2}}\right) $}
+    {$ \sum_{n=1}^{\infty}\frac{3^{n}}{2^{n}+1} $}
+
+    \item 当 $ n \to \infty $ 时， $ \lim_{n \to \infty} n \sin \frac{1}{n} = 1 $ ，根据比较审敛法，可以判定级数 $ \sum_{n=1}^{\infty} \sin \frac{1}{n} $ \underline{\hspace{2cm}}。(收敛还是发散)
+
+    \item 判别级数的收敛性，级数是 $ \sum_{n=1}^{\infty}(1-\cos\frac{\pi}{n}) $ \underline{\hspace{2cm}}。(收敛还是发散)
+
+    \item 判别级数的收敛性，级数是 $ \sum_{n=1}^{\infty}\frac{n!}{10^{n}} $ \underline{\hspace{2cm}}。(收敛还是发散)
+
+    \item 幂级数 $ \sum_{n=1}^{\infty}\frac{3^{n}}{n(n+1)}x^{n} $ 的收敛半径是 \underline{\hspace{2cm}}。
+
+    \item 如果幂级数 $ \sum_{n=0}^{\infty} a_{n} x^{n} $ 的收敛半径为 2, 则幂级数 $ (x-1)^{n-1} $ 的收敛区间为 \underline{\hspace{2cm}}。
+
+    \item 求幂级数 $ \sum_{n=0}^{\infty} (-1)^{n} \frac{x^{n}}{\sqrt{n}} $ 的收敛域。
+
+    \item 求幂级数 $ \sum_{n=1}^{\infty} \frac{(x-1)^{n}}{2^{n} \cdot n} $ 的收敛区间。
+
+    \item 把 $ y = \frac{1}{2-x} $ 展开为 $x$ 的幂级数。
+
+    \item 求幂级数 $ \sum_{n=1}^{\infty} \frac{3^{n} + 5^{n}}{n} x^{n} $ 的收敛域。
+
+    \item 求幂级数 $ \sum_{n=1}^{\infty} \frac{x^{n+1}}{n(n+1)} $ 的收敛域及和函数。
+\end{enumerate}
+
+\end{document}

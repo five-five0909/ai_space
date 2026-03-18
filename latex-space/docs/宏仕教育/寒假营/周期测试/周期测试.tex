@@ -1,0 +1,188 @@
+\documentclass[12pt, a4paper]{article}
+
+%--- 宏包引入 ---
+\usepackage[UTF8]{ctex}       % 中文支持
+\usepackage{amsmath, amssymb} % 数学公式与符号
+\usepackage{geometry}         % 页面设置
+\usepackage{graphicx}         % 图片支持
+\usepackage{fancyhdr}         % 页眉页脚
+\usepackage{tabularx}         % 表格增强
+\usepackage{enumitem}         % 列表环境定制
+\usepackage{lastpage}         % 获取总页数
+\usepackage{array}            % 表格列格式
+\usepackage{booktabs}         % 三线表
+
+%--- 页面设置 ---
+\geometry{
+    left=2.5cm, 
+    right=2.5cm, 
+    top=2.5cm, 
+    bottom=2.5cm
+}
+
+%--- 页眉页脚设置 ---
+\pagestyle{fancy}
+\fancyhf{} % 清空默认设置
+\fancyhead[L]{} 
+\fancyhead[C]{}
+\fancyhead[R]{}
+\fancyfoot[C]{（本试卷共 4 页，第 \thepage\ 页）}
+\renewcommand{\headrulewidth}{0pt} % 去掉页眉横线
+
+%--- 自定义选择题选项命令 ---
+% 四个选项在一行
+\newcommand{\fourchoices}[4]{
+    \par\noindent
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llll}
+        A.~#1 & B.~#2 & C.~#3 & D.~#4
+    \end{tabular*}
+}
+% 两个选项在一行（两行）
+\newcommand{\twochoices}[4]{
+    \par\noindent
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}ll}
+        A.~#1 & B.~#2 \\
+        C.~#3 & D.~#4
+    \end{tabular*}
+}
+
+\begin{document}
+
+%--- 卷头 ---
+\begin{center}
+    % 模拟Logo位置
+    \textbf{\Large HONGSHI EDUCATION 弘仕教育专升本$^{\circledR}$} \\[1em]
+    
+    \LARGE \textbf{湖南省 2026 年普通高等学校专升本招生模拟考试} \\[1em]
+    \Huge \textbf{高等数学} \\[1em]
+    \small \textbf{本试卷分为第I卷和第II卷两部分，总分 150 分，考试时间 120 分钟。}
+\end{center}
+
+\vspace{0.5em}
+
+\noindent \textbf{注意事项:}
+\begin{enumerate}[label=\arabic*., leftmargin=*, itemsep=0pt]
+    \item 答题前，考生务必使用0.5毫米黑色签字笔将自己的类别、姓名、班级填(涂)在答题卡规定的位置。
+    \item 第 I 卷选择题每小题选出答案后，用2B铅笔把答题卡上对应题目的答案标号涂黑，如需改动，用橡皮擦干净后，再选涂其他答案标号，答在本试卷上无效。
+    \item 第 II 卷非选择题，答题必须使用 0.5 毫米黑色签字笔将答案写在答题卡各题目指定区域内；如需改动，先划掉原来的答案，然后再写上新的答案；不能使用涂改液、胶带纸、修正带等。不按以上要求作答的答案无效。
+\end{enumerate}
+
+\vspace{1em}
+
+%--- 评分表 ---
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \rule{0pt}{15pt} 题 号 & 一 & 二 & 三 & 四 & 五 & 总 分 & 合分人 & 复审人 \\
+        \hline
+        \rule{0pt}{25pt} 得 分 & & & & & & & & \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\vspace{2em}
+
+%--- 第I卷 ---
+\begin{center}
+    \Large \textbf{第 I 卷 \quad 选择题}
+\end{center}
+
+\noindent \textbf{一、单项选择题：本大题共12小题，每小题5分，共60分，在每小题给出的四个选项中，只有一个是符合题目要求的.}
+
+\begin{enumerate}[label=\arabic*、, itemsep=1.2em]
+    % 1
+    \item 函数 $f(x) = (e^x - e^{-x})\sin x$ 是 ( \quad )
+    \twochoices{偶函数}{奇函数}{非奇非偶函数}{无法判断}
+    
+    % 2
+    \item 当 $x \to 0$ 时，$1 - \cos 3x$ 与 $mx^2$ 是等价无穷小，则 $m$ 等于 ( \quad )
+    \fourchoices{$\frac{3}{2}$}{9}{$\frac{9}{2}$}{3}
+    
+    % 3
+    \item 设 $f(x)$ 在点 $x_0$ 处可导，则 $\lim\limits_{\Delta x \to 0} \frac{f(x_0-\Delta x)-f(x_0)}{\Delta x} = $ ( \quad )
+    \fourchoices{$-f'(x_0)$}{$f'(-x_0)$}{$f'(x_0)$}{$f'(\Delta x)$}
+    
+    % 4
+    \item 设函数 $y = f(x)$ 在区间 $(0,2)$ 内具有二阶导数，若 $x \in (0,1)$ 时，$f''(x) < 0$，$x \in (1,2)$ 时，$f''(x) > 0$，则 ( \quad )
+    \begin{enumerate}[label=\Alph*.]
+        \item $f(1)$ 是函数 $f(x)$ 的极大值
+        \item 点 $(1, f(1))$ 是曲线 $y = f(x)$ 的拐点
+        \item $f(1)$ 是函数 $f(x)$ 的极小值
+        \item 点 $(1, f(1))$ 不是曲线 $y = f(x)$ 的拐点
+    \end{enumerate}
+    
+    % 5
+    \item 曲线 $y = \frac{x^2}{x^2+x-2}$ 的水平渐近线为 ( \quad )
+    \fourchoices{$y=1$}{$y=0$}{$x=-2$}{$x=1$}
+    
+    % 6
+    \item 若曲线 $y = \sqrt{x}$ 与 $y = kx$ 所围平面图形的面积为 $\frac{1}{6}$，则 $k = $ ( \quad )
+    \fourchoices{1}{0}{-2}{2}
+    
+    % 7
+    \item $f(x) = \begin{cases} x\sin\frac{1}{x}, & x \neq 0 \\ 0, & x=0 \end{cases}$，在 $x=0$ 处 ( \quad )
+    \twochoices{极限不存在}{极限存在但不连续}{连续但不可导}{可导但不连续}
+    
+    % 8
+    \item 设常数 $a > 0$, 则 $\int_{-a}^{a} (x^2 + x\sqrt{a^2-x^2})dx = $ ( \quad )
+    \fourchoices{0}{$a^3$}{$\frac{2}{3}a^3$}{$\frac{2}{3}\pi a^3$} % 选项D在OCR中模糊，根据数学常识此处D项可能为干扰项，依图还原
+    
+    % 9
+    \item 设函数 $y = x^n + a_1 x^{n-1} + a_2 x^{n-2} + \cdots + a_n$，则 $y^{(n)} = $ ( \quad )
+    \fourchoices{$a_n$}{$n!$}{0}{$n!a_n$}
+    
+    % 10
+    \item 若级数 $\sum\limits_{n=1}^{\infty} (u_{2n-1} + u_{2n})$ 收敛，则 ( \quad )
+    \twochoices{$\sum\limits_{n=1}^{\infty} u_{2n}$ 必收敛}{$\sum\limits_{n=1}^{\infty} u_n$ 未必收敛}{ $\lim\limits_{n \to \infty} u_n = 0$}{$\sum\limits_{n=1}^{\infty} u_n$ 发散}
+    
+    % 11
+    \item 下列微分方程中，通解为 $y = C_1e^{2x} + C_2e^{3x}$ 的二阶常系数齐次线性微分方程是 ( \quad )
+    \twochoices{$y'' - 5y' + 6y = 0$}{$y'' + 5y' + 6y = 0$}{$y'' - 6y' + 5y = 0$}{$y'' + 6y' + 5y = 0$}
+    
+    % 12
+    \item $\frac{d}{dx} \int_a^b \cos t \, dt = $ ( \quad )
+    \twochoices{$\cos b - \cos a$}{0}{$\sin b - \sin a$}{$\sin a - \sin b$}
+\end{enumerate}
+
+\newpage
+
+%--- 第II卷 ---
+\begin{center}
+    \Large \textbf{第 II 卷 \quad 非选择题}
+\end{center}
+
+\noindent \textbf{二、填空题：本大题共4小题，每小题4分，共16分.}
+
+\begin{enumerate}[label=\arabic*、, itemsep=2em, start=13]
+    \item 设函数 $f(x) = \sqrt{x+x^2}$，则 $df(x)|_{x=1} = $\underline{\hspace{4cm}}.
+    
+    \item 直线 $\frac{x-1}{1} = \frac{y}{-4} = \frac{z+3}{1}$ 和直线 $\frac{x}{2} = \frac{y+2}{-2} = \frac{z}{-1}$ 的夹角为\underline{\hspace{4cm}}.
+    
+    \item 设 $y = f(x)$ 由方程 $e^{2x+y} - \cos(xy) = e - 1$ 所确定，则曲线 $y = f(x)$ 在点 $(0,1)$ 处的法线方程为\underline{\hspace{4cm}}.
+    
+    \item 设 $\sum\limits_{n=1}^{\infty} a_n x^n$ 的收敛半径为 3，则 $\sum\limits_{n=1}^{\infty} n a_n (x-1)^{n-1}$ 的收敛区间为\underline{\hspace{4cm}}.
+\end{enumerate}
+
+\vspace{2em}
+
+\noindent \textbf{三、计算题：本大题共6小题，17-21每小题12分，22小题14分，共74分，请写出必要的解题步骤.}
+
+\begin{enumerate}[label=\arabic*、, itemsep=6em, start=17]
+    \item 求极限 $\lim\limits_{x \to 0} \frac{\sqrt{2} - \sqrt{1 + \cos 2x}}{\sin^2 2x}$.
+    
+    \item 设函数 $y = y(x)$ 由参数方程 $\begin{cases} x = \ln(1+t^2) \\ y = \int_0^t \frac{u^2}{1+u^2} du \end{cases}$ 所确定，求 $\frac{dy}{dx}, \frac{d^2y}{dx^2}$.
+    
+    \item 计算 $\int_{\sqrt{2}}^{2} \frac{1}{x\sqrt{x^2-1}} dx$.
+    
+    \item 计算 $\iint_{D} (2x^2 - y^2) dxdy$，其中 $D$ 是闭区域：$0 \le y \le \cos x, 0 \le x \le \frac{\pi}{2}$.
+    
+    \item 求函数 $f(x,y) = (2x^2 - y^2)e^x$ 的极值.
+    
+    \item 过坐标原点作曲线 $y = e^{-x}$ 的切线，求：
+    \begin{enumerate}[label=（\arabic*）]
+        \item 该切线的方程；
+        \item 由曲线、切线及 $y$ 轴所围成的平面图形绕 $x$ 轴旋转一周而成的旋转体的体积.
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

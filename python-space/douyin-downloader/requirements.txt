@@ -1,0 +1,71 @@
+# HTTP请求库
+requests>=2.31.0
+httpx>=0.25.0
+
+# 异步HTTP
+aiohttp>=3.9.0
+
+# 网页解析
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# 浏览器自动化
+selenium>=4.15.0
+
+# 数据处理
+pandas>=2.1.0
+numpy>=1.24.0
+
+# Web框架
+flask>=3.0.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# 命令行工具
+click>=8.1.0
+typer>=0.9.0
+
+# 配置文件管理
+python-dotenv>=1.0.0
+
+# 数据库
+sqlalchemy>=2.0.0
+
+# 任务队列
+celery>=5.3.0
+
+# 时间处理
+python-dateutil>=2.8.0
+
+# JSON处理
+orjson>=3.9.0
+
+# 加密
+cryptography>=41.0.0
+
+# 日志
+loguru>=0.7.0
+
+# 类型检查
+pydantic>=2.5.0
+
+# 测试工具
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# 开发工具
+black>=23.0.0
+flake8>=6.0.0
+
+# 视频/音频处理
+moviepy>=1.0.3
+
+# 图片处理
+Pillow>=10.0.0
+
+# 图表生成
+matplotlib>=3.7.0
+plotly>=5.17.0
+
+# API相关
+pydantic-settings>=2.1.0

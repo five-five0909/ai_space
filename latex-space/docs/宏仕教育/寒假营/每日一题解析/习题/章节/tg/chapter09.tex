@@ -1,0 +1,99 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{fancyhdr}       % 页眉页脚
+\usepackage{cases}          % 分段函数增强
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 纵向排列的选项 (1列)
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+% 填空题下划线
+\newcommand{\blank}[1]{\underline{\hspace{#1}}}
+
+\title{\textbf{《高等数学》必刷习题——提高版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第九章 多元微积分（提高）}
+
+\begin{enumerate}
+    \item 已知函数 $ z=\frac{\sin(xy)}{y} $ ，则 $ \frac{\partial^{2}z}{\partial x\partial y}= $ \blank{1cm}。
+    \choicesFour{$ -x\sin(xy) $}{$ x\sin(xy) $}{$ -x\cos(xy) $}{$ x\cos(xy) $}
+
+    \item 二元函数 $ f(x,y) $ 在点 $ (x_{0},y_{0}) $ 处存在偏导数是 $ f(x,y) $ 在该点可微的 \blank{1cm}。
+    \choicesTwo
+    {必要而不充分条件}
+    {充分而不必要条件}
+    {必要且充分条件}
+    {既不必要也不充分条件}
+
+    \item 函数 $ f(x,y) $ 可微， $ f'_{x}(x_{0},y_{0})=0, f'_{y}(x_{0},y_{0})=0 $ ，则函数 $ f(x,y) $ 在 $ (x_{0},y_{0}) $ \blank{1cm}。
+    \choicesTwo
+    {可能有极值，也可能没有极值}
+    {必有极值，可能是极大值也可能是极小值}
+    {一定没有极值}
+    {必有极值，且为极小值}
+
+    \item $ \lim_{x\to0}\frac{xy^{2}}{x^{2}+y^{4}}= $ \blank{1cm}。
+    \choicesFour{0}{1}{$ \frac{1}{2} $}{不存在}
+
+    \item $ f_{x}^{'}(x,y) $ 和 $ f_{y}^{'}(x,y) $ 在点 $ (x_{0},y_{0}) $ 连续是 $ f(x,y) $ 在点 $ (x_{0},y_{0}) $ 可微分的 \blank{1cm}。
+    \choicesFour{充分条件}{必要条件}{充要条件}{无关条件}
+
+    \item 设 $ z = \arctan \frac{y}{x} $ ，则 $ \frac{\partial z}{\partial x} = $ \blank{2cm}。
+
+    \item 设 $ z = \ln\sqrt{x^{2} + y^{2}} $ , 则 $ x\frac{\partial z}{\partial x} + y\frac{\partial z}{\partial y} = $ \blank{2cm}。
+
+    \item 设 $ z = \ln(\sqrt{x} + \sqrt{y}) $ ，则 $ x \frac{\partial z}{\partial x} + y \frac{\partial z}{\partial y} = $ \blank{2cm}。
+
+    \item 二元函数 $ f(x,y)=x^{2}(2+y^{2})+y\ln y $ 的极小值 \blank{2cm}。
+
+    \item $ z = \ln(x^{2} + y^{2} - 2) + \sqrt{4 - x^{2} - y^{2}} $ 函数的定义域为 \blank{2cm}。
+
+    \item 已知函数 $ z = f(u, v) $ 可导， $ u = x \arcsin y, v = \frac{y}{x} $ ，求 $ \frac{\partial z}{\partial x}, \frac{\partial z}{\partial y} $。
+
+    \item 求内接于半径为 $R$ 的球体且有最大体积的长方体的边长。
+
+    \item 设函数 $ z = z(x, y) $ 由方程 $ z^{3} - 3xyz = a^{3} $ 确定，求 $ \frac{\partial z}{\partial x}, \frac{\partial z}{\partial y} $ 和 $dz$。
+
+    \item 设 $ z = f(2x - y) + g(x, xy) $ ，其中函数 $ f(w) $ 具有二阶导数， $ g(u, v) $ 具有二阶连续偏导数，求 $ \frac{\partial z}{\partial x} $ 与 $ \frac{\partial^{2}z}{\partial x \partial y} $。
+
+    \item 求内接于椭圆 $ \frac{x^{2}}{3}+\frac{y^{2}}{4}=1 $ 的最大长方形的面积。
+\end{enumerate}
+
+\end{document}

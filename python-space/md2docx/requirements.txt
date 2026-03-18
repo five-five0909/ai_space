@@ -1,0 +1,13 @@
+# Markdown to Word Document Converter (md2docx)
+# Python 依赖包列表
+
+# 核心依赖
+python-docx>=0.8.11    # Word 文档操作库
+requests>=2.25.0       # HTTP 请求库（用于下载网络图片）
+Pillow>=8.0.0          # 图像处理库（用于图片尺寸检测和格式转换）
+lxml>=4.6.0            # XML 处理库（用于 OOXML 操作）
+
+# 公式渲染依赖
+math2docx>=2.0.0       # LaTeX 公式转 Word 公式
+latex2mathml>=3.0.0    # LaTeX 转 MathML
+mathml2omml>=0.0.2     # MathML 转 Office Math (OMML)

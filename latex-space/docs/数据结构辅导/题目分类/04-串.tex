@@ -1,0 +1,177 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{专升本数据结构习题集}
+\lhead{分类整理}
+\cfoot{\thepage}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{第四章 串}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 串是（ ）
+	      \begin{enumerate}
+		      \item[A.] 不小于一个字母的序列
+		      \item[B.] 是任意个字母的序列
+		      \item[C.] 不小于一个字符的序列
+		      \item[D.] 是有限个字符的序列
+	      \end{enumerate}
+
+	\item 空串与空格串是相同的，这种说法（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 不正确
+	      \end{enumerate}
+
+	\item 串是一种特殊的线性表，其特殊性体现在（ ）
+	      \begin{enumerate}
+		      \item[A.] 可以顺序存储
+		      \item[B.] 数据元素是一个字符
+		      \item[C.] 可以链式存储
+		      \item[D.] 数据元素可以是多个字符
+	      \end{enumerate}
+
+	\item 设有两设有两个串 p 和 q，求 q 在 p 中首次出现的位置的运算称作（ ）
+	      \begin{enumerate}
+		      \item[A.] 连接
+		      \item[B.] 模式匹配
+		      \item[C.] 求子串
+		      \item[D.] 求串长
+	      \end{enumerate}
+
+	\item 有串 $s1=$"ABCDEFG", $s2=$"PQRST"，假设函数 con(x, y) 返回 x 和 y 串的连接串，subs(s, i, j) 返回串 s 从序号 i 字符开始的 j 个字符组成的子串，len(s) 返回串 s 的长度，则 con(subs(s1, 2, len(s2)), subs(s1, len(s2), 2)) 的结果是（ ）
+	      \begin{enumerate}
+		      \item[A.] BCDEF
+		      \item[B.] BCDEFG
+		      \item[C.] BCPQRST
+		      \item[D.] CDEFGFG
+	      \end{enumerate}
+
+	\item 已知 $t=$"abcaabbcabcaabdab"，该模式串的 next 数组值为（ ）
+	      \begin{enumerate}
+		      \item[A.] -1, 0, 0, 0, 1, 1, 2, 0, 0, 1, 2, 3, 4, 5, 6, 0, 1
+		      \item[B.] 0, 1, 0, 0, 1, 1, 2, 0, 0, 1, 2, 3, 4, 5, 6, 0, 1
+		      \item[C.] -1, 0, 0, 0, 1, 1, 2, 0, 0, 1, 2, 3, 4, 5, 6, 7, 1
+		      \item[D.] -1, 0, 0, 0, 1, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 0, 1
+	      \end{enumerate}
+
+	\item 若串 $s=$"software"，其子串的个数是（ ）
+	      \begin{enumerate}
+		      \item[A.] 8
+		      \item[B.] 37
+		      \item[C.] 36
+		      \item[D.] 9
+	      \end{enumerate}
+
+	\item KMP 算法的特点是在模式匹配时指示主串的指针不会变小，这种说法（ ）
+	      \begin{enumerate}
+		      \item[A.] 正确
+		      \item[B.] 错误
+	      \end{enumerate}
+
+	\item 若串 S='software'，其子串的数目是（ ）
+	      \begin{enumerate}
+		      \item[A.] 8
+		      \item[B.] 37
+		      \item[C.] 36
+		      \item[D.] 9
+	      \end{enumerate}
+
+	\item 串的长度是指（ ）
+	      \begin{enumerate}
+		      \item[A.] 串中所含不同字母的个数
+		      \item[B.] 串中所含字符的个数
+		      \item[C.] 串中所含不同字符的个数
+		      \item[D.] 串中所含非空格字符的个数
+	      \end{enumerate}
+
+	\item 设有两个串 p 和 q，求 q 在 p 中首次出现的位置的运算称为（ ）
+	      \begin{enumerate}
+		      \item[A.] 连接
+		      \item[B.] 模式匹配
+		      \item[C.] 求子串
+		      \item[D.] 求串长
+	      \end{enumerate}
+
+	\item 下列关于串的叙述中，正确的是（ ）
+	      \begin{enumerate}
+		      \item[A.] 2 个串的长度相等，则 2 个串相等
+		      \item[B.] 替换操作可以实现字符的删除
+		      \item[C.] 空串至少包含一个空格
+		      \item[D.] 一个串的长度至少是 1
+	      \end{enumerate}
+
+	\item 串的长度是指串中所含（ ）的个数。
+	      \begin{enumerate}
+		      \item[A.] 相同字符
+		      \item[B.] 不同字符
+		      \item[C.] 不同字母
+		      \item[D.] 所有字符
+	      \end{enumerate}
+
+	\item 空串的长度是（ ）
+	      \begin{enumerate}
+		      \item[A.] 0
+		      \item[B.] 1
+		      \item[C.] 2
+		      \item[D.] 不确定
+	      \end{enumerate}
+\end{enumerate}
+
+\section*{填空题}
+
+\begin{enumerate}
+	\item 串的两种最基本的存储方式是（ ）。
+	\item 两个串相等的充分必要条件是（ ）。
+	\item 空串的长度等于（ ），空格串的长度等于（ ）。
+	\item 设 $s=$"I AM A TEACHER" 其长度是（ ）。
+	\item 设 $s1=$"GOOD"，$s2=$""，$s3=$"BYE!" 则 s1, s2, s3 连接后的结果是（ ）。
+	\item BF 算法的时间复杂度为（ ），KMP 算法的时间复杂度为（ ）。
+	\item 组成串的数据元素只能是 \underline{单个字符}。
+	\item 一个字符串中任意个连续字符构成的部分称为该串的 \underline{子串}。
+	\item 子串 "str" 在主串 "datastructure" 中的位置是 \underline{5}。
+	\item 串的两种最基本的存储方式是顺序存储和链式存储。
+	\item 两个串相等的充分必要条件是两个串的长度相等且对应位置的字符相同。
+	\item 空串的长度等于零，空格串的长度等于其包含的空格个数。
+	\item 设 s="I AM A TEACHER"，其长度是13。
+	\item 设 s1="GOOD"，s2=""，s3="BYE!" 则 s1, s2, s3 连接后的结果是"GOODBYE!"。
+	\item BF 算法的时间复杂度为 $O(n \times m)$，KMP 算法的时间复杂度为 $O(n+m)$。
+\end{enumerate}
+
+\section*{判断题}
+
+\begin{enumerate}
+	\item 串是一种特殊的线性表，其特殊性体现在可以顺序存储。（ ）
+	\item 长度为 1 的串等价于一个字符型常量。（ ）
+	\item 空串和空白串是相同的。（ ）
+	\item 串是有限个字符的序列。（ ）
+	\item 串是一种特殊的线性表，其特殊性体现在数据元素是一个字符。（ ）
+	\item 串可以看作是一种特殊的线性表，其特殊性体现在可以顺序存储。（ ）
+	\item 空串的长度为零，空格串的长度为edium*。（ ）
+	\item 两个长度相等的串一定相等。（ ）
+	\item 串的连接满足交换律。（ ）
+	\item KMP 算法的效率一定优于 BF 算法。（ ）
+\end{enumerate}
+
+\end{document}

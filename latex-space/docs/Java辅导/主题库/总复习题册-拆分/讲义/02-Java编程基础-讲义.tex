@@ -1,0 +1,568 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbset{autoparskip}
+
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={Java编程基础-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{Java编程基础 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月02日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{Java编程基础}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{在Java中，以下哪个关键字用于定义常量？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item final
+		      \item static
+		      \item abstract
+		      \item interface
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. final}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java中实现不可变性的关键字
+			      \item \textbf{关键区分点}：final保证不可变性，static仅控制作用域
+			      \item \textbf{命题人意图}：测试对关键字本质功能的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{final — 正确（不可变性）}
+			      \begin{itemize}[label={}, leftmargin=*, nosep]
+				      \item \textbf{字节码层面}：final字段有写保护机制
+				      \item \textbf{JMM保障}：final字段在Java内存模型中提供特殊保障
+				      \item \textbf{初始化规则}：实例常量必须在构造器中初始化
+				      \item \textbf{代码示例}：
+				            \begin{lstlisting}[language=Java]
+final int MAX = 100;
+// MAX = 200; // 编译错误！
+				            \end{lstlisting}
+			      \end{itemize}
+
+			      \item[B] \textbf{static — 错误（仅控制作用域）}
+			      \begin{itemize}[label={}, leftmargin=*, nosep]
+				      \item static仅控制所属权（类级别），与可变性无关
+				      \item 类加载初始化线程安全，但static变量可修改
+				      \item \textbf{反例}：static int x = 100; x = 200; //编译通过
+			      \end{itemize}
+
+			      \item[C] \textbf{abstract — 错误（语法禁止）}
+			      \begin{itemize}[label={}, leftmargin=*, nosep]
+				      \item abstract禁止修饰变量（JLS §8.3）
+				      \item 只能修饰类和方法
+			      \end{itemize}
+
+			      \item[D] \textbf{interface — 错误（默认行为）}
+			      \begin{itemize}[label={}, leftmargin=*, nosep]
+				      \item 接口字段默认为public static final
+				      \item 但关键字是final，不是interface
+			      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item final基本类型绝对不可变，引用类型引用地址不可变
+			      \item static必须与final组合才能定义常量
+			      \item 选项辨析：final=定义常量，static=类级别，abstract=抽象，interface=接口定义
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"定义常量"→选final
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是Java中的合法标识符？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 123abc
+		      \item @abc
+		      \item \_abc
+		      \item class
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. \_abc}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java标识符命名规则
+			      \item \textbf{关键区分点}：首字符规则、关键字限制
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{123abc — 错误（数字不能作为首字符）}
+			      \begin{itemize}[label={}, nosep]
+				      \item JLS §3.8：首字符必须是字母、\$\_、Unicode字符
+				      \item 数字只能出现在后续位置
+			      \end{itemize}
+
+			      \item[B] \textbf{@abc — 错误（@是注解专用字符）}
+			      \begin{itemize}[label={}, nosep]
+				      \item @是Java保留用于注解的特殊字符
+				      \item 不能作为普通标识符使用
+			      \end{itemize}
+
+			      \item[C] \textbf{\_abc — 正确（下划线合法）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 下划线是Java标识符合法首字符
+				      \item JDK9+单个\_是保留标识符，但\_abc合法
+			      \end{itemize}
+
+			      \item[D] \textbf{class — 错误（关键字禁用）}
+			      \begin{itemize}[label={}, nosep]
+				      \item class是保留关键字，不能用作标识符
+			      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 标识符规则：字母、\$\_开头，后续可以是数字、字母、\$\_
+			      \item 不能以数字开头
+			      \item 不能使用Java关键字
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{Java中用于声明整数类型变量的关键字是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item int
+		      \item float
+		      \item double
+		      \item long
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. int}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java基本数据类型中整数类型分类
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{int — 正确（基本整数类型）}
+			      \begin{itemize}[label={}, nosep]
+				      \item JVM规范：32位有符号整数
+				      \item 默认整数类型
+				      \item 取值范围：-2,147,483,648 ~ 2,147,483,647
+			      \end{itemize}
+
+			      \item[B] \textbf{float — 错误（浮点类型）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 32位单精度浮点数
+			      \end{itemize}
+
+			      \item[C] \textbf{double — 错误（浮点类型）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 64位双精度浮点数
+			      \end{itemize}
+
+			      \item[D] \textbf{long — 错误（长整型）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 64位长整型，是整数类型但不是"默认"整数类型
+				      \item 使用时需要加L后缀
+			      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 整数类型：byte(8位)、short(16位)、int(32位)、long(64位)
+			      \item 浮点类型：float(32位)、double(64位)
+			      \item 默认：整数默认int，浮点默认double
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下代码的输出结果是}
+	      \begin{lstlisting}[language=Java]
+int a = 5;
+int b = 2;
+System.out.println(a / b);
+	      \end{lstlisting}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 2.5
+		      \item 2
+		      \item 3
+		      \item 2.0
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 2}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：整数除法运算规则——整除取整
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{2.5 — 错误（浮点除法结果）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 需要至少一个操作数是浮点类型
+				      \item 改为：a / (double) b 或 a * 1.0 / b
+			      \end{itemize}
+
+			      \item[B] \textbf{2 — 正确（向零取整）}
+			      \begin{itemize}[label={}, nosep]
+				      \item JVM规范：整数除法结果向零取整
+				      \item 5 / 2 = 2（余数1被丢弃）
+				      \item 负数：-5 / 2 = -2（不是-3）
+			      \end{itemize}
+
+			      \item[C] \textbf{3 — 错误（不是四舍五入）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 四舍五入需要：Math.round(a * 1.0 / b)
+			      \end{itemize}
+
+			      \item[D] \textbf{2.0 — 错误（类型不会自动转换）}
+			      \begin{itemize}[label={}, nosep]
+				      \item int除int结果还是int
+				      \item 不会自动转为double
+			      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 整数相除：截断小数部分（向零取整）
+			      \item 取模：5 % 2 = 1
+			      \item 浮点除法：至少一个操作数转为浮点类型
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是Java中的逻辑与运算符？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item \&\&
+		      \item ||
+		      \item !
+		      \item \&
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. \&\&}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：区分短路逻辑运算符 vs 按位运算符
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{\&\& — 正确（短路逻辑与）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 第一个操作数为false时，不计算第二个操作数
+				      \item 短路特性可提高效率
+			      \end{itemize}
+
+			      \item[B] \textbf{|| — 错误（逻辑或）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 逻辑或运算符
+			      \end{itemize}
+
+			      \item[C] \textbf{! — 错误（逻辑非，一元运算符）}
+			      \begin{itemize}[label={}, nosep]
+				      \item 是一元运算符，不是二元运算符
+			      \end{itemize}
+
+			      \item[D] \textbf{\& — 错误（按位与）}
+			      \begin{itemize}[label={}, nosep]
+				      \item \&是按位与，不是逻辑与
+				      \item \&不短路，两边都计算
+			      \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 短路逻辑运算符：\&\&（与）、||（或）
+			      \item 按位运算符：\texttt{\&}（与）、\texttt{|}（或）、\texttt{\textasciicircum}（异或）
+			      \item 逻辑非：!（一元运算符）
+			      \item 优先级：! > \&\& > ||
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下代码的输出结果是}
+	      \begin{lstlisting}[language=Java]
+boolean flag = false;
+if (flag) {
+    System.out.println("True");
+} else {
+    System.out.println("False");
+}
+	      \end{lstlisting}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item True
+		      \item False
+		      \item 编译错误
+		      \item 运行时错误
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. False}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：boolean类型与条件语句执行流程
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item \textbf{代码分析}：
+			      \begin{itemize}[label={}, nosep]
+				      \item flag = false
+				      \item if(false) 不执行if块
+				      \item 执行else块，输出"False"
+			      \end{itemize}
+
+			      \item[A] \textbf{True — 错误}
+			      \item[B] \textbf{False — 正确}
+			      \item[C] \textbf{编译错误 — 错误（语法正确）}
+			      \item[D] \textbf{运行时错误 — 错误（无异常）}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item Java中boolean是独立类型，不是int
+			      \item if条件必须是boolean类型
+			      \item Java不支持"非零即真"
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{在Java中，for循环的三个表达式都可以省略吗？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可以
+		      \item 不可以
+		      \item 第一个和第三个可以省略，第二个不可以
+		      \item 第一个和第二个可以省略，第三个不可以
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. 可以}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：for循环可省略语法特性
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{可以 — 正确}
+			      \begin{itemize}[label={}, nosep]
+				      \item JLS §14.14.1：三个表达式均可省略
+				      \item 分号不能省略
+				      \item for(;;) 等价于 while(true)
+			      \end{itemize}
+
+			      \item[B] \textbf{不可以 — 错误}
+			      \item[C/D] \textbf{部分省略 — 错误}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item for(初始化; 条件; 更新) \{ \}
+			      \item 全部省略：for(;;)
+			      \item 死循环写法：for(;;) 或 while(true)
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于数组的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 数组是相同类型元素的有序集合
+		      \item 数组的长度在创建后不能改变
+		      \item 数组可以存储不同类型的元素
+		      \item 可以通过索引访问数组元素
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 数组可以存储不同类型的元素}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：数组核心特性——同类型、固定长度
+
+		      \textbf{【选项原理深度拆解】}
+
+				\item \textbf{A. 相同类型 — 正确}
+				\begin{itemize}[label={}, nosep]
+					\item 数组只能在创建时指定类型
+					\item 只能存储该类型元素
+				\end{itemize}
+
+				\item \textbf{B. 长度固定 — 正确}
+				\begin{itemize}[label={}, nosep]
+					\item 数组长度在创建时确定
+					\item 使用length属性获取长度
+				\end{itemize}
+
+				\item \textbf{C. 不同类型 — 错误（本题答案）}
+				\begin{itemize}[label={}, nosep]
+					\item 数组只能存储相同类型元素
+					\item 若需存储不同类型，使用集合或Object[]
+				\end{itemize}
+
+				\item \textbf{D. 索引访问 — 正确}
+				\begin{itemize}[label={}, nosep]
+					\item 索引从0开始
+					\item 最大索引 = length - 1
+				\end{itemize}
+
+				\textbf{【应背诵知识点>}
+				\begin{itemize}[label={}, nosep]
+					\item 数组创建：new int[5] 或 \{1,2,3\}
+					\item 索引范围：0 ~ length-1
+					\item 数组是对象，有length属性
+				\end{itemize}
+		      \end{itemize}
+
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中的可变参数的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 可变参数必须是方法的最后一个参数
+		      \item 可变参数可以接受零个或多个参数
+		      \item 可变参数在方法内部被视为数组
+		      \item 可变参数可以和普通参数一起使用，且位置任意
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 可变参数可以和普通参数一起使用，且位置任意}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：可变参数使用规则
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \item \textbf{A. 最后参数 — 正确}
+		      \begin{itemize}[label={}, nosep]
+			      \item 可变参数必须是最后一个参数
+		      \end{itemize}
+
+		      \item \textbf{B. 零或多 — 正确}
+		      \begin{itemize}[label={}, nosep]
+			      \item 可以不传参数，也可以传多个
+		      \end{itemize}
+
+		      \item \textbf{C. 视为数组 — 正确}
+		      \begin{itemize}[label={}, nosep]
+			      \item 方法内当作数组使用
+			      \item 可以用for循环遍历
+		      \end{itemize}
+
+		      \item \textbf{D. 位置任意 — 错误（本题答案）}
+		      \begin{itemize}[label={}, nosep]
+			      \item 可变参数必须是最后一个参数
+			      \item 不能有多个可变参数
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 语法：方法名(类型... 参数名)
+			      \item 只能是最后一个参数
+			      \item 方法重载时可能有歧义
+		      \end{itemize}
+		      \end{itemize}
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

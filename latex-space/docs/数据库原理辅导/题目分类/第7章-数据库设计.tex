@@ -1,0 +1,320 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 标题格式
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{数据库原理习题集}
+\lhead{第7章 数据库设计}
+\cfoot{\thepage}
+
+\title{\textbf{第7章 数据库设计}}
+\date{}
+
+\begin{document}
+
+\section{选择题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 需求分析报告完成的内容不包括（\quad）。
+	      \begin{enumerate}
+		      \item 数据库的应用功能目标
+		      \item 数据字典
+		      \item 数据约束
+		      \item 编写代码
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 在 E-R 图合并过程中，消除的冲突不包括（\quad）。
+	      \begin{enumerate}
+		      \item 属性冲突
+		      \item 结构冲突
+		      \item 命名冲突
+		      \item 类型冲突
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 当局部 ER 图合并全局 ER 图时，可能出现（\quad）冲突、结构冲突、命名冲突。
+	      \begin{enumerate}
+		      \item 属性冲突
+		      \item 结构冲突
+		      \item 命名冲突
+		      \item 约束冲突
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在完成系统的实现工作之后，在正式交付用户使用之前，需要对所开发的系统进行必要的工作是（\quad）。
+	      \begin{enumerate}
+		      \item 分析
+		      \item 设计
+		      \item 测试
+		      \item 实现
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 下列不是第三代数据库系统特征的是（\quad）。
+	      \begin{enumerate}
+		      \item 拥有一个公认的数据模型
+		      \item 必须保持或继承第二代数据库系统技术
+		      \item 必须对其他系统开放
+		      \item 应支持数据管理、对象管理和知识管理
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item E-R模型是数据库的设计工具之一，它一般适用于建立数据库的（\quad）。
+	      \begin{enumerate}
+		      \item 概念模型
+		      \item 逻辑模型
+		      \item 物理模型
+		      \item 关系模型
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库设计的基本步骤包括（\quad）。
+	      \begin{enumerate}
+		      \item 需求分析、概念设计、逻辑设计、物理设计
+		      \item 需求分析、概念设计
+		      \item 需求分析、逻辑设计、物理设计
+		      \item 概念设计、逻辑设计、物理设计
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 下面关于数据库设计过程，排序正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 概念结构设计，逻辑结构设计，物理设计
+		      \item 概念结构设计，物理设计，逻辑结构设计
+		      \item 逻辑结构设计，概念结构设计，物理设计
+		      \item 物理设计，逻辑结构设计，概念结构设计
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在数据库设计中，用E-R图来描述信息结构，但不涉及信息在计算机中的表示，它属于数据库设计的（\quad）阶段。
+	      \begin{enumerate}
+		      \item 概念设计
+		      \item 逻辑设计
+		      \item 物理设计
+		      \item 需求分析
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 如果采用关系数据库来实现应用，在数据库设计的（\quad）阶段将关系模式进行规范化处理。
+	      \begin{enumerate}
+		      \item 逻辑结构设计阶段
+		      \item 需求分析阶段
+		      \item 概念结构设计阶段
+		      \item 物理结构设计阶段
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 物理结构设计阶段得到的结果是（\quad）。
+	      \begin{enumerate}
+		      \item 包括存储结构和存取方法的物理结构
+		      \item 某个DBMS所支持的数据逻辑结构
+		      \item E-R图表示的概念模型
+		      \item 数据字典描述的数据需求
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在关系数据库设计中，设计关系模式是（\quad）的任务。
+	      \begin{enumerate}
+		      \item 逻辑设计阶段
+		      \item 需求分析阶段
+		      \item 概念设计阶段
+		      \item 物理设计阶段
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库设计的基本步骤及各阶段的主要任务包括（\quad）。
+	      \begin{enumerate}
+		      \item 需求分析、概念结构设计、逻辑结构设计、物理设计、数据库实施和维护
+		      \item 需求分析、数据库创建
+		      \item 需求分析、概念结构设计
+		      \item 需求分析、逻辑设计
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据库的概念模型独立于（\quad）。
+	      \begin{enumerate}
+		      \item 具体的机器和DBMS
+		      \item E-R图
+		      \item 信息世界
+		      \item 现实世界
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 下列哪一条不是概念模型应具备的性质（\quad）。
+	      \begin{enumerate}
+		      \item 在计算机中实现的效率高
+		      \item 易于向各种数据模型转换
+		      \item 易于交流和理解
+		      \item 有丰富的语义表达能力
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item ER图中的主要元素是（\quad）。
+	      \begin{enumerate}
+		      \item 实体、联系和属性
+		      \item 结点、记录和文件
+		      \item 记录、文件和表
+		      \item 记录、表、属性
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item E-R图中，用椭圆形表示的是（\quad）。
+	      \begin{enumerate}
+		      \item 实体
+		      \item 属性
+		      \item 联系
+		      \item 关系
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item ER图是数据库设计工具之一，它适用于建立数据库的（\quad）。
+	      \begin{enumerate}
+		      \item 概念模型
+		      \item 逻辑模型
+		      \item 结构模型
+		      \item 物理模型
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在ER图中，用长方形表示，用椭圆表示。（\quad）
+	      \begin{enumerate}
+		      \item 实体、属性
+		      \item 联系、属性
+		      \item 属性、实体
+		      \item 实体、联系
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 对于实体集A中的每一个实体，实体集B中有N个实体与之联系，反之，对于实体集B中的每一个实体，实体集A中也有M个实体与之联系，则实体集A与实体集B之间的联系是（\quad）。
+	      \begin{enumerate}
+		      \item 1:1
+		      \item 1:M
+		      \item M:N
+		      \item 1:N
+	      \end{enumerate}
+	      \textbf{答案：C}
+
+	\item 设有两个实体集A、B，两个实体型之间的联系不能出现的类型是（\quad）。
+	      \begin{enumerate}
+		      \item 一对一联系
+		      \item 一对多联系
+		      \item 多对多联系
+		      \item 多对一联系
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 下列实体类型的联系中，属于多对多联系的是（\quad）。
+	      \begin{enumerate}
+		      \item 学生与课程之间的联系
+		      \item 学校与教师之间的联系
+		      \item 商品条形码与商品之间的联系
+		      \item 班级与班长之间的联系
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 设某工程设计企业中要求，一项工程是由多名职员共同完成，而一名职员只能参加一个工程项目，则职员与工程之间的联系类型是（\quad）。
+	      \begin{enumerate}
+		      \item 1:n
+		      \item 1:1
+		      \item m:n
+		      \item n:1
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 存取路径分为主存取路径与辅助存取路径，主存取路径主要用于（\quad）。
+	      \begin{enumerate}
+		      \item 安全检测
+		      \item 主键索引
+		      \item 终端用户
+		      \item 辅助键索引
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 将相关数据集中存放的物理存储技术是（\quad）。
+	      \begin{enumerate}
+		      \item 非聚集
+		      \item 聚集
+		      \item 授权
+		      \item 回收
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 在数据库物理设计时，为了保证系统性能，需要综合考虑所选择的数据库管理系统的特性及软硬件具体情况。下列关于数据库物理设计的说法，错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 为了提高写入性能，数据库一般应尽量避免存储在RAID10的磁盘存储系统中，而应当采用RAID5的磁盘存储系统
+		      \item 如果系统中存在频繁的多表连接操作，可以考虑将这些基本表组织为聚集文件，以提高查询效率
+		      \item 在一张表的某列上需要频繁执行精确匹配查询时，可以考虑为此列建立哈希索引
+		      \item 在频繁执行插入、修改和删除操作的表上建立索引可能会降低系统整体性能
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 在进行数据库物理设计时，为了保证系统性能，需要综合考虑所选择的数据库管理系统的特性及软硬件具体情况。下列关于数据库物理设计的说法，错误的是（\quad）。
+	      \begin{enumerate}
+		      \item 为了提高写入性能，数据库一般应尽量避免存储在RAID10的磁盘存储系统中，而应当采用RAID5的磁盘存储系统
+		      \item 如果系统中存在频繁的多表连接操作，可以考虑将这些基本表组织为聚集文件，以提高查询效率
+		      \item 在一张表的某列上需要频繁执行精确匹配查询时，可以考虑为此列建立哈希索引
+		      \item 在频繁执行插入、修改和删除操作的表上建立索引可能会降低系统整体性能
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 有一个学生关系模式STUDENT(学号，姓名，出生日期，系名，班号，宿舍号)，其候选键为（\quad）。
+	      \begin{enumerate}
+		      \item 学号
+		      \item (学号，姓名)
+		      \item (学号，班号)
+		      \item (学号，宿舍号)
+	      \end{enumerate}
+	      \textbf{答案：A}
+
+	\item 数据的收集与分析工作从动态结构方面展开时，用以描述任务和数据之间的关系的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据分类表
+		      \item 数据元素表
+		      \item 任务分类表
+		      \item 数据操作特征表
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 将收集的数据进行适当的构造，这称为（\quad）。
+	      \begin{enumerate}
+		      \item 数据存储
+		      \item 数据组织
+		      \item 数据构造
+		      \item 以上答案都不对
+	      \end{enumerate}
+	      \textbf{答案：B}
+
+	\item 对于大数据而言，下列说法不正确的是（\quad）。
+	      \begin{enumerate}
+		      \item 数据量巨大
+		      \item 数据种类繁多
+		      \item 处理数据快
+		      \item 价值密度的高低与数据总量的大小成正比
+	      \end{enumerate}
+	      \textbf{答案：D}
+
+	\item 在Access的数据库中已建立了"Book"表，若查找"图书ID"是"TP132.54"和"TP138.98"的记录，应在查询设计视图的准则行中输入（\quad）。
+	      \begin{enumerate}
+		      \item "TP132..."
+		      \item NOT("TP132...
+		      \item NOT IN("TP132...
+		      \item IN("TP132...
+	      \end{enumerate}
+	      \textbf{答案：D}
+\end{enumerate}
+
+\end{document}

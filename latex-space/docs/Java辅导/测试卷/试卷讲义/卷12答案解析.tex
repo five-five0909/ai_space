@@ -1,0 +1,450 @@
+% -*- coding: utf-8 -*-
+% 请使用 XeLaTeX 编译
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{tabularx}
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 字体设置 (需系统安装对应字体)
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+% 超链接设置
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={Java程序设计-绝密押题讲义},
+    pdfauthor={资深JVM专家组}
+}
+
+% 颜色定义
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+% 讲义解析框定义 (严格遵循样式)
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+% 代码块样式
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{专升本Java程序设计模拟卷-卷12}}}
+\author{fifine-专升本}
+\date{2026年3月2日}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{一、单项选择题深度剖析}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	% ================= 题目 3 =================
+	\item \textbf{在 Java 中，以下哪个选项可以正确编译？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item \texttt{float f = 3.14;}
+		      \item \texttt{byte b = 200;}
+		      \item \texttt{char c = "a";}
+		      \item \texttt{long l = 100L;}
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. \texttt{long l = 100L;}}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java强类型系统中的字面量（Literal）默认类型机制与隐式类型转换（Narrowing/Widening Conversion）规则。
+			      \item \textbf{关键区分点}：区分编译期常量折叠范围与运行时溢出，区分字面量后缀修饰符的硬性规范。
+			      \item \textbf{命题人意图}：测试考生对JLS基本数据类型规范的掌握，淘汰只靠IDE提示写代码的"语法盲"。
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. \texttt{float f = 3.14;} — 错误（向下转型缺失）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{字节码铁证}：
+				                  \begin{lstlisting}[language=Java]
+// 尝试编译：float f = 3.14;
+// javac 报错：incompatible types: possible lossy conversion from double to float
+                \end{lstlisting}
+				                  \textbf{JVM保障机制}：Java中的浮点数字面量（如3.14）默认类型是 \texttt{double}（64位）。将其赋值给 \texttt{float}（32位）会丢失精度，JLS §5.2 严禁未显式强转的向下转型（Narrowing Primitive Conversion）。
+				            \item \textbf{修正规则}：必须添加后缀 \texttt{f} 或 \texttt{F}，即 \texttt{float f = 3.14f;}。
+			            \end{itemize}
+
+			      \item \textbf{B. \texttt{byte b = 200;} — 错误（常量折叠越界）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{底层机制解析}：
+				                  \begin{itemize}
+					                  \item JLS §5.2 规定：如果右侧是 \texttt{int} 类型的常量表达式，且值在左侧类型的范围内，允许隐式转换。
+					                  \item \texttt{byte} 的取值范围是 -128 到 127（8位有符号整数）。200 超出了此范围。
+					                  \item 编译器在AST（抽象语法树）阶段进行常量折叠时，直接阻断编译：\texttt{possible loss of precision}。
+				                  \end{itemize}
+				            \item \textbf{易错点}：如果写成 \texttt{byte b = (byte)200;}，编译通过，但运行时值会变成 -56（二进制截断）。
+			            \end{itemize}
+
+			      \item \textbf{C. \texttt{char c = "a";} — 错误（引用类型与基本类型错乱）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{内存模型解析}：
+				                  \begin{itemize}
+					                  \item \texttt{"a"} 是 \texttt{String} 对象（存放于堆内存的字符串常量池），类型是引用类型（Reference Type）。
+					                  \item \texttt{char} 是基本数据类型（Primitive Type），占用16位（2字节），存储Unicode码位。
+					                  \item JLS §3.10.4 规定，字符字面量必须使用单引号 \texttt{'a'} 闭合。
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item \textbf{D. \texttt{long l = 100L;} — 正确（规范的向上转型声明）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{字节码铁证}：
+				                  \begin{lstlisting}[language=Java]
+long l = 100L;
+// javap -c 输出：
+// 0: ldc2_w #2 // 将long型常量100从常量池压入操作数栈
+// 3: lstore_1  // 存入局部变量表索引1
+                \end{lstlisting}
+				            \item \textbf{初始化规则}：后缀 \texttt{L} 显式指示编译器将其作为64位整型处理（小写 \texttt{l} 极易与数字 1 混淆，阿里Java开发规范强制要求用大写 \texttt{L}）。
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep]
+			      \item \textbf{字面量默认类型}：整数默认 \texttt{int}，浮点数默认 \texttt{double}。
+			      \item \textbf{隐式转换特权}：\texttt{byte/short/char} 接受 \texttt{int} 常量赋值时，只要不越界，\textbf{免强转}。
+			      \item \textbf{高频陷阱清单}：
+			            \begin{itemize}
+				            \item 陷阱1：\texttt{float f = 1.0;} → 漏写 f 必报错。
+				            \item 陷阱2：\texttt{long l = 2147483648;} → 报错！因为右侧默认是 int，超出了 int 的最大值。必须写成 \texttt{2147483648L}。
+			            \end{itemize}
+		      \end{enumerate}
+	      \end{bluebox}
+	      \vspace{1em}
+
+	      % ================= 题目 9 =================
+	\item \textbf{关于静态代码块，以下说法正确的是？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 静态代码块在每次创建对象时执行
+		      \item 静态代码块在类加载时执行一次
+		      \item 静态代码块中可以访问非静态成员
+		      \item 静态代码块可以有多个，执行顺序不确定
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. 静态代码块在类加载时执行一次}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查JVM类加载机制（Class Loading Subsystem）中的初始化阶段（Initialization）行为。
+			      \item \textbf{关键区分点}：区分类级别生命周期（\texttt{<clinit>}）与对象级别生命周期（\texttt{<init>}）。
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{A. 在每次创建对象时执行 — 错误（混淆了构造块）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{机制解析}：每次 \texttt{new} 对象时执行的是非静态的“构造代码块”和构造方法（JVM中的 \texttt{<init>} 方法）。静态块属于类，不跟随实例触发。
+			            \end{itemize}
+
+			      \item \textbf{B. 在类加载时执行一次 — 正确（\texttt{<clinit>}线程安全机制）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{字节码铁证}：
+				                  \begin{lstlisting}[language=Java]
+class Test {
+    static int x;
+    static { x = 10; }
+}
+// javap -c 输出发现，static块被编译器收集到了 <clinit> 方法中：
+// static {};
+//   Code:
+//      0: bipush 10
+//      2: putstatic #2 // Field x:I
+//      5: return
+                \end{lstlisting}
+				            \item \textbf{JVM规范依据}：JVMS §5.5 规定，静态块被编译为 \texttt{<clinit>()} 方法。JVM在类的初始化阶段（触发条件如 \texttt{new}、访问静态变量、反射等）执行它。虚拟机会保证 \texttt{<clinit>()} 在多线程环境中被正确加锁、同步，确保\textbf{全局只执行一次}。
+			            \end{itemize}
+
+			      \item \textbf{C. 可以访问非静态成员 — 错误（内存语义冲突）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{内存影响}：类加载时，对象可能根本还未创建，堆内存中不存在实例变量。静态块存储在方法区（元空间），它没有 \texttt{this} 指针，因此强行访问实例成员会直接触发编译期错误。
+			            \end{itemize}
+
+			      \item \textbf{D. 有多个时执行顺序不确定 — 错误（严格按文本顺序）}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{初始化规则}：JLS 明确规定，编译器收集静态变量赋值语句和静态块时，\textbf{严格按照源文件中的文本出现顺序（Top-to-Bottom）}合并到 \texttt{<clinit>()} 中。
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{考场秒杀口诀}：\textcolor{red}{"静（态）只一次，顺（序）理成章；非静随对象，无this不见光"}。
+		      \end{itemize}
+	      \end{bluebox}
+\end{enumerate}
+
+\newpage
+\section{二、判断题（底层真伪辩证）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item \textbf{泛型类型参数在编译时被擦除，因此运行时无法判断 List 中存储的实际类型。}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：$\checkmark$ （正确）}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java泛型的核心设计哲学——类型擦除（Type Erasure），及与C++模板机制的区别。
+			      \item \textbf{命题人意图}：筛选出真正理解JVM向下兼容性历史包袱的高阶开发者。
+		      \end{itemize}
+
+		      \textbf{【原理论证与字节码拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{正向论证：编译期擦除机制}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{字节码铁证}：
+				                  \begin{lstlisting}[language=Java]
+List<String> list = new ArrayList<>();
+list.add("Java");
+String s = list.get(0);
+// 反编译后的字节码（等同于泛型擦除后的真身）：
+// List list = new ArrayList();
+// list.add("Java");
+// String s = (String) list.get(0); // 编译器偷偷塞入的 checkcast 指令
+                \end{lstlisting}
+				            \item \textbf{JVM规范依据}：JLS §4.6，由于Java 5才引入泛型，为了保证旧版JVM能继续运行新版Class文件，所有泛型参数 \texttt{<T>} 在编译成字节码时都被替换为它的\textbf{上界}（默认是 \texttt{Object}）。
+			            \end{itemize}
+
+			      \item \textbf{反向验证：运行时的无力感}
+			            \begin{itemize}[leftmargin=*, nosep]
+				            \item \textbf{无法判断的铁证}：在运行时执行 \texttt{if (list instanceof List<String>)} 会直接报编译错误：\texttt{Cannot perform instanceof check against parameterized type}。因为内存里根本没有 \texttt{List<String>} 这个类，只有 \texttt{List} 接口的实现。
+			            \end{itemize}
+
+			      \item \textbf{高阶延伸（冲击满分）}：
+			            \begin{itemize}
+				            \item \textbf{例外情况}：虽然运行时对象不知道自己的泛型，但\textbf{类的元数据（签名）}保留了泛型信息。可以通过反射（\texttt{ParameterizedType}）获取类的泛型父类/接口信息（这也是Gson/Fastjson等框架反序列化的底层依赖）。
+			            \end{itemize}
+		      \end{itemize}
+	      \end{bluebox}
+
+\end{enumerate}
+
+\newpage
+\section{三、程序运行结果题（JVM执行栈追踪）}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[language=Java]
+public class Test1 {
+    public static void main(String[] args) {
+        int x = 10;
+        int y = x++ + ++x + x--;
+        System.out.println(x);
+        System.out.println(y);
+    }
+}
+\end{lstlisting}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：11 \quad 34}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查JVM操作数栈（Operand Stack）与局部变量表（Local Variable Table）的交互，特别是 \texttt{iinc}（自增操作）与压栈指令执行的先后顺序。
+			      \item \textbf{易错点}：将人的思维代入机器思维，混淆了"变量现在的值"与"参与计算的提取值"。
+		      \end{itemize}
+
+		      \textbf{【JVM操作数栈微观执行拆解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{字节码铁证分析（表达式：\texttt{y = x++ + ++x + x--}）}：
+			            \begin{enumerate}[label=\textbf{步骤\arabic*.}, leftmargin=*, nosep]
+				            \item \textbf{初始化}：\texttt{int x = 10;}
+				                  \begin{itemize}
+					                  \item 局部变量表：\texttt{x=10}
+				                  \end{itemize}
+				            \item \textbf{执行第一部分：\texttt{x++}}
+				                  \begin{itemize}
+					                  \item 指令 \texttt{iload\_1}：将局部变量表中的 \texttt{10} 压入操作数栈。$\leftarrow$ \textbf{栈内目前是10}
+					                  \item 指令 \texttt{iinc 1, 1}：局部变量表中的 x 直接加1，变成 \textbf{11}。
+				                  \end{itemize}
+				            \item \textbf{执行第二部分：\texttt{++x}}
+				                  \begin{itemize}
+					                  \item 指令 \texttt{iinc 1, 1}：局部变量表中的 x 直接加1，变成 \textbf{12}。
+					                  \item 指令 \texttt{iload\_1}：将局部变量表中新的 \texttt{12} 压入操作数栈。$\leftarrow$ \textbf{栈内目前是10, 12}
+					                  \item 执行加法 \texttt{iadd}：弹出 10 和 12 相加，结果 \textbf{22} 压栈。
+				                  \end{itemize}
+				            \item \textbf{执行第三部分：\texttt{x--}}
+				                  \begin{itemize}
+					                  \item 指令 \texttt{iload\_1}：将局部变量表中的 \texttt{12} 压入操作数栈。$\leftarrow$ \textbf{栈内目前是22, 12}
+					                  \item 指令 \texttt{iinc 1, -1}：局部变量表中的 x 直接减1，变成 \textbf{11}。
+				                  \end{itemize}
+				            \item \textbf{最终加和赋给y}
+				                  \begin{itemize}
+					                  \item 执行加法 \texttt{iadd}：弹出 22 和 12 相加，结果 \textbf{34}。
+					                  \item 指令 \texttt{istore\_2}：将 \textbf{34} 存入局部变量表 \texttt{y} 中。
+				                  \end{itemize}
+			            \end{enumerate}
+
+			      \item \textbf{最终状态结论}：
+			            \begin{itemize}
+				            \item 内存中 \texttt{x} 经历了：10 $\rightarrow$ 11 $\rightarrow$ 12 $\rightarrow$ 11。所以 \texttt{x = 11}。
+				            \item 操作数栈计算：10 + 12 + 12 = 34。所以 \texttt{y = 34}。
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【命题陷阱破解】}
+		      \begin{itemize}[leftmargin=*, nosep]
+			      \item \textbf{高频错误计算法}：10 + 11 + 10 = 31。（完全弄反了后置与前置的压栈时机）。
+			      \item \textbf{考场秒杀口诀}：
+			            \begin{itemize}
+				            \item \texttt{++}在后（\texttt{x++}）：\textbf{先提值，后自增}（先记下当前值参与算术，转头变量立刻加1）。
+				            \item \texttt{++}在前（\texttt{++x}）：\textbf{先自增，后提值}（变量先加1，然后拿出新值参与算术）。
+			            \end{itemize}
+		      \end{itemize}
+	      \end{bluebox}
+\end{enumerate}
+
+\newpage
+\section{四、编程题（企业级架构落地示范）}
+
+\textbf{1. 设计一个"员工"类及其子类（20分）}
+
+\begin{bluebox}{标准企业级答案与多态深度解析}
+	\textbf{【核心考点对齐】}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item 考察 \texttt{abstract} 抽象类的顶层抽象能力。
+		\item 考察 \texttt{ArrayList} 配合 \texttt{for-each} 进行动态绑定（Dynamic Binding）的多态实战。
+	\end{itemize}
+
+	\textbf{【严谨高分源码（含规范级注释）】}
+	\begin{lstlisting}[language=Java]
+import java.util.ArrayList;
+
+// 1. 顶层抽象类 (符合 OCP 开闭原则)
+abstract class Employee {
+    private String name;
+    private String id; // 工号可能含字母，用String更严谨
+
+    public Employee(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    // Getter/Setter 略(防篇幅过长，考试须写全)
+    public String getName() { return name; }
+
+    // 核心抽象方法，推迟到子类实现
+    public abstract double calculateSalary();
+}
+
+// 2. 子类1：固定薪资员工
+class SalariedEmployee extends Employee {
+    private double monthlySalary;
+
+    public SalariedEmployee(String name, String id, double monthlySalary) {
+        super(name, id); // 强制调用父类构造，初始化继承状态
+        this.monthlySalary = monthlySalary;
+    }
+
+    @Override // 必须标注，利用编译器进行重写规则检查
+    public double calculateSalary() {
+        return monthlySalary;
+    }
+}
+
+// 3. 子类2：小时工
+class HourlyEmployee extends Employee {
+    private double hoursWorked;
+    private double hourlyRate;
+
+    public HourlyEmployee(String name, String id, double hoursWorked, double hourlyRate) {
+        super(name, id);
+        this.hoursWorked = hoursWorked;
+        this.hourlyRate = hourlyRate;
+    }
+
+    @Override
+    public double calculateSalary() {
+        return hoursWorked * hourlyRate;
+    }
+}
+
+// 4. 测试类：多态威力展示
+public class Main {
+    public static void main(String[] args) {
+        // 面向父类编程：容器装的是父类型
+        ArrayList<Employee> list = new ArrayList<>();
+        list.add(new SalariedEmployee("张三", "S001", 8000));
+        list.add(new HourlyEmployee("李四", "H001", 120, 50));
+
+        // JLS多态核心：编译看左边(Employee)，运行看右边(具体子类)
+        for (Employee emp : list) {
+            // JVM底层通过 vtable (虚方法表) 执行动态分派 invokevirtual
+            double salary = emp.calculateSalary(); 
+            System.out.println(emp.getName() + " 的工资是: " + salary);
+        }
+    }
+}
+\end{lstlisting}
+
+	\textbf{【判卷得分点（讲师批卷视角）】}
+	\begin{enumerate}[leftmargin=*, nosep]
+		\item \textbf{封装性（4分）}：属性是否设为 \texttt{private}，并通过 public 的 getter/setter 访问。未封装直接扣2分。
+		\item \textbf{抽象修饰符（4分）}：类名和 \texttt{calculateSalary} 方法前是否有 \texttt{abstract} 关键字。
+		\item \textbf{构造链调用（5分）}：子类构造器第一行是否显式使用 \texttt{super(name, id);}。如果没有，由于父类没有无参构造，\textbf{编译将直接崩溃}。
+		\item \textbf{多态遍历（7分）}：\texttt{ArrayList<Employee>} 的泛型声明与循环中 \texttt{emp.calculateSalary()} 的动态绑定调用。此处最忌讳写成冗长的 \texttt{if (emp instanceof SalariedEmployee)}。
+	\end{enumerate}
+
+	\textbf{【JVM虚拟机底层视角分析】}
+	当执行 \texttt{emp.calculateSalary()} 时，JVM 使用字节码指令 \texttt{invokevirtual}。
+	\begin{itemize}
+		\item \textbf{方法调用解析}：JVM 去堆内存中找到 \texttt{emp} 实际指向的对象（例如 \texttt{HourlyEmployee} 的实例）。
+		\item \textbf{虚方法表（vtable）寻址}：在方法区（元空间）中查询该对象对应类的虚方法表，直接定位到子类重写后的方法入口指针执行。这实现了 \textbf{无条件的时间复杂度 O(1) 的多态分发}，是Java面向对象性能优化的核心。
+	\end{itemize}
+\end{bluebox}
+
+\end{document}

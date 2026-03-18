@@ -1,0 +1,95 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{fancyhdr}       % 页眉页脚
+\usepackage{cases}          % 分段函数增强
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 纵向排列的选项 (1列)
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+% 填空题下划线
+\newcommand{\blank}[1]{\underline{\hspace{#1}}}
+
+\title{\textbf{《高等数学》必刷习题——提高版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第八章 微分方程（提高）}
+
+\begin{enumerate}
+    \item 微分方程 $ x \ln x dy + (y - \ln x) dx = 0 $ 满足 $ y|_{x=e} = 1 $ 的特解为 \blank{1cm}。
+    \choicesTwo
+    {$ \frac{1}{2} (\ln x + \frac{1}{\ln x}) $}
+    {$ \frac{1}{2} (x + \frac{1}{\ln x}) $}
+    {$ \frac{1}{2} (\ln x + \frac{1}{x}) $}
+    {$ \frac{1}{2} (x + \frac{1}{x}) $}
+
+    \item 微分方程 $ xy' + y = \frac{1}{1 + x^{2}} $ 满足 $ y|_{x=\sqrt{3}} = \frac{\sqrt{3}}{9} $ 的解在 $ x = 1 $ 处的值为 \blank{1cm}。
+    \choicesFour{$ \frac{\pi}{4} $}{$ \frac{\pi}{3} $}{$ \frac{\pi}{2} $}{$ \pi $}
+
+    \item 曲线 $ y = x^{2} $ 与 $ y^{2} = x $ 围成的平面图形绕 $y$ 轴旋转一周生成的立体体积为 \blank{1cm}。
+    \choicesFour{$ \frac{1}{3} $}{$ \frac{\pi}{2} $}{$ \frac{1}{2} $}{$ \frac{3\pi}{10} $}
+
+    \item 若 $ C_{1} $ 和 $ C_{2} $ 为两个独立的任意常数，则 $ y = C_{1} \cos x + C_{2} \sin x $ 为下列哪个方程的通解 \blank{1cm}。
+    \choicesFour{$ y''+y=0 $}{$ y''+y=x^{2} $}{$ y''-3y'+2y=0 $}{$ y''+y'-2y=2x $}
+
+    \item 微分方程 $ (y'')^{5}+2y'+xy^{6}=0 $ 的阶数是 \blank{1cm}。
+    \choicesFour{1}{2}{3}{4}
+
+    \item 已知函数 $ y = y(x) $ 在任意点处的增量 $ \Delta y = \frac{y \Delta x}{1 + x^{2}} + \alpha $, 且当 $ \Delta x \to 0 $ 时， $ \alpha $ 为 $ \Delta x $ 的高阶无穷小，若 $ y(0) = \pi $ , 则 $ y(1) = $ \blank{2cm}。
+
+    \item 求由曲线 $ y = x^{2} $ 及 $ y = \sqrt{x} $ 所围成的平面图形的面积 \blank{2cm}。
+
+    \item 已知 $ y = e^{x}(C_{1} \cos \sqrt{2} x + C_{2} \sin \sqrt{2} x) $ ($C_{1}, C_{2}$ 为任意常数）是某二阶常系数线性微分方程的通解，其对应的方程为 \blank{2cm}。
+
+    \item 求微分方程 $ xy' + y = xe^{x} $ 满足 $ y|_{x=1} = 1 $ 的特解 \blank{2cm}。
+
+    \item 求微分方程 $ \frac{dy}{dx}-\frac{y}{x}=x\sin x $ 的通解 \blank{2cm}。
+
+    \item 求微分方程 $ y'' + 3y' = 3x $ 的通解。
+
+    \item 求微分方程 $ y''-2y'+y=2e^{x} $ 的通解。
+
+    \item 求微分方程 $ y'+2xy=xe^{-x^{2}} $ 满足初始条件 $ y|_{x=0}=1 $ 的特解。
+
+    \item 求微分方程 $ y' - y \cot x = 2x \sin x $ 的通解。
+
+    \item 计算抛物线 $ y^{2} = 2x $ 与直线 $ y = x - 4 $ 所围成的图像的面积。
+\end{enumerate}
+
+\end{document}

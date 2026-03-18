@@ -1,0 +1,188 @@
+\documentclass[a4paper,12pt]{ctexart}
+
+% ------------------- 宏包引入 -------------------
+\usepackage{geometry}           % 页面布局
+\usepackage{amsmath, amssymb}   % 数学公式与符号
+\usepackage{graphicx}           % 图片支持
+\usepackage{xcolor}             % 颜色支持
+\usepackage{float}              % 浮动体控制
+\usepackage{enumitem}           % 列表定制
+\usepackage{tcolorbox}          % 彩色文本框
+\usepackage{tikz}               % 绘图
+\usetikzlibrary{arrows.meta, positioning} % TikZ 增强库
+
+% ------------------- 页面设置 -------------------
+\geometry{left=2.0cm, right=2.0cm, top=2.5cm, bottom=2.5cm}
+\linespread{1.5} % 行间距 1.5 倍
+
+% ------------------- 颜色定义 -------------------
+\definecolor{boxpurple}{RGB}{128, 0, 128}
+\definecolor{notepurple}{RGB}{230, 230, 250}
+\definecolor{highlightred}{RGB}{200, 30, 30}
+\definecolor{myblue}{RGB}{0, 114, 189}
+
+% ------------------- 自定义环境 -------------------
+
+% 紫色定义框：用于定理、定义
+\newenvironment{purplebox}
+  {\begin{tcolorbox}[colback=white, colframe=boxpurple, boxrule=1pt, sharp corners, title=\textbf{定义/定理}]}
+  {\end{tcolorbox}}
+
+% 红色手写笔记框：用于技巧、补充
+\newenvironment{rednote}
+  {\begin{tcolorbox}[colback=notepurple, colframe=highlightred, boxrule=1pt, title=\textbf{重点/考研技巧}]}
+  {\end{tcolorbox}}
+
+% 突出显示的中文段落
+\newcommand{\zh}[1]{\par\smallskip\noindent\textbf{#1}\par\smallskip}
+
+% ------------------- 文档信息 -------------------
+\title{\textbf{考研数学 - 高数总结 (多元函数微分学)}}
+\author{复习笔记}
+\date{\today}
+
+% ------------------- 正文开始 -------------------
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{多元函数微分学}
+
+\subsection{重极限}
+
+\begin{purplebox}
+    \textbf{定义：} 设函数 $z=f(x,y)$ 在点 $(x_0,y_0)$ 的某去心邻域内有定义，$A$ 为常数。
+    如果对于任意 $\varepsilon > 0$，存在 $\delta > 0$，当 $0 < \sqrt{(x-x_0)^2+(y-y_0)^2} < \delta$ 时，恒有 $|f(x,y) - A| < \varepsilon$，则称 $A$ 是函数 $z=f(x,y)$ 当 $(x,y) \to (x_0,y_0)$ 时的极限。
+\end{purplebox}
+
+\begin{rednote}
+    \textbf{考研常考点：}
+    \begin{enumerate}
+        \item \textbf{计算极限：} 实际上很少直接计算复杂的二元极限，通常出现在验证分段函数在分界点的连续性或可微性。
+        \item \textbf{常用结论：} “无穷小 $\times$ 有界量 = 无穷小”。
+        \item \textbf{证明不存在：}
+        \begin{itemize}
+            \item 选取特定路径（如 $y=kx$ 或 $y=x^2$），若极限值与 $k$ 有关，则极限不存在。
+            \item 证明两条不同路径下的极限值不相等。
+        \end{itemize}
+    \end{enumerate}
+\end{rednote}
+
+\subsection{二元函数的偏导数与全微分}
+
+\subsubsection{1. 偏导数}
+\textbf{定义：}
+\[ f'_x(x_0,y_0) = \lim_{\Delta x \to 0} \frac{f(x_0+\Delta x, y_0) - f(x_0,y_0)}{\Delta x} \]
+\[ f'_y(x_0,y_0) = \lim_{\Delta y \to 0} \frac{f(x_0, y_0+\Delta y) - f(x_0,y_0)}{\Delta y} \]
+\textbf{注：} 求某一点的偏导数，本质上就是把另一个变量看作常数，对剩下的变量求一元函数的导数。
+
+\textbf{二阶混合偏导不变性：}
+若 $z=f(x,y)$ 的混合偏导数 $f''_{xy}$ 和 $f''_{yx}$ 在区域内\textbf{连续}，则 $f''_{xy} = f''_{yx}$。
+
+\subsubsection{2. 全微分}
+\begin{purplebox}
+    \textbf{定义：} 如果函数 $z=f(x,y)$ 的全增量可表示为
+    \[ \Delta z = A\Delta x + B\Delta y + o(\rho), \quad \text{其中 } \rho = \sqrt{(\Delta x)^2 + (\Delta y)^2} \]
+    则称函数在该点\textbf{可微}，全微分为 $dz = A\Delta x + B\Delta y$。
+    其中 $A = f'_x, B = f'_y$。
+\end{purplebox}
+
+\textbf{判定可微性的步骤：}
+\begin{enumerate}
+    \item \textbf{必要条件：} 检验偏导数 $f'_x(x_0,y_0)$ 和 $f'_y(x_0,y_0)$ 是否存在。若不存在，直接不可微。
+    \item \textbf{充分条件：} 若偏导数在某邻域内存在且在点 $(x_0,y_0)$ 处\textbf{连续}，则可微。（注意：这是充分非必要）。
+    \item \textbf{定义判定（最常用）：} 
+    计算极限
+    \[ \lim_{\substack{\Delta x \to 0 \\ \Delta y \to 0}} \frac{[f(x_0+\Delta x, y_0+\Delta y) - f(x_0,y_0)] - [f'_x\Delta x + f'_y\Delta y]}{\sqrt{(\Delta x)^2 + (\Delta y)^2}} \]
+    若极限为 0，则可微；否则不可微。
+\end{enumerate}
+
+\subsection{连续、可导、可微的关系图}
+
+\begin{center}
+\begin{tikzpicture}[node distance=2cm, auto, >=Latex, thick]
+    % Nodes
+    \node[draw, rounded corners, fill=blue!10] (diff) {可微 (Differentiable)};
+    \node[draw, rounded corners, fill=green!10, right=of diff, xshift=1cm] (cont) {连续 (Continuous)};
+    \node[draw, rounded corners, fill=yellow!10, below=of diff] (partial) {偏导数存在 (Partial Derivs Exist)};
+    \node[draw, rounded corners, fill=red!10, left=of diff, xshift=-1cm] (c1) {偏导数连续 ($C^1$)};
+
+    % Arrows
+    \draw[->] (diff) -- node[above] {一定} (cont);
+    \draw[->] (diff) -- node[left] {一定} (partial);
+    \draw[->] (c1) -- node[above] {一定 (充分条件)} (diff);
+    
+    % Dashed arrows for "Not Necessarily"
+    \draw[->, dashed, bend right] (cont) to node[above] {不一定} (diff);
+    \draw[->, dashed, bend left] (partial) to node[left] {不一定} (diff);
+    \draw[->, dashed, bend left] (partial) to node[right] {不一定} (cont);
+    \draw[->, dashed, bend right] (diff) to node[above] {不一定} (c1);
+    
+\end{tikzpicture}
+\end{center}
+
+\subsection{导数与全微分的计算}
+
+\textbf{1. 复合函数求导（链式法则）：}
+画出变量树形图，分清中间变量。
+\[ \frac{\partial z}{\partial x} = \frac{\partial f}{\partial u}\frac{\partial u}{\partial x} + \frac{\partial f}{\partial v}\frac{\partial v}{\partial x} \]
+
+\textbf{2. 隐函数求导：}
+由方程 $F(x,y,z)=0$ 确定 $z=z(x,y)$：
+\[ \frac{\partial z}{\partial x} = -\frac{F'_x}{F'_z}, \quad \frac{\partial z}{\partial y} = -\frac{F'_y}{F'_z} \quad (F'_z \neq 0) \]
+\textbf{技巧：} 也可以直接对等式两边同时求微分，利用微分形式不变性求解。
+
+\section{极值与最值}
+
+\subsection{无条件极值}
+
+\textbf{1. 必要条件：}
+若 $z=f(x,y)$ 在 $(x_0,y_0)$ 处取极值且偏导存在，则必有驻点：
+\[ f'_x(x_0,y_0) = 0, \quad f'_y(x_0,y_0) = 0 \]
+
+\textbf{2. 充分条件（Hessian 矩阵判别法）：}
+记 $A = f''_{xx}(x_0,y_0), \quad B = f''_{xy}(x_0,y_0), \quad C = f''_{yy}(x_0,y_0)$。
+判别式 $\Delta = AC - B^2$：
+\begin{itemize}
+    \item \textcolor{blue}{$\Delta > 0$}：有极值。
+    \begin{itemize}
+        \item 若 $A < 0$，极大值。
+        \item 若 $A > 0$，极小值。
+    \end{itemize}
+    \item \textcolor{red}{$\Delta < 0$}：不是极值点（是鞍点）。
+    \item $\Delta = 0$：方法失效，需用定义判断。
+\end{itemize}
+
+\subsection{条件极值与拉格朗日乘数法}
+
+\textbf{问题：} 求 $z=f(x,y)$ 在条件 $\varphi(x,y)=0$ 下的极值。
+
+\textbf{步骤：}
+\begin{enumerate}
+    \item \textbf{构造辅助函数：}
+    \[ L(x,y,\lambda) = f(x,y) + \lambda \cdot \varphi(x,y) \]
+    \item \textbf{求解方程组：}
+    \[ \begin{cases} L'_x = f'_x + \lambda \varphi'_x = 0 \\ L'_y = f'_y + \lambda \varphi'_y = 0 \\ L'_\lambda = \varphi(x,y) = 0 \end{cases} \]
+    \item \textbf{判断：} 解出的点即为可能的极值点。实际问题中通常直接比较各点函数值。
+\end{enumerate}
+
+\subsection{最值问题一般步骤}
+求 $f(x,y)$ 在有界闭区域 $D$ 上的最大值和最小值：
+\begin{enumerate}
+    \item 求出 $D$ \textbf{内部}的所有驻点，计算函数值。
+    \item 求出 $D$ \textbf{边界}上的所有最值点（通常转化为一元函数极值或用拉格朗日法），计算函数值。
+    \item 比较所有点的函数值，最大者为最大值，最小者为最小值。
+\end{enumerate}
+
+\subsection{常用不等式（用于放缩求最值）}
+\begin{enumerate}
+    \item \textbf{均值不等式：}
+    \[ \frac{n}{\sum \frac{1}{x_i}} \le \sqrt[n]{\prod x_i} \le \frac{\sum x_i}{n} \le \sqrt{\frac{\sum x_i^2}{n}} \]
+    (调和 $\le$ 几何 $\le$ 算术 $\le$ 平方)
+    \item \textbf{柯西不等式：}
+    \[ (\sum a_i^2)(\sum b_i^2) \ge (\sum a_i b_i)^2 \]
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,1321 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{ctex} % 中文支持
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+% 颜色定义
+\definecolor{codebg}{RGB}{240,240,240}
+\definecolor{outputbg}{RGB}{255,250,240}
+
+% Java代码样式
+\lstdefinestyle{Java}{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{black},
+    backgroundcolor=\color{codebg},
+    tabsize=4,
+    escapeinside={/*@}{@*/} % 允许在代码中插入LaTeX命令
+}
+
+% 程序输出样式
+\lstdefinestyle{output}{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{outputbg},
+    rulecolor=\color{black}
+}
+
+% 选择题环境
+\newlist{choices}{enumerate}{1}
+\setlist[choices]{label=\Alph*. , nosep, leftmargin=*, align=left}
+
+% 填空题下划线
+\newcommand{\blank}[1][1cm]{\rule{#1}{0.4pt}}
+
+\begin{document}
+
+\title{Java程序设计基础题库}
+\author{}
+\date{2026年03月02日}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{理论题}
+
+\subsection{选择题（20分）}
+
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+	\item 知识点: Java语言概述 \\
+	      编译Java程序的命令文件名是(\textbf{C})
+	      \begin{choices}
+		      \item A. java.exe
+		      \item B. java.c
+		      \item C. javac
+		      \item D. appletviewer.exe
+	      \end{choices}
+
+	\item Java语言与其他语言相比,独有的特点是(\textbf{C})
+	      \begin{choices}
+		      \item A. 面向对象
+		      \item B. 多线程
+		      \item C. 平台无关性
+		      \item D. 可扩展性
+	      \end{choices}
+
+	\item 编译Java程序filename.java后,生成的程序是(\textbf{C})
+	      \begin{choices}
+		      \item A. filename.html
+		      \item B. filename.jav
+		      \item C. filename.class
+		      \item D. filename.jar
+	      \end{choices}
+
+	\item 下面声明Java独立应用程序main()方法中,正确的是(\textbf{A})
+	      \begin{choices}
+		      \item A. \lstinline[style=Java]|public static void main(String args[]){}|
+		      \item B. \lstinline[style=Java]|private static void main(String args[]){}|
+		      \item C. \lstinline[style=Java]|public void main(String args[]){}|
+		      \item D. \lstinline[style=Java]|public static void main(String args){}|
+	      \end{choices}
+
+	\item 知识点: 数据类型 \\
+	      定义a为int类型变量。下面正确的赋值语句选项是(\textbf{D})
+	      \begin{choices}
+		      \item A. \lstinline[style=Java]|int a=6;|
+		      \item B. \lstinline[style=Java]|a==3|
+		      \item C. \lstinline[style=Java]|a=3.2f|
+		      \item D. \lstinline[style=Java]|a+=a*3|
+	      \end{choices}
+
+	\item 下列有关Java布尔类型的描述中,正确的是(\textbf{A})
+	      \begin{choices}
+		      \item A. 一种基本的数据类型,它的类型名称为boolean
+		      \item B. 用int表示类型
+		      \item C. 其值可以赋给int类型的变量
+		      \item D. 有两个值,1代表真,0代表假
+	      \end{choices}
+
+	\item 知识点: 变量定义 \\
+	      下面变量定义错误的是(\textbf{A})
+	      \begin{choices}
+		      \item A. \lstinline[style=Java]!float x; y;!
+		      \item B. \lstinline[style=Java]!float x,y=2.33f;!
+		      \item C. \lstinline[style=Java]!public int i=100,j=2,k;!
+		      \item D. \lstinline[style=Java]!char ch1='m',ch2='\';! % 注意: 原题有转义问题
+	      \end{choices}
+
+	\item 下列变量定义正确的是(\textbf{A})
+	      \begin{choices}
+		      \item A. \lstinline[style=Java]!double d;!
+		      \item B. \lstinline[style=Java]!float f=6.6;!
+		      \item C. \lstinline[style=Java]!byte b=130;!
+		      \item D. \lstinline[style=Java]!boolean t="true";!
+	      \end{choices}
+
+	\item 知识点: 数组 \\
+	      设有定义语句\lstinline[style=Java]|int a[]={66,88,99}| ,则关于该语句的叙述错误的是(\textbf{C})
+	      \begin{choices}
+		      \item A. 定义了一个名为a的一维数组
+		      \item B. a数组有三个元素
+		      \item C. a数组的下标为13 % 原题错误,应为0-2
+		      \item D. 数组中的每个元素的数据类型都是int型
+	      \end{choices}
+
+	\item 若已定义:\lstinline[style=Java]|int a[]={0,1,2,3,4,5};| 则对a数组元素正确的引用是(\textbf{C})
+	      \begin{choices}
+		      \item A. a[-1]
+		      \item B. a[6]
+		      \item C. a[5]
+		      \item D. a(0)
+	      \end{choices}
+
+	\item 现有整型数组\lstinline[style=Java]!int a[]={10,21,28,-3,84,58}! 打印输出数组的各个元素,下面正确的代码是(\textbf{C})
+	      \begin{choices}
+		      \item A. \lstinline[style=Java]!for(int i=0;i<=6;i++) System.out.println(a[i]);!
+		      \item B. \lstinline[style=Java]!for(int i=0;i<5;i++) System.out.printIn(a[i]);!
+		      \item C. \lstinline[style=Java]!for(int i=0;i<a.length;i++) System.out.println(a[i]);!
+		      \item D. \lstinline[style=Java]!for(int i=0;i<a.length;i++) System.out.println(a(i));!
+	      \end{choices}
+
+	\item 知识点: 类和对象 \\
+	      定义类头时可以使用的访问控制修饰符是(\textbf{A,B}) % 原题单选,但public和abstract均可
+	      \begin{choices}
+		      \item A. public
+		      \item B. abstract
+		      \item C. private
+		      \item D. static
+	      \end{choices}
+
+	\item 定义一个类Point,类中有两个double型变量x和y,对于构造函数的声明错误的是(\textbf{A})
+	      \begin{choices}
+		      \item A. \lstinline[style=Java]|Point Point(int x){}|
+		      \item B. \lstinline[style=Java]|public Point(int x){}|
+		      \item C. \lstinline[style=Java]|public Point(int x,int y){}|
+		      \item D. \lstinline[style=Java]|public Point(Point p){}|
+	      \end{choices}
+
+	\item 有关类的说法正确的是(\textbf{B})
+	      \begin{choices}
+		      \item A. 类具有封装性,所以类的数据是不能被访问的
+		      \item B. 类具有封装性,但可以通过类的公共接口访问类中的数据
+		      \item C. 声明一个类时,必须用public修饰符
+		      \item D. 每个类中,必须有main方法,否则程序无法运行
+	      \end{choices}
+
+	\item 以下关于构造函数及其重载的说法正确的是(\textbf{D})
+	      \begin{choices}
+		      \item A. 类定义了构造函数,Java就不会自动为该类创建默认的不带参数的构造函数
+		      \item B. 构造函数不能对私有变量初始化
+		      \item C. 一个类中含有几个构造函数,称为构造函数的重载。对于重载的函数,其参数列表可以相同。
+		      \item D. 重载的构造函数之间可以通过关键字this在构造函数中的任意位置相互调用
+	      \end{choices}
+
+	\item 以下关于类对象的使用,说法正确的是(\textbf{B})
+	      \begin{choices}
+		      \item A. 通过构造函数实例化一个类对象后,在类的内部,不管变量的访问修饰符是私有的还是共有的,都可以通过"对象名.变量名"对变量进行访问
+		      \item B. 在类的外部调用类对象拥有的方法必须用"对象名.方法名()"
+		      \item C. 同一个类的对象之间可以赋值,且他们分别代表不同的对象
+		      \item D. 类对象可以作为方法的参数,这时在方法体中可以引用对象的变量和调用对象的方法
+	      \end{choices}
+
+	\item 知识点: 继承 \\
+	      下列关于继承的哪项叙述是正确的?(\textbf{D})
+	      \begin{choices}
+		      \item A. 在java中允许多重继承
+		      \item B. 在java中一个类只能实现一个接口
+		      \item C. 在java中一个类不能同时继承一个类和实现一个接口
+		      \item D. java的单一继承使代码更可靠
+	      \end{choices}
+
+	\item Java中所有类的父类是(\textbf{D})
+	      \begin{choices}
+		      \item A. Father
+		      \item B. Lang
+		      \item C. Exception
+		      \item D. Object
+	      \end{choices}
+
+	\item 知识点: 事件 \\
+	      下列Java常见事件类中哪个是鼠标事件类? (\textbf{C})
+	      \begin{choices}
+		      \item A. InputEvent
+		      \item B. KeyEvent
+		      \item C. MouseEvent
+		      \item D. WindowEvent
+	      \end{choices}
+
+	\item 下列为窗口事件的是(\textbf{B})
+	      \begin{choices}
+		      \item A. ActionEvent
+		      \item B. WindowEvent
+		      \item C. ActionEvent % 重复,原题有误
+		      \item D. KeyEvent
+	      \end{choices}
+
+	\item 知识点: 接口 \\
+	      若有以下类声明: \lstinline[style=Java]!public class A extends B implements C,D! 下面说法错误的是(\textbf{A})
+	      \begin{choices}
+		      \item A. 这个声明是错误的
+		      \item B. 类A继承自父类B
+		      \item C. C和D是接口,类头的定义声明类A实现接口C和D
+		      \item D. 关键字extends指明类的继承关系
+	      \end{choices}
+
+	\item 知识点: 图形界面 \\
+	      下列哪个选项是创建一个标识有"关闭"按钮的语句?(\textbf{C})
+	      \begin{choices}
+		      \item A. \lstinline[style=Java]!TextField b=new TextField("关闭");!
+		      \item B. \lstinline[style=Java]!TextArea b=new TextArea ("关闭");!
+		      \item C. \lstinline[style=Java]!Button b=new Button("关闭");!
+		      \item D. \lstinline[style=Java]!Checkbox b=new Checkbox("关闭");!
+	      \end{choices}
+
+	\item 知识点: 异常 \\
+	      下列常见的系统定义的异常中,哪个是输入、输出异常?(\textbf{B})
+	      \begin{choices}
+		      \item A. ClassNotFoundException
+		      \item B. IOException
+		      \item C. FileNotFoundException
+		      \item D. UnknownHostException
+	      \end{choices}
+
+	\item 下列常见的系统定义的异常中,哪个是数组越界异常?(\textbf{A})
+	      \begin{choices}
+		      \item A. ArrayIndexOutOfBoundsException
+		      \item B. IOException
+		      \item C. NullPointerException
+		      \item D. ArithmeticException
+	      \end{choices}
+\end{enumerate}
+
+\subsection{填空题（20分）}
+
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+	\item 知识点: 类和对象 \\
+	      类是Java中的一种重要的复合数据类型,是组成Java程序的基本要素。一个类的实现包括两部分:类声明、类体。
+
+	\item Java程序里,对象是类的一个\blank[2em]。运算符 new 为对象分配内存空间,它调用对象的构造方法,返回引用。 \\
+	      \textbf{答案:} 实例
+
+	\item 成员变量表示对象的特征,成员方法表示对象的行为。
+
+	\item 构造函数的方法名必须与\blank[2em]相同,使用运算符 new 创建类的对象,给对象分配内存空间。 \\
+	      \textbf{答案:} 类名
+
+	\item 知识点: 接口 \\
+	      定义接口和定义类相似,只是要把定义类的关键字 class 换为 interface。
+
+	\item 在Java中能实现多重继承效果的方式是\blank[2em]。 \\
+	      \textbf{答案:} 接口
+
+	\item 知识点: 方法 \\
+	      面向对象的语言将客观世界都看成由各种对象所组成的,共同特征和行为的对象组成类,类是属性和方法的集合。
+
+	\item 同一个类中多个方法具有相同的方法名,不同的参数列表称为方法的重载。
+
+	\item 知识点: 继承 \\
+	      一个类可以从它的父类中继承所有的属性和方法。采用这种方法可以提高软件的重用性。
+
+	\item 在Java程序里类之间的继承关系只能是单继承。
+
+	\item 继承就是在已经存在类的基础上再扩展产生新的类。已经存在的类称为\blank[2em],新产生的类称为子类。 \\
+	      \textbf{答案:} 父类
+\end{enumerate}
+
+\section{程序填空（30分）}
+
+\subsection{知识点: 循环结构}
+
+\subsubsection{1. 本程序的功能是输出0到20之间所有奇数的和。}
+
+\begin{lstlisting}[language=Java, caption=输出0到20之间所有奇数的和]
+public class Exam_1{
+    public static void main(String[] args){
+        int sum=0;
+        int i=0;
+        while(i<20){
+            if(i%2!=0) // 或 i%2==1
+                sum=sum+i;
+            i=i+1; // 或 i++ 或 ++i
+        }
+        System.out.println("sum"+sum);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{2. 本程序计算20以内的随机整数的阶乘。}
+
+\begin{lstlisting}[language=Java, caption=计算20以内的随机整数的阶乘]
+import java.util.Random;
+public class Exam_1{
+    public static void main(String args[]){
+        Random random = new Random();
+        float x=random.nextFloat(); // 生成0.0与1.0之间的一个浮点数
+        int n= Math.round(20*x); // 构造20以内的一个整数
+        long f=1; // 保存阶乘的结果
+        int k=1; // 循环变量
+        //*********Found********
+        do {
+            f=f*k;
+            k++;
+        } while (k<=n); // 填空处应为 k<=n
+        System.out.println(n+"="+f);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{3. 本程序显示数组的长度及每个数组元素的值。}
+
+\begin{lstlisting}[language=Java, caption=显示数组的长度及每个数组元素的值]
+public class ArrayLength {
+    public ArrayLength() {
+    }
+    public static void main(String[] args){
+        int c[]=new int[]{1,4,7,2,5};
+        System.out.println("the Length is "+c.length);
+        for(int i=0;i<c.length;i++)
+            System.out.println("c["+i+"]="+c[i]);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{4. 本程序求1到100的和。}
+
+\begin{lstlisting}[language=Java, caption=求1到100的和]
+public class Sum {
+    public Sum() {
+    }
+    public static void main(String[] args){
+        int i=1,sum=0; // 分别表示个数与累加和
+        do{
+            sum=sum+i; // 进行累加求和
+            i=i+1; // 进行个数加
+        }while(i<=100);
+        System.out.println("1+2+3+...+100="+sum); // 输出累加的最后结果
+    }
+}
+\end{lstlisting}
+
+\subsection{知识点: 异常}
+
+\subsubsection{1. 本程序为从控制台读取一个字符}
+
+\begin{lstlisting}[language=Java, caption=从控制台读取一个字符]
+public class SqrtException {
+    public SqrtException() {
+    }
+    public static void main(String[] args){
+        try {
+            int ch=System.in.read();
+        } catch (Exception e) {
+            System.out.println(e.getMessage()); // 显示异常信息
+        }finally{
+            System.out.println("into finally");
+        }
+    }
+}
+\end{lstlisting}
+
+\subsubsection{2. 本程序为把字符串转换为相应的整形数值。}
+
+\begin{lstlisting}[language=Java, caption=字符串转换为整型数值]
+public class ExT {
+    public ExT() {
+    }
+    public static void main(String[] args) {
+        int n=0,m=0,t=555;
+        try{
+            m=Integer.parseInt("8888");
+            n=Integer.parseInt("abc789");
+            t=9999;
+        } catch (NumberFormatException e){
+            System.out.println("发生异常:"+e.getMessage());
+            e.printStackTrace(); // 打印异常信息在程序中出错的位置及原因
+            n=123;
+            System.out.println("n="+n+",t="+t);
+        }
+    }
+}
+\end{lstlisting}
+
+\subsubsection{3. 本程序为读取一个文本文件}
+
+\begin{lstlisting}[language=Java, caption=读取一个文本文件]
+import java.io.*;
+public class Test {
+    public static void main(String[] args) {
+        FileInputStream fis = null;
+        try{
+            fis=new FileInputStream("c:/a.txt");
+            int b;
+            b = fis.read();
+            while(b!=-1){
+                System.out.print((char)b);
+                b= fis.read();
+            }
+            // 移到finally中去执行
+            // fis.close ();
+        }catch(Exception e){
+            System.out.println("错了!!!!!!!!!!!");
+        }finally{
+            try{
+                fis.close();
+            }catch(IOException ioe){
+                System.out.println("关闭文件出错!");
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+\subsubsection{4. 本程序中MyException为自定义异常类,Test类中对输入的字符串进行测试,如果不是"食物",则抛出异常。}
+
+\begin{lstlisting}[language=Java, caption=自定义异常测试]
+public class Test {
+    void eating (String s) throws Exception {
+        if(s.equals("食物"))
+            System.out.println("真好吃啊!");
+        else
+            throw new MyException("不是食物不能吃啊");
+    }
+    public static void main(String[] args) {
+        Test person= new Test();
+        try{
+            person.eating("不是食物");
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+}
+class MyException extends Exception {
+    public MyException () {
+        super();
+    }
+    public MyException (String s) {
+        super(s);
+    }
+}
+\end{lstlisting}
+
+\subsection{知识点: 数组}
+
+\subsubsection{1. 本程序为定义一个整型数组,输出数组的长度}
+
+\begin{lstlisting}[language=Java, caption=输出数组长度]
+public class ArrayDf {
+    public static void main(String[] args) {
+        int [] intArray;
+        intArray = new int[10];
+        System.out.println("数组长度:"+intArray.length);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{2. 本程序利用数组输出20以内的奇数}
+
+\begin{lstlisting}[language=Java, caption=输出20以内的奇数]
+public class DynaInitArray {
+    public static void main(String[] args) {
+        int[] a;
+        a=new int[10];
+        for(int i=0;i<10;i++)
+            a[i]=2*i+1;
+        System.out.println("a[i]="+a[i]); // 注意: 此句在循环外,会输出最后一个元素
+    }
+}
+\end{lstlisting}
+
+\subsubsection{3. 本程序为把数组a的第四个数组元素值修改为31,并显示修改前和修改后数组a的全部数组元素}
+
+\begin{lstlisting}[language=Java, caption=修改数组元素并显示]
+public class ArrayCopy {
+    public static void main(String[] args) {
+        int[] a = {12,3,19,2,10,1,9};
+        int[] b;
+        b =a;
+        System.out.print("Before Modifying:");
+        for (int i=0;i<a.length;i++)
+            System.out.print("a["+i+"]="+a[i]+" ");
+        System.out.println("");
+        b[3]=31;
+        System.out.print("After Modifying:");
+        for (int i=0;i<a.length;i++)
+            System.out.print("a["+i+"]="+a[i]+" ");
+    }
+}
+\end{lstlisting}
+
+\subsubsection{4. 本程序为把数组a的部分数组元素拷贝到数组b的后5个数组元素中,并且显示出数组b经修改前、后的数组元素值。}
+
+\begin{lstlisting}[language=Java, caption=数组部分拷贝]
+public class ArrayCopy2 {
+    public static void main(String[] args) {
+        int[]a= new int[10];
+        int[]b=new int[10];
+        System.out.print("Before Copying:");
+        for(int i=0;i<10;i++){
+            a[i]=i+1;
+            b[i]=(i+1)*100;
+            System.out.print("b["+i+"]="+b[i]+" ");
+        }
+        System.out.println("");
+        System.arraycopy(a, 2, b, 5, 5);
+        System.out.print("After Copying:");
+        for(int i=0;i<b.length;i++)
+            System.out.print("b["+i+"]="+b[i]+" ");
+    }
+}
+\end{lstlisting}
+
+\subsection{知识点: 线程}
+
+\subsubsection{1. 本程序利用线程显示1-99之间的数}
+
+\begin{lstlisting}[language=Java, caption=线程显示1-99]
+public class TestThread extends Thread {
+    public void run(){
+        for(int i=0;i<100;i++)
+            System.out.println("Count:"+i);
+    }
+    public static void main(String[] args) {
+        TestThread tt = new TestThread();
+        tt.start();
+    }
+}
+\end{lstlisting}
+
+\subsubsection{2. 本程序利用线程显示0-9之间的所有整数}
+
+\begin{lstlisting}[language=Java, caption=线程显示0-9]
+public class RunnableThread implements Runnable {
+    // 实现接口Runnable中的run方法
+    public void run(){
+        for (int k=0;k<10;k++)
+            System.out.println("Count:"+k);
+    }
+    public static void main(String[] args) {
+        RunnableThread rt = new RunnableThread();
+        Thread t = new Thread (rt);
+        t.start();
+    }
+}
+\end{lstlisting}
+
+\subsubsection{3. 本程序在显示0-30之间的整数时,每隔10个数,休眠2秒。}
+
+\begin{lstlisting}[language=Java, caption=线程休眠示例]
+public class ThreadState {
+    public static void main(String[] args) {
+        TestThreadState tts = new TestThreadState();
+        Thread t = new Thread(tts);
+        t.start();
+    }
+}
+class TestThreadState implements Runnable {
+    public void run(){
+        for(int i=0; i<30;i++){
+            if(i%10==0 && i!=0)
+                try{
+                    System.out.println("Before sleeping:"+Thread.currentThread().isAlive());
+                    Thread.sleep(2000);
+                    System.out.println("After sleeping:"+Thread.currentThread().isAlive());
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            System.out.println("No."+i);
+        }
+    }
+}
+\end{lstlisting}
+
+\subsubsection{4. 本程序利用2个线程分别显示0-19之间的整数}
+
+\begin{lstlisting}[language=Java, caption=两个线程显示0-19]
+public class MutiThread {
+    public static void main(String[] args) {
+        RunningObject ro= new RunningObject();
+        Thread t1 = new Thread (ro,"1st");
+        Thread t2= new Thread (ro,"2nd");
+        t1.start();
+        t2.start();
+    }
+}
+class RunningObject implements Runnable {
+    public void run(){
+        for(int i=0;i<20;i++){ 
+            String name = Thread.currentThread().getName(); 
+            System.out.println(name +":"+i); 
+        }
+    }
+}
+\end{lstlisting}
+
+\section{程序运行结果}
+
+\subsection{知识点: 线程}
+
+\subsubsection{1.}
+
+\begin{lstlisting}[language=Java, caption=两个水果线程]
+class FruitThread extends Thread { 
+    public FruitThread (String name){ 
+        super (name);
+    }
+    public void run(){
+        System.out.println(this.getName());
+        System.out.println("Done"+this.getName());
+    }
+}
+public class TwoFruit {
+    public static void main(String[] args){
+        new FruitThread("苹果").start();
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+苹果
+Done苹果
+\end{lstlisting}
+
+\subsubsection{2.}
+
+\begin{lstlisting}[language=Java, caption=线程计数]
+public class ThreadRunnable implements Runnable {
+    int count =1, number;
+    public ThreadRunnable(int num) {
+        number=num;
+        System.out.println("创建线程"+number);
+    }
+    public void run(){
+        while(true){
+            System.out.println("线程"+number+":计数"+count);
+            if(++count==3) return;
+        }
+    }
+    public static void main(String[] args) {
+        new ThreadRunnable(1).start(); // 注意: 原题类名myThread应为ThreadRunnable
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+创建线程1
+线程1:计数1
+线程1:计数2
+\end{lstlisting}
+
+\subsubsection{3.}
+
+\begin{lstlisting}[language=Java, caption=输出素数]
+public class test implements Runnable{ 
+    public void run(){ 
+        for(int i=3;i<=15;i++){ 
+            if(isPrime(i)) 
+                System.out.print(i+"\t");
+        }
+    }
+    public boolean isPrime (int n) {
+        boolean b=true;
+        for(int i=2;i<n-1 && b;i++){
+            if((n%i)==0) b=false;
+        }
+        return b;
+    }
+    public static void main(String[] args) {
+        Thread a=new Thread (new test());
+        a.start();
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+3	5	7	11	13	
+\end{lstlisting}
+
+\subsubsection{4.}
+
+\begin{lstlisting}[language=Java, caption=线程中断示例]
+class threadA implements Runnable {
+    public void run(){
+        for(int i=0;i<10;i++){
+            System.out.println("i="+i);
+            if(i==2) break;
+        }
+    }
+}
+public class test {
+    public static void main(String[] args) {
+        Thread a=new Thread (new threadA());
+        a.start();
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+i=0
+i=1
+i=2
+\end{lstlisting}
+
+\subsection{知识点: 流}
+
+\subsubsection{1.}
+
+\begin{lstlisting}[language=Java, caption=读取控制台字符]
+import java.io.*; 
+public class Untitled2 { 
+    public static void main(String[] args) throws IOException{
+        int count=0,b;
+        System.out.print("please input data:");
+        while((char)(b=System.in.read())!='N'){
+            System.out.print((char)b);
+            count++;
+        }
+        System.out.println();
+        System.out.println("you have input "+count+" chars!");
+    }
+}
+\end{lstlisting}
+
+\textbf{键盘输入的内容:} 1234N \\
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+please input data:1234
+you have input 4 chars!
+\end{lstlisting}
+
+\subsubsection{2.}
+
+\begin{lstlisting}[language=Java, caption=FileInputStream读取文件]
+public class FileInputStreamTest {
+    public static void main(String[] args)throws Exception{
+        String str="12345";
+        File file=new File("test.txt");
+        FileInputStream fis=new FileInputStream(file);
+        byte bytes[]=new byte[fis.available()];
+        fis.read(bytes);
+        fis.close();
+        System.out.println(new String(bytes));
+    }
+}
+\end{lstlisting}
+
+\textbf{注:} test.txt文件中的内容是abcdef \\
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+abcdef
+\end{lstlisting}
+
+\subsubsection{3.}
+
+\begin{lstlisting}[language=Java, caption=BufferedReader读取文件]
+import java.io.*;
+public class FileInputStreamTest {
+    static String name="test.txt";
+    static BufferedReader br=null;
+    public static void main(String[] args) throws Exception{
+        try{
+            File f=new File (name);
+            FileReader fr=new FileReader(f);
+            br=new BufferedReader (fr);
+            String str=br.readLine();
+            System.out.println(str.toLowerCase());
+        }finally{ 
+            if (br!=null) 
+                br.close();
+        }
+    }
+}
+\end{lstlisting}
+
+\textbf{注:} test.txt文件中的内容:aBcDEfG \\
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+abcdefg
+\end{lstlisting}
+
+\subsubsection{4.}
+
+\begin{lstlisting}[language=Java, caption=FileOutputStream写入文件]
+import java.io.*;
+public class FileInputStreamTest {
+    static String name="test.txt";
+    public static void main(String[] args)throws Exception{
+        try{
+            FileOutputStream fos=createfile();
+            writeFile (fos);
+        }catch(IOException ioe){
+            System.out.println(ioe.getMessage());
+        }
+    }
+    static FileOutputStream createfile() throws IOException {
+        File f=new File (name);
+        FileOutputStream fos=new FileOutputStream(f);
+        return fos;
+    }
+    static void writeFile (FileOutputStream o) throws IOException{
+        DataOutputStream dos=null;
+        try{
+            dos=new DataOutputStream(o);
+            dos.writeBytes ("Hello".toUpperCase());
+        }finally{
+            if (dos!=null)dos.close();
+        }
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行以后,test.txt文件中的内容是:}
+\begin{lstlisting}[style=output]
+HELLO
+\end{lstlisting}
+
+\subsection{知识点: 类、对象、函数}
+
+\subsubsection{1.}
+
+\begin{lstlisting}[language=Java, caption=方法重载示例]
+class Example {
+    static double PI=3.14156;
+    static double area(int r){
+        return PI*r*r;
+    }
+    static float area(int p_width, int p_high){
+        return p_width*p_high;
+    }
+    static double area(int a,int b,int c){
+        double s=(a+b+c)/2;
+        return Math.sqrt(s*(s-a)*(s-b)*(s-c)); // sqrt功能是开方
+    }
+    public static void main(String args[]){
+        int a=5,b=4,c=3;
+        System.out.println("圆的面积:"+area(a));
+        System.out.println("长方形的面积:"+area(a,b));
+        System.out.println("三角形的面积:"+area(a,b,c));
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+圆的面积:78.539
+长方形的面积:20.0
+三角形的面积:6.0
+\end{lstlisting}
+
+\subsubsection{2.}
+
+\begin{lstlisting}[language=Java, caption=继承中的变量隐藏]
+class al {
+    {int x=9;}
+}
+class cc extends al {
+    int x=25;
+    public static void main(String args[]){
+        int s1,s2;
+        al p=new al();
+        cc p1=new cc();
+        s1=p.x;
+        s2=p1.x;
+        System.out.println("s1"+s1);
+        System.out.println("s2"+s2);
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+s19
+s225
+\end{lstlisting}
+
+\subsubsection{3.}
+
+\begin{lstlisting}[language=Java, caption=接口常量与实现]
+public class A implements B {
+    {static int m;}
+    public static void main(String args[]){
+        m=B.k;
+        System.out.println(m);
+        A a=new A();
+        a.myMethod();
+    }
+    public void myMethod(){
+        System.out.println(++m);
+    }
+}
+interface B {
+    int k=5;
+    void myMethod();
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+5
+6
+\end{lstlisting}
+
+\subsubsection{4.}
+
+\begin{lstlisting}[language=Java, caption=继承中的方法重写]
+class Person {
+    public String name;
+    public int age;
+    public void show(){
+        System.out.println("name="+ name);
+        System.out.println("age="+age);
+    }
+}
+class Student extends Person {
+    public String school;
+    public void show (){
+        super.show();
+        System.out.println("school="+school);
+    }
+}
+public class Test5 {
+    public static void main(String[] args){
+        Student s1=new Student();
+        s1.name="张三";
+        s1.age=20;
+        s1.school="长春职业技术学院";
+        Person p1=s1;
+        p1.show();
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:}
+\begin{lstlisting}[style=output]
+name=张三
+age=20
+school=长春职业技术学院
+\end{lstlisting}
+
+\subsection{知识点: 循环结构}
+
+\subsubsection{1.}
+
+\begin{lstlisting}[language=Java, caption=嵌套while循环]
+public class Test {
+    public static void main(String[] args){
+        int sum=3,a=4,b=6,c=7;
+        while(a<b){
+            while (b!=c){
+                sum+=b;
+                b++;
+            }
+            b=6;
+            a++;
+        }
+        System.out.println(sum);
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:} 15
+
+\subsubsection{2.}
+
+\begin{lstlisting}[language=Java, caption=for循环与break]
+public class Test {
+    public static void main(String[] args) {
+        int x=10;
+        for(int i=5;i<20;i++){
+            if(i==10) break;
+            x++;
+        }
+        System.out.println(x);
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:} 15
+
+\subsubsection{3.}
+
+\begin{lstlisting}[language=Java, caption=do-while循环]
+public class Test {
+    public static void main(String[] args) {
+        int a=16,b=2;
+        do{
+            a/=b;
+        }while(a>3);
+        System.out.println(a);
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:} 2
+
+\subsubsection{4.}
+
+\begin{lstlisting}[language=Java, caption=continue与break]
+public class Test {
+    public static void main(String[] args) {
+        for(int i=0;i<10;i++){
+            if(i%2==0) continue;
+            if(i%7==0) break;
+            System.out.print(i);
+        }
+    }
+}
+\end{lstlisting}
+
+\textbf{程序运行的结果是:} 135
+
+\section{操作题}
+
+\subsection{一、编写一个类: 梯形}
+
+\textbf{要求:}
+\begin{description}
+	\item[1.] 梯形类的名字、成员变量、方法均为中文名称;
+	\item[2.] 测试类的名字使用题目给出的英文名称;
+	\item[3.] 梯形类和测试类放在一个文件中进行编写;
+	\item[4.] 程序的入口类为测试类;
+\end{description}
+
+\textbf{程序运行情况:}
+\begin{enumerate}
+	\item 使用无参数的构造方法建立对象t1,调用其计算面积方法,在控制台输出面积的值。
+	\item 使用有参数的构造方法建立对象t2,上底初始值设为2.0f,下底初始值设为3.0f,高的初始值设为4.0f,调用其计算面积方法,在控制台输出面积的值。
+\end{enumerate}
+
+\textbf{评分标准:}
+\begin{enumerate}
+	\item 正确建立梯形类的4个成员变量(3分)
+	\item 正确建立无参数的构造方法(2分)
+	\item 正确建立有参数的构造方法(4分)
+	\item 正确建立计算面积方法(6分)
+	\item 正确建立测试类(3分)
+	\item 正确建立对象t1,(2分)
+	\item 正确输出t1的普通方法,(3分)
+	\item 正确建立对象t2,(4分)
+	\item 正确输出t2的普通方法,(3分)
+\end{enumerate}
+
+\textbf{正确答案:}
+
+\begin{lstlisting}[language=Java, caption=梯形类与测试]
+public class Test {
+    public Test() {
+    }
+    public static void main(String[] args){
+        梯形 t1 = new 梯形();
+        System.out.println(t1.计算面积());
+        梯形 t2 = new 梯形(2.0f,3.0f,4.0f);
+        System.out.println(t2.计算面积());
+    }
+}
+class 梯形 {
+    float 上底, 下底, 高, 面积;
+    梯形() {
+    }
+    梯形(float 上底, float 下底, float 高) {
+        this.上底 = 上底;
+        this.下底 = 下底;
+        this.高 = 高;
+    }
+    public float 计算面积() {
+        面积 = (上底 + 下底) / 2 * 高; // 原题答案缺少乘以高,此处修正
+        return 面积;
+    }
+}
+\end{lstlisting}
+
+\textbf{注意:} 原题提供的正确答案中面积计算公式缺少乘以高，已根据梯形面积公式修正。
+
+\subsection{二、编写一个类: People}
+
+\textbf{要求:}
+\begin{description}
+	\item[1.] 类名、成员变量名、方法名分别使用题目给出的英文命名;
+	\item[2.] People类和测试类放在一个文件中进行编写;
+	\item[3.] 程序的入口类为测试类;
+\end{description}
+
+\textbf{程序运行情况:}
+\begin{enumerate}
+	\item 使用无参数的构造方法建立对象p1,调用其show()方法,在控制台能够查看输出。
+	\item 使用带有一个参数的构造方法建立对象p2,name值设为"马晓春",调用其show()方法,在控制台能够查看输出。
+	\item 使用带有2个参数的构造方法建立对象p3,name值设为"常昊",age设为34,调用其show()方法,在控制台能够查看输出。
+	\item 使用带有3个参数的构造方法建立对象p4,name值设为"聂卫平",age设为58,sex设为"男",调用其show()方法,在控制台能够查看输出。
+\end{enumerate}
+
+\textbf{评分标准:}
+\begin{enumerate}
+	\item 正确建立People类的属性3分
+	\item 正确建立People类的无参数构造方法2分
+	\item 正确建立People类的有参数的三个构造方法9分
+	\item 正确建立People类的show()方法5分
+	\item 正确建立测试类3分
+	\item 正确建立People类的4个对象4分
+	\item 4个对象正确调用其show方法4分
+\end{enumerate}
+
+\textbf{正确答案:}
+
+\begin{lstlisting}[language=Java, caption=People类与测试]
+public class Test {
+    public Test() {
+    }
+    public static void main(String[] args){
+        People p1 = new People();
+        p1.show();
+        People p2 = new People("马晓春");
+        p2.show();
+        People p3 = new People("常昊",34);
+        p3.show();
+        People p4 = new People("聂卫平",58,"男");
+        p4.show();
+    }
+}
+class People {
+    String name, sex;
+    int age;
+    People() {
+    }
+    People (String name) {
+        this.name = name;
+    }
+    People(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    People(String name, int age, String sex) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
+    public void show() {
+        System.out.println("姓名为:"+name+",年龄为:"+age+",性别为:"+sex);
+    }
+}
+\end{lstlisting}
+
+\subsection{三、编写一个类: Dog}
+
+\textbf{要求:}
+\begin{description}
+	\item[1.] 类名、成员变量名、方法名分别使用题目给出的英文命名;
+	\item[2.] 程序的入口即为Dog类;
+	\item[3.] setWeight()的参数名为weight,数据类型与成员变量的数据类型相同;
+	\item[4.] Get方法要求有返回值;
+	\item[5.] 测试时为成员变量赋值使用带有参数的构造方法以及set方法;
+	\item[6.] 测试时获取成员变量的值必须使用get方法。
+\end{description}
+
+\textbf{程序运行情况:}
+\begin{enumerate}
+	\item 正确使用无参数的构造方法创建对象d1。
+	\item 正确使用带参数的构造方法创建对象d2,并同时为weight赋初值。
+	\item d1使用set方法为weight赋初值。
+	\item 分别调用d1以及d2的get()方法完成在控制台的输出。
+\end{enumerate}
+
+\textbf{评分标准:}
+\begin{enumerate}
+	\item 正确定义weight成员变量(2分)
+	\item 正确定义无参数的构造方法(2分)
+	\item 正确定义有参数的构造方法(3分)
+	\item 正确定义weight的set()方法(5分)
+	\item 正确定义weight的get()方法(5分)
+	\item 正确使用无参数构造方法创建对象d1(2分)
+	\item 正确使用有参数构造方法创建对象d2(3分)
+	\item 正确调用set()方法(2分)
+	\item 正确调用get()方法,且显示输出(6分)
+\end{enumerate}
+
+\textbf{正确答案:}
+
+\begin{lstlisting}[language=Java, caption=Dog类测试]
+public class Dog {
+    private int weight;
+    public Dog() {
+    }
+    public Dog (int dog_weight) {
+        weight = dog_weight;
+    }
+    public void setWeight (int weight) {
+        this.weight = weight;
+    }
+    public int getWeight() {
+        return weight;
+    }
+    public static void main(String[] args) {
+        Dog d1 = new Dog(15);
+        System.out.println("使用带参数的构造方法,狗的体重为:"+d1.getWeight());
+        Dog d2 = new Dog();
+        d2.setWeight(20);
+        System.out.println("使用无参数的构造方法,狗的体重为:"+d2.getWeight());
+    }
+}
+\end{lstlisting}
+
+\subsection{四、编写一个类: Student}
+
+\textbf{要求:}
+\begin{description}
+	\item[1.] 类名、成员变量名、方法名分别使用题目给出的英文命名;
+	\item[2.] 程序的入口即为Student类;
+	\item[3.] setName()的参数名为name,数据类型与成员变量的数据类型相同,setSex()的参数名为sex,数据类型与成员变量的数据类型相同,setGrade()的参数名为grade,数据类型与成员变量的数据类型相同,setAge()的参数名为age,数据类型与成员变量的数据类型相同。
+	\item[4.] Get方法要求有返回值;
+	\item[5.] 测试时为成员变量赋值必须使用set方法;
+	\item[6.] 测试时获取成员变量的值必须使用get方法。
+\end{description}
+
+\textbf{程序运行情况:}
+\begin{enumerate}
+	\item 定义Student类的对象s;
+	\item 调用对象s的setName()方法,为name赋值为"张三";
+	\item 调用对象s的setSex()方法,为sex赋值为"男";
+	\item 调用对象s的setGrade()方法,为grade赋值为1;
+	\item 调用对象s的setAge()方法,为age赋值为20;
+	\item 调用对象s相应的get()方法,在控制台输出显示"姓名:张三性别:男年级:1年龄20"。
+\end{enumerate}
+
+\textbf{评分标准:}
+\begin{enumerate}
+	\item 正确定义4个属性(4分)
+	\item 正确定义4个属性的set()方法(8分)
+	\item 正确定义4个属性的get()方法(8分)
+	\item 正确定义Student类的对象S(2分)
+	\item 正确为属性赋值(4分)
+	\item 程序正常运行,显示输出结果(4分)
+\end{enumerate}
+
+\textbf{正确答案:}
+
+\begin{lstlisting}[language=Java, caption=Student类测试]
+public class Student {
+    // 定义属性
+    String name;
+    String sex;
+    int grade;
+    int age;
+    // 定义属性"name"的设置方法
+    public void setName(String name) {
+        this.name = name;
+    }
+    // 定义属性"name"的获取方法
+    public String getName() {
+        return name;
+    }
+    // 定义属性"sex"的设置方法
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    // 定义属性"sex"的获取方法
+    public String getSex() {
+        return sex;
+    }
+    // 定义属性"grade"的设置方法
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+    // 定义属性"grade"的获取方法
+    public int getGrade() {
+        return grade;
+    }
+    // 定义属性"age"的设置方法
+    public void setAge(int age) {
+        this.age = age;
+    }
+    // 定义属性"age"的获取方法
+    public int getAge() {
+        return age;
+    }
+    // 主方法
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.setName("张三");
+        s.setSex("男");
+        s.setGrade(1);
+        s.setAge(20);
+        System.out.println("姓名:"+s.getName()+"性别:"+s.getSex()+"年级:"+s.getGrade()+"年龄"+s.getAge());
+    }
+}
+\end{lstlisting}
+
+\end{document}

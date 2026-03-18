@@ -1,0 +1,1582 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbset{autoparskip}
+
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={Java API - 逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    breakable,
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{Java API - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月05日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{Java API}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下哪个方法可以将字符串转换为整数？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item parseInt()
+		      \item valueOf()
+		      \item toString()
+		      \item toInteger()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. parseInt()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Integer类的静态方法功能区分
+			      \item \textbf{关键区分点}：parseXxx返回基本类型，valueOf返回包装类对象
+			      \item \textbf{命题人意图}：测试对包装类方法返回类型的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{parseInt() — 正确（返回基本类型int）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码层面}：调用Integer.parseInt返回int类型，不产生对象
+				            \item \textbf{方法签名}：public static int parseInt(String s) throws NumberFormatException
+				            \item \textbf{使用场景}：需要基本类型计算时使用
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+int value = Integer.parseInt("123");
+// 字节码：invokestatic Integer.parseInt
+// 直接返回基本类型，无需拆箱
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{valueOf() — 错误（返回包装类Integer对象）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：public static Integer valueOf(String s)
+				            \item \textbf{返回类型}：Integer对象，不是int
+				            \item \textbf{字节码}：调用Integer.valueOf后返回引用类型
+				            \item \textbf{缓存机制}：-128~127范围内返回缓存对象
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+Integer obj = Integer.valueOf("123");
+// 返回包装类对象，需用intValue()获取int值
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{toString() — 错误（反向转换）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 功能：将其他类型转为字符串
+				            \item 即Integer.toString(123)返回 String "123"
+				            \item 不是字符串转整数
+			            \end{itemize}
+
+			      \item[D] \textbf{toInteger() — 错误（不存在此方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item Integer类没有toInteger()方法
+				            \item 可能混淆了toString()和parseInt()
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item parseInt()：返回基本类型，无缓存
+			      \item valueOf()：返回包装类，有缓存(-128~127)
+			      \item 选项辨析：parse返回基本类型，valueOf返回对象，toString转字符串
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"字符串转整数"→选parseInt()
+		      \textbf{陷阱清单}：valueOf返回对象，需再调intValue()才得int
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{在Java中，以下哪个方法用于获取字符串的长度？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item length()
+		      \item size()
+		      \item count()
+		      \item getLength()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. length()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：区分字符串length()与集合size()
+			      \item \textbf{关键区分点}：String用length，集合用size
+			      \item \textbf{命题人意图}：测试API记忆的准确性
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{length() — 正确（字符串专用）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：public int length()
+				            \item \textbf{字节码}：底层调用String.value.length字段
+				            \item \textbf{底层实现}：String类使用private final char[] value存储字符，length()返回value.length
+				            \item \textbf{O(1)复杂度}：直接返回数组长度，不遍历
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+String s = "Hello";
+int len = s.length();
+// 字节码：getfield String.value, arraylength
+// 只是字段访问，非常快
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{size() — 错误（集合方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item String类没有size()方法
+				            \item size()是Collection接口方法
+				            \item \textbf{常见混淆}：ArrayList.size()、HashSet.size()
+			            \end{itemize}
+
+			      \item[C] \textbf{count() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item String类没有count()方法
+				            \item 某些库有countChars()等，非Java标准
+			            \end{itemize}
+
+			      \item[D] \textbf{getLength() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 典型误记：把length写成了getLength()
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item String.length() → 返回字符数
+			      \item Collection.size() → 返回元素个数
+			      \item 数组.length → 属性，不是方法
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"字符串长度"→选length()
+		      \textbf{记忆口诀}：字符串长度length，集合大小size，数组长度length(属性)
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于将字符串转换为大写？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item toUpperCase()
+		      \item upperCase()
+		      \item makeUpperCase()
+		      \item convertToUpperCase()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. toUpperCase()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：测试String类大小写转换方法
+			      \item \textbf{关键区分点}：to前缀是Java标准命名
+			      \item \textbf{命题人意图}：排除干扰项，记忆精确API
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{toUpperCase() — 正确（标准方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：public String toUpperCase()
+				            \item \textbf{返回新字符串}：原字符串不变（String不可变）
+				            \item \textbf{底层实现}：使用Character.toUpperCase()遍历每个字符
+				            \item \textbf{本地化支持}：可传Locale参数处理特殊语言
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+String s1 = "hello";
+String s2 = s1.toUpperCase();
+// s1仍为"hello"，s2为"HELLO"
+// 因为String不可变，返回新对象
+
+// 本地化版本
+String s3 = "ı"; // 土耳其语小写i
+s3.toUpperCase(); // "I" (错误)
+s3.toUpperCase(Locale.forLanguageTag("tr")); // "İ" (正确)
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{upperCase() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 某些语言用upperCase()，Java使用to前缀
+			            \end{itemize}
+
+			      \item[C] \textbf{makeUpperCase() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item GNU C++等库有类似命名，非Java
+			            \end{itemize}
+
+			      \item[D] \textbf{convertToUpperCase() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 过于冗长，不符合Java简洁命名习惯
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item toUpperCase()：转大写，返回新字符串
+			      \item toLowerCase()：转小写，返回新字符串
+			      \item String是不可变类，所有方法都返回新对象
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到转大写→选toUpperCase()
+		      \textbf{记忆技巧}：Java字符串方法都用toXxx()模式
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于将字符串转换为小写？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item toLowerCase()
+		      \item lowerCase()
+		      \item makeLowerCase()
+		      \item convertToLowerCase()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. toLowerCase()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：与toUpperCase对称，测试记忆对称性
+			      \item \textbf{关键区分点}：to前缀 + 首字母大写的驼峰命名
+			      \item \textbf{命题人意图}：确认对toLowerCase的准确记忆
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{toLowerCase() — 正确（标准方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：public String toLowerCase()
+				            \item \textbf{与toUpperCase对称}：唯一正确的转小写方法
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+String s = "HELLO";
+String low = s.toLowerCase();
+// low = "hello"，s仍为"HELLO"
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B/D] \textbf{其他选项 — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 同上题，均为干扰选项
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item toUpperCase() / toLowerCase() 成对记忆
+			      \item 都是to前缀 + 首字母大写 + Case()
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：转小写→toLowerCase()，与toUpperCase()对称
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于截取字符串？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item substring()
+		      \item cut()
+		      \item slice()
+		      \item truncate()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. substring()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查字符串截取方法命名
+			      \item \textbf{关键区分点}：substring暗示"子字符串"
+			      \item \textbf{命题人意图}：区分JavaScript slice()与Java substring()
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{substring() — 正确（Java标准方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：
+				                  \begin{lstlisting}[language=Java]
+public String substring(int beginIndex)
+public String substring(int beginIndex, int endIndex)
+				            \end{lstlisting}
+				            \item \textbf{参数说明}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 单参数：从beginIndex到末尾
+					                  \item 双参数：[beginIndex, endIndex) 左闭右开
+				                  \end{itemize}
+				            \item \textbf{底层实现}：创建新String对象，共享原char[]（Java7之后复制）
+				            \item \textbf{字节码}：调用String构造器
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+String s = "HelloWorld";
+String s1 = s.substring(5);      // "World"
+String s2 = s.substring(0, 5);   // "Hello"
+
+// 边界检查
+// s.substring(5, 5) → "" (空字符串)
+// s.substring(0, 10) → "HelloWorld"
+// s.substring(-1) → StringIndexOutOfBoundsException
+// s.substring(11) → StringIndexOutOfBoundsException
+				            \end{lstlisting}
+				            \item \textbf{性能注意}：循环中频繁substring可能产生大量临时对象
+			            \end{itemize}
+
+			      \item[B] \textbf{cut() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 某些语言有cut()方法，Java没有
+			            \end{itemize}
+
+			      \item[C] \textbf{slice() — 错误（JavaScript方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item JavaScript Array/String有slice()方法
+				            \item 跨语言陷阱：容易混淆
+			            \end{itemize}
+
+			      \item[D] \textbf{truncate() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item truncate通常用于文件截断，非方法名
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item substring(begin)：从begin到末尾
+			      \item substring(begin, end)：[begin, end) 左闭右开
+			      \item 选项辨析：substring是字符串专用，slice是数组/JS方法
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：截取字符串→substring()
+		      \textbf{高频陷阱}：endIndex是要截取到的位置左闭右开
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于判断字符串是否以指定字符串开头？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item startsWith()
+		      \item beginWith()
+		      \item isStartWith()
+		      \item hasStartWith()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. startsWith()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查字符串前缀/后缀判断方法
+			      \item \textbf{关键区分点}：Start/End + With + s（复数）
+			      \item \textbf{命题人意图}：测试对方法命名习惯的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{startsWith() — 正确（标准方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：
+				                  \begin{lstlisting}[language=Java]
+public boolean startsWith(String prefix)
+public boolean startsWith(String prefix, int toffset)
+				            \end{lstlisting}
+				            \item \textbf{底层实现}：比较String.value数组前缀字符
+				            \item \textbf{性能}：O(k)复杂度，k为prefix长度
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+String filename = "document.pdf";
+boolean isPdf = filename.startsWith(".pdf");
+System.out.println(isPdf);  // false (注意位置!)
+
+boolean isDoc = filename.startsWith("doc");
+System.out.println(isDoc);  // true
+
+// 带offset版本
+String s = "HelloWorld";
+boolean startsAt5 = s.startsWith("World", 5);  // true
+boolean startsAt0 = s.startsWith("World", 0);  // false
+				            \end{lstlisting}
+				            \item \textbf{空字符串}：s.startsWith("") 永远返回true
+				            \item \textbf{边界检查}：prefix为null抛出NPE
+			            \end{itemize}
+
+			      \item[B] \textbf{beginWith() — 错误（动词begin → start）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item verb naming: Start(begin) vs Begin
+				            \item Java用start不用begin
+			            \end{itemize}
+
+			      \item[C] \textbf{isStartWith() — 错误（is前缀是布尔判断）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item Java中布尔方法一般用is开头（如isEmpty()）
+				            \item 但startsWith()/endsWith()例外
+			            \end{itemize}
+
+			      \item[D] \textbf{hasStartWith() — 错误（语义不通）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item has通常用于"是否有"属性，不用于前缀判断
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item startsWith(prefix)：判断以前缀开始
+			      \item endsWith(suffix)：判断以后缀结束（对称记忆）
+			      \item 方法无s复数：StartWith是错误的
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：以前缀开头→startsWith()，与endsWith()成对
+		      \textbf{记忆口诀}：Start开始End结束，都要加With+s
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于判断字符串是否以指定字符串结尾？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item endsWith()
+		      \item finishWith()
+		      \item isEndWith()
+		      \item hasEndWith()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. endsWith()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：与startsWith对称，考查一致性记忆
+			      \item \textbf{关键区分点}：End + With + s，与Start完整对应
+			      \item \textbf{命题人意图}：测试方法的对称记忆能力
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{endsWith() — 正确（标准方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：public boolean endsWith(String suffix)
+				            \item \textbf{底层实现}：比较String.value数组后缀字符
+				            \item \textbf{与startsWith对称}：都是End/Start With
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+String filename = "report.pdf";
+boolean isPdf = filename.endsWith(".pdf");
+System.out.println(isPdf);  // true
+
+boolean isDoc = filename.endsWith(".doc");
+System.out.println(isDoc);  // false
+
+// 空字符串：始终true
+"Hello".endsWith("");  // true
+// null：抛出NPE
+"Hello".endsWith(null);  // NullPointerException
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B/C/D] \textbf{其他选项 — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 同startsWith题的干扰模式
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item endsWith(suffix)：判断以suffix结束
+			      \item start/End + With + s 背诵公式
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：以后缀结束→endsWith()
+		      \textbf{记忆技巧}：Start开始End结束，一对好基友一起记
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于在字符串中查找指定字符第一次出现的位置？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item indexOf()
+		      \item find()
+		      \item search()
+		      \item locate()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. indexOf()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查字符串查找方法的命名
+			      \item \textbf{关键区分点}：index（索引）vs search（搜索）
+			      \item \textbf{命题人意图}：区分indexOf返回索引值，search返回布尔/对象
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{indexOf() — 正确（返回索引位置）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：
+				                  \begin{lstlisting}[language=Java]
+public int indexOf(int ch)
+public int indexOf(String str)
+public int indexOf(int ch, int fromIndex)
+public int indexOf(String str, int fromIndex)
+				            \end{lstlisting}
+				            \item \textbf{返回值规则}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 找到：返回第一次出现的位置（从0开始）
+					                  \item 未找到：返回-1（约定俗成）
+				                  \end{itemize}
+				            \item \textbf{底层实现}：遍历char[]数组，比较每个字符
+				            \item \textbf{性能}：O(n)复杂度，n为字符串长度
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+String s = "HelloWorld";
+System.out.println(s.indexOf('l'));      // 2 (第一个'l')
+System.out.println(s.indexOf("World"));  // 5
+System.out.println(s.indexOf('z'));      // -1 (不存在)
+
+// 带fromIndex版本
+String s = "ababab";
+System.out.println(s.indexOf('b', 2));   // 3 (从索引2开始找)
+
+// 注意：区分int和String参数
+s.indexOf('H');  // 字符参数，找H的位置 → 0
+s.indexOf("H");  // 字符串参数，找"H"的位置 → 0
+				            \end{lstlisting}
+				            \item \textbf{命题陷阱}：返回-1不是异常，0是有效索引
+			            \end{itemize}
+
+			      \item[B] \textbf{find() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item C++的string::find，Java没有
+			            \end{itemize}
+
+			      \item[C] \textbf{search() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item JavaScript有search()，返回匹配索引或-1
+				            \item Java中Pattern/Matcher有find()返回boolean
+			            \end{itemize}
+
+			      \item[D] \textbf{locate() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item locate通常用于定位文件、资源等
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item indexOf(char)：查找字符第一次出现，返回索引或-1
+			      \item indexOf(String)：查找子串第一次出现
+			      \item 未找到返回-1，找到返回第一次位置
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：查找位置→indexOf()
+		      \textbf{高频陷阱}：返回-1不是0，0是第一个字符有效位置
+		      \textbf{对仗记忆}：indexOf找第一次，lastIndexOf找最后一次
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个方法用于在字符串中查找指定字符最后一次出现的位置？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item lastIndexOf()
+		      \item findLast()
+		      \item searchLast()
+		      \item locateLast()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. lastIndexOf()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：与indexOf对称，考查反方向查找
+			      \item \textbf{关键区分点}：last + Index + Of，与indexOf对应
+			      \item \textbf{命题人意图}：测试对正反向查找方法的完整记忆
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{lastIndexOf() — 正确（反向查找）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：
+				                  \begin{lstlisting}[language=Java]
+public int lastIndexOf(int ch)
+public int lastIndexOf(String str)
+public int lastIndexOf(int ch, int fromIndex)
+public int lastIndexOf(String str, int fromIndex)
+				            \end{lstlisting}
+				            \item \textbf{搜索方式}：从字符串末尾向前搜索
+				            \item \textbf{返回值规则}：同indexOf（找到返回索引，未找到返回-1）
+				            \item \textbf{底层实现}：逆序遍历char[]数组
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+String s = "ababab";
+System.out.println(s.indexOf('a'));    // 0 (第一个)
+System.out.println(s.lastIndexOf('a')); // 4 (最后一个)
+
+// 查找子串
+String s2 = "HelloHello";
+System.out.println(s2.indexOf("Hello"));     // 0
+System.out.println(s2.lastIndexOf("Hello")); // 5
+
+// fromIndex参数：反向搜索的起点
+String s3 = "banana";
+// 从索引3开始向前搜索'a'
+System.out.println(s3.lastIndexOf('a', 3)); // 1 (不是3)
+// 解释：从索引3(即'n')向前找，遇到索引1的'a'
+				            \end{lstlisting}
+				            \item \textbf{常见场景}：解析路径、提取文件扩展名
+			            \end{itemize}
+
+			      \item[B/C/D] \textbf{其他选项 — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 与indexOf类似，都是为干扰词
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item indexOf：从左往右找第一次
+			      \item lastIndexOf：从右往左找最后一次
+			      \item 都返回索引，找不到返回-1
+			      \item 对仗记忆：第一次/最后一次 ↔ indexOf/lastIndexOf
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：最后一次出现→lastIndexOf()
+		      \textbf{记忆口诀}：first用indexOf，last用lastIndexOf，找不到都是-1
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中的包装类的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 包装类可以将基本数据类型转换为对象
+		      \item Integer是int的包装类
+		      \item 包装类的对象不可变
+		      \item 包装类可以提高基本数据类型的操作效率
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 包装类可以提高基本数据类型的操作效率}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查包装类的本质特性和适用场景
+			      \item \textbf{关键区分点}：包装类带来的是"对象能力"而非"性能提升"
+			      \item \textbf{命题人意图}：纠正"包装类=更好性能"的常见误解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{包装类可以将基本数据类型转换为对象 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{基本作用}：为基本类型提供对象形式
+				            \item \textbf{应用场景}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 泛型要求使用对象类型（List<Integer>不可用int）
+					                  \item 集合只能存储对象
+					                  \item 需要null值表示"无数据"
+				                  \end{itemize}
+				            \item \textbf{自动装箱/拆箱}：
+				                  \begin{lstlisting}[language=Java]
+Integer obj = 100;    // 自动装箱 int → Integer
+int val = obj;        // 自动拆箱 Integer → int
+
+// 编译器等价于：
+Integer obj = Integer.valueOf(100);
+int val = obj.intValue();
+
+// 字节码验证：
+// 自动装箱：invokestatic Integer.valueOf(I)Ljava/lang/Integer;
+// 自动拆箱：invokevirtual Integer.intValue()I
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{Integer是int的包装类 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{8大包装类}：
+				                  \begin{tabular}{|l|l|}
+					                  \hline
+					                  \textbf{基本类型} & \textbf{包装类} \\ \hline
+					                  byte          & Byte         \\ \hline
+					                  short         & Short        \\ \hline
+					                  int           & Integer      \\ \hline
+					                  long          & Long         \\ \hline
+					                  float         & Float        \\ \hline
+					                  double        & Double       \\ \hline
+					                  char          & Character    \\ \hline
+					                  boolean       & Boolean      \\ \hline
+				                  \end{tabular}
+				            \item \textbf{命名单词差异}：int→Integer，char→Character，其他首字母大写
+				            \item \textbf{原因}：避免与关键字冲突（Integer是完整拼写）
+			            \end{itemize}
+
+			      \item[C] \textbf{包装类的对象不可变 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{不可变性证据}：
+				                  \begin{lstlisting}[language=Java]
+public final class Integer extends Number {
+    private final int value;  // final字段
+
+    public Integer(int value) {
+        this.value = value;
+    }
+    // 没有setter方法
+}
+				            \end{lstlisting}
+				            \item \textbf{字节码}：所有构造后value字段不可修改
+				            \item \textbf{衍生结果}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 修改操作返回新对象（++ Integer值会创建新对象）
+					                  \item 线程安全（final字段保证可见性）
+					                  \item 可以安全缓存（Integer.valueOf()使用缓存）
+				                  \end{itemize}
+				            \item \textbf{性能影响}：频繁修改基本类型会创建大量临时对象
+			            \end{itemize}
+
+			      \item[D] \textbf{包装类可以提高基本数据类型的操作效率 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{性能对比}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item \textbf{内存占用}：int占用4字节，Integer对象占用16+字节（对象头+字段+填充）
+					                  \item \textbf{访问开销}：int直接访问栈内存，Integer需对象引用+解引用
+					                  \item \textbf{缓存机制}：-128~127范围的Integer使用缓存（IntegerCache），但也有限制
+					                  \item \textbf{计算性能}：Integer需拆箱才能计算（intValue()调用）
+				                  \end{itemize}
+				            \item \textbf{性能测试证据}：
+				                  \begin{lstlisting}[language=Java]
+// 测试1：基本类型循环
+long start = System.nanoTime();
+for (int i = 0; i < 100_000_000; i++) {
+    int sum = i + 1;
+}
+// 耗时：约50ms
+
+// 测试2：包装类循环
+long start = System.nanoTime();
+for (Integer i = 0; i < 100_000_000; i++) {
+    Integer sum = i + 1;  // 每次都拆箱+装箱
+}
+// 耗时：约500ms（慢10倍）
+
+// 字节码原因：
+// 1. 每次i++调用Integer.valueOf()
+// 2. 每次i.intValue()拆箱
+// 3. 频繁的对象创建和GC压力
+				            \end{lstlisting}
+				            \item \textbf{正确理解}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 包装类提供"对象能力"（泛型、集合、null）
+					                  \item 但不提供"性能优势"
+					                  \item 反而会有额外开销
+					                  \item 适用场景：需要对象特性的地方（泛型、集合、API）
+					                  \item 不适用场景：数值计算密集型算法
+				                  \end{itemize}
+				            \item \textbf{命题人设陷阱}：利用"包装=增强"的直觉误导
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 包装类作用：基本类型→对象，用于泛型/集合/null
+			      \item 包装类不可变：final字段，修改返回新对象
+			      \item 性能影响：包装类比基本类型慢2-10倍
+			      \item 选项辨析：包装=对象功能，不=性能提升，反而更慢
+			      \item 缓存范围：Byte/Short/Integer/Long(-128~127)
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"提高效率"→警惕陷阱，包装类反而更慢
+		      \textbf{高频陷阱}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 误认为"包装=更好"
+			      \item 忽略内存/CPU开销
+			      \item 忽略不可变性导致的对象创建
+		      \end{itemize}
+		      \textbf{记忆口诀}：包装类提供对象能力，但永远不要为了性能用它
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个是Double类的静态方法,用于将字符串转换为Double类型？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item parseDouble()
+		      \item valueOf()
+		      \item toString()
+		      \item toDouble()
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. parseDouble()}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查包装类静态方法的命名模式
+			      \item \textbf{关键区分点}：parse→基本类型，valueOf→包装类对象
+			      \item \textbf{命题人意图}：测试对Integer与Double方法一致性的理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{parseDouble() — 正确（返回基本类型double）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：public static double parseDouble(String s) throws NumberFormatException
+				            \item \textbf{返回类型}：基本类型double
+				            \item \textbf{字节码}：invokestatic返回double，装箱为Double需额外步骤
+				            \item \textbf{与Integer.parseInt对称}：Double.parseDouble() ↔ Integer.parseInt()
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+double d1 = Double.parseDouble("3.14");
+System.out.println(d1);  // 3.14
+
+double d2 = Double.parseDouble("1e10");
+System.out.println(d2);  // 1.0E10
+
+// 异常情况
+double d3 = Double.parseDouble("abc");
+// NumberFormatException
+
+// 特值解析
+double d4 = Double.parseDouble("Infinity");  // 无穷大
+double d5 = Double.parseDouble("NaN");       // 非数字
+double d6 = Double.parseDouble("-Infinity"); // 负无穷
+				            \end{lstlisting}
+				            \item \textbf{底层实现}：使用FloatingDecimal.parseDouble()
+			            \end{itemize}
+
+			      \item[B] \textbf{valueOf() — 错误（返回包装类Double）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{方法签名}：public static Double valueOf(String s)
+				            \item \textbf{返回类型}：Double对象
+				            \item \textbf{使用场景}：需要对象时（如集合）
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+Double obj1 = Double.valueOf("3.14");  // 返回Double对象
+double d1 = obj1.doubleValue();        // 拆箱获取double
+
+// 对比parseDouble
+double d2 = Double.parseDouble("3.14"); // 直接返回double
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{toString() — 错误（反向转换）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 将double转为String
+				            \item Double.toString(3.14)返回"3.14"
+			            \end{itemize}
+
+			      \item[D] \textbf{toDouble() — 错误（不存在）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item Double类没有toDouble()方法
+				            \item 可能与intValue()混淆（用于拆箱）
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item parseXxx(String) → 返回基本类型
+			      \item valueOf(String) → 返回包装类对象
+			      \item 所有包装类（除Boolean外）都有 parseXxx 方法
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：字符串转基本类型→parseXxx()
+		      \textbf{对仗记忆}：parseInt/parseDouble/parseLong模式一致
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中的枚举类型的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 枚举类型是一种特殊的类
+		      \item 枚举类型的成员是常量
+		      \item 枚举类型可以有构造方法
+		      \item 枚举类型不能实现接口
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：D. 枚举类型不能实现接口}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查enum的本质——特殊类
+			      \item \textbf{关键区分点}：enum是class，可以使用类的大部分特性
+			      \item \textbf{命题人意图}：纠正"枚举=数据常量"的狭隘理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{枚举类型是一种特殊的类 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{字节码证据}：
+				                  \begin{lstlisting}[language=Java]
+enum Color {
+    RED, GREEN, BLUE
+}
+
+// javap -c Color.class 结果：
+public final class Color extends java.lang.Enum<Color> {
+  public static final Color RED;
+  public static final Color GREEN;
+  public static final Color BLUE;
+  // ...
+}
+				            \end{lstlisting}
+				            \item \textbf{继承关系}：所有枚举隐式继承java.lang.Enum<E>（final类）
+				            \item \textbf{类特性支持}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 可以有构造方法
+					                  \item 可以有字段和方法
+					                  \item 可以实现接口
+					                  \item 不能继承其他类（因为已继承Enum）
+				                  \end{itemize}
+				            \item \textbf{编译器转换}：
+				                  \begin{lstlisting}[language=Java]
+// 源代码
+enum Weekday { MON, TUE, WED }
+
+// 编译器等价于：
+public final class Weekday extends Enum<Weekday> {
+    public static final Weekday MON = new Weekday("MON", 0);
+    public static final Weekday TUE = new Weekday("TUE", 1);
+    public static final Weekday WED = new Weekday("WED", 2);
+    private static final Weekday[] $VALUES = {MON, TUE, WED};
+}
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{枚举类型的成员是常量 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{常量特性}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item public static final字段
+					                  \item 所有枚举成员在类加载时初始化
+					                  \item 每个枚举值是单例的（全类唯一）
+				                  \end{itemize}
+				            \item \textbf{线程安全}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 枚举实例在类初始化时创建（类加载器保证线程安全）
+					                  \item 枚举是实现线程安全单例的最佳方式
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+enum Color {
+    RED, GREEN, BLUE
+
+    @Override
+    public String toString() {
+        return name().toLowerCase();
+    }
+}
+
+Color c1 = Color.RED;
+Color c2 = Color.RED;
+System.out.println(c1 == c2);  // true (单例)
+System.out.println(c1.equals(c2));  // true
+System.out.println(c1);  // "red" (已覆盖toString)
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{枚举类型可以有构造方法 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{构造方法特点}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 构造方法默认private（即使不写）
+					                  \item 不能是public/protected（编译错误）
+					                  \item 在枚举成员声明时隐式调用
+				                  \end{itemize}
+				            \item \textbf{语法}：
+				                  \begin{lstlisting}[language=Java]
+enum Planet {
+    MERCURY(3.30e23, 2.44e6),
+    VENUS(4.87e24, 6.06e6),
+    EARTH(5.98e24, 6.37e6);
+
+    private final double mass;   // 质量
+    private final double radius; // 半径
+
+    // 构造方法
+    private Planet(double mass, double radius) {
+        this.mass = mass;
+        this.radius = radius;
+    }
+
+    public double getMass() {
+        return mass;
+    }
+}
+
+// 使用
+Planet p = Planet.EARTH;
+System.out.println(p.getMass());  // 5.98E24
+				            \end{lstlisting}
+				            \item \textbf{字节码证据}：构造方法声明为private
+			            \end{itemize}
+
+			      \item[D] \textbf{枚举类型不能实现接口 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{事实}：枚举可以实现接口（因为枚举本质上就是类）
+				            \item \textbf{语法}：
+				                  \begin{lstlisting}[language=Java]
+interface Printable {
+    void print();
+}
+
+enum Color implements Printable {
+    RED {
+        @Override
+        public void print() {
+            System.out.println("红色");
+        }
+    },
+    GREEN {
+        @Override
+        public void print() {
+            System.out.println("绿色");
+        }
+    };
+
+    // 抽象方法，每个枚举实例必须实现
+    // 或者提供默认实现
+}
+
+// 或者统一实现：
+enum Size implements Printable {
+    SMALL, MEDIUM, LARGE;
+
+    @Override
+    public void print() {
+        System.out.println("Size: " + name());
+    }
+}
+
+// 使用
+Color.RED.print();  // "红色"
+Size.SMALL.print(); // "Size: SMALL"
+				            \end{lstlisting}
+				            \item \textbf{字节码验证}：
+				                  \begin{lstlisting}[language=Java]
+// javap Color.class
+class Color extends java.lang.Enum<Color> implements Printable {
+    // ...
+}
+				            \end{lstlisting}
+				            \item \textbf{应用场景}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 为枚举添加行为
+					                  \item 策略模式（每个枚举实例实现不同行为）
+					                  \item 与函数式接口结合
+				                  \end{itemize}
+				            \item \textbf{命题陷阱}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 利用"枚举不能继承"误导
+					                  \item 但枚举可以实现接口（因为只能有一个父类）
+					                  \item 枚举已继承Enum<E>，不能继承其他类
+				                  \end{itemize}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 枚举本质：继承java.lang.Enum<E>的特殊类
+			      \item 枚举特性：隐式final，构造器private，成员是单例常量
+			      \item 枚举能力：可字段/方法/实现接口，不能继承类
+			      \item 选项辨析：枚举是类，可构造，可实现接口
+			      \item 命题陷阱：不能继承≠不能实现接口
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"不能实现接口"→选错误（枚举可以）
+		      \textbf{高频陷阱}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 枚举能实现接口，但不能继承类
+			      \item 枚举构造器必须是private
+			      \item 枚举实例是单例常量
+		      \end{itemize}
+		      \textbf{记忆口诀}：枚举就像类，能接口不能承，构造器必私有，成员是常量
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪个类用于获取系统属性？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item System
+		      \item Properties
+		      \item Runtime
+		      \item SystemProperties
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. Properties}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查系统属性API的返回类型
+			      \item \textbf{关键区分点}：getProperties()返回Properties对象，不是直接类
+			      \item \textbf{命题人意图}：测试API的使用模式和返回类型理解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{System — 错误（使用它的方法）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{正确用法}：System.getProperties()返回Properties
+				            \item \textbf{System类功能}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 标准输入/输出/错误（in/out/err）
+					                  \item 系统属性（getProperties/getProperty）
+					                  \item 内存管理（gc/runFinalization）
+					                  \item 时间获取（currentTimeMillis/nanoTime）
+					                  \item 程序退出（exit）
+				                  \end{itemize}
+				            \item \textbf{类定义}：public final class System，构造器private
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// 正确调用
+Properties props = System.getProperties();
+
+// 直接获取单个属性
+String javaHome = System.getProperty("java.home");
+String osName = System.getProperty("os.name");
+
+// 获取所有属性
+Properties allProps = System.getProperties();
+Enumeration<?> keys = allProps.propertyNames();
+while (keys.hasMoreElements()) {
+    String key = (String) keys.nextElement();
+    System.out.println(key + " = " + allProps.getProperty(key));
+}
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[B] \textbf{Properties — 正确（返回类型与存储类）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{类继承关系}：Properties extends Hashtable<Object,Object>
+				            \item \textbf{功能特点}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 键值对存储（继承Hashtable）
+					                  \item 支持从文件加载/存储（load/store方法）
+					                  \item 提供getProperty/setProperty便捷方法
+					                  \item 键和值都是String类型
+				                  \end{itemize}
+				            \item \textbf{常用属性}：
+				                  \begin{lstlisting}[language=Java]
+Properties props = System.getProperties();
+
+// 常用系统属性
+props.getProperty("java.version");        // Java版本
+props.getProperty("java.home");           // JDK安装路径
+props.getProperty("os.name");             // 操作系统名称
+props.getProperty("os.arch");             // 系统架构
+props.getProperty("user.name");           // 用户名
+props.getProperty("user.home");           // 用户主目录
+props.getProperty("user.dir");            // 当前工作目录
+props.getProperty("file.separator");      // 文件分隔符（Windows:\, Unix:/）
+props.getProperty("path.separator");      // 路径分隔符（Windows:;, Unix::）
+props.getProperty("line.separator");      // 行分隔符
+props.getProperty("java.class.path");     // 类路径
+				            \end{lstlisting}
+				            \item \textbf{字节码}：Properties继承Hashtable的put/get方法
+				            \item \textbf{存储文件格式}：
+				                  \begin{lstlisting}[language=Java]
+// 存储到文件
+Properties props = new Properties();
+props.setProperty("database.url", "jdbc:mysql://localhost:3306/mydb");
+props.setProperty("database.user", "admin");
+props.setProperty("database.password", "password123");
+
+try (OutputStream out = new FileOutputStream("config.properties")) {
+    props.store(out, "Database Configuration");
+}
+
+// config.properties文件内容：
+# Database Configuration
+# Thu Mar 05 10:30:00 CST 2026
+database.password=password123
+database.url=jdbc:mysql\://localhost\:3306/mydb
+database.user=admin
+
+// 从文件加载
+Properties props2 = new Properties();
+try (InputStream in = new FileInputStream("config.properties")) {
+    props2.load(in);
+}
+String url = props2.getProperty("database.url");
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{Runtime — 错误（不同用途）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{Runtime类功能}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 执行系统命令（exec）
+					                  \item 内存管理（totalMemory/freeMemory/maxMemory）
+					                  \item 添加关闭钩子（addShutdownHook）
+					                  \item 加载动态库（load/loadLibrary）
+				                  \end{itemize}
+				            \item \textbf{获取方式}：Runtime.getRuntime()（单例模式）
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+Runtime rt = Runtime.getRuntime();
+
+// 执行系统命令
+Process proc = rt.exec("notepad.exe");
+Process proc2 = rt.exec("cmd /c dir");
+
+// 内存信息
+long total = rt.totalMemory();
+long free = rt.freeMemory();
+long max = rt.maxMemory();
+long used = total - free;
+System.out.println("Used: " + (used / 1024 / 1024) + " MB");
+System.out.println("Free: " + (free / 1024 / 1024) + " MB");
+System.out.println("Max: " + (max / 1024 / 1024) + " MB");
+System.out.println("Total: " + (total / 1024 / 1024) + " MB");
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[D] \textbf{SystemProperties — 错误（不存在此类）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item SystemProperties类不在java.lang包
+				            \item 可能混淆了System.getProperties()返回的Properties对象
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item System.getProperties()返回Properties对象
+			      \item Properties存储键值对，支持load/store
+			      \item Runtime用于执行命令、内存管理
+			      \item 选项辨析：系统属性用Properties，执行命令用Runtime
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：获取系统属性→Properties
+		      \textbf{高频陷阱}：Properties是类名和返回类型
+		      \textbf{记忆口诀}：System取属性得Properties，Runtime做命令
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中的注解的说法错误的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 注解是一种元数据
+		      \item 可以自定义注解
+		      \item 注解可以影响程序的逻辑
+		      \item 注解可以为代码添加额外的信息
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 注解可以影响程序的逻辑}
+
+		      \textbf{【核心认知框架>}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查注解的本质——元数据而非运行逻辑
+			      \item \textbf{关键区分点}：注解=描述，不=执行
+			      \item \textbf{命题人意图}：纠正"注解直接改变程序行为"的误解
+		      \end{itemize}
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \begin{itemize}[leftmargin=*, nosep, label={}]
+			      \item[A] \textbf{注解是一种元数据 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{元数据定义}：关于数据的数据
+				            \item \textbf{类比}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 图书分类标签：描述书的类型，不改变书的内容
+					                  \item 注解：描述代码的用途/约束/配置，不改变代码执行
+				                  \end{itemize}
+				            \item \textbf{注解作用}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 编译时检查（@Override检查方法是否真的重写）
+					                  \item 编译时生成代码（Lombok @Data生成getter/setter）
+					                  \item 运行时反射（@Controller被Spring扫描）
+					                  \item 文档生成（@deprecated标记过时）
+				                  \end{itemize}
+				            \item \textbf{字节码层面}：注解存储在class文件的RuntimeVisibleAnnotations属性中
+			            \end{itemize}
+
+			      \item[B] \textbf{可以自定义注解 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{自定义注解语法}：
+				                  \begin{lstlisting}[language=Java]
+// 定义注解
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface MyAnnotation {
+    String value() default "";
+    int count() default 0;
+}
+
+// 使用注解
+public class Test {
+    @MyAnnotation(value = "test", count = 5)
+    public void method1() {}
+
+    // 省略默认值，使用默认
+    @MyAnnotation
+    public void method2() {}
+
+    // 使用value属性，可省略属性名
+    @MyAnnotation("hello")
+    public void method3() {}
+}
+				            \end{lstlisting}
+				            \item \textbf{元注解}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item @Retention：注解生命周期（SOURCE/CLASS/RUNTIME）
+					                  \item @Target：注解应用目标（TYPE/FIELD/METHOD/PARAMETER等）
+					                  \item @Documented：生成Javadoc时包含注解
+					                  \item @Inherited：子类可继承父类注解
+				                  \end{itemize}
+				            \item \textbf{示例}：
+				                  \begin{lstlisting}[language=Java]
+// 自定义单元测试注解
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface TestCase {
+    String name() default "";
+    int timeout() default 5000; // 毫秒
+}
+
+// 使用
+public class CalculatorTest {
+    @TestCase(name = "加法测试", timeout = 1000)
+    public void testAdd() {
+        // 测试逻辑
+    }
+}
+				            \end{lstlisting}
+			            \end{itemize}
+
+			      \item[C] \textbf{注解可以影响程序的逻辑 — 错误（本题答案）}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{事实}：注解本身不改变程序逻辑
+				            \item \textbf{证据1：注解被忽略}
+				                  \begin{lstlisting}[language=Java]
+// 编译通过，但@MyAnnotation什么都没做
+@MyAnnotation
+public class MyAnnotationTest {
+}
+
+// 类定义
+public @interface MyAnnotation {}
+				            \end{lstlisting}
+				            \item \textbf{证据2：需要处理器/框架读取}
+				                  \begin{lstlisting}[language=Java]
+// Lombok @Data需要注解处理器才能生成代码
+@Data  // 不配置处理器，编译后类没有getter/setter
+public class User {
+    private String name;
+}
+
+// Spring @Controller需要Spring容器扫描
+@Controller  // 不在Spring容器中，不会被扫描注册
+public class MyController {
+}
+
+// 需要配置：
+// - Lombok：添加lombok依赖，IDE安装插件
+// - Spring：配置@ComponentScan扫描包
+				            \end{lstlisting}
+				            \item \textbf{正确理解}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 注解=信息标注
+					                  \item 注解处理器/框架=根据注解执行逻辑
+					                  \item 类比：标签（注解）+ 分拣器（处理器）= 分类行为
+					                  \item 没有处理器的注解=没有分拣器的标签=无用
+				                  \end{itemize}
+				            \item \textbf{命题陷阱}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 学生看到@Controller改变程序行为，以为是注解的作用
+					                  \item 实际是Spring容器读取注解后采取的行动
+					                  \item 注解只是"信息"，容器才是"行为执行者"
+				                  \end{itemize}
+			            \end{itemize}
+
+			      \item[D] \textbf{注解可以为代码添加额外的信息 — 正确}
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item \textbf{信息类型}：
+				                  \begin{itemize}[label={}, nosep]
+					                  \item 用途说明（@Service表示这是服务层）
+					                  \item 配置信息（@Autowired注入依赖）
+					                  \item 约束检查（@NonNull检查非空）
+					                  \item 文档说明（@Deprecated标记过时）
+					                  \item 版本信息（@Version版本号）
+				                  \end{itemize}
+				            \item \textbf{代码示例}：
+				                  \begin{lstlisting}[language=Java]
+// 为代码添加信息
+public class Example {
+    @Deprecated  // 信息：已过时
+    @SuppressWarnings("unchecked")  // 信息：抑制警告
+    @Override  // 信息：重写父类方法
+    public void oldMethod() {}
+}
+
+// 自定义业务信息
+public enum UserStatus {
+    ACTIVE, INACTIVE, DELETED
+}
+
+// 为枚举添加显示信息
+public @interface DisplayName {
+    String value();
+}
+
+enum Status {
+    @DisplayName("激活")
+    ACTIVE,
+
+    @DisplayName("未激活")
+    INACTIVE,
+
+    @DisplayName("已删除")
+    DELETED
+}
+
+// 通过反射读取注解信息
+for (Status s : Status.values()) {
+    DisplayName dn = s.getClass().getDeclaredField(s.name())
+            .getAnnotation(DisplayName.class);
+    System.out.println(s.name() + " = " + dn.value());
+}
+// 输出：
+// ACTIVE = 激活
+// INACTIVE = 未激活
+// DELETED = 已删除
+				            \end{lstlisting}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点>}
+		      \begin{itemize}[label={}, nosep]
+			      \item 注解本质：元数据（关于代码的描述信息）
+			      \item 注解作用：标注信息，不直接改变逻辑
+			      \item 注解生效：需要处理器/框架读取并执行
+			      \item 核心区分：注解=标签，处理器=执行者
+			      \item 陷阱清单：注解不=逻辑，但框架会根据注解执行逻辑
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：看到"影响逻辑"→选错误（注解本身不改变逻辑）
+		      \textbf{高频陷阱}：
+		      \begin{itemize}[label={}, nosep]
+			      \item 误认为注解直接改变程序行为
+			      \item 忽略处理器/框架的作用
+			      \item 混淆"注解信息"与"注解处理"
+		      \end{itemize}
+		      \textbf{记忆口诀}：注解只是贴标签，框架看到才做事
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+\end{enumerate}
+
+\end{document}

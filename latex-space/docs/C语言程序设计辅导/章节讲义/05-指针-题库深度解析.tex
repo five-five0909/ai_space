@@ -1,0 +1,372 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tcolorbox}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\newtcolorbox{bluebox}[1][]{
+colback=blue!5!white,
+colframe=blue!75!black,
+fonttitle=\bfseries,
+title=#1,
+arc=0mm,
+boxrule=1pt,
+left=2mm,right=2mm,top=1mm,bottom=1mm
+}
+
+\lstset{
+language=C,
+basicstyle=\ttfamily\small,
+keywordstyle=\color{blue},
+commentstyle=\color{green!60!black},
+stringstyle=\color{red},
+numbers=left,
+numberstyle=\tiny\color{gray},
+frame=single,
+breaklines=true,
+escapeinside={(*@}{@*)}
+}
+
+\title{\textbf{第五章 指针-题库深度解析}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+% ======== 题目1: 指针与数组 ========
+\section*{题目1: 指针访问数组元素}
+
+\textbf{原题目:}
+若有定义:\texttt{int a[10], *p=a;},则 \texttt{*(p+5)} 表示\_\_\_\_\_\_。
+\begin{enumerate}
+	\item[A)] a[5]的地址
+	\item[B)] a[5]的值
+	\item[C)] a[6]的值
+	\item[D)] a的地址
+\end{enumerate}
+
+\begin{bluebox}{答案与深度解析}
+	\textbf{答案: B) a[5]的值}
+
+	% ======== 阶段一:核心认知框架 ========
+	\textbf{【核心认知框架】}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}: 考查指针与数组的关系,区分地址与值
+		\item \textbf{关键区分点}: \texttt{p+i} VS \texttt{*(p+i)} VS \texttt{\&a[i]}
+		\item \textbf{命题人意图}: 测试考生对指针运算和数组访问的理解
+	\end{itemize}
+
+	% ======== 阶段二:深度解析 ========
+	\textbf{【指针与数组深度解析】}
+
+	\textbf{① 指针初始化}: \texttt{int a[10], *p=a;}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \texttt{a[10]}: 定义含10个int元素的数组
+		\item \texttt{*p=a}: p指向数组a的首元素a[0]
+		\item 等价于: \texttt{*p=\&a[0];}
+	\end{itemize}
+
+	\textbf{② 指针运算规则}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \texttt{p+1}: p向后移动1个int(4字节)
+		\item \texttt{p+5}: p向后移动5个int(20字节)
+		\item \texttt{p+i}的结果类型仍是\texttt{int*},指向\texttt{a[i]}
+	\end{itemize}
+
+	\textbf{③ 解引用(\*)的作用}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{表达式} & \textbf{类型} & \textbf{含义}    \\
+		\hline
+		p            & int*        & 指针变量,指向a[0]    \\
+		\hline
+		p+5          & int*        & 指针,指向a[5]      \\
+		\hline
+		*(p+5)       & int         & a[5]的值         \\
+		\hline
+		\&a[5]       & int*        & a[5]的地址        \\
+		\hline
+		a+5          & int*        & a[5]的地址,等价于p+5 \\
+		\hline
+		*(a+5)       & int         & a[5]的值,等价于a[5] \\
+		\hline
+	\end{tabular}
+
+	\textbf{④ 汇编级理解}
+	\begin{lstlisting}[language=C]
+// C代码: *(p+5)
+
+// x86汇编:
+mov eax, DWORD PTR [ebp-12]  ; 加载p的值(数组首地址)
+add eax, 20                   ; p+5,向后移动5个int(5*4=20字节)
+mov eax, DWORD PTR [eax]      ; 解引用,读取该位置的值
+
+// 对比: &a[5]
+lea eax, [ebx+20]             ; 计算a[5]的地址,加20字节offset
+
+// 对比: a[5]
+mov eax, DWORD PTR [ebx+20]   ; 直接读取a[5]的值
+    \end{lstlisting}
+
+	\textbf{⑤ 指针与数组的等价关系}
+	\begin{lstlisting}[language=C]
+// 以下写法完全等价:
+int a[10], *p = a;
+
+// 方法1: 下标法
+a[5]    // 值
+&a[5]   // 地址
+
+// 方法2: 指针法
+*(p+5)  // 值
+p+5     // 地址
+
+// 方法3: 数组名法
+*(a+5)  // 值
+a+5     // 地址
+    \end{lstlisting}
+
+	% ======== 选项分析 ========
+	\textbf{【选项分析】}
+
+	\textbf{A) a[5]的地址 — 错误}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item 这是\texttt{p+5}或\texttt{\&a[5]}的含义
+		\item \texttt{*(p+5)}是地址的内容(值),不是地址本身
+	\end{itemize}
+
+	\textbf{B) a[5]的值 — 正确}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \texttt{p+5}得到a[5]的地址(类型:int*)
+		\item \texttt{*(p+5)}对该地址解引用,得到a[5]的值(类型:int)
+		\item 这与\texttt{a[5]}完全等价
+	\end{itemize}
+
+	\textbf{C) a[6]的值 — 错误}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item a[6]的值应该是\texttt{*(p+6)}
+		\item \texttt{*(p+5)}是a[5],不是a[6]
+	\end{itemize}
+
+	\textbf{D) a的地址 — 错误}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item a的地址是\texttt{p}或\texttt{\&a[0]}
+		\item 这里问的是\texttt{*(p+5)},明显不是数组首地址
+	\end{itemize}
+
+	% ======== 阶段三:应背诵知识点 ========
+	\textbf{【应背诵知识点】}
+
+	\begin{enumerate}[leftmargin=*, nosep]
+		\item \textbf{指针运算公式}:
+		      \begin{itemize}
+			      \item \texttt{p+i} = \texttt{\&a[i]}
+			      \item \texttt{*(p+i)} = \texttt{a[i]}
+			      \item \texttt{\&*(p+i)} = \texttt{p+i} = \texttt{\&a[i]}
+		      \end{itemize}
+
+		\item \textbf{三种访问方式}:
+		      \begin{itemize}
+			      \item \textbf{下标法}: \texttt{a[i]}, \texttt{p[i]}
+			      \item \textbf{指针法}: \texttt{*(a+i)}, \texttt{*(p+i)}
+			      \item \textbf{混合法}: \texttt{a[i]}, \texttt{*(p+i)}
+		      \end{itemize}
+
+		\item \textbf{地址与值}:
+		      \begin{itemize}
+			      \item \texttt{p+i}是地址
+			      \item \texttt{*(p+i)}是值
+			      \item \texttt{\&*(p+i)} = 地址
+		      \end{itemize}
+	\end{enumerate}
+
+	% ======== 阶段四:实战策略 ========
+	\textbf{【实战策略】}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{分析步骤}:
+		      \begin{enumerate}
+			      \item 确定指针p指向哪里
+			      \item p+5指向哪个元素
+			      \item *的作用是取值还是取地址
+		      \end{enumerate}
+
+		\item \textbf{记忆口诀}:
+		      \begin{itemize}
+			      \item 有\*取值
+			      \item 无\*地址
+			      \item \&也是地址
+		      \end{itemize}
+	\end{itemize}
+\end{bluebox}
+
+\vspace{1cm}
+
+% ======== 题目12: 二级指针 ========
+\section*{题目12: 二级指针}
+
+\textbf{原题目:}
+设有定义:\texttt{int n=0,*p=\&n,**q=\&p;},则下列选项中正确的赋值语句是\_\_\_\_\_\_。
+\begin{enumerate}
+	\item[A)] \texttt{p=1;}
+	\item[B)] \texttt{*q=2;}
+	\item[C)] \texttt{q=p;}
+	\item[D)] \texttt{*p=5;}
+\end{enumerate}
+
+\begin{bluebox}{答案与深度解析}
+	\textbf{答案: D) \texttt{*p=5;}}
+
+	% ======== 阶段一:核心认知框架 ========
+	\textbf{【核心认知框架】}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{题目本质}: 考查二级指针的定义和赋值
+		\item \textbf{关键区分点}: 指针的\textbf{值}与\textbf{指向}的区别
+		\item \textbf{命题人意图}: 测试考生对多级指针的理解
+	\end{itemize}
+
+	% ======== 阶段二:二级指针解析 ========
+	\textbf{【二级指针分析】}
+
+	\textbf{① 定义解析}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \texttt{int n=0}: n是int变量,值为0
+		\item \texttt{*p=\&n}: p是指针,指向n,\&n是n的地址
+		\item \texttt{**q=\&p}: q是\textbf{二级指针},指向p,\&p是p的地址
+	\end{itemize}
+
+	\textbf{② 内存关系图}
+	\begin{verbatim}
+┌─────────┐         ┌─────────┐         ┌─────────┐
+│    q    │────────→│    p    │────────→│    n    │
+│ 0x1004  │         │  0x1008 │         │  0x100C │
+│ 二级指针│         │  指针   │         │  int    │
+└─────────┘         └─────────┘         └─────────┘
+指向p的地址          指向n的地址          值为0
+    \end{verbatim}
+
+	\textbf{③ 访问层次}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{表达式} & \textbf{类型}      & \textbf{含义}   \\
+		\hline
+		n            & int              & n的值(0)        \\
+		\hline
+		\&n          & int*             & n的地址          \\
+		\hline
+		p            & int*             & 指向n的指针(值=\&n) \\
+		\hline
+		*p           & int              & n的值(通过p访问)    \\
+		\hline
+		\&p          & int**            & p的地址          \\
+		\hline
+		q            & int**            & 指向p的指针(值=\&p) \\
+		\hline
+		*q           & int* | p的值(即\&n)                 \\
+		\hline
+		**q          & int | n的值(通过q访问)                 \\
+		\hline
+	\end{tabular}
+
+	\textbf{④ 选项详细分析}
+
+	\textbf{A) p=1}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{类型不匹配}: \texttt{p}是\texttt{int*}类型,1是\texttt{int}
+		\item \textbf{含义}: 想把p指向地址1(危险操作)
+		\item \textbf{编译警告}: 警告,但可编译(不安全)
+	\end{itemize}
+
+	\textbf{B) *q=2}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \texttt{*q}得到的是\texttt{p}的值(\texttt{\&n})
+		\item 相当于: \texttt{\&n = 2}
+		\item \textbf{错误}: 不能给地址\&n赋值2!
+		\item \textit{注: *q是p,不是n}
+	\end{itemize}
+
+	\textbf{C) q=p}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{类型不匹配}: q是int**, p是int*
+		\item \textbf{含义}: 试图把一级指针赋给二级指针
+		\item \textbf{编译错误}: 类型不兼容
+	\end{itemize}
+
+	\textbf{D) *p=5}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \texttt{*p} = \texttt{n}的值的引用
+		\item \textbf{含义}: n = 5
+		\item \textbf{正确}: 给n赋值5
+		\item \textbf{这是唯一合法的赋值}
+	\end{itemize}
+
+	% ======== 汇编理解 ========
+	\textbf{⑤ 汇编级解释}
+	\begin{lstlisting}[language=C]
+// C: *p = 5;
+
+// x86汇编:
+mov eax, [ebp-12]  ; 加载p的值(= &n)
+mov DWORD PTR [eax], 5  ; 向该地址写入5
+
+// C: **q = 3;
+
+// 汇编:
+mov eax, [ebp-8]   ; 加载q的值(= &p)
+mov eax, [eax]     ; 加载*q的值(= p = &n)
+mov DWORD PTR [eax], 3  ; 写入3到n
+    \end{lstlisting}
+
+	% ======== 阶段三:应背诵知识点 ========
+	\textbf{【应背诵知识点】}
+
+	\begin{enumerate}[leftmargin=*, nosep]
+		\item \textbf{多级指针定义}:
+		      \begin{itemize}
+			      \item \texttt{int *p}: 指向int的指针(一级指针)
+			      \item \texttt{int **q}: 指向int*的指针(二级指针)
+			      \item \texttt{int ***r}: 三级指针
+		      \end{itemize}
+
+		\item \textbf{访问规则}:
+		      \begin{itemize}
+			      \item \(k\)级指针需要\(k\)个\(*\)才能访问到值
+			      \item \texttt{**q} = \texttt{*(*q)} = n
+		      \end{itemize}
+
+		\item \textbf{赋值规则}:
+		      \begin{itemize}
+			      \item 指针的值只能赋相同类型或兼容的指针
+			      \item 不能把字面量赋给指针(除非NULL)
+		      \end{itemize}
+	\end{enumerate}
+
+	% ======== 阶段四:实战策略 ========
+	\textbf{【实战策略】}
+	\begin{itemize}[leftmargin=*, nosep]
+		\item \textbf{分析步骤}:
+		      \begin{enumerate}
+			      \item 画出指针链
+			      \item 确定每个表达式的类型
+			      \item 检查赋值兼容性
+		      \end{enumerate}
+
+		\item \textbf{常见错误}:
+		      \begin{itemize}
+			      \item 混淆*q和**q
+			      \item 类型不匹配
+			      \item 给地址赋值
+		      \end{itemize}
+	\end{itemize}
+\end{bluebox}
+
+\end{document}

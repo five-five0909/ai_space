@@ -1,0 +1,928 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{tikz} % 用于绘图
+\tcbuselibrary{skins, breakable}
+
+% 页面设置
+\geometry{a4paper, margin=1in}
+\pagestyle{fancy}
+\fancyhead[L]{专升本高数：微分中值定理考点全覆盖}
+\fancyhead[R]{劳资必是本科生}
+
+% ==========================================
+% 环境定义区
+% ==========================================
+
+% 1. 基础红色字体环境（符合讲义要求）
+\newenvironment{redenv}{\color{red}}{}
+
+% 2. 概念解析框（理论部分用，也可用于习题概念）
+\newtcolorbox{conceptbox}[1][概念解析]{
+    colback=red!5, 
+    colframe=red!50!black, 
+    fonttitle=\bfseries, 
+    title=#1, 
+    breakable
+}
+
+% 3. 真题提示框（红色系，醒目）
+\newtcolorbox{examnote}[1]{
+    colback=red!5!white,
+    colframe=red!75!black,
+    fonttitle=\bfseries,
+    title=【真题提示：#1】,
+    breakable
+}
+
+% 4. 详细解析专用环境（习题部分用）
+\newenvironment{detailedanalysis}{%
+    \color{red}
+    \begin{enumerate}[label=\textbf{第\arabic*步：}, leftmargin=*, align=left, itemsep=1.5ex]
+}{%
+    \end{enumerate}
+}
+
+% 5. 公式推导环境（习题部分用）
+\newenvironment{formuladerivation}{%
+    \begin{enumerate}[label={\textbf{公式\arabic*：}}, leftmargin=*, align=left]
+}{%
+    \end{enumerate}
+}
+
+% 6. 分隔线命令
+\newcommand{\problemrule}{\noindent\rule{\textwidth}{1.5pt}\vspace{-0.8em}}
+\newcommand{\analysisrule}{\noindent\rule{\textwidth}{0.8pt}\vspace{-0.8em}}
+
+\begin{document}
+
+\title{\textbf{微分中值定理：方法总结与归纳}}
+\author{fifine老师}
+\date{}
+\maketitle
+
+% ##################################################################
+% 第一部分：理论体系与逻辑架构 (讲义内容)
+% ##################################################################
+
+\section{引言：局部性态向整体特征的逻辑跨越}
+微分中值定理是连接函数“局部性质”与“整体形态”的桥梁，也是解决专升本高数证明题的核心钥匙。
+
+\textbf{通俗理解：}
+如果我们只知道函数在两端 $a$ 和 $b$ 的取值（这是整体信息），通常很难直接看出函数中间的具体变化。但是，中值定理告诉我们：\textbf{整体的平均变化率，一定等于中间某一点的瞬时变化率。}
+
+\textbf{物理直观：}
+如果你开车 2 小时走了 120 公里（整体平均速度 $60\text{km/h}$），那么在途中一定有一个瞬间，你的车速表显示的正是 $60\text{km/h}$（瞬时速度）。这就是“以瞬时（导数）刻画整体（差商）”的核心思想。
+
+\textbf{解题意义：}
+它允许我们将难处理的函数差值 $f(b)-f(a)$，转化为某一点的导数 $f'(\xi)$ 来研究。这样，我们就可以利用导数的工具（正负号判断单调性等）来解决关于原函数的证明问题。
+
+\subsection*{核心定理}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=0.8, domain=0.5:3.5]
+            \draw[->] (-0.2,0) -- (4,0) node[right] {$x$};
+            \draw[->] (0,-0.2) -- (0,3.5) node[above] {$y$};
+            \draw[dashed] (1,0) node[below]{$a$} -- (1,2);
+            \draw[dashed] (3,0) node[below]{$b$} -- (3,2);
+            \draw[thick, blue] plot (\x, {-1.0*(\x-2)*(\x-2) + 3});
+            \draw[thick, red] (1.2, 3) -- (2.8, 3);
+            \fill (2,3) circle (2pt) node[above] {$\xi$};
+            \draw[dashed] (2,0) node[below]{$\xi$} -- (2,3);
+            \node at (2, -1) {\textbf{罗尔定理} $f'(\xi)=0$};
+        \end{tikzpicture}
+        \begin{tcolorbox}[colback=red!5, colframe=red!75!black, title=罗尔定理定义]
+        若 $f \in C[a,b]$，$(a,b)$ 可导，且 \textbf{$f(a)=f(b)$}，\\
+        则 $\exists \xi \in (a,b)$，使得 \textbf{$f'(\xi)=0$}。
+        \end{tcolorbox}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=0.8, domain=0.5:3.5]
+            \draw[->] (-0.2,0) -- (4,0) node[right] {$x$};
+            \draw[->] (0,-0.2) -- (0,4) node[above] {$y$};
+            \draw[dashed] (1,0) node[below]{$a$} -- (1,1.25);
+            \draw[dashed] (3,0) node[below]{$b$} -- (3,3.25);
+            \draw[gray, dashed] (1,1.25) -- (3,3.25); % 割线
+            \draw[thick, blue] plot (\x, {0.25*\x*\x + 1}); % 曲线
+            \draw[thick, red] (1,1) -- (3,3); % 平行切线
+            \fill (2,2) circle (2pt) node[below right] {$\xi$};
+            \draw[dashed] (2,0) node[below]{$\xi$} -- (2,2);
+            \node at (2, -1) {\textbf{拉格朗日定理} $f'(\xi)=\frac{f(b)-f(a)}{b-a}$};
+        \end{tikzpicture}
+        \begin{tcolorbox}[colback=blue!5, colframe=blue!75!black, title=拉格朗日定理由来]
+        若 $f \in C[a,b]$，$(a,b)$ 可导，\\
+        则 $\exists \xi \in (a,b)$，使得 \textbf{$f(b)-f(a) = f'(\xi)(b-a)$}。
+        \end{tcolorbox}
+    \end{minipage}
+\end{figure}
+
+\subsection{中值定理-归纳图}
+\begin{center}
+\begin{tikzpicture}[node distance=2.5cm, auto]
+    \node (R) [draw, rectangle, rounded corners, minimum height=1cm, align=center] {罗尔定理 \\ $f'(\xi)=0$};
+    \node (L) [draw, rectangle, rounded corners, below left of=R, node distance=5cm, minimum height=1cm, align=center] {拉格朗日定理 \\ $f'(\xi)=\frac{f(b)-f(a)}{b-a}$};
+    \node (C) [draw, rectangle, rounded corners, below right of=R, node distance=5cm, minimum height=1cm, align=center] {柯西定理 \\ (拉格朗日推广)};
+    
+    \draw[->, thick] (L) -- (R) node[midway, above, sloped] {特例：$f(a)=f(b)$};
+    \draw[->, thick] (R) -- (L) node[midway, below, sloped] {构造辅助函数变形};
+    \draw[->, dashed] (L) -- (C) node[midway, below] {推广};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{定理选用策略：题目特征判别}
+在解题过程中，根据题目给出的条件特征（如区间性质、端点值），快速锁定使用的定理：
+
+\begin{center}
+\begin{tabular}{p{0.45\textwidth}|p{0.45\textwidth}}
+\toprule
+\textbf{出现以下特征 $\to$ 优先用罗尔定理} & \textbf{出现以下特征 $\to$ 优先用拉格朗日} \\
+\midrule
+1. \textbf{结论形式}：$f'(\xi)=0$ 或含 $f(\xi), f'(\xi)$ 的等式（如 $f'(\xi)+f(\xi)=0$） & 1. \textbf{结论形式}：含 $f(b)-f(a)$ 或此形式的变体 \\
+2. \textbf{端点条件}：题目明确给出（或隐含）$f(a)=f(b)$ & 2. \textbf{不等式证明}：需证明 $f(b)>f(a)$ 或与导数大小相关的不等式 \\
+3. \textbf{多次求导}：高阶导数问题（如 $f^{(n)}(\xi)=0$）通常多次用罗尔 & 3. \textbf{极限计算}：出现 $f(x)-f(y)$ 的极限型问题 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{tcolorbox}[colback=yellow!10, colframe=orange!80!black, title=【冲刺口诀】]
+\textbf{闭连续，开可导，端点相等罗尔找；} \\
+\textbf{端点不等差商造，拉格朗日能通考。}
+\end{tcolorbox}
+
+\section{罗尔定理与辅助函数构造}
+
+\begin{conceptbox}[定理 1：罗尔定理]
+若函数 $f(x)$ 满足以下条件：
+1. 在闭区间 $[a, b]$ 上连续；
+2. 在开区间 $(a, b)$ 内可导；
+3. \textbf{端点值相等} $f(a)=f(b)$；\\
+则必存在 $\xi \in (a, b)$，使得 $f'(\xi)=0$。
+\end{conceptbox}
+
+\subsection{构造辅助函数 $F(x)$ 的三大方法}
+在证明题中，能否正确构造 $F(x)$ 是解题的逻辑核心。：
+
+\begin{enumerate}
+    \item \textbf{方法一：一阶线性微分方程逆推（公式法）}
+    针对结论形式为 $f'(\xi) + g(\xi)f(\xi) = 0$。根据一阶线性微分方程的积分因子求解思路，构造：
+    $$F(x) = f(x) e^{\int g(x) dx}$$
+    
+    \begin{examnote}{2017年真题}
+    \textbf{题目}：证明 $f'(\xi) - \frac{3}{1-\xi}f(\xi) = 0$。\\
+    \textbf{逻辑构造}：识别出 $g(x) = \frac{-3}{1-x}$，计算积分后，构造辅助函数 $F(x) = (x-1)^3 f(x)$。
+    \end{examnote}
+
+    \item \textbf{方法二：莱布尼茨乘积法则（四则运算型）}
+    针对结论形式为 $u' v + u v' = 0$。利用积的求导公式逆推，构造 $F(x) = u(x)v(x)$。补充：加法用乘，减法用除!
+    
+    \begin{examnote}{2018年真题}
+    \textbf{题目}：证明 $f(\xi) + \xi f'(\xi) = 0$。\\
+    \textbf{逻辑构造}：观察到 $(xf(x))' = f(x) + xf'(x)$，故构造辅助函数 $F(x) = xf(x)$。
+    \end{examnote}
+
+    \item \textbf{方法三：直接积分原函数型}
+    针对结论不含 $f(x)$ 且导数项独立的等式。
+    
+    \begin{examnote}{示例题目}
+    \textbf{题目}：证明 $f'(\xi) = 1$。\\
+    \textbf{逻辑构造}：对 $f'(x)-1=0$ 进行不定积分，构造 $F(x) = f(x) - x$。
+    \end{examnote}
+\end{enumerate}
+
+\section{拉格朗日中值定理}
+
+\begin{conceptbox}[定理 2：拉格朗日中值定理]
+若 $f(x)$ 在闭区间 $[a, b]$ 上连续，且在开区间 $(a, b)$ 内可导，则至少存在一点 $\xi \in (a, b)$，使：
+$$f(b) - f(a) = f'(\xi)(b - a)$$
+\end{conceptbox}
+
+\subsection{逻辑应用：不等式与极限的解析}
+
+\begin{examnote}{2018年真题}
+\textbf{真题考点}：证明 $x < \tan x < \frac{x}{\cos^2 x}$ （其中 $x \in (0, \frac{\pi}{2})$）。\\
+\textbf{逻辑推演}：考查增量比 $\frac{\tan x - \tan 0}{x - 0} = \sec^2 \xi$。由于 $0 < \xi < x < \frac{\pi}{2}$，结合 $\sec^2 t$ 在该区间的单调性即可得证。
+\end{examnote}
+
+\begin{examnote}{2016年真题}
+\textbf{真题考点}：证明 $|\arcsin x_1 - \arcsin x_2| \ge |x_1 - x_2|$。\\
+\textbf{逻辑推演}：利用公式 $|\frac{\arcsin x_1 - \arcsin x_2}{x_1 - x_2}| = |(\arcsin \xi)'| = |\frac{1}{\sqrt{1-\xi^2}}|$。因分母 $\le 1$，故整个分数值 $\ge 1$，从而得证。
+\end{examnote}
+
+\section{高阶技巧：罗尔定理与零点定理的嵌套应用}
+当端点值不直接相等（如 $F(a) \neq F(b)$）时，需运用\textbf{连续函数的零点定理}来寻找中间点。
+
+\begin{examnote}{示例题目}
+\textbf{逻辑模型}：已知 $f(0)=f(1)=0, f(\frac{1}{2})=1$，证明 $f'(\xi)=1$。\\
+\textbf{证明逻辑}：
+1. 令 $F(x)=f(x)-x$。
+2. 验证端点值：$F(0)=0, F(1)=-1, F(\frac{1}{2})=\frac{1}{2}$。
+3. 由 $F(\frac{1}{2}) \cdot F(1) < 0$ 及零点定理，可知存在 $x_0 \in (\frac{1}{2}, 1)$ 使得 $F(x_0)=0$。
+4. 再对 $F(x)$ 在区间 $[0, x_0]$ 上应用罗尔定理（因 $F(0)=F(x_0)=0$），即可得证。
+\end{examnote}
+
+\section{中值定理求解极限技巧}
+\begin{examnote}{示例题目}
+\textbf{高阶计算}：求极限 $\lim_{x \to 0} \frac{e^x - e^{\sin x}}{x^3}$。\\
+\textbf{解析逻辑}：
+1. 识别分子满足 $f(x)-f(y)$ 模型（此处 $f(t)=e^t$）。
+2. 由拉格朗日定理：$e^x - e^{\sin x} = e^\xi (x - \sin x)$，其中 $\xi$ 介于 $x$ 与 $\sin x$ 之间。
+3. 当 $x \to 0$ 时，$\xi \to 0$，故 $e^\xi \to 1$。
+4. 极限转化为 $\lim_{x \to 0} \frac{x - \sin x}{x^3} = \frac{1}{6}$。
+\end{examnote}
+
+% ##################################################################
+% 第二部分：典型习题深度解析 (习题内容，按要求补充)
+% ##################################################################
+
+\section{典型习题深度解析}
+
+% ========== 第1题 ==========
+\problemrule
+\subsection*{【题目1】罗尔定理与辅助函数构造实战}
+已知函数 $f(x)$ 在区间 $[a, b]$ 上连续，在 $(a, b)$ 内可导。
+请证明：若需证 $f'(\xi) - \frac{3}{1-\xi}f(\xi) = 0$ （其中 $\xi \in (a, b)$），应如何构造辅助函数？结合2017年真题思路，写出完整的构造逻辑。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+本题考查微分中值定理证明题中最核心的难点——\textbf{辅助函数的构造}。
+罗尔定理的结论形式通常为 $F'(\xi)=0$。因此，我们需要找到一个函数 $F(x)$，使得其导数 $F'(x)$ 与待证等式具有内在联系。
+\begin{conceptbox}[罗尔定理回顾]
+若函数 $F(x)$ 满足：
+1. 在 $[a, b]$ 上连续；
+2. 在 $(a, b)$ 内可导；
+3. 端点值相等 $F(a)=F(b)$；
+则存在 $\xi \in (a, b)$，使得 $F'(\xi) = 0$。
+\end{conceptbox}
+
+\item \textbf{解题策略构建}
+观察待证式 $f'(\xi) - \frac{3}{1-\xi}f(\xi) = 0$。这是一个关于 $f(x)$ 和 $f'(x)$ 的线性组合，类似于一阶线性微分方程。
+\textbf{核心策略}：利用一阶线性微分方程求解的逆向思维。将 $f'(x) + g(x)f(x) = 0$ 形式转化为 $(f(x)e^{\int g(x)dx})' = 0$ 的形式。
+
+\item \textbf{详细求解过程}
+
+\noindent\textbf{步骤1：识别方程结构}
+待证式可写为：$f'(x) + \frac{3}{x-1}f(x) = 0$（注意 $\frac{-3}{1-x} = \frac{3}{x-1}$）。
+此时 $g(x) = \frac{3}{x-1}$。
+
+\noindent\textbf{步骤2：计算积分因子}
+计算 $\int g(x) dx = \int \frac{3}{x-1} dx = 3\ln|x-1| = \ln|x-1|^3$。
+积分因子为 $e^{\ln|x-1|^3} = |x-1|^3$。
+为简化计算，选取 $\mu(x) = (x-1)^3$（或 $(1-x)^3$）。
+
+\noindent\textbf{步骤3：构造辅助函数}
+令 $F(x) = (x-1)^3 f(x)$。
+
+\noindent\textbf{步骤4：验证构造的正确性}
+求导 $F'(x)$：
+\begin{align*}
+F'(x) &= [(x-1)^3]' f(x) + (x-1)^3 f'(x) \\
+&= 3(x-1)^2 f(x) + (x-1)^3 f'(x) \\
+&= (x-1)^2 [3f(x) + (x-1)f'(x)]
+\end{align*}
+令 $F'(\xi)=0$，且 $\xi \neq 1$，则有 $3f(\xi) + (\xi-1)f'(\xi) = 0 \Rightarrow f'(\xi) + \frac{3}{\xi-1}f(\xi) = 0$，即 $f'(\xi) - \frac{3}{1-\xi}f(\xi) = 0$。构造成功。
+
+\item \textbf{验证与检验}
+在实际解题中，构造出 $F(x)$ 后，需验证 $F(a)=F(b)$（通常结合题目给定的 $f(x)$ 的零点或端点条件）。若题目条件满足 $F(a)=F(b)$，则即可应用罗尔定理。
+
+\item \textbf{最终答案}
+辅助函数应构造为 $F(x) = (1-x)^3 f(x)$ 或 $F(x) = (x-1)^3 f(x)$。
+\end{detailedanalysis}
+
+\subsubsection*{核心公式与推导}
+
+\begin{formuladerivation}
+\item \textbf{辅助函数构造模型一（一阶线性微分方程型）}
+若结论为 $f'(\xi) + g(\xi)f(\xi) = 0$，则构造：
+\[ F(x) = f(x) e^{\int g(x) dx} \]
+\textbf{推导}：考虑 $(f(x) \cdot \mu(x))' = f'(x)\mu(x) + f(x)\mu'(x) = \mu(x)[f'(x) + \frac{\mu'(x)}{\mu(x)}f(x)]$。令 $\frac{\mu'(x)}{\mu(x)} = g(x)$，解得 $\mu(x) = e^{\int g(x) dx}$。
+
+\item \textbf{辅助函数构造模型二（莱布尼茨乘积法则型）}
+若结论为 $g(\xi)f(\xi) + \xi f'(\xi) = 0$ 或更复杂的乘积导数形式，考虑积的导数公式：
+\[ (u \cdot v)' = u'v + uv' \]
+例如证明 $f(\xi) + \xi f'(\xi) = 0$，即 $(x f(x))' = 0$，故构造 $F(x) = x f(x)$。
+\end{formuladerivation}
+\end{redenv}
+
+% ========== 第2题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目2】拉格朗日中值定理证明不等式实战}
+证明：当 $x \in (0, \frac{\pi}{2})$ 时，有 $x < \tan x < \frac{x}{\cos^2 x}$。（源自2018年真题考点）
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+本题属于利用微分中值定理证明不等式的经典题型。
+核心是将函数值的差或比值转化为导数，从而利用导数的单调性或有界性来证明不等式。
+\begin{conceptbox}[拉格朗日定理应用]
+若 $f(x) \in C[a, b]$ 且在 $(a, b)$ 内可导，则存在 $\xi \in (a, b)$，使得：
+\[ \frac{f(b)-f(a)}{b-a} = f'(\xi) \]
+这里 $\xi$ 介于 $a, b$ 之间，常利用这一性质进行放缩。
+\end{conceptbox}
+
+\item \textbf{详细求解过程}
+
+\noindent\textbf{证明左边不等式：$x < \tan x$}
+\textbf{步骤1}：构造利用拉格朗日的区间。
+选取函数 $f(t) = \tan t$ 在区间 $[0, x]$ 上应用拉格朗日中值定理。
+\textbf{步骤2}：应用定理。
+$\frac{\tan x - \tan 0}{x - 0} = \sec^2 \xi_1$，其中 $0 < \xi_1 < x$。
+即 $\frac{\tan x}{x} = \sec^2 \xi_1 = \frac{1}{\cos^2 \xi_1}$。
+\textbf{步骤3}：利用范围放缩。
+因为 $0 < \xi_1 < x < \frac{\pi}{2}$，所以 $0 < \cos \xi_1 < 1$，故 $\frac{1}{\cos^2 \xi_1} > 1$。
+所以 $\frac{\tan x}{x} > 1 \Rightarrow \tan x > x$。
+
+\noindent\textbf{证明右边不等式：$\tan x < \frac{x}{\cos^2 x}$}
+\textbf{步骤1}：转化不等式。
+待证式等价于 $\sin x \cos x < x$。更优策略：直接利用刚才的结论。
+$\tan x = x \cdot \sec^2 \xi_1$。我们需要去比较这一项。
+\textbf{步骤2}：利用导数单调性。
+考虑 $f(t) = \tan t$，导数 $f'(t) = \sec^2 t$。
+在 $(0, \frac{\pi}{2})$ 上，$\sec^2 t$ 是单调递增函数。
+因为 $\xi_1 < x$，所以 $\sec^2 \xi_1 < \sec^2 x$。
+\textbf{步骤3}：综合得出结果。
+$\tan x = x \cdot \sec^2 \xi_1 < x \cdot \sec^2 x = \frac{x}{\cos^2 x}$。
+即 $\tan x < \frac{x}{\cos^2 x}$。
+
+\item \textbf{最终答案}
+得证 $x < \tan x < \frac{x}{\cos^2 x}$。
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第3题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目3】中值定理与零点定理的综合应用}
+已知函数 $f(x)$ 在 $[0, 1]$ 上二阶可导，且 $f(0)=f(1)=0, f(\frac{1}{2})=1$。
+证明：存在 $\xi \in (0, 1)$，使得 $f'(\xi) = 1$。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+题目给出了三个点的值，端点值相等但不为0（相对于辅助函数而言）。要求证 $f'(\xi)=k$ 型结论。
+需要结合\textbf{零点定理}和\textbf{罗尔定理}。
+
+\item \textbf{详细求解过程}
+\textbf{第一步}：构造辅助函数。令 $F(x) = f(x) - x$。
+\textbf{第二步}：计算关键点函数值。
+$F(0) = f(0) - 0 = 0$。
+$F(\frac{1}{2}) = f(\frac{1}{2}) - \frac{1}{2} = 1 - \frac{1}{2} = \frac{1}{2}$。
+$F(1) = f(1) - 1 = -1$。
+\textbf{第三步}：应用零点定理。
+因为 $F(\frac{1}{2}) \cdot F(1) < 0$，根据零点定理，$\exists x_0 \in (\frac{1}{2}, 1)$ 使得 $F(x_0)=0$。
+\textbf{第四步}：应用罗尔定理。
+考察区间 $[0, x_0]$，满足 $F(0) = F(x_0) = 0$。
+根据罗尔定理，$\exists \xi \in (0, x_0) \subset (0, 1)$，使得 $F'(\xi) = 0$。
+即 $f'(\xi) - 1 = 0 \Rightarrow f'(\xi) = 1$。
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第4题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目4】利用中值定理求极限}
+求极限：$\lim_{x \to 0} \frac{e^x - e^{\sin x}}{x^3}$。
+
+\begin{redenv}
+\analysisrule
+\subsubsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{逐步解析过程}
+\textbf{第一步}：观察分子 $e^x - e^{\sin x}$，形式为 $f(A) - f(B)$，其中 $f(t)=e^t$。
+\textbf{第二步}：对区间 $[ \sin x, x ]$ 应用拉格朗日中值定理。
+$e^x - e^{\sin x} = e^\xi (x - \sin x)$，其中 $\xi$ 介于 $\sin x$ 与 $x$ 之间。
+\textbf{第三步}：代入极限式。
+原式 $= \lim_{x \to 0} \frac{e^\xi (x - \sin x)}{x^3}$。
+\textbf{第四步}：处理极限。
+当 $x \to 0$ 时，$\xi \to 0 \Rightarrow e^\xi \to 1$。
+并且 $x - \sin x \sim \frac{1}{6}x^3$ （泰勒公式）。
+故原式 $= 1 \cdot \lim_{x \to 0} \frac{\frac{1}{6}x^3}{x^3} = \frac{1}{6}$。
+
+\item \textbf{最终答案}
+极限值为 $\frac{1}{6}$。
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第5题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目5】拉格朗日中值定理证明双向不等式}
+证明：当 $0 < a < b$ 时，有 $\frac{b-a}{b} < \ln \frac{b}{a} < \frac{b-a}{a}$。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+本题属于典型的\textbf{利用微分中值定理证明不等式}的问题。
+\begin{conceptbox}
+\textbf{解题核心思想}：
+将不等式中的函数差值或比值（如 $\ln \frac{b}{a} = \ln b - \ln a$）转化为导数与自变量增量的乘积，从而利用导数的有界性或单调性进行放缩。
+\end{conceptbox}
+
+\item \textbf{解题策略构建}
+观察中间项 $\ln \frac{b}{a} = \ln b - \ln a$，形式符合 $f(b) - f(a)$。
+\textbf{策略}：
+1. 选取函数 $f(x) = \ln x$。
+2. 选取区间 $[a, b]$。
+3. 应用拉格朗日中值定理。
+4. 利用 $\xi$ 的范围 $(a, b)$ 进行不等式放缩。
+
+\item \textbf{详细求解过程}
+
+\noindent\textbf{步骤1：构造函数与区间}
+设 $f(x) = \ln x$。因为 $0 < a < b$，所以 $f(x)$ 在 $[a, b]$ 上连续，在 $(a, b)$ 内可导。
+
+\noindent\textbf{步骤2：应用中值定理}
+由拉格朗日中值定理，存在 $\xi \in (a, b)$，使得：
+\[ \frac{\ln b - \ln a}{b - a} = f'(\xi) = \frac{1}{\xi} \]
+即 $\ln \frac{b}{a} = \frac{b-a}{\xi}$。
+
+\noindent\textbf{步骤3：利用区间不等式放缩}
+因为 $a < \xi < b$，取倒数得 $\frac{1}{b} < \frac{1}{\xi} < \frac{1}{a}$。
+
+\noindent\textbf{步骤4：得出结论}
+不等式各边同时乘以正数 $(b-a)$：
+\[ \frac{b-a}{b} < \frac{b-a}{\xi} < \frac{b-a}{a} \]
+将 $\frac{b-a}{\xi}$ 替换回 $\ln \frac{b}{a}$，即得：
+\[ \frac{b-a}{b} < \ln \frac{b}{a} < \frac{b-a}{a} \]
+
+\item \textbf{验证与检验}
+检查端点条件和不等号方向，确认 $b-a > 0$，乘积不变号。逻辑无误。
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+
+\subsection*{核心公式与推导}
+\begin{formuladerivation}
+\item \textbf{拉格朗日中值定理公式}
+\[ f(b) - f(a) = f'(\xi)(b-a), \quad \xi \in (a, b) \]
+\textbf{推导}：通过构造辅助函数 $F(x) = f(x) - \frac{f(b)-f(a)}{b-a}(x-a)$ 并应用罗尔定理得出。
+
+\item \textbf{倒数不等式性质}
+若 $0 < A < x < B$，则 $\frac{1}{B} < \frac{1}{x} < \frac{1}{A}$。
+\end{formuladerivation}
+
+\subsection*{考点深度分析}
+\begin{conceptbox}
+\textbf{知识点归类}：不等式证明、拉格朗日中值定理应用。
+\end{conceptbox}
+
+\noindent\textbf{易错点全面解析}：
+1. \textbf{区间选择错误}：误选 $(0, x)$ 或其他区间，导致无法凑出目标形式。
+2. \textbf{忽视正负号}：在不等式两边同乘 $(b-a)$ 时，必须确认 $b-a > 0$，否则需变号。
+
+\noindent\textbf{解题技巧与拓展}：
+对于形如 $f(b)-f(a)$ 或 $\frac{f(b)-f(a)}{g(b)-g(a)}$ 的不等式，优先考虑中值定理。若出现积分形式，则考虑积分中值定理。
+\end{redenv}
+
+% ========== 第6题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目6】零点定理与单调性判别根的个数}
+证明：方程 $x^3 + x - 1 = 0$ 在区间 $(0, 1)$ 内有且仅有一个实根。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+本题属于\textbf{方程根的个数判定}问题。
+\begin{conceptbox}
+\textbf{判定准则}：
+1. \textbf{存在性}：利用零点定理（$f(a)f(b)<0$）。
+2. \textbf{唯一性}：利用函数的单调性（导数恒正或恒负）。
+\end{conceptbox}
+
+\item \textbf{解题策略构建}
+设 $f(x) = x^3 + x - 1$。
+1. 计算 $f(0)$ 和 $f(1)$ 的符号，证明存在根。
+2. 求导 $f'(x)$ 判断符号，证明函数单调，从而根唯一。
+
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：证明存在性}
+设 $f(x) = x^3 + x - 1$。
+计算端点值：$f(0) = -1 < 0$，$f(1) = 1 + 1 - 1 = 1 > 0$。
+因为 $f(x)$ 在 $[0, 1]$ 连续，且 $f(0)f(1) < 0$，由零点定理，$\exists \xi \in (0, 1)$，使得 $f(\xi) = 0$。
+
+\noindent\textbf{步骤2：证明唯一性}
+求导：$f'(x) = 3x^2 + 1$。
+因为 $x^2 \ge 0$，所以 $f'(x) \ge 1 > 0$ 对任意 $x \in \mathbb{R}$ 成立。
+故 $f(x)$ 在 $(0, 1)$ 上单调递增。
+
+\item \textbf{结论}
+由单调性可知，函数图像与 $x$ 轴至多有一个交点。结合存在性，故在 $(0, 1)$ 内有且仅有一个实根。
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+
+\subsection*{核心公式与推导}
+\begin{formuladerivation}
+\item \textbf{零点定理}
+若 $f \in C[a, b]$ 且 $f(a)f(b) < 0$，则 $\exists \xi \in (a, b), f(\xi)=0$。
+\item \textbf{单调性判别法}
+在区间 $I$ 上，若 $f'(x) > 0$，则 $f(x)$ 单调递增；若 $f'(x) < 0$，则 $f(x)$ 单调递减。
+\end{formuladerivation}
+
+\subsection*{考点深度分析}
+\noindent\textbf{易错点}：只证存在性，忘记证唯一性。题目要求“有且仅有”，必须双管齐下。
+\end{redenv}
+
+% ========== 第7题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目7】辅助函数构造（乘积型）}
+已知函数 $f(x)$ 在 $[0, 1]$ 上连续，在 $(0, 1)$ 内可导，且 $f(0)=f(1)=0$。证明：存在 $\xi \in (0, 1)$，使得 $f'(\xi) + 2\xi f(\xi) = 0$。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+属于\textbf{罗尔定理辅助函数构造}题型。目标式含有 $f'(\xi)$ 和 $f(\xi)$ 的线性组合。
+
+\item \textbf{解题策略构建}
+利用公式法构造辅助函数。
+目标变形为 $f'(x) + 2x f(x) = 0$。
+$g(x) = 2x$，积分因子 $\mu(x) = e^{\int 2x dx} = e^{x^2}$。
+故构造 $F(x) = e^{x^2}f(x)$。
+
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：构造辅助函数}
+令 $F(x) = e^{x^2}f(x)$。
+\noindent\textbf{步骤2：验证条件}
+$F(0) = e^0 f(0) = 0$。
+$F(1) = e^1 f(1) = 0$。
+$F(x)$ 在 $[0, 1]$ 连续，$(0, 1)$ 可导。
+\noindent\textbf{步骤3：应用罗尔定理}
+由罗尔定理，$\exists \xi \in (0, 1)$，使得 $F'(\xi) = 0$。
+求导：$F'(x) = 2x e^{x^2} f(x) + e^{x^2} f'(x) = e^{x^2}[2x f(x) + f'(x)]$。
+代入 $\xi$：$e^{\xi^2}[2\xi f(\xi) + f'(\xi)] = 0$。
+因为 $e^{\xi^2} \neq 0$，所以 $2\xi f(\xi) + f'(\xi) = 0$。
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+
+\subsection*{核心公式与推导}
+\begin{formuladerivation}
+\item \textbf{积分因子公式}
+形如 $y' + P(x)y = 0$ 的辅助函数为 $F(x) = y e^{\int P(x)dx}$。
+\end{formuladerivation}
+\end{redenv}
+
+% ========== 第8题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目8】利用导数性质比较大小}
+比较 $e^\pi$ 与 $\pi^e$ 的大小。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+比较幂指函数 $a^b$ 与 $b^a$ 的大小，通常取对数转化为比较 $\frac{\ln a}{a}$ 与 $\frac{\ln b}{b}$，进而利用导数研究函数 $y = \frac{\ln x}{x}$ 的单调性。
+
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：变形}
+比较 $e^\pi$ 与 $\pi^e$ $\iff$ 比较 $\pi \ln e$ 与 $e \ln \pi$ $\iff$ 比较 $\frac{\ln e}{e}$ 与 $\frac{\ln \pi}{\pi}$。
+
+\noindent\textbf{步骤2：构造与求导}
+设 $f(x) = \frac{\ln x}{x} (x>0)$。
+$f'(x) = \frac{1 - \ln x}{x^2}$。
+
+\noindent\textbf{步骤3：单调性分析}
+令 $f'(x)=0 \Rightarrow x=e$。
+$x \in (0, e)$ 时 $f'(x)>0$（增）；$x \in (e, +\infty)$ 时 $f'(x)<0$（减）。
+
+\noindent\textbf{步骤4：结论}
+因为 $\pi > e$，所以 $f(\pi)$ 处于单调递减区间。
+又 $x=e$ 是极大值点（也是最大值点），故 $f(e) > f(\pi)$。
+即 $\frac{\ln e}{e} > \frac{\ln \pi}{\pi} \Rightarrow e^\pi > \pi^e$。
+
+\item \textbf{最终答案}
+$e^\pi > \pi^e$。
+\end{detailedanalysis}
+
+\subsection*{考点深度分析}
+\noindent\textbf{解题技巧}：
+见到 $x^y$ 与 $y^x$ 比较大小，通法是构造 $f(t) = \frac{\ln t}{t}$。记住该函数在 $x=e$ 处取最大值 $1/e$。
+\end{redenv}
+
+% ========== 第9题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目9】利用拉格朗日中值定理证明不等式}
+证明：当 $x>0$ 时，$\frac{x}{1+x} < \ln(1+x) < x$。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+本题要求利用\textbf{拉格朗日中值定理}证明对数不等式。需将不等式转化为函数增量形式 $f(b)-f(a)$。
+
+\item \textbf{解题策略构建}
+1. 观察中间项 $\ln(1+x)$，可视为 $\ln(1+x) - \ln 1$。
+2. 构造函数 $f(t) = \ln t$，区间 $[1, 1+x]$。
+3. 应用定理 $f(1+x) - f(1) = f'(\xi) \cdot x$。
+4. 利用 $\xi$ 的范围放大缩小导数值。
+
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：构造与应用定理}
+设 $f(t) = \ln t$，在区间 $[1, 1+x]$ ($x>0$) 上连续且可导。
+由拉格朗日中值定理，存在 $\xi \in (1, 1+x)$，使得：
+\[ \ln(1+x) - \ln 1 = f'(\xi)(1+x - 1) = \frac{1}{\xi} \cdot x = \frac{x}{\xi} \]
+即 $\ln(1+x) = \frac{x}{\xi}$。
+
+\noindent\textbf{步骤2：不等式放缩}
+因为 $1 < \xi < 1+x$，取倒数得 $\frac{1}{1+x} < \frac{1}{\xi} < 1$。
+不等式各边同时乘以 $x$ ($x>0$)：
+\[ \frac{x}{1+x} < \frac{x}{\xi} < x \]
+将 $\frac{x}{\xi}$ 替换回 $\ln(1+x)$，得：
+\[ \frac{x}{1+x} < \ln(1+x) < x \]
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+
+\subsection*{核心公式与推导}
+\begin{formuladerivation}
+\item \textbf{拉格朗日中值定理}
+\[ f(b) - f(a) = f'(\xi)(b-a) \]
+这里 $b=1+x, a=1$。
+\end{formuladerivation}
+\end{redenv}
+
+% ========== 第10题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目10】简单的拉格朗日中值定理应用}
+已知函数 $f(x)$ 在 $[0, 1]$ 上连续，在 $(0, 1)$ 内可导，且 $f(0)=0, f(1)=1$。证明：在 $(0, 1)$ 内至少有一点 $\xi$ 使 $f'(\xi)=1$。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+本题属于最直接的拉格朗日中值定理应用题，直接套用公式即可。
+
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：验证条件}
+题目已知 $f(x)$ 在 $[0, 1]$ 连续，$(0, 1)$ 可导。符合拉格朗日中值定理条件。
+
+\noindent\textbf{步骤2：应用定理}
+由拉格朗日中值定理，存在 $\xi \in (0, 1)$，使得：
+\[ f'(\xi) = \frac{f(1) - f(0)}{1 - 0} \]
+
+\noindent\textbf{步骤3：代入数值}
+将 $f(1)=1, f(0)=0$ 代入：
+\[ f'(\xi) = \frac{1 - 0}{1} = 1 \]
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第11题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目11】辅助函数构造（幂函数型）}
+设函数 $f(x)$ 在 $[1, 2]$ 上连续，在 $(1, 2)$ 内可导，且 $f(1) = 4f(2)$。证明：存在一点 $\xi \in (1, 2)$，使得 $2f(\xi) + \xi f'(\xi) = 0$。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{问题本质分析}
+目标式 $2f(\xi) + \xi f'(\xi) = 0$ 中，$f'(\xi)$ 系数为 $\xi$，不是 1，不能直接用积分因子法。需观察乘积导数。
+观察 $(x^2 f(x))' = 2x f(x) + x^2 f'(x) = x[2f(x) + xf'(x)]$。
+若令该式为0，则括号内为0。
+
+\item \textbf{解题策略构建}
+构造辅助函数 $F(x) = x^2 f(x)$。
+验证 $F(1) = F(2)$ 是否成立。
+
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：构造辅助函数}
+令 $F(x) = x^2 f(x)$。
+
+\noindent\textbf{步骤2：验证罗尔定理条件}
+$F(1) = 1^2 \cdot f(1) = f(1)$。
+$F(2) = 2^2 \cdot f(2) = 4f(2)$。
+由已知 $f(1) = 4f(2)$，可得 $F(1) = F(2)$。
+且 $F(x)$ 在 $[1, 2]$ 连续，$(1, 2)$ 可导。
+
+\noindent\textbf{步骤3：应用定理}
+由罗尔定理，$\exists \xi \in (1, 2)$，使得 $F'(\xi) = 0$。
+求导：$F'(x) = 2x f(x) + x^2 f'(x)$。
+代入 $\xi$：$2\xi f(\xi) + \xi^2 f'(\xi) = 0$。
+提取公因式 $\xi$：$\xi [2f(\xi) + \xi f'(\xi)] = 0$。
+因为 $\xi \in (1, 2)$，所以 $\xi \neq 0$。
+故 $2f(\xi) + \xi f'(\xi) = 0$。
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+
+\subsection*{核心公式与推导}
+\begin{formuladerivation}
+\item \textbf{辅助函数构造技巧}
+见 $n f(x) + x f'(x) = 0$，构造 $F(x) = x^n f(x)$。
+本题中 $n=2$。
+\end{formuladerivation}
+\end{redenv}
+
+% ========== 第12题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目12】利用单调性证明不等式}
+证明：当 $x > 0$ 时，$\ln(1+x) > x - \frac{1}{2}x^2$。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{解题策略构建}
+构造差函数 $F(x) = \ln(1+x) - (x - \frac{1}{2}x^2)$，证明单调递增且大于0。
+
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：构造函数}
+令 $F(x) = \ln(1+x) - x + \frac{1}{2}x^2 \quad (x \ge 0)$。
+
+\noindent\textbf{步骤2：求导判断单调性}
+$F'(x) = \frac{1}{1+x} - 1 + x = \frac{1 - (1-x)(1+x)}{1+x} = \frac{1 - (1-x^2)}{1+x} = \frac{x^2}{1+x}$。
+当 $x > 0$ 时，$x^2 > 0$ 且 $1+x > 0$，故 $F'(x) > 0$。
+所以 $F(x)$ 在 $[0, +\infty)$ 上单调递增。
+
+\noindent\textbf{步骤3：比较端点值}
+$F(0) = \ln 1 - 0 + 0 = 0$。
+因为 $F(x)$ 单调递增，所以当 $x > 0$ 时，$F(x) > F(0) = 0$。
+即 $\ln(1+x) - x + \frac{1}{2}x^2 > 0 \Rightarrow \ln(1+x) > x - \frac{1}{2}x^2$。
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第13题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目13】拉格朗日中值定理计算题}
+求函数 $f(x) = x^2 + 2x$ 在区间 $[0, 1]$ 上满足拉格朗日中值定理条件的 $\xi$ 值。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：计算端点增量}
+$a=0, b=1$。
+$f(0) = 0$。
+$f(1) = 1 + 2 = 3$。
+$f(1) - f(0) = 3$。
+
+\noindent\textbf{步骤2：求导数}
+$f'(x) = 2x + 2$。
+
+\noindent\textbf{步骤3：列方程求解}
+根据公式 $f(1) - f(0) = f'(\xi)(1 - 0)$：
+$3 = (2\xi + 2) \cdot 1$。
+$2\xi + 2 = 3 \Rightarrow 2\xi = 1 \Rightarrow \xi = 0.5$。
+
+\noindent\textbf{步骤4：验证范围}
+$\xi = 0.5$ 确实在区间 $(0, 1)$ 内。
+
+\item \textbf{最终答案}
+$\xi = 0.5$（或 $\frac{1}{2}$）。
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第14题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目14】利用单调性证明正弦不等式}
+证明：当 $x > 0$ 时，$\sin x < x$。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：构造函数}
+令 $f(x) = x - \sin x \quad (x \ge 0)$。
+
+\noindent\textbf{步骤2：求导}
+$f'(x) = 1 - \cos x$。
+
+\noindent\textbf{步骤3：判别单调性}
+因为 $\cos x \le 1$，所以 $f'(x) = 1 - \cos x \ge 0$。
+且 $f'(x)=0$ 仅在 $x=2k\pi$ 离散点取到，故 $f(x)$ 在 $[0, +\infty)$ 单调递增。
+
+\noindent\textbf{步骤4：结论}
+$f(x) > f(0) = 0 - 0 = 0$。
+即 $x - \sin x > 0 \Rightarrow x > \sin x$。
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第15题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目15】反复应用罗尔定理}
+已知 $f(x)$ 在 $[1, 3]$ 上二阶可导，且 $f(1)=f(2)=f(3)=0$。证明：存在 $\xi \in (1, 3)$，使得 $f''(\xi)=0$。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：第一次应用罗尔定理}
+在 $[1, 2]$ 上，$f(1)=f(2)=0 \Rightarrow \exists \xi_1 \in (1, 2), f'(\xi_1)=0$。
+在 $[2, 3]$ 上，$f(2)=f(3)=0 \Rightarrow \exists \xi_2 \in (2, 3), f'(\xi_2)=0$。
+
+\noindent\textbf{步骤2：第二次应用罗尔定理}
+在区间 $[\xi_1, \xi_2]$ 上应用罗尔定理（对象为 $f'(x)$）。
+因为 $f'(\xi_1) = f'(\xi_2) = 0$。
+所以 $\exists \xi \in (\xi_1, \xi_2) \subset (1, 3)$，使得 $(f'(x))'|_{x=\xi} = 0$，即 $f''(\xi) = 0$。
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+\end{redenv}
+
+% ========== 第16题 ==========
+\vspace{2em}
+\problemrule
+\subsection*{【题目16】单调性与零点判定}
+证明：方程 $x^3 - 3x + 1 = 0$ 在区间 $(-2, 2)$ 内恰有三个实根。
+
+\begin{redenv}
+\analysisrule
+\subsection*{逐步解析}
+
+\begin{detailedanalysis}
+\item \textbf{详细求解过程}
+\noindent\textbf{步骤1：求单调区间}
+$f'(x) = 3x^2 - 3 = 3(x-1)(x+1)$。
+驻点 $x = \pm 1$。
+$(-\infty, -1)$ 增， $(-1, 1)$ 减， $(1, +\infty)$ 增。
+
+\noindent\textbf{步骤2：计算极值与端点}
+极大值 $f(-1) = -1 + 3 + 1 = 3 > 0$。
+极小值 $f(1) = 1 - 3 + 1 = -1 < 0$。
+又 $f(-2) = -8 + 6 + 1 = -1 < 0$。
+$f(2) = 8 - 6 + 1 = 3 > 0$。
+
+\noindent\textbf{步骤3：应用零点定理}
+区间1 $(-2, -1)$：$f(-2)<0, f(-1)>0 \Rightarrow$ 1个根。
+区间2 $(-1, 1)$：$f(-1)>0, f(1)<0 \Rightarrow$ 1个根。
+区间3 $(1, 2)$：$f(1)<0, f(2)>0 \Rightarrow$ 1个根。
+合计3个实根。
+
+\item \textbf{最终答案}
+得证。
+\end{detailedanalysis}
+\end{redenv}
+
+\end{document}

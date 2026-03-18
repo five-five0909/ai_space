@@ -1,0 +1,390 @@
+% -*- coding: utf-8 -*-
+% XeLaTeX 编译
+\documentclass[a3paper, landscape, 11pt, twocolumn]{article}
+
+% 引入宏包
+\usepackage{fontspec}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{lastpage}
+\usepackage{tasks}
+
+% 设置页面边距 (A3横向双栏)
+\geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm, columnsep=1.8cm}
+
+% 颜色定义
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{keywordcolor}{RGB}{0,0,150}
+\definecolor{commentcolor}{RGB}{0,128,0}
+\definecolor{stringcolor}{RGB}{163,21,21}
+
+% Java代码块样式设置
+\lstdefinestyle{JavaExam}{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    keywordstyle=\color{keywordcolor}\bfseries,
+    commentstyle=\color{commentcolor},
+    stringstyle=\color{stringcolor},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{black!50},
+    tabsize=4,
+    xleftmargin=1em,
+    xrightmargin=1em,
+    aboveskip=1em,
+    belowskip=1em
+}
+
+% tasks样式设置
+\settasks{
+    label=\Alph*. ,
+    label-width=1.5em,
+    item-indent=2em,
+    after-item-skip=0.5ex
+}
+
+\newcommand{\blank}{\underline{\hspace{2em}}}
+\newcommand{\tfblank}{\underline{\hspace{1.5em}}}
+
+% 页眉页脚设置
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\Large\bfseries 《Java程序设计》期末考试试卷}
+\fancyfoot[C]{第 \thepage\ 页 共 \pageref{LastPage}\ 页}
+\fancyfoot[R]{得分：\underline{\hspace{2cm}}}
+\fancyfoot[L]{题号：\underline{\hspace{1cm}}}
+\fancyheadoffset{0cm}
+\fancyfootoffset{0cm}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+% 试卷头部信息
+\twocolumn[{
+		\begin{center}
+			\vspace*{-1cm}
+			{\huge\bfseries Java 程序设计模拟试卷（F卷）}\\[1em]
+			{\large 适用专业：计算机科学与技术、软件工程 \hspace{2em} 闭卷 \hspace{2em} 满分：150分 \hspace{2em} 考试时间：120分钟}\\[1em]
+			\renewcommand{\arraystretch}{1.5}
+			\begin{tabular}{|c|c|c|c|c|c|c|}
+				\hline
+				题号  & 一 (40分)        & 二 (20分)        & 三 (20分)        & 四 (30分)        & 五 (40分)        & 总分 (150分)      \\
+				\hline
+				得分  & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} & \hspace{1.5cm} \\
+				\hline
+				阅卷人 &                &                &                &                &                &                \\
+				\hline
+			\end{tabular}\\[1.5em]
+			{\large 姓名：\underline{\hspace{3cm}} \hspace{2em} 学号：\underline{\hspace{4cm}} \hspace{2em} 班级：\underline{\hspace{3cm}}}
+			\vspace{1em}
+			\hrule
+			\vspace{1.5em}
+		\end{center}
+	}]
+
+\section*{一、单项选择题（共 20 小题，每小题 2 分，共 40 分）}
+\textit{（在每小题给出的四个选项中，只有一项是符合题目要求的）}
+
+\begin{enumerate}[label=\arabic*., itemsep=0.8em]
+	\item 下列选项中，哪个不是 Java 的关键字？
+	      \begin{tasks}(4)
+		      \task class \task interface \task extends \task virtual
+	      \end{tasks}
+
+	\item 以下关于构造方法的描述，正确的是？
+	      \begin{tasks}(4)
+		      \task 构造方法的返回类型必须是 void
+		      \task 构造方法名必须与类名相同
+		      \task 构造方法不能被重载
+		      \task 构造方法不能被自动调用
+	      \end{tasks}
+
+	\item 在 Java 中，使用哪个关键字可以调用父类的构造方法？
+	      \begin{tasks}(4)
+		      \task this \task super \task parent \task base
+	      \end{tasks}
+
+	\item 下列哪个选项是方法重载的正确示例？
+	      \begin{tasks}(4)
+		      \task `int add(int a, int b)` 和 `double add(int a, int b)`
+		      \task `int add(int a, int b)` 和 `int add(int x, int y)`
+		      \task `int add(int a, int b)` 和 `int add(int a, int b, int c)`
+		      \task `int add(int a, int b)` 和 `void add(int a, int b)`
+	      \end{tasks}
+
+	\item 关于继承，以下说法正确的是？
+	      \begin{tasks}(4)
+		      \task Java 支持多重继承
+		      \task 子类可以继承父类的所有成员（包括私有成员）
+		      \task 子类可以访问父类的私有成员
+		      \task 子类可以隐藏父类的静态方法
+	      \end{tasks}
+
+	\item 下列哪个访问修饰符修饰的成员只能在同一包中访问？
+	      \begin{tasks}(4)
+		      \task public \task private \task protected \task 默认（无修饰符）
+	      \end{tasks}
+
+	\item 关于抽象类，以下描述错误的是？
+	      \begin{tasks}(4)
+		      \task 抽象类可以包含抽象方法
+		      \task 抽象类不能实例化
+		      \task 抽象类可以包含构造方法
+		      \task 抽象类中的抽象方法必须在子类中实现
+	      \end{tasks}
+
+	\item 接口中的方法默认的修饰符是？
+	      \begin{tasks}(4)
+		      \task public abstract \task public \task abstract \task private
+	      \end{tasks}
+
+	\item 下列关于 `final` 关键字的说法，正确的是？
+	      \begin{tasks}(4)
+		      \task final 修饰的类可以被继承
+		      \task final 修饰的方法可以被重写
+		      \task final 修饰的变量必须在声明时赋值，之后不能修改
+		      \task final 修饰的引用变量可以改变指向的对象
+	      \end{tasks}
+
+	\item 下列哪个类是所有 Java 类的根类？
+	      \begin{tasks}(4)
+		      \task Object \task Class \task System \task Main
+	      \end{tasks}
+
+	\item 以下关于 `String` 类的描述，错误的是？
+	      \begin{tasks}(4)
+		      \task String 对象是不可变的
+		      \task 使用 `==` 比较两个字符串时，比较的是引用是否相等
+		      \task String 类位于 java.lang 包中
+		      \task String 类可以被继承
+	      \end{tasks}
+
+	\item 下列哪个异常是数组下标越界时抛出的？
+	      \begin{tasks}(4)
+		      \task NullPointerException
+		      \task ArrayIndexOutOfBoundsException
+		      \task IndexOutOfBoundsException
+		      \task IllegalArgumentException
+	      \end{tasks}
+
+	\item 在 try-catch-finally 结构中，关于 finally 块的执行，正确的是？
+	      \begin{tasks}(4)
+		      \task 只有在 try 块没有异常时才会执行
+		      \task 只有在 catch 块执行后才会执行
+		      \task 无论是否发生异常都会执行（除非 JVM 退出）
+		      \task 可以没有 try 块单独存在
+	      \end{tasks}
+
+	\item 下列哪个集合类实现了动态数组，且允许存储重复元素？
+	      \begin{tasks}(4)
+		      \task HashSet \task TreeSet \task ArrayList \task HashMap
+	      \end{tasks}
+
+	\item 关于泛型，以下说法错误的是？
+	      \begin{tasks}(4)
+		      \task 泛型可以提高类型安全
+		      \task 泛型可以用于类、接口和方法
+		      \task 泛型类型参数在运行时会被类型擦除
+		      \task 泛型可以用于基本数据类型
+	      \end{tasks}
+
+	\item 在 Java 中，创建线程的方式不包括？
+	      \begin{tasks}(4)
+		      \task 继承 Thread 类
+		      \task 实现 Runnable 接口
+		      \task 实现 Callable 接口
+		      \task 继承 Process 类
+	      \end{tasks}
+
+	\item 关于 synchronized 关键字的说法，正确的是？
+	      \begin{tasks}(4)
+		      \task 可以修饰类
+		      \task 可以修饰构造方法
+		      \task 可以修饰静态方法
+		      \task 可以修饰成员变量
+	      \end{tasks}
+
+	\item 下列哪个类用于读取文本文件中的字符数据？
+	      \begin{tasks}(4)
+		      \task FileInputStream
+		      \task FileReader
+		      \task FileWriter
+		      \task BufferedInputStream
+	      \end{tasks}
+
+	\item 在 JDBC 中，用于执行 SQL 语句并返回结果集的对象是？
+	      \begin{tasks}(4)
+		      \task Statement
+		      \task PreparedStatement
+		      \task ResultSet
+		      \task Connection
+	      \end{tasks}
+
+	\item 关于 Swing 中 JFrame 的默认布局管理器是？
+	      \begin{tasks}(4)
+		      \task FlowLayout
+		      \task BorderLayout
+		      \task GridLayout
+		      \task CardLayout
+	      \end{tasks}
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\section*{二、判断题（共 10 小题，每小题 2 分，共 20 分）}
+\textit{（正确的选 A，错误的选 B）}
+
+\begin{enumerate}[label=\arabic*., itemsep=0.5em]
+	\item 一个 Java 源文件中可以定义多个 public 类。 \\tfblank
+	\item 静态方法可以直接调用非静态成员变量。 \\tfblank
+	\item 子类构造方法中，如果没有显式调用父类构造方法，则默认调用父类的无参构造方法。 \\tfblank
+	\item 接口中的成员变量默认是 public static final 的。 \\tfblank
+	\item 使用 `throw` 关键字抛出异常时，方法声明中必须使用 `throws`。 \\tfblank
+	\item HashSet 中的元素是有序的（按插入顺序）。 \\tfblank
+	\item 泛型通配符 `?` 可以用于方法参数，表示接受任意类型的泛型集合。 \\tfblank
+	\item 线程调用 sleep() 方法后不会释放持有的对象锁。 \\tfblank
+	\item File 类的 delete() 方法可以删除非空目录。 \\tfblank
+	\item 在 UDP 通信中，DatagramSocket 用于发送和接收数据报。 \\tfblank
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\section*{三、填空题（共 5 小题，每空 2 分，共 20 分）}
+
+\begin{enumerate}[label=\arabic*., itemsep=1em]
+	\item Java 语言中，定义包使用关键字 \blank，导入包使用关键字 \blank。
+	\item 面向对象的三大特征是封装、\blank 和 \blank。
+	\item 异常分为两大类：\blank 异常和 \blank 异常（运行时异常）。
+	\item 线程的生命周期包括新建、\blank、运行、\blank 和死亡五种状态。
+	\item Java 集合框架中，List 接口的实现类有 \blank 和 \blank。
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\section*{四、程序运行结果题（共 5 小题，每小题 6 分，共 30 分）}
+\textit{（阅读下列程序，写出运行后的输出结果）}
+
+\begin{enumerate}[leftmargin=*, label=\arabic*., itemsep=1em]
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+public class Test1 {
+    public static void main(String[] args) {
+        int x = 10, y = 20;
+        if (x++ > 10 || ++y > 20) {
+            System.out.print(x + "," + y);
+        } else {
+            System.out.print(x + "," + y);
+        }
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{6cm}}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+class A {
+    public void show() { System.out.print("A"); }
+}
+class B extends A {
+    public void show() { System.out.print("B"); }
+}
+public class Test2 {
+    public static void main(String[] args) {
+        A obj = new B();
+        obj.show();
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{6cm}}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+public class Test3 {
+    public static void main(String[] args) {
+        try {
+            int[] a = new int[5];
+            a[5] = 10;
+            System.out.println("正常");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("数组越界");
+        } catch (Exception e) {
+            System.out.println("其他异常");
+        } finally {
+            System.out.println("结束");
+        }
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{6cm}}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+public class Test4 {
+    public static void main(String[] args) {
+        String s1 = "hello";
+        String s2 = new String("hello");
+        System.out.println(s1 == s2);
+        System.out.println(s1.equals(s2));
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{6cm}}
+
+	\item \textbf{写出下列程序的输出结果：}
+	      \begin{lstlisting}[style=JavaExam]
+class Counter {
+    static int count = 0;
+    Counter() { count++; }
+}
+public class Test5 {
+    public static void main(String[] args) {
+        new Counter();
+        new Counter();
+        Counter c = new Counter();
+        System.out.println(Counter.count);
+    }
+}
+\end{lstlisting}
+	      \textbf{输出：}\underline{\hspace{6cm}}
+\end{enumerate}
+
+\newpage
+\vspace{0.5cm}
+
+\section*{五、编程题（共 2 小题，每小题 20 分，共 40 分）}
+\textit{（要求代码完整、结构清晰、注释合理）}
+
+\begin{enumerate}[leftmargin=*, label=\arabic*., itemsep=1em]
+	\item \textbf{设计一个"人"类及其子类}
+	      定义抽象类 `Person`，包含私有成员变量 `name`（姓名）和 `age`（年龄）。提供构造方法初始化这些属性，以及 getter 和 setter 方法。定义抽象方法 `void work()`。\\
+	      派生两个子类：`Student` 和 `Teacher`。\\
+	      - `Student` 类增加属性 `major`（专业），重写 `work()` 方法输出"学生 xxx 正在学习"。\\
+	      - `Teacher` 类增加属性 `subject`（教授科目），重写 `work()` 方法输出"教师 xxx 正在教授 yyy"。\\
+	      在测试类 `Main` 中，创建一个 `Person` 数组，存放至少一个学生和一个教师对象，遍历数组调用 `work()` 方法，展示多态。
+	\item \textbf{实现一个简单的银行账户类}
+	      定义 `BankAccount` 类，属性包括账号（`accountNumber`）、户主姓名（`ownerName`）、余额（`balance`）。要求：
+	      \begin{itemize}
+		      \item 提供两个构造方法：无参构造（账号自动生成，如"BANK"+系统时间，余额为0）；带参构造（初始化所有属性）。
+		      \item 提供存款方法 `void deposit(double amount)`，金额必须大于0，否则输出错误提示。
+		      \item 提供取款方法 `void withdraw(double amount)`，金额必须大于0且不超过余额，否则输出相应提示。
+		      \item 提供 `void display()` 方法显示账户信息。
+	      \end{itemize}
+	      在测试类中，创建两个账户（一个用无参构造，一个用带参构造），进行存款、取款操作，并显示账户信息。
+\end{enumerate}
+
+\vfill
+
+\begin{center}
+	\zihao{4}\bfseries —— 试卷结束，祝考试顺利 ——
+\end{center}
+
+\end{document}

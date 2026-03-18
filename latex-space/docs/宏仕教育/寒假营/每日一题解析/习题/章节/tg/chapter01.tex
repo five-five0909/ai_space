@@ -1,0 +1,95 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{fancyhdr}       % 页眉页脚
+\usepackage{cases}          % 分段函数增强
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 纵向排列的选项 (1列)
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+% 填空题下划线
+\newcommand{\blank}[1]{\underline{\hspace{#1}}}
+
+\title{\textbf{《高等数学》必刷习题——提高版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第一章 函数（提高）}
+
+\begin{enumerate}
+    \item 设 $ f(x)=\sin x $ , $ g(x)=\begin{cases}x-\pi, & x\leq0,\\x+\pi, & x>0,\end{cases} $ 则 $ f[g(x)]= $ \blank{1cm}。
+    \choicesFour{$ \sin x $}{$ \cos x $}{$ - \sin x $}{$ - \cos x $}
+
+    \item 函数 $ y = \ln | \sin x | $ 的定义域是 \blank{1cm}，其中 $k$ 为整数。
+    \choicesTwo
+    {$ x \neq \frac{k\pi}{2} $}
+    {$ x \in (-\infty, \infty), x \neq k\pi $}
+    {$ x = k\pi $}
+    {$ x \in (-\infty, \infty) $}
+
+    \item 函数 $ f(x)=\frac{1-x^{2}}{\sqrt{|x|-1}}+\arcsin(x-1) $ 的定义域是 \blank{1cm}。
+    \choicesFour{$ (0,2] $}{$ [0,2] $}{$ (1,2] $}{$ [1,2] $}
+
+    \item 函数 $ y=\sqrt{2x-x^{2}}-\arcsin\frac{2x-1}{7} $ 的定义域为 \blank{1cm}。
+    \choicesFour{$ \left[-3,4\right] $}{$ (-3,4) $}{$ [0,2] $}{$ (0,2) $}
+
+    \item 函数 $ y = \arcsin(1-x) + \frac{1}{2}\lg\frac{1+x}{1-x} $ 的定义域是 \blank{1cm}。
+    \choicesFour{$ (0,1) $}{$ [0,1) $}{$ [0,1] $}{$ [0,1] $}
+
+    \item 已知函数 $ f(x)=x^{3}+3x-2 $ , $ g(x)=\tan x $ , 则 $ f[g(\frac{\pi}{4})]= $ \blank{2cm}。
+
+    \item 已知 $ f(x)=\begin{cases}\frac{1}{x}, & |x|>1\\0, & |x|\leq1\end{cases} $ 则 $ f[f(2021)]= $ \blank{2cm}。
+
+    \item 函数 $ y = \ln[\ln(\ln x)] $ 的定义域是 \blank{2cm}。
+
+    \item 函数 $ f(x)=\frac{1}{\sqrt{x-3}} $ 的定义域是 \blank{2cm}。
+
+    \item 函数 $ f(x) = \sqrt{4 - x^{2}} + \frac{1}{\ln \cos x} $ 的定义域为 \blank{2cm}。
+
+    \item 设 $ f(x-1)=x(x-1) $ ，则 $ f(x)= $ \blank{2cm}。
+
+    \item 设 $ f(x) $ 是 $ (-\infty, +\infty) $ 内的偶函数，并且当 $ x \in (-\infty, 0) $ 时，有 $ f(x) = x + 2 $ ，则当 $ x \in (0, +\infty) $ 时， $ f(x) $ 的表达式是 \blank{2cm}。
+
+    \item 函数 $ y = \sin x - \sin |x| $ 的值域是 \blank{2cm}。
+
+    \item 设函数 $ f(x)=x^{3}-x^{2}-1 $ , 则 $ f[f(1)]= $ \blank{2cm}。
+
+    \item 已知函数 $ f(x)=\frac{x+1}{x-1},x\in(1,+\infty) $ ，求复合函数 $ f[f(x)] $ 。
+\end{enumerate}
+
+\end{document}

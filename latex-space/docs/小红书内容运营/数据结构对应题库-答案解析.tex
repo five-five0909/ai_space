@@ -1,0 +1,964 @@
+\documentclass[12pt,a4paper]{ctexart}
+
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{array}
+
+\setstretch{1.2}
+\setlist[enumerate]{itemsep=0.6em, topsep=0.4em}
+
+\titleformat{\section}{\Large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+% 水印部分
+% 直接挂载到 LaTeX 的前景(foreground)渲染层
+\AddToHook{shipout/foreground}{
+    \begin{tikzpicture}[remember picture, overlay]
+        % 在页面正中心放置置顶水印
+        \node[text=blue, opacity=0.2, scale=5, rotate=30] 
+        at (current page.center) {fifine专升本};
+    \end{tikzpicture}
+}
+\newtcolorbox{coverbox}{
+    colback=gray!5,
+    colframe=black!60,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=2mm
+}
+
+\newtcolorbox{answerbox}{
+    colback=blue!5,
+    colframe=blue!60,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=2mm
+}
+
+\begin{document}
+
+\begin{center}
+	{\LARGE \textbf{专升本数据结构小红书发题题库（第一阶段）}}\\[0.6em]
+	{\large 适用方向：专升本学生｜图文发题｜题目+解析版｜可用于早题晚解析}\\[0.8em]
+	{\normalsize 使用方式：每一节可单独作为 1 篇小红书笔记发布}
+\end{center}
+
+\vspace{1em}
+
+\section*{使用说明}
+本题库为"小红书解析版"，每组题控制在 3～4 题，便于做成图文轮播。\\
+本题库\textbf{包含答案和解析}，可直接用于晚间解析发布。
+
+\newpage
+
+%========================
+\section{笔记 1：数据结构基础概念查漏补缺}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据结构｜基础概念这4题，很多人学了还是会混\\
+	\textbf{副标题建议：}\\
+	先把逻辑结构和存储结构分清
+\end{coverbox}
+
+\subsection*{题目 1}
+以下哪种数据结构中任何两个结点之间都没有逻辑关系？
+\begin{enumerate}[label=\Alph*.]
+	\item 树形结构
+	\item 集合
+	\item 图形结构
+	\item 线性结构
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 集合}
+
+	\textbf{解析：}数据的逻辑结构分为四大类：\\
+	- 集合：元素之间没有明确的逻辑关系，仅属于同一集合\\
+	- 线性结构：一对一关系\\
+	- 树形结构：一对多关系\\
+	- 图形结构：多对多关系
+
+	集合中元素之间没有特定关系，是最简单的逻辑结构。
+
+	\textbf{易错点：}集合是唯一没有明确逻辑关系的数据结构。
+\end{answerbox}
+
+\subsection*{题目 2}
+数据结构中，从逻辑上可以把数据结构分成
+\begin{enumerate}[label=\Alph*.]
+	\item 动态结构和静态结构
+	\item 紧凑结构和非紧凑结构
+	\item 线性结构和非线性结构
+	\item 内部结构和外部结构
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 线性结构和非线性结构}
+
+	\textbf{解析：}从逻辑上分类：\\
+	- 线性结构：元素之间存在一对一关系（如线性表）\\
+	- 非线性结构：元素之间存在一对多或多对多关系（如树、图）
+
+	\textbf{易错点：}其他选项不是从逻辑角度的分类。
+\end{answerbox}
+
+\subsection*{题目 3}
+下面关于数据结构的叙述中，正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 数据的逻辑结构独立于其存储结构
+	\item 数据的存储结构独立于其逻辑结构
+	\item 数据的逻辑结构唯一决定其存储结构
+	\item 数据的存储结构唯一决定其逻辑结构
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 数据的逻辑结构独立于其存储结构}
+
+	\textbf{解析：}逻辑结构与存储结构的关系：\\
+	- 逻辑结构：抽象层面的描述，与计算机无关\\
+	- 存储结构：物理层面的实现，依赖计算机硬件
+
+	同一个逻辑结构可以用不同的存储结构实现（如线性表可以用顺序存储或链式存储）。
+
+	\textbf{易错点：}逻辑结构是抽象的，不依赖于存储方式；存储结构是具体的实现方式。
+\end{answerbox}
+
+\subsection*{题目 4}
+算法的时间复杂度是指
+\begin{enumerate}[label=\Alph*.]
+	\item 算法程序运行所花费的时间
+	\item 算法执行过程中基本操作执行次数的数量级
+	\item 算法程序长度
+	\item 算法占用存储空间的大小
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 算法执行过程中基本操作执行次数的数量级}
+
+	\textbf{解析：}时间复杂度：\\
+	- 不是具体的运行时间（依赖硬件）\\
+	- 而是算法执行次数的数量级\\
+	- 用大O表示法表示：O(1), O(n), O(n²)等
+
+	\textbf{易错点：}算法程序长度和空间复杂度是其他概念。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 2：顺序表 vs 链表第一组母题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据结构｜顺序表和链表，3题看出你到底会不会\\
+	\textbf{副标题建议：}\\
+	这组题最适合做一轮查漏补缺
+\end{coverbox}
+
+\subsection*{题目 1}
+链表不具备的特点是
+\begin{enumerate}[label=\Alph*.]
+	\item 可随机访问任一结点
+	\item 插入删除不需要移动元素
+	\item 不必事先估计存储空间
+	\item 所需空间与其长度成正比
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 可随机访问任一结点}
+
+	\textbf{解析：}链表的特点：\\
+	- 插入删除不需要移动元素 ✓\\
+	- 不必事先估计存储空间（动态分配）✓\\
+	- 所需空间与长度成正比 ✓\\
+	- \textbf{不能随机访问}（需要遍历）❌
+
+	\textbf{易错点：}链表不支持下标随机访问，只能顺序访问。
+\end{answerbox}
+
+\subsection*{题目 2}
+顺序表的特点是
+\begin{enumerate}[label=\Alph*.]
+	\item 可随机访问
+	\item 插入删除不需要移动元素
+	\item 不需要连续存储空间
+	\item 插入删除效率总是高于链表
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 可随机访问}
+
+	\textbf{解析：}顺序表的特点：\\
+	- \textbf{可随机访问}（下标访问，O(1)）✓\\
+	- 插入删除需要移动元素 ❌\\
+	- 需要连续存储空间 ❌\\
+	- 插入删除效率不一定高于链表 ❌
+
+	\textbf{易错点：}顺序表的随机访问效率高，但插入删除效率低。
+\end{answerbox}
+
+\subsection*{题目 3}
+在长度为 $n$ 的顺序表中，在第 $i$ 个位置插入一个元素时，平均需要移动元素的个数约为
+\begin{enumerate}[label=\Alph*.]
+	\item $0$
+	\item $n/2$
+	\item $n$
+	\item $n-1$
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. $n/2$}
+
+	\textbf{解析：}顺序表插入操作：\\
+	- 最好情况：在表头插入，移动n-1个元素\\
+	- 最坏情况：在表尾插入，移动0个元素\\
+	- 平均情况：移动约n/2个元素
+
+	\textbf{易错点：}平均移动元素个数约为n/2。
+\end{answerbox}
+
+\subsection*{题目 4}
+在单链表中，若要删除某个已知结点的后继结点，时间复杂度为
+\begin{enumerate}[label=\Alph*.]
+	\item $O(1)$
+	\item $O(\log n)$
+	\item $O(n)$
+	\item $O(n^2)$
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. $O(1)$}
+
+	\textbf{解析：}单链表删除后继结点：\\
+	- 已知要删除的结点p\\
+	- p->next指向要删除的结点q\\
+	- 执行p->next = q->next，free(q)\\
+	- 只需修改指针，不需要遍历
+
+	时间复杂度O(1)。
+
+	\textbf{易错点：}删除已知结点的前驱需要遍历O(n)，删除后继只需O(1)。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 3：栈和队列核心辨析题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据结构｜栈和队列总混？先做这4题\\
+	\textbf{副标题建议：}\\
+	别只背先进后出、先进先出
+\end{coverbox}
+
+\subsection*{题目 1}
+栈和队列的共同点是
+\begin{enumerate}[label=\Alph*.]
+	\item 都是先进后出
+	\item 都是先进先出
+	\item 只允许在端点处插入和删除元素
+	\item 没有共同点
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 只允许在端点处插入和删除元素}
+
+	\textbf{解析：}栈和队列的共同点：\\
+	- 栈：后进先出（LIFO）\\
+	- 队列：先进先出（FIFO）\\
+	- 两者都只允许在端点处操作
+
+	栈：只在栈顶插入/删除\\
+	队列：队头删除，队尾插入
+
+	\textbf{易错点：}注意区分栈和队列的特性。
+\end{answerbox}
+
+\subsection*{题目 2}
+一个栈的入栈序列为 $1,2,3,4$，则不可能的出栈序列是
+\begin{enumerate}[label=\Alph*.]
+	\item $4,3,2,1$
+	\item $2,1,4,3$
+	\item $3,1,4,2$
+	\item $1,2,3,4$
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. $3,1,4,2$}
+
+	\textbf{解析：}栈的特点是后进先出。分析各选项：\\
+	- A: 4,3,2,1 - 全部入栈后依次出栈，可能\\
+	- B: 2,1,4,3 - 1入，2入并出，1出，3入4入，4出，3出，可能\\
+	- C: 3,1,4,2 - 1入，2入，3入并出，... 1在栈底，要出1必须先出2，但2在1后面... 不可能\\
+	- D: 1,2,3,4 - 依次入栈出栈，可能
+
+	\textbf{易错点：}需要判断出栈序列的合法性。
+\end{answerbox}
+
+\subsection*{题目 3}
+循环队列中，若队尾指针为 \texttt{rear}，队头指针为 \texttt{front}，则队空的条件是
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{front == rear}
+	\item \texttt{(rear+1)\%m == front}
+	\item \texttt{rear == m-1}
+	\item \texttt{front == 0}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. front == rear}
+
+	\textbf{解析：}循环队列的判断：\\
+	- 队空：front == rear\\
+	- 队满：(rear+1) \% m == front（牺牲一个空间）
+
+	\textbf{易错点：}队空和队满的判断需要区分。
+\end{answerbox}
+
+\subsection*{题目 4}
+对于一个大小为 $m$ 的循环队列，队满的条件通常定义为
+\begin{enumerate}[label=\Alph*.]
+	\item \texttt{front == rear}
+	\item \texttt{(rear+1)\%m == front}
+	\item \texttt{rear == front+1}
+	\item \texttt{front == 0}
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. (rear+1)\%m == front}
+
+	\textbf{解析：}见上题。
+
+	\textbf{易错点：}循环队列牺牲一个空间来区分队空和队满。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 4：串的基本概念高频题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据结构｜串这一章别轻敌，这3题很容易错\\
+	\textbf{副标题建议：}\\
+	空串、空格串、长度判断最容易混
+\end{coverbox}
+
+\subsection*{题目 1}
+串是
+\begin{enumerate}[label=\Alph*.]
+	\item 不小于一个字母的序列
+	\item 任意个字母的序列
+	\item 不小于一个字符的序列
+	\item 有限个字符的序列
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：D. 有限个字符的序列}
+
+	\textbf{解析：}串（字符串）的定义：\\
+	- 串是有限个字符的序列\\
+	- 可以包含任意字符（不仅是字母）\\
+	- 可以是空串（0个字符）
+
+	\textbf{易错点：}串强调"有限"，不是任意个。
+\end{answerbox}
+
+\subsection*{题目 2}
+设串 $S=\texttt{"abcde"}$，则其长度为
+\begin{enumerate}[label=\Alph*.]
+	\item 4
+	\item 5
+	\item 6
+	\item 与存储方式有关
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 5}
+
+	\textbf{解析：}字符串长度计算：\\
+	- "abcde"有5个字符：a, b, c, d, e\\
+	- 长度为5，不包括字符串结束符（空字符）
+
+	\textbf{易错点：}注意字符串长度与存储方式无关。
+\end{answerbox}
+
+\subsection*{题目 3}
+关于空串和空格串，下列说法正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 两者长度都为 0
+	\item 空串长度为 0，空格串长度大于 0
+	\item 空串长度大于 0，空格串长度为 0
+	\item 两者完全等价
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 空串长度为 0，空格串长度大于 0}
+
+	\textbf{解析：}空串 vs 空格串：\\
+	- 空串：""，长度为0，没有任何字符\\
+	- 空格串：" "，长度为1，包含一个空格字符
+
+	\textbf{易错点：}空串和空格串是不同的，空串没有字符，空格串有一个空格字符。
+\end{answerbox}
+
+\subsection*{题目 4}
+在串匹配问题中，主串是指
+\begin{enumerate}[label=\Alph*.]
+	\item 待查找的子串
+	\item 包含子串的目标串
+	\item 任意长度最短的串
+	\item 只能是字符数组形式的串
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 包含子串的目标串}
+
+	\textbf{解析：}串匹配的概念：\\
+	- 主串：待匹配的完整字符串（目标串）\\
+	- 子串（模式串）：要查找的字符串
+
+	\textbf{易错点：}子串是要查找的模式，主串是包含子串的字符串。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 5：数组和广义表第一轮筛错题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据结构｜数组和广义表这组题，特别适合筛错\\
+	\textbf{副标题建议：}\\
+	别只会背定义，要会区分
+\end{coverbox}
+
+\subsection*{题目 1}
+一维数组和线性表的区别是
+\begin{enumerate}[label=\Alph*.]
+	\item 前者长度固定，后者长度可变
+	\item 后者长度固定，前者长度可变
+	\item 两者长度均固定
+	\item 两者长度均可变
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 前者长度固定，后者长度可变}
+
+	\textbf{解析：}一维数组 vs 线性表：\\
+	- 一维数组：长度固定，静态分配\\
+	- 线性表：长度可变，动态分配（顺序表可动态扩容，链表天然动态）
+
+	\textbf{易错点：}数组长度固定，线性表长度可动态变化。
+\end{answerbox}
+
+\subsection*{题目 2}
+广义表中，一个元素可以是
+\begin{enumerate}[label=\Alph*.]
+	\item 只能是原子
+	\item 只能是子表
+	\item 原子或子表
+	\item 只能是字符
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 原子或子表}
+
+	\textbf{解析：}广义表的特点：\\
+	- 元素可以是原子（不可再分）\\
+	- 元素也可以是子表（可以再分）\\
+	- 是线性表的推广，元素可以是表
+
+	\textbf{易错点：}广义表的元素具有原子性和结构性。
+\end{answerbox}
+
+\subsection*{题目 3}
+关于广义表的表头与表尾，下列说法正确的是
+\begin{enumerate}[label=\Alph*.]
+	\item 表头一定是原子
+	\item 表尾一定是原子
+	\item 表头可以是原子或子表，表尾一定是广义表
+	\item 表头和表尾都一定是原子
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 表头可以是原子或子表，表尾一定是广义表}
+
+	\textbf{解析：}广义表的表头与表尾：\\
+	- 表头：第一个元素，可以是原子或子表\\
+	- 表尾：除第一个元素外剩余部分，\textbf{一定是广义表}
+
+	\textbf{易错点：}表尾永远是一个广义表（即使是空表）。
+\end{answerbox}
+
+\subsection*{题目 4}
+数组最适合表示
+\begin{enumerate}[label=\Alph*.]
+	\item 元素个数动态变化的数据
+	\item 逻辑关系复杂的图结构
+	\item 下标访问频繁且长度相对固定的数据
+	\item 随机插入删除特别频繁的数据
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 下标访问频繁且长度相对固定的数据}
+
+	\textbf{解析：}数组的特点：\\
+	- 适合随机访问（下标访问O(1)）\\
+	- 长度相对固定\\
+	- 插入删除需要移动元素，效率低
+
+	\textbf{易错点：}数组最适合下标访问频繁、长度固定的场景。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 6：树的基础概念母题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据结构｜树这一章最容易混的4个基础点\\
+	\textbf{副标题建议：}\\
+	根结点、叶子结点、度、层次一次分清
+\end{coverbox}
+
+\subsection*{题目 1}
+树最适合用来表示
+\begin{enumerate}[label=\Alph*.]
+	\item 有序数据元素
+	\item 无序数据元素
+	\item 元素之间具有分支层次关系的数据
+	\item 元素之间无联系的数据
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 元素之间具有分支层次关系的数据}
+
+	\textbf{解析：}树的应用场景：\\
+	- 树用于表示具有层次结构的数据\\
+	- 元素之间是一对多的关系
+
+	\textbf{易错点：}树不适合表示无联系或平等关系的数据。
+\end{answerbox}
+
+\subsection*{题目 2}
+在一棵树中，结点的度是指
+\begin{enumerate}[label=\Alph*.]
+	\item 该结点拥有的双亲个数
+	\item 该结点拥有的孩子个数
+	\item 该结点所在的层数
+	\item 从根到该结点的路径长度
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 该结点拥有的孩子个数}
+
+	\textbf{解析：}结点的度：\\
+	- 度：结点拥有的子树数（孩子个数）\\
+	- 树的度：所有结点中最大的度
+
+	\textbf{易错点：}注意区分度和层次的概念。
+\end{answerbox}
+
+\subsection*{题目 3}
+在一棵非空树中，根结点的特点是
+\begin{enumerate}[label=\Alph*.]
+	\item 没有孩子结点
+	\item 没有双亲结点
+	\item 没有兄弟结点
+	\item 度一定为 0
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 没有双亲结点}
+
+	\textbf{解析：}根结点的特点：\\
+	- 根结点是树中唯一的起始结点\\
+	- 没有双亲（父结点）\\
+	- 可以有孩子结点
+
+	\textbf{易错点：}根结点有孩子（除非是单结点树），度不一定为0。
+\end{answerbox}
+
+\subsection*{题目 4}
+在一棵树中，叶子结点是指
+\begin{enumerate}[label=\Alph*.]
+	\item 没有双亲的结点
+	\item 度为 0 的结点
+	\item 没有兄弟的结点
+	\item 层数最大的结点
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 度为 0 的结点}
+
+	\textbf{解析：}叶子结点（终端结点）：\\
+	- 度为0的结点，没有孩子结点\\
+	- 是树的末端结点
+
+	\textbf{易错点：}注意根结点不是叶子（除非是单结点树）。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 7：二叉树高频考点题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据结构｜二叉树这4题不稳，后面遍历会更乱\\
+	\textbf{副标题建议：}\\
+	先把性质和基本判断吃透
+\end{coverbox}
+
+\subsection*{题目 1}
+在二叉树中，第 $i$ 层最多有多少个结点？
+\begin{enumerate}[label=\Alph*.]
+	\item $2^i$
+	\item $2^{i-1}$
+	\item $i-1$
+	\item $2i$
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. $2^{i-1}$}
+
+	\textbf{解析：}二叉树第i层最多结点数：\\
+	- 第1层：最多1个结点 = $2^{0} = 2^{1-1} = 1$\\
+	- 第2层：最多2个结点 = $2^{1} = 2^{2-1} = 2$\\\
+	- 第i层：最多$2^{i-1}$个结点
+
+	\textbf{易错点：}注意层数从1开始，不是从0开始。
+\end{answerbox}
+
+\subsection*{题目 2}
+深度为 $k$ 的二叉树最多有多少个结点？
+\begin{enumerate}[label=\Alph*.]
+	\item $2^k-1$
+	\item $2^{k-1}-1$
+	\item $2k-1$
+	\item $k^2-1$
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. $2^k-1$}
+
+	\textbf{解析：}深度为k的二叉树最多结点数：\\
+	- 是等比数列求和：$1 + 2 + 4 + ... + 2^{k-1} = 2^k - 1$
+
+	\textbf{易错点：}满二叉树的结点数公式。
+\end{answerbox}
+
+\subsection*{题目 3}
+具有 $n$ 个结点的完全二叉树，其叶子结点个数为
+\begin{enumerate}[label=\Alph*.]
+	\item $\lfloor n/2 \rfloor$
+	\item $\lceil n/2 \rceil$
+	\item $n-1$
+	\item $n/2-1$
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. $\lceil n/2 \rceil$}
+
+	\textbf{解析：}完全二叉树的叶子结点数：\\
+	- 对于完全二叉树，叶子结点数约为n/2\\
+	- 向上取整：$\lceil n/2 \rceil$
+
+	\textbf{易错点：}完全二叉树的叶子结点约占一半。
+\end{answerbox}
+
+\subsection*{题目 4}
+在含有 $n$ 个结点的二叉链表中，空链域的个数是
+\begin{enumerate}[label=\Alph*.]
+	\item $n$
+	\item $n+1$
+	\item $n-1$
+	\item $2n$
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. $n+1$}
+
+	\textbf{解析：}二叉链表的空指针域：\\
+	- 每个结点有两个指针域（lchild, rchild）\\
+	- n个结点有2n个指针域\\
+	- 非空指针域：n-1个（除了根结点，每个结点都有一个指针指向它）\\
+	- 空指针域：2n - (n-1) = n + 1个
+
+	\textbf{易错点：}空链域个数为n+1。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 8：图的核心概念题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据结构｜图这一章最容易丢分的4个基础点\\
+	\textbf{副标题建议：}\\
+	度、边、路径、连通别混
+\end{coverbox}
+
+\subsection*{题目 1}
+在一个无向图中，所有顶点的度数之和等于所有边数的
+\begin{enumerate}[label=\Alph*.]
+	\item $1/2$ 倍
+	\item $1$ 倍
+	\item $2$ 倍
+	\item $4$ 倍
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. $2$ 倍}
+
+	\textbf{解析：}握手定理：\\
+	- 无向图中，度数之和 = 2 × 边数\\
+	- 每条边贡献两个度
+
+	\textbf{易错点：}注意是2倍，不是1/2倍。
+\end{answerbox}
+
+\subsection*{题目 2}
+在有向图中，一个顶点的度等于
+\begin{enumerate}[label=\Alph*.]
+	\item 入度与出度之和
+	\item 入度与出度之差
+	\item 仅等于入度
+	\item 仅等于出度
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 入度与出度之和}
+
+	\textbf{解析：}有向图的度：\\
+	- 入度：以该结点为终点的边的数目\\
+	- 出度：以该结点为起点的边的数目\\
+	- 度 = 入度 + 出度
+
+	\textbf{易错点：}有向图的度包括入度和出度。
+\end{answerbox}
+
+\subsection*{题目 3}
+对于一个连通无向图，若有 $n$ 个顶点，则其最少边数为
+\begin{enumerate}[label=\Alph*.]
+	\item $n-1$
+	\item $n$
+	\item $n+1$
+	\item $2n$
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. $n-1$}
+
+	\textbf{解析：}连通无向图的最小边数：\\
+	- 最少边情况是一棵树\\
+	- 树的边数 = 顶点数 - 1
+
+	\textbf{易错点：}连通无向图最少n-1条边（生成树）。
+\end{answerbox}
+
+\subsection*{题目 4}
+一个图是连通图，当且仅当
+\begin{enumerate}[label=\Alph*.]
+	\item 任意两个顶点之间都有边
+	\item 任意两个顶点之间都存在路径
+	\item 图中没有回路
+	\item 图中每个顶点度都大于 0
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 任意两个顶点之间都存在路径}
+
+	\textbf{解析：}连通图的定义：\\
+	- 任意两个顶点之间都有路径相连\\
+	- 不要求直接有边
+
+	\textbf{易错点：}连通是要求有路径，不是要求直接有边（那是完全图）。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 9：查找这一章最适合做方法题的内容}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据结构｜顺序查找和折半查找，别再死背了\\
+	\textbf{副标题建议：}\\
+	这组题最适合拉开会做和会背的差距
+\end{coverbox}
+
+\subsection*{题目 1}
+顺序查找法适合于存储结构为\_\_\_\_\_\_的线性表。
+\begin{enumerate}[label=\Alph*.]
+	\item 散列存储
+	\item 顺序存储或链式存储
+	\item 压缩存储
+	\item 索引存储
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 顺序存储或链式存储}
+
+	\textbf{解析：}顺序查找的特点：\\
+	- 适用于顺序存储和链式存储\\
+	- 对存储结构无要求\\
+	- 时间复杂度O(n)
+
+	\textbf{易错点：}顺序查找对存储结构没有特殊要求。
+\end{answerbox}
+
+\subsection*{题目 2}
+折半查找要求线性表必须
+\begin{enumerate}[label=\Alph*.]
+	\item 采用链式存储
+	\item 采用顺序存储且元素有序
+	\item 元素可以无序
+	\item 采用队列存储
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 采用顺序存储且元素有序}
+
+	\textbf{解析：}折半查找（二分查找）的条件：\\
+	- 顺序存储\\
+	- 元素有序（递增或递减）\\
+	- 适合静态查找
+
+	\textbf{易错点：}折半查找要求顺序存储和有序，不能用于链式存储。
+\end{answerbox}
+
+\subsection*{题目 3}
+长度为 $n$ 的有序顺序表上进行折半查找，其平均时间复杂度为
+\begin{enumerate}[label=\Alph*.]
+	\item $O(1)$
+	\item $O(\log n)$
+	\item $O(n)$
+	\item $O(n\log n)$
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. $O(\log n)$}
+
+	\textbf{解析：}折半查找的时间复杂度：\\
+	- 每比较一次，搜索范围缩小一半\\
+	- 最多比较$\lceil \log_2 n \rceil + 1$次\\
+	- 平均时间复杂度：$O(\log n)$
+
+	\textbf{易错点：}折半查找是对数级别，比顺序查找效率高。
+\end{answerbox}
+
+\subsection*{题目 4}
+在二叉排序树中查找一个关键字，平均时间复杂度通常与树的\_\_\_\_\_\_有关。
+\begin{enumerate}[label=\Alph*.]
+	\item 结点值大小
+	\item 高度
+	\item 存储地址
+	\item 遍历方式
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 高度}
+
+	\textbf{解析：}二叉排序树的查找：\\
+	- 时间复杂度与树的高度相关\\
+	- 最好情况：平衡树，高度O(log n)，查找O(log n)\\
+	- 最坏情况：单支树，高度O(n)，查找O(n)
+
+	\textbf{易错点：}二叉排序树的查找效率取决于树的高度。
+\end{answerbox}
+
+\newpage
+
+%========================
+\section{笔记 10：排序核心辨析题}
+\begin{coverbox}
+	\textbf{封面标题建议：}\\
+	专升本数据结构｜排序这4题，能看出你是不是只会背名字\\
+	\textbf{副标题建议：}\\
+	插入、冒泡、选择、稳定性很容易混
+\end{coverbox}
+
+\subsection*{题目 1}
+排序方法中，从未排序序列中依次取出元素与已排序序列中的元素进行比较，将其放入已排序序列正确位置的方法称为
+\begin{enumerate}[label=\Alph*.]
+	\item 希尔排序
+	\item 冒泡排序
+	\item 插入排序
+	\item 选择排序
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 插入排序}
+
+	\textbf{解析：}插入排序的思想：\\
+	- 将元素插入已排序序列的正确位置\\
+	- 类似打牌时整理手牌
+
+	\textbf{易错点：}注意区分插入排序和选择排序。
+\end{answerbox}
+
+\subsection*{题目 2}
+冒泡排序的基本思想是
+\begin{enumerate}[label=\Alph*.]
+	\item 每次从未排序序列中选最小元素放到前面
+	\item 相邻元素比较并交换，使较大元素逐步后移
+	\item 把序列按增量分组进行插入排序
+	\item 通过建立堆进行排序
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：B. 相邻元素比较并交换，使较大元素逐步后移}
+
+	\textbf{解析：}冒泡排序的思想：\\
+	- 相邻元素两两比较\\
+	- 如果逆序则交换\\
+	- 每一趟把最大的元素"冒泡"到后面
+
+	\textbf{易错点：}冒泡是相邻比较，选择是选最值。
+\end{answerbox}
+
+\subsection*{题目 3}
+选择排序的基本思想是
+\begin{enumerate}[label=\Alph*.]
+	\item 每次选出最小（或最大）元素放到已排序部分末尾
+	\item 比较相邻元素并交换
+	\item 先划分后递归
+	\item 利用辅助队列排序
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：A. 每次选出最小（或最大）元素放到已排序部分末尾}
+
+	\textbf{解析：}选择排序的思想：\\
+	- 在未排序序列中找到最小/最大元素\\
+	- 放到已排序序列的末尾\\
+	- 重复直到排序完成
+
+	\textbf{易错点：}选择排序每一趟选出一个最值。
+\end{answerbox}
+
+\subsection*{题目 4}
+在以下排序方法中，通常属于稳定排序的是
+\begin{enumerate}[label=\Alph*.]
+	\item 选择排序
+	\item 快速排序
+	\item 冒泡排序
+	\item 堆排序
+\end{enumerate}
+
+\begin{answerbox}
+	\textbf{答案：C. 冒泡排序}
+
+	\textbf{解析：}稳定排序 vs 不稳定排序：\\
+	- 稳定排序：相等元素的相对顺序不变\\
+	- 冒泡排序：稳定\\
+	- 插入排序：稳定\\
+	- 选择排序：不稳定\\
+	- 快速排序：不稳定\\
+	- 堆排序：不稳定
+
+	\textbf{易错点：}冒泡排序和插入排序是稳定的，选择、快速、堆排序是不稳定的。
+\end{answerbox}
+
+\end{document}

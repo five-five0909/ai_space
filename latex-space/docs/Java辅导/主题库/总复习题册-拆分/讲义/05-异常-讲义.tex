@@ -1,0 +1,427 @@
+\documentclass[12pt, a4paper]{ctexart}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{needspace}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=cyan,
+    pdftitle={Java异常-逐题精讲解义},
+    pdfauthor={专升本-fifine老师}
+}
+
+\definecolor{myblue}{RGB}{30,100,200}
+\definecolor{lightblue}{RGB}{230,240,255}
+\definecolor{darkblue}{RGB}{0,50,120}
+
+\newtcolorbox{bluebox}[1][]{
+    colback=lightblue,
+    colframe=myblue,
+    coltitle=darkblue,
+    fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.8pt,
+    arc=4pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    before skip=8pt,
+    after skip=8pt,
+    breakable
+}
+
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{bluebox}{\par\vfill}%
+\AfterEndEnvironment{bluebox}{\par\vfill}%
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{\textcolor{myblue}{\textbf{Java异常 - 逐题精讲解义}}}
+\author{专升本-fifine老师 教学组}
+\date{2026年03月02日}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\section{异常}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item \textbf{以下哪个异常类用于处理数组下标越界异常？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item ArrayIndexOutOfBoundsException
+		      \item NullPointerException
+		      \item ArithmeticException
+		      \item ClassCastException
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. ArrayIndexOutOfBoundsException}
+
+		      % ======== 阶段一：核心认知框架 ========
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查Java异常体系中数组相关异常类的区分
+			      \item \textbf{关键区分点}：数组越界 vs 空指针 vs 算术错误 vs 类型转换错误
+			      \item \textbf{命题人意图}：测试考生对Java异常分类体系的掌握程度
+		      \needspace{10cm}
+		      % ======== 阶段二：选项深度拆解 ========
+		      \textbf{【选项原理深度拆解】}
+
+		      \item \textbf{A. ArrayIndexOutOfBoundsException — 正确（数组索引越界）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{字节码铁证}：
+			            \begin{lstlisting}[language=Java]
+int[] arr = new int[5];
+arr[5] = 10; // 运行时抛出 ArrayIndexOutOfBoundsException
+      \end{lstlisting}
+			            \textbf{JVM保障机制}：数组访问时JVM检查索引，超出范围抛出异常
+
+			      \item \textbf{RuntimeException深度解析}：
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 属于RuntimeException（未检查异常）
+				            \item JLS §14.17 规定数组访问自动边界检查
+				            \item 常见场景：循环索引误用、动态数组操作
+			            \end{itemize}
+
+			      \item \textbf{命题陷阱破解}：
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item 干扰项："数组长度为5，访问arr[4]会越界" → 错！arr[4]是第5个元素，合法
+				            \item \textbf{必考结论}：数组索引从0开始，最大有效索引为length-1
+			            \end{itemize}
+		      \end{itemize}
+
+		      \item \textbf{B. NullPointerException — 错误（空指针异常）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{触发条件}：对象引用为null时访问成员
+			      \item \textbf{字节码铁证}：
+			            \begin{lstlisting}[language=Java]
+String str = null;
+str.length(); // 抛出 NullPointerException
+      \end{lstlisting}
+			      \item \textbf{核心区别}：数组越界是索引问题，空指针是引用问题
+		      \end{itemize}
+
+		      \item \textbf{C. ArithmeticException — 错误（算术异常）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{触发条件}：算术运算错误，如除零
+			      \item \textbf{典型场景}：int x = 10 / 0; // 抛出 ArithmeticException
+			      \item \textbf{核心区别}：与数组操作无关
+		      \end{itemize}
+
+		      \item \textbf{D. ClassCastException — 错误（类型转换异常）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{触发条件}：强制类型转换时类型不兼容
+			      \item \textbf{典型场景}：Object obj = "hello"; Integer num = (Integer) obj;
+			      \item \textbf{核心区别}：运行时类型检查失败，与数组索引无关
+		      \end{itemize}
+
+		      % ======== 阶段三：应背诵知识点 ========
+		      \textbf{【应背诵知识点（命题人思维版）】}
+		      \begin{enumerate}[leftmargin=*, nosep, label={}]
+			      \item \textbf{数组相关异常体系}：
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item ArrayIndexOutOfBoundsException：索引越界
+				            \item NegativeArraySizeException：数组大小为负
+				            \item ArrayStoreException：数组类型存储错误
+			            \end{itemize}
+
+			      \item \textbf{RuntimeException vs CheckedException}：
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item RuntimeException：编译器不检查，可不处理（题中四个选项全是RuntimeException）
+				            \item CheckedException：必须捕获或声明throws
+			            \end{itemize}
+
+			      \item \textbf{选项辨析速查表}：
+			      \item 
+			            \begin{tabular}{|c|c|c|c|}
+				            \hline
+				            \textbf{选项}                    & \textbf{触发场景} & \textbf{错误根源} & \textbf{记忆口诀}           \\
+				            \hline
+				            ArrayIndexOutOfBoundsException & 索引超范围         & 数组访问越界        & \textcolor{green}{"越界"} \\
+				            \hline
+				            NullPointerException           & 引用为null       & 空对象访问成员       & \textcolor{red}{"空指针"}  \\
+				            \hline
+				            ArithmeticException            & 除零等           & 算术运算错误        & \textcolor{red}{"算术错"}  \\
+				            \hline
+				            ClassCastException             & 强制转换          & 类型不兼容         & \textcolor{red}{"转换错"}  \\
+				            \hline
+			            \end{tabular}
+		      \end{enumerate}
+
+		      % ======== 阶段四：命题趋势与实战策略 ========
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀三步法}：
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item 看到"数组下标/索引" → 锁定ArrayIndexOutOfBoundsException
+			      \item 排除明显无关选项（空指针、算术错、类型转换）
+			      \item 确认索引值是否超出0到length-1范围
+		      \end{enumerate}
+		      \end{itemize}
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{在Java中，以下哪个关键字用于捕获异常？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item try
+		      \item catch
+		      \item throw
+		      \item throws
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：B. catch}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查异常处理关键字的功能区分
+			      \item \textbf{关键区分点}：try（监测）、catch（捕获处理）、throw（抛出）、throws（声明）
+			      \item \textbf{命题人意图}：区分四个易混关键字的不同作用
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \item \textbf{A. try — 错误（监测异常而非捕获）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item try块用于监测可能抛出异常的代码
+			      \item 必须配合catch或finally使用
+			      \item 单独try无法处理异常
+		      \end{itemize}
+
+		      \item \textbf{B. catch — 正确（捕获并处理异常）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 紧跟try块后，用于捕获指定类型的异常
+			      \item 可以有多个catch块（异常子类在前，父类在后）
+			      \item 是异常处理的实际执行者
+		      \end{itemize}
+
+		      \item \textbf{C. throw — 错误（手动抛出异常）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 用于在代码中主动抛出异常
+			      \item 格式：throw new Exception("信息");
+			      \item 作用在方法内部
+		      \end{itemize}
+
+		      \item \textbf{D. throws — 错误（声明异常）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 用于方法签名，声明该方法可能抛出的异常
+			      \item 格式：public void method() throws Exception \{\}
+			      \item 将异常处理责任交给调用者
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点（命题人思维版）】}
+
+		      \textbf{关键字功能速查表}：
+		      \begin{tabular}{|c|c|c|}
+			      \hline
+			      \textbf{关键字} & \textbf{作用位置} & \textbf{功能描述} \\
+			      \hline
+			      try          & 代码块           & 监测异常发生        \\
+			      \hline
+			      catch        & try后          & 捕获并处理异常       \\
+			      \hline
+			      throw        & 方法内           & 手动抛出异常        \\
+			      \hline
+			      throws       & 方法签名          & 声明方法可能抛出的异常   \\
+			      \hline
+		      \end{tabular}
+
+		      \textbf{记忆口诀}：try监测catch抓，throw抛出throws声明
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：catch是唯一真正"捕获"异常的关键字，题干问"捕获"选catch
+		      \end{itemize}
+
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下关于Java中异常处理中finally块的说法正确的是}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 无论是否发生异常都会执行
+		      \item 只有发生异常才会执行
+		      \item 只有不发生异常才会执行
+		      \item 只有在try块中有return语句时才会执行
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：A. 无论是否发生异常都会执行}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：考查finally块的核心特性——必然执行
+			      \item \textbf{关键区分点}：finally vs try/catch的执行顺序
+			      \item \textbf{命题人意图}：测试对异常处理流程的深入理解
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \item \textbf{A. 无论是否发生异常都会执行 — 正确（finally核心特性）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{JVM规范依据}：JVMS §2.13.5 规定finally块必须执行
+			      \item \textbf{执行时机}：try/catch执行后，无论是否有异常都会执行
+			      \item \textbf{即使有return}：finally仍会在return之前执行
+		      \end{itemize}
+
+		      \item \textbf{B. 只有发生异常才会执行 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 这是对finally的常见误解
+			      \item 正常情况下（无异常）try执行完也会执行finally
+		      \end{itemize}
+
+		      \item \textbf{C. 只有不发生异常才会执行 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 与B选项相反，同样错误
+			      \item finally与是否异常无关
+		      \end{itemize}
+
+		      \item \textbf{D. 只有在try块中有return语句时才会执行 — 错误}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 恰恰相反：有return时finally仍会执行
+			      \item 注意：return会等待finally执行完再返回
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点（命题人思维版）】}
+
+		      \textbf{finally块执行规则}：
+		      \begin{enumerate}[label={}, leftmargin=*, nosep]
+			      \item 无论try是否抛出异常，finally必定执行
+			      \item 即使try/catch中有return，finally仍会在return前执行
+			      \item 如果JVM退出（System.exit()），finally不执行
+			      \item 如果线程被杀死，finally也不执行
+		      \end{enumerate}
+
+		      \textbf{命题陷阱破解}：
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 陷阱1："catch执行了finally才执行" → 错！正常流程try执行完就执行finally
+			      \item 陷阱2："return会跳过finally" → 错！return会等待finally完成
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：牢记finally三字真言——"必然执行"
+		      \end{itemize}
+
+	      \end{bluebox}
+
+	      \vspace{1em}
+
+	\item \textbf{以下哪种情况会导致OutOfMemoryError？}
+	      \begin{enumerate}[label=\Alph*.]
+		      \item 数组越界
+		      \item 除数为0
+		      \item 内存泄漏
+		      \item 空指针异常
+	      \end{enumerate}
+
+	      \begin{bluebox}{答案与深度解析}
+		      \textbf{答案：C. 内存泄漏}
+
+		      \textbf{【核心认知框架】}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{题目本质}：区分Error类型与Exception类型
+			      \item \textbf{关键区分点}：OutOfMemoryError是Error而非Exception
+			      \item \textbf{命题人意图}：测试对Java异常体系层次结构的理解
+
+		      \textbf{【选项原理深度拆解】}
+
+		      \item \textbf{A. 数组越界 — 错误（导致RuntimeException）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 数组越界抛出 ArrayIndexOutOfBoundsException
+			      \item 属于RuntimeException，不是Error
+		      \end{itemize}
+
+		      \item \textbf{B. 除数为0 — 错误（导致ArithmeticException）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item 除数为0在整数运算时抛出 ArithmeticException
+			      \item 浮点数除以0得到Infinity，不会抛异常
+		      \end{itemize}
+
+		      \item \textbf{C. 内存泄漏 — 正确（导致OutOfMemoryError）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item \textbf{Error vs Exception}：Error是严重错误，通常由JVM抛出
+			      \item \textbf{JVM保障机制}：当堆内存耗尽时抛出OutOfMemoryError
+			      \item \textbf{常见原因}：长生命周期对象持有短生命周期引用、静态集合未清理、大对象创建
+		      \end{itemize}
+
+		      \item \textbf{D. 空指针异常 — 错误（导致NullPointerException）}
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item NullPointerException属于RuntimeException
+			      \item 与内存无关
+		      \end{itemize}
+
+		      \textbf{【应背诵知识点（命题人思维版）】}
+
+		      \textbf{异常体系结构}：
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item Throwable
+			            \begin{itemize}[label={}, leftmargin=*, nosep]
+				            \item Error（严重错误，程序无法处理）
+				                  \begin{itemize}[label={}, leftmargin=*, nosep]
+					                  \item OutOfMemoryError
+					                  \item StackOverflowError
+				                  \end{itemize}
+				            \item Exception（可处理异常）
+				                  \begin{itemize}[label={}, leftmargin=*, nosep]
+					                  \item RuntimeException（未检查异常）
+					                  \item CheckedException（已检查异常）
+				                  \end{itemize}
+			            \end{itemize}
+		      \end{itemize}
+
+		      \textbf{OutOfMemoryError常见类型}：
+		      \begin{itemize}[label={}, leftmargin=*, nosep]
+			      \item Java heap space：堆内存不足
+			      \item GC overhead limit exceeded：GC开销过大
+			      \item Unable to create new native thread：线程数超限
+			      \item Metaspace：元空间不足（Java 8+）
+		      \end{itemize}
+
+		      \textbf{【命题趋势与实战策略】}
+
+		      \textbf{考场秒杀}：OutOfMemoryError=内存问题，选"内存泄漏"
+		      \end{itemize}
+
+	      \end{bluebox}
+
+\end{enumerate}
+
+\end{document}

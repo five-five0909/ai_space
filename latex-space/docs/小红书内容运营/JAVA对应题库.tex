@@ -1,0 +1,659 @@
+\documentclass[12pt,a4paper]{ctexart}
+
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{hyperref}
+% 水印部分
+% 直接挂载到 LaTeX 的前景(foreground)渲染层
+\AddToHook{shipout/foreground}{
+    \begin{tikzpicture}[remember picture, overlay]
+        % 在页面正中心放置置顶水印
+        \node[text=blue, opacity=0.2, scale=5, rotate=30] 
+        at (current page.center) {fifine专升本};
+    \end{tikzpicture}
+}
+\setstretch{1.2}
+\setlist[enumerate]{itemsep=0.6em, topsep=0.4em}
+
+\titleformat{\section}{\Large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red!70!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    frame=single,
+    breaklines=true,
+    columns=flexible,
+    showstringspaces=false,
+    tabsize=4
+}
+
+\newtcolorbox{coverbox}{
+    colback=gray!5,
+    colframe=black!60,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=2mm
+}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE \textbf{专升本 Java 小红书发题题库（第一阶段）}}\\[0.6em]
+    {\large 适用方向：专升本学生｜图文发题｜仅题目版｜可用于早题晚解析}\\[0.8em]
+    {\normalsize 使用方式：每一节可单独作为 1 篇小红书笔记发布}
+\end{center}
+
+\vspace{1em}
+
+\section*{使用说明}
+本题库为“小红书发题版”，每组题控制在 3～4 题，便于做成图文轮播。\\
+本文件\textbf{不含答案、不含解析}，你可后续单独制作“晚间解析版”。
+
+\newpage
+
+%========================
+\section{笔记 1：Java 基础概念查漏补缺}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜基础概念这4题，能看出你底子稳不稳\\
+\textbf{副标题建议：}\\
+别小看基础题，很多同学就丢在这
+\end{coverbox}
+
+\subsection*{题目 1}
+在 Java 中，以下哪个关键字用于定义常量？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{final}
+    \item \texttt{static}
+    \item \texttt{abstract}
+    \item \texttt{interface}
+\end{enumerate}
+
+\subsection*{题目 2}
+以下哪个是 Java 中的合法标识符？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{123abc}
+    \item \texttt{@abc}
+    \item \texttt{\_abc}
+    \item \texttt{class}
+\end{enumerate}
+
+\subsection*{题目 3}
+Java 中用于声明整数类型变量的关键字是
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{int}
+    \item \texttt{float}
+    \item \texttt{double}
+    \item \texttt{boolean}
+\end{enumerate}
+
+\subsection*{题目 4}
+以下哪个是 Java 中的逻辑与运算符？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{\&\&}
+    \item \texttt{||}
+    \item \texttt{!}
+    \item \texttt{\&}
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 2：整数运算最容易错的地方}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜整数除法这3题，很多人第一眼就错\\
+\textbf{副标题建议：}\\
+先别急着算，先看数据类型
+\end{coverbox}
+
+\subsection*{题目 1}
+以下代码的输出结果是
+\begin{lstlisting}
+int a = 5;
+int b = 2;
+System.out.println(a / b);
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+    \item 2.5
+    \item 2
+    \item 3
+    \item 2.0
+\end{enumerate}
+
+\subsection*{题目 2}
+以下代码的输出结果是
+\begin{lstlisting}
+int a = 7;
+int b = 3;
+System.out.println(a % b);
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+    \item 1
+    \item 2
+    \item 3
+    \item 0
+\end{enumerate}
+
+\subsection*{题目 3}
+以下代码的输出结果是
+\begin{lstlisting}
+int a = 8;
+int b = 3;
+System.out.println(a / b + a % b);
+\end{lstlisting}
+
+\begin{enumerate}[label=\Alph*.]
+    \item 2
+    \item 3
+    \item 4
+    \item 5
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 3：类和对象第一组母题}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜类和对象这3题，别只会背概念\\
+\textbf{副标题建议：}\\
+看懂这组，后面面向对象才不容易乱
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于类和对象的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+    \item 类是对象的实例
+    \item 对象是类的模板
+    \item 一个类只能创建一个对象
+    \item 对象是类的具体实例
+\end{enumerate}
+
+\subsection*{题目 2}
+以下哪个说法更符合 Java 中对象作为参数传递的特点？
+\begin{enumerate}[label=\Alph*.]
+    \item 传递的是对象本身
+    \item 传递的是对象的引用
+    \item 传递的是对象成员变量的值
+    \item 传递的是对象类型
+\end{enumerate}
+
+\subsection*{题目 3}
+下列说法中正确的是
+\begin{enumerate}[label=\Alph*.]
+    \item 一个对象可以脱离类单独存在
+    \item 类用于描述一组对象的共同特征和行为
+    \item 对象和类在 Java 中没有区别
+    \item 对象只能包含属性，不能包含行为
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 4：继承、抽象类、接口辨析题}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜extends、abstract、interface 总混？这4题测一下\\
+\textbf{副标题建议：}\\
+这组题特别适合做一轮查漏补缺
+\end{coverbox}
+
+\subsection*{题目 1}
+在 Java 中，以下哪个关键字用于实现继承？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{extends}
+    \item \texttt{implements}
+    \item \texttt{interface}
+    \item \texttt{abstract}
+\end{enumerate}
+
+\subsection*{题目 2}
+以下关于抽象类的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 抽象类可以有抽象方法
+    \item 抽象类不能被实例化
+    \item 抽象类的子类必须实现所有抽象方法
+    \item 抽象类中可以有非抽象方法
+\end{enumerate}
+
+\subsection*{题目 3}
+以下哪个关键字用于定义接口？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{interface}
+    \item \texttt{abstract class}
+    \item \texttt{class}
+    \item \texttt{extends}
+\end{enumerate}
+
+\subsection*{题目 4}
+以下关于接口的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 接口中的方法默认是 \texttt{public abstract} 修饰的
+    \item 接口中的变量默认是 \texttt{public static final} 修饰的
+    \item 一个类可以实现多个接口
+    \item 接口可以继承类
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 5：字符串 API 高频题}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜String 这4题别再凭感觉做了\\
+\textbf{副标题建议：}\\
+方法名会背，不等于题能做对
+\end{coverbox}
+
+\subsection*{题目 1}
+以下哪个方法可以将字符串转换为整数？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{parseInt()}
+    \item \texttt{valueOf()}
+    \item \texttt{toString()}
+    \item \texttt{toInteger()}
+\end{enumerate}
+
+\subsection*{题目 2}
+在 Java 中，以下哪个方法用于获取字符串的长度？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{length()}
+    \item \texttt{size()}
+    \item \texttt{count()}
+    \item \texttt{getLength()}
+\end{enumerate}
+
+\subsection*{题目 3}
+以下哪个方法用于将字符串转换为大写？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{toUpperCase()}
+    \item \texttt{upperCase()}
+    \item \texttt{makeUpperCase()}
+    \item \texttt{convertToUpperCase()}
+\end{enumerate}
+
+\subsection*{题目 4}
+以下哪个方法用于截取字符串？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{substring()}
+    \item \texttt{cut()}
+    \item \texttt{slice()}
+    \item \texttt{truncate()}
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 6：异常处理核心考点}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜异常处理最容易考的4题，先做一遍\\
+\textbf{副标题建议：}\\
+finally、catch、常见异常别混了
+\end{coverbox}
+
+\subsection*{题目 1}
+以下哪个异常类用于处理数组下标越界异常？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{ArrayIndexOutOfBoundsException}
+    \item \texttt{NullPointerException}
+    \item \texttt{ArithmeticException}
+    \item \texttt{ClassCastException}
+\end{enumerate}
+
+\subsection*{题目 2}
+在 Java 中，以下哪个关键字用于捕获异常？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{try}
+    \item \texttt{catch}
+    \item \texttt{throw}
+    \item \texttt{throws}
+\end{enumerate}
+
+\subsection*{题目 3}
+以下关于 Java 中异常处理中 \texttt{finally} 块的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+    \item 无论是否发生异常都会执行
+    \item 只有发生异常才会执行
+    \item 只有不发生异常才会执行
+    \item 只有在 \texttt{try} 块中有 \texttt{return} 语句时才会执行
+\end{enumerate}
+
+\subsection*{题目 4}
+以下哪种情况更容易导致 \texttt{OutOfMemoryError}？
+\begin{enumerate}[label=\Alph*.]
+    \item 数组越界
+    \item 除数为 0
+    \item 内存长期无法释放
+    \item 空指针异常
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 7：集合框架第一组母题}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜List、Set、Map 这4题你能全对吗\\
+\textbf{副标题建议：}\\
+集合题最怕概念一知半解
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于 Java 集合框架的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+    \item List 允许重复元素
+    \item Set 允许重复元素
+    \item Map 存储键值对，键可以重复
+    \item 以上都不对
+\end{enumerate}
+
+\subsection*{题目 2}
+在 Java 中，以下哪个集合实现了链表结构？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{ArrayList}
+    \item \texttt{LinkedList}
+    \item \texttt{HashSet}
+    \item \texttt{HashMap}
+\end{enumerate}
+
+\subsection*{题目 3}
+以下哪个集合是无序且不允许重复元素的？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{ArrayList}
+    \item \texttt{HashSet}
+    \item \texttt{LinkedHashSet}
+    \item \texttt{TreeSet}
+\end{enumerate}
+
+\subsection*{题目 4}
+以下关于 \texttt{HashMap} 的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 存储键值对
+    \item 键不允许重复
+    \item 是线程安全的
+    \item 基于哈希表实现
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 8：泛型高频辨析题}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜泛型别只会背“提高安全性”，这3题试试\\
+\textbf{副标题建议：}\\
+一到擦除和边界就开始乱了
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于 Java 中泛型的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 可以提高代码的安全性
+    \item 可以减少类型转换
+    \item 泛型类型在运行时会被擦除
+    \item 泛型可以直接用于基本数据类型
+\end{enumerate}
+
+\subsection*{题目 2}
+以下哪个是正确的 Java 泛型声明？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{class MyClass<T extends Number>}
+    \item \texttt{class MyClass<T super Number>}
+    \item \texttt{class MyClass<T implements Number>}
+    \item \texttt{class MyClass<T>}
+\end{enumerate}
+
+\subsection*{题目 3}
+关于泛型和包装类的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{List<int>} 是合法写法
+    \item 泛型中通常应使用包装类而不是基本类型
+    \item Java 泛型只支持字符串类型
+    \item 泛型和集合无关
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 9：反射机制第一轮筛错题}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜反射机制这3题，先别被概念绕进去\\
+\textbf{副标题建议：}\\
+这部分最适合做“筛错题”
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于 Java 中反射机制的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 可以在运行时获取类的信息
+    \item 可以动态创建对象
+    \item 不能调用对象的私有方法
+    \item 反射机制会降低程序性能
+\end{enumerate}
+
+\subsection*{题目 2}
+以下关于 Java 中 \texttt{ClassLoader} 的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 用于加载类文件
+    \item 可以自定义 \texttt{ClassLoader}
+    \item 只有一个默认的 \texttt{ClassLoader}
+    \item 不同的 \texttt{ClassLoader} 可以加载同名类
+\end{enumerate}
+
+\subsection*{题目 3}
+关于反射机制，下列说法正确的是
+\begin{enumerate}[label=\Alph*.]
+    \item 只能在编译期获取类信息
+    \item 运行时也可以操作类的成员
+    \item 反射只能用于接口
+    \item 反射和普通代码执行效率完全相同
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 10：I/O 流和 File 高频题}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜IO 和 File 这4题，很多人做题顺序就错了\\
+\textbf{副标题建议：}\\
+先分清“读写”和“字节字符”
+\end{coverbox}
+
+\subsection*{题目 1}
+以下哪个类用于实现文件读取？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{FileReader}
+    \item \texttt{FileWriter}
+    \item \texttt{BufferedReader}
+    \item \texttt{BufferedWriter}
+\end{enumerate}
+
+\subsection*{题目 2}
+以下哪个类用于实现文件写入？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{FileReader}
+    \item \texttt{FileWriter}
+    \item \texttt{BufferedReader}
+    \item \texttt{BufferedWriter}
+\end{enumerate}
+
+\subsection*{题目 3}
+以下关于 Java 中流的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 分为字节流和字符流
+    \item 字节流以字节为单位处理数据
+    \item 字符流以字符为单位处理数据
+    \item 字节流和字符流可以直接随意互换
+\end{enumerate}
+
+\subsection*{题目 4}
+以下哪个方法用于创建一个新文件？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{createNewFile()}
+    \item \texttt{mkdir()}
+    \item \texttt{mkdirs()}
+    \item \texttt{exists()}
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 11：JDBC 最容易考的核心题}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜JDBC 这4题不熟，后面很容易整章混\\
+\textbf{副标题建议：}\\
+连接、查询、预编译、事务一次测一下
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于 Java 中 JDBC 的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 用于连接数据库
+    \item 不同数据库有不同驱动
+    \item 执行 SQL 语句可以通过 \texttt{Statement} 对象
+    \item 不需要关闭连接资源
+\end{enumerate}
+
+\subsection*{题目 2}
+以下哪个方法用于执行查询语句？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{executeQuery()}
+    \item \texttt{executeUpdate()}
+    \item \texttt{execute()}
+    \item \texttt{runQuery()}
+\end{enumerate}
+
+\subsection*{题目 3}
+以下关于 Java 中 \texttt{PreparedStatement} 的说法正确的是
+\begin{enumerate}[label=\Alph*.]
+    \item 性能比 \texttt{Statement} 差
+    \item 不能防止 SQL 注入
+    \item 可以设置参数
+    \item 不支持批量操作
+\end{enumerate}
+
+\subsection*{题目 4}
+以下关于 Java 中事务的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 保证数据的一致性
+    \item 可以通过 \texttt{commit()} 提交
+    \item 可以通过 \texttt{rollback()} 回滚
+    \item 事务中的操作一定能成功
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 12：多线程高频辨析题}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜多线程这4题，很多人学过但还是会混\\
+\textbf{副标题建议：}\\
+start、run、sleep、同步一次区分
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于线程的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 多线程可以提高程序执行效率
+    \item 线程之间完全共享所有内存
+    \item 实现线程的方式有继承 \texttt{Thread} 类和实现 \texttt{Runnable} 接口
+    \item 线程是进程的一部分
+\end{enumerate}
+
+\subsection*{题目 2}
+在 Java 中，以下哪个方法用于启动线程？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{start()}
+    \item \texttt{run()}
+    \item \texttt{sleep()}
+    \item \texttt{yield()}
+\end{enumerate}
+
+\subsection*{题目 3}
+以下关于同步的说法中，正确的是
+\begin{enumerate}[label=\Alph*.]
+    \item 只能在普通方法上使用
+    \item 可以使用 \texttt{synchronized} 实现同步
+    \item 同步一定会提高程序效率
+    \item 同步和线程安全无关
+\end{enumerate}
+
+\subsection*{题目 4}
+以下哪个方法用于暂停当前线程指定的时间？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{sleep()}
+    \item \texttt{wait()}
+    \item \texttt{yield()}
+    \item \texttt{stop()}
+\end{enumerate}
+
+\newpage
+
+%========================
+\section{笔记 13：网络编程基础题}
+\begin{coverbox}
+\textbf{封面标题建议：}\\
+专升本Java｜Socket 和 URL 这4题，先把基础拿稳\\
+\textbf{副标题建议：}\\
+网络编程别一上来就被名词吓住
+\end{coverbox}
+
+\subsection*{题目 1}
+以下关于 Java 中 Socket 编程的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 用于网络通信
+    \item \texttt{ServerSocket} 用于服务器端
+    \item \texttt{Socket} 用于客户端
+    \item 不需要处理异常
+\end{enumerate}
+
+\subsection*{题目 2}
+以下哪个方法更常用于向输出流发送数据？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{send()}
+    \item \texttt{write()}
+    \item \texttt{output()}
+    \item \texttt{transmit()}
+\end{enumerate}
+
+\subsection*{题目 3}
+以下关于 Java 中 \texttt{URL} 类的说法错误的是
+\begin{enumerate}[label=\Alph*.]
+    \item 用于表示统一资源定位符
+    \item 可以获取网络资源
+    \item 不能解析 URL
+    \item 可以获取 URL 的各个部分
+\end{enumerate}
+
+\subsection*{题目 4}
+以下哪个方法用于获取 URL 的协议部分？
+\begin{enumerate}[label=\Alph*.]
+    \item \texttt{getProtocol()}
+    \item \texttt{getScheme()}
+    \item \texttt{getType()}
+    \item \texttt{getProtocolType()}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,937 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath, amssymb, amsthm} % 数学公式支持
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox} % 用于精美边框
+\usepackage{enumitem} 
+\usepackage{array}
+% 表格美化包
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+% --- 页面设置 ---
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% --- 颜色定义 ---
+\definecolor{highlight}{RGB}{255, 0, 0}      % 重点红色
+\definecolor{keyword}{RGB}{0, 0, 205}        % 关键词蓝色
+\definecolor{bg_yellow}{RGB}{255, 250, 205}  % 背景淡黄
+\definecolor{maincolor}{RGB}{0, 70, 140}
+\definecolor{highlight}{RGB}{180, 0, 0}
+\definecolor{subtle}{RGB}{100, 100, 100}
+
+% --- 自定义环境 ---
+\newtcolorbox{knowpoint}[1]{
+  colback=bg_yellow,
+  colframe=black,
+  title=\textbf{#1},
+  fonttitle=\bfseries\large,
+  boxrule=0.5mm,
+  arc=2mm
+}
+
+\title{\textbf{数值分析核心考点背诵笔记}}
+\author{复习专用}
+\date{}
+
+\begin{document}
+
+\maketitle
+\begin{knowpoint}{公式补充：一元二次方程相关公式}
+    \textbf{标准形式}：$a\lambda^2 + b\lambda + c = 0 \quad (a \neq 0)$
+
+    \vspace{0.5em}
+    \textbf{1. 万能求根公式}
+    \[ \lambda_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]
+    \begin{itemize}
+        \item $\Delta = b^2 - 4ac > 0$：两个不相等的实根。
+        \item $\Delta = b^2 - 4ac = 0$：两个相等的实根（重根）。
+        \item $\Delta = b^2 - 4ac < 0$：一对共轭复根（需计算模长）。
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{2. 韦达定理 (Vieta's Formulas)}
+    无需解出 $\lambda$，直接求根的关系：
+    \[ \lambda_1 + \lambda_2 = -\frac{b}{a}, \quad \lambda_1 \cdot \lambda_2 = \frac{c}{a} \]
+
+    \vspace{0.5em}
+    \hrule
+    \vspace{0.5em}
+    
+    \textbf{\textcolor{red}{3. [高频技巧] 复根模长秒杀法}}
+    \vspace{0.2em}
+    \\
+    当判别式 $\Delta < 0$ 时，方程有一对共轭复根。此时\textbf{无需}使用求根公式算出具体复数，直接利用性质：
+    \[ \text{两根之积} = \lambda_1 \cdot \lambda_2 = |\lambda|^2 = \frac{c}{a} \]
+    \textbf{结论}：若 $\Delta < 0$，复根的模长为：
+    \[ |\lambda| = \sqrt{\frac{c}{a}} \]
+    
+    \vspace{0.3em}
+    \textbf{示例}：$200\lambda^2 + 45\lambda + 8 = 0$
+    \begin{enumerate}
+        \item 判别式 $\Delta = 45^2 - 4(200)(8) < 0$ (复根)。
+        \item 直接求模：$|\lambda| = \sqrt{\frac{8}{200}} = \sqrt{0.04} = 0.2$。
+    \end{enumerate}
+\end{knowpoint}
+\newpage
+
+\section*{第一章 绪论}
+\section*{一、 基本符号定义}
+\begin{itemize}
+    \item $\Delta x$：\textbf{绝对误差}（带单位，例如 cm, m）。
+    \item $\varepsilon_r$：\textbf{相对误差}（无单位，通常为百分数 \%）。
+    \item \textbf{转换关系}：
+    \[
+    \varepsilon_r = \frac{\Delta x}{|x|} \quad \Longleftrightarrow \quad \Delta x = |x| \cdot \varepsilon_r
+    \]
+\end{itemize}
+
+\section*{二、 误差传播计算表}
+\renewcommand{\arraystretch}{1.5} % 调整表格行高
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{} >{\bfseries}l l l @{}}
+        \toprule
+        \textbf{运算场景} & \textbf{适用公式} & \textbf{计算结果类型} \\
+        \midrule
+        加减法 ($x \pm y$) & $\Delta(S) = \Delta x + \Delta y$ & \textbf{绝对误差} ($\Delta$) \\
+        乘除法 ($xy$ 或 $x/y$) & $\varepsilon_r(S) = \varepsilon_r(x) + \varepsilon_r(y)$ & \textbf{相对误差} (\%) \\
+        乘方/开方 ($x^n, \sqrt[n]{x}$) & $\varepsilon_r(S) = |n| \cdot \varepsilon_r(x)$ & \textbf{相对误差} (\%) \\
+        一般函数 ($f(x)$) & $\Delta y \approx |f'(x)| \cdot \Delta x$ & \textbf{绝对误差} ($\Delta$) \\
+        \bottomrule
+    \end{tabular}
+    \caption*{注：乘除法若给定绝对误差，需先转换为相对误差再计算。}
+\end{table}
+
+\section*{三、 有效数字位数计算}
+\textbf{场景}：已知近似值 $x$ 的第一位有效数字为 $a_1$，要求相对误差限为 $\varepsilon$，求应保留的有效数字位数 $n$。
+
+\begin{equation*}
+    \boxed{10^{1-n} \leqslant 2 \times a_1 \times \varepsilon}
+\end{equation*}
+
+\begin{itemize}
+    \item $n$：待求的位数（取满足不等式的最小整数）。
+    \item $10$、$1$、$2$：公式中的固定常数，不可更改。
+\end{itemize}
+
+\section*{四、 常见导数速查 (用于一般函数法)}
+当题目要求求\textbf{绝对误差}且公式为非线性时，直接使用下表：
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{} l l l @{}}
+        \toprule
+        \textbf{函数类型} $y=f(x)$ & \textbf{导数} $f'(x)$ & \textbf{绝对误差公式} $\Delta y \approx |f'(x)| \cdot \Delta x$ \\
+        \midrule
+        正方形面积 ($x^2$) & $2x$ & $2x \cdot \Delta x$ \\
+        球体体积 ($x^3$) & $3x^2$ & $3x^2 \cdot \Delta x$ \\
+        自然对数 ($\ln x$) & $1/x$ & $\displaystyle \frac{1}{x} \cdot \Delta x \quad (\text{即 } \varepsilon_r(x))$ \\
+        开平方 ($\sqrt{x}$) & $\displaystyle \frac{1}{2\sqrt{x}}$ & $\displaystyle \frac{1}{2\sqrt{x}} \cdot \Delta x$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\section*{第二章 插值法}
+\begin{knowpoint}{考点一：拉格朗日插值 (Lagrange)}
+    \textbf{1. 核心思想与几何意义}
+    构造一组“基函数” $l_k(x)$，就像搭积木一样组合出目标函数。
+    \begin{itemize}
+        \item \textbf{性质}：在当前节点 $x_k$ 处值为 1，在其他所有节点 $x_j$ 处值为 0。
+        \item \textbf{唯一性}：无论用何种基底（单项式、拉格朗日、牛顿），对于 $n+1$ 个节点，次数不超过 $n$ 的插值多项式是\textbf{唯一存在}的。
+    \end{itemize}
+    
+    \textbf{2. 记忆口诀（构造 $l_k(x)$）}
+    \begin{quote}
+        \textit{“分子缺谁，分母减谁”}
+    \end{quote}
+    \begin{itemize}
+        \item \textbf{分子}：包含所有 $(x - x_j)$ 的乘积，唯独\textbf{缺} $(x - x_k)$ 这一项。
+        \item \textbf{分母}：将分子中的 $x$ 替换为 $x_k$（即 $x_k$ \textbf{减}去其他所有 $x_j$）。
+    \end{itemize}
+    
+    \textbf{3. 常用公式}
+    
+    \textbf{(1) 线性插值 ($n=1$, 两点式)}
+    已知 $(x_0, y_0), (x_1, y_1)$：
+    \[ L_1(x) = y_0 \cdot \frac{x - x_1}{x_0 - x_1} + y_1 \cdot \frac{x - x_0}{x_1 - x_0} \]
+    
+    \textbf{(2) 抛物插值 ($n=2$, 三点式)}
+    已知 $(x_0, y_0), (x_1, y_1), (x_2, y_2)$，公式结构如下：
+    \[ 
+    L_2(x) = y_0 \underbrace{\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}}_{l_0(x)} + 
+             y_1 \underbrace{\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}}_{l_1(x)} + 
+             y_2 \underbrace{\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}}_{l_2(x)}
+    \]
+    
+    \textbf{4. 实例演示 (基于刚才的习题)}
+    已知节点 $x_0=1, x_1=-1, x_2=2$。
+    求 $l_0(x)$ (对应 $x_0=1$)：
+    \[ 
+    l_0(x) = \frac{\text{分子缺}(x-1)}{\text{分母用}1\text{去减}} = \frac{(x - (-1))(x - 2)}{(1 - (-1))(1 - 2)} = \frac{(x+1)(x-2)}{-2}
+    \]
+    
+    \textbf{5. 通用公式 (Compact Form)}
+    \[ L_n(x) = \sum_{k=0}^{n} y_k l_k(x), \quad \text{其中 } l_k(x) = \prod_{\substack{j=0 \\ j \neq k}}^{n} \frac{x - x_j}{x_k - x_j} \]
+\end{knowpoint}
+
+
+\begin{knowpoint}{考点：单项式基底插值 (Monomial Basis)}
+    \textbf{1. 核心思想 (直观理解)}
+    即中学数学中的\textbf{“待定系数法”}。
+    假设插值多项式就是最普通的幂函数线性组合的形式，通过求解方程组找出系数。
+    
+    \textbf{2. 求解步骤}
+    \begin{enumerate}
+        \item \textbf{设}：根据节点数量 $n+1$，设 $n$ 次多项式：
+        \[ P_n(x) = a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n \]
+        \item \textbf{代}：将已知点 $(x_i, y_i)$ 逐一代入多项式，得到线性方程组。
+        \item \textbf{解}：求解方程组，得到系数 $a_0, a_1, \dots, a_n$。
+    \end{enumerate}
+    
+    \textbf{3. 矩阵形式 (范德蒙矩阵)}
+    上述方程组可以写成矩阵形式 $\mathbf{V}\mathbf{a} = \mathbf{y}$：
+    \[
+    \underbrace{
+    \begin{bmatrix}
+    1 & x_0 & x_0^2 & \dots & x_0^n \\
+    1 & x_1 & x_1^2 & \dots & x_1^n \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    1 & x_n & x_n^2 & \dots & x_n^n
+    \end{bmatrix}
+    }_{\text{范德蒙矩阵 } V}
+    \begin{bmatrix}
+    a_0 \\ a_1 \\ \vdots \\ a_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    y_0 \\ y_1 \\ \vdots \\ y_n
+    \end{bmatrix}
+    \]
+\end{knowpoint}
+
+
+\begin{knowpoint}{考点二：牛顿插值与差商表 (Newton)}
+    \textbf{1. 均差 (Divided Differences) 定义}
+    \begin{itemize}
+        \item 一阶均差：$f[x_0, x_1] = \frac{f(x_1) - f(x_0)}{x_1 - x_0}$
+        \item 二阶均差：$f[x_0, x_1, x_2] = \frac{f[x_1, x_2] - f[x_0, x_1]}{x_2 - x_0}$ \quad (\textcolor{red}{注意分母是首尾跨度})
+        \item $k$ 阶均差：$f[x_0, \dots, x_k] = \frac{f[x_1, \dots, x_k] - f[x_0, \dots, x_{k-1}]}{x_k - x_0}$
+    \end{itemize}
+
+    \textbf{2. 牛顿插值多项式}
+    \[ N_n(x) = f(x_0) + f[x_0,x_1](x-x_0) + f[x_0,x_1,x_2](x-x_0)(x-x_1) + \cdots \]
+    \textbf{记忆口诀}：
+    \begin{itemize}
+        \item \textbf{系数}：取差商表\textbf{最上面那条对角线}的数值。
+        \item \textbf{乘积项}：乘以前面所有 $(x - x_i)$ 的累积。
+    \end{itemize}
+
+    \textbf{3. 制表策略}
+    \begin{center}
+    \begin{tabular}{c|c|c|c|c}
+        $x_i$ & $f(x_i)$ & 一阶 & 二阶 & 三阶 \\ \hline
+        $x_0$ & $y_0$ & & & \\
+              &       & $f[x_0,x_1]$ & & \\
+        $x_1$ & $y_1$ & & $\mathbf{f[x_0,x_1,x_2]}$ & \\
+              &       & $f[x_1,x_2]$ & & $\dots$ \\
+        $x_2$ & $y_2$ & & $f[x_1,x_2,x_3]$ & \\
+              &       & $f[x_2,x_3]$ & & \\
+        $x_3$ & $y_3$ & & & 
+    \end{tabular}
+    \end{center}
+    \textit{注：计算时，后一列 = (左下 - 左上) / (对应的 $x$ 差值)。}
+\end{knowpoint}
+\begin{knowpoint}{考点三：插值截断误差 (余项) 分析}
+    \textbf{1. 核心公式 (背诵)}
+    若 $f(x)$ 有 $n+1$ 阶连续导数，则插值多项式 $P_n(x)$ 的误差为：
+    \[ R_n(x) = f(x) - P_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} \prod_{i=0}^{n} (x - x_i) \]
+    
+    \textbf{2. 实际计算步骤 (求误差限)}
+    由于 $\xi$ 未知，我们通常计算误差的\textbf{绝对值上界}（误差限）。
+    \begin{itemize}
+        \item \textbf{第一步 (找最大模)}：在插值区间内，求 $n+1$ 阶导数的最大值 $M_{n+1} = \max |f^{(n+1)}(x)|$。
+        \item \textbf{第二步 (套公式)}：
+        \[ |R_n(x)| \le \frac{M_{n+1}}{(n+1)!} \left| (x-x_0)(x-x_1)\cdots(x-x_n) \right| \]
+    \end{itemize}
+
+    \vspace{0.5em}
+    \hrule
+    \vspace{0.5em}
+
+    \textbf{3. 常用特例 (做题必备)}
+    \begin{itemize}
+        \item \textbf{线性插值 ($n=1$)}：
+        \[ |R_1(x)| \le \frac{M_2}{2} |(x-x_0)(x-x_1)| \quad (\text{分母是 } 2! = 2) \]
+        \item \textbf{抛物插值 ($n=2$)}：
+        \[ |R_2(x)| \le \frac{M_3}{6} |(x-x_0)(x-x_1)(x-x_2)| \quad (\text{分母是 } 3! = 6) \]
+    \end{itemize}
+\end{knowpoint}
+
+\begin{knowpoint}{考点四：均差性质与导数关系 (秒杀技巧)}
+    \textbf{1. 均差与导数的通项关系}
+    \[ f[x_0, x_1, \dots, x_k] = \frac{f^{(k)}(\xi)}{k!} \]
+    \textit{注：$k$ 阶均差对应 $k$ 阶导数，分母是 $k!$。}
+
+    \textbf{2. 多项式的均差特性 (重点)}
+    若 $f(x)$ 是一个 **$n$ 次多项式** ($f(x) = a_n x^n + \dots$)：
+    \begin{itemize}
+        \item \textbf{$n$ 阶均差是常数}：
+        \[ f[x_0, \dots, x_n] = a_n \quad (\text{即最高次项系数}) \]
+        \textit{注意：若首项系数为1，则均差为1；若题目未给系数，通常隐含为1。}
+        
+        \item \textbf{高于 $n$ 阶的均差恒为 0}：
+        \[ f[x_0, \dots, x_{n+1}] = 0 \]
+    \end{itemize}
+
+    \vspace{0.5em}
+    \hrule
+    \vspace{0.5em}
+
+    \textbf{3. 实战演练 (题目 8)}
+    已知 $f(x) = x^7 + x^4 + \dots$ 是 7 次多项式，节点为 $2^0, 2^1, \dots$。
+    \begin{itemize}
+        \item 求 7 阶均差 $f[x_0, \dots, x_7]$：直接等于最高次系数 $\mathbf{1}$。
+        \item 求 8 阶均差 $f[x_0, \dots, x_8]$：超过次数，直接为 $\mathbf{0}$。
+    \end{itemize}
+\end{knowpoint}
+
+
+% % ==================== 第三章考点背诵 ====================
+\section*{第三章 曲线拟合与逼近}
+
+\begin{knowpoint}{判断标准：一次拟合 vs 二次拟合}
+
+    \textbf{标准一：看题目暗示 (最快)}
+    \begin{itemize}
+        \item \textbf{一次 (Linear)}：题目出现关键词“线性”、“直线”、“$y=a+bx$”、“比例关系”。
+        \item \textbf{二次 (Quadratic)}：题目出现关键词“曲线”、“抛物线”、“$y=a+bx+cx^2$”、“加速度”、“极值（最值）”。
+    \end{itemize}
+
+    \vspace{1.0em}
+    \textbf{标准二：画草图法 (最直观)}
+    \textit{在草稿纸上把 $(x, y)$ 的点大概描一下：}
+    \begin{itemize}
+        \item \textbf{拿把尺子比划一下}：如果所有点大概都在一条直尺的边上 $\rightarrow$ \textbf{一次拟合}。
+        \item \textbf{看有没有弯曲}：如果点的走势是“弯”的（像个碗，或者像个拱桥），或者有明显的“先变快后变慢/先下后上” $\rightarrow$ \textbf{二次拟合}。
+    \end{itemize}
+
+    \vspace{1.0em}
+    \textbf{标准三：差分法 (最数学、最专业)}
+    \textit{这是数值分析里的\textbf{金标准}，专门对付即使画图也看不准的情况（前提是 $x$ 是等间距的）。}
+    
+    \textbf{操作步骤：}
+    算出 $y$ 的相邻两个数的差（后一个减前一个）。
+    
+    \begin{enumerate}
+        \item \textbf{一阶差分 (做一次减法)}：
+        \begin{itemize}
+            \item 如果算出来的差\textbf{基本相等}（也就是增长速度差不多），那就是\textbf{一次拟合}。
+            \item \textit{例子：$2, 5, 8, 11$ $\rightarrow$ 差是 $3, 3, 3$ $\rightarrow$ 选一次。}
+        \end{itemize}
+        
+        \item \textbf{二阶差分 (做两次减法)}：
+        \begin{itemize}
+            \item 如果一阶差分在变大或变小，那就把算出来的“差”再做一次减法。如果这第二次的差\textbf{基本相等}，那就是\textbf{二次拟合}。
+            \item \textit{例子（就是你刚才那个题）：}
+            \[ y: 2, 3, 5, 8 \]
+            \[ \text{一阶差}: 1, 2, 3 \quad (\text{在变，不是直线}) \]
+            \[ \text{二阶差}: 1, 1 \quad (\text{相等！是抛物线}) \]
+        \end{itemize}
+    \end{enumerate}
+
+\end{knowpoint}
+
+\begin{knowpoint}{考点：最小二乘法 (大白话操作指南)}
+
+    \textbf{第一步：画表填空 (备菜阶段)}
+    \textit{别管公式多长，上来先画 4 列的表，把最后一行算出来：}
+    
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{1. 题目给的 $x$} & \textbf{2. 题目给的 $y$} & \textbf{3. 自己算 $x^2$} & \textbf{4. 自己算 $xy$} \\
+    \hline
+    $x_1$ & $y_1$ & $x_1^2$ & $x_1 y_1$ \\
+    ... & ... & ... & ... \\
+    \hline
+    \textbf{算出总和 $\sum x$} & \textbf{算出总和 $\sum y$} & \textbf{算出总和 $\sum x^2$} & \textbf{算出总和 $\sum xy$} \\
+    \hline
+    \end{tabular}
+    \end{center}
+    \vspace{0.5em}
+    \textbf{关键数据}：拿到上面 4 个总和，以及数据个数 $n$。
+
+    \vspace{1.0em}
+    \textbf{第二步：代入公式 (炒菜阶段)}
+    
+    \textbf{(1) 先求斜率 $a$ (最难的一步)}
+    \[ a = \frac{n \sum (xy) - (\sum x)(\sum y)}{n \sum (x^2) - (\sum x)^2} \]
+    \textbf{大白话翻译 (对着表找数字)：}
+    \begin{itemize}
+        \item \textbf{分子(上边)}：$n \times [\text{第4列和}] - [\text{第1列和}] \times [\text{第2列和}]$
+        \item \textbf{分母(下边)}：$n \times [\text{第3列和}] - [\text{第1列和}]^2$
+        \item \textit{防坑提示：分母完全不没有 $y$ ！}
+    \end{itemize}
+
+    \vspace{0.5em}
+    \textbf{(2) 再求截距 $b$ (收尾)}
+    \[ b = \bar{y} - a \bar{x} \]
+    \textbf{大白话翻译：}
+    \[ b = (\text{y的平均值}) - \text{刚才算的}a \times (\text{x的平均值}) \]
+    
+    \vspace{1.0em}
+    \textbf{备选方法：方程组法 (如果忘了长公式)}
+    \textit{只要列出这两个方程，解出来 $a$ 和 $b$ 是一样的：}
+    \[
+    \begin{cases}
+    n \cdot b + (\sum x) \cdot a = \sum y & \text{(全部加起来)} \\
+    (\sum x) \cdot b + (\sum x^2) \cdot a = \sum xy & \text{(乘上 $x$ 后加起来)}
+    \end{cases}
+    \]
+\end{knowpoint}
+
+
+\begin{knowpoint}{考点：最小二乘法 (抛物线/二次拟合 $y=a_0+a_1x+a_2x^2$)}
+
+    \textbf{第一步：画表填空 (备菜阶段——超级加倍版)}
+    \textit{抛物线比直线麻烦，需要算到 $x$ 的 4 次方。别慌，画个 7 列的表，无脑填数：}
+    
+    \begin{center}
+    \small
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    \textbf{$x$} & \textbf{$y$} & \textbf{$x^2$} & \textbf{$x^3$} & \textbf{$x^4$} & \textbf{$xy$} & \textbf{$x^2 y$} \\
+    \hline
+    $x_1$ & $y_1$ & $x_1^2$ & $x_1^3$ & $x_1^4$ & $x_1 y_1$ & $x_1^2 y_1$ \\
+    ... & ... & ... & ... & ... & ... & ... \\
+    \hline
+    \textbf{$\sum x$} & \textbf{$\sum y$} & \textbf{$\sum x^2$} & \textbf{$\sum x^3$} & \textbf{$\sum x^4$} & \textbf{$\sum xy$} & \textbf{$\sum x^2 y$} \\
+    \hline
+    \end{tabular}
+    \end{center}
+    \vspace{0.5em}
+    \textbf{备菜口诀}：$x$ 从 1 次算到 4 次；$y$ 只要跟 $x$ 和 $x^2$ 乘一乘。
+
+    \vspace{1.0em}
+    \textbf{第二步：列正规方程组 (炒菜阶段——3x3矩阵)}
+    
+    \textit{抛物线公式太长没法背，直接背这个 \textbf{3行3列} 的矩阵填空题：}
+    
+    \[
+    \begin{bmatrix}
+    n & \sum x & \sum x^2 \\
+    \sum x & \sum x^2 & \sum x^3 \\
+    \sum x^2 & \sum x^3 & \sum x^4
+    \end{bmatrix}
+    \begin{bmatrix} a_0 \\ a_1 \\ a_2 \end{bmatrix}
+    =
+    \begin{bmatrix} \sum y \\ \sum xy \\ \sum x^2 y \end{bmatrix}
+    \]
+
+    \textbf{大白话填坑指南 (找规律)：}
+    \begin{itemize}
+        \item \textbf{左边矩阵（系数阵）}：
+            \begin{itemize}
+                \item 第一行：从 $n$ 开始，填 $x$ 的 0、1、2 次方和。
+                \item 第二行：把第一行整体往左挪一位，补个 $\sum x^3$。
+                \item 第三行：接着往左挪，补个 $\sum x^4$。
+                \item \textit{规律：沿着副对角线（右上到左下），数值是一样的！}
+            \end{itemize}
+        \item \textbf{右边向量（结果列）}：
+            \begin{itemize}
+                \item 第 1 个：纯 $y$ 的和。
+                \item 第 2 个：$x$ 乘 $y$ 的和。
+                \item 第 3 个：$x^2$ 乘 $y$ 的和。
+            \end{itemize}
+    \end{itemize}
+
+    \vspace{1.0em}
+    \textbf{第三步：解方程 (出锅)}
+    \textit{把数填进去后，这就是一个普通的“三元一次方程组”。}
+    \begin{itemize}
+        \item 用\textbf{高斯消元法}（消元、回代）。
+        \item 解出 $a_0$ (常数项), $a_1$ (一次项), $a_2$ (二次项)。
+        \item \textbf{最后写答案}：$y = a_0 + a_1 x + a_2 x^2$。
+    \end{itemize}
+
+\end{knowpoint}
+
+\section*{第四章 数值积分与微分}
+
+\begin{knowpoint}{考点：代数精度法确定求积系数}
+    \textbf{1. 核心原理 (待定系数法)}
+    若求积公式包含 $n$ 个待定参数，通常可使该公式对次数不超过 $n-1$ 的多项式精确成立。
+    \begin{itemize}
+        \item \textbf{基本步骤}：依次取 $f(x) = 1, x, x^2, \dots, x^{n-1}$ 代入公式。
+        \item \textbf{建立方程}：令“精确积分值 = 求积公式值”，解线性方程组。
+    \end{itemize}
+
+    \textbf{2. 题目实战 (本题求解)}
+    本题有 3 个待定系数 $A_0, A_1, B_0$，故令公式对 $f(x) = 1, x, x^2$ 精确成立：
+    \begin{itemize}
+        \item \textbf{取 $f(x)=1$} (此时 $f(0)=1, f(1)=1, f'(0)=0$)：
+        \[ \int_0^1 1 dx = 1 \quad \Rightarrow \quad A_0(1) + A_1(1) + B_0(0) = 1 \]
+        
+        \item \textbf{取 $f(x)=x$} (此时 $f(0)=0, f(1)=1, f'(0)=1$)：
+        \[ \int_0^1 x dx = \frac{1}{2} \quad \Rightarrow \quad A_0(0) + A_1(1) + B_0(1) = \frac{1}{2} \]
+        
+        \item \textbf{取 $f(x)=x^2$} (此时 $f(0)=0, f(1)=1, f'(0)=0$)：
+        \[ \int_0^1 x^2 dx = \frac{1}{3} \quad \Rightarrow \quad A_0(0) + A_1(1) + B_0(0) = \frac{1}{3} \]
+    \end{itemize}
+
+    \vspace{0.5em}
+    \hrule
+    \vspace{0.5em}
+
+    \textbf{3. 计算结果与精度验证}
+    \begin{itemize}
+        \item \textbf{解方程组}：
+        由 (3) 得 $\mathbf{A_1 = 1/3}$；代入 (2) 得 $\mathbf{B_0 = 1/6}$；代入 (1) 得 $\mathbf{A_0 = 2/3}$。
+        
+        \item \textbf{最终公式}：
+        \[ \int_{0}^{1} f(x)dx \approx \frac{2}{3}f(0) + \frac{1}{3}f(1) + \frac{1}{6}f'(0) \]
+        
+        \item \textbf{代数精度判断}：
+        验证 $f(x)=x^3$：左边 $\int_0^1 x^3 dx = 1/4$；右边公式值 $1/3 \neq 1/4$。
+        \textit{结论：该公式具有 \textbf{2 阶}代数精度。}
+    \end{itemize}
+\end{knowpoint}
+
+\begin{knowpoint}{考点：复合求积公式与龙格误差估计 (通用模板)}
+    \textbf{1. 基础公式 (背诵)}
+    设 $h = \frac{b-a}{n}$，节点为 $x_i$。
+    \begin{itemize}
+        \item \textbf{复合梯形 ($T_n$)}：
+        \[ T_n = \frac{h}{2} \left[ f(a) + f(b) + 2\sum_{i=1}^{n-1} f(x_i) \right] \]
+        \item \textbf{复合辛普森 ($S_n$)}：
+        \[ S_n = \frac{h}{3} \left[ f(a) + f(b) + 4\sum_{i \in \text{odd}} f(x_i) + 2\sum_{i \in \text{even}} f(x_i) \right] \]
+        \textit{口诀：首尾一次，奇数四倍，偶数两倍。}
+    \end{itemize}
+
+    \vspace{0.5em}
+    \hrule
+    \vspace{0.5em}
+
+    \textbf{2. 龙格(Runge)事后误差估计 (难点突破)}
+    \textbf{核心思想}：在不知道真值的情况下，用“步长加倍前后”的两次计算结果差，来估计误差。
+    
+    设 $I_{2n}$ 为 $2n$ 等分(精度高)的结果，$I_n$ 为 $n$ 等分(精度低)的结果。
+    \textbf{通用公式}：
+    \[ R \approx \frac{I_{2n} - I_n}{2^p - 1} \]
+    其中 $p$ 为公式的代数精度阶数。
+    
+    \begin{itemize}
+        \item \textbf{梯形公式 ($p=2$)}：分母 $2^2 - 1 = 3$
+        \[ \boxed{ R_{T} \approx \frac{T_{2n} - T_n}{3} } \]
+        \item \textbf{辛普森公式 ($p=4$)}：分母 $2^4 - 1 = 15$
+        \[ \boxed{ R_{S} \approx \frac{S_{2n} - S_n}{15} } \]
+    \end{itemize}
+\end{knowpoint}
+
+\begin{knowpoint}{概念补充：$p$ 是什么？(龙格公式的核心)}
+    \textbf{1. $p$ 的定义}
+    $p$ 代表该求积公式的\textbf{收敛阶} (或者简单的理解为误差缩小的速度)。
+    当步长 $h$ 减半时，误差会缩小为原来的 $1/2^p$。
+    
+    \textbf{2. 考试只需死记硬背 (无需计算 $p$)}
+    在数值积分中，$p$ 是固定值：
+    \begin{itemize}
+        \item \textbf{复化梯形公式}：精度较低，$\mathbf{p=2}$。
+        \item \textbf{复化辛普森公式}：精度很高，$\mathbf{p=4}$。
+    \end{itemize}
+
+    \textbf{3. 龙格公式分母 $2^p-1$ 的由来}
+    \begin{itemize}
+        \item \textbf{梯形公式 ($p=2$)}：
+        分母 $= 2^2 - 1 = 4 - 1 = \mathbf{3}$
+        \item \textbf{辛普森公式 ($p=4$)}：
+        分母 $= 2^4 - 1 = 16 - 1 = \mathbf{15}$
+    \end{itemize}
+    \textit{注：这就是为什么梯形误差除以 3，而辛普森误差除以 15。}
+\end{knowpoint}
+
+\begin{knowpoint}{考点：标准辛普森公式与余项 (非复合)}
+    \textbf{适用场景}：题目未指定 $n$（或默认 $n=2$），只对整个区间进行一次辛普森计算。
+
+    \textbf{1. 计算公式 (背诵)}
+    设区间为 $[a, b]$，中点为 $x_{mid} = \frac{a+b}{2}$，步长 $h = \frac{b-a}{2}$。
+    \[ S = \frac{h}{3} \left[ f(a) + 4f(x_{mid}) + f(b) \right] \]
+    \textit{口诀：头尾是一，中点是四，乘上步长除以三。}
+
+    \vspace{0.5em}
+    \hrule
+    \vspace{0.5em}
+
+    \textbf{2. 误差估计公式 (截断误差)}
+    不同于龙格法（事后估计），这是\textbf{事前理论估计}，需要求导。
+    \[ |R(f)| \le \frac{b-a}{180} h^4 \cdot M_4 \]
+    
+    \textbf{参数详解}：
+    \begin{itemize}
+        \item $\mathbf{b-a}$：积分区间的总长度。
+        \item $\mathbf{h}$：步长 ($h = \frac{b-a}{2}$)。
+        \item $\mathbf{180}$：固定分母 (辛普森特征)。
+        \item $\mathbf{M_4}$：\textbf{四阶导数}在区间上的最大值。
+        \[ M_4 = \max_{a \le x \le b} |f^{(4)}(x)| \]
+    \end{itemize}
+
+    \vspace{0.5em}
+    \hrule
+    \vspace{0.5em}
+
+    \textbf{3. 做题步骤}
+    \begin{itemize}
+        \item \textbf{Step 1 算积分}：算出 $f(a), f(mid), f(b)$，代入公式求 $S$。
+        \item \textbf{Step 2 求导数}：算出 $f'(x), f''(x), f'''(x), \mathbf{f^{(4)}(x)}$。
+        \item \textbf{Step 3 找最大}：判断 $f^{(4)}(x)$ 在区间的单调性，找出最大绝对值 $M_4$。
+        \item \textbf{Step 4 套公式}：计算 $\frac{b-a}{180} h^4 M_4$ 得到误差限。
+    \end{itemize}
+\end{knowpoint}
+
+\section*{第五章 解线性方程组的直接方法}
+
+\begin{knowpoint}{基础补充：符号含义与特征方程原理}
+    \textbf{1. $\lambda I$ (特征值 $\times$ 单位矩阵)}
+    \begin{itemize}
+        \item \textbf{含义}：$\lambda$ 是我们要求的特征值（一个数），$I$ 是单位矩阵（主对角线为1，其余为0）。
+        \item \textbf{作用}：在矩阵运算中，\textbf{矩阵只能减矩阵}，不能减去一个数字。为了计算 $\lambda - A$，必须把 $\lambda$ 转化为对角矩阵 $\lambda I$。
+        \[ \lambda I = \begin{pmatrix} \lambda & 0 & \cdots \\ 0 & \lambda & \cdots \\ \vdots & \vdots & \ddots \end{pmatrix} \]
+    \end{itemize}
+
+    \textbf{2. $\det$ (Determinant 行列式)}
+    \begin{itemize}
+        \item \textbf{含义}：一种数学运算，能把一个方阵变成一个具体的数值。
+        \item \textbf{为什么令 $\det = 0$？}
+        求特征值的本质是解方程 $(\lambda I - A)x = 0$。若要有非零解 $x$（非平凡解），系数矩阵必须是\textbf{不可逆}的。
+        \[ \text{矩阵不可逆} \iff \text{行列式为 0} \iff \det(\lambda I - A) = 0 \]
+    \end{itemize}
+\end{knowpoint}
+
+\begin{knowpoint}{考点一：直接三角分解法 (Doolittle杜兰特) 全流程}
+
+    \begin{minipage}{0.58\textwidth}
+        \textbf{\large 1. 分解阶段 ($A=LU$)}
+        \begin{itemize}
+            \item \textbf{核心逻辑}：$L$ (单位下三角) $\times$ $U$ (普通上三角) $= A$。
+            \item \textbf{计算口诀}：\textcolor{highlight}{先算 $U$ 行，再算 $L$ 列}。
+            \item \textbf{起手技巧}：\textcolor{highlight}{\fbox{$U$ 的第 1 行 $\equiv$ $A$ 的第 1 行}}。
+            \item \textbf{后续公式}：
+            \begin{itemize}
+                \item $U_{row}$: $u_{ij} = a_{ij} - \sum (\text{L左} \times \text{U上})$
+                \item $L_{col}$: $l_{ij} = (a_{ij} - \sum (\text{L左} \times \text{U上})) / \text{主元}u_{jj}$
+            \end{itemize}
+        \end{itemize}
+        
+        \vspace{0.8em}
+        \hrule
+        \vspace{0.8em}
+
+        \textbf{\large 2. 求解阶段 (两步走)}
+        \textbf{目标}：求解 $Ax=b \Rightarrow LUx=b$。
+        \begin{enumerate}[label=\textcircled{\scriptsize\arabic*}]
+            \item \textbf{前代法求 $y$} (解 $Ly=b$)
+            \item \textbf{回代法求 $x$} (解 $Ux=y$)
+        \end{enumerate}
+    \end{minipage}%
+    \hfill
+    \vline width 0.5pt \hfill % 竖线分隔
+    \begin{minipage}{0.38\textwidth}
+        \centering
+        \textbf{矩阵结构示意}
+        \[
+        \small
+        \begin{pmatrix} 
+            1 & 0 & 0 \\ 
+            l_{21} & 1 & 0 \\ 
+            l_{31} & l_{32} & 1 
+        \end{pmatrix}
+        \begin{pmatrix} 
+            u_{11} & u_{12} & u_{13} \\ 
+            0 & u_{22} & u_{23} \\ 
+            0 & 0 & u_{33} 
+        \end{pmatrix}
+        = A
+        \]
+        \vspace{0.5em}
+        \textbf{求解流程图}
+        \[
+        \color{maincolor}
+        b \xrightarrow[\text{自上而下}]{Ly=b} y \xrightarrow[\text{自下而上}]{Ux=y} x
+        \]
+    \end{minipage}
+
+\end{knowpoint}
+
+\newpage
+
+
+\section*{第六章 解线性方程组的迭代法}
+
+\begin{knowpoint}{预备：字母翻译小词典 (先看懂这个)}
+    假设有一个方程组：
+    \[
+    \begin{cases}
+       \mathbf{5}x_1 + 2x_2 + x_3 = \mathbf{10} \\
+       3x_1 + \mathbf{8}x_2 - 2x_3 = \mathbf{20}
+    \end{cases}
+    \]
+    
+    \vspace{0.5em}
+    \textbf{1. $a_{ij}$ 是什么？} —— 它是变量前面的\textbf{系数}。
+    \begin{itemize}
+        \item $i$ 代表“第几行”，$j$ 代表“第几个变量”。
+        \item $a_{11}$：第1行第1个系数 (即数字 5)。这是这一行“主角”的系数。
+        \item $a_{12}$：第1行第2个系数 (即数字 2)。这是“配角”的系数。
+    \end{itemize}
+    \textbf{2. $a_{ii}$ 是什么？} —— \textbf{主对角元素} (每一行的“户主”)。
+    \begin{itemize}
+        \item 第1行的 $a_{11}=5$，第2行的 $a_{22}=8$。
+        \item \textit{解题关键步骤：每次都要把这个数除到等号对面去！}
+    \end{itemize}
+    \textbf{3. $b_i$ 是什么？} —— 等号右边的\textbf{常数}。
+    \begin{itemize}
+        \item $b_1 = 10$, $b_2 = 20$。
+    \end{itemize}
+\end{knowpoint}
+
+\vspace{1em}
+\begin{knowpoint}{考点二：特征值求解与谱半径}
+
+    % --- 第一部分：解三次方程 ---
+    \textbf{\large 1. 如何解三次特征多项式？}
+    \par \vspace{0.3em}
+    \textbf{形式}：$f(\lambda) = \lambda^3 + a\lambda^2 + b\lambda + c = 0$
+    \begin{itemize}
+        \item \textbf{第一步：试根 (猜数)}
+        \begin{itemize}
+            \item 尝试常数项 $c$ 的\textcolor{highlight}{因子} (如 $\pm 1, \pm 2, \dots$)。
+            \item 若算出 $f(\lambda_1)=0$，则 $(\lambda - \lambda_1)$ 是一个因式。
+        \end{itemize}
+        \item \textbf{第二步：多项式除法 (降次)}
+        \begin{itemize}
+            \item 计算原多项式除以 $(\lambda - \lambda_1)$。
+            \item 结果必为二次方程 $A\lambda^2 + B\lambda + C$。
+        \end{itemize}
+        \item \textbf{第三步：解二次方程}
+        \begin{itemize}
+            \item 使用十字相乘法或求根公式 $\lambda = \frac{-B \pm \sqrt{B^2-4AC}}{2A}$。
+        \end{itemize}
+    \end{itemize}
+
+    \vspace{1em} % 上下两部分的间距
+
+    % --- 第二部分：谱半径定义 ---
+    \textbf{\large 2. 谱半径 $\rho(A)$ 的计算与判定}
+    \vspace{0.3em}
+    \begin{tcolorbox}[colback=blue!5!white, colframe=blue!20!white, size=small]
+        \textbf{定义}：矩阵 $A$ 的所有特征值中，模长最大的那个值。
+        \[ \rho(A) = \max_{i} |\lambda_i| \]
+        \textbf{模长判定规则}：
+        \begin{itemize}
+            \item \textbf{实数特征值}：直接取绝对值 $|\lambda|$。
+            \item \textbf{复数特征值}（\textcolor{red}{易错点}）：
+            若特征值为 $\lambda = a \pm bi$，则必须计算复数模长：
+            \[ |\lambda| = \sqrt{a^2 + b^2} \]
+            \textbf{判据}：若 $\sqrt{a^2 + b^2} < 1$ 则收敛，否则发散。
+        \end{itemize}
+    \end{tcolorbox}
+
+    % --- 谱半径计算示例 ---
+    \noindent\textbf{谱半径计算示例}：
+    假设求得特征值为 $\lambda_1 = 2, \quad \lambda_2 = -7, \quad \lambda_3 = 3+4i$。
+    \begin{itemize}
+        \item $|\lambda_1| = 2$
+        \item $|\lambda_2| = |-7| = 7$
+        \item $|\lambda_3| = \sqrt{3^2+4^2} = \sqrt{9+16} = 5$
+    \end{itemize}
+    \textbf{结果}：最大模长为 7，故 $\rho(A) = 7$。
+\end{knowpoint}
+
+\vspace{1em}
+\begin{knowpoint}{考点一：怎么写迭代公式？ (不要背，要理解)}
+    
+    \textbf{核心动作：移项变形}
+    把方程 $5x_1 + 2x_2 = 10$ 变成 $x_1 = \dots$ 的形式：
+    \[ 5x_1 = 10 - 2x_2 \quad \Longrightarrow \quad x_1 = \frac{1}{5}(10 - 2x_2) \]
+    
+    \vspace{0.5em}
+    \hrule
+    \vspace{0.5em}
+    
+    \textbf{1. Jacobi 迭代 (同用旧的)}
+    \begin{quote}
+        \small 假设我们现在要计算\textbf{第 $k+1$ 次} (即新值) 的值，等号右边用到的全部必须是\textbf{第 $k$ 次} (即旧值) 的值。
+    \end{quote}
+    \textbf{公式【写给老师看的】：}
+    \[ x_i^{(k+1)} = \frac{1}{a_{ii}} \left( b_i - \sum_{\text{其余项}} a_{ij} \textcolor{blue}{x_j^{(k)}} \right) \]
+    \textbf{你自己心里想：}
+        公式本质还原：移项 + 除以系数
+    \vspace{0.8em}
+    \hrule
+    \vspace{0.8em}
+    \textbf{2. Gauss-Seidel 迭代 (能用新的就用新的)}
+    \begin{quote}
+        \small \textbf{基本原理与 Jacobi 完全一致} (也是移项 $\rightarrow$ 除以系数)。\\
+        \textbf{唯一区别：}“即算即用”。比如算 $x_2$ 时，因为 $x_1$ 刚刚已经更新了，所以必须代入\textbf{最新的 $x_1$}，绝不等待！
+    \end{quote}
+    
+    \textbf{公式写给老师看 (和 Jacobi 就差在下标上)：}
+    \[ x_i^{(k+1)} = \frac{1}{a_{ii}} \left( b_i - \sum_{j < i} a_{ij} \textcolor{red}{x_j^{(k+1)}} - \sum_{j > i} a_{ij} \textcolor{blue}{x_j^{(k)}} \right) \]
+    
+    \textbf{你自己心里想 (口诀)：}
+    \begin{itemize}
+        \item 公式不用变，照抄 Jacobi 的移项结果。
+        \item \textbf{填空时看位置：}排在当前变量\textbf{前面}的（如 $x_1$ 在 $x_2$ 前），已经算完了，\textbf{代新值 $\textcolor{red}{(k+1)}$}；
+        \item 排在当前变量\textbf{后面}的（如 $x_3$ 在 $x_2$ 后），还没轮到算，只能\textbf{代旧值 $\textcolor{blue}{(k)}$}。
+    \end{itemize}
+
+\end{knowpoint}
+\vspace{0.5em}
+\begin{knowpoint}{考点二：怎么判断s是否收敛【收敛才能算出结果】？}
+    
+    \textbf{方法1：看行和 (简单粗暴，未必这行)}
+    \[ \text{如果不看主对角线，这一行剩下的数字绝对值加起来} < \text{主对角线数字} \]
+    或者说：把主系数除过去后，剩下的系数绝对值之和 $< 1$。
+    
+    \vspace{0.8em}
+    \textbf{方法2：特征值速算 (必杀技)}
+    设 $\lambda$ 是特征值。
+    
+    \textbf{(1) Jacobi 的速算阵型：}
+    \[ \det( \text{主对角线} \times \lambda + \text{旁边的数字} ) = 0 \]
+    \textit{例子：} 如果矩阵是 $\begin{bmatrix} 5 & 1 & 1 \\ 2 & 6 & 2 \\ 1 & 1 & 5 \end{bmatrix}$，就算
+    \[ \det \begin{bmatrix} 5\lambda & 1 & 1 \\ 2 & 6\lambda & 2 \\ 1 & 1 & 5\lambda \end{bmatrix} = 0 \]
+    
+    \vspace{0.5em}
+    \textbf{(2) G-S 的速算阵型：}
+    \[ \det( \text{左下角含对角线} \times \lambda + \text{右上角不动} ) = 0 \]
+    \textit{例子：} 还是针对上面的矩阵，就算
+    \[ \det \begin{bmatrix} 5\lambda & 1 & 1 \\ 2\lambda & 6\lambda & 2 \\ 1\lambda & 1\lambda & 5\lambda \end{bmatrix} = 0 \]
+    \begin{itemize}
+        \item \textbf{注意位置}：$a_{11}$ 以及 $a_{21}, a_{31}, a_{32} \dots$ 这些左下（含对角线）位置都要乘 $\lambda$。
+        \item \textbf{判定标准}：解出来的 $|\lambda| < 1$ 就说明能算出结果。
+    \end{itemize}
+\end{knowpoint}
+\newpage
+
+\section*{第七章 非线性方程求根}
+\begin{knowpoint}{考点一：迭代格式与收敛定理}
+    \textbf{1. 迭代格式（公式怎么选）}
+    \begin{itemize}
+        \item \textbf{二分法}（稳健，必收敛，线性收敛）：
+        \begin{itemize}
+            \item \textbf{条件}：$f(x) \in C[a,b]$ 且 $f(a) \cdot f(b) < 0$（端点异号）。
+            \item \textbf{公式}：$x_{k} = \frac{a_k + b_k}{2}$ （取区间中点）。
+            \item \textbf{更新}：若 $f(a_k) \cdot f(x_k) < 0$，新区间为 $[a_k, x_k]$；否则为 $[x_k, b_k]$。
+            \item \textbf{误差/次数}（\textcolor{red}{考点}）：若要求精度 $\epsilon$，迭代次数 $n$ 需满足：
+            \[ \frac{b-a}{2^n} \le \epsilon \implies n \ge \frac{\ln(b-a) - \ln \epsilon}{\ln 2} \]
+        \end{itemize}
+        
+        \item \textbf{简单迭代法}：
+        \begin{itemize}
+            \item \textbf{构造}：将方程 $f(x)=0$ 变形为 $x = \varphi(x)$
+            \item \textbf{公式}：$x_{k+1} = \varphi(x_k)$
+        \end{itemize}
+        
+        \item \textbf{Newton 迭代法}（常用，平方收敛）：
+        \begin{itemize}
+            \item \textbf{构造}：直接利用原函数 $f(x)$ 及其导数 $f'(x)$
+            \item \textbf{公式}：$x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}$
+             \item \textbf{迭代函数【判敛】}：$\varphi(x) = x_k - \frac{f(x_k)}{f'x_k)}$
+        \end{itemize}
+    \end{itemize}
+
+    \textbf{2. 全局收敛性定理（判断能不能算）}
+    设迭代函数 $\varphi(x) \in C^1[a,b]$，若满足以下两点，则迭代必然收敛：
+        \textit{答题时，直接写“考虑正根，取区间 $[a, b]$”，f(a)*f(b)<0[零点存在定律]，直到根的话则直接代入计算;}
+    \begin{itemize}
+        \item \textbf{(1) 映内性}（值域不跑偏）：
+        \[ \forall x \in [a,b] \implies \varphi(x) \in [a,b] \]
+        \item \textbf{(2) 压缩性}（导数绝对值小于1）：
+        \[ \exists L < 1, \text{ s.t. } |\varphi'(x)| \le L < 1 \]
+        \textit{注：做题时主要检查 $|\varphi'(x)| < 1$ 是否成立。}
+    \end{itemize}
+    \textbf{结论}：方程 $x=\varphi(x)$ 在 $[a,b]$ 有唯一解，且对任意初值 $x_0$ 均收敛。
+\end{knowpoint}
+
+\section*{第九章 常微分方程数值解法}
+\begin{knowpoint}{考点：欧拉法 (显式欧拉) 数值求解}
+    \textbf{1. 标准形式}
+    对于一阶常微分方程初值问题【算三步就足够了】：
+    \[
+    \begin{cases}
+        y' = f(x, y) \\
+        y(x_0) = y_0
+    \end{cases}
+    \]
+    欧拉法的迭代公式为：
+    \[ \boxed{ y_{n+1} = y_n + h \cdot f(x_n, y_n) } \]
+
+    \textbf{2. 本题实战 ($h=0.1$)}
+    \textbf{方程}：$y' = y - \frac{2x}{y}$，\textbf{初值}：$y(0)=1$。
+
+    \begin{itemize}
+        \item \textbf{Step 1 ($n=0$)}: 
+        \[ 
+        \begin{aligned}
+            f(x_0, y_0) &= 1 - \frac{0}{1} = 1 \\
+            y_1 &= 1 + 0.1 \times 1 = \mathbf{1.1} 
+        \end{aligned}
+        \]
+        
+        \item \textbf{Step 2 ($n=1$)}: 
+        \[ 
+        \begin{aligned}
+            f(x_1, y_1) &= 1.1 - \frac{2(0.1)}{1.1} \approx 0.9182 \\
+            y_2 &= 1.1 + 0.1 \times 0.9182 = \mathbf{1.1918}
+        \end{aligned}
+        \]
+        
+        \item \textbf{Step 3 ($n=2$)}: 
+        \[ 
+        \begin{aligned}
+            f(x_2, y_2) &= 1.1918 - \frac{2(0.2)}{1.1918} \approx 0.8562 \\
+            y_3 &= 1.1918 + 0.1 \times 0.8562 = \mathbf{1.2774}
+        \end{aligned}
+        \]
+    \end{itemize}
+
+    \vspace{0.5em}
+    \hrule
+    \vspace{0.5em}
+
+    \textbf{3. 几何意义}
+    欧拉法本质上是用曲线在某点的\textbf{切线}代替曲线本身，向前走一小步 $h$。
+    \[ y_{n+1} \approx y(x_n) + h \cdot y'(x_n) \]
+\end{knowpoint}
+
+\begin{knowpoint}{考点：改进欧拉法}
+    \noindent \textbf{(1) 显式欧拉公式(预估值):}
+    \[
+    y_{n+1} = y_n + h \cdot f(x_n, y_n)
+    \]
+
+    \noindent \textbf{(2) 梯形公式(校正值):}
+
+    这是一个隐式公式：
+    \[
+    y_{n+1} = y_n + \frac{h}{2} \left[ f(x_n, y_n) + f(x_{n+1}, y_{n+1}) \right]
+    \]
+
+    \noindent \textbf{(3) 预估校正公式 :}
+
+    由显式欧拉公式作预估，梯形公式作校正：
+    \[
+    \begin{cases}
+    \text{预估值: } \bar{y}_{n+1} = y_n + h \cdot f(x_n, y_n) \\
+    \text{校正值: } y_{n+1} = y_n + \frac{h}{2} \left[ f(x_n, y_n) + f(x_{n+1}, \bar{y}_{n+1}) \right]
+    \end{cases}
+    \]
+\end{knowpoint}
+
+\end{document}

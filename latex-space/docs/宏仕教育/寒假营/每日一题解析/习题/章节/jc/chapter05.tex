@@ -1,0 +1,109 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{graphicx}       % 图片支持
+\usepackage{fancyhdr}       % 页眉页脚
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 使用方法：\choices{选项A}{选项B}{选项C}{选项D}
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+
+\title{\textbf{《高等数学》必刷习题——基础版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第五章 中值定理与导数（基础）}
+
+\begin{enumerate}
+    \item 设 $ f(x)=x\ln x $ , 则 $ f(x) $ \underline{\hspace{1cm}}。
+    \choicesTwo
+    {在 $ (0, \frac{1}{e}) $ 内单调减少}
+    {在 $ (\frac{1}{e}, +\infty) $ 内单调减少}
+    {在 $ (0, +\infty) $ 内单调减少}
+    {在 $ (0, +\infty) $ 内单调增加}
+
+    \item 曲线 $ y=6x-24x^{2}+x^{4} $ 的凸区间是 \underline{\hspace{1cm}}。
+    \choicesFour{$ (-2,2) $}{$ (-\infty,0) $}{$ (0,+\infty) $}{$ (-\infty,+\infty) $}
+
+    \item 函数 $ y = \sin x $ 在区间 $ [0, \pi] $ 上满足罗尔定理的 $ \xi = $ \underline{\hspace{1cm}}。
+    \choicesFour{0}{$ \frac{\pi}{4} $}{$ \frac{\pi}{2} $}{$ \pi $}
+
+    \item 曲线 $ y=\frac{x^{2}}{1+x} $ 的铅垂渐近线的方程是 \underline{\hspace{1cm}}。
+    \choicesFour{$ y = -1 $}{$ y = 1 $}{$ x = -1 $}{$ x = 1 $}
+
+    \item 函数 $ f(x)=ax^{2}+b $ 在区间 $ (0,+\infty) $ 内单调增加，则 $a,b$ 应满足 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {$a<0,b=0$}
+    {$a>0,b$ 为任意实数}
+    {$a<0,b\neq0$}
+    {$a<0,b$ 为任意实数}
+
+    \item 若在区间 $I$ 上， $ f'(x)>0, f''(x)<0 $ , 则曲线 $ y=f(x) $ 在 $I$ 是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {单调减少且为凹弧}
+    {单调减少且为凸弧}
+    {单调增加且为凹弧}
+    {单调增加且为凸弧}
+
+    \item 关于曲线 $ y=\frac{2x^{3}}{(1-x)^{2}} $ ，以下说法正确的是 \underline{\hspace{1cm}}。
+    \choicesTwo
+    {既有水平渐近线，又有垂直渐近线}
+    {只有水平渐近线}
+    {有垂直渐近线 $ x = 1 $}
+    {没有渐近线}
+
+    \item 在 $ (a,b) $ 区间内任意一点，函数 $ f(x) $ 的曲线弧总位于其切线的上方，则该曲线在 $ (a,b) $ 内是 \underline{\hspace{1cm}}。
+    \choicesFour{凹}{凸}{单调上升}{单调下降}
+
+    \item 当 $ x=\frac{\pi}{4} $ 时，函数 $ f(x)=a\cos x-\frac{1}{4}\cos 4x $ 取得极值，则 $a=$ \underline{\hspace{2cm}}。
+
+    \item 函数 $ f(x)=\ln x $ 在区间 $[1,2]$ 上满足拉格朗日中值公式的 $ \xi= $ \underline{\hspace{2cm}}。
+
+    \item 设函数 $ f(x) $ 在 $ [1,2] $ 上连续，在 $ (1,2) $ 内可导，且 $ f(1) = 4f(2) $ 。
+    证明：存在一点 $ \xi \in (1,2) $ ，使得 $ 2f(\xi) + \xi f'(\xi) = 0 $ 。
+
+    \item 用拉格朗日中值定理证明: 当 $x>0$ 时， $ \frac{x}{1+x}<\ln(1+x)<x $ 。
+
+    \item 证明：当 $x>0$ 时， $ \ln(1+x)>x-\frac{1}{2}x^{2} $ 。
+
+    \item 求函数 $ y = x^{3} - 3x^{2} - 9x + 5 $ 的单调区间与极值。
+
+    \item 生产某种设备固定成本 1000 万元，每生产一台成本增加 20 万元，已知需求价格函数 $ P(Q) = 200 - Q $ ，问销量 $Q$ 为多少时，总利润 $L$ 最大，最大利润是多少？
+\end{enumerate}
+
+
+\end{document}

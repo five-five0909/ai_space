@@ -1,0 +1,864 @@
+\documentclass[10pt, a4paper]{ctexart}
+\usepackage{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{tikz}
+
+% Page layout
+\geometry{left=2cm, right=2cm, top=2cm, bottom=2cm}
+
+% Definition of visual separators
+\newcommand{\problemheader}{
+    \vspace{0.5cm}
+    \noindent\rule[0.5ex]{\linewidth}{2pt} % Thick line
+}
+
+\newcommand{\analysisheader}{
+    \vspace{0.2cm}
+    \noindent{\color{red}\rule[0.5ex]{\linewidth}{0.5pt}} % Thin line for analysis
+    \vspace{0.1cm}
+}
+
+% Define colors
+\newcommand{\redtext}[1]{{\color{red}#1}}
+
+\begin{document}
+
+\title{高等数学课程考核试卷 - 详细解析}
+\author{弘仕专升本教育}
+\date{}
+\maketitle
+
+% ==========================================
+%  一、选择题
+% ==========================================
+
+\section*{一、选择题}
+
+% Problem 1
+\problemheader
+\section*{第 1 题}
+\subsection*{题目重现}
+函数 $f(x) = \arcsin \frac{x+1}{2} + \frac{1}{\sqrt{x^2-1}}$ 的定义域为 ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} *{4}{X} @{}}
+    A. $[-3,-1]$ & B. $(-3,-1]$ & C. $[-3,-1)$ & D. $(-3,-1)$
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+本题主要考察函数定义域的求解，涉及反三角函数 $\arcsin u$ 和分式根式函数的定义域规则。 \\
+1. $\arcsin u$ 的定义域为 $-1 \le u \le 1$。 \\
+2. 分母位置的偶次方根 $\frac{1}{\sqrt{v}}$ 要求被开方数 $v > 0$。
+
+\textbf{第二步：思路构建} \\
+我们需要列出满足上述条件的不等式组，并求出它们的交集。
+
+\textbf{详细步骤} \\
+(1) 由 $\arcsin \frac{x+1}{2}$ 有意义，得：
+\[ -1 \le \frac{x+1}{2} \le 1 \]
+解得：
+\[ -2 \le x+1 \le 2 \implies -3 \le x \le 1 \]
+记为集合 $A = [-3, 1]$。
+
+(2) 由 $\frac{1}{\sqrt{x^2-1}}$ 有意义，得：
+\[ x^2 - 1 > 0 \]
+即 $(x-1)(x+1) > 0$，解得：
+\[ x > 1 \quad \text{或} \quad x < -1 \]
+记为集合 $B = (-\infty, -1) \cup (1, +\infty)$。
+
+(3) 求交集 $A \cap B$：
+\[ [-3, 1] \cap \left( (-\infty, -1) \cup (1, +\infty) \right) \]
+观察数轴，交集部分为 $[-3, -1)$。
+注意 $x=1$ 在 $A$ 中但在 $B$ 处不满足（需严格大于1），故被排除。
+
+\textbf{第四步：最终答案} \\
+定义域为 $[-3, -1)$。故选 C。
+
+\subsection*{核心公式}
+1. $y = \arcsin u \implies -1 \le u \le 1$ \\
+2. $y = \frac{1}{\sqrt{u}} \implies u > 0$
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：函数的定义域。
+2. \textbf{易错点提示}：容易忽略分母不能为0的条件（即 $x^2-1 > 0$ 而非 $\ge 0$）；求解不等式组取交集时端点值的开闭区间判断。
+}
+
+% Problem 2
+\problemheader
+\section*{第 2 题}
+\subsection*{题目重现}
+当 $x \to 0$ 时，与 $x$ 等价的无穷小量是 ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} *{2}{X} @{}}
+    A. $\sqrt[3]{x} + x$ & B. $1 - e^{x^2}$ \\
+    C. $\sin x$        & D. $2(1-\cos x)$
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+本题考察无穷小量的比较及等价无穷小的概念。需判断下列各选项在 $x \to 0$ 时是否与 $x$ 的极限比值为 1。
+
+\textbf{第二步：思路构建} \\
+逐一分析选项中各函数的主部阶数。
+
+\textbf{详细步骤} \\
+A. $\sqrt[3]{x} + x$：当 $x \to 0$ 时，$\sqrt[3]{x}$ 是比 $x$ 低阶的无穷小（$\lim \frac{\sqrt[3]{x}}{x} = \infty$），故整体等价于 $\sqrt[3]{x}$，与 $x$ 不等价。 \\
+B. $1 - e^{x^2}$：由 $e^u - 1 \sim u$，得 $1 - e^{x^2} \sim -x^2$，是 $x$ 的高阶无穷小。 \\
+C. $\sin x$：基本公式 $\sin x \sim x$。$\lim_{x\to 0} \frac{\sin x}{x} = 1$，符合。 \\
+D. $2(1-\cos x)$：由 $1-\cos x \sim \frac{1}{2}x^2$，得 $2(1-\cos x) \sim x^2$，是 $x$ 的高阶无穷小。
+
+\textbf{第四步：最终答案} \\
+选项 C 正确。
+
+\subsection*{核心公式}
+1. $x \to 0$ 时，$\sin x \sim x$ \\
+2. $x \to 0$ 时，$1 - \cos x \sim \frac{1}{2}x^2$ \\
+3. $x \to 0$ 时，$e^x - 1 \sim x$
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：等价无穷小替换。
+2. \textbf{易错点提示}：混淆无穷小的阶数；注意 $1-\cos x$ 是二阶无穷小。
+}
+
+% Problem 3
+\problemheader
+\section*{第 3 题}
+\subsection*{题目重现}
+设 $f'(x_0)$ 存在，则下列 4 个式子中等于 $f'(x_0)$ 的是 ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} X @{}}
+    A. $\lim\limits_{n \to \infty} n \left[ f\left(x_0 - \frac{1}{n}\right) - f(x_0) \right]$ \\
+    B. $\lim\limits_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}$ \\
+    C. $\lim\limits_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0 - \Delta x)}{\Delta x}$ \\
+    D. $\lim\limits_{\Delta x \to 0} \frac{f(x_0 + 2\Delta x) - f(x_0 - 3\Delta x)}{\Delta x}$
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+本题考察导数的定义及其变形形式。
+
+\textbf{第二步：思路构建} \\
+利用导数定义 $f'(x_0) = \lim_{\Delta x \to 0} \frac{f(x_0+\Delta x) - f(x_0)}{\Delta x}$ 验证各选项。
+
+\textbf{详细步骤} \\
+A. 令 $h = -\frac{1}{n}$。当 $n \to \infty$ 时，$h \to 0^-$。
+原式 $= \lim_{h \to 0^-} \frac{f(x_0 + h) - f(x_0)}{-h} = -f'(x_0)$。符号错误。
+
+B. 此为导数的标准定义形式。正确。
+
+C. 这是一个对称差分形式。
+原式 $= \lim_{\Delta x \to 0} \frac{[f(x_0+\Delta x) - f(x_0)] - [f(x_0-\Delta x) - f(x_0)]}{\Delta x}$
+$= f'(x_0) - (-f'(x_0)) = 2f'(x_0)$。系数错误。
+
+D. 原式 $= \lim_{\Delta x \to 0} \frac{f(x_0+2\Delta x) - f(x_0)}{\Delta x} - \lim_{\Delta x \to 0} \frac{f(x_0-3\Delta x) - f(x_0)}{\Delta x}$
+$= 2f'(x_0) - (-3f'(x_0)) = 5f'(x_0)$。系数错误。
+
+\textbf{第四步：最终答案} \\
+选项 B 正确。
+
+\subsection*{核心公式}
+1. $f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} = \lim_{\Delta x \to 0} \frac{f(x_0+\Delta x) - f(x_0)}{\Delta x}$
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：导数的定义。
+2. \textbf{易错点提示}：注意增量 $\Delta x$ 对应的系数及符号变化。
+}
+
+% Problem 4
+\problemheader
+\section*{第 4 题}
+\subsection*{题目重现}
+设函数 
+$f(x) = \begin{cases} 
+\frac{2019}{x} \sin x + x \sin \frac{2020}{x}, & x < 0 \\
+a - 1, & x = 0 \\
+(1 - x)^{\frac{b}{x}}, & x > 0
+\end{cases}$ 
+在 $(-\infty, +\infty)$ 内连续，则 $a+b = $ ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} *{1}{X} @{}}
+    A. $2021 + \ln 2020$ \\
+    B. $2021 - \ln 2020$ \\
+    C. $2020 + \ln 2019$ \\
+    D. $2020 - \ln 2019$
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+函数在 $x=0$ 处连续，需满足 $\lim_{x\to 0^-} f(x) = \lim_{x\to 0^+} f(x) = f(0)$。 \\
+分别求出左极限、右极限，建立关于 $a, b$ 的方程组求解。
+
+\textbf{第二步：思路构建} \\
+1. 利用无穷小替换和有界量性质求左极限。 \\
+2. 利用重要极限 $\lim (1+u)^{1/u} = e$ 求右极限。 \\
+3. 计算 $a$ 和 $b$ 的值，最后求 $a+b$。
+
+\textbf{详细步骤} \\
+(1) 计算左极限 ($x \to 0^-$)：
+\[ \lim_{x \to 0^-} \left( \frac{2019}{x} \sin x + x \sin \frac{2020}{x} \right) \]
+第一项：$\lim_{x \to 0} 2019 \cdot \frac{\sin x}{x} = 2019 \times 1 = 2019$。 \\
+第二项：$x \to 0$ 时为无穷小，$\sin \frac{2020}{x}$ 为有界量，积为无穷小 (0)。 \\
+故左极限 $= 2019$。
+
+(2) 由连续性求 $a$：
+\[ f(0) = a - 1 = \text{左极限} = 2019 \implies a = 2020 \]
+
+(3) 计算右极限 ($x \to 0^+$)：
+\[ \lim_{x \to 0^+} (1 - x)^{\frac{b}{x}} = \lim_{x \to 0^+} e^{\frac{b}{x} \ln(1-x)} \]
+由于 $\ln(1-x) \sim -x$ ($x \to 0$)，指数部分极限为：
+\[ \lim_{x \to 0^+} \frac{b}{x} (-x) = -b \]
+故右极限 $= e^{-b}$。
+
+(4) 求 $b$ 并计算 $a+b$：
+由连续性，$\text{右极限} = \text{左极限}$，即 $e^{-b} = 2019$。
+两边取对数：$-b = \ln 2019 \implies b = -\ln 2019$。
+\[ a + b = 2020 + (-\ln 2019) = 2020 - \ln 2019 \]
+
+\textbf{第四步：最终答案} \\
+$2020 - \ln 2019$。故选 D。
+
+\subsection*{核心公式}
+1. $\lim_{x\to 0} \frac{\sin x}{x} = 1$ \\
+2. $\lim_{x\to 0} (1+x)^{1/x} = e$ 或 $\ln(1+x) \sim x$ \\
+3. 连续充分必要条件：$\lim_{x\to 0^-} f(x) = \lim_{x\to 0^+} f(x) = f(0)$
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：分段函数连续性，幂指函数极限。
+2. \textbf{易错点提示}：$1^\infty$ 型极限的处理；震荡间断点与连续性的结合。
+}
+
+% Problem 5
+\problemheader
+\section*{第 5 题}
+\subsection*{题目重现}
+下列结论错误的是 ( \quad ) \\
+\begin{enumerate}[label=\Alph{enumii}., leftmargin=2em]
+    \item 如果函数 $f(x)$ 在 $x=x_0$ 处连续，则 $f(x)$ 在 $x=x_0$ 处可微
+    \item 如果函数 $f(x)$ 在 $x=x_0$ 处不连续，则 $f(x)$ 在 $x=x_0$ 处不可微
+    \item 如果函数 $f(x)$ 在 $x=x_0$ 处可微，则 $f(x)$ 在 $x=x_0$ 处连续
+    \item 如果函数 $f(x)$ 在 $x=x_0$ 处不可微，则 $f(x)$ 在 $x=x_0$ 处也可能连续
+\end{enumerate}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+考察连续与可微（可导）的关系。一元函数中，可导 $\implies$ 连续，连续 $\nRightarrow$ 可导。
+
+\textbf{详细步骤} \\
+A. 连续推不出可微。反例 $f(x) = |x|$ 在 $x=0$ 处连续但不可导（尖点）。\textbf{该结论错误}。 \\
+B. 是 C 的逆否命题，正确。 \\
+C. 可微必连续，是基础定理，正确。 \\
+D. 不可微可能连续（如尖点情况），正确。
+
+\textbf{第四步：最终答案} \\
+选 A。
+
+\subsection*{核心公式}
+1. 可导 $\implies$ 连续。
+2. 连续 $\nRightarrow$ 可导。
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：导数与连续的关系。
+}
+
+% Problem 6
+\problemheader
+\section*{第 6 题}
+\subsection*{题目重现}
+设函数 $f(x) = x + \frac{4}{x}$，其单调递增的区间 ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} *{2}{X} @{}}
+    A. $(-\infty,-2),(2,+\infty)$ & B. $(-2,0) \cup (0,2)$ \\
+    C. $(-\infty,0),(0,+\infty)$  & D. $(-2,0),(0,2)$
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+求函数单调递增区间，即求 $f'(x) > 0$ 的解集。
+
+\textbf{详细步骤} \\
+(1) 求导：
+\[ f'(x) = 1 - \frac{4}{x^2} = \frac{x^2 - 4}{x^2} \]
+(2) 令 $f'(x) > 0$：
+\[ \frac{x^2 - 4}{x^2} > 0 \]
+由于定义域要求 $x \ne 0$，且 $x^2 > 0$，故只需：
+\[ x^2 - 4 > 0 \implies x^2 > 4 \implies |x| > 2 \]
+即 $x > 2$ 或 $x < -2$。
+
+\textbf{第四步：最终答案} \\
+单调递增区间为 $(-\infty, -2)$ 和 $(2, +\infty)$。选 A。
+
+\subsection*{核心公式}
+1. $(1/x)' = -1/x^2$ \\
+2. $f'(x) > 0 \implies$ 增函数。
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：利用导数判断单调性。
+}
+
+% Problem 7
+\problemheader
+\section*{第 7 题}
+\subsection*{题目重现}
+设函数 $f(x) = x^3 - 6x^2 + 9x + 2$ 的拐点是 ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} *{4}{X} @{}}
+    A. $(1,6)$ & B. $(2,3)$ & C. $(2,4)$ & D. $(3,2)$
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+拐点是曲线凹凸性发生改变的点，对应二阶导数 $f''(x) = 0$ 或不存在的点。
+
+\textbf{详细步骤} \\
+(1) 求一阶导数：
+\[ f'(x) = 3x^2 - 12x + 9 \]
+(2) 求二阶导数：
+\[ f''(x) = 6x - 12 \]
+(3) 令 $f''(x) = 0$，解得 $x = 2$。
+当 $x < 2$ 时 $f'' < 0$（凸），当 $x > 2$ 时 $f'' > 0$（凹），故 $x=2$ 确实是拐点的横坐标。
+(4) 求纵坐标：
+\[ f(2) = 2^3 - 6(2^2) + 9(2) + 2 = 8 - 24 + 18 + 2 = 4 \]
+拐点坐标为 $(2, 4)$。
+
+\textbf{第四步：最终答案} \\
+选 C。
+
+\subsection*{核心公式}
+1. 拐点判定：$f''(x_0)=0$ 且两侧异号。
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：曲线的凹凸性与拐点。
+}
+
+% Problem 8
+\problemheader
+\section*{第 8 题}
+\subsection*{题目重现}
+设 $f(x) = e^{-2x}$，则 $\int \frac{f'(\ln x)}{x} dx =$ ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} *{2}{X} @{}}
+    A. $2x + C$ & B. $-2x + C$ \\
+    C. $\frac{1}{x^2} + C$ & D. $-\frac{1}{x^2} + C$
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+本题考察不定积分的换元法和复合函数的导数/函数值。
+
+\textbf{第二步：思路构建} \\
+方法一：先求 $f'(x)$ 再代入积分。 \\
+方法二：直接利用凑微分 $d(\ln x)$，视 $\int f'(u) du = f(u)$。
+
+\textbf{详细步骤} \\
+(1) 方法二（更快捷）：
+令 $u = \ln x$，则 $du = \frac{1}{x} dx$。
+\[ \int \frac{f'(\ln x)}{x} dx = \int f'(u) du = f(u) + C = f(\ln x) + C \]
+(2) 代入 $f(x) = e^{-2x}$ 计算 $f(\ln x)$：
+\[ f(\ln x) = e^{-2 \ln x} = e^{\ln (x^{-2})} = x^{-2} = \frac{1}{x^2} \]
+故原积分 $= \frac{1}{x^2} + C$。
+
+\textbf{第四步：最终答案} \\
+选 C。
+
+\subsection*{核心公式}
+1. $\int f'(u) du = f(u) + C$ \\
+2. $e^{a \ln x} = x^a$
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：凑微分法求积分；对数运算法则。
+}
+
+% Problem 9
+\problemheader
+\section*{第 9 题}
+\subsection*{题目重现}
+$\int_{-1}^{1} (|x| + \sin x \cos^2 x) dx =$ ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} *{4}{X} @{}}
+    A. $1$ & B. $2$ & C. $-1$ & D. $-2$
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+利用定积分的区间对称性（偶倍奇零）简化计算。区间 $[-1, 1]$ 关于原点对称。
+
+\textbf{详细步骤} \\
+(1) 将积分拆项：
+\[ \int_{-1}^{1} |x| dx + \int_{-1}^{1} \sin x \cos^2 x dx \]
+(2) 分析奇偶性：
+- $|x|$ 是偶函数，$\int_{-1}^{1} |x| dx = 2 \int_{0}^{1} x dx = 2 \left[ \frac{x^2}{2} \right]_0^1 = 2 \times \frac{1}{2} = 1$。
+- $\sin x$ 是奇函数，$\cos^2 x$ 是偶函数，积是奇函数。对称区间积分值为 0。
+
+(3) 相加得 $1 + 0 = 1$。
+
+\textbf{第四步：最终答案} \\
+选 A。
+
+\subsection*{核心公式}
+1. 若 $f(x)$ 为偶函数，$\int_{-a}^{a} f(x) dx = 2\int_0^a f(x) dx$。 \\
+2. 若 $f(x)$ 为奇函数，$\int_{-a}^{a} f(x) dx = 0$。
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：定积分的几何意义与对称性性质。
+}
+
+% Problem 10
+\problemheader
+\section*{第 10 题}
+\subsection*{题目重现}
+过点 $P_0(4,3,1)$ 且与平面 $3x+2y+5z-1=0$ 垂直的直线方程为 ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} X @{}}
+    A. $\frac{x-4}{3} = \frac{y-3}{2} = \frac{z-1}{5}$ \\
+    B. $3x+2y+5z-23=0$ \\
+    C. $\frac{x-4}{-3} = \frac{y-3}{17} = \frac{z-1}{-5}$ \\
+    D. $3x-17y+5z+34=0$
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+求直线方程，需要点坐标和方向向量。直线垂直于平面，直线的方向向量 $\vec{s}$ 平行于平面的法向量 $\vec{n}$。
+
+\textbf{详细步骤} \\
+(1) 平面 $3x+2y+5z-1=0$ 的法向量为 $\vec{n} = (3, 2, 5)$。
+(2) 直线与平面垂直 $\implies \vec{s} = \vec{n} = (3, 2, 5)$。
+(3) 直线过点 $(4, 3, 1)$。
+(4) 对称式方程：
+\[ \frac{x-4}{3} = \frac{y-3}{2} = \frac{z-1}{5} \]
+
+\textbf{第四步：最终答案} \\
+选 A。
+
+\subsection*{核心公式}
+1. 平面 $Ax+By+Cz+D=0$ 的法向量 $\vec{n}=(A,B,C)$。
+2. 直线对称式方程 $\frac{x-x_0}{m} = \frac{y-y_0}{n} = \frac{z-z_0}{p}$。
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：空间解析几何，线面垂直关系。
+}
+
+% Problem 11
+\problemheader
+\section*{第 11 题}
+\subsection*{题目重现}
+下列所给级数中：
+(1) $\sum\limits_{n=1}^\infty \frac{n}{n+1}$, \quad
+(2) $\sum\limits_{n=1}^\infty \frac{(-1)^n}{n}$, \quad
+(3) $\sum\limits_{n=1}^\infty \ln^n 2$, \quad
+(4) $\sum\limits_{n=1}^\infty \frac{n+1}{2^n}$ \\
+收敛级数的个数为 ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} *{4}{X} @{}}
+    A. 1 & B. 2 & C. 3 & D. 4
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+逐一判断级数敛散性。
+
+\textbf{详细步骤} \\
+(1) $\sum \frac{n}{n+1}$：通项 $\lim u_n = \lim \frac{n}{n+1} = 1 \ne 0$。由级数收敛必要条件，\textbf{发散}。 \\
+(2) $\sum \frac{(-1)^n}{n}$：交错调和级数。满足莱布尼茨判别法（$1/n$ 单调减趋于0），\textbf{收敛}。 \\
+(3) $\sum (\ln 2)^n$：等比级数（几何级数）。公比 $q = \ln 2 \approx 0.693$。因 $|q| < 1$，\textbf{收敛}。 \\
+(4) $\sum \frac{n+1}{2^n}$：用比值判别法。
+$\lim \frac{a_{n+1}}{a_n} = \lim \frac{n+2}{2^{n+1}} \cdot \frac{2^n}{n+1} = \frac{1}{2} \lim \frac{n+2}{n+1} = \frac{1}{2} < 1$。
+故\textbf{收敛}。
+
+收敛的有 (2)(3)(4)，共 3 个。
+
+\textbf{第四步：最终答案} \\
+选 C。
+
+\subsection*{核心公式}
+1. 必要条件：$\lim u_n \ne 0 \implies$ 发散。 \\
+2. 几何级数 $\sum q^n$ 收敛 $\iff |q|<1$。 \\
+3. 比值判别法 $\rho < 1 \implies$ 收敛。
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：常数项级数的敛散性判别。
+}
+
+% Problem 12
+\problemheader
+\section*{第 12 题}
+\subsection*{题目重现}
+微分方程 $y' - y\sin x = e^{-\cos x}$ 的通解为 ( \quad ) \\
+\begin{tabularx}{\linewidth}{@{} *{1}{X} @{}}
+    A. $y = e^{\cos x}(x+C)$ \\
+    B. $y = e^{-\cos x}(x+C)$ \\
+    C. $y = e^{\cos x}(-x+C)$ \\
+    D. $y = e^{-\cos x}(-x+C)$
+\end{tabularx}
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+这是一阶线性微分方程，形式为 $y' + P(x)y = Q(x)$。
+此处 $P(x) = -\sin x$， $Q(x) = e^{-\cos x}$。
+
+\textbf{第二步：思路构建} \\
+利用通解公式：$y = e^{-\int P(x)dx} \left( \int Q(x) e^{\int P(x)dx} dx + C \right)$。
+
+\textbf{详细步骤} \\
+(1) 计算 $\int P(x) dx = \int (-\sin x) dx = \cos x$。 \\
+(2) 积分因子 $e^{\int P(x) dx} = e^{\cos x}$。 \\
+(3) 套用公式：
+\[ y = e^{-\cos x} \left( \int e^{-\cos x} \cdot e^{\cos x} dx + C \right) \]
+\[ y = e^{-\cos x} \left( \int 1 dx + C \right) = e^{-\cos x} (x + C) \]
+
+\textbf{第四步：最终答案} \\
+选 B。
+
+\subsection*{核心公式}
+1. 一阶线性微分方程通解公式。
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：一阶线性微分方程的求解。
+}
+
+% ==========================================
+%  二、填空题
+% ==========================================
+
+\section*{二、填空题}
+
+% Problem 13
+\problemheader
+\section*{第 13 题}
+\subsection*{题目重现}
+设 $y = f(x)$ 满足 $\ln y + \frac{x}{y} = 1$，则 $dy = \underline{\hspace{2cm}}$.
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+本题是隐函数求微分。
+
+\textbf{详细步骤} \\
+(1) 方程两边微分（对 $x$ 和 $y$）：
+\[ d(\ln y) + d\left(\frac{x}{y}\right) = d(1) \]
+\[ \frac{1}{y} dy + \frac{y dx - x dy}{y^2} = 0 \]
+(2) 同乘 $y^2$ 消分母：
+\[ y dy + y dx - x dy = 0 \]
+(3) 整理含 $dy$ 的项：
+\[ (y - x) dy = -y dx \]
+\[ dy = \frac{-y}{y-x} dx = \frac{y}{x-y} dx \]
+
+\textbf{第四步：最终答案} \\
+$\frac{y}{x-y} dx$
+
+\subsection*{核心公式}
+1. 商的微分为 $d(u/v) = (v du - u dv)/v^2$。
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：隐函数求微分。
+}
+
+% Problem 14
+\problemheader
+\section*{第 14 题}
+\subsection*{题目重现}
+幂级数 $\sum\limits_{n=1}^\infty \frac{(-1)^n}{\sqrt{n}}(x-5)^n$ 的收敛域为 $\underline{\hspace{2cm}}$.
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+先求收敛半径 $R$，再验证端点。中心点 $x_0 = 5$。 ai系数 $a_n = \frac{(-1)^n}{\sqrt{n}}$。
+
+\textbf{详细步骤} \\
+(1) 求收敛半径：
+\[ \lim_{n\to\infty} \left| \frac{a_{n+1}}{a_n} \right| = \lim \frac{\sqrt{n}}{\sqrt{n+1}} = 1 \]
+收敛半径 $R = 1/1 = 1$。收敛区间为 $(5-1, 5+1) = (4, 6)$。
+(2) 验证端点：
+- 当 $x=6$ 时，级数为 $\sum \frac{(-1)^n}{\sqrt{n}}$。交错级数，满足莱布尼茨条件，收敛。
+- 当 $x=4$ 时，级数为 $\sum \frac{(-1)^n}{\sqrt{n}}(-1)^n = \sum \frac{(-1)^{2n}}{\sqrt{n}} = \sum \frac{1}{n^{1/2}}$。$p=1/2 \le 1$ 的 $p$ 级数，发散。
+
+\textbf{第四步：最终答案} \\
+$(4, 6]$
+
+\subsection*{核心公式}
+1. 收敛半径 $R = \lim |a_n/a_{n+1}|$。
+2. $p$ 级数 $\sum 1/n^p$ 当 $p \le 1$ 时发散。
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：幂级数收敛域的求法。
+}
+
+% Problem 15
+\problemheader
+\section*{第 15 题}
+\subsection*{题目重现}
+椭圆抛物面 $z = 2x^2 + 3y^2 - 5$ 在点 $(2,-1,6)$ 处的法线方程为 $\underline{\hspace{2cm}}$.
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+曲面 $z=f(x,y)$ 的法向量 $\vec{n} = (f_x, f_y, -1)$，或设 $F = 2x^2+3y^2-5-z=0$ 求梯度。
+
+\textbf{详细步骤} \\
+(1) 令 $F(x,y,z) = 2x^2 + 3y^2 - z - 5 = 0$。
+(2) 求偏导：
+$F_x = 4x, \quad F_y = 6y, \quad F_z = -1$。
+(3) 代入点 $(2, -1, 6)$：
+$n_x = 4(2) = 8, \quad n_y = 6(-1) = -6, \quad n_z = -1$。
+法向量 $\vec{n} = (8, -6, -1)$。
+(4) 写出过点 $(2, -1, 6)$ 的法线方程。
+
+\textbf{第四步：最终答案} \\
+$\frac{x-2}{8} = \frac{y+1}{-6} = \frac{z-6}{-1}$
+
+\subsection*{核心公式}
+1. 曲面法向量 $\vec{n} = (F_x, F_y, F_z)$。
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：多元微分学几何应用。
+}
+
+% Problem 16
+\problemheader
+\section*{第 16 题}
+\subsection*{题目重现}
+定积分 $\int_{-1}^{1} (x^6 - x^2 + 2x^3\sqrt{1-x^2} + 1) dx = \underline{\hspace{2cm}}$.
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+利用对称性去奇函数项，保留偶函数项计算。
+
+\textbf{详细步骤} \\
+(1) 奇函数项：$2x^3\sqrt{1-x^2}$（奇 $\times$ 偶 = 奇）。积分值为 0。
+(2) 偶函数项：$x^6 - x^2 + 1$。
+原式 $= 2 \int_0^1 (x^6 - x^2 + 1) dx$
+$= 2 \left[ \frac{x^7}{7} - \frac{x^3}{3} + x \right]_0^1$
+$= 2 \left( \frac{1}{7} - \frac{1}{3} + 1 \right) = 2 \left( \frac{3 - 7 + 21}{21} \right) = 2 \left( \frac{17}{21} \right) = \frac{34}{21}$。
+
+\textbf{第四步：最终答案} \\
+$34/21$
+
+\subsection*{核心公式}
+1. 奇偶性对称积分法则。
+}
+
+% ==========================================
+%  三、计算题
+% ==========================================
+
+\section*{三、计算题}
+
+% Problem 17
+\problemheader
+\section*{第 17 题}
+\subsection*{题目重现}
+求极限 $\lim\limits_{x \to 0} \frac{e^x - e^{-x} - 2x}{x - \sin x}$.
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+$0/0$ 型极限，分母 $x-\sin x$ 为三阶无穷小，建议使用麦克劳林公式展开，比洛必达法则更简便。
+
+\textbf{第二步：思路构建} \\
+将 $e^x, e^{-x}, \sin x$ 展开到 $x^3$ 项。
+
+\textbf{详细步骤} \\
+(1) 分子展开：
+$e^x \approx 1 + x + \frac{x^2}{2} + \frac{x^3}{6}$
+$e^{-x} \approx 1 - x + \frac{x^2}{2} - \frac{x^3}{6}$
+分子 $= (1 + x + \frac{x^2}{2} + \frac{x^3}{6}) - (1 - x + \frac{x^2}{2} - \frac{x^3}{6}) - 2x$
+$= 2x + \frac{2x^3}{6} - 2x = \frac{1}{3}x^3$。
+
+(2) 分母展开：
+$x - \sin x \approx x - (x - \frac{x^3}{6}) = \frac{1}{6}x^3$。
+
+(3) 求比值：
+$\lim_{x \to 0} \frac{\frac{1}{3}x^3}{\frac{1}{6}x^3} = \frac{1/3}{1/6} = 2$。
+
+\textbf{第四步：最终答案} \\
+2
+
+\subsection*{核心公式}
+1. $e^x = 1 + x + x^2/2! + x^3/3! + o(x^3)$ \\
+2. $\sin x = x - x^3/3! + o(x^3)$
+
+\subsection*{考点分析}
+1. \textbf{知识点归类}：泰勒公式求极限。
+2. \textbf{易错点提示}：注意展开阶数需匹配。
+}
+
+% Problem 18
+\problemheader
+\section*{第 18 题}
+\subsection*{题目重现}
+求不定积分 $\int x \tan^2 x \, dx$.
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+利用三角恒等式 $\tan^2 x = \sec^2 x - 1$ 化简，再结合分部积分法。
+
+\textbf{详细步骤} \\
+(1) 变形：
+$\int x \tan^2 x \, dx = \int x (\sec^2 x - 1) dx = \int x \sec^2 x dx - \int x dx$。
+其中 $\int x dx = \frac{1}{2}x^2$。
+
+(2) 计算 $\int x \sec^2 x dx$：
+令 $u=x, dv=\sec^2 x dx \implies du=dx, v=\tan x$。
+$\int x \sec^2 x dx = x \tan x - \int \tan x dx$
+$= x \tan x + \ln|\cos x|$。
+
+(3) 合并：
+原式 $= x \tan x + \ln|\cos x| - \frac{1}{2}x^2 + C$。
+
+\textbf{第四步：最终答案} \\
+$x \tan x + \ln|\cos x| - \frac{1}{2}x^2 + C$
+
+\subsection*{核心公式}
+1. $\int \tan x dx = -\ln|\cos x|$
+2. 分部积分公式 $\int u dv = uv - \int v du$
+}
+
+% Problem 19
+\problemheader
+\section*{第 19 题}
+\subsection*{题目重现}
+设 $z = x^2 f\left(\frac{y}{x}, x+y\right)$，其中 $f$ 具有连续的二阶偏导数，求 $\frac{\partial z}{\partial x}, \frac{\partial^2 z}{\partial x \partial y}$.
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+这是复合函数求偏导，设 $u = y/x, v = x+y$。
+链式法则：$\frac{\partial f}{\partial x} = f_1 \frac{\partial u}{\partial x} + f_2 \frac{\partial v}{\partial x}$。
+
+\textbf{详细步骤} \\
+(1) 求 $\frac{\partial z}{\partial x}$：
+由乘积法则：
+$\frac{\partial z}{\partial x} = 2x f + x^2 \frac{\partial f}{\partial x}$
+$= 2x f + x^2 \left( f_1 \cdot (-\frac{y}{x^2}) + f_2 \cdot 1 \right)$
+$= 2x f - y f_1 + x^2 f_2$。
+
+(2) 求 $\frac{\partial^2 z}{\partial x \partial y}$：
+对上式关于 $y$ 求导。
+$\frac{\partial}{\partial y}(2x f) = 2x (f_1 \frac{1}{x} + f_2)$
+$\frac{\partial}{\partial y}(-y f_1) = - [ 1 \cdot f_1 + y (f_{11} \frac{1}{x} + f_{12}) ] = -f_1 - \frac{y}{x} f_{11} - y f_{12}$
+$\frac{\partial}{\partial y}(x^2 f_2) = x^2 (f_{21} \frac{1}{x} + f_{22}) = x f_{21} + x^2 f_{22}$
+
+(3) 合并整理（注意 $f_{12} = f_{21}$）：
+结果 $= 2f_1 + 2x f_2 - f_1 - \frac{y}{x}f_{11} - y f_{12} + x f_{21} + x^2 f_{22}$
+$= f_1 + 2x f_2 - \frac{y}{x} f_{11} + (x-y)f_{12} + x^2 f_{22}$。
+
+\textbf{第四步：最终答案} \\
+$\frac{\partial z}{\partial x} = 2x f - y f_1 + x^2 f_2$ \\
+$\frac{\partial^2 z}{\partial x \partial y} = f_1 + 2x f_2 - \frac{y}{x} f_{11} + (x-y)f_{12} + x^2 f_{22}$
+
+\subsection*{核心公式}
+1. 链式法则。
+2. $u_x = -y/x^2, u_y = 1/x$。
+}
+
+% Problem 20
+\problemheader
+\section*{第 20 题}
+\subsection*{题目重现}
+求微分方程 $y' + 2xy = 4x$ 满足 $y|_{x=0} = 1$ 时的特解.
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+一阶线性非齐次微分方程。
+
+\textbf{详细步骤} \\
+(1) 积分因子：$u(x) = e^{\int 2x dx} = e^{x^2}$。
+(2) 通解：
+$y e^{x^2} = \int 4x e^{x^2} dx = 2 \int e^{t} dt \quad (t=x^2)$
+$= 2 e^{x^2} + C$
+$y = 2 + C e^{-x^2}$。
+(3) 代入初值 $y(0)=1$：
+$1 = 2 + C \implies C = -1$。
+(4) 特解：$y = 2 - e^{-x^2}$。
+
+\textbf{第四步：最终答案} \\
+$y = 2 - e^{-x^2}$
+}
+
+% Problem 21
+\problemheader
+\section*{第 21 题}
+\subsection*{题目重现}
+计算二重积分 $\iint_{D} (a - \sqrt{x^2+y^2}) \, d\sigma$，其中区域 $D$ 由 $x^2 + y^2 = a^2 \, (a > 0)$ 所围成.
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+区域为圆域，被积函数含 $x^2+y^2$，极坐标最佳。
+
+\textbf{详细步骤} \\
+(1) 极坐标变换：$x=r\cos\theta, y=r\sin\theta$。区域 $D: 0 \le \theta \le 2\pi, 0 \le r \le a$。
+(2) 积分表达式：
+$\int_0^{2\pi} d\theta \int_0^a (a - r) \cdot r dr$
+$= 2\pi \int_0^a (ar - r^2) dr$
+$= 2\pi \left[ \frac{a}{2}r^2 - \frac{1}{3}r^3 \right]_0^a$
+$= 2\pi \left( \frac{a^3}{2} - \frac{a^3}{3} \right) = 2\pi \frac{a^3}{6} = \frac{\pi a^3}{3}$。
+
+\textbf{第四步：最终答案} \\
+$\frac{\pi a^3}{3}$
+}
+
+% Problem 22
+\problemheader
+\section*{第 22 题}
+\subsection*{题目重现}
+要制作一个体积为 $576 \, \text{cm}^3$ 的长方体带盖的盒子，其底面长宽之比为 $2:1$，问长、宽、高各取何值时，才能使盒子的表面积最小？
+
+\analysisheader
+{\color{red}
+\subsection*{逐步解析}
+\textbf{第一步：问题分析} \\
+最值应用题。建立表面积 $S$ 与变量的函数关系，求导求最小值。
+
+\textbf{第二步：思路构建} \\
+设宽为 $x$，则长为 $2x$，高为 $h$。
+体积约束：$V = 2x^2 h = 576$。
+目标函数：$S = 2(\text{底}) + 2(\text{前}) + 2(\text{侧}) = 4x^2 + 4xh + 2xh = 4x^2 + 6xh$。
+
+\textbf{详细步骤} \\
+(1) 由 $2x^2 h = 576 \implies h = \frac{288}{x^2}$。
+(2) 代入 $S$：
+$S(x) = 4x^2 + 6x \left( \frac{288}{x^2} \right) = 4x^2 + \frac{1728}{x} \quad (x>0)$。
+(3) 求导：
+$S'(x) = 8x - \frac{1728}{x^2}$。
+令 $S'(x) = 0 \implies 8x^3 = 1728 \implies x^3 = 216 \implies x = 6$。
+(4) 验证二阶导：$S''(x) = 8 + \frac{3456}{x^3} > 0$，故为极小值点，也是最小值点。
+(5) 计算对应尺寸：
+宽 $x = 6$ cm。
+长 $2x = 12$ cm。
+高 $h = \frac{288}{36} = 8$ cm。
+
+\textbf{第四步：最终答案} \\
+长 12cm，宽 6cm，高 8cm 时表面积最小。
+}
+
+\end{document}

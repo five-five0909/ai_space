@@ -1,0 +1,99 @@
+\documentclass[12pt, a4paper]{article}
+
+% 引入必要的宏包
+\usepackage[UTF8]{ctex}     % 中文支持
+\usepackage{amsmath, amssymb, amsthm} % 数学符号和环境
+\usepackage{geometry}       % 页面设置
+\usepackage{enumitem}       % 列表定制
+\usepackage{fancyhdr}       % 页眉页脚
+\usepackage{cases}          % 分段函数增强
+
+% 页面边距设置
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% 宏定义：方便排版选择题选项
+% 横向排列的选项 (4列)
+\newcommand{\choicesFour}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.22\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.22\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 横向排列的选项 (2列)
+\newcommand{\choicesTwo}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \begin{minipage}{0.45\linewidth} \item #1 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #2 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #3 \end{minipage}
+        \begin{minipage}{0.45\linewidth} \item #4 \end{minipage}
+    \end{enumerate}
+}
+% 纵向排列的选项 (1列)
+\newcommand{\choices}[4]{
+    \begin{enumerate}[label=\Alph*., itemsep=0pt, parsep=0pt, topsep=5pt, labelsep=0.5em]
+        \item #1
+        \item #2
+        \item #3
+        \item #4
+    \end{enumerate}
+}
+
+% 填空题下划线
+\newcommand{\blank}[1]{\underline{\hspace{#1}}}
+
+\title{\textbf{《高等数学》必刷习题——提高版}}
+\author{}
+\date{}
+
+\begin{document}
+
+\section*{第三章 连续（提高）}
+
+\begin{enumerate}
+    \item 已知函数 $ f(x) = \frac{x+2}{x^{2}-x} $ ，则 $ x = 0 $ 是函数 $ f(x) $ 的 \blank{1cm}。
+    \choicesFour{可去间断点}{跳跃间断点}{无穷间断点}{连续点}
+
+    \item 当 $ x \rightarrow +\infty $ 时， $ x\sin x $ 是 \blank{1cm}。
+    \choicesFour{无穷大量}{无穷小量}{无界变量}{有界变量}
+
+    \item 当 $ x \rightarrow 0 $ 时， $ x^{2}\sin\frac{1}{x} $ 是 \blank{1cm}。
+    \choicesTwo
+    {与 $x$ 等价无穷小}
+    {$x$ 的低阶无穷小}
+    {与 $x$ 等价无穷小}
+    {$x$ 的高阶无穷小}
+
+    \item 试确定当 $ x \rightarrow 0 $ 时，下列 \blank{1cm} 是关于 $x$ 的三阶无穷小。
+    \choicesTwo
+    {$ \sqrt[3]{x^{2}} - \sqrt{x} $}
+    {$ \sqrt{a + x^{3}} - \sqrt{a} 其中 a \neq 0 $}
+    {$ x^{3}+0.001x^{2} $}
+    {$ \sqrt[3]{\tan x^{3}} $}
+
+    \item 函数 $ f(x)=\frac{|x|\sin(x-1)}{x(x-1)(x-2)} $ 在下列区间有界的是 \blank{1cm}。
+    \choicesFour{$ (0,1) $}{$ (1,2) $}{$ (0,2) $}{$ (2,3) $}
+
+    \item 函数 $ y=\frac{1}{e^{\frac{x}{x-2}}-1} $ 的间断点为 \blank{2cm}。
+
+    \item $ f(x)=\begin{cases}\sin\frac{1}{x}, & x>0\\ x-1, & x\leq0\end{cases} $ 函数 $ f(x) $ 的间断点是第 \blank{2cm} 类间断点。
+
+    \item $ x = 1 $ 为函数 $ y = \frac{x^{4}-1}{x^{3}-1} $ 的 \blank{2cm} 间断点。
+
+    \item 函数 $ f(x)=\frac{x^{3}-x}{\sin\pi x} $ 的可去间断点的个数为 \blank{2cm}。
+
+    \item 若要使 $ f(x)=\frac{1-\sqrt{1-x}}{1-\sqrt[3]{1-x}} $ 在点 $ x=0 $ 处连续，则要补充定义 $ f(0)= $ \blank{2cm}。
+
+    \item 设函数 $ f(x)=\begin{cases}x+a\cos2x, & x>0\\ e^{ax}-a, & x\leq0\end{cases} $ 为 $ (-\infty,+\infty) $ 上的连续函数，则 $ a= $ \blank{2cm}。
+
+    \item 求极限 $ \lim_{x\to+\infty}\left(x+\sqrt{1+x^{2}}\right)^{\frac{1}{x}}= $ \blank{2cm}。
+
+    \item 设函数 $ f(x)=\begin{cases}\frac{\sin2x+e^{2ax}-1}{x}, & x\neq0,\\ a, & x=0\end{cases} $ 在 $ (-\infty,+\infty) $ 上连续，则 $ a= $ \blank{2cm}。
+
+    \item 证明方程 $ x^{5}+x-1=0 $ 只有一个正根。
+
+    \item 设函数 $ f(x)=\begin{cases}x^{2}+1, & |x|\leq C\\ \frac{10}{|x|}, & |x|>C\end{cases} $ 在定义域上连续，试求常数 $C$。
+\end{enumerate}
+
+\end{document}
