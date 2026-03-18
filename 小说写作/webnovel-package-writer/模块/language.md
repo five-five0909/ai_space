@@ -1,0 +1,1 @@
+规则已迁移至 rules/language.rule
