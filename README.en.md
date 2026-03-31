@@ -1,36 +1,49 @@
 # AI_SPACE
 
-#### Description
-用于AI生成、解决问题
+AI Knowledge Base & Development Workspace
 
-#### Software Architecture
-Software architecture description
+## Directory Structure
 
-#### Installation
+```
+ai_space/
+├── 01-学习资料/          # Learning Materials
+│   ├── anki卡片制作/     # Exam flashcards (Management/Economics/DL)
+│   ├── 学术写作/         # Academic Phrasebank, English for Writing
+│   ├── 机器学习题目/     # ML chapter questions (10 chapters)
+│   ├── 深度学习题目/     # DL chapter questions (9 chapters)
+│   └── 编程指南/         # Python learning path, Google style guide
+│
+├── 02-AI研究/            # AI Research
+│   ├── ai_knowledge_base/ # AI tech knowledge base (43 topics)
+│   └── 论文库/           # Literature search guide & papers
+│
+├── 03-项目开发/          # Development Projects
+│   ├── prompt-space/     # Prompt engineering
+│   ├── python-space/     # Python projects (douyin-downloader, md2docx)
+│   └── 小说写作/         # Webnovel creation system
+│
+├── 04-工具与文档/        # Tools & Documentation
+│   ├── AI工具文档/       # Vibecoding, AI terminal guides
+│   └── win-skills/       # Windows scripts (WiFi auto-connect, etc.)
+│
+├── latex-space/          # LaTeX related (maintained separately)
+├── 江西农业大学毕业设计/  # Graduation design documents
+│
+└── .claude/              # Claude Code project config
+```
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## Quick Navigation
 
-#### Instructions
+| Category | Purpose |
+|----------|---------|
+| 01-学习资料 | Exam prep, course questions, learning guides |
+| 02-AI研究 | AI tech knowledge, paper resources |
+| 03-项目开发 | Active development projects |
+| 04-工具与文档 | Tool docs, system scripts |
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## Knowledge Base Index
 
-#### Contribution
-
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
-
-
-#### Gitee Feature
-
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+The `ai_knowledge_base` is organized by numbered topics. See:
+- [Index by Topic](02-AI研究/ai_knowledge_base/INDEX_BY_TOPIC.md)
+- [Index by Difficulty](02-AI研究/ai_knowledge_base/INDEX_BY_DIFFICULTY.md)
+- [Index by Application](02-AI研究/ai_knowledge_base/INDEX_BY_APPLICATION.md)

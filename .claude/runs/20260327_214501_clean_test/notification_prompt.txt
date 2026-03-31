@@ -1,0 +1,113 @@
+﻿================================================================================
+EXPERIMENT NOTIFICATION - ACTION REQUIRED
+================================================================================
+
+A new Claude Code session is needed to analyze the completed experiment.
+
+--------------------------------------------------------------------------------
+PROJECT CONTEXT
+--------------------------------------------------------------------------------
+Project Name: .claude
+Project Directory: D:\Desktop\近期文件\.claude
+Experiment Name: clean_test
+Experiment Directory: D:/Desktop/近期文件/.claude/runs/20260327_214501_clean_test
+Status: completed
+Start Time: 2026-03-27T21:45:02.1979535+08:00
+End Time: 2026-03-27T21:45:32.6224951+08:00
+
+--------------------------------------------------------------------------------
+EXPERIMENT STATUS (experiment_status.json)
+--------------------------------------------------------------------------------
+{
+    "status":  "completed",
+    "experiment_name":  "clean_test",
+    "experiment_dir":  "D:/Desktop/近期文件/.claude/runs/20260327_214501_clean_test",
+    "platform":  "windows",
+    "launcher_type":  "psmux",
+    "pid":  null,
+    "psmux_session":  "exp_20260327_214501",
+    "host":  "WIN-WORKSTATION",
+    "workdir":  "D:/Desktop/近期文件",
+    "start_time":  "2026-03-27T21:45:02.1979535+08:00",
+    "end_time":  "2026-03-27T21:45:32.6224951+08:00",
+    "progress":  0,
+    "current_epoch":  0,
+    "total_epochs":  30,
+    "best_metric":  null,
+    "result_files":  {
+                         "logs":  "D:/Desktop/近期文件/.claude/runs/20260327_214501_clean_test/logs/train.log",
+                         "metrics":  "D:/Desktop/近期文件/.claude/runs/20260327_214501_clean_test/outputs/metrics.json"
+                     },
+    "error":  null,
+    "traceback":  null,
+    "last_update_time":  "2026-03-27T21:45:32.6224951+08:00"
+}
+
+--------------------------------------------------------------------------------
+METRICS (outputs/metrics.json)
+--------------------------------------------------------------------------------
+{
+    "completed_at":  "2026-03-27T21:45:32.6204956+08:00",
+    "duration_seconds":  30,
+    "test_name":  "30s_test",
+    "final_value":  0.037133333333333331,
+    "best_value":  0.034782758620689656
+}
+
+--------------------------------------------------------------------------------
+LOG (last 100 lines of logs/train.log)
+--------------------------------------------------------------------------------
+[2026-03-27 21:45:02] 30s test started
+[2026-03-27 21:45:03] Second 1/30 - value: 1.0053 - best: 1.0053
+[2026-03-27 21:45:04] Second 2/30 - value: 0.5017 - best: 0.5017
+[2026-03-27 21:45:05] Second 3/30 - value: 0.3373 - best: 0.3373
+[2026-03-27 21:45:06] Second 4/30 - value: 0.2585 - best: 0.2585
+[2026-03-27 21:45:07] Second 5/30 - value: 0.2029 - best: 0.2029
+[2026-03-27 21:45:08] Second 6/30 - value: 0.1715 - best: 0.1715
+[2026-03-27 21:45:09] Second 7/30 - value: 0.147 - best: 0.147
+[2026-03-27 21:45:10] Second 8/30 - value: 0.1328 - best: 0.1328
+[2026-03-27 21:45:11] Second 9/30 - value: 0.1171 - best: 0.1171
+[2026-03-27 21:45:12] Second 10/30 - value: 0.1058 - best: 0.1058
+[2026-03-27 21:45:13] Second 11/30 - value: 0.0961 - best: 0.0961
+[2026-03-27 21:45:14] Second 12/30 - value: 0.0844 - best: 0.0844
+[2026-03-27 21:45:15] Second 13/30 - value: 0.0848 - best: 0.0844
+[2026-03-27 21:45:16] Second 14/30 - value: 0.0798 - best: 0.0798
+[2026-03-27 21:45:17] Second 15/30 - value: 0.0671 - best: 0.0671
+[2026-03-27 21:45:18] Second 16/30 - value: 0.0638 - best: 0.0638
+[2026-03-27 21:45:19] Second 17/30 - value: 0.0685 - best: 0.0638
+[2026-03-27 21:45:20] Second 18/30 - value: 0.0625 - best: 0.0625
+[2026-03-27 21:45:21] Second 19/30 - value: 0.0619 - best: 0.0619
+[2026-03-27 21:45:22] Second 20/30 - value: 0.0591 - best: 0.0591
+[2026-03-27 21:45:23] Second 21/30 - value: 0.0521 - best: 0.0521
+[2026-03-27 21:45:24] Second 22/30 - value: 0.0501 - best: 0.0501
+[2026-03-27 21:45:25] Second 23/30 - value: 0.0435 - best: 0.0435
+[2026-03-27 21:45:26] Second 24/30 - value: 0.0466 - best: 0.0435
+[2026-03-27 21:45:27] Second 25/30 - value: 0.0456 - best: 0.0435
+[2026-03-27 21:45:28] Second 26/30 - value: 0.0405 - best: 0.0405
+[2026-03-27 21:45:29] Second 27/30 - value: 0.0449 - best: 0.0405
+[2026-03-27 21:45:30] Second 28/30 - value: 0.0372 - best: 0.0372
+[2026-03-27 21:45:31] Second 29/30 - value: 0.0348 - best: 0.0348
+[2026-03-27 21:45:32] Second 30/30 - value: 0.0371 - best: 0.0348
+[2026-03-27 21:45:32] Test completed
+[2026-03-27 21:45:32] Triggering notification...
+
+--------------------------------------------------------------------------------
+INSTRUCTIONS FOR NEW CLAUDE CODE SESSION
+--------------------------------------------------------------------------------
+Please analyze the experiment results above and:
+
+1. If status is 'completed':
+   - Summarize the final metrics and results
+   - Identify any patterns or insights from the training log
+   - Suggest next steps or improvements
+
+2. If status is 'failed':
+   - Analyze the error message and traceback
+   - Identify the root cause from the log
+   - Suggest fixes and recovery steps
+
+3. Provide a brief summary suitable for the user to understand what happened.
+
+================================================================================
+END OF NOTIFICATION
+================================================================================

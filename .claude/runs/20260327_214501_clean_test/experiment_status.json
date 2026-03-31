@@ -1,0 +1,24 @@
+﻿{
+    "status":  "completed",
+    "experiment_name":  "clean_test",
+    "experiment_dir":  "D:/Desktop/近期文件/.claude/runs/20260327_214501_clean_test",
+    "platform":  "windows",
+    "launcher_type":  "psmux",
+    "pid":  null,
+    "psmux_session":  "exp_20260327_214501",
+    "host":  "WIN-WORKSTATION",
+    "workdir":  "D:/Desktop/近期文件",
+    "start_time":  "2026-03-27T21:45:02.1979535+08:00",
+    "end_time":  "2026-03-27T21:45:32.6224951+08:00",
+    "progress":  0,
+    "current_epoch":  0,
+    "total_epochs":  30,
+    "best_metric":  null,
+    "result_files":  {
+                         "logs":  "D:/Desktop/近期文件/.claude/runs/20260327_214501_clean_test/logs/train.log",
+                         "metrics":  "D:/Desktop/近期文件/.claude/runs/20260327_214501_clean_test/outputs/metrics.json"
+                     },
+    "error":  null,
+    "traceback":  null,
+    "last_update_time":  "2026-03-27T21:45:32.6224951+08:00"
+}

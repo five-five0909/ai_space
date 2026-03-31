@@ -1,0 +1,24 @@
+{
+  "status": "pending",
+  "experiment_name": "final_notification_test",
+  "experiment_dir": "D:/Desktop/近期文件/.claude/runs/20260327_214317_final_notification_test",
+  "platform": "windows",
+  "launcher_type": "psmux",
+  "pid": null,
+  "psmux_session": "exp_20260327_214317_final_notification_test",
+  "host": "WIN-WORKSTATION",
+  "workdir": "D:/Desktop/近期文件",
+  "start_time": null,
+  "end_time": null,
+  "progress": 0,
+  "current_epoch": 0,
+  "total_epochs": 30,
+  "best_metric": null,
+  "result_files": {
+    "logs": "D:/Desktop/近期文件/.claude/runs/20260327_214317_final_notification_test/logs/train.log",
+    "metrics": "D:/Desktop/近期文件/.claude/runs/20260327_214317_final_notification_test/outputs/metrics.json"
+  },
+  "error": null,
+  "traceback": null,
+  "last_update_time": "2026-03-27T21:43:17+08:00"
+}
