@@ -200,6 +200,13 @@
       "keyFiles": []
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\claude\\E--company-place-ai-space\\f555ee38-3524-4fc6-a8dd-220c5418353e\\tasks\\b43q5941v.output",
+      "accessCount": 1,
+      "lastAccessed": 1774923638534,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }

@@ -1,7 +1,7 @@
 {
-  "tool_name": "Read",
-  "tool_input_preview": "{\"file_path\":\"D:\\\\Desktop\\\\近期文件\\\\python佬学习路线.html\"}",
-  "error": "File content (25190 tokens) exceeds maximum allowed tokens (25000). Use offset and limit parameters to read specific portions of the file, or search for specific content instead of reading the whole file.",
-  "timestamp": "2026-03-30T14:37:31.580Z",
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"type \\\"C:\\\\Users\\\\Administrator\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\E--company-place-ai-space\\\\f555ee38-3524-4fc6-a8dd-220c5418353e\\\\tasks\\\\b43q5941v.output\\\"\",\"description\":\"Check push output ...",
+  "error": "Exit code 1\n/usr/bin/bash: line 1: type: C:\\Users\\Administrator\\AppData\\Local\\Temp\\claude\\E--company-place-ai-space\\f555ee38-3524-4fc6-a8dd-220c5418353e\\tasks\\b43q5941v.output: not found",
+  "timestamp": "2026-03-31T02:20:28.922Z",
   "retry_count": 1
 }
