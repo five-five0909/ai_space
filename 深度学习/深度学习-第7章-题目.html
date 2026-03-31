@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度学习 第7章 用 PyTorch 进行深度学习</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$$'], ['\\[', '\\]']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', 'SimSun', serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+        .subtitle {
+            text-align: center;
+            color: gray;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        /* problem-box - 题目框（蓝色边框） */
+        .problem-box {
+            background: white;
+            border: 1px solid #3366aa;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .problem-box .title {
+            font-weight: bold;
+            color: #3366aa;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #3366aa;
+        }
+        /* solution-box - 解答框（绿色背景） */
+        .solution-box {
+            background: #f0fff0;
+            border: 1px solid #2e7d32;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .solution-box .title {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #2e7d32;
+        }
+        /* metaphor-box - 生活比喻框（橙色） */
+        .metaphor-box {
+            background: #fff8e1;
+            border: 1px solid #e65100;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .metaphor-box .title {
+            font-weight: bold;
+            color: #e65100;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e65100;
+        }
+        /* beginner-box - 小白必读框（蓝色背景） */
+        .beginner-box {
+            background: #e3f2fd;
+            border: 1px solid #1976d2;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .beginner-box .title {
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #1976d2;
+        }
+        /* key-box - 重点框（黄色背景） */
+        .key-box {
+            background: #fffde7;
+            border: 1px solid #ff9800;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .key-box .title {
+            font-weight: bold;
+            color: #ff6f00;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ff9800;
+        }
+        /* app-box - 应用场景框（绿色边框） */
+        .app-box {
+            background: #f0fff0;
+            border: 1px solid #43a047;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .app-box .title {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #43a047;
+        }
+        /* 代码块样式 */
+        pre {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        /* 表格样式 */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        /* 列表样式 */
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 2em;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .source {
+            color: gray;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+        .underline {
+            border-bottom: 1px solid currentColor;
+            padding-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>深度学习<br>第7章 用 PyTorch 进行深度学习</h1>
+<div class="subtitle">——从激活函数到优化器，把神经网络的每个零件搞清楚</div>
+
+<div class="beginner-box">
+<div class="title">本章题目导览：你将挑战哪些核心问题？</div>
+搭建神经网络就像组装一台精密机器：需要<strong>激活函数</strong>为输出引入非线性，需要<strong>初始化策略</strong>让训练一开始就走对方向，需要<strong>损失函数</strong>衡量预测有多准，还需要<strong>优化器</strong>一步步调整参数。本章 6 道题从零打通 PyTorch 深度学习的核心脉络：
+
+<ul>
+<li><strong>Q7-01（辨析填空）</strong>：四种激活函数横向对比——Sigmoid、Tanh、ReLU、Softmax，各自的公式、优缺点与适用场景是什么？</li>
+<li><strong>Q7-02（概念理解）</strong>：参数初始化的重要性——为什么不能把权重全初始化为0？Xavier 和 Kaiming 初始化解决了什么问题？</li>
+<li><strong>Q7-03（计算题）</strong>：损失函数手动推导——给定预测值和标签，分别计算交叉熵损失和 MSE 损失，把公式变成具体数字。</li>
+<li><strong>Q7-04（对比分析）</strong>：五种优化器对比——Momentum、AdaGrad、RMSProp、Adam 各自的更新规则和核心思想是什么？</li>
+<li><strong>Q7-05（代码阅读）</strong>：自定义模型代码追踪——<code>nn.Module</code> 子类的数据流形状逐层追踪，<code>forward</code> 方法怎么运作？</li>
+<li><strong>Q7-06（综合应用）</strong>：房价预测模型全流程——特征工程、模型搭建、损失函数选择和训练过程的完整实现思路。</li>
+</ul>
+</div>
+
+<h2>第 7 章 用 PyTorch 进行深度学习</h2>
+
+<p>在前几章，我们已经理解了神经网络的基本原理：数据流入，经过若干层变换，输出预测结果，和标签对比，反向传播更新权重。</p>
+
+<p>但"知道原理"和"真正能搭"之间，还差很多零件：</p>
+
+<ul>
+<li>每一层之后要不要加激活函数？加哪种？</li>
+<li>权重一开始怎么设置？全设为 0 行不行？</li>
+<li>预测值和真实值的"差距"用什么公式来量化？</li>
+<li>梯度算完了，用什么策略更新参数最有效？</li>
+</ul>
+
+<p>这些问题，就是本章要解决的。<strong>每一个零件都不是装饰品——选错了，模型可能根本训练不起来。</strong></p>
+
+<div class="metaphor-box">
+<div class="title">先建立一个总感觉：PyTorch 搭网络像什么？</div>
+<strong>把搭建神经网络比作开一家餐厅。</strong>
+
+<ul>
+<li><strong>激活函数</strong> = 厨师的调味料：没有调味料，所有菜都是白水煮——网络没有激活函数，所有层叠加起来还是一个线性变换，表达能力极差；</li>
+<li><strong>参数初始化</strong> = 餐厅开业前的备货：备太少（权重趋于0）厨师无从下手，备太多（权重过大）食材腐坏——初始化决定训练能不能顺利起跑；</li>
+<li><strong>损失函数</strong> = 顾客的评分系统：没有评分，厨师不知道菜好不好；评分维度选错，厨师改进方向也就跑偏了；</li>
+<li><strong>优化器</strong> = 根据评分改进菜谱的策略：是只看今天的差评（SGD），还是记住历史教训（Momentum），还是对每道菜用不同力度改进（Adam）？</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q7-01 四种激活函数横向对比</div>
+<strong>题目描述：</strong><br>
+文档第 7.1 节介绍了神经网络中常用的四种激活函数：Sigmoid、Tanh、ReLU 和 Softmax。在做题之前，先来认识一下它们的本质区别。
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li>填写下表，将四种激活函数的关键特征补全：
+
+<table>
+<tr>
+<th>激活函数</th>
+<th>数学公式</th>
+<th>主要缺点</th>
+<th>典型应用场景</th>
+</tr>
+<tr>
+<td>Sigmoid</td>
+<td>$\sigma(x) = \dfrac{1}{1+e^{-x}}$</td>
+<td>存在<span class="underline">梯度消失</span>问题，输出非零均值</td>
+<td><span class="underline">二分类输出层</span></td>
+</tr>
+<tr>
+<td>Tanh</td>
+<td>$\tanh(x) = \dfrac{e^x - e^{-x}}{e^x + e^{-x}}$</td>
+<td>仍存在<span class="underline">梯度消失</span>问题</td>
+<td>输出需要零均值的<span class="underline">隐藏层</span></td>
+</tr>
+<tr>
+<td>ReLU</td>
+<td>$\text{ReLU}(x) = \max(0, x)$</td>
+<td>负输入区域存在<span class="underline">神经元死亡</span>现象</td>
+<td>深层网络的<span class="underline">隐藏</span>层</td>
+</tr>
+<tr>
+<td>Softmax</td>
+<td>$p_i = \dfrac{e^{z_i}}{\sum_j e^{z_j}}$</td>
+<td>输出之和为1，适合<span class="underline">互斥分类</span></td>
+<td>多分类任务的<span class="underline">输出</span>层</td>
+</tr>
+</table>
+
+</li>
+<li>"梯度消失"（Vanishing Gradient）是什么？为什么 Sigmoid 和 Tanh 在深层网络中容易引发这个问题？</li>
+<li>ReLU 的全称是什么？它相比 Sigmoid/Tanh 的最大优势是什么（从计算效率和梯度角度回答）？</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 7 章 7.1 激活函数]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：为什么神经网络必须要激活函数？</div>
+<ul>
+<li><strong>没有激活函数会发生什么？</strong>假设有三层线性变换：$y = W_3(W_2(W_1 x))$。由于矩阵乘法满足结合律，这等价于 $y = (W_3 W_2 W_1) x$，本质上还是一个线性变换！无论网络多深，表达能力和单层一模一样，完全无法拟合非线性的现实数据。</li>
+<li><strong>激活函数的本质</strong>：在每一层输出后施加一个非线性变换，打破线性叠加的束缚，让网络有能力学习任意复杂的函数。</li>
+<li><strong>不同位置用不同激活函数</strong>：隐藏层通常用 ReLU（计算快，梯度稳定）；二分类输出层用 Sigmoid（输出0到1之间的概率）；多分类输出层用 Softmax（输出加起来等于1的概率分布）；回归输出层通常不加激活函数（输出任意实数）。</li>
+</ul>
+</div>
+
+<div class="metaphor-box">
+<div class="title">生活比喻：激活函数像什么？</div>
+想象你在做一道判断题测验：
+
+<ul>
+<li><strong>Sigmoid</strong>：把任何分数都压缩到 $(0, 1)$ 之间——"你有多大把握这道题是对的？"输出越接近 1，越有把握。但当分数特别高或特别低时，Sigmoid 的输出变化极小，梯度几乎为0，反向传播时信号就"消失"了，深层网络因此难以更新。</li>
+<li><strong>ReLU</strong>：正分保留，零分或负分直接归零——"这个特征有用就留，没用就扔"。简单粗暴，但计算极快，而且正值区域梯度恒为1，信号可以畅通地传到最底层。</li>
+<li><strong>Softmax</strong>：把一组原始分数变成"投票比例"——"三个候选答案，分别有82%、11%、7% 的概率是对的"。结果之和必须等于1，天然适合多分类。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 激活函数对比表（填写内容）：</strong>
+
+<table>
+<tr>
+<th>激活函数</th>
+<th>数学公式</th>
+<th>主要缺点</th>
+<th>典型应用场景</th>
+</tr>
+<tr>
+<td>Sigmoid</td>
+<td>$\sigma(x)=\dfrac{1}{1+e^{-x}}$</td>
+<td>梯度消失，输出非零均值</td>
+<td>二分类输出层</td>
+</tr>
+<tr>
+<td>Tanh</td>
+<td>$\tanh(x)=\dfrac{e^x-e^{-x}}{e^x+e^{-x}}$</td>
+<td>仍存在梯度消失问题</td>
+<td>输出需要零均值的隐藏层</td>
+</tr>
+<tr>
+<td>ReLU</td>
+<td>$\max(0, x)$</td>
+<td>负输入区域存在神经元死亡现象</td>
+<td>深层网络的隐藏层</td>
+</tr>
+<tr>
+<td>Softmax</td>
+<td>$p_i=\dfrac{e^{z_i}}{\sum_j e^{z_j}}$</td>
+<td>输出之和为1，适合互斥分类</td>
+<td>多分类任务的输出层</td>
+</tr>
+</table>
+
+<strong>(2) 梯度消失原因：</strong>
+
+<p>Sigmoid 函数的导数为 $\sigma'(x) = \sigma(x)(1-\sigma(x))$，最大值仅为 $0.25$（在 $x=0$ 时取得）。Tanh 的导数最大值为 $1$（在 $x=0$ 时），远离原点后也迅速趋近于0。</p>
+
+<p>在反向传播中，梯度是逐层相乘的。若每层梯度最大为 $0.25$，经过 10 层后，梯度缩小至 $0.25^{10} \approx 10^{-6}$，几乎为0，底层网络参数无法有效更新。</p>
+
+<strong>(3) ReLU 的优势：</strong>
+
+<p>ReLU（Rectified Linear Unit，修正线性单元）的公式为 $\max(0,x)$，优势体现在两方面：</p>
+<ul>
+<li><strong>计算极快</strong>：只需判断正负，无需计算指数，比 Sigmoid/Tanh 快数倍；</li>
+<li><strong>梯度稳定</strong>：正值区域梯度恒为1，不会随层数加深而衰减，有效缓解梯度消失。</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q7-02 参数初始化：为什么不能全设为 0？</div>
+<strong>题目描述：</strong><br>
+文档第 7.2 节介绍了多种参数初始化方法。一个常见的误区是"把所有权重初始化为0，反正训练会自动调整"。
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li><strong>对称性破坏问题</strong>：如果把一个全连接层（<code>nn.Linear</code>）的所有权重初始化为相同的值（包括全0），会出现什么问题？从反向传播的角度解释"对称性"为什么无法被打破。</li>
+
+<li><strong>Xavier 初始化</strong>：适用于 Sigmoid/Tanh 激活函数之前的层，权重从以下范围均匀采样：
+$$W \sim \mathcal{U}\!\left(-\frac{\sqrt{6}}{\sqrt{n_{\text{in}}+n_{\text{out}}}},\ \frac{\sqrt{6}}{\sqrt{n_{\text{in}}+n_{\text{out}}}}\right)$$
+若一个线性层输入特征数 $n_{\text{in}}=128$，输出特征数 $n_{\text{out}}=64$，计算 Xavier 初始化的采样范围上界（保留两位小数）。</li>
+
+<li><strong>Kaiming 初始化</strong>：专为 ReLU 激活函数设计，权重从均值为0、标准差为 $\sqrt{2/n_{\text{in}}}$ 的正态分布中采样。解释为什么 ReLU 需要专门的初始化策略（提示：ReLU 会"杀死"一半神经元）。</li>
+
+<li>在 PyTorch 中，<code>nn.Linear</code> 层默认使用哪种初始化方式？如何手动将某层权重改为 Kaiming 正态初始化？写出相关代码。</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 7 章 7.2 参数初始化和正则化]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：初始化为什么这么重要？</div>
+<ul>
+<li><strong>权重不是随便设的</strong>：如果初始化过大，激活值和梯度会爆炸（梯度爆炸）；如果初始化过小，激活值趋近于0，梯度也接近0（梯度消失）。两种情况都会让训练无法有效进行。</li>
+<li><strong>全0初始化的致命问题</strong>：如果同一层所有神经元的权重完全相同，那么正向传播时它们的输出完全相同，反向传播时它们接收到的梯度也完全相同，更新后仍然完全相同——这层神经元永远无法学到不同的特征，相当于只有一个神经元在工作。</li>
+<li><strong>为什么需要随机初始化</strong>：随机初始化打破了对称性，让每个神经元从一开始就走向不同的"方向"，学到不同的特征。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 对称性问题：</strong>
+
+<p>若所有权重 $w_{ij}^{(l)} = c$（常数），则同一层的每个神经元接收到完全相同的输入，产生完全相同的输出（正向传播对称）。反向传播时，损失对该层每个神经元的梯度也完全相同，参数更新幅度一致，导致更新后权重仍然相同——<strong>对称性永远无法被打破</strong>，整个层退化为"一个神经元"，无论宽度多大都形同虚设。</p>
+
+<strong>(2) Xavier 初始化上界计算：</strong>
+
+$$\text{上界} = \frac{\sqrt{6}}{\sqrt{n_{\text{in}}+n_{\text{out}}}} = \frac{\sqrt{6}}{\sqrt{128+64}} = \frac{\sqrt{6}}{\sqrt{192}} = \frac{2.449}{13.856} \approx \boxed{0.18}$$
+
+<p>采样范围为 $[-0.18,\ 0.18]$。</p>
+
+<strong>(3) ReLU 需要专门初始化的原因：</strong>
+
+<p>ReLU 对所有负输入输出0，相当于每次前向传播中约一半的神经元被"关闭"（输出为0，梯度也为0）。若使用 Xavier 初始化（针对输出方差设计），实际上只有约一半的神经元在传递信号，等效扇入减半，方差会缩小约2倍。Kaiming 初始化将标准差设为 $\sqrt{2/n_{\text{in}}}$（比 Xavier 多了因子 $\sqrt{2}$），恰好补偿了 ReLU 使方差减半的效果，使各层激活值的方差保持稳定。</p>
+
+<strong>(4) PyTorch 代码：</strong>
+
+<p><code>nn.Linear</code> 默认使用 Kaiming 均匀初始化（<code>kaiming_uniform_</code>）。手动改为 Kaiming 正态初始化：</p>
+
+<pre><code>import torch.nn as nn
+
+layer = nn.Linear(128, 64)
+
+# 手动将权重改为 Kaiming 正态初始化（适合 ReLU）
+nn.init.kaiming_normal_(layer.weight, mode='fan_in',
+                         nonlinearity='relu')
+# 偏置通常初始化为 0
+nn.init.zeros_(layer.bias)
+</code></pre>
+
+<div class="key-box">
+<div class="title">常用初始化方法速查</div>
+<ul>
+<li><strong>全零初始化</strong>：<code>nn.init.zeros_(tensor)</code> —— 仅用于偏置，权重千万不要用</li>
+<li><strong>Xavier 均匀</strong>：<code>nn.init.xavier_uniform_(tensor)</code> —— 配合 Sigmoid/Tanh</li>
+<li><strong>Kaiming 正态</strong>：<code>nn.init.kaiming_normal_(tensor, nonlinearity='relu')</code> —— 配合 ReLU</li>
+<li><strong>正态分布</strong>：<code>nn.init.normal_(tensor, mean=0, std=0.01)</code> —— 通用小方差初始化</li>
+</ul>
+</div>
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q7-03 损失函数手动计算：交叉熵 vs MSE</div>
+<strong>题目描述：</strong><br>
+文档第 7.4 节介绍了分类任务和回归任务的常用损失函数。损失函数是训练信号的来源——选错了，模型会朝错误的方向优化。
+
+<p><strong>场景一：多分类任务（交叉熵损失）</strong></p>
+<p>一个三分类模型，对某样本输出的 logits 为 $[2.0,\ 1.0,\ 0.1]$，真实标签为第 0 类（即 $y=0$）。</p>
+
+<p><strong>场景二：回归任务（MSE 损失）</strong></p>
+<p>一个房价预测模型，对 4 个样本的预测值（万元）为 $[\hat{y}_1, \hat{y}_2, \hat{y}_3, \hat{y}_4] = [102, 95, 310, 88]$，真实值为 $[100, 98, 300, 90]$。</p>
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li>对场景一，先计算 softmax 概率，再计算交叉熵损失：
+$$\mathcal{L}_{\text{CE}} = -\log(p_{y})$$
+其中 $p_y$ 是真实类别对应的预测概率。（结果保留两位小数）</li>
+
+<li>对场景二，计算均方误差（MSE）损失：
+$$\mathcal{L}_{\text{MSE}} = \frac{1}{N}\sum_{i=1}^{N}(\hat{y}_i - y_i)^2$$
+（结果保留两位小数）</li>
+
+<li>PyTorch 的 <code>nn.CrossEntropyLoss</code> 内部已经包含了 Softmax 操作。如果在模型的输出层<strong>已经手动加了 Softmax</strong>，再使用 <code>nn.CrossEntropyLoss</code>，会产生什么问题？应该怎么修改？</li>
+
+<li>为什么回归任务不能用交叉熵损失，分类任务不应该用 MSE 损失？各举一个具体理由。</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 7 章 7.4 损失函数]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：损失函数是什么？为什么要分任务类型？</div>
+<ul>
+<li><strong>损失函数的本质</strong>：量化"预测值和真实值有多不一样"的函数。训练就是通过梯度下降不断最小化损失函数的过程。</li>
+<li><strong>为什么要区分分类和回归？</strong>分类任务的标签是离散类别（猫/狗/鸟），预测的是概率分布；回归任务的标签是连续数值（房价/温度），预测的是具体数值。两种情况下"误差"的计量方式完全不同。</li>
+<li><strong>CrossEntropyLoss 一定要配 logits 用</strong>：PyTorch 的 <code>nn.CrossEntropyLoss</code> 内置了 softmax + log + 取均值的完整计算流程，输入必须是未归一化的原始分数（logits），而不是经过 softmax 后的概率。如果先 softmax 再送进去，相当于做了两次 softmax，结果会严重错误。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 交叉熵损失计算：</strong>
+
+<p>第一步，计算 softmax 概率（logits $= [2.0, 1.0, 0.1]$）：</p>
+$$e^{2.0} \approx 7.389,\quad e^{1.0} \approx 2.718,\quad e^{0.1} \approx 1.105$$
+$$\text{总和} = 7.389 + 2.718 + 1.105 = 11.212$$
+$$p_0 = \frac{7.389}{11.212} \approx 0.659,\quad p_1 \approx 0.242,\quad p_2 \approx 0.099$$
+
+<p>第二步，计算交叉熵损失（真实类别为第 0 类，$p_y = p_0 \approx 0.659$）：</p>
+$$\mathcal{L}_{\text{CE}} = -\log(0.659) \approx \boxed{0.42}$$
+
+<strong>(2) MSE 损失计算：</strong>
+$$\mathcal{L}_{\text{MSE}} = \frac{(102-100)^2 + (95-98)^2 + (310-300)^2 + (88-90)^2}{4} = \frac{4 + 9 + 100 + 4}{4} = \frac{117}{4} = \boxed{29.25}$$
+
+<strong>(3) 双重 Softmax 的问题：</strong>
+
+<p><code>nn.CrossEntropyLoss</code> 内部等价于：$\mathcal{L} = -\log\!\left(\text{softmax}(\text{logits})_y\right)$。如果模型输出层已手动加了 softmax，那么传入的 $p = \text{softmax}(\text{logits})$，各元素在 $(0,1)$ 之间，<code>CrossEntropyLoss</code> 再对它做一次 softmax，会把概率值当 logits 处理，使得概率分布被极度压平，损失计算完全失真，训练无法正常进行。</p>
+
+<strong>修改方案：</strong>
+<ul>
+<li><strong>方案一（推荐）</strong>：去掉模型输出层的 softmax，保持输出为 logits，直接配合 <code>nn.CrossEntropyLoss</code>；</li>
+<li><strong>方案二</strong>：保留 softmax，将损失函数改为 <code>nn.NLLLoss</code>，并在输出后加 <code>torch.log</code>（因为 NLLLoss 期望输入 log-probabilities）。</li>
+</ul>
+
+<strong>(4) 损失函数不可乱用的原因：</strong>
+
+<ul>
+<li><strong>回归不能用交叉熵</strong>：交叉熵需要概率分布作为输入，而回归输出是任意实数，无法直接套用概率公式。强行使用会导致数学上无意义（对负数取对数会出错）。</li>
+<li><strong>分类不应用 MSE</strong>：分类标签（如 $y \in \{0,1,2\}$）是无序的类别编号，MSE 会把类别间距离的大小当作重要信息处理，而实际上类别 0 和类别 2 并不比类别 0 和类别 1 "差距更大"。此外，MSE 在分类问题中梯度较小，训练收敛极慢。</li>
+</ul>
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q7-04 五种优化器的核心思想对比</div>
+<strong>题目描述：</strong><br>
+文档第 7.5 节介绍了多种参数更新方法。优化器决定了"梯度算出来之后，怎么用它来更新参数"。选错了优化器，训练可能收敛极慢，或者在最优解附近震荡。
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li>填写下表，将五种优化器的关键特征补全：
+
+<table>
+<tr>
+<th>优化器</th>
+<th>核心更新规则（用文字描述）</th>
+<th>主要优缺点</th>
+</tr>
+<tr>
+<td>SGD</td>
+<td>沿梯度负方向直接更新，步长为<span class="underline">学习率 $\eta$</span></td>
+<td>简单，但容易陷入<span class="underline">局部极小值</span>，收敛慢</td>
+</tr>
+<tr>
+<td>Momentum</td>
+<td>在 SGD 基础上累积<span class="underline">历史梯度</span>，赋予参数"惯性"</td>
+<td>加速收敛，但<span class="underline">超</span>参数较多</td>
+</tr>
+<tr>
+<td>AdaGrad</td>
+<td>对每个参数使用<span class="underline">不同</span>学习率，历史梯度平方和大的参数学习率变<span class="underline">小</span></td>
+<td>自适应学习率，但学习率单调<span class="underline">递减</span>，后期更新极慢</td>
+</tr>
+<tr>
+<td>RMSProp</td>
+<td>改进 AdaGrad，用<span class="underline">指数移动</span>平均代替全量累积</td>
+<td>解决了学习率<span class="underline">一直衰减</span>问题</td>
+</tr>
+<tr>
+<td>Adam</td>
+<td>结合 Momentum 和 RMSProp，同时维护<span class="underline">一阶动量</span>和<span class="underline">二阶动量</span>的指数移动平均</td>
+<td>效果好，但<span class="underline">默认</span>参数有时需调整</td>
+</tr>
+</table>
+
+</li>
+<li><strong>学习率衰减</strong>：训练过程中为什么要让学习率随时间减小？常见的衰减策略有哪些（至少列举两种）？</li>
+
+<li><strong>Adam 的偏差修正</strong>：Adam 的动量估计在初始阶段会偏向于0，因此引入了偏差修正：
+$$\hat{m}_t = \frac{m_t}{1 - \beta_1^t}, \quad \hat{v}_t = \frac{v_t}{1 - \beta_2^t}$$
+解释为什么初始阶段 $m_t$ 会偏向于0（提示：$\beta_1$ 通常为 0.9，$m_0=0$，$m_1 = (1-\beta_1) g_1$）。</li>
+
+<li>在 PyTorch 中，如何为网络不同层设置不同的学习率（例如：特征提取层学习率为 $10^{-4}$，分类头学习率为 $10^{-3}$）？写出关键代码片段。</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 7 章 7.5 参数更新方法]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：优化器是什么？为什么不直接用梯度？</div>
+<ul>
+<li><strong>最简单的更新规则</strong>：$w \leftarrow w - \eta \cdot g$，其中 $\eta$ 是学习率，$g$ 是梯度。这就是最基础的 SGD（随机梯度下降）。</li>
+<li><strong>为什么需要更复杂的优化器？</strong>原始 SGD 有几个痛点：(1) 在平坦区域梯度很小，更新极慢；(2) 在陡峭区域梯度很大，更新容易震荡；(3) 所有参数共用同一个学习率，不够灵活。各种改进版优化器，就是针对这些痛点的解决方案。</li>
+<li><strong>Adam 是目前最常用的选择</strong>：结合了动量（记住历史方向）和自适应学习率（对不同参数用不同步长），在绝大多数任务上开箱即用效果不错，是入门深度学习的默认选择。</li>
+</ul>
+</div>
+
+<div class="metaphor-box">
+<div class="title">生活比喻：五种优化器像五种下山策略</div>
+你在一座山上，要下到最低点（最优解），眼睛只能看到脚下的坡度（梯度）：
+
+<ul>
+<li><strong>SGD</strong>：每步严格沿当前最陡方向走固定步长，路线可能锯齿形剧烈震荡；</li>
+<li><strong>Momentum</strong>：像滚下山的石头，有惯性，能越过小坑和轻微的鞍部，但可能冲过头；</li>
+<li><strong>AdaGrad</strong>：在平坦路段迈大步，在陡峭路段迈小步——但走着走着，步子会越来越小，最终走不动；</li>
+<li><strong>RMSProp</strong>：和 AdaGrad 类似，但"遗忘"很久以前的坡度，始终聚焦于近期信息，步子不会越来越小；</li>
+<li><strong>Adam</strong>：既有滚石的惯性，又能根据近期坡度自动调节步长，是综合效果最好的"登山向导"。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 优化器对比表（填写内容）：</strong>
+
+<table>
+<tr>
+<th>优化器</th>
+<th>核心更新规则</th>
+<th>主要优缺点</th>
+</tr>
+<tr>
+<td>SGD</td>
+<td>沿梯度负方向直接更新，步长为学习率 $\eta$</td>
+<td>简单，但容易陷入局部极小值，收敛慢</td>
+</tr>
+<tr>
+<td>Momentum</td>
+<td>累积历史梯度，赋予参数"惯性"</td>
+<td>加速收敛，但超参数较多</td>
+</tr>
+<tr>
+<td>AdaGrad</td>
+<td>历史梯度平方和大的参数学习率变小（自适应）</td>
+<td>自适应，但学习率单调递减，后期更新极慢</td>
+</tr>
+<tr>
+<td>RMSProp</td>
+<td>用指数移动平均代替全量累积</td>
+<td>解决了学习率一直衰减问题</td>
+</tr>
+<tr>
+<td>Adam</td>
+<td>同时维护一阶动量和二阶动量的指数移动平均</td>
+<td>效果好，但默认超参数有时需调整</td>
+</tr>
+</table>
+
+<strong>(2) 学习率衰减策略：</strong>
+
+<p>训练初期需要大学习率以快速下降；训练后期接近最优解时，大学习率会导致在最优解附近震荡而无法收敛，需要小学习率精细调整。常见策略：</p>
+<ul>
+<li><strong>步进衰减（StepLR）</strong>：每隔固定 epoch 数乘以衰减因子，如每 10 个 epoch 乘以 0.1；</li>
+<li><strong>余弦退火（CosineAnnealingLR）</strong>：学习率按余弦函数平滑衰减，训练结束时接近0；</li>
+<li><strong>指数衰减（ExponentialLR）</strong>：每个 epoch 乘以固定衰减系数 $\gamma$，如 $\eta_t = \eta_0 \cdot \gamma^t$。</li>
+</ul>
+
+<strong>(3) Adam 偏差修正的原因：</strong>
+
+<p>$m_0 = 0$，$m_1 = \beta_1 m_0 + (1-\beta_1) g_1 = 0.1 \cdot g_1$。仅为真实梯度的 $10\%$，严重低估了真实动量大小。偏差修正 $\hat{m}_1 = m_1 / (1-\beta_1^1) = m_1 / 0.1 = g_1$，将其还原为真实梯度值。随着训练步数 $t$ 增大，$\beta_1^t \to 0$，修正项趋近于1，影响逐渐消失。</p>
+
+<strong>(4) 不同层设置不同学习率：</strong>
+
+<pre><code>import torch.optim as optim
+
+model = MyModel()
+
+# 分组设置不同学习率
+optimizer = optim.Adam([
+    {'params': model.feature_extractor.parameters(),
+     'lr': 1e-4},
+    {'params': model.classifier.parameters(),
+     'lr': 1e-3}
+], lr=1e-3)  # 默认学习率（作为 fallback）
+
+# 之后正常训练即可
+optimizer.zero_grad()
+loss.backward()
+optimizer.step()
+</code></pre>
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q7-05 自定义模型代码阅读：数据流形状追踪</div>
+<strong>题目描述：</strong><br>
+文档第 7.3 节介绍了如何用 <code>nn.Module</code> 搭建自定义神经网络。以下是一个用于图像二分类的模型代码：
+
+<pre><code>import torch
+import torch.nn as nn
+
+class BinaryClassifier(nn.Module):
+    def __init__(self, input_dim):
+        super(BinaryClassifier, self).__init__()
+        self.fc1 = nn.Linear(input_dim, 128)
+        self.bn1 = nn.BatchNorm1d(128)
+        self.dropout = nn.Dropout(p=0.3)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, 1)
+        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        x = self.relu(self.bn1(self.fc1(x)))  # 第1步
+        x = self.dropout(x)                   # 第2步
+        x = self.relu(self.fc2(x))            # 第3步
+        x = self.sigmoid(self.fc3(x))         # 第4步
+        return x
+
+model = BinaryClassifier(input_dim=784)
+</code></pre>
+
+<p>输入 <code>x</code> 的形状为 <code>[batch_size=32, input_dim=784]</code>（32 张展平的 28$\times$28 图像）。</p>
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li>逐步追踪各阶段张量的形状：
+<ol type="a">
+<li>模型输入 <code>x</code>：<span class="underline">[32, 784]</span></li>
+<li>第1步之后（<code>relu(bn1(fc1(x)))</code>）：<span class="underline">[32, 128]</span></li>
+<li>第2步之后（<code>dropout(x)</code>）：<span class="underline">[32, 128]</span></li>
+<li>第3步之后（<code>relu(fc2(x))</code>）：<span class="underline">[32, 64]</span></li>
+<li>第4步之后（模型输出）：<span class="underline">[32, 1]</span></li>
+</ol>
+</li>
+<li><code>nn.BatchNorm1d(128)</code> 的作用是什么？为什么要把它放在线性层<strong>之后</strong>、激活函数<strong>之前</strong>？</li>
+
+<li><code>nn.Dropout(p=0.3)</code> 在<strong>训练阶段</strong>和<strong>推理阶段</strong>的行为有什么不同？在 PyTorch 中如何切换这两种模式？</li>
+
+<li>如果将这个模型改为用 <code>nn.Sequential</code> 的写法，请写出等价的代码（忽略 Dropout）。</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 7 章 7.3 搭建神经网络 / 7.2.8 Dropout]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：<code>nn.Module</code> 的两个核心方法</div>
+<ul>
+<li><strong><code>__init__</code>：定义零件</strong>。在这里声明所有要用到的层（<code>nn.Linear</code>、<code>nn.ReLU</code> 等）。PyTorch 会自动追踪这些层的参数，让优化器能找到它们。</li>
+<li><strong><code>forward</code>：定义数据怎么流动</strong>。调用 <code>model(x)</code> 时，实际上执行的就是 <code>forward(x)</code>。层的定义顺序（<code>__init__</code>）和使用顺序（<code>forward</code>）不必相同，这是 <code>nn.Module</code> 比 <code>nn.Sequential</code> 灵活的地方——可以实现跳跃连接、多输入、多输出等复杂结构。</li>
+<li><strong>不要忘记 <code>super().__init__()</code></strong>：继承 <code>nn.Module</code> 时，第一行必须调用父类初始化，否则参数注册机制会失效，优化器找不到参数。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 逐层形状追踪：</strong>
+
+<table>
+<tr>
+<th>步骤</th>
+<th>操作</th>
+<th>输出形状</th>
+<th>说明</th>
+</tr>
+<tr>
+<td>输入</td>
+<td><code>x</code></td>
+<td><code>[32, 784]</code></td>
+<td>32张展平的图像</td>
+</tr>
+<tr>
+<td>第1步</td>
+<td><code>relu(bn1(fc1(x)))</code></td>
+<td><code>[32, 128]</code></td>
+<td>Linear(784→128)，BN，ReLU</td>
+</tr>
+<tr>
+<td>第2步</td>
+<td><code>dropout(x)</code></td>
+<td><code>[32, 128]</code></td>
+<td>Dropout 不改变形状</td>
+</tr>
+<tr>
+<td>第3步</td>
+<td><code>relu(fc2(x))</code></td>
+<td><code>[32, 64]</code></td>
+<td>Linear(128→64)，ReLU</td>
+</tr>
+<tr>
+<td>第4步</td>
+<td><code>sigmoid(fc3(x))</code></td>
+<td><code>[32, 1]</code></td>
+<td>Linear(64→1)，Sigmoid</td>
+</tr>
+</table>
+
+<strong>(2) BatchNorm1d 的作用及位置：</strong>
+
+<p>批归一化（Batch Normalization）对每一批数据的每个特征维度独立进行归一化（减去均值，除以标准差），使激活值保持在稳定的范围内，有助于加速训练、缓解梯度问题，并起到一定的正则化作用。</p>
+
+<p>放在线性层<strong>之后</strong>、激活函数<strong>之前</strong>，是因为：归一化的对象是线性变换的输出（未激活的值），使其接近标准正态分布，再经过激活函数时梯度信号最稳定。若放在激活函数之后，ReLU 已经截断了负值，归一化效果会大打折扣。</p>
+
+<strong>(3) Dropout 在训练 vs 推理阶段的差异：</strong>
+
+<ul>
+<li><strong>训练阶段</strong>：以概率 $p=0.3$ 随机将 30% 的神经元输出置为0，迫使网络不依赖某几个特定神经元，从而起到正则化作用。未被置零的神经元输出会乘以 $\frac{1}{1-p}$ 进行缩放，保持期望值不变。</li>
+<li><strong>推理阶段</strong>：所有神经元正常输出，不做任何置零操作（因为推理时需要稳定的确定性输出）。</li>
+</ul>
+
+<p>在 PyTorch 中通过以下方式切换：</p>
+<pre><code>model.train()   # 切换为训练模式（Dropout 生效）
+model.eval()    # 切换为推理模式（Dropout 关闭）
+</code></pre>
+
+<strong>(4) 等价的 Sequential 写法：</strong>
+
+<pre><code>model = nn.Sequential(
+    nn.Linear(784, 128),
+    nn.BatchNorm1d(128),
+    nn.ReLU(),
+    nn.Linear(128, 64),
+    nn.ReLU(),
+    nn.Linear(64, 1),
+    nn.Sigmoid()
+)
+</code></pre>
+
+<div class="key-box">
+<div class="title"><code>nn.Module</code> vs <code>nn.Sequential</code> 的选择建议</div>
+<ul>
+<li><strong>用 Sequential</strong>：结构简单，数据单路径从头流到尾，代码更简洁；</li>
+<li><strong>用 Module 子类</strong>：需要跳跃连接（ResNet）、多分支（Inception）、多输入或多输出，或者 forward 中有条件逻辑时，必须用 Module 子类。</li>
+</ul>
+</div>
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q7-06 综合应用：房价预测全流程分析</div>
+<strong>题目描述：</strong><br>
+文档第 7.6 节给出了一个用神经网络预测房价的完整案例。以下是简化后的核心代码骨架：
+
+<pre><code>import torch
+import torch.nn as nn
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+
+# ---- 7.6.2 特征工程 ----
+df = pd.read_csv('house_prices.csv')
+# 处理缺失值：数值列用均值填充，类别列用众数填充
+num_cols = df.select_dtypes(include='number').columns
+cat_cols = df.select_dtypes(exclude='number').columns
+df[num_cols] = df[num_cols].fillna(df[num_cols].mean())
+df[cat_cols] = df[cat_cols].fillna(df[cat_cols].mode().iloc[0])
+# 类别列独热编码
+df = pd.get_dummies(df, columns=cat_cols)
+# 特征标准化
+scaler = StandardScaler()
+X = scaler.fit_transform(df.drop('SalePrice', axis=1))
+y = df['SalePrice'].values
+
+# ---- 7.6.3 搭建模型 ----
+class HousePriceModel(nn.Module):
+    def __init__(self, input_dim):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(input_dim, 256),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(256, 128),
+            nn.ReLU(),
+            nn.Linear(128, 1)         # 输出层无激活函数
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+# ---- 7.6.4 损失函数 ----
+loss_fn = nn.MSELoss()
+
+# ---- 7.6.5 模型训练 ----
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+</code></pre>
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li><strong>特征工程</strong>：代码中对类别特征进行了"独热编码"（One-Hot Encoding）。解释独热编码的原理，并说明为什么不能直接用类别的整数编码（如将"北京=1，上海=2，广州=3"）送入神经网络？</li>
+
+<li><strong>特征标准化</strong>：为什么要对数值特征进行 <code>StandardScaler</code> 标准化？如果房价数据中"面积"特征范围是 $[50, 500]$ 平方米，而"房间数"特征范围是 $[1, 10]$，不标准化会带来什么问题？</li>
+
+<li><strong>输出层设计</strong>：模型的最后一层 <code>nn.Linear(128, 1)</code> 没有接激活函数，解释这是为什么。如果任务改成"预测房价是否超过500万（二分类）"，输出层应该怎么修改？</li>
+
+<li><strong>训练过程</strong>：在一个完整的训练循环中，<code>optimizer.zero_grad()</code>、<code>loss.backward()</code> 和 <code>optimizer.step()</code> 三个步骤必须按顺序执行，缺一不可。解释这三个调用各自的作用，以及为什么 <code>zero_grad()</code> 必须在 <code>backward()</code> 之前调用。</li>
+
+<li><strong>评估指标</strong>：MSE 损失虽然便于计算，但直觉上不好理解（单位是"元的平方"）。实际房价预测中通常报告哪种指标？写出其公式，并说明它相比 MSE 的优势。</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 7 章 7.6 应用案例：房价预测]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：训练一个神经网络，到底在做什么？</div>
+<ul>
+<li><strong>一次训练迭代的四步节奏</strong>：(1) 前向传播——数据流过网络，得到预测值；(2) 计算损失——预测值和真实值的差距；(3) 反向传播——自动计算所有参数的梯度；(4) 参数更新——优化器按梯度方向调整参数。</li>
+<li><strong>为什么要多次迭代？</strong>一次迭代通常只用一小批数据（mini-batch），神经网络需要看成千上万次数据才能学会规律。每轮完整过一遍数据集叫一个 epoch，通常训练需要几十到几百个 epoch。</li>
+<li><strong>训练集、验证集、测试集的区别</strong>：训练集用来更新参数；验证集用来调超参数（学习率、网络结构），判断是否过拟合；测试集只在最终评估时用一次，不参与任何调整。</li>
+</ul>
+</div>
+
+<div class="metaphor-box">
+<div class="title">生活比喻：训练神经网络就像备考</div>
+<ul>
+<li><strong>训练集</strong> = 你平时刷的题目，做完对答案，每次都学到东西（更新权重）；</li>
+<li><strong>验证集</strong> = 模拟考，用来判断自己当前水平，决定要不要换一本参考书（调超参数）；</li>
+<li><strong>测试集</strong> = 真正的考试，只能用一次，不能拿来练手；</li>
+<li><strong>过拟合</strong> = 题目背得滚瓜烂熟，但换一道新题就抓瞎——模型在训练集上表现很好，在测试集上表现很差；</li>
+<li><strong>Dropout 和正则化</strong> = 故意在复习时遮住部分笔记，逼自己真正理解，而不是死记硬背。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 独热编码的原理及必要性：</strong>
+
+<p>独热编码将 $k$ 类的类别变量转换为 $k$ 维二进制向量，每次只有一个维度为1，其余为0。例如"北京=1，上海=2，广州=3"→"北京=[1,0,0]，上海=[0,1,0]，广州=[0,0,1]"。</p>
+
+<p>不能直接用整数编码的原因：神经网络会把整数值当作连续数值处理，隐含"北京离上海的距离=1，北京离广州的距离=2"这样的大小关系，而三个城市在特征语义上本无大小之分，这种人为引入的大小关系会误导模型学习错误的规律。</p>
+
+<strong>(2) 标准化的必要性：</strong>
+
+<p>梯度下降对各特征的尺度非常敏感。面积范围 $[50, 500]$ 和房间数范围 $[1, 10]$ 相差50倍，对应的梯度幅度差异巨大：面积特征上的梯度可能比房间数的梯度大50倍。这导致优化时只能使用极小的学习率（否则面积方向震荡），房间数方向更新极慢，整体收敛速度大幅下降，甚至难以收敛。标准化后两者都在均值0、方差1的尺度上，梯度幅度一致，可以使用更大的学习率，收敛更稳定。</p>
+
+<strong>(3) 输出层无激活函数的原因 & 分类改造：</strong>
+
+<p>房价预测是回归任务，预测值应该是任意正实数（如200万、580万），若加 Sigmoid 输出只能在 $(0,1)$，若加 ReLU 又会引入非必要的截断。因此输出层直接保留线性输出，不加激活函数。</p>
+
+<p>改为二分类任务的修改：</p>
+<pre><code># 修改方案一（推荐）：输出 logit，配合 BCEWithLogitsLoss
+nn.Linear(128, 1)   # 输出层不加激活函数
+loss_fn = nn.BCEWithLogitsLoss()  # 内置 Sigmoid
+
+# 修改方案二：输出概率，配合 BCELoss
+nn.Sequential(nn.Linear(128, 1), nn.Sigmoid())
+loss_fn = nn.BCELoss()
+</code></pre>
+
+<strong>(4) 三个步骤的作用：</strong>
+
+<ul>
+<li><strong><code>optimizer.zero_grad()</code></strong>：清空所有参数上一次迭代积累的梯度。PyTorch 默认将梯度<strong>累加</strong>而不是覆盖，若不清零，本次梯度会叠加在历史梯度上，导致参数更新方向错误；</li>
+<li><strong><code>loss.backward()</code></strong>：触发自动微分，从损失出发反向计算所有参数的梯度，存储在各参数的 <code>.grad</code> 属性中；</li>
+<li><strong><code>optimizer.step()</code></strong>：读取各参数的 <code>.grad</code>，按优化算法（如 Adam）更新参数值。</li>
+</ul>
+
+<p><code>zero_grad()</code> 必须在 <code>backward()</code> 之前，否则新的梯度会累加在旧梯度上，使得参数更新错误，训练无法正常进行。</p>
+
+<strong>(5) RMSE 评估指标：</strong>
+
+<p>实际中常用均方根误差（RMSE，Root Mean Squared Error）：</p>
+$$\text{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(\hat{y}_i - y_i)^2} = \sqrt{\text{MSE}}$$
+<p>优势：单位与房价相同（元而非元的平方），直觉上易于理解——"模型预测误差平均约为 $X$ 元"。此外，有时还使用平均绝对百分比误差（MAPE）衡量相对误差：</p>
+$$\text{MAPE} = \frac{1}{N}\sum_{i=1}^{N}\left|\frac{\hat{y}_i - y_i}{y_i}\right| \times 100\%$$
+
+<div class="key-box">
+<div class="title">房价预测完整训练循环模板</div>
+<pre><code>for epoch in range(num_epochs):
+    model.train()                    # 切换训练模式
+    for X_batch, y_batch in dataloader:
+        optimizer.zero_grad()        # 第一步：清空梯度
+        pred = model(X_batch)        # 第二步：前向传播
+        loss = loss_fn(pred, y_batch)# 第三步：计算损失
+        loss.backward()              # 第四步：反向传播
+        optimizer.step()             # 第五步：更新参数
+
+    model.eval()                     # 切换推理模式
+    with torch.no_grad():            # 不计算梯度
+        val_pred = model(X_val)
+        val_loss = loss_fn(val_pred, y_val)
+    print(f"Epoch {epoch}: val_loss={val_loss:.4f}")
+</code></pre>
+</div>
+</div>
+
+<div class="app-box">
+<div class="title">现实应用场景</div>
+<strong>神经网络房价预测——实际中比想象中更复杂：</strong><br>
+Zillow（美国最大房产平台）的 Zestimate 模型，就是用神经网络估算房价的商业落地。它面对的挑战包括：特征高达数百个（面积、朝向、学区评分、周边设施……），且各地区特征分布差异极大（北京的均价和县城均价不能用同一套权重）。实际中会用到更复杂的技巧，如地理位置嵌入（把经纬度变成向量）、特征交叉、对目标值取对数（$\log(\text{SalePrice})$）来压缩量纲。但本章案例的全流程骨架——特征工程 → 建模 → 选损失函数 → 训练 → 评估——与工业级方案完全一致。
+</div>
+
+<hr>
+
+<h2>本章小结：把零件装成一台可以跑的机器</h2>
+
+<p>学完这 6 道题，如果还觉得"概念飘在空中"，试试把整章内容浓缩成这几句画面：</p>
+
+<ul>
+<li><strong>激活函数</strong>：ReLU 是隐藏层的标配；Sigmoid 输出概率（二分类）；Softmax 输出概率分布（多分类）；回归输出层什么都不加。</li>
+<li><strong>参数初始化</strong>：绝对不能全初始化为同一个值；ReLU 配 Kaiming，Sigmoid/Tanh 配 Xavier。</li>
+<li><strong>损失函数</strong>：分类用交叉熵，回归用 MSE/RMSE；<code>CrossEntropyLoss</code> 自带 Softmax，不要重复。</li>
+<li><strong>优化器</strong>：大多数任务直接用 Adam；需要精调时，学习率衰减是让训练最终收敛的关键。</li>
+<li><strong>模型结构</strong>：简单的用 <code>Sequential</code>，需要灵活结构的用 <code>nn.Module</code> 子类；<code>forward</code> 里追踪每层输出的形状是调试的第一步。</li>
+<li><strong>训练循环</strong>：<code>zero_grad → backward → step</code>，顺序不能乱；训练时 <code>model.train()</code>，推理时 <code>model.eval()</code>，别忘了切换。</li>
+</ul>
+
+<div class="metaphor-box">
+<div class="title">给零基础读者的一句总比喻</div>
+<strong>如果把训练一个神经网络比作培养一名厨师：</strong>
+<ul>
+<li><strong>激活函数</strong> = 厨师的直觉（非线性判断力）：没有它，再多的训练也只会做直来直去的"线性菜"；</li>
+<li><strong>初始化</strong> = 开业前的准备状态：从一个好的起点出发，比从乱糟糟的状态开始训练省很多时间；</li>
+<li><strong>损失函数</strong> = 顾客的反馈表单：反馈维度选对了，厨师才知道往哪个方向改进；</li>
+<li><strong>优化器</strong> = 厨师改进菜谱的方法论：是把每次差评都死记硬背（SGD），还是总结规律系统改进（Adam）？</li>
+<li><strong>最终效果</strong>：一个调好参数、训练充分的神经网络，就像一位经过千百次反馈迭代、炉火纯青的大厨——它"记住"的不是具体的食谱，而是做好菜的底层规律。</li>
+</ul>
+</div>
+
+</body>
+</html>

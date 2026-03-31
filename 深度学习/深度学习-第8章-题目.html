@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度学习 第8章 卷积神经网络（CNN）</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$$'], ['\\[', '\\]']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', 'SimSun', serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+        .subtitle {
+            text-align: center;
+            color: gray;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        /* problem-box - 题目框（蓝色边框） */
+        .problem-box {
+            background: white;
+            border: 1px solid #3366aa;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .problem-box .title {
+            font-weight: bold;
+            color: #3366aa;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #3366aa;
+        }
+        /* solution-box - 解答框（绿色背景） */
+        .solution-box {
+            background: #f0fff0;
+            border: 1px solid #2e7d32;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .solution-box .title {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #2e7d32;
+        }
+        /* metaphor-box - 生活比喻框（橙色） */
+        .metaphor-box {
+            background: #fff8e1;
+            border: 1px solid #e65100;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .metaphor-box .title {
+            font-weight: bold;
+            color: #e65100;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e65100;
+        }
+        /* beginner-box - 小白必读框（蓝色背景） */
+        .beginner-box {
+            background: #e3f2fd;
+            border: 1px solid #1976d2;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .beginner-box .title {
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #1976d2;
+        }
+        /* key-box - 重点框（黄色背景） */
+        .key-box {
+            background: #fffde7;
+            border: 1px solid #ff9800;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .key-box .title {
+            font-weight: bold;
+            color: #ff6f00;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ff9800;
+        }
+        /* app-box - 应用场景框（绿色边框） */
+        .app-box {
+            background: #f0fff0;
+            border: 1px solid #43a047;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .app-box .title {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #43a047;
+        }
+        /* 代码块样式 */
+        pre {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        /* 表格样式 */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        /* 列表样式 */
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 2em;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .source {
+            color: gray;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+        .underline {
+            border-bottom: 1px solid currentColor;
+            padding-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>深度学习<br>第8章 卷积神经网络（CNN）</h1>
+<div class="subtitle">——从卷积运算到 LeNet，理解 CNN 的核心设计哲学</div>
+
+<div class="beginner-box">
+<div class="title">本章题目导览：你将挑战哪些核心问题？</div>
+CNN 的核心优势在于<strong>局部连接</strong>与<strong>参数共享</strong>，本章 6 道题从多个维度全面覆盖第 8 章知识点：
+
+<ul>
+<li><strong>Q8-01（填空题）</strong>：卷积基本术语与特性——池化层有无可学习参数？通道数如何变化？</li>
+<li><strong>Q8-02（计算题）</strong>：卷积输出形状与参数量计算——给定 $I, K, P, S$，算出特征图大小和权重数量。</li>
+<li><strong>Q8-03（辨析题）</strong>：填充的作用与 SAME/VALID 两种模式——为什么奇数卷积核才能做 SAME 填充？</li>
+<li><strong>Q8-04（计算题）</strong>：3 维卷积的通道计算——多输入通道、多输出通道时，参数量如何随通道数平方增长？</li>
+<li><strong>Q8-05（对比分析题）</strong>：经典网络架构横向对比——AlexNet、VGG、GoogLeNet、ResNet 各自解决了什么问题？</li>
+<li><strong>Q8-06（代码阅读题）</strong>：LeNet 代码追踪——逐层追踪 Fashion-MNIST 案例中特征图的形状变化。</li>
+</ul>
+</div>
+
+<h2>第 8 章 卷积神经网络（CNN）</h2>
+
+<div class="problem-box">
+<div class="title">Q8-01 卷积神经网络基本概念填空</div>
+<strong>题目描述：</strong><br>
+根据第 8 章的内容，填写以下关于 CNN 核心概念的空白。
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li>CNN 中新出现了两种层：<span class="underline">卷积层</span> 和 <span class="underline">池化层</span>，前者用于提取局部特征，后者用于降维和增强鲁棒性。</li>
+<li>与全连接层相比，卷积层的两大核心优势是：<span class="underline">局部连接</span> 和 <span class="underline">参数共享</span>。</li>
+<li>池化层<span class="underline">没有</span>（有/没有）可学习的参数，且经过池化后数据的<span class="underline">通道数</span> 不会发生变化。</li>
+<li>卷积运算中，输入数据与卷积核进行逐元素相乘后<span class="underline">求和</span>，该操作也称为<span class="underline">乘积累加运算（内积）</span>。</li>
+<li>在 CNN 中，每个卷积层的输入和输出数据也被称为<span class="underline">特征图</span>（英文：<span class="underline">Feature Map</span>）。</li>
+<li>Max 池化选取窗口内的<span class="underline">最大值</span>，Average 池化选取窗口内的<span class="underline">平均值</span>。</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 8 章 8.1 CNN 概述 / 8.2 卷积层 / 8.3 池化层]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：卷积层 vs 全连接层，核心差异在哪？</div>
+<ul>
+<li><strong>全连接层的问题：</strong>处理 $224 \times 224 \times 3$ 的图片时需要将其<strong>拉平为一维向量</strong>（约 15 万个数），这会丢失空间位置信息——左边的像素和右边的像素被一视同仁地放进同一个向量，原本的"左右关系"荡然无存。</li>
+<li><strong>卷积层的解决方案：</strong>保持数据的三维形状（通道、高、宽）原封不动地传递。卷积核只看输入的一小块区域（局部连接），同一个卷积核在整张图上用同一套权重扫描（参数共享）。这两点使得卷积层既保留了空间信息，又大幅减少了参数量。</li>
+<li><strong>特征图 vs 输入图像：</strong>卷积层的输入输出都叫"特征图"（Feature Map）。原始图像是第一张特征图，经过第一层卷积后得到第二批特征图（每个卷积核产生一张），以此类推。越深的层，特征图表示的语义越抽象：浅层是边缘、纹理，深层是部件、整体概念。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<ol type="(1)">
+<li><strong>卷积层</strong>（Convolution 层）和<strong>池化层</strong>（Pooling 层）。</li>
+<li><strong>局部连接</strong>（每个输出只和输入的一小块区域相连）和<strong>参数共享</strong>（同一卷积核在整图上共用一套权重）。</li>
+<li>池化层<strong>没有</strong>可学习的参数；经过池化后数据的<strong>通道数</strong>不会发生变化（池化按通道独立进行）。</li>
+<li>逐元素相乘后<strong>求和</strong>；该操作也称为<strong>乘积累加运算（内积）</strong>。</li>
+<li>输入和输出数据称为<strong>特征图</strong>（英文：<strong>Feature Map</strong>）。</li>
+<li>Max 池化选取窗口内的<strong>最大值</strong>；Average 池化选取窗口内的<strong>平均值</strong>。</li>
+</ol>
+
+<div class="key-box">
+<div class="title">核心记忆点：池化层的三大特性</div>
+<ol>
+<li><strong>无参数</strong>：池化操作（取最大值/均值）是固定规则，没有需要梯度更新的权重。</li>
+<li><strong>通道数不变</strong>：$C$ 个通道输入，$C$ 个通道输出，每个通道独立池化。</li>
+<li><strong>鲁棒性</strong>：数据轻微偏移（如猫的位置挪了 1 像素），Max Pooling 大概率返回相同结果——这给 CNN 带来了<strong>平移不变性</strong>。</li>
+</ol>
+</div>
+</div>
+
+<div class="app-box">
+<div class="title">现实应用场景</div>
+<strong>为什么医学影像 AI 首选 CNN？</strong><br>
+CT 扫描、X 光片等医学图像的核心特征（肿瘤边缘、钙化点、病灶纹理）往往是<strong>局部的、与位置无关的</strong>——无论肿瘤长在肺的左侧还是右侧，它的纹理特征是相似的。CNN 的参数共享天然适配这一特性：同一个"边缘检测器"卷积核可以在整张 CT 图上复用，而不需要为每个位置单独训练一个检测器。全连接网络在 512×512 的医学影像上参数量可达亿级，CNN 则可将参数量压缩到百万级以内，大幅降低了对标注数据量的需求。
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q8-02 卷积输出形状与参数量计算</div>
+<strong>题目描述：</strong><br>
+标准二维卷积的输出尺寸公式（以高度方向为例）为：
+$$H_{out} = \left\lfloor \frac{H_{in} + 2P - K}{S} \right\rfloor + 1$$
+其中 $H_{in}$ 为输入高度，$K$ 为卷积核大小，$P$ 为填充，$S$ 为步幅，$\lfloor\cdot\rfloor$ 为向下取整。
+
+<p><strong>条件一（计算输出形状）：</strong></p>
+<p>输入特征图形状为 $(C_{in}=3,\ H=100,\ W=100)$，卷积参数：$K=9$，$S=3$，$P=0$，$C_{out}=3$。</p>
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li>计算该卷积层输出特征图的形状 $(C_{out},\ H_{out},\ W_{out})$。</li>
+<li>该卷积层共有多少可训练参数（含偏置）？</li>
+<li>若步幅改为 $S=1$，填充改为 $P=4$，其他不变，输出特征图的高度 $H_{out}$ 是多少？</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 8 章 8.2.1 卷积运算 / 8.2.3 步幅 / 8.2.5 API 使用]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：输出尺寸公式怎么理解？</div>
+<ul>
+<li><strong>直觉推导：</strong>卷积核从输入左边第一个合法位置出发，每次移动 $S$ 步，直到无法再移动为止。可以放置的位置数 $=$ 输出尺寸。</li>
+<li><strong>公式拆解：</strong>$H_{in} + 2P$ 是填充后的输入高度；减去 $K$ 是因为第一次放下卷积核就占了 $K$ 个位置，剩余 $(H_{in}+2P-K)$ 步可以移动，除以步幅 $S$ 得到移动次数，再加 1（算上起始位置）即为输出尺寸。</li>
+<li><strong>参数量计算：</strong>一个卷积核的参数数量 $= K \times K \times C_{in}$（宽$\times$高$\times$输入通道数），共有 $C_{out}$ 个卷积核，再加每个输出通道一个偏置：
+$$\text{总参数量} = C_{out} \times (K \times K \times C_{in} + 1)$$
+</li>
+<li><strong>向下取整的含义：</strong>当输入尺寸除不尽时，PyTorch 默认丢弃最右/最下不完整的区域，输出取整数。</li>
+</ul>
+</div>
+
+<div class="metaphor-box">
+<div class="title">生活比喻：用尺子量布</div>
+把输入特征图想象成一块布，卷积核是一把尺子（长度为 $K$）：
+
+<ul>
+<li><strong>填充 $P$</strong>：在布的两端各接上 $P$ 厘米的空白边，让尺子能从最边缘开始量。</li>
+<li><strong>步幅 $S$</strong>：每量完一次，把尺子向右移动 $S$ 厘米再量一次。步幅越大，量的次数越少，输出就越小。</li>
+<li><strong>向下取整</strong>：布的末端剩余的长度不够一把尺子，就放弃这段——这正是向下取整的含义。</li>
+<li><strong>参数共享的妙处</strong>：整块布（整张特征图）上，用的始终是<strong>同一把尺子</strong>，尺子的"刻度"（权重）全程不变。不同卷积核就是刻度不同的尺子，每把尺子负责量出一张特征图。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 计算输出特征图形状：</strong>
+
+<p>代入公式（高度和宽度对称，计算相同）：</p>
+$$H_{out} = W_{out} = \left\lfloor \frac{100 + 2\times0 - 9}{3} \right\rfloor + 1 = \left\lfloor \frac{91}{3} \right\rfloor + 1 = 30 + 1 = \mathbf{31}$$
+
+<p>输出特征图形状为：$\boxed{(C_{out}=3,\ H_{out}=31,\ W_{out}=31)}$</p>
+
+<strong>(2) 计算可训练参数量：</strong>
+
+<p>每个卷积核参数数量（含偏置）$= K \times K \times C_{in} + 1 = 9 \times 9 \times 3 + 1 = 243 + 1 = 244$</p>
+
+<p>共有 $C_{out} = 3$ 个卷积核，因此总参数量为：</p>
+$$\text{总参数量} = 3 \times 244 = \mathbf{732}$$
+
+<strong>(3) 修改参数后的输出高度（$S=1$，$P=4$）：</strong>
+$$H_{out} = \left\lfloor \frac{100 + 2\times4 - 9}{1} \right\rfloor + 1 = \left\lfloor \frac{99}{1} \right\rfloor + 1 = 99 + 1 = \mathbf{100}$$
+
+<div class="key-box">
+<div class="title">结论：$P=4$，$K=9$，$S=1$ 时输出尺寸与输入相同！</div>
+一般地，当步幅 $S=1$ 时，令 $P = \lfloor K/2 \rfloor$（对奇数核恰好等于 $(K-1)/2$），可使输出尺寸等于输入尺寸（SAME 填充）。$K=9$ 时 $P=4$，恰好满足此条件，所以 $H_{out} = H_{in} = 100$。
+</div>
+
+<strong>对应 API 代码验证：</strong>
+<pre><code>import torch
+import torch.nn as nn
+
+# 题目条件一
+conv1 = nn.Conv2d(in_channels=3, out_channels=3, kernel_size=9,
+                  stride=3, padding=0)
+x = torch.randn(1, 3, 100, 100)
+print(conv1(x).shape)   # torch.Size([1, 3, 31, 31])  -- 验证(1)
+
+# 修改后的条件
+conv2 = nn.Conv2d(in_channels=3, out_channels=3, kernel_size=9,
+                  stride=1, padding=4)
+print(conv2(x).shape)   # torch.Size([1, 3, 100, 100]) -- 验证(3)
+</code></pre>
+</div>
+
+<div class="app-box">
+<div class="title">现实应用场景</div>
+<strong>AlexNet 第一层卷积（2012 ImageNet 冠军）：</strong><br>
+AlexNet 接受 $227 \times 227 \times 3$ 的彩色图像，第一层卷积参数为 $K=11$，$S=4$，$P=0$，$C_{out}=96$，输出特征图形状为 $(96, 55, 55)$，参数量 $= 96 \times (11 \times 11 \times 3 + 1) = 34{,}944$ 个。若用全连接层处理同一输入，光这一层就需要 $227 \times 227 \times 3 \times 55 \times 55 \times 96 \approx 450$ 亿个参数——这正是 CNN 参数效率优势的量化体现。
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q8-03 填充的作用与 SAME/VALID 模式辨析</div>
+<strong>题目描述：</strong><br>
+文档中提到，填充的主要目的是"调整输出数据的形状大小，避免多次卷积后数据形状过小"，同时还能"令数据形状在卷积后保持不变"。
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li>对形状为 $4 \times 4$ 的输入数据进行幅度为 1 的零填充，填充后的形状是多少？再经过 $3 \times 3$、步幅为 1 的卷积后，输出形状是多少？说明填充如何使输出与输入形状保持一致。</li>
+<li>不使用填充（$P=0$）时，对 $H \times W$ 的特征图反复进行 $3 \times 3$（步幅 1）的卷积，每次卷积后尺寸减少多少？若初始尺寸为 $28 \times 28$，最多能卷积多少次才不会使特征图尺寸降至 $1 \times 1$ 以下？</li>
+<li>为什么 SAME 填充模式通常要求卷积核大小为<strong>奇数</strong>？如果卷积核大小为偶数（如 $K=4$），SAME 填充会出现什么问题？</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 8 章 8.2.2 填充]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：填充为什么几乎总是补 0？</div>
+<ul>
+<li><strong>零填充（Zero Padding）的含义：</strong>在输入特征图的四周补上值为 0 的像素圈。补 1 圈（$P=1$）就在上下左右各加一行/列 0，补 2 圈（$P=2$）则各加两行/列 0。</li>
+<li><strong>为什么补 0 而不补其他值？</strong>补 0 对卷积结果的影响最小——与 0 相乘等于 0，不会引入额外的"假信息"。</li>
+<li><strong>边缘像素的不公平性：</strong>不填充时，位于图像边角的像素只被卷积核覆盖 1 次，而中心像素被覆盖 $K \times K$ 次（对 $3 \times 3$ 核就是 9 次）。这导致边缘特征被"欠学习"。填充后，边缘像素同样能被完整的卷积核覆盖多次，地位更公平。</li>
+<li><strong>SAME vs VALID 模式：</strong>
+<ul>
+<li><strong>VALID</strong>（不填充）：$P=0$，输出尺寸 $< $ 输入尺寸。</li>
+<li><strong>SAME</strong>（保持尺寸）：选择合适的 $P$ 使输出 $=$ 输入尺寸（步幅为 1 时）。</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<div class="metaphor-box">
+<div class="title">生活比喻：拍照时的构图裁剪</div>
+把卷积想象成对一张照片做"局部聚焦分析"：
+
+<ul>
+<li><strong>不填充（VALID）</strong>：相机只能对准照片的<strong>中心区域</strong>拍摄，每次拍完后照片变小一圈——边缘的风景越来越被切掉，拍得越多，照片越小，最终缩成一个点就再也没法拍了。</li>
+<li><strong>填充（SAME）</strong>：在照片四周贴上一圈白色边框，让相机也能对准边缘拍摄。贴几圈、卷积核多大，都能算好，保证每次"拍出来的照片"和原来一样大，信息不丢失。</li>
+<li><strong>奇数核的必要性</strong>：边框要<strong>对称</strong>地贴在四周，所以每边贴的量必须是整数。$K=3$ 时需要 $P=(3-1)/2=1$（每边 1 圈），$K=5$ 时需要 $P=2$（每边 2 圈）——奇数核总能整除。$K=4$ 时需要 $P=(4-1)/2=1.5$，但是圈数不能是 0.5——要么上边贴 1 圈下边贴 2 圈（不对称），输出就会出现半像素的错位，这在工程中是不可接受的。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 零填充后形状变化：</strong>
+
+<p>$4 \times 4$ 输入加 $P=1$ 填充后，每个维度增加 $2P=2$，形状变为 $\mathbf{6 \times 6}$。</p>
+
+<p>经过 $K=3$，$S=1$，$P=0$ 卷积：</p>
+$$H_{out} = \left\lfloor \frac{6 + 0 - 3}{1} \right\rfloor + 1 = 3 + 1 = \mathbf{4}$$
+
+<p>输出形状为 $4 \times 4$，与输入相同。<strong>这说明 $P=1,\ K=3,\ S=1$ 时，卷积不改变特征图尺寸。</strong></p>
+
+<strong>(2) 不填充时的尺寸衰减：</strong>
+
+<p>每次 $3 \times 3$，$S=1$，$P=0$ 的卷积，尺寸减少：</p>
+$$\Delta = K - 1 = 3 - 1 = 2 \quad \text{（每次高/宽各减少 2）}$$
+
+<p>初始 $28 \times 28$，设卷积 $n$ 次后尺寸为 $28 - 2n$，要求 $28 - 2n \geq 2$（至少 $2 \times 2$ 才能再卷一次 $3 \times 3$）：</p>
+$$n \leq \frac{28 - 2}{2} = 13$$
+
+<p>最多卷积 $\mathbf{13}$ 次，第 13 次后尺寸为 $28 - 26 = 2$；再卷一次（第 14 次）会因为 $2 < 3 = K$ 而无法进行（或降至无效尺寸）。</p>
+
+<strong>(3) 奇数核与 SAME 填充：</strong>
+
+<p>SAME 填充要求步幅 $S=1$ 时 $H_{out} = H_{in}$，代入公式：</p>
+$$H_{in} = \left\lfloor \frac{H_{in} + 2P - K}{1} \right\rfloor + 1 \implies 2P = K - 1 \implies P = \frac{K-1}{2}$$
+
+<p>$P$ 必须是<strong>非负整数</strong>，故 $K-1$ 必须是偶数，即 $K$ 必须是<strong>奇数</strong>。</p>
+
+<p>若 $K=4$（偶数），则 $P = 3/2 = 1.5$——无法用整数填充实现完美的 SAME 模式。实际工程中只能取 $P=1$（上下各 1）或在上下两边不对称填充（上 1 下 2），两种方案都会导致输出偏移或非对称，破坏特征图的空间对齐性，给后续的残差连接（形状必须完全匹配）带来麻烦。</p>
+
+<div class="key-box">
+<div class="title">总结：填充三大结论</div>
+<ol>
+<li>填充幅度 $P=1$、$K=3$、$S=1$ $\Rightarrow$ 输出尺寸 $=$ 输入尺寸（SAME 模式）</li>
+<li>不填充时每次卷积尺寸减少 $K-1$（$3\times3$ 核每次减 2）</li>
+<li>SAME 填充要求 $K$ 为奇数，这正是 ResNet、VGG 全面采用 $3\times3$ 和 $1\times1$ 卷积核的重要原因之一</li>
+</ol>
+</div>
+</div>
+
+<div class="app-box">
+<div class="title">现实应用场景</div>
+<strong>U-Net 中的填充策略（医学图像分割）：</strong><br>
+U-Net 是医学图像分割领域最经典的网络。其"编码器-解码器"结构中，解码器阶段需要将深层特征图<strong>上采样后与编码器的特征图拼接</strong>，这要求两者的高宽完全一致。如果卷积层使用 VALID（无填充），每次卷积都缩小特征图，解码器与编码器的尺寸就对不上，无法拼接。因此 U-Net 中几乎所有卷积层都使用 $3\times3$ 核加 $P=1$ 的 SAME 填充，保证特征图尺寸在编解码两端严格匹配。
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q8-04 三维卷积的通道与参数量计算</div>
+<strong>题目描述：</strong><br>
+真实图像是三维数据（通道数 $C_{in}$、高度 $H$、宽度 $W$）。进行三维卷积时，输入通道数必须与卷积核的通道数相同。使用 $C_{out}$ 个卷积核时，输出通道数为 $C_{out}$。
+
+<p><strong>题目：</strong>Fashion-MNIST 案例中，文档给出了如下模型结构：</p>
+<ul>
+<li>第 1 层：<code>Conv2d(in=1, out=6, kernel=5, padding=2)</code>，输入为 $28 \times 28$ 灰度图</li>
+<li>第 2 层：<code>AvgPool2d(kernel=2, stride=2)</code></li>
+<li>第 3 层：<code>Conv2d(in=6, out=16, kernel=5)</code>（无填充）</li>
+<li>第 4 层：<code>AvgPool2d(kernel=2, stride=2)</code></li>
+<li>第 5 层：<code>Flatten()</code></li>
+<li>第 6 层：<code>Linear(400, 120)</code></li>
+</ul>
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li>逐层追踪特征图的形状，填写下表（批次维度忽略，只写 $(C, H, W)$）：
+
+<table>
+<tr>
+<th>层编号</th>
+<th>层类型</th>
+<th>$C$</th>
+<th>$H$</th>
+<th>$W$</th>
+</tr>
+<tr>
+<td>输入</td>
+<td>灰度图像</td>
+<td>1</td>
+<td>28</td>
+<td>28</td>
+</tr>
+<tr>
+<td>第1层</td>
+<td>Conv2d(1,6,K=5,P=2)</td>
+<td><span class="underline">6</span></td>
+<td><span class="underline">28</span></td>
+<td><span class="underline">28</span></td>
+</tr>
+<tr>
+<td>第2层</td>
+<td>AvgPool2d(K=2,S=2)</td>
+<td><span class="underline">6</span></td>
+<td><span class="underline">14</span></td>
+<td><span class="underline">14</span></td>
+</tr>
+<tr>
+<td>第3层</td>
+<td>Conv2d(6,16,K=5,P=0)</td>
+<td><span class="underline">16</span></td>
+<td><span class="underline">10</span></td>
+<td><span class="underline">10</span></td>
+</tr>
+<tr>
+<td>第4层</td>
+<td>AvgPool2d(K=2,S=2)</td>
+<td><span class="underline">16</span></td>
+<td><span class="underline">5</span></td>
+<td><span class="underline">5</span></td>
+</tr>
+<tr>
+<td>第5层</td>
+<td>Flatten</td>
+<td colspan="3">$16 \times 5 \times 5 = \mathbf{400}$</td>
+</tr>
+</table>
+
+</li>
+<li>Flatten 后的向量长度是多少？与 <code>Linear(400, 120)</code> 的输入维度 400 是否吻合？</li>
+<li>计算第 3 层卷积（<code>Conv2d(6,16,5)</code>）的参数量（含偏置）。</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 8 章 8.2.4 三维数据的卷积运算 / 8.5.2 搭建模型]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：通道数在 CNN 中是怎么变化的？</div>
+<ul>
+<li><strong>卷积层改变通道数：</strong>输入 $C_{in}$ 个通道，使用 $C_{out}$ 个卷积核，输出 $C_{out}$ 个通道。通道数的变化完全由卷积核数量决定，与 $K$、$P$、$S$ 无关。</li>
+<li><strong>池化层不改变通道数：</strong>$2\times2$ 池化对每个通道<strong>独立</strong>地缩小空间尺寸（高宽各变为原来的一半），通道数 $C$ 保持不变。</li>
+<li><strong>参数量随通道数平方增长：</strong>一个卷积层的参数 $= C_{out} \times (K^2 \times C_{in} + 1)$。若 $C_{in}$ 和 $C_{out}$ 都翻倍，参数量约翻 4 倍——这是 CNN 深层参数量急剧增大的根本原因。</li>
+<li><strong>Flatten 的作用：</strong>将 $(C, H, W)$ 的三维张量压平为 $C \times H \times W$ 的一维向量，以便输入全连接层。此时必须保证前面各层的输出尺寸使得 $C \times H \times W$ 恰好等于全连接层的输入维度。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 逐层特征图形状追踪：</strong>
+
+<ul>
+<li><strong>第1层 Conv2d(1,6,K=5,P=2,S=1)</strong>：$H_{out} = \lfloor(28+4-5)/1\rfloor+1 = 28$，通道变 6。形状：$(6, 28, 28)$</li>
+<li><strong>第2层 AvgPool2d(K=2,S=2)</strong>：高宽各缩小一半，通道不变。形状：$(6, 14, 14)$</li>
+<li><strong>第3层 Conv2d(6,16,K=5,P=0,S=1)</strong>：$H_{out} = \lfloor(14+0-5)/1\rfloor+1 = 10$，通道变 16。形状：$(16, 10, 10)$</li>
+<li><strong>第4层 AvgPool2d(K=2,S=2)</strong>：高宽各缩小一半，通道不变。形状：$(16, 5, 5)$</li>
+</ul>
+
+<table>
+<tr>
+<th>层编号</th>
+<th>层类型</th>
+<th>$C$</th>
+<th>$H$</th>
+<th>$W$</th>
+</tr>
+<tr>
+<td>输入</td>
+<td>灰度图像</td>
+<td>1</td>
+<td>28</td>
+<td>28</td>
+</tr>
+<tr>
+<td>第1层</td>
+<td>Conv2d(1,6,K=5,P=2)</td>
+<td><strong>6</strong></td>
+<td><strong>28</strong></td>
+<td><strong>28</strong></td>
+</tr>
+<tr>
+<td>第2层</td>
+<td>AvgPool2d(K=2,S=2)</td>
+<td><strong>6</strong></td>
+<td><strong>14</strong></td>
+<td><strong>14</strong></td>
+</tr>
+<tr>
+<td>第3层</td>
+<td>Conv2d(6,16,K=5,P=0)</td>
+<td><strong>16</strong></td>
+<td><strong>10</strong></td>
+<td><strong>10</strong></td>
+</tr>
+<tr>
+<td>第4层</td>
+<td>AvgPool2d(K=2,S=2)</td>
+<td><strong>16</strong></td>
+<td><strong>5</strong></td>
+<td><strong>5</strong></td>
+</tr>
+<tr>
+<td>第5层</td>
+<td>Flatten</td>
+<td colspan="3">$16 \times 5 \times 5 = \mathbf{400}$</td>
+</tr>
+</table>
+
+<strong>(2) Flatten 后向量长度：</strong>
+$$16 \times 5 \times 5 = \mathbf{400}$$
+<p>与 <code>Linear(400, 120)</code> 的输入维度完全吻合！这验证了模型结构设计的正确性。</p>
+
+<strong>(3) 第3层卷积参数量：</strong>
+
+<p>$C_{in}=6$，$C_{out}=16$，$K=5$</p>
+$$\text{参数量} = C_{out} \times (K^2 \times C_{in} + 1) = 16 \times (25 \times 6 + 1) = 16 \times 151 = \mathbf{2{,}416}$$
+
+<div class="key-box">
+<div class="title">这就是 LeNet-5！</div>
+本题追踪的模型正是 1998 年 Yann LeCun 提出的 <strong>LeNet-5</strong>，是深度学习史上第一个实用的卷积神经网络，最初用于手写数字识别（MNIST）。这里将其应用到 Fashion-MNIST 上，原汁原味地重现了 CNN 的开山之作。LeNet-5 的整体参数量约 6 万个——这个数字放到今天几乎微不足道，但在 1998 年是巨大的工程突破。
+</div>
+</div>
+
+<div class="app-box">
+<div class="title">现实应用场景</div>
+<strong>为什么现代网络通道数要从 64 起步，越来越大？</strong><br>
+LeNet-5 的通道数只有 6 和 16。而现代网络（如 ResNet-50）从 64 通道开始，最深处达到 2048 通道。这是因为：更多的通道意味着网络可以同时学习更多种类的特征（64 个不同的"纹理检测器"、"边缘检测器"……），从而提高模型的表达能力。代价是参数量随通道数平方增长，因此现代网络引入了 $1\times1$ 卷积（瓶颈结构）来在增加通道数的同时控制参数量——这是 GoogLeNet Inception 模块的核心设计思想。
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q8-05 深度卷积神经网络经典架构对比</div>
+<strong>题目描述：</strong><br>
+文档第 8.4 节介绍了四个里程碑式的深度卷积神经网络：AlexNet（2012）、VGG（2014）、GoogLeNet（2014）、ResNet（2015）。
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li>填写下表，将各网络与其核心创新点对应：
+
+<table>
+<tr>
+<th>网络名称</th>
+<th>核心创新点</th>
+</tr>
+<tr>
+<td>AlexNet</td>
+<td><span class="underline">C——首次大规模验证深度 CNN，使用 ReLU + Dropout</span></td>
+</tr>
+<tr>
+<td>VGG</td>
+<td><span class="underline">D——全用 $3\times3$ 小核堆叠，证明深度优于宽度</span></td>
+</tr>
+<tr>
+<td>GoogLeNet</td>
+<td><span class="underline">B——Inception 结构，多尺度并行卷积</span></td>
+</tr>
+<tr>
+<td>ResNet</td>
+<td><span class="underline">A——残差连接，解决梯度消失，使超深网络成为可能</span></td>
+</tr>
+</table>
+
+<strong>选项：</strong>
+<ul>
+<li>A. 引入残差连接（跳跃连接），学习残差 $h(x)-x$，解决深度网络梯度消失问题</li>
+<li>B. 引入 Inception 结构，横向扩展（多尺度卷积并行），减少参数量</li>
+<li>C. 首次证明深度 CNN 在大规模图像分类中的优越性，引发深度学习热潮，使用 ReLU 激活函数和 Dropout</li>
+<li>D. 全部使用 $3\times3$ 小卷积核堆叠，证明"深度优于单层大核"，结构简洁规整</li>
+</ul>
+
+</li>
+<li>ResNet 提出的"残差学习"中，网络学习的目标从 $h(x)$ 变为了什么？"快捷结构"（跳跃连接）的数学形式是什么？</li>
+
+<li>VGG 的全称是什么？其 VGG-16 和 VGG-19 中的数字分别指什么？</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 8 章 8.4 深度卷积神经网络]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：为什么网络越来越深，问题却越来越多？</div>
+<ul>
+<li><strong>直觉上的困惑</strong>：更深的网络学习能力更强，按道理应该越深越好，但实验发现：超过某个深度后，更深的网络在训练集上的误差反而比浅网络更高——这不是过拟合（测试集表现也变差），而是网络<strong>根本没有被训练好</strong>。</li>
+<li><strong>根本原因：梯度消失</strong>。反向传播时梯度从输出层往输入层传递，每经过一层就要乘以本地梯度。若本地梯度普遍小于 1，连乘 100 层后，浅层的梯度趋近于 0，这些层的参数几乎无法更新——网络越深，浅层"学得越慢"甚至"完全不学"。</li>
+<li><strong>ResNet 的天才解法</strong>：在每隔几层的地方加一条"高速公路"（跳跃连接），把输入 $x$ 直接加到几层卷积之后的输出上。这条高速公路让梯度可以<strong>绕过卷积层直接传回去</strong>，不管网络多深，浅层总能收到有效的梯度信号。</li>
+<li><strong>比喻</strong>：就像在多层楼之间加了一部电梯（跳跃连接）——没有电梯时，消息只能一层层往下传，传到底层时已经面目全非；有了电梯，底层随时能直接接收到顶层的原始消息。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 网络与创新点对应：</strong>
+
+<table>
+<tr>
+<th>网络名称</th>
+<th>核心创新点</th>
+</tr>
+<tr>
+<td>AlexNet</td>
+<td><strong>C</strong>——首次大规模验证深度 CNN，使用 ReLU + Dropout</td>
+</tr>
+<tr>
+<td>VGG</td>
+<td><strong>D</strong>——全用 $3\times3$ 小核堆叠，证明深度优于宽度</td>
+</tr>
+<tr>
+<td>GoogLeNet</td>
+<td><strong>B</strong>——Inception 结构，多尺度并行卷积</td>
+</tr>
+<tr>
+<td>ResNet</td>
+<td><strong>A</strong>——残差连接，解决梯度消失，使超深网络成为可能</td>
+</tr>
+</table>
+
+<strong>(2) ResNet 残差学习：</strong>
+
+<p>原始目标是让网络直接学习 $h(x)$（期望输出）。ResNet 改为让网络学习<strong>残差</strong> $F(x) = h(x) - x$，实际输出为：</p>
+$$\text{output} = F(x) + x$$
+<p>其中 $x$ 通过跳跃连接（恒等映射）直接加到输出上。若最优解接近恒等映射（$h(x) \approx x$），则网络只需学 $F(x) \approx 0$——而让一个网络学"接近 0 的函数"远比学"接近恒等映射的函数"容易。</p>
+
+<strong>(3) VGG 全称与编号含义：</strong>
+
+<p>VGG 全称：<strong>Visual Geometry Group</strong>（牛津大学视觉几何组）。</p>
+<p>VGG-16 中的 <strong>16</strong> 和 VGG-19 中的 <strong>19</strong> 分别指网络中<strong>含有可学习参数的层数</strong>（卷积层 + 全连接层的总数），分别为 16 层和 19 层。</p>
+
+<div class="key-box">
+<div class="title">四大里程碑总结时间线</div>
+<table>
+<tr>
+<th>年份</th>
+<th>网络</th>
+<th>层数</th>
+<th>最大贡献</th>
+</tr>
+<tr>
+<td>2012</td>
+<td>AlexNet</td>
+<td>8</td>
+<td>深度学习元年，引爆 CV 革命</td>
+</tr>
+<tr>
+<td>2014</td>
+<td>VGG</td>
+<td>16/19</td>
+<td>极简设计哲学，迁移学习骨干</td>
+</tr>
+<tr>
+<td>2014</td>
+<td>GoogLeNet</td>
+<td>22</td>
+<td>Inception 模块，横向深度</td>
+</tr>
+<tr>
+<td>2015</td>
+<td>ResNet</td>
+<td>50/101/152</td>
+<td>残差连接，深度无上限</td>
+</tr>
+</table>
+</div>
+</div>
+
+<div class="app-box">
+<div class="title">现实应用场景</div>
+<strong>ResNet 至今仍是工业界最常用的骨干网络：</strong><br>
+ResNet-50 在 ImageNet 上的 Top-5 准确率达 93.3%，而参数量仅约 2500 万——效率与精度的极佳平衡点。在自动驾驶（目标检测）、医疗影像（病灶分割）、工业质检（缺陷识别）等场景，ResNet 几乎是首选的预训练骨干网络。其残差连接的思想也被后续所有主流架构（DenseNet、EfficientNet、甚至 Transformer 的层归一化）所继承，堪称深度学习历史上影响最深远的单篇论文（引用量超 20 万次）。
+</div>
+
+<hr>
+
+<div class="problem-box">
+<div class="title">Q8-06 代码阅读：Fashion-MNIST 训练流程分析</div>
+<strong>题目描述：</strong><br>
+阅读以下文档中 Fashion-MNIST 案例的训练代码片段，回答问题。
+
+<pre><code>model = nn.Sequential(
+    nn.Conv2d(1, 6, kernel_size=5, padding=2),  # 第1层
+    nn.Sigmoid(),
+    nn.AvgPool2d(kernel_size=2, stride=2),       # 第2层
+    nn.Conv2d(6, 16, kernel_size=5),             # 第3层
+    nn.Sigmoid(),
+    nn.AvgPool2d(kernel_size=2, stride=2),       # 第4层
+    nn.Flatten(),                                # 第5层
+    nn.Linear(400, 120),
+    nn.Sigmoid(),
+    nn.Linear(120, 84),
+    nn.Sigmoid(),
+    nn.Linear(84, 10),                           # 输出层
+)
+
+def init_weights(layer):
+    if type(layer) == nn.Linear or type(layer) == nn.Conv2d:
+        nn.init.xavier_uniform_(layer.weight)
+
+model.apply(init_weights)
+loss = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.9)
+</code></pre>
+
+<p><strong>问题：</strong></p>
+<ol type="(1)">
+<li>输出层 <code>Linear(84, 10)</code> 的输出维度为 10，对应 Fashion-MNIST 的几个类别？这 10 个类别分别是什么？</li>
+<li>代码使用 <code>xavier_uniform_</code> 初始化权重，但<strong>没有对 Sigmoid 激活层初始化</strong>——这是正确的吗？为什么？</li>
+<li>训练中使用的损失函数是 <code>CrossEntropyLoss</code>，它适用于分类还是回归任务？它在内部集成了哪个激活操作？</li>
+<li>若将所有 <code>nn.Sigmoid()</code> 替换为 <code>nn.ReLU()</code>，从梯度消失的角度分析，这样修改对训练有什么好处？</li>
+</ol>
+
+<div class="source"><small><em>来源溯源：[文档第 8 章 8.5 案例：服装分类]</em></small></div>
+</div>
+
+<div class="beginner-box">
+<div class="title">小白必读：为什么这里用 Sigmoid 而不是 ReLU？</div>
+<ul>
+<li><strong>历史背景：</strong>LeNet-5（1998 年）提出时，ReLU 还没被广泛使用，Sigmoid 是当时的标准激活函数。文档案例刻意保留了原始的 Sigmoid，以还原 LeNet-5 的历史面貌。</li>
+<li><strong>Sigmoid 的梯度消失问题：</strong>Sigmoid 的输出范围是 $(0,1)$，其导数最大值仅为 $0.25$（在输入为 0 时取到），在输入绝对值较大时导数趋近于 0。多层 Sigmoid 连乘后，浅层梯度极小，参数更新极慢——这正是文档第 5 章讨论的梯度消失问题。</li>
+<li><strong>ReLU 的优势：</strong>$\text{ReLU}(x) = \max(0,x)$，在正区间的导数恒为 1，不会因链式乘法而指数级衰减，大幅缓解梯度消失，训练更快更稳定。</li>
+<li><strong>Xavier 初始化</strong>：专门为 Sigmoid/Tanh 设计，通过控制初始权重的方差，使各层激活值的方差尽量一致，让梯度传播更平稳。对于 ReLU，则推荐使用 He 初始化（<code>kaiming_uniform_</code>）。</li>
+</ul>
+</div>
+
+<div class="solution-box">
+<div class="title">参考答案与详细解析</div>
+<strong>(1) 输出层与类别：</strong>
+
+<p><code>Linear(84, 10)</code> 输出 <strong>10</strong> 维向量，对应 Fashion-MNIST 的 <strong>10 个服装类别</strong>：</p>
+
+<table>
+<tr>
+<th>标签</th>
+<th>类别</th>
+<th>标签</th>
+<th>类别</th>
+</tr>
+<tr>
+<td>0</td>
+<td>T恤/上衣</td>
+<td>5</td>
+<td>凉鞋</td>
+</tr>
+<tr>
+<td>1</td>
+<td>裤子</td>
+<td>6</td>
+<td>衬衫</td>
+</tr>
+<tr>
+<td>2</td>
+<td>套头衫</td>
+<td>7</td>
+<td>运动鞋</td>
+</tr>
+<tr>
+<td>3</td>
+<td>连衣裙</td>
+<td>8</td>
+<td>包</td>
+</tr>
+<tr>
+<td>4</td>
+<td>外套</td>
+<td>9</td>
+<td>靴子</td>
+</tr>
+</table>
+
+<strong>(2) xavier_uniform_ 没有初始化激活层——正确！</strong>
+
+<p><code>xavier_uniform_</code> 是对<strong>权重矩阵</strong>的初始化，而 Sigmoid（<code>nn.Sigmoid()</code>）、ReLU、池化层等<strong>没有可学习的参数</strong>（没有权重矩阵），因此无需初始化。<code>model.apply(init_weights)</code> 中的条件判断 <code>type(layer) == nn.Linear or type(layer) == nn.Conv2d</code> 已经精确地只初始化有权重的层，设计是正确的。</p>
+
+<strong>(3) CrossEntropyLoss 适用场景：</strong>
+
+<p><code>CrossEntropyLoss</code> 适用于<strong>多分类任务</strong>（分类问题）。它在内部集成了 <strong>Softmax</strong> 操作——即先对网络最后一层的 logits（原始输出）做 Softmax 转化为概率分布，再计算交叉熵损失。因此使用 <code>CrossEntropyLoss</code> 时，最后一层（<code>Linear(84, 10)</code>）<strong>不需要再手动加 Softmax</strong>，否则会做两次 Softmax 导致梯度计算出错。</p>
+
+<strong>(4) Sigmoid 换为 ReLU 的好处：</strong>
+
+<ul>
+<li><strong>缓解梯度消失</strong>：ReLU 在正区间导数恒为 1，链式法则乘积不会趋近于 0；而 Sigmoid 导数最大仅 0.25，三层 Sigmoid 连乘后梯度最多剩 $0.25^3 \approx 1.5\%$。</li>
+<li><strong>训练速度更快</strong>：梯度信号更强，参数更新幅度更大，收敛轮次减少。</li>
+<li><strong>代价</strong>：若使用 ReLU，Xavier 初始化不再最优，应改用 <strong>He 初始化</strong>（<code>kaiming_uniform_</code>），以补偿 ReLU 将约一半输入置零带来的方差损失。</li>
+</ul>
+
+<div class="key-box">
+<div class="title">修改建议：现代化 LeNet-5</div>
+<pre><code>def init_weights(layer):
+    if type(layer) == nn.Linear or type(layer) == nn.Conv2d:
+        # ReLU 配套使用 He 初始化
+        nn.init.kaiming_uniform_(layer.weight, nonlinearity='relu')
+
+model_modern = nn.Sequential(
+    nn.Conv2d(1, 6, kernel_size=5, padding=2),
+    nn.ReLU(),           # 替换 Sigmoid
+    nn.AvgPool2d(2, 2),
+    nn.Conv2d(6, 16, 5),
+    nn.ReLU(),           # 替换 Sigmoid
+    nn.AvgPool2d(2, 2),
+    nn.Flatten(),
+    nn.Linear(400, 120),
+    nn.ReLU(),           # 替换 Sigmoid
+    nn.Linear(120, 84),
+    nn.ReLU(),           # 替换 Sigmoid
+    nn.Linear(84, 10),   # 最后一层不加激活，CrossEntropyLoss 自带 Softmax
+)
+</code></pre>
+</div>
+</div>
+
+<div class="app-box">
+<div class="title">现实应用场景</div>
+<strong>为什么工业界几乎放弃了 Sigmoid（除了输出层）？</strong><br>
+2012 年 AlexNet 横空出世时，其最大改动之一就是将网络中所有隐藏层的 Sigmoid 替换为 ReLU，并证明这一改动使训练速度提升了约 6 倍。此后，ReLU 及其变体（Leaky ReLU、ELU、GELU）成为深层网络中间层的主流激活函数，Sigmoid 仅保留在<strong>二分类输出层</strong>（将 logit 映射到 $[0,1]$ 概率）和<strong>门控机制</strong>（LSTM、注意力机制中的门控信号）中。现代大语言模型（如 GPT 系列）的 Transformer 块中使用的是 GELU（高斯误差线性单元），在 ReLU 的基础上引入了更平滑的梯度过渡，进一步提升了深层网络的训练稳定性。
+</div>
+
+</body>
+</html>

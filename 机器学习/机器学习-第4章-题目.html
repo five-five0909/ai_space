@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器学习 - 第4章 - 模型评估和模型选择</title>
+    <script>
+MathJax = {
+    tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.8; color: #333; background-color: #fafafa;
+    padding: 20px; max-width: 900px; margin: 0 auto;
+}
+h1 { text-align: center; font-size: 2em; margin-bottom: 0.3em; }
+.subtitle { text-align: center; font-size: 1.1em; color: #666; margin-bottom: 1.5em; }
+h2 { font-size: 1.5em; margin: 1.5em 0 1em 0; border-bottom: 2px solid #3498db; padding-bottom: 0.3em; }
+p { margin: 0.8em 0; }
+strong { color: #1a1a1a; }
+code { background-color: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: "Consolas", monospace; }
+pre { background-color: #f8f8f8; border: 1px solid #ddd; border-radius: 4px; padding: 12px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+.beginner-box { background-color: #d9ecf5; border: 1px solid #4a90a4; border-radius: 5px; padding: 15px 20px; margin: 1em 0; }
+.beginner-box .box-title { font-weight: bold; color: #2c5d6e; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #8fc1d8; }
+.metaphor-box { background-color: #fef6ec; border: 1px solid #d4912c; border-radius: 5px; padding: 15px 20px; margin: 1em 0; }
+.metaphor-box .box-title { font-weight: bold; color: #8b5a00; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #f0c080; }
+.problem-box { background-color: #fff; border: 2px solid #3a7bd5; border-radius: 5px; padding: 15px 20px; margin: 1.5em 0; }
+.problem-box .box-title { font-weight: bold; color: #1a5cb2; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #a0c4e8; }
+.solution-box { background-color: #f0fff0; border: 1px solid #4a9c4a; border-radius: 5px; padding: 15px 20px; margin: 1em 0; }
+.solution-box .box-title { font-weight: bold; color: #2d6b2d; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #90d890; }
+.key-box { background-color: #fffbe6; border: 1px solid #d4a017; border-radius: 5px; padding: 15px 20px; margin: 1em 0; }
+.key-box .box-title { font-weight: bold; color: #8b6914; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #f0d070; }
+.app-box { background-color: #f0fff0; border: 1px solid #4a9c6a; border-radius: 5px; padding: 15px 20px; margin: 1em 0; }
+.app-box .box-title { font-weight: bold; color: #2d6b4d; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #90d8a0; }
+ul, ol { margin: 0.5em 0 0.5em 2em; }
+li { margin: 0.3em 0; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.95em; }
+th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+thead { border-top: 2px solid #333; border-bottom: 2px solid #333; }
+thead th { background-color: #f5f5f5; font-weight: bold; }
+tbody { border-bottom: 2px solid #333; }
+.blank-line { display: inline-block; min-width: 80px; border-bottom: 1px solid #333; }
+.source { color: #888; font-size: 0.85em; font-style: italic; }
+.chapter-summary { background-color: #f8f8f8; border-left: 4px solid #3498db; padding: 15px 20px; margin: 1.5em 0; }
+    </style>
+</head>
+<body>
+    <h1>机器学习<br>第4章&nbsp;&nbsp;模型评估和模型选择</h1>
+    <p class="subtitle">——如何知道模型学得好不好？如何让它学得更好？</p>
+
+    <div class="beginner-box">
+        <div class="box-title">本章题目导览：你将挑战哪些核心问题？</div>
+        <p>本章是机器学习的"质量控制"核心章节——没有评估，就不知道模型在现实中会不会失败。本章 8 道题覆盖从损失函数到梯度下降的完整评估与优化体系：</p>
+        <ul>
+            <li><strong>Q4-01（损失函数）</strong>：四种损失函数的公式、性质与适用场景——为什么不同任务用不同的损失？</li>
+            <li><strong>Q4-02（欠拟合/过拟合）</strong>：识别、诊断、解决——偏差-方差权衡是什么？</li>
+            <li><strong>Q4-03（正则化计算）</strong>：L1/L2/ElasticNet 的公式、几何直觉与超参数作用，手动计算正则化项。</li>
+            <li><strong>Q4-04（交叉验证）</strong>：Hold-Out、k 折、LOO 三种策略的优缺点与适用场景。</li>
+            <li><strong>Q4-05（梯度下降推导）</strong>：BGD/SGD/MBGD 的对比，以及梯度下降一步迭代的手动计算。</li>
+            <li><strong>Q4-06（回归评估指标）</strong>：MAE/MSE/RMSE/$R^2$ 的公式计算与含义辨析。</li>
+            <li><strong>Q4-07（分类评估指标）</strong>：混淆矩阵、准确率/精确率/召回率/F1 的计算，类别不平衡下的指标选择。</li>
+            <li><strong>Q4-08（ROC/AUC）</strong>：ROC 曲线的绘制原理、AUC 的含义，以及 ROC vs PR 曲线的选择。</li>
+        </ul>
+    </div>
+
+    <h2>第 4 章&nbsp;&nbsp;模型评估和模型选择</h2>
+
+    <div class="metaphor-box">
+        <div class="box-title">先建立一个总感觉：评估是什么？为什么重要？</div>
+        <p>模型训练完之后，我们面临两个关键问题：<strong>它学得好吗？</strong>（评估）<strong>怎么让它学得更好？</strong>（选择与优化）。</p>
+        <p>没有评估就没有方向——就像考试不公布分数，学生不知道哪里错了，怎么改进？</p>
+        <p>评估的难点在于：我们真正关心的是模型在<strong>未知新数据</strong>上的表现，但手里只有有限的历史数据。所有评估方法（交叉验证、测试集）都是在用有限数据<strong>估计</strong>这个"真实表现"。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="box-title">Q4-01&nbsp;&nbsp;损失函数：四种损失的公式与适用场景</div>
+        <p><strong>题目描述：</strong></p>
+        <p>损失函数量化了模型预测与真实值之间的差距，是策略的核心。不同任务对损失函数有不同的要求。</p>
+        <p><strong>问题：</strong></p>
+        <ol>
+            <li>填写下表，对比四种常见损失函数：
+                <table>
+                    <thead>
+                        <tr>
+                            <th>损失函数</th>
+                            <th>公式</th>
+                            <th>适用任务</th>
+                            <th>主要特点</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0-1损失</td>
+                            <td>$L = \mathbb{1}[\hat{y} \neq y]$</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>平方损失（MSE）</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td>对异常值敏感</td>
+                        </tr>
+                        <tr>
+                            <td>绝对损失（MAE）</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>对数似然损失</td>
+                            <td>$-[y\log\hat{p}+(1-y)\log(1-\hat{p})]$</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>0-1 损失函数为什么<strong>不能用梯度下降</strong>来优化？实际分类任务中为什么用对数损失来替代它？</li>
+            <li>平方损失和绝对损失都可以用于回归，但有一个关键差异：异常值（Outlier）存在时，哪种损失函数更鲁棒？从数学角度解释原因。</li>
+            <li>写出多分类任务的交叉熵损失公式（Softmax Cross-Entropy），并说明其与二分类对数损失的关系。</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 4 章 4.1 损失函数]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="box-title">参考答案与详细解析</div>
+        <p><strong>(1) 四种损失对比：</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>损失函数</th>
+                    <th>公式</th>
+                    <th>适用任务</th>
+                    <th>主要特点</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0-1损失</td>
+                    <td>$\mathbb{1}[\hat{y}\neq y]$</td>
+                    <td>分类</td>
+                    <td>不可微，无法梯度优化</td>
+                </tr>
+                <tr>
+                    <td>平方损失</td>
+                    <td>$(\hat{y}-y)^2$</td>
+                    <td>回归</td>
+                    <td>处处可微，对异常值极敏感</td>
+                </tr>
+                <tr>
+                    <td>绝对损失</td>
+                    <td>$|\hat{y}-y|$</td>
+                    <td>回归</td>
+                    <td>在0处不可微，对异常值鲁棒</td>
+                </tr>
+                <tr>
+                    <td>对数似然损失</td>
+                    <td>$-[y\log\hat{p}+(1-y)\log(1-\hat{p})]$</td>
+                    <td>二分类</td>
+                    <td>概率化损失，凸函数，梯度平滑</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>(2) 0-1 损失不可梯度优化：</strong></p>
+        <p>0-1 损失是阶跃函数：在正确预测时梯度为 0，在错误预测时梯度无定义（不连续跳变）——无法计算有意义的梯度方向，梯度下降无从下手。对数损失是 0-1 损失的<strong>凸连续可微上界</strong>：当预测正确时损失接近 0，预测错误时损失趋向无穷，惩罚了"高置信度的错误预测"，同时处处可微，梯度可以平滑地传播。</p>
+
+        <p><strong>(3) 对异常值的鲁棒性：</strong></p>
+        <p><strong>MAE（绝对损失）更鲁棒</strong>。平方损失对误差做平方放大——一个误差为 10 的异常点产生损失 100，贡献的梯度与误差成正比，会严重"扭曲"模型参数去迁就这个异常点。MAE 的梯度是恒定的 $\pm 1$（与误差大小无关），异常点的影响被限制在固定范围内，不会因为误差大而主导整个优化方向。</p>
+
+        <p><strong>(4) 多分类交叉熵：</strong></p>
+        $$L = -\sum_{c=1}^C y_c \log \hat{p}_c$$
+        <p>其中 $\hat{p}_c = \text{softmax}(z_c)$，$y_c$ 是 one-hot 标签。当 $C=2$ 时，$y_1 = y$，$y_2 = 1-y$，退化为二分类对数损失，两者是统一框架下的特例关系。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="box-title">Q4-02&nbsp;&nbsp;欠拟合与过拟合：诊断、原因与解决</div>
+        <p><strong>题目描述：</strong></p>
+        <p>欠拟合和过拟合是机器学习中最核心的两个问题，理解它们的本质是选择合适模型和正则化策略的基础。</p>
+        <p><strong>问题：</strong></p>
+        <ol>
+            <li>解释<strong>偏差（Bias）</strong>和<strong>方差（Variance）</strong>的含义，并填写下表：
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>欠拟合</th>
+                            <th>过拟合</th>
+                            <th>理想模型</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>偏差</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td>低</td>
+                        </tr>
+                        <tr>
+                            <td>方差</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td>低</td>
+                        </tr>
+                        <tr>
+                            <td>训练集误差</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td>低</td>
+                        </tr>
+                        <tr>
+                            <td>测试集误差</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td>低（接近训练误差）</td>
+                        </tr>
+                        <tr>
+                            <td>产生原因</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td>—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li><strong>诊断方法</strong>：如何通过"训练误差"和"验证误差"的大小关系来判断模型处于欠拟合还是过拟合状态？</li>
+            <li><strong>解决欠拟合的方法</strong>（至少 3 种）；<strong>解决过拟合的方法</strong>（至少 4 种）。</li>
+            <li>学习曲线（Learning Curve）是一种常用的诊断工具，横轴是训练样本数量，纵轴是误差。描述欠拟合和过拟合模型各自的学习曲线形状特征。</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 4 章 4.3 欠拟合与过拟合]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="box-title">参考答案与详细解析</div>
+        <p><strong>(1) 偏差-方差表格：</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>欠拟合</th>
+                    <th>过拟合</th>
+                    <th>理想模型</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>偏差</td>
+                    <td>高（系统性错误）</td>
+                    <td>低</td>
+                    <td>低</td>
+                </tr>
+                <tr>
+                    <td>方差</td>
+                    <td>低</td>
+                    <td>高（对数据敏感）</td>
+                    <td>低</td>
+                </tr>
+                <tr>
+                    <td>训练集误差</td>
+                    <td>高</td>
+                    <td>很低（近乎为0）</td>
+                    <td>低</td>
+                </tr>
+                <tr>
+                    <td>测试集误差</td>
+                    <td>高（与训练误差相近）</td>
+                    <td>很高（远大于训练误差）</td>
+                    <td>低</td>
+                </tr>
+                <tr>
+                    <td>产生原因</td>
+                    <td>模型太简单/特征不足</td>
+                    <td>模型太复杂/数据太少</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>(2) 诊断方法：</strong></p>
+        <ul>
+            <li>训练误差高 + 验证误差高 且两者接近 → <strong>欠拟合</strong>（高偏差）</li>
+            <li>训练误差低 + 验证误差远高于训练误差 → <strong>过拟合</strong>（高方差）</li>
+            <li>训练误差低 + 验证误差也低且接近 → <strong>理想状态</strong></li>
+        </ul>
+
+        <p><strong>(3) 解决方案：</strong></p>
+        <ul>
+            <li><strong>欠拟合</strong>：增加模型复杂度（更深的树、更多层神经网络）；增加特征（特征工程构造新特征）；减少正则化强度；训练更长时间（增加迭代轮数）。</li>
+            <li><strong>过拟合</strong>：增加训练数据量；减少模型复杂度（降低树深/减少层数）；正则化（L1/L2/Dropout）；数据增强；早停（Early Stopping）；交叉验证选超参数。</li>
+        </ul>
+
+        <p><strong>(4) 学习曲线特征：</strong></p>
+        <div class="key-box">
+            <div class="box-title">学习曲线诊断</div>
+            <p><strong>欠拟合</strong>：训练误差和验证误差都<strong>很高</strong>，随数据量增加两者缓慢下降但最终趋于一个较高的值，且两者间隙小——增加数据无法根本解决问题，需要改进模型。</p>
+            <p><strong>过拟合</strong>：训练误差<strong>很低</strong>，验证误差<strong>很高</strong>，两者间隙很大。随数据量增加，验证误差下降，训练误差上升，两者逐渐靠拢——增加数据有效，或添加正则化。</p>
+        </div>
+    </div>
+
+    <div class="problem-box">
+        <div class="box-title">Q4-03&nbsp;&nbsp;正则化：L1/L2/ElasticNet 的公式与手算</div>
+        <p><strong>题目描述：</strong></p>
+        <p>正则化通过在损失函数中添加惩罚项来限制模型复杂度，防止过拟合。三种主要正则化方法各有特点。</p>
+        <p><strong>问题：</strong></p>
+        <ol>
+            <li>写出加入正则化后的目标函数一般形式（以线性模型为例），并说明正则化系数 $\lambda$ 的作用。</li>
+            <li>设模型参数 $\mathbf{w} = [2, -1, 0.5, -3]$，$\lambda = 0.1$，分别计算：
+                <ol type="a">
+                    <li>L1 正则化项 $R_1 = \lambda\|\mathbf{w}\|_1$</li>
+                    <li>L2 正则化项 $R_2 = \lambda\|\mathbf{w}\|_2^2$</li>
+                    <li>ElasticNet 正则化项（$\alpha=0.5$，即 L1 和 L2 各半权重）</li>
+                </ol>
+            </li>
+            <li>填写下表，对比三种正则化方法：
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法</th>
+                            <th>数学形式</th>
+                            <th>对参数的作用</th>
+                            <th>典型使用场景</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>L1（Lasso）</td>
+                            <td>$\lambda\sum|w_j|$</td>
+                            <td>将部分参数<span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>L2（Ridge）</td>
+                            <td><span class="blank-line"></span></td>
+                            <td>将参数<span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>ElasticNet</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>参数 $\lambda$ 值越大，模型会发生什么变化（过拟合方向还是欠拟合方向）？$\lambda=0$ 和 $\lambda\to\infty$ 各对应什么极端情况？</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 4 章 4.4 正则化]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="box-title">参考答案与详细解析</div>
+        <p><strong>(1) 正则化目标函数：</strong></p>
+        $$J(\mathbf{w}) = \underbrace{\frac{1}{n}\sum_{i=1}^n L(f(x_i), y_i)}_{\text{经验损失}} + \underbrace{\lambda R(\mathbf{w})}_{\text{正则化项}}$$
+        <p>$\lambda > 0$ 控制正则化强度：$\lambda$ 越大，对参数幅度的惩罚越重，模型参数被压缩得越小，模型越简单（偏向欠拟合）；$\lambda$ 越小，正则化影响越弱，模型可以更自由地拟合数据。</p>
+
+        <p><strong>(2) 手动计算（$\mathbf{w}=[2,-1,0.5,-3], \lambda=0.1$）：</strong></p>
+        <ol type="a">
+            <li>$R_1 = 0.1 \times (|2|+|-1|+|0.5|+|-3|) = 0.1 \times 6.5 = \mathbf{0.65}$</li>
+            <li>$R_2 = 0.1 \times (4+1+0.25+9) = 0.1 \times 14.25 = \mathbf{1.425}$</li>
+            <li>ElasticNet（$\alpha=0.5$）：$R = \lambda[\alpha\|\mathbf{w}\|_1 + (1-\alpha)\|\mathbf{w}\|_2^2] = 0.1[0.5\times6.5 + 0.5\times14.25] = 0.1\times10.375 = \mathbf{1.0375}$</li>
+        </ol>
+
+        <p><strong>(3) 三种正则化对比：</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>方法</th>
+                    <th>数学形式</th>
+                    <th>对参数的作用</th>
+                    <th>典型场景</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>L1</td>
+                    <td>$\lambda\sum|w_j|$</td>
+                    <td>将部分参数<strong>压缩为精确的零</strong>（稀疏）</td>
+                    <td>特征选择、高维稀疏场景</td>
+                </tr>
+                <tr>
+                    <td>L2</td>
+                    <td>$\lambda\sum w_j^2$</td>
+                    <td>将参数<strong>均匀压小但不为零</strong></td>
+                    <td>多重共线性、大多数回归场景</td>
+                </tr>
+                <tr>
+                    <td>ElasticNet</td>
+                    <td>$\lambda[\alpha\|\mathbf{w}\|_1+(1-\alpha)\|\mathbf{w}\|_2^2]$</td>
+                    <td>兼具稀疏性和稳定性</td>
+                    <td>特征间高度相关且数量多的场景</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>(4) $\lambda$ 的极端情况：</strong></p>
+        <p>$\lambda$ 越大，正则化项主导目标函数，模型参数被强行压向 0，拟合能力减弱，<strong>偏向欠拟合</strong>。$\lambda=0$：无正则化，模型可自由拟合，<strong>退化为无约束的普通回归</strong>（过拟合风险最高）。$\lambda\to\infty$：正则化项极大，所有参数趋向 0（L1）或趋向 0（L2），模型<strong>退化为只输出均值的常数预测</strong>（严重欠拟合）。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="box-title">Q4-04&nbsp;&nbsp;交叉验证：Hold-Out、k 折、LOO 对比</div>
+        <p><strong>题目描述：</strong></p>
+        <p>交叉验证是通过合理划分数据来可靠估计模型泛化误差的方法，有三种主要策略。</p>
+        <p><strong>问题：</strong></p>
+        <ol>
+            <li>填写下表对比三种交叉验证策略：
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法</th>
+                            <th>核心思路</th>
+                            <th>优点</th>
+                            <th>缺点/适用条件</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hold-Out</td>
+                            <td>一次性划分训练/验证集</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>k折交叉验证</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>LOO</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>k 折交叉验证中，$k$ 一般取多少？$k$ 取得太大（如 $k=n$，退化为 LOO）和太小（如 $k=2$）分别有什么问题？</li>
+            <li>写出 sklearn 实现 5 折交叉验证的核心代码，并说明 <code>cross_val_score</code> 返回的是什么。</li>
+            <li>分层 k 折交叉验证（Stratified k-Fold）和普通 k 折有什么区别？在什么情况下必须用分层交叉验证？</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 4 章 4.5 交叉验证]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="box-title">参考答案与详细解析</div>
+        <p><strong>(1) 三种策略对比：</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>方法</th>
+                    <th>核心思路</th>
+                    <th>优点</th>
+                    <th>缺点/适用条件</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hold-Out</td>
+                    <td>固定比例划分，训练/验证各用一次</td>
+                    <td>速度快，实现简单</td>
+                    <td>评估结果依赖随机划分，方差大；需要数据量充足</td>
+                </tr>
+                <tr>
+                    <td>k折CV</td>
+                    <td>数据分 k 份，轮流用 1 份验证、k-1 份训练，取均值</td>
+                    <td>充分利用数据，评估更稳定可靠</td>
+                    <td>训练 k 次，计算代价高；k 的选择影响偏差-方差</td>
+                </tr>
+                <tr>
+                    <td>LOO</td>
+                    <td>每次留 1 个样本验证，其余全部训练</td>
+                    <td>最充分利用数据，接近无偏估计</td>
+                    <td>计算代价极高（训练 n 次）；评估方差高，只适合极小数据集</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>(2) $k$ 值的选择：</strong></p>
+        <p>通常取 $k=5$ 或 $k=10$（工业经验最佳平衡点）。$k$ 太大（接近 LOO）：每次训练集更多、验证集更小，偏差低但评估方差高，计算代价极大。$k$ 太小（如 $k=2$）：每次训练集只有一半数据，模型欠拟合，评估偏差大。</p>
+
+        <p><strong>(3) sklearn 5 折交叉验证代码：</strong></p>
+        <pre><code>from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+
+model = LogisticRegression()
+scores = cross_val_score(model, X, y, cv=5, scoring='accuracy')
+print(f"5折CV各折准确率: {scores}")
+print(f"均值 ± 标准差: {scores.mean():.3f} ± {scores.std():.3f}")</code></pre>
+        <p><code>cross_val_score</code> 返回一个长度为 $k$ 的数组，每个元素是对应折验证集上的评估分数。取均值作为模型的最终估计性能，标准差衡量估计的稳定性。</p>
+
+        <p><strong>(4) 分层 k 折：</strong></p>
+        <p>分层 k 折在划分时<strong>保持每折中各类别比例与原始数据一致</strong>（如原始数据正负比例 1:9，每折也保持 1:9）。当数据类别极不平衡时必须使用——若不分层，某折可能完全没有少数类样本，导致该折评估失真（如准确率虚高）。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="box-title">Q4-05&nbsp;&nbsp;梯度下降：推导 + 手动计算一步迭代</div>
+        <p><strong>题目描述：</strong></p>
+        <p>梯度下降是最核心的参数优化算法，三种变体各有取舍。本题通过手动计算加深理解。</p>
+        <p><strong>问题：</strong></p>
+        <ol>
+            <li>梯度下降的参数更新公式是 $\theta \leftarrow \theta - \eta \nabla_\theta J(\theta)$。解释每个符号的含义，并说明为什么是"负梯度"方向。</li>
+            <li>设损失函数为 $J(w) = (w - 3)^2$，当前参数 $w_0 = 0$，学习率 $\eta = 0.1$。手动执行 3 步梯度下降，填写下表：
+                <table>
+                    <thead>
+                        <tr>
+                            <th>步骤</th>
+                            <th>当前 $w$</th>
+                            <th>梯度 $\frac{dJ}{dw}$</th>
+                            <th>更新量 $\eta \cdot \text{梯度}$</th>
+                            <th>新 $w$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>0</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>填写下表，对比三种梯度下降变体：
+                <table>
+                    <thead>
+                        <tr>
+                            <th>变体</th>
+                            <th>每次用多少数据</th>
+                            <th>收敛稳定性</th>
+                            <th>适用场景</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BGD</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>SGD</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>MBGD</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>学习率 $\eta$ 过大和过小分别会导致什么问题？如何选择合适的学习率？</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 4 章 4.6.2 梯度下降法]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="box-title">参考答案与详细解析</div>
+        <p><strong>(1) 公式符号含义：</strong></p>
+        <p>$\theta$：模型参数；$\eta$：学习率（步长大小）；$\nabla_\theta J(\theta)$：损失函数对参数的梯度，指向损失<strong>上升最快</strong>的方向。取<strong>负梯度</strong>方向（$-\nabla J$）是因为我们要<strong>最小化</strong>损失，沿梯度反方向走能最快减小损失值——爬山时反向走就是下山。</p>
+
+        <p><strong>(2) 手动三步迭代（$J(w)=(w-3)^2$，梯度 $\frac{dJ}{dw}=2(w-3)$）：</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>步骤</th>
+                    <th>当前 $w$</th>
+                    <th>梯度 $2(w-3)$</th>
+                    <th>更新量 $0.1\times$梯度</th>
+                    <th>新 $w$</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>$-6$</td>
+                    <td>$-0.6$</td>
+                    <td>$0.6$</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>$0.6$</td>
+                    <td>$-4.8$</td>
+                    <td>$-0.48$</td>
+                    <td>$1.08$</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>$1.08$</td>
+                    <td>$-3.84$</td>
+                    <td>$-0.384$</td>
+                    <td>$1.464$</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>最优解为 $w^*=3$，可见每步都在向 3 靠近（以 0.8 的比例收缩剩余距离）。</p>
+
+        <p><strong>(3) 三种变体对比：</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>变体</th>
+                    <th>每次用多少数据</th>
+                    <th>收敛稳定性</th>
+                    <th>适用场景</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BGD</td>
+                    <td>全量数据</td>
+                    <td>稳定，单调收敛</td>
+                    <td>数据量小，内存足够；凸优化问题</td>
+                </tr>
+                <tr>
+                    <td>SGD</td>
+                    <td>1 个样本</td>
+                    <td>不稳定，震荡</td>
+                    <td>在线学习；超大规模数据集</td>
+                </tr>
+                <tr>
+                    <td>MBGD</td>
+                    <td>mini-batch（32/64/128）</td>
+                    <td>较稳定，可并行</td>
+                    <td><strong>深度学习最常用</strong>；GPU 并行加速</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>(4) 学习率选择：</strong></p>
+        <p>$\eta$ 过大：步长太大，可能越过最优点，在谷底两侧来回震荡甚至发散（损失不降反升）。$\eta$ 过小：收敛极慢，需要大量迭代；容易陷入局部极小值或鞍点。<strong>选择策略</strong>：使用学习率调度（初始较大，随训练衰减）；网格搜索或学习率预热（Warm-up）；使用自适应学习率优化器（Adam、AdaGrad）自动调节每个参数的学习率。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="box-title">Q4-06&nbsp;&nbsp;回归评估指标：MAE/MSE/RMSE/$R^2$ 手动计算</div>
+        <p><strong>题目描述：</strong></p>
+        <p>设某回归模型对 5 个样本的预测结果如下：</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>样本</th>
+                    <th>真实值 $y_i$</th>
+                    <th>预测值 $\hat{y}_i$</th>
+                    <th>误差 $e_i = \hat{y}_i - y_i$</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>10</td>
+                    <td>12</td>
+                    <td>$+2$</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>20</td>
+                    <td>18</td>
+                    <td>$-2$</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>15</td>
+                    <td>15</td>
+                    <td>$0$</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>25</td>
+                    <td>30</td>
+                    <td>$+5$</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>30</td>
+                    <td>27</td>
+                    <td>$-3$</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><strong>问题：</strong></p>
+        <ol>
+            <li>计算 <strong>MAE</strong>（平均绝对误差）。</li>
+            <li>计算 <strong>MSE</strong>（均方误差）和 <strong>RMSE</strong>（均方根误差）。</li>
+            <li>计算 $\mathbf{R^2}$（决定系数）。（提示：$\bar{y} = 20$，$\text{SS\_tot} = \sum(y_i-\bar{y})^2$，$\text{SS\_res} = \sum(y_i-\hat{y}_i)^2$）</li>
+            <li>填写下表，说明四个指标各自的含义与优缺点：
+                <table>
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>含义</th>
+                            <th>优缺点</th>
+                            <th>取值范围</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MAE</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>RMSE</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                        </tr>
+                        <tr>
+                            <td>$R^2$</td>
+                            <td><span class="blank-line"></span></td>
+                            <td><span class="blank-line"></span></td>
+                            <td>$(-\infty, 1]$</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+        </ol>
+        <p class="source">来源溯源：[文档第 4 章 4.7.1 回归模型评价指标]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="box-title">参考答案与详细解析</div>
+        <p><strong>(1) MAE：</strong></p>
+        $$\text{MAE} = \frac{1}{5}(|2|+|-2|+|0|+|5|+|-3|) = \frac{2+2+0+5+3}{5} = \frac{12}{5} = \mathbf{2.4}$$
+
+        <p><strong>(2) MSE 和 RMSE：</strong></p>
+        $$\text{MSE} = \frac{1}{5}(4+4+0+25+9) = \frac{42}{5} = \mathbf{8.4}$$
+        $$\text{RMSE} = \sqrt{8.4} \approx \mathbf{2.898}$$
+
+        <p><strong>(3) $R^2$：</strong></p>
+        <p>$\bar{y}=20$，各真实值与均值之差：$(10-20)^2+(20-20)^2+(15-20)^2+(25-20)^2+(30-20)^2 = 100+0+25+25+100=250$</p>
+        <p>$\text{SS\_tot} = 250$，$\text{SS\_res} = 4+4+0+25+9 = 42$</p>
+        $$R^2 = 1 - \frac{\text{SS\_res}}{\text{SS\_tot}} = 1 - \frac{42}{250} = 1 - 0.168 = \mathbf{0.832}$$
+        <p>说明该模型解释了目标变量 83.2\% 的方差。</p>
+
+        <p><strong>(4) 指标含义与优缺点：</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>指标</th>
+                    <th>含义</th>
+                    <th>优缺点</th>
+                    <th>取值范围</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MAE</td>
+                    <td>预测误差绝对值的均值，与目标变量同量纲</td>
+                    <td>直观易解释，对异常值鲁棒；但不可微（绝对值在0处）</td>
+                    <td>$[0,+\infty)$</td>
+                </tr>
+                <tr>
+                    <td>RMSE</td>
+                    <td>预测误差平方均值的开方，与目标变量同量纲</td>
+                    <td>对大误差惩罚更重，可微；对异常值敏感</td>
+                    <td>$[0,+\infty)$</td>
+                </tr>
+                <tr>
+                    <td>$R^2$</td>
+                    <td>模型解释了目标变量多少比例的方差（1=完美，0=仅预测均值）</td>
+                    <td>无量纲，便于不同数据集比较；可为负（模型差于均值预测）</td>
+                    <td>$(-\infty,1]$</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="problem-box">
+        <div class="box-title">Q4-07&nbsp;&nbsp;分类评估指标：混淆矩阵到 F1 分数</div>
+        <p><strong>题目描述：</strong></p>
+        <p>某二分类模型（预测是否患病）在测试集上的预测结果如下：</p>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>预测为正（患病）</th>
+                    <th>预测为负（未患病）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>实际为正（患病）</td>
+                    <td>TP = 40</td>
+                    <td>FN = 10</td>
+                </tr>
+                <tr>
+                    <td>实际为负（未患病）</td>
+                    <td>FP = 20</td>
+                    <td>TN = 130</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><strong>问题：</strong></p>
+        <ol>
+            <li>根据上表计算：准确率（Accuracy）、精确率（Precision）、召回率（Recall）、F1 分数。（保留两位小数）</li>
+            <li>在医疗诊断场景中，<strong>漏诊</strong>（FN）和<strong>误诊</strong>（FP）哪个危害更大？基于此，应该优化精确率还是召回率？</li>
+            <li>F1 分数是精确率和召回率的<strong>调和平均</strong>而非算术平均，为什么？调和平均有什么特性使它更适合这个场景？</li>
+            <li>若将分类阈值从 0.5 调低为 0.3（更容易判定为正类），精确率和召回率会如何变化？（定性描述，不需要数值计算）</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 4 章 4.7.2 分类模型评价指标]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="box-title">参考答案与详细解析</div>
+        <p><strong>(1) 各指标计算：</strong></p>
+        <p>总样本数 $= 40+10+20+130 = 200$</p>
+        $$\text{Accuracy} = \frac{TP+TN}{n} = \frac{40+130}{200} = \frac{170}{200} = \mathbf{0.85}$$
+        $$\text{Precision} = \frac{TP}{TP+FP} = \frac{40}{40+20} = \frac{40}{60} \approx \mathbf{0.67}$$
+        $$\text{Recall} = \frac{TP}{TP+FN} = \frac{40}{40+10} = \frac{40}{50} = \mathbf{0.80}$$
+        $$\text{F1} = \frac{2 \times \text{P} \times \text{R}}{\text{P}+\text{R}} = \frac{2 \times 0.67 \times 0.80}{0.67+0.80} = \frac{1.072}{1.47} \approx \mathbf{0.73}$$
+
+        <p><strong>(2) 医疗场景中优化目标：</strong></p>
+        <p>漏诊（FN，患病却被判为未患病）危害更大——患者错过治疗时机，可能危及生命。误诊（FP，未患病被判为患病）虽然不好，但可通过进一步检查纠正，危害相对可控。因此应<strong>优化召回率（Recall）</strong>，尽量找出所有真实患者，宁可多些误报，不可漏掉真正患者。</p>
+
+        <p><strong>(3) 调和平均 vs 算术平均：</strong></p>
+        <p>调和平均 $H = \frac{2PR}{P+R}$ 的特性：当 P 和 R 差距很大时，调和平均会被<strong>较小的那个拉低</strong>（比算术平均更低）。例如 P=0.99, R=0.01，算术平均 $= 0.5$（看起来还不错），调和平均 $\approx 0.02$（真实反映了模型几乎失效）。这使 F1 不能通过"一好一坏"来"蒙混过关"，必须两者都高才能有高 F1——更准确地反映模型在精确率和召回率上的综合表现。</p>
+
+        <p><strong>(4) 阈值降低的影响：</strong></p>
+        <p>阈值降低 → 更多样本被预测为正类 → TP 增加（更多真正患者被识别）、FP 也增加（更多健康人被误判为患病）、FN 减少。结果：<strong>召回率上升</strong>（分母 TP+FN 中，FN 减少），<strong>精确率下降</strong>（分母 TP+FP 中，FP 增加）。精确率-召回率之间存在权衡（Precision-Recall Trade-off）。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="box-title">Q4-08&nbsp;&nbsp;ROC 曲线与 AUC：原理、绘制与解读</div>
+        <p><strong>题目描述：</strong></p>
+        <p>ROC 曲线（Receiver Operating Characteristic）是评估二分类器性能的重要工具，AUC（Area Under Curve）是其综合指标。</p>
+        <p><strong>问题：</strong></p>
+        <ol>
+            <li>ROC 曲线的横轴和纵轴分别是什么？写出两者的公式，并说明"完美分类器"和"随机猜测分类器"在 ROC 图上各对应什么形状。</li>
+            <li>AUC 的取值范围是什么？AUC $= 0.5$、AUC $= 1.0$、AUC $< 0.5$ 各代表什么含义？</li>
+            <li>ROC 曲线是如何随分类阈值变化而描绘出来的？（即从阈值最高到最低，点如何从 ROC 图的左下角移动到右上角）</li>
+            <li>在类别严重不平衡（正负比例 1:99）的情况下，ROC-AUC 和 PR-AUC（Precision-Recall 曲线下面积）哪个更能反映模型真实性能？为什么？</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 4 章 4.7.2 ROC曲线 / AUC值]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="box-title">参考答案与详细解析</div>
+        <p><strong>(1) ROC 轴与特殊分类器：</strong></p>
+        <ul>
+            <li>横轴：<strong>FPR（False Positive Rate）</strong>$= \dfrac{FP}{FP+TN}$（假阳性率，负样本中被错判为正的比例）</li>
+            <li>纵轴：<strong>TPR（True Positive Rate/Recall）</strong>$= \dfrac{TP}{TP+FN}$（真阳性率，正样本中被正确识别的比例）</li>
+            <li><strong>完美分类器</strong>：ROC 曲线经过 $(0,0) \to (0,1) \to (1,1)$，即左上角折线，AUC $= 1.0$。</li>
+            <li><strong>随机猜测</strong>：ROC 曲线是从 $(0,0)$ 到 $(1,1)$ 的对角线，AUC $= 0.5$。</li>
+        </ul>
+
+        <p><strong>(2) AUC 含义：</strong></p>
+        <p>AUC $\in [0, 1]$：AUC $= 1.0$：完美分类，所有正负样本完全可分；AUC $= 0.5$：等同于随机猜测，模型无判别力；AUC $< 0.5$：比随机猜测还差（如果取反预测反而好于 0.5）。直觉解释：AUC 等于<strong>随机取一个正样本和一个负样本，正样本预测概率高于负样本的概率</strong>——直接量化了模型的"排序能力"。</p>
+
+        <p><strong>(3) ROC 曲线的绘制原理：</strong></p>
+        <p>从<strong>阈值最高（仅最高置信度的正样本被预测为正）开始</strong>，此时 TP 和 FP 都接近 0，点在 $(0,0)$ 附近。随着阈值降低，越来越多的样本被预测为正：每遇到一个真正正样本（TP++），点沿<strong>纵轴方向上移</strong>；每遇到一个真正负样本（FP++），点沿<strong>横轴方向右移</strong>。最终阈值降到最低时，所有样本都被预测为正，TP 和 FP 均最大，点到达 $(1,1)$。</p>
+
+        <p><strong>(4) 类别不平衡下的指标选择：</strong></p>
+        <div class="key-box">
+            <div class="box-title">严重不平衡时应用 PR-AUC</div>
+            <p>ROC-AUC 在严重不平衡时<strong>过于乐观</strong>：分母 TN（大量负样本）使 FPR 很小，即使 FP 数量不少，FPR 也可能看起来很低，给出虚假高 AUC。而 PR 曲线的精确率分母是 TP+FP（预测为正的样本），不受大量负样本影响，能更真实地反映模型在少数正类上的表现——PR-AUC 更适合不平衡数据的评估。</p>
+        </div>
+    </div>
+
+    <h2>本章小结</h2>
+    <div class="chapter-summary">
+        <ul>
+            <li><strong>损失函数决定优化方向</strong>：回归用 MSE/MAE；二分类用对数损失；多分类用交叉熵。有异常值用 MAE，否则 MSE 更常见。</li>
+            <li><strong>欠拟合/过拟合的诊断核心</strong>：看训练误差和验证误差的关系——都高是欠拟合，训练低验证高是过拟合。</li>
+            <li><strong>正则化三兄弟</strong>：L1 稀疏（特征选择）；L2 均匀压缩（稳定）；ElasticNet 兼顾两者。</li>
+            <li><strong>梯度下降实战</strong>：深度学习用 MBGD（mini-batch）+ Adam；学习率太大发散，太小收敛慢。</li>
+            <li><strong>分类指标的权衡</strong>：类别平衡且无特殊关注→准确率；不平衡或关注少数类→F1/AUC-PR；需要排序能力→ROC-AUC。</li>
+        </ul>
+    </div>
+</body>
+</html>

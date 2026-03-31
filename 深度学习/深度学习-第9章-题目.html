@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度学习 - 第9章 - 循环神经网络（RNN）</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Microsoft YaHei", "SimSun", sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f9f9f9;
+            color: #333;
+        }
+        h1 { color: #1a5276; border-bottom: 3px solid #1a5276; padding-bottom: 10px; }
+        h2 { color: #2874a6; margin-top: 30px; border-left: 4px solid #2874a6; padding-left: 10px; }
+        h3 { color: #1e8449; }
+
+        /* tcolorbox styles */
+        .problembox {
+            background: white;
+            border: 1pt solid #4a86c2;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .problembox-title {
+            font-weight: bold;
+            color: #4a86c2;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .solutionbox {
+            background: #f0fff0;
+            border: 1pt solid #5cb85c;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .solutionbox-title {
+            font-weight: bold;
+            color: #5cb85c;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #c3e6c3;
+        }
+
+        .metaphorbox {
+            background: #fff8f0;
+            border: 1pt solid #e67e22;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .metaphorbox-title {
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #f5d7b3;
+        }
+
+        .beginnerbox {
+            background: #e8f4fc;
+            border: 1pt solid #5dade2;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .beginnerbox-title {
+            font-weight: bold;
+            color: #5dade2;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #bee5eb;
+        }
+
+        .appbox {
+            background: #f0fff0;
+            border: 1pt solid #27ae60;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .appbox-title {
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #c3e6c3;
+        }
+
+        .keybox {
+            background: #fff8dc;
+            border: 1pt solid #d35400;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .keybox-title {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #f5deb3;
+        }
+
+        /* Tables */
+        table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+        th, td { padding: 8px 12px; text-align: left; }
+        thead { border-bottom: 2px solid #333; }
+        tbody tr { border-bottom: 1px solid #ddd; }
+
+        /* Lists */
+        ul, ol { margin: 10px 0; padding-left: 25px; }
+        li { margin: 5px 0; }
+        ul ul, ol ol, ul ol, ol ul { margin: 5px 0 5px 15px; }
+
+        /* Code */
+        pre {
+            background: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            overflow-x: auto;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+        }
+        code { font-family: "Consolas", "Monaco", monospace; background: #f0f0f0; padding: 2px 4px; border-radius: 3px; }
+
+        /* Math */
+        .MathJax { font-size: 1.1em !important; }
+
+        /* Other */
+        strong { color: #2c3e50; }
+        .gray-text { color: #888; font-size: 0.9em; }
+        .subtitle { color: #666; font-size: 1.1em; margin-top: -10px; }
+        .blank-line { display: inline-block; min-width: 60px; border-bottom: 1px solid #333; }
+    </style>
+</head>
+<body>
+
+<h1>深度学习<br>第9章　循环神经网络（RNN）</h1>
+<p class="subtitle">——当神经网络需要"记住"过去，该怎么做？</p>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">本章题目导览：你将挑战哪些核心问题？</div>
+    <p>CNN 擅长处理静态图像，但现实中还有大量<strong>顺序有关</strong>的数据：你说的每一句话、写的每一行代码、股票的每一天价格……这些都是"时序数据"，顺序一变，意思就变。本章 6 道题从零打通 RNN 的核心脉络：</p>
+    <ul>
+        <li><strong>Q9-01（辨析填空）</strong>：NLP 三种方法横向对比——同义词词典 vs 基于计数 vs 基于推理，各自解决什么问题、有何缺陷？</li>
+        <li><strong>Q9-02（概念理解）</strong>：词嵌入 vs 独热向量——为什么独热向量表示词语很"蠢"？词嵌入怎么就聪明了？</li>
+        <li><strong>Q9-03（计算题）</strong>：RNN 隐藏状态手动推导——给定权重和当前输入，一步步算出 $h_t$，把公式变成具体数字。</li>
+        <li><strong>Q9-04（对比分析）</strong>：RNN vs 前馈网络——权重共享、时间展开，RNN 到底和普通神经网络有什么本质区别？</li>
+        <li><strong>Q9-05（代码阅读）</strong>：古诗生成模型代码追踪——<code>PoetryRNN</code> 的数据流形状逐层追踪，损失函数为何要 <code>transpose</code>？</li>
+        <li><strong>Q9-06（开放分析）</strong>：文本生成中的"温度"采样——为什么用 <code>multinomial</code> 而不用 <code>argmax</code>？温度参数如何控制创作风格？</li>
+    </ul>
+</div>
+
+<h2>第 9 章　循环神经网络（RNN）与自然语言处理</h2>
+
+<p>在学 CNN 的时候，我们处理的都是"静态的"东西——一张图片，像素全部同时摆在那里，没有顺序关系。</p>
+
+<p>但今天要处理的东西不一样了：</p>
+
+<ul>
+    <li>"我喜欢你"和"你喜欢我"——词完全一样，顺序不同，意思天差地别；</li>
+    <li>明天的气温，取决于今天、昨天、前天……</li>
+    <li>下一个字是什么，取决于你前面已经打了什么。</li>
+</ul>
+
+<p>这类数据有一个共同特点：<strong>顺序很重要，上下文很重要</strong>。处理它们，就需要 RNN。</p>
+
+<div class="metaphorbox">
+    <div class="metaphorbox-title">先建立一个总感觉：RNN 是什么</div>
+    <p><strong>把 RNN 想象成一个边看书边记笔记的人。</strong></p>
+    <ul>
+        <li>普通神经网络（CNN、全连接）= 每次只看当前这一张卡片，上一张忘得干干净净；</li>
+        <li>RNN = 每读到一个新词，会翻一眼自己之前的笔记，然后把新信息和旧笔记合并，更新成一份新笔记，传给下一步继续用。</li>
+    </ul>
+    <p>RNN 最核心的能力就是四个字：<strong>带着记忆往前走。</strong></p>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q9-01　NLP 三种核心方法横向对比</div>
+    <p><strong>题目描述：</strong><br>
+    文档第 9.1 节介绍了计算机理解自然语言的三种方法：基于同义词词典、基于计数、基于推理。在做题之前，先来认识一下这三种思路的本质区别。</p>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li>填写下表，将三种方法的关键特征补全：
+            <table style="margin-top: 10px;">
+                <thead>
+                    <tr><th>方法</th><th>核心思想</th><th>主要缺点</th><th>是否自动化</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>基于同义词词典</td><td>人工构建词语网络，计算词语<span class="blank-line"></span></td><td><span class="blank-line"></span>（写出2条）</td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>基于计数</td><td>统计词频，用<span class="blank-line"></span>（矩阵名称）表示词向量</td><td>对所有词<span class="blank-line"></span>极高</td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>基于推理</td><td>根据<span class="blank-line"></span>预测当前位置的词</td><td>需要大量数据和计算资源</td><td><span class="blank-line"></span></td></tr>
+                </tbody>
+            </table>
+        </li>
+
+        <li style="margin-top: 15px;">"语料库"（corpus）是什么？基于计数的方法为什么需要它？</li>
+
+        <li style="margin-top: 15px;">基于推理的方法和基于计数的方法，在"如何获得词向量"这件事上，根本区别是什么？</li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 9 章 9.1 自然语言处理概述]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：为什么计算机理解语言这么难？</div>
+    <ul>
+        <li><strong>编程语言 vs 自然语言</strong>：编程语言语法严格，一个符号只有一个含义，计算机按规则解析即可。但汉语英语是"软语言"——同一个词在不同语境下含义可能完全不同（"苹果"可以是水果，也可以是手机品牌），新词不断涌现，规则无法穷举。</li>
+        <li><strong>计算机只认数字</strong>：不管哪种方法，最终目的都是把"词"变成"向量（数字列表）"，让计算机能够进行数学运算——计算两个词有多相似、预测下一个词是什么。</li>
+        <li><strong>三种方法的进化逻辑</strong>：词典方法靠人工→计数方法靠统计→推理方法靠神经网络。越往后，越自动化，越能处理大规模数据，但也越需要算力。</li>
+    </ul>
+</div>
+
+<div class="metaphorbox">
+    <div class="metaphorbox-title">生活比喻：三种"认识一个词"的方式</div>
+    <p>假设你是一个刚学中文的外国人，想搞懂"秋"是什么意思：</p>
+    <ul>
+        <li><strong>词典法</strong>：翻字典，发现"秋"=秋天、金秋、丰收……手工查好每个词的关系。但新词没收录怎么办？字典要一直更新，太累了。</li>
+        <li><strong>计数法</strong>：读了一万篇文章，发现"秋"总是和"风""叶""凉""稻"一起出现——靠这些邻居来猜它的意思。但要数遍所有文章里所有词两两共现，计算量爆炸。</li>
+        <li><strong>推理法</strong>：让神经网络做填空题："金风玉露一相<span class="blank-line"></span>"——靠这种上下文预测任务，网络自然就学会了每个词的"语义"，也就是词向量。这是现代 NLP 的核心思路。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) 填表：</strong></p>
+
+    <table>
+        <thead>
+            <tr><th>方法</th><th>核心思想</th><th>主要缺点</th><th>是否自动化</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>基于同义词词典</td><td>人工构建词语网络，计算词语<strong>相似度</strong></td><td>(1)需要人工逐个定义，费时费力；(2)新词维护成本极高；(3)表现力有限</td><td><strong>否</strong></td></tr>
+            <tr><td>基于计数</td><td>统计词频，用<strong>共现矩阵</strong>表示词向量</td><td>对所有词向量化的<strong>计算复杂度</strong>极高</td><td><strong>是</strong></td></tr>
+            <tr><td>基于推理</td><td>根据<strong>上下文</strong>预测当前位置的词</td><td>需要大量数据和计算资源</td><td><strong>是</strong></td></tr>
+        </tbody>
+    </table>
+
+    <p style="margin-top: 15px;"><strong>(2) 语料库（corpus）的定义与作用：</strong></p>
+    <p>语料库是<strong>大量的文本数据集合</strong>。基于计数的方法需要统计词频——即每个词和哪些词经常出现在一起（共现关系），这个统计必须建立在海量真实文本的基础上。语料库越大，统计出的词向量就越能反映真实的语言规律。没有语料库，就没有可统计的数据。</p>
+
+    <p style="margin-top: 15px;"><strong>(3) 计数 vs 推理：获得词向量的根本区别：</strong></p>
+    <div class="keybox">
+        <ul>
+            <li><strong>基于计数</strong>：先统计整个语料库中的词频共现，<strong>一次性算出</strong>所有词的向量（共现矩阵的某列/某行）——这是统计方法，<strong>不需要训练模型</strong>。</li>
+            <li><strong>基于推理</strong>：设计一个神经网络，让它反复做"根据上下文猜词"的任务，<strong>在训练过程中</strong>逐渐学会词的向量表示——这是学习方法，<strong>需要迭代优化模型</strong>。</li>
+        </ul>
+        <p>推理方法的词向量（也就是词嵌入）是训练神经网络时"顺带学出来"的副产品，同时也是 NLP 模型的第一层输入。Word2Vec、GloVe 这些著名的词向量技术，本质上都是基于推理思想的变体。</p>
+    </div>
+</div>
+
+<div class="appbox">
+    <div class="appbox-title">现实应用场景</div>
+    <p><strong>词向量让搜索引擎"懂"你的意思：</strong><br>
+    早期搜索引擎只做关键词匹配——你搜"苹果手机"，它只返回包含这两个字的页面。基于词嵌入的现代搜索引擎能理解语义：搜"苹果手机"，它知道"iPhone"和这四个字语义相近，也会返回相关结果。这背后，就是训练好的词嵌入模型把"苹果手机"和"iPhone"映射到了向量空间中相近的位置。Google 的 BERT、百度的 ERNIE 等大语言模型，本质上都在做更深层的"理解语义"工作，其基础正是词嵌入。</p>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q9-02　词嵌入 vs 独热向量：谁更聪明？</div>
+    <p><strong>题目描述：</strong><br>
+    文档 9.2.1 节提到，独热向量（One-Hot Vector）虽然容易构建，但存在两个致命缺陷，因此现代 NLP 普遍使用词嵌入（Word Embedding）来表示词语。</p>
+
+    <p style="margin-top: 10px;"><strong>背景知识：</strong><br>
+    假设词表共有 $V=5$ 个词：{我，喜欢，苹果，香蕉，手机}。</p>
+
+    <p>独热向量表示如下（每个词只有一个位置为 1，其余全为 0）：
+    $$\text{我} = [1,0,0,0,0], \quad \text{喜欢} = [0,1,0,0,0], \quad \text{苹果} = [0,0,1,0,0]$$
+    $$\text{香蕉} = [0,0,0,1,0], \quad \text{手机} = [0,0,0,0,1]$$</p>
+
+    <p>词嵌入则是：把每个词映射到一个低维稠密向量（如 3 维），这些向量由训练得到：
+    $$\text{苹果} \approx [0.8, 0.2, 0.1], \quad \text{香蕉} \approx [0.7, 0.3, 0.0], \quad \text{手机} \approx [0.1, 0.9, 0.8]$$</p>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li>计算"苹果"和"香蕉"的独热向量余弦相似度；再计算"苹果"和"手机"的独热向量余弦相似度。结果说明了什么问题？</li>
+
+        <li style="margin-top: 10px;">若词表大小为 $V=50000$（这是一个正常的中等词表大小），独热向量每个需要多少维？相比之下，如果用 $d=256$ 维的词嵌入，存储量之比大约是多少？</li>
+
+        <li style="margin-top: 10px;">文档中说词嵌入矩阵（<code>nn.Embedding</code>）的参数形状是 <code>(num_embeddings, embedding_dim)</code>，它在神经网络中是如何工作的？用"查表"比喻解释。</li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 9 章 9.2.1 什么是词嵌入]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：余弦相似度是什么？</div>
+    <p>余弦相似度是衡量两个向量"方向有多接近"的指标，公式为：
+    $$\cos(\vec{a}, \vec{b}) = \frac{\vec{a} \cdot \vec{b}}{|\vec{a}||\vec{b}|}$$</p>
+    <ul>
+        <li>结果范围：$[-1, 1]$，越接近 1 说明越相似，等于 0 说明完全无关，等于 $-1$ 说明完全相反。</li>
+        <li><strong>对独热向量</strong>：任意两个不同词的独热向量点积为 0（因为没有同为 1 的位置），所以余弦相似度恒为 0——"苹果"和"香蕉"跟"苹果"和"手机"，在独热空间里<strong>一样不相关</strong>，完全无法区分"语义近"和"语义远"。</li>
+    </ul>
+</div>
+
+<div class="metaphorbox">
+    <div class="metaphorbox-title">生活比喻：独热向量是穿着囚服的词，词嵌入是有身份证的词</div>
+    <ul>
+        <li><strong>独热向量（囚服）</strong>：每个词穿着一件只有自己编号的囚服，外表完全相同（都是一串 0 里有一个 1），除了编号外传达不了任何信息。问"苹果和香蕉像不像"？回答：一个是 3 号，一个是 4 号，一样的囚服，没区别。</li>
+        <li><strong>词嵌入（身份证）</strong>：每个词有一张丰富的身份证，上面写着它的各种"属性数值"（颜色倾向、可食用程度、科技感……）。苹果和香蕉的身份证数字很接近（都是水果），而苹果和手机的数字差很远（一个是食物，一个是电子产品）。</li>
+        <li><strong>学习过程</strong>：这张"身份证"不是人工填写的，而是神经网络在大量文本中自动学到的——它发现苹果和香蕉总在相似语境里出现，就自动给它们分配了相近的向量。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) 独热向量的余弦相似度：</strong></p>
+    <p>"苹果" $=[0,0,1,0,0]$，"香蕉" $=[0,0,0,1,0]$，"手机" $=[0,0,0,0,1]$。</p>
+
+    <p>任意两个不同词的独热向量点积：
+    $$\text{苹果} \cdot \text{香蕉} = 0\times0 + 0\times0 + 1\times0 + 0\times1 + 0\times0 = 0$$
+    $$\text{苹果} \cdot \text{手机} = 0$$</p>
+
+    <p>所有独热向量模长均为 1，因此：
+    $$\cos(\text{苹果}, \text{香蕉}) = \frac{0}{1 \times 1} = 0 \quad \cos(\text{苹果}, \text{手机}) = 0$$</p>
+
+    <p><strong>结论</strong>：苹果和香蕉（语义相近，都是水果）与苹果和手机（语义相远）的相似度<strong>完全相同，都是 0</strong>。独热向量无法区分语义近远，完全丢失了词语之间的语义关系。</p>
+
+    <p style="margin-top: 15px;"><strong>(2) 存储量对比：</strong></p>
+    <p>独热向量维度 $= V = 50000$，每个词占 50000 个数。<br>
+    词嵌入维度 $= d = 256$，每个词只占 256 个数。</p>
+
+    <p>存储量之比：
+    $$\frac{50000}{256} \approx 195 \text{ 倍}$$</p>
+
+    <p>词嵌入的总参数量 $= V \times d = 50000 \times 256 = 1280$ 万个，虽然看起来多，但<strong>每个词只用 256 个数表示</strong>，比独热向量的 50000 维大幅压缩，且包含了语义信息。</p>
+
+    <p style="margin-top: 15px;"><strong>(3) <code>nn.Embedding</code> 的工作原理——查表：</strong></p>
+    <p>词嵌入矩阵形状为 $(V, d)$，可以理解成一本<strong>"词向量字典"</strong>：第 $i$ 行就是第 $i$ 个词的 $d$ 维向量。</p>
+
+    <div class="keybox">
+        <div class="keybox-title">工作流程：三步查表</div>
+        <ol>
+            <li><strong>分词 + 建词表</strong>：把文本分成词，给每个词分配一个整数 ID（"我"=0，"苹果"=2……）</li>
+            <li><strong>查表</strong>：把词的 ID 当作行索引，直接取出嵌入矩阵对应的那一行向量。<code>embed(torch.tensor(2))</code> 就是取出第 2 行，也就是"苹果"的词向量。</li>
+            <li><strong>梯度更新</strong>：这个矩阵的每一行都是可学习参数。训练过程中，根据损失反向传播，不断调整每一行的数值，让语义相近的词向量越来越靠近。</li>
+        </ol>
+    </div>
+
+    <pre><code>import torch, torch.nn as nn
+
+# 词表大小5，词向量维度3
+embed = nn.Embedding(num_embeddings=5, embedding_dim=3)
+
+# "苹果"的 ID 是 2，直接取出第2行
+apple_vec = embed(torch.tensor(2))
+print(apple_vec)  # 输出 3 维向量，初始是随机值，训练后有语义
+
+# 一次查多个词
+batch_ids = torch.tensor([0, 2, 4])  # 我、苹果、手机
+batch_vecs = embed(batch_ids)
+print(batch_vecs.shape)  # torch.Size([3, 3])</code></pre>
+</div>
+
+<div class="appbox">
+    <div class="appbox-title">现实应用场景</div>
+    <p><strong>Word2Vec：第一个让词有"方向感"的词嵌入：</strong><br>
+    2013 年 Google 发布的 Word2Vec，通过在大规模语料上训练"预测上下文"任务，学出了惊人的词向量性质：$\vec{\text{国王}} - \vec{\text{男}} + \vec{\text{女}} \approx \vec{\text{女王}}$。这说明词向量空间里自发出现了"性别方向"和"王室方向"这样的语义轴。现代大语言模型（GPT、BERT）的 embedding 层依然继承了这一思想，只是用 Transformer 代替了简单的神经网络来训练更丰富的词语表示。</p>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q9-03　RNN 隐藏状态手动推导</div>
+    <p><strong>题目描述：</strong><br>
+    RNN 层的核心公式是：
+    $$h_t = \tanh(h_{t-1} W_h + x_t W_x + b)$$
+    其中 $x_t$ 是当前输入，$h_{t-1}$ 是上一时刻的隐藏状态，$W_x$、$W_h$ 是权重矩阵，$b$ 是偏置。</p>
+
+    <p style="margin-top: 10px;"><strong>具体数值：</strong><br>
+    已知某 RNN 层中（$\tanh$ 激活<strong>之前</strong>的线性部分）：</p>
+
+    <p>
+    $$x_t = \begin{bmatrix} 2.0 \\ -1.0 \end{bmatrix}, \quad h_{t-1} = \begin{bmatrix} 0.0 \\ 0.0 \end{bmatrix}, \quad W_x = \begin{bmatrix} 0.5 & -0.5 \\ 0.5 & 0.5 \end{bmatrix}, \quad W_h = \begin{bmatrix} 1.0 & 0.0 \\ 0.0 & 1.0 \end{bmatrix}, \quad b = \begin{bmatrix} 0.0 \\ 0.0 \end{bmatrix}$$
+    </p>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li>计算线性组合 $a_t = h_{t-1}W_h + x_t W_x + b$，写出完整推导过程。</li>
+
+        <li style="margin-top: 10px;">在 $a_t$ 上应用 $\tanh$ 激活函数，得出最终隐藏状态 $h_t$。<br>（提示：$\tanh(1.5) \approx 0.905$，$\tanh(-0.5) \approx -0.462$）</li>
+
+        <li style="margin-top: 10px;">如果这是一首古诗的第一个字（$t=1$），隐藏状态 $h_0$ 应该初始化为多少？代码里是如何传入初始隐藏状态的？</li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 9 章 9.3.1 RNN 层介绍]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：$h_t$ 的两个"来源"是什么？</div>
+    <p>每一步 RNN 的输入有两个：</p>
+    <ul>
+        <li><strong>当前词 $x_t$</strong>：这一时刻刚刚输入的信息（比如古诗第 $t$ 个字的词向量）；</li>
+        <li><strong>历史记忆 $h_{t-1}$</strong>：上一时刻积累下来的"状态摘要"，包含了前面所有时刻的信息痕迹。</li>
+    </ul>
+    <p>这两者分别经过各自的权重矩阵"加工"，再合在一起，过一次 $\tanh$ 压缩，就得到了新的记忆 $h_t$。</p>
+    <p><strong>为什么用 $\tanh$ 而不用 ReLU？</strong><br>
+    $\tanh$ 的输出范围是 $(-1, 1)$。RNN 会把 $h_{t-1}$ 一次次地乘以 $W_h$ 往前传，如果不压缩，数值会越乘越大（或越乘越小），导致"梯度爆炸"或"梯度消失"。$\tanh$ 把每一步的输出都限制在 $(-1,1)$ 之间，起到"稳压器"的作用。</p>
+</div>
+
+<div class="metaphorbox">
+    <div class="metaphorbox-title">生活比喻：每一步都在"消化新闻+更新认知"</div>
+    <p>把 RNN 的每一步想象成一个人在看新闻滚动条：</p>
+    <ul>
+        <li>$h_{t-1}$（旧认知）：他到上一条新闻为止，脑子里对世界的整体判断；</li>
+        <li>$x_t$（当前新闻）：刚收到的这一条新消息；</li>
+        <li>$W_h$（旧认知的权重）：他有多信任自己以往的判断；</li>
+        <li>$W_x$（新消息的权重）：他有多重视当前这条新消息；</li>
+        <li>$\tanh$（情绪稳定器）：不管收到多夸张的新闻，他的"认知更新量"都被控制在合理范围内，不会暴跳如雷（梯度爆炸）也不会完全无感（梯度消失）。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) 计算线性组合 $a_t$：</strong></p>
+
+    <p>由于 $h_{t-1} = [0, 0]^\top$，所以历史记忆这一项贡献为零：
+    $$h_{t-1} W_h = \begin{bmatrix} 0 & 0 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = \begin{bmatrix} 0 & 0 \end{bmatrix}$$</p>
+
+    <p>当前输入的贡献（矩阵左乘列向量）：
+    $$W_x \cdot x_t = \begin{bmatrix} 0.5 & -0.5 \\ 0.5 & 0.5 \end{bmatrix} \begin{bmatrix} 2.0 \\ -1.0 \end{bmatrix} = \begin{bmatrix} 0.5 \times 2.0 + (-0.5) \times (-1.0) \\ 0.5 \times 2.0 + 0.5 \times (-1.0) \end{bmatrix} = \begin{bmatrix} 1.0 + 0.5 \\ 1.0 - 0.5 \end{bmatrix} = \begin{bmatrix} 1.5 \\ 0.5 \end{bmatrix}$$</p>
+
+    <p>加上偏置 $b = [0, 0]^\top$，最终：
+    $$\boxed{a_t = \begin{bmatrix} 1.5 \\ 0.5 \end{bmatrix}}$$</p>
+
+    <p style="margin-top: 15px;"><strong>(2) 应用 $\tanh$ 激活，得到 $h_t$：</strong></p>
+    $$h_t = \tanh(a_t) = \begin{bmatrix} \tanh(1.5) \\ \tanh(0.5) \end{bmatrix} \approx \begin{bmatrix} 0.905 \\ 0.462 \end{bmatrix}$$
+
+    $$\boxed{h_t \approx \begin{bmatrix} 0.905 \\ 0.462 \end{bmatrix}}$$
+
+    <p><strong>直觉解读：</strong>第一步（$t=1$）只有当前词的贡献，没有历史记忆。$h_1$ 完全由第一个词决定，之后 $h_1$ 会作为 $h_{t-1}$ 传给第二步，把第一个词的信息带进去。</p>
+
+    <p style="margin-top: 15px;"><strong>(3) 初始隐藏状态 $h_0$ 的初始化：</strong></p>
+    <p>通常将 $h_0$ 初始化为<strong>全零向量</strong>，表示"序列开始前没有任何历史记忆"。</p>
+    <p>在古诗生成代码中，对应的写法是 <code>hidden = None</code>，PyTorch 的 <code>nn.RNN</code> 接收到 <code>hx=None</code> 时会自动将初始状态设为全零：</p>
+
+    <pre><code># 古诗生成代码中的初始化片段（文档 9.4.5）
+hidden = None  # 初始化隐状态为 None，等价于全零
+
+# 第一步推理
+input = torch.LongTensor([[start_token]]).to(device)
+output, hidden = model(input, hidden)
+# 此后 hidden 被更新，下一步可直接传入
+output, hidden = model(next_input, hidden)</code></pre>
+
+    <div class="keybox">
+        <div class="keybox-title">形状提示：RNN API 的输入输出张量形状</div>
+        <ul>
+            <li><code>input</code>：形状 $[\text{seq\_len}, \text{batch\_size}, \text{input\_size}]$</li>
+            <li><code>hx</code>（初始隐状态）：形状 $[\text{num\_layers}, \text{batch\_size}, \text{hidden\_size}]$</li>
+            <li><code>output</code>：形状 $[\text{seq\_len}, \text{batch\_size}, \text{hidden\_size}]$</li>
+            <li><code>hn</code>（最终隐状态）：形状 $[\text{num\_layers}, \text{batch\_size}, \text{hidden\_size}]$</li>
+        </ul>
+    </div>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q9-04　RNN 与前馈网络的本质区别</div>
+    <p><strong>题目描述：</strong><br>
+    文档 9.3.1 节指出，前馈网络的信号传播是<strong>单向</strong>的，而 RNN 的信号可以在层内<strong>循环</strong>。这两种架构在处理序列数据时有本质的区别。</p>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li>判断题：下列说法正确吗？请逐条判断并给出理由。
+            <ol type="a">
+                <li>"RNN 的 $W_h$ 在处理序列第 1 个词和第 20 个词时是两套不同的权重矩阵。"</li>
+                <li>"前馈网络也能处理文本，只需要把句子所有词的独热向量拼起来作为输入即可。"</li>
+                <li>"RNN 的输出 $h_t$ 只包含当前时刻 $x_t$ 的信息，不包含历史信息。"</li>
+            </ol>
+        </li>
+
+        <li style="margin-top: 10px;">文档说"将神经网络的层数加深，可以更有效地提取层次信息"。在 <code>nn.RNN</code> 中，参数 <code>num_layers=2</code> 代表什么？第一个隐藏层的输出如何传给第二个隐藏层？</li>
+
+        <li style="margin-top: 10px;">用下面的 PyTorch 代码，解释为什么 <code>output.shape</code> 是 <code>[1, 3, 16]</code> 而不是 <code>[1, 3, 8]</code>（8 是输入维度）？
+            <pre><code>import torch
+rnn = torch.nn.RNN(input_size=8, hidden_size=16, num_layers=2)
+input = torch.rand(1, 3, 8)
+hx = torch.randn(2, 3, 16)
+output, hn = rnn(input=input, hx=hx)
+print(output.shape)   # torch.Size([1, 3, 16])
+print(hn.shape)       # torch.Size([2, 3, 16])</code></pre>
+        </li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 9 章 9.3 循环网络层]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：什么是"时间展开"？为什么说 RNN 有环路？</div>
+    <ul>
+        <li><strong>环路的意思</strong>：RNN 单元的输出 $h_t$ 会被"循环"送回到自身，作为下一个时刻的输入之一。这就是那个环路——$h_{t-1} \to \text{RNN} \to h_t \to \text{RNN} \to h_{t+1} \to \cdots$</li>
+        <li><strong>时间展开</strong>：处理一个长度为 $T$ 的序列时，你可以把这个 RNN 单元"展开"成 $T$ 个相连的副本，每个副本处理一个时刻，相邻副本之间通过 $h_t$ 传递信息。展开后看起来就像一个很深的前馈网络，但<strong>所有副本共享同一套权重</strong>。</li>
+        <li><strong>权重共享 = 不管序列多长，参数总量固定</strong>：不管句子有 10 个词还是 100 个词，RNN 的参数量不变，因为同一套权重重复使用了 10 次或 100 次。这和全连接网络完全不同——全连接网络如果输入从 10 维变成 100 维，参数量会乘以 10。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) 判断题逐条解析：</strong></p>
+    <ol type="a">
+        <li><strong>错误。</strong>RNN 的核心特点正是<strong>权重共享</strong>——$W_h$、$W_x$、$b$ 在处理整个序列的每一个时间步时<strong>完全相同</strong>。序列的不同位置用的是同一套权重，只是传入的 $h_{t-1}$ 不同（携带了不同的历史信息），所以输出也不同。这正是 RNN 能以固定参数量处理任意长度序列的原因。</li>
+        <li><strong>有一定道理，但有严重缺陷。</strong>把所有词拼起来确实可以输入全连接层，但存在两大问题：(1)如果句子长度变化，输入维度就变化，全连接层无法处理不定长输入；(2)输入维度过大（一个词独热向量 $V$ 维，20 个词就是 $20V$ 维），参数量爆炸；(3)<strong>顺序信息被丢失</strong>——拼接本身没有记录哪个词在前哪个词在后（当然可以靠位置编码补救，但这已经是 Transformer 的思路了）。</li>
+        <li><strong>错误。</strong>$h_t$ 不只包含当前时刻的信息，还包含<strong>所有历史时刻的信息</strong>（通过 $h_{t-1}$ 一层层积累传递下来）。这正是 RNN 的核心价值所在——$h_t$ 是一个"历史摘要+当前输入"的综合状态。</li>
+    </ol>
+
+    <p style="margin-top: 15px;"><strong>(2) <code>num_layers=2</code> 的含义：</strong></p>
+    <p><code>num_layers=2</code> 表示叠加了两层 RNN。第一层以原始输入序列 $x_t$ 为输入，输出隐藏序列 $h_t^{(1)}$；第二层以第一层的输出 $h_t^{(1)}$ 为输入，输出最终隐藏序列 $h_t^{(2)}$。<strong>每一层都有独立的 $W_x$、$W_h$、$b$</strong>。最终的 <code>output</code> 是第二层（最后一层）的输出，<code>hn</code> 是每一层最后时刻的隐藏状态。</p>
+
+    <p style="margin-top: 15px;"><strong>(3) 为什么 <code>output.shape = [1, 3, 16]</code> 而不是 <code>[1, 3, 8]</code>：</strong></p>
+    <div class="keybox">
+        <div class="keybox-title">三个维度的含义</div>
+        <ul>
+            <li>第一维 <code>1</code>：序列长度 <code>seq_len=1</code>（只处理了 1 个时刻的输入）</li>
+            <li>第二维 <code>3</code>：批量大小 <code>batch_size=3</code>（同时处理 3 个样本）</li>
+            <li>第三维 <code>16</code>：<strong>隐藏层大小 <code>hidden_size=16</code></strong>，而不是输入大小 <code>input_size=8</code></li>
+        </ul>
+        <p>输出维度是 <code>hidden_size</code>，原因：RNN 的输出就是每个时刻的隐藏状态 $h_t$，而 $h_t$ 的维度是 <code>hidden_size</code>，和输入维度 <code>input_size</code> 无关。就像全连接层 <code>Linear(8, 16)</code> 的输出是 16 维，不是 8 维——输出维度由网络结构决定，不由输入维度决定。</p>
+    </div>
+</div>
+
+<div class="appbox">
+    <div class="appbox-title">现实应用场景</div>
+    <p><strong>多层 RNN 在语音识别中的应用：</strong><br>
+    深层双向 RNN（Bidirectional RNN）是 2014 年前语音识别的主流架构。第一层 RNN 学习声学特征的低级时序模式（音素级别），第二层学习更高级的语言结构（音节、词级别）。Google 的早期语音识别系统 DeepSpeech 就用了多层 RNN。不过从 2020 年起，Transformer 架构逐渐在语音识别中取代 RNN，主要原因是 Transformer 可以<strong>并行训练</strong>（RNN 必须逐步计算，无法并行），训练速度快得多。</p>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q9-05　古诗生成代码追踪：数据流形状分析</div>
+    <p><strong>题目描述：</strong><br>
+    阅读文档 9.4 节的古诗生成案例代码，回答以下问题。</p>
+
+    <pre><code>class PoetryRNN(nn.Module):
+    def __init__(self, vocab_size, embedding_dim=128, hidden_size=256,
+                 num_layers=1):
+        super().__init__()
+        self.embed = nn.Embedding(num_embeddings=vocab_size,
+                                  embedding_dim=embedding_dim)
+        self.rnn = nn.RNN(input_size=embedding_dim,
+                          hidden_size=hidden_size, num_layers=num_layers)
+        self.linear = nn.Linear(in_features=hidden_size,
+                                out_features=vocab_size)
+
+    def forward(self, input, hx=None):
+        embed = self.embed(input)       # 第1步
+        output, hidden = self.rnn(embed, hx)   # 第2步
+        output = self.linear(output)    # 第3步
+        return output, hidden
+
+model = PoetryRNN(len(vocab), 256, 512, 2).to(device)</code></pre>
+
+    <p>训练时，输入 <code>x</code> 的形状为 <code>[batch_size=32, seq_len=24]</code>（32 首诗，每首取 24 个字）。</p>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li>假设 <code>vocab_size=3000</code>，按照模型构造参数（<code>embedding_dim=256, hidden_size=512, num_layers=2</code>），逐步追踪以下四个张量的形状：
+            <ol type="a">
+                <li><code>x</code>（模型输入）：<span class="blank-line"></span></li>
+                <li><code>embed</code>（词嵌入层输出）：<span class="blank-line"></span></li>
+                <li><code>output</code>（RNN 层输出）：<span class="blank-line"></span></li>
+                <li><code>output</code>（线性层输出）：<span class="blank-line"></span></li>
+            </ol>
+        </li>
+
+        <li style="margin-top: 10px;">训练代码中有这样一行：
+            <pre><code>loss_value = loss(output.transpose(1, 2), y)</code></pre>
+            为什么要 <code>transpose(1, 2)</code>？<code>CrossEntropyLoss</code> 期望的输入形状是什么？
+        </li>
+
+        <li style="margin-top: 10px;">训练时的目标序列 <code>y</code> 和输入序列 <code>x</code> 的关系是什么？为什么要这样设计？</li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 9 章 9.4.2 自定义 Dataset / 9.4.3 搭建模型 / 9.4.4 模型训练]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：RNN 为什么要先过词嵌入再过 RNN？</div>
+    <ul>
+        <li><strong>输入流水线</strong>：文字 → 整数 ID → 词嵌入向量 → RNN → 预测下一个词的概率。</li>
+        <li><strong>为什么不能直接把整数 ID 送进 RNN？</strong>整数 ID（比如"月"=1234，"花"=567）是人工分配的编号，没有任何语义含义，1234 不比 567 更"月亮"。把这些编号直接送进 RNN，模型会把 ID 值当成数量关系来处理，这毫无意义。词嵌入的作用就是把无意义的整数变成有语义含义的浮点向量。</li>
+        <li><strong>为什么要 <code>nn.RNN</code> 之后再接 <code>nn.Linear</code>？</strong>RNN 的输出 $h_t$ 维度是 <code>hidden_size=512</code>，但我们最终要预测的是"下一个字是词表中哪个字"，输出应该是 <code>vocab_size=3000</code> 维的概率分布。<code>nn.Linear(512, 3000)</code> 就是把隐藏状态"解码"成词表上的 logits（未归一化概率）。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) 逐层形状追踪：</strong></p>
+
+    <p>注意：<code>nn.RNN</code> 期望输入形状为 <code>[seq_len, batch_size, input_size]</code>，但 <code>x</code> 的形状是 <code>[batch_size, seq_len]</code>，需要经过词嵌入和必要的维度调整。我们先追踪各层直接的输出形状：</p>
+
+    <table>
+        <thead>
+            <tr><th>步骤</th><th>操作</th><th>输出形状</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>输入</td><td><code>x</code></td><td><code>[32, 24]</code></td><td>32首诗，每首24字（整数ID）</td></tr>
+            <tr><td>第1步</td><td><code>embed(x)</code></td><td><code>[32, 24, 256]</code></td><td>每个字ID变成256维词向量</td></tr>
+            <tr><td>（转置）</td><td>调整维度喂给RNN</td><td><code>[24, 32, 256]</code></td><td>seq_len在前，batch在中</td></tr>
+            <tr><td>第2步</td><td><code>rnn(embed)</code></td><td><code>[24, 32, 512]</code></td><td>每个时刻输出512维隐藏状态</td></tr>
+            <tr><td>第3步</td><td><code>linear(output)</code></td><td><code>[24, 32, 3000]</code></td><td>每个时刻预测3000个字的得分</td></tr>
+        </tbody>
+    </table>
+
+    <p style="margin-top: 15px;"><strong>(2) 为什么要 <code>transpose(1, 2)</code>：</strong></p>
+    <p><code>CrossEntropyLoss</code> 对多类别分类的期望输入形状为：
+    $$\texttt{[batch\_size, num\_classes, ...]}$$
+    即类别维度必须是<strong>第二个维度</strong>（维度索引 1）。</p>
+
+    <p>而 RNN 输出经过 <code>linear</code> 后形状是 <code>[seq_len=24, batch_size=32, vocab_size=3000]</code>，如果直接换成批次在前，则是 <code>[32, 24, 3000]</code>——此时类别维度（3000）在第三个位置（索引 2），不满足 <code>CrossEntropyLoss</code> 的要求。</p>
+
+    <p><code>output.transpose(1, 2)</code> 交换第 1、2 维，把 <code>[32, 24, 3000]</code> 变成 <code>[32, 3000, 24]</code>，类别维度就到了索引 1，符合要求。</p>
+
+    <div class="keybox">
+        <div class="keybox-title">CrossEntropyLoss 期望的输入形状</div>
+        <ul>
+            <li><code>input</code>（预测）：形状 <code>[N, C]</code> 或 <code>[N, C, d1, d2, ...]</code>，$C$ 是类别数</li>
+            <li><code>target</code>（标签）：形状 <code>[N]</code> 或 <code>[N, d1, d2, ...]</code>，存储类别整数索引</li>
+            <li>本案例：<code>output.transpose(1,2)</code> 形状为 <code>[32, 3000, 24]</code>，<code>y</code> 形状为 <code>[32, 24]</code>，完全匹配</li>
+        </ul>
+    </div>
+
+    <p style="margin-top: 15px;"><strong>(3) 目标序列 <code>y</code> 和输入序列 <code>x</code> 的关系：</strong></p>
+    <p>从 <code>PoetryDataset</code> 的代码可以看出：</p>
+    <pre><code>self.data.append((seq[i : i + self.seq_len],        # x
+                  seq[i + 1 : i + 1 + self.seq_len])) # y</code></pre>
+    <p><code>y</code> 比 <code>x</code><strong>整体向右偏移了 1 个字</strong>——即 $y_t = x_{t+1}$。</p>
+    <p><strong>这叫"下一个字预测"（Next Token Prediction）任务：</strong>模型在看到 $x_t$ 时，要预测下一个字 $y_t = x_{t+1}$。训练时，已经知道了正确答案（$y$），通过交叉熵损失衡量预测有多准，再反向传播更新权重。这是语言模型的标准训练方式，GPT 系列大模型也是这样训练的，只是规模大了几千倍。</p>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q9-06　文本生成中的采样策略：argmax vs multinomial</div>
+    <p><strong>题目描述：</strong><br>
+    文档 9.4.5 节的古诗生成代码中，生成下一个字的方式是：</p>
+    <pre><code>prob = torch.softmax(output[0, 0], dim=-1)   # 计算概率分布
+next_token = torch.multinomial(prob, 1)       # 从概率分布中随机采样</code></pre>
+    <p>注意到这里用的是 <code>multinomial</code>（多项式采样），而不是 <code>argmax</code>（直接取概率最大的词）。</p>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li>如果改用 <code>argmax</code> 策略，即每次都选概率最大的词，会产生什么问题？为什么古诗生成不适合这样做？</li>
+
+        <li style="margin-top: 10px;"><code>torch.softmax</code> 把 RNN 输出的 logits（原始得分）变成了概率分布，具体做了什么数学变换？如果词表里有 3 个词，logits 为 $[3.0, 1.0, 0.5]$，计算其 softmax 概率。（结果保留两位小数）</li>
+
+        <li style="margin-top: 10px;">在文本生成中，有一种叫"温度（Temperature）"的参数，可以控制生成文本的"创意程度"：
+            $$\text{prob} = \text{softmax}\!\left(\frac{\text{logits}}{T}\right)$$
+            当 $T < 1$ 时，生成更保守（倾向于高概率词）；当 $T > 1$ 时，生成更随机（低概率词也有机会被选中）。请解释其背后的数学原因，并说明在古诗生成场景下，$T$ 选大一点还是小一点更好。
+        </li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 9 章 9.4.5 测试]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：Softmax 是什么？为什么必须先算 softmax 再采样？</div>
+    <ul>
+        <li><strong>Softmax 的作用</strong>：把任意实数向量（logits）变成<strong>各元素之和为 1 的概率向量</strong>。公式为 $p_i = e^{z_i} / \sum_j e^{z_j}$。无论输入多大多小，输出都是 $[0,1]$ 区间内的合法概率。</li>
+        <li><strong>为什么要先 softmax 再采样？</strong><code>torch.multinomial</code> 需要概率分布作为输入，而 RNN 输出的 logits 可以是任意实数（可以是负数），不能直接当概率用。</li>
+        <li><strong>argmax vs 采样的差别</strong>：argmax 是确定性的，同一个模型在同样上下文下永远输出同样的词，一直重复。采样是随机的，带来多样性和"创意感"，非常适合诗歌这种需要变化的生成任务。</li>
+    </ul>
+</div>
+
+<div class="metaphorbox">
+    <div class="metaphorbox-title">生活比喻：点菜时的"纠结程度"就是温度</div>
+    <p>你去餐厅点菜，菜单上有三道菜，你分别打了 $[3.0, 1.0, 0.5]$ 分：</p>
+    <ul>
+        <li><strong>argmax 策略（极度理性）</strong>：每次都点评分最高的那道，从不尝试别的。时间长了，永远只吃那一道菜——模型也是如此，会产生极度单调重复的文本。</li>
+        <li><strong>低温采样 $T=0.5$（保守型食客）</strong>：评分差距被放大，高分菜的优势更明显，你大概率还是点高分菜，但偶尔也会鼓起勇气试试第二名。</li>
+        <li><strong>高温采样 $T=2.0$（冒险型食客）</strong>：评分差距被压缩，三道菜的概率趋于均匀，你可能随机点任何一道——模型生成的文本更有创意，但也可能产生"不知所云"的内容。</li>
+        <li><strong>古诗生成的选择</strong>：既要押韵、有章法（不能太随机），又要有一定新意（不能只会重复）。一般 $T \in [0.8, 1.2]$ 是较好的平衡点——稍微保守，但保留一定的随机性。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) argmax 策略的问题：</strong></p>
+    <p><strong>贪心搜索的致命缺陷——重复生成</strong>。如果每步都取概率最高的词，模型会陷入"循环陷阱"：比如生成到"春风吹又生"之后，下一步概率最高的词可能又是"春"，然后再是"风"……无限循环，无法生成有新意的内容。</p>
+    <p>更根本的问题是：<strong>局部最优不等于全局最优</strong>。每步选最可能的词，不代表整首诗最可能。就像下棋，每步都走局部最好的一步，不一定赢得了整局。</p>
+
+    <p style="margin-top: 15px;"><strong>(2) Softmax 计算：</strong></p>
+    <p>Softmax 公式：$p_i = \dfrac{e^{z_i}}{\sum_{j} e^{z_j}}$</p>
+    <p>给定 logits $= [3.0, 1.0, 0.5]$：</p>
+    $$e^{3.0} \approx 20.09, \quad e^{1.0} \approx 2.718, \quad e^{0.5} \approx 1.649$$
+    $$\text{总和} = 20.09 + 2.718 + 1.649 = 24.457$$
+    $$p_1 = \frac{20.09}{24.457} \approx 0.82, \quad p_2 = \frac{2.718}{24.457} \approx 0.11, \quad p_3 = \frac{1.649}{24.457} \approx 0.07$$
+
+    $$\boxed{\text{softmax}([3.0, 1.0, 0.5]) \approx [0.82,\ 0.11,\ 0.07]}$$
+    <p>三者之和 $= 1.00$，满足概率分布要求。第一个词被选中的概率高达 82%，体现了 softmax 对最大值的"放大"效果。</p>
+
+    <p style="margin-top: 15px;"><strong>(3) 温度参数的数学原理：</strong></p>
+    <p><strong>当 $T < 1$ 时（如 $T=0.5$）：</strong>等效于把 logits 放大（$\text{logits}/0.5 = 2\times\text{logits}$），原来差距 2 的两个值变成差距 4。Softmax 对差距更敏感，高分值的概率被进一步放大，分布更"尖锐"（峰值更高），模型更倾向于选最高概率的词。</p>
+    <p><strong>当 $T > 1$ 时（如 $T=2$）：</strong>等效于把 logits 缩小（$\text{logits}/2$），原来差距 2 的两个值变成差距 1。Softmax 对差距不敏感，概率分布趋于均匀，各个词都有机会被选中，文本多样性增加。</p>
+    <p><strong>当 $T \to 0$：</strong>退化为 argmax（完全确定性）。</p>
+    <p><strong>当 $T \to \infty$：</strong>退化为均匀随机选词（完全随机）。</p>
+
+    <div class="keybox">
+        <div class="keybox-title">古诗生成中温度的实用建议</div>
+        <ul>
+            <li><strong>$T < 0.7$</strong>：输出较工整，但容易重复，缺乏新意</li>
+            <li><strong>$T = 0.8 \sim 1.0$</strong>：平衡模式，通常产生质量较好的古诗</li>
+            <li><strong>$T > 1.2$</strong>：创意较强但可能产生不押韵、无逻辑的输出</li>
+            <li><strong>实践小技巧</strong>：可以先用低温生成几个候选，再从中挑选最自然的一首</li>
+        </ul>
+    </div>
+
+    <pre><code># 加入温度参数的生成代码（对原代码的改进版）
+T = 0.9  # 温度参数，可以调节
+prob = torch.softmax(output[0, 0] / T, dim=-1)  # 除以温度再 softmax
+next_token = torch.multinomial(prob, 1)</code></pre>
+</div>
+
+<div class="appbox">
+    <div class="appbox-title">现实应用场景</div>
+    <p><strong>ChatGPT 的 temperature 参数——你每天都在用的采样策略：</strong><br>
+    ChatGPT API 中有一个 <code>temperature</code> 参数（默认 1.0，范围 0--2），本质上就是本题讨论的温度采样。写代码时建议 $T=0.2$（更精确，避免随机错误）；写诗歌、故事时建议 $T=1.2$（更有创意）；需要稳定可复现结果时设 $T=0$（等价于 argmax）。OpenAI 还提供了 <code>top_p</code>（核采样）参数作为温度的替代方案——只从累积概率超过 $p$ 的词中采样，也是控制多样性与准确性平衡的常用手段。</p>
+</div>
+
+<h2>本章小结：把公式化成脑中的画面</h2>
+
+<p>学完这 6 道题，如果还觉得"概念飘在空中"，试试把整章内容浓缩成这几句画面：</p>
+
+<ul>
+    <li><strong>NLP 三步进化</strong>：人工词典（查字典）→ 统计共现（数邻居）→ 神经推理（做填空题）。</li>
+    <li><strong>词嵌入</strong>：把每个词变成一张"语义身份证"，训练完了语义相近的词向量也相近。</li>
+    <li><strong>RNN 是什么</strong>：边读序列边更新笔记，笔记（$h_t$）传给下一步继续用。</li>
+    <li><strong>权重共享</strong>：不管序列多长，始终用同一套规则处理每个时刻——这是 RNN 处理可变长序列的秘诀。</li>
+    <li><strong>古诗生成的本质</strong>：学会"已知前 $t$ 个字，预测第 $t+1$ 个字"，然后把预测结果不断喂回模型，一字一字地生成。</li>
+    <li><strong>采样 vs argmax</strong>：argmax 太死板，采样带来多样性，温度控制创意程度。</li>
+</ul>
+
+<div class="metaphorbox">
+    <div class="metaphorbox-title">给零基础读者的一句总比喻</div>
+    <p><strong>如果把序列建模比作写一首歌：</strong></p>
+    <ul>
+        <li>前馈网络：只看当前这一拍，不知道前面唱了什么，完全不会作词；</li>
+        <li>RNN：有一本随手记录的小本子，每写一个字都翻翻本子，但本子页数有限，写得太长了前面的字迹会模糊；</li>
+        <li>古诗生成模型：拿着一本装满唐诗的课本练习"根据上文续写下一个字"，练多了，隐约学会了格律和意境——虽然还达不到李白的水平，但偶尔也能写出"月落乌啼霜满天"这样的意境。</li>
+    </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器学习 - 第7章 - 逻辑回归</title>
+    <script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+    };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", "SimSun", Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fafafa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        h1 .subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+            display: block;
+            margin-top: 8px;
+        }
+        h2 {
+            color: #34495e;
+            font-size: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .problem-box {
+            background-color: white;
+            border: 1px solid #3a7ca5;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .problem-box .title {
+            font-weight: bold;
+            color: #3a7ca5;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background-color: #f0fff0;
+            border: 1px solid #5cb85c;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .solution-box .title {
+            font-weight: bold;
+            color: #5cb85c;
+            margin-bottom: 10px;
+        }
+        .metaphor-box {
+            background-color: #fff8e7;
+            border: 1px solid #e67e22;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .metaphor-box .title {
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 10px;
+        }
+        .beginner-box {
+            background-color: #e8f4fc;
+            border: 1px solid #5dade2;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .beginner-box .title {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        .key-box {
+            background-color: #fffde7;
+            border: 1px solid #f39c12;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .key-box .title {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+        .app-box {
+            background-color: #f0fff0;
+            border: 1px solid #27ae60;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .app-box .title {
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #ecf0f1;
+            font-weight: bold;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, monospace;
+        }
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .source {
+            color: #7f8c8d;
+            font-size: 12px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>机器学习<br>第7章 逻辑回归<br><span class="subtitle">名字叫"回归"，做的是分类：Sigmoid 函数如何把线性分数变成概率</span></h1>
+
+    <div class="beginner-box">
+        <div class="title">本章题目导览：你将挑战哪些核心问题？</div>
+        <p>逻辑回归是机器学习中最重要的<strong>二分类</strong>算法，也是深度学习分类输出层的直接前身。它把线性回归的连续输出"压缩"成 $[0,1]$ 的概率，再用概率做分类决策。本章 6 道题覆盖逻辑回归的完整体系：</p>
+        <ul>
+            <li><strong>Q7-01（原理推导）</strong>：Sigmoid 函数的性质——为什么选它？数学形式、导数公式与几何直觉。</li>
+            <li><strong>Q7-02（损失函数）</strong>：为什么分类不用 MSE？从极大似然推导对数损失，并推导梯度公式。</li>
+            <li><strong>Q7-03（手动预测）</strong>：给定权重，手动计算逻辑回归的前向传播：线性分数 → Sigmoid → 概率 → 分类决策。</li>
+            <li><strong>Q7-04（API 实践）</strong>：<code>LogisticRegression</code> 参数深度解析——solver、C、penalty 的含义与选择。</li>
+            <li><strong>Q7-05（多分类）</strong>：OVR 与 Softmax 回归的对比——两种将逻辑回归扩展到多分类的策略。</li>
+            <li><strong>Q7-06（综合案例）</strong>：手写数字识别——完整多分类流程，包括混淆矩阵分析与错误案例解读。</li>
+        </ul>
+    </div>
+
+    <h2>第 7 章 逻辑回归：概率化的线性分类</h2>
+
+    <div class="metaphor-box">
+        <div class="title">先建立一个总感觉：逻辑回归在做什么？</div>
+        <p>想象你是医生，要根据患者的年龄、血压、胆固醇等指标判断他是否患有心脏病（是/否）。</p>
+        <p><strong>直接用线性回归</strong>来做这件事会很奇怪——它的输出可以是 -5 或 300，根本不是一个合理的"是否患病"概率。</p>
+        <p><strong>逻辑回归的解决方案</strong>：先用线性模型算一个"综合得分" $z = \boldsymbol{w}^Tx+b$（负数表示倾向于不患病，正数表示倾向于患病），再用 Sigmoid 函数把这个分数"压缩"到 $(0,1)$ 之间，变成一个合理的概率：得分越高，患病概率越接近 1；得分越低，越接近 0。</p>
+        <p>这就是逻辑回归的核心：<strong>线性模型 + Sigmoid 激活 = 概率预测</strong>。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q7-01 Sigmoid 函数：性质、导数与几何直觉</div>
+        <p><strong>题目描述：</strong></p>
+        <p>Sigmoid（逻辑斯谛）函数是逻辑回归的核心，它将任意实数映射到 $(0,1)$ 区间。</p>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li>Sigmoid 函数的定义为 $\sigma(z) = \dfrac{1}{1+e^{-z}}$，填写下表，计算关键点的函数值：
+                <table>
+                    <tr><th>$z$</th><th>$-\infty$</th><th>$-2$</th><th>$-1$</th><th>$0$</th><th>$1$</th><th>$2$</th><th>$+\infty$</th></tr>
+                    <tr><th>$\sigma(z)$</th><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td></tr>
+                </table>
+                （保留两位小数，$e\approx2.718$）
+            </li>
+            <li>推导 Sigmoid 函数的导数公式，证明：$\sigma'(z) = \sigma(z)\big(1-\sigma(z)\big)$。（提示：用商的求导法则或先写成 $(1+e^{-z})^{-1}$）</li>
+            <li>Sigmoid 函数在什么范围内梯度最大？在什么范围内梯度接近 0？这对神经网络的训练有什么影响（即"梯度消失"问题）？</li>
+            <li>除了 Sigmoid，还有哪些常用的"S形"激活函数？各有什么优缺点？（提示：tanh、ReLU 的比较）</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 7 章 7.1 逻辑回归简介]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) 关键点函数值：</strong></p>
+        <table>
+            <tr><th>$z$</th><th>$-\infty$</th><th>$-2$</th><th>$-1$</th><th>$0$</th><th>$1$</th><th>$2$</th><th>$+\infty$</th></tr>
+            <tr><th>$\sigma(z)$</th><td>$0$</td><td>$0.12$</td><td>$0.27$</td><td>$0.50$</td><td>$0.73$</td><td>$0.88$</td><td>$1$</td></tr>
+        </table>
+        <p>关键性质：$\sigma(0)=0.5$（分类阈值），$\sigma(-z)=1-\sigma(z)$（关于 $(0,0.5)$ 中心对称）。</p>
+        <p><strong>(2) 导数推导：</strong></p>
+        <p>$$\sigma'(z) = \frac{d}{dz}(1+e^{-z})^{-1} = -(1+e^{-z})^{-2}\cdot(-e^{-z}) = \frac{e^{-z}}{(1+e^{-z})^2}$$</p>
+        <p>$$= \frac{1}{1+e^{-z}}\cdot\frac{e^{-z}}{1+e^{-z}} = \sigma(z)\cdot\frac{1+e^{-z}-1}{1+e^{-z}} = \sigma(z)\cdot\left(1-\frac{1}{1+e^{-z}}\right) = \sigma(z)(1-\sigma(z))\ \blacksquare$$</p>
+        <p><strong>(3) 梯度消失问题：</strong></p>
+        <p>$\sigma'(z)$ 在 $z=0$ 处取最大值 $0.25$；当 $|z|$ 增大时，$\sigma(z)$ 趋近 0 或 1，$\sigma'(z)=\sigma(z)(1-\sigma(z))$ 趋近 0——<strong>饱和区梯度极小</strong>。在深层神经网络中，多层 Sigmoid 激活的导数连乘（反向传播）会使梯度呈指数级衰减，导致浅层参数几乎得不到有效的梯度信号，训练极其缓慢或停止——这就是"梯度消失（Vanishing Gradient）"问题。</p>
+        <p><strong>(4) 其他激活函数对比：</strong></p>
+        <ul>
+            <li><strong>tanh（双曲正切）</strong>：$\tanh(z)=\frac{e^z-e^{-z}}{e^z+e^{-z}}\in(-1,1)$，关于原点对称（零均值输出），比 Sigmoid 收敛更快；但仍有梯度消失问题（两端饱和）。</li>
+            <li><strong>ReLU</strong>：$f(z)=\max(0,z)$，正半轴梯度恒为 1，彻底解决正区域的梯度消失；缺点是负半轴梯度为 0（"死亡 ReLU"问题）。深度学习中最常用。</li>
+            <li><strong>Sigmoid 优点保留的场景</strong>：二分类输出层（输出 $[0,1]$ 概率）；在深层隐含层中已被 ReLU 系列取代。</li>
+        </ul>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q7-02 损失函数：为什么不用 MSE？对数损失的推导</div>
+        <p><strong>题目描述：</strong></p>
+        <p>逻辑回归使用<strong>对数损失</strong>（Log Loss / 二元交叉熵）而非均方误差，这背后有深刻的概率论原因。</p>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li>如果用 MSE 作为逻辑回归的损失函数，会遇到什么严重问题？（从凸性、梯度和优化难度角度分析）</li>
+            <li>逻辑回归假设输出服从<strong>伯努利分布</strong>：$P(y=1\mid x) = \hat{p}$，$P(y=0\mid x) = 1-\hat{p}$。
+                <ol type="a">
+                    <li>统一写出 $P(y\mid x)$ 的表达式（$y\in\{0,1\}$）。</li>
+                    <li>写出 $n$ 个样本的对数似然函数 $\ell(\boldsymbol{w})$，化简后得到对数损失的公式。</li>
+                </ol>
+            </li>
+            <li>写出对数损失关于参数 $w_j$ 的梯度 $\frac{\partial \ell}{\partial w_j}$，并说明<strong>这个公式与线性回归梯度的惊人相似之处</strong>。</li>
+            <li>计算以下两种情况下的对数损失（保留两位小数）：
+                <ol type="a">
+                    <li>真实标签 $y=1$，预测概率 $\hat{p}=0.9$</li>
+                    <li>真实标签 $y=1$，预测概率 $\hat{p}=0.1$</li>
+                </ol>
+                这两个结果说明了什么？
+            </li>
+        </ol>
+        <p class="source">来源溯源：[文档第 7 章 7.2 逻辑回归损失函数]</p>
+    </div>
+
+    <div class="beginner-box">
+        <div class="title">小白必读：对数损失的直觉——"高置信度的错误被重罚"</div>
+        <ul>
+            <li>当真实标签 $y=1$ 时，对数损失为 $-\log\hat{p}$。若模型预测 $\hat{p}=0.99$（很自信地认为是 1），损失很小（约 0.01）；若模型预测 $\hat{p}=0.01$（自信地认为不是 1），损失趋向无穷大——<strong>对错误的"自信判断"给予极大惩罚</strong>。</li>
+            <li>这比 MSE 的惩罚 $(0.01-1)^2=0.98$ 和 $(0.99-1)^2=0.0001$ 相比更合理——MSE 对这两种完全相反的情况惩罚差异不大，而对数损失的差异是天壤之别。</li>
+        </ul>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) MSE 用于逻辑回归的问题：</strong></p>
+        <p>将 Sigmoid 函数嵌入 MSE：$J = \frac{1}{n}\sum(\sigma(\boldsymbol{w}^Tx_i)-y_i)^2$。这个函数关于 $\boldsymbol{w}$ 是<strong>非凸</strong>的——有多个局部极小值，梯度下降无法保证找到全局最优。此外，Sigmoid 的饱和区使 MSE 梯度在参数大时也趋向 0，即使预测完全错误，参数也几乎不更新，学习极其缓慢。</p>
+        <p><strong>(2) 对数似然推导：</strong></p>
+        <ol type="a">
+            <li>$P(y\mid x) = \hat{p}^{\,y}(1-\hat{p})^{1-y}$（当 $y=1$ 时为 $\hat{p}$，当 $y=0$ 时为 $1-\hat{p}$）</li>
+            <li>对数似然（最大化）：
+                <p>$$\ell(\boldsymbol{w}) = \sum_{i=1}^n\left[y_i\log\hat{p}_i + (1-y_i)\log(1-\hat{p}_i)\right]$$</p>
+                最大化 $\ell$ 等价于最小化对数损失（负对数似然）：
+                <p>$$\boxed{J(\boldsymbol{w}) = -\frac{1}{n}\sum_{i=1}^n\left[y_i\log\hat{p}_i + (1-y_i)\log(1-\hat{p}_i)\right]}$$</p>
+            </li>
+        </ol>
+        <p><strong>(3) 梯度公式及与线性回归的相似性：</strong></p>
+        <p>利用链式法则与 $\sigma'=\sigma(1-\sigma)$：</p>
+        <p>$$\frac{\partial J}{\partial w_j} = -\frac{1}{n}\sum_{i=1}^n\left[\frac{y_i}{\hat{p}_i} - \frac{1-y_i}{1-\hat{p}_i}\right]\hat{p}_i(1-\hat{p}_i)x_{ij} = \frac{1}{n}\sum_{i=1}^n(\hat{p}_i - y_i)x_{ij}$$</p>
+        <div class="key-box">
+            <div class="title">惊人的相似性：逻辑回归梯度 = 线性回归梯度的形式！</div>
+            <p>逻辑回归的梯度 $\frac{1}{n}\sum(\hat{p}_i - y_i)x_{ij}$ 与线性回归的梯度 $\frac{1}{n}\sum(\hat{y}_i - y_i)x_{ij}$ <strong>形式完全相同</strong>——只是把"线性预测值"替换成了"Sigmoid 概率值"。这不是巧合，而是广义线性模型（GLM）框架的深层数学结构决定的，说明两者是同一框架（指数族分布 + 对应连接函数）的不同特例。</p>
+        </div>
+        <p><strong>(4) 具体计算：</strong></p>
+        <ol type="a">
+            <li>$y=1, \hat{p}=0.9$：$L = -\log(0.9) \approx -(-0.105) = \mathbf{0.11}$（损失小，预测正确且自信）</li>
+            <li>$y=1, \hat{p}=0.1$：$L = -\log(0.1) \approx -(-2.303) = \mathbf{2.30}$（损失大，预测完全错误且高置信度）</li>
+        </ol>
+        <p>结论：对数损失对"高置信度的错误预测"施加远大于"低置信度正确预测"的惩罚，强迫模型不仅要猜对，还要给出合理的置信度。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q7-03 手动预测：前向传播全流程计算</div>
+        <p><strong>题目描述：</strong></p>
+        <p>给定一个训练好的逻辑回归模型，权重 $\boldsymbol{w} = [0.8, -1.2, 0.5]$，截距 $b = -0.3$，分类阈值为 $0.5$。</p>
+        <p><strong>对三个新样本进行预测：</strong></p>
+        <table>
+            <tr><th>样本</th><th>$x_1$</th><th>$x_2$</th><th>$x_3$</th><th>真实标签</th></tr>
+            <tr><td>A</td><td>1</td><td>0</td><td>2</td><td>1</td></tr>
+            <tr><td>B</td><td>0</td><td>2</td><td>1</td><td>0</td></tr>
+            <tr><td>C</td><td>2</td><td>1</td><td>0</td><td>1</td></tr>
+        </table>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li>对每个样本，依次计算：线性得分 $z = \boldsymbol{w}^T x + b$，Sigmoid 概率 $\hat{p} = \sigma(z)$，预测类别（阈值 0.5），并与真实标签对比。（保留两位小数）
+                <table>
+                    <tr><th>样本</th><th>$z$</th><th>$\hat{p}=\sigma(z)$</th><th>预测类别</th><th>真实标签</th><th>是否正确</th></tr>
+                    <tr><td>A</td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td>1</td><td><u>&nbsp;&nbsp;&nbsp;</u></td></tr>
+                    <tr><td>B</td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td>0</td><td><u>&nbsp;&nbsp;&nbsp;</u></td></tr>
+                    <tr><td>C</td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;</u></td><td>1</td><td><u>&nbsp;&nbsp;&nbsp;</u></td></tr>
+                </table>
+            </li>
+            <li>对这三个样本，计算平均对数损失（Log Loss）。（样本 C 若预测错误需特别注意损失值）</li>
+            <li>逻辑回归的<strong>决策边界</strong>（Decision Boundary）是什么？对于二特征逻辑回归，决策边界在特征空间中是什么形状？写出决策边界的方程。</li>
+            <li>如果将分类阈值从 $0.5$ 改为 $0.3$，对上面三个样本的预测结果会有什么变化？这种调整在什么业务场景下是合理的？</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 7 章 7.1 逻辑回归简介 / 7.3 API使用]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) 前向传播计算：</strong></p>
+        <p>$\boldsymbol{w}=[0.8, -1.2, 0.5]$，$b=-0.3$：</p>
+        <p><strong>样本 A</strong> $(x_1=1,x_2=0,x_3=2)$：</p>
+        <p>$z = 0.8(1) + (-1.2)(0) + 0.5(2) - 0.3 = 0.8+0+1.0-0.3 = 1.5$，</p>
+        <p>$\hat{p} = \sigma(1.5) = \frac{1}{1+e^{-1.5}} \approx \frac{1}{1+0.223} \approx 0.82$，预测 1，正确 ✓</p>
+        <p><strong>样本 B</strong> $(x_1=0,x_2=2,x_3=1)$：</p>
+        <p>$z = 0.8(0)+(-1.2)(2)+0.5(1)-0.3 = 0-2.4+0.5-0.3 = -2.2$，</p>
+        <p>$\hat{p} = \sigma(-2.2) \approx \frac{1}{1+9.025} \approx 0.10$，预测 0，正确 ✓</p>
+        <p><strong>样本 C</strong> $(x_1=2,x_2=1,x_3=0)$：</p>
+        <p>$z = 0.8(2)+(-1.2)(1)+0.5(0)-0.3 = 1.6-1.2+0-0.3 = 0.1$，</p>
+        <p>$\hat{p} = \sigma(0.1) \approx 0.525$，预测 1，正确 ✓</p>
+        <table>
+            <tr><th>样本</th><th>$z$</th><th>$\hat{p}$</th><th>预测</th><th>真实</th><th>正确？</th></tr>
+            <tr><td>A</td><td>$1.5$</td><td>$0.82$</td><td>$1$</td><td>$1$</td><td>✓</td></tr>
+            <tr><td>B</td><td>$-2.2$</td><td>$0.10$</td><td>$0$</td><td>$0$</td><td>✓</td></tr>
+            <tr><td>C</td><td>$0.1$</td><td>$0.53$</td><td>$1$</td><td>$1$</td><td>✓</td></tr>
+        </table>
+        <p><strong>(2) 平均对数损失：</strong></p>
+        <ul>
+            <li>A（$y=1, \hat{p}=0.82$）：$L_A = -\log(0.82) \approx 0.198$</li>
+            <li>B（$y=0, \hat{p}=0.10$）：$L_B = -\log(1-0.10) = -\log(0.90) \approx 0.105$</li>
+            <li>C（$y=1, \hat{p}=0.53$）：$L_C = -\log(0.53) \approx 0.635$</li>
+        </ul>
+        <p>$$\bar{L} = \frac{0.198+0.105+0.635}{3} = \frac{0.938}{3} \approx \mathbf{0.313}$$</p>
+        <p>样本 C 的损失最大（概率仅 0.53，接近随机），说明模型对该样本最不确定。</p>
+        <p><strong>(3) 决策边界：</strong></p>
+        <p>当 $\hat{p} = 0.5$ 时，$\sigma(z)=0.5$ 意味着 $z=0$，即 $\boldsymbol{w}^Tx+b=0$。决策边界方程为：</p>
+        <p>$$w_1 x_1 + w_2 x_2 + b = 0$$</p>
+        <p>对于二特征逻辑回归，这是<strong>二维特征空间中的一条直线</strong>（多特征时是超平面）——与感知机决策边界形式相同，但逻辑回归通过概率和对数损失训练，决策边界两侧有平滑的概率过渡。</p>
+        <p><strong>(4) 阈值从 0.5 改为 0.3 的影响：</strong></p>
+        <p>原三个样本均正确，阈值降低后判正标准更宽松——样本 B（$\hat{p}=0.10 < 0.3$）不变；样本 A、C 已满足 $\hat{p} > 0.3$，预测结果不变。整体上，降低阈值使更多样本被判为正类，<strong>召回率上升、精确率下降</strong>。合理场景：医疗诊断中希望尽量不漏诊（宁可误报也不漏报），如肿瘤筛查、新冠检测——此时降低阈值是正确的业务决策。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q7-04 LogisticRegression API 深度解析</div>
+        <p><strong>题目描述：</strong></p>
+        <p>sklearn 的 <code>LogisticRegression</code> 有许多重要参数，理解它们对正确使用和调优至关重要。</p>
+        <pre><code>from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
+
+# 基础使用
+lr = LogisticRegression(
+    penalty='l2',      # 正则化类型
+    C=1.0,             # 正则化强度（注意：C越大，正则化越弱）
+    solver='lbfgs',    # 优化算法
+    max_iter=1000,     # 最大迭代次数
+    multi_class='auto',# 多分类策略
+    random_state=42
+)
+
+# 超参数调优
+pipe = Pipeline([('scaler', StandardScaler()), ('lr', LogisticRegression(max_iter=1000))])
+param_grid = {
+    'lr__penalty': ['l1', 'l2', 'elasticnet', 'none'],
+    'lr__C': [0.001, 0.01, 0.1, 1, 10, 100],
+    'lr__solver': ['lbfgs', 'liblinear', 'saga']
+}
+grid = GridSearchCV(pipe, param_grid, cv=5, scoring='f1')</code></pre>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li>参数 <code>C</code> 是正则化系数 $\lambda$ 的<strong>倒数</strong>（$C = 1/\lambda$）。当 $C=0.001$ 和 $C=100$ 时，模型分别偏向欠拟合还是过拟合？为什么 sklearn 用 $C$ 而非 $\lambda$？</li>
+            <li>填写下表，对比不同 <code>solver</code> 的适用场景：
+                <table>
+                    <tr><th>Solver</th><th>支持的正则化</th><th>适用场景</th></tr>
+                    <tr><td><code>lbfgs</code></td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td></tr>
+                    <tr><td><code>liblinear</code></td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td></tr>
+                    <tr><td><code>saga</code></td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td></tr>
+                </table>
+            </li>
+            <li>网格搜索中，<code>penalty='l1'</code> 与 <code>solver='lbfgs'</code> 的组合<strong>不兼容</strong>（会报错）。查阅 sklearn 文档，哪些 solver 支持 L1 正则化？如何在代码中避免此错误？</li>
+            <li><code>scoring='f1'</code> 在二分类时工作正常，但在多分类时可能报错。应改用什么参数？解释 <code>f1_macro</code>、<code>f1_micro</code>、<code>f1_weighted</code> 的区别。</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 7 章 7.3 API使用 / 7.4 案例]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) $C$ 参数的含义：</strong></p>
+        <p>$C=1/\lambda$，$C$ 越小代表正则化越强：$C=0.001$（即 $\lambda=1000$）→ 强正则化，参数被大力压缩 → <strong>偏向欠拟合</strong>（高偏差）；$C=100$（即 $\lambda=0.01$）→ 弱正则化，参数几乎自由 → <strong>偏向过拟合</strong>（高方差）。sklearn 使用 $C$ 而非 $\lambda$ 的原因：$C$ 越大模型越复杂（与直觉上"越大越强"一致），更符合"越大越强"的心理习惯；而 $\lambda$ 越大模型越简单，方向相反容易混淆。</p>
+        <p><strong>(2) Solver 对比：</strong></p>
+        <table>
+            <tr><th>Solver</th><th>支持的正则化</th><th>适用场景</th></tr>
+            <tr><td><code>lbfgs</code></td><td>L2, None</td><td>中小型数据集；多分类；默认推荐选择</td></tr>
+            <tr><td><code>liblinear</code></td><td>L1, L2</td><td>小数据集；需要 L1 正则化（特征选择）；二分类</td></tr>
+            <tr><td><code>saga</code></td><td>L1, L2, ElasticNet, None</td><td>大数据集；需要 L1/ElasticNet；支持随机梯度下降加速</td></tr>
+        </table>
+        <p><strong>(3) L1 不兼容 lbfgs 的解决：</strong></p>
+        <p>仅 <code>liblinear</code> 和 <code>saga</code> 支持 L1 正则化。避免错误的方式：在网格搜索中使用合法的参数组合，或用自定义参数列表：</p>
+        <pre><code># 方法：只列出合法的参数组合
+from sklearn.model_selection import ParameterGrid
+param_list = [
+    {'lr__penalty': ['l2', 'none'], 'lr__solver': ['lbfgs'],'lr__C': [0.01,1,100]},
+    {'lr__penalty': ['l1', 'l2'], 'lr__solver': ['liblinear'], 'lr__C': [0.01,1,100]},
+    {'lr__penalty': ['l1','l2','elasticnet'], 'lr__solver': ['saga'], 'lr__C': [0.01,1,100]}
+]
+grid = GridSearchCV(pipe, param_list, cv=5, scoring='f1_weighted')</code></pre>
+        <p><strong>(4) 多分类 F1 指标：</strong></p>
+        <div class="key-box">
+            <div class="title">三种多分类 F1 的区别</div>
+            <p><strong>f1_macro</strong>：对每个类别<strong>独立计算 F1</strong>，然后取<strong>简单平均</strong>——不考虑类别样本数差异，对每个类别一视同仁，少数类权重与多数类相同。适合：关注每个类别平等表现（如多分类物种识别）。</p>
+            <p><strong>f1_micro</strong>：将所有类别的 TP、FP、FN<strong>全部汇总</strong>后统一计算 F1——等价于准确率，少数类贡献小。适合：关注总体预测准确性。</p>
+            <p><strong>f1_weighted</strong>：对每个类别的 F1 按<strong>样本数加权平均</strong>——样本多的类别权重高，自然考虑了类别不平衡。适合：数据不平衡且关注整体性能的场景（最常用）。</p>
+        </div>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q7-05 多分类：OVR vs Softmax 回归深度对比</div>
+        <p><strong>题目描述：</strong></p>
+        <p>逻辑回归天生是二分类器，将其扩展到多分类（$K>2$ 类）有两种主流策略：一对多（OVR）和 Softmax 回归。</p>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li><strong>一对多（OVR/OvA）</strong>策略的工作流程：设有 $K=3$ 类，描述训练阶段训练了几个分类器，以及预测时如何做最终决策。</li>
+            <li><strong>Softmax 回归</strong>（多项逻辑回归）是如何工作的？写出 Softmax 函数的公式，并说明它如何将 $K$ 个线性输出 $z_k = \boldsymbol{w}_k^T x + b_k$ 转化为 $K$ 个类别的概率。</li>
+            <li>填写下表对比两种策略：
+                <table>
+                    <tr><th>对比维度</th><th>OVR</th><th>Softmax</th></tr>
+                    <tr><td>训练模型数量</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td></tr>
+                    <tr><td>概率输出性质</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td></tr>
+                    <tr><td>类别间的关系</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td></tr>
+                    <tr><td>sklearn 中的参数设置</td><td><code>multi_class='ovr'</code></td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td></tr>
+                </table>
+            </li>
+            <li>Softmax 回归存在一个<strong>参数冗余</strong>问题：$K$ 个类别实际上只需要 $K-1$ 组参数。解释为什么，以及 sklearn 如何处理这个冗余（提示：参考二分类时只需要 1 个参数组，而非 2 个）。</li>
+            <li>手动计算：设 Softmax 回归，$K=3$，某样本的线性得分为 $z_1=2.0, z_2=1.0, z_3=0.1$，计算三个类别的 Softmax 概率。（$e^{2.0}\approx7.39, e^{1.0}\approx2.72, e^{0.1}\approx1.11$）</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 7 章 7.5 多分类任务]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) OVR 流程（$K=3$）：</strong></p>
+        <p><strong>训练阶段</strong>：训练 $K=3$ 个二分类器：分类器1：类别1 vs（类别2+类别3）；分类器2：类别2 vs（类别1+类别3）；分类器3：类别3 vs（类别1+类别2）。每个分类器输出对应类别的概率 $p_k$。<strong>预测阶段</strong>：将新样本输入 3 个分类器，取输出概率<strong>最大</strong>的分类器对应的类别作为最终预测。</p>
+        <p><strong>(2) Softmax 函数：</strong></p>
+        <p>$$P(y=k\mid x) = \text{softmax}(z)_k = \frac{e^{z_k}}{\sum_{j=1}^K e^{z_j}}, \quad k=1,\ldots,K$$</p>
+        <p>Softmax 将 $K$ 个线性得分（可以是任意实数）转化为<strong>归一化的概率分布</strong>（每个类别概率在 $(0,1)$ 之间，所有类别概率之和为 1）。得分越高的类别，分配的概率越大。</p>
+        <p><strong>(3) 对比表格：</strong></p>
+        <table>
+            <tr><th>对比维度</th><th>OVR</th><th>Softmax</th></tr>
+            <tr><td>训练模型数量</td><td>$K$ 个独立二分类器</td><td>1 个多分类器（$K$ 组参数）</td></tr>
+            <tr><td>概率输出性质</td><td>$K$ 个概率之和<strong>不一定为 1</strong>（各自独立预测）</td><td>$K$ 个概率之和<strong>严格等于 1</strong></td></tr>
+            <tr><td>类别间的关系</td><td>各类别独立建模，忽略类别间的竞争关系</td><td>类别间相互竞争（分母有所有类别），概率归一化</td></tr>
+            <tr><td>sklearn 参数</td><td><code>multi_class='ovr'</code></td><td><code>multi_class='multinomial'</code></td></tr>
+        </table>
+        <p><strong>(4) 参数冗余：</strong></p>
+        <p>Softmax 有 $K$ 组参数向量，但其中一组可以被固定为零向量（参考类），因为 $K$ 组参数中有 1 组是冗余的（概率归一化约束使得 $K$ 个参数实际上只有 $K-1$ 个自由度）。类比二分类：逻辑回归只需 1 组参数预测 $P(y=1)$，另一类的概率由 $1-P(y=1)$ 给出，无需单独参数。sklearn 在实现时通过正则化约束（L2）隐式处理了这个冗余，保证数值稳定性。</p>
+        <p><strong>(5) Softmax 概率计算：</strong></p>
+        <p>$$\text{分母} = e^{2.0}+e^{1.0}+e^{0.1} = 7.39+2.72+1.11 = 11.22$$</p>
+        <p>$$P(y=1) = \frac{7.39}{11.22} \approx \mathbf{0.659}$$</p>
+        <p>$$P(y=2) = \frac{2.72}{11.22} \approx \mathbf{0.242}$$</p>
+        <p>$$P(y=3) = \frac{1.11}{11.22} \approx \mathbf{0.099}$$</p>
+        <p>验证：$0.659+0.242+0.099=1.000$ ✓。预测为类别 1（概率最高）。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q7-06 综合案例：手写数字识别（多分类）</div>
+        <p><strong>题目描述：</strong></p>
+        <p>MNIST 手写数字数据集包含 60000 张训练图片、10000 张测试图片，每张图片为 $28\times28$ 像素的灰度图，共 10 个类别（数字 0--9）。目标是用逻辑回归实现手写数字识别。</p>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li>每张 $28\times28$ 的图片作为特征时，特征维度是多少？逻辑回归（Softmax 版本）对于 10 分类任务，总共有多少个参数（权重 + 截距）？</li>
+            <li>阅读以下代码框架，回答问题：
+                <pre><code>from sklearn.datasets import load_digits    # 使用digits替代MNIST（更小）
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import classification_report, confusion_matrix
+import numpy as np
+
+digits = load_digits()  # 8x8图片，64特征，10类
+X, y = digits.data / 16.0, digits.target  # 归一化到[0,1]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, stratify=y, random_state=42)
+
+lr = LogisticRegression(
+    solver='lbfgs', max_iter=5000,
+    multi_class='multinomial', C=10.0)
+lr.fit(X_train, y_train)
+
+y_pred = lr.predict(X_test)
+print(classification_report(y_test, y_pred))
+cm = confusion_matrix(y_test, y_pred)</code></pre>
+                <ol type="a">
+                    <li>为什么 <code>X / 16.0</code> 可以替代 <code>StandardScaler</code>？这种归一化有什么优缺点？</li>
+                    <li><code>stratify=y</code> 在数字分类任务中有什么作用？</li>
+                    <li>如果模型收敛警告（<code>ConvergenceWarning</code>），有哪些解决方法？</li>
+                </ol>
+            </li>
+            <li>假设模型的混淆矩阵中，数字"4"和"9"之间的混淆（互相误判）特别多。从<strong>特征</strong>和<strong>像素</strong>角度解释为什么这两个数字容易混淆。</li>
+            <li>从逻辑回归到深度学习（如 CNN）用于手写数字识别，<strong>性能提升的本质原因</strong>是什么？CNN 解决了逻辑回归的哪些根本局限？</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 7 章 7.6 案例：手写数字识别]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) 参数数量：</strong></p>
+        <p>$28\times28=784$ 个特征（像素）。Softmax 逻辑回归对 10 类共需：$10\times784$（权重）$+10$（截距）$= 7850$ 个参数。</p>
+        <p><strong>(2) 代码问题：</strong></p>
+        <ol type="a">
+            <li>图片像素值范围是 $[0,16]$（load_digits 中为 0--16），除以 16 后映射到 $[0,1]$。这是<strong>Min-Max 归一化</strong>的特殊情况（已知 min=0, max=16）。优点：保留像素绝对零值的语义意义（0=空白像素）；实现简单。缺点：若不同图片的亮度分布差异大时，不如 Z-score 标准化效果好。</li>
+            <li><code>stratify=y</code>：确保训练集和测试集中<strong>每个数字（类别）的比例相同</strong>。如果不分层，可能某个数字在测试集中样本很少，导致该类别的评估不稳定。</li>
+            <li>解决收敛警告：增大 <code>max_iter</code>（如 10000）；对特征做更彻底的标准化（用 <code>StandardScaler</code>）；调小 <code>C</code>（增强正则化，目标函数更光滑，更易收敛）；换用 <code>solver='saga'</code>（支持更大规模优化，适合数据量大时）。</li>
+        </ol>
+        <p><strong>(3) "4"和"9"容易混淆的原因：</strong></p>
+        <p>从视觉/像素特征角度：数字 4 和 9 在上半部分的笔画结构非常相似——都有一个封闭的"圆圈"形区域和一条垂直线，且上部轮廓接近。逻辑回归把每个像素作为独立特征，无法捕获局部结构（如笔画的连通性、曲度）——两个数字在同一位置的像素亮度分布高度重叠，导致线性分类器难以区分。CNN 通过卷积核学习局部结构特征（弯钩、垂直线、圆弧），能精确捕获两者在底部的差异。</p>
+        <p><strong>(4) 逻辑回归 vs CNN 的本质差异：</strong></p>
+        <div class="key-box">
+            <div class="title">CNN 超越逻辑回归的核心优势</div>
+            <p><strong>逻辑回归的根本局限</strong>：将图片"压平"为一维向量，<strong>完全丢失了像素间的空间关系</strong>（相邻像素的联系、笔画的形状）；线性决策边界无法建模复杂的非线性视觉特征；对平移、旋转、形变缺乏不变性。</p>
+            <p><strong>CNN 的核心优势</strong>：卷积层自动学习局部特征（边缘、角点、曲线）；池化层提供平移不变性；多层特征层次化地抽象（低层像素→中层笔画→高层数字结构）。CNN 在 MNIST 上可达 $>99\%$ 准确率，而逻辑回归通常在 92--95\% 左右——根本区别在于特征提取能力，不是参数数量。</p>
+        </div>
+    </div>
+
+    <div class="app-box">
+        <div class="title">现实应用场景</div>
+        <p><strong>逻辑回归在工业界的大量应用：</strong></p>
+        <p>逻辑回归因其可解释性强（系数直接对应特征重要性和方向）、训练快、输出概率有意义，在以下场景中仍是工业首选：广告点击率预测（CTR）、信用评分与风控（银行对每个系数的业务解释有强需求）、医疗诊断辅助（医生需理解模型为何给出某个概率）、自然语言文本分类（TF-IDF特征+逻辑回归是经典基线）。"能用简单模型解决的问题，没必要用复杂模型"——在数据量有限、可解释性要求高的场景，逻辑回归往往是最优选择。</p>
+    </div>
+
+    <h2>本章小结</h2>
+    <ul>
+        <li><strong>逻辑回归 = 线性模型 + Sigmoid 激活</strong>：本质是在线性分类器基础上增加概率化输出，决策边界仍是超平面。</li>
+        <li><strong>对数损失是正确的损失函数</strong>：MLE 推导，比 MSE 凸且梯度优良；梯度公式与线性回归惊人相似。</li>
+        <li><strong>阈值调节是业务决策</strong>：默认 0.5 不一定最优，根据精确率-召回率权衡调整——不漏诊场景降阈值，不误报场景升阈值。</li>
+        <li><strong>多分类两种策略</strong>：OVR 简单独立；Softmax 联合建模、概率归一——类别多且互斥时用 Softmax 更合理。</li>
+        <li><strong>可解释性是逻辑回归的核心优势</strong>：工业界仍大量使用，因为系数可以向业务方直接解释。</li>
+    </ul>
+</body>
+</html>

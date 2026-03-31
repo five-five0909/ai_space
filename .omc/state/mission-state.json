@@ -1,0 +1,245 @@
+{
+  "updatedAt": "2026-03-30T14:11:40.774Z",
+  "missions": [
+    {
+      "id": "session:5f96b054-7f1c-4094-83fd-1b5ff04c5799:none",
+      "source": "session",
+      "name": "none",
+      "objective": "Session mission",
+      "createdAt": "2026-03-30T12:25:40.461Z",
+      "updatedAt": "2026-03-30T14:11:40.774Z",
+      "status": "running",
+      "workerCount": 13,
+      "taskCounts": {
+        "total": 13,
+        "pending": 0,
+        "blocked": 0,
+        "inProgress": 8,
+        "completed": 5,
+        "failed": 0
+      },
+      "agents": [
+        {
+          "name": "implement:aac2aac",
+          "role": "implement",
+          "ownership": "aac2aacb46e20d032",
+          "status": "done",
+          "currentStep": null,
+          "latestUpdate": "completed",
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T12:48:35.843Z"
+        },
+        {
+          "name": "implement:ab3f261",
+          "role": "implement",
+          "ownership": "ab3f261457d2f8576",
+          "status": "running",
+          "currentStep": null,
+          "latestUpdate": null,
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T12:25:40.517Z"
+        },
+        {
+          "name": "implement:a8516b6",
+          "role": "implement",
+          "ownership": "a8516b693b3c16b8d",
+          "status": "running",
+          "currentStep": null,
+          "latestUpdate": null,
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T12:25:40.578Z"
+        },
+        {
+          "name": "implement:a6b7498",
+          "role": "implement",
+          "ownership": "a6b74985f2eec62fc",
+          "status": "running",
+          "currentStep": null,
+          "latestUpdate": null,
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T12:25:40.640Z"
+        },
+        {
+          "name": "implement:ad234e6",
+          "role": "implement",
+          "ownership": "ad234e690c229d4bd",
+          "status": "done",
+          "currentStep": null,
+          "latestUpdate": "completed",
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T13:15:14.857Z"
+        },
+        {
+          "name": "implement:a7812a8",
+          "role": "implement",
+          "ownership": "a7812a8dec9f8862d",
+          "status": "running",
+          "currentStep": null,
+          "latestUpdate": null,
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T13:05:40.346Z"
+        },
+        {
+          "name": "implement:acb86df",
+          "role": "implement",
+          "ownership": "acb86dffa0d257b53",
+          "status": "running",
+          "currentStep": null,
+          "latestUpdate": null,
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T13:05:40.378Z"
+        },
+        {
+          "name": "implement:ab44668",
+          "role": "implement",
+          "ownership": "ab44668e69e199173",
+          "status": "running",
+          "currentStep": null,
+          "latestUpdate": null,
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T13:05:40.392Z"
+        },
+        {
+          "name": "implement:aa03441",
+          "role": "implement",
+          "ownership": "aa03441088f7321cd",
+          "status": "done",
+          "currentStep": null,
+          "latestUpdate": "completed",
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T13:14:19.530Z"
+        },
+        {
+          "name": "implement:aeafa4b",
+          "role": "implement",
+          "ownership": "aeafa4bbf253a6ce0",
+          "status": "running",
+          "currentStep": null,
+          "latestUpdate": null,
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T13:51:48.479Z"
+        },
+        {
+          "name": "implement:a06ae28",
+          "role": "implement",
+          "ownership": "a06ae28acd8a47548",
+          "status": "running",
+          "currentStep": null,
+          "latestUpdate": null,
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T13:51:48.545Z"
+        },
+        {
+          "name": "implement:a482401",
+          "role": "implement",
+          "ownership": "a4824017f4dc15ffe",
+          "status": "done",
+          "currentStep": null,
+          "latestUpdate": "completed",
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T14:11:40.774Z"
+        },
+        {
+          "name": "implement:a6708f7",
+          "role": "implement",
+          "ownership": "a6708f74b7cc740d3",
+          "status": "done",
+          "currentStep": null,
+          "latestUpdate": "completed",
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T14:01:51.028Z"
+        }
+      ],
+      "timeline": [
+        {
+          "id": "session-start:a06ae28acd8a47548:2026-03-30T13:51:48.545Z",
+          "at": "2026-03-30T13:51:48.545Z",
+          "kind": "update",
+          "agent": "implement:a06ae28",
+          "detail": "started implement:a06ae28",
+          "sourceKey": "session-start:a06ae28acd8a47548"
+        },
+        {
+          "id": "session-start:a4824017f4dc15ffe:2026-03-30T13:51:48.607Z",
+          "at": "2026-03-30T13:51:48.607Z",
+          "kind": "update",
+          "agent": "implement:a482401",
+          "detail": "started implement:a482401",
+          "sourceKey": "session-start:a4824017f4dc15ffe"
+        },
+        {
+          "id": "session-start:a6708f74b7cc740d3:2026-03-30T13:51:48.668Z",
+          "at": "2026-03-30T13:51:48.668Z",
+          "kind": "update",
+          "agent": "implement:a6708f7",
+          "detail": "started implement:a6708f7",
+          "sourceKey": "session-start:a6708f74b7cc740d3"
+        },
+        {
+          "id": "session-stop:a6708f74b7cc740d3:2026-03-30T14:01:51.028Z",
+          "at": "2026-03-30T14:01:51.028Z",
+          "kind": "completion",
+          "agent": "implement:a6708f7",
+          "detail": "completed",
+          "sourceKey": "session-stop:a6708f74b7cc740d3"
+        },
+        {
+          "id": "session-stop:a4824017f4dc15ffe:2026-03-30T14:11:40.774Z",
+          "at": "2026-03-30T14:11:40.774Z",
+          "kind": "completion",
+          "agent": "implement:a482401",
+          "detail": "completed",
+          "sourceKey": "session-stop:a4824017f4dc15ffe"
+        }
+      ]
+    },
+    {
+      "id": "session:4f710c2c-6130-463d-8964-e924e38066a5:none",
+      "source": "session",
+      "name": "none",
+      "objective": "Session mission",
+      "createdAt": "2026-03-30T13:28:08.648Z",
+      "updatedAt": "2026-03-30T13:30:53.900Z",
+      "status": "done",
+      "workerCount": 1,
+      "taskCounts": {
+        "total": 1,
+        "pending": 0,
+        "blocked": 0,
+        "inProgress": 0,
+        "completed": 1,
+        "failed": 0
+      },
+      "agents": [
+        {
+          "name": "planner:ae29912",
+          "role": "planner",
+          "ownership": "ae29912364175b9dc",
+          "status": "done",
+          "currentStep": null,
+          "latestUpdate": "completed",
+          "completedSummary": null,
+          "updatedAt": "2026-03-30T13:30:53.900Z"
+        }
+      ],
+      "timeline": [
+        {
+          "id": "session-start:ae29912364175b9dc:2026-03-30T13:28:08.648Z",
+          "at": "2026-03-30T13:28:08.648Z",
+          "kind": "update",
+          "agent": "planner:ae29912",
+          "detail": "started planner:ae29912",
+          "sourceKey": "session-start:ae29912364175b9dc"
+        },
+        {
+          "id": "session-stop:ae29912364175b9dc:2026-03-30T13:30:53.900Z",
+          "at": "2026-03-30T13:30:53.900Z",
+          "kind": "completion",
+          "agent": "planner:ae29912",
+          "detail": "completed",
+          "sourceKey": "session-stop:ae29912364175b9dc"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "status": "pending",
+  "experiment_name": "example_experiment",
+  "experiment_dir": "D:\\path\\to\\.claude\\runs\\20260327_120000_example_experiment",
+  "platform": "windows",
+  "launcher_type": "psmux",
+  "pid": null,
+  "psmux_session": "exp_20260327_120000_example_experiment",
+  "host": "DESKTOP-EXAMPLE",
+  "workdir": "D:\\path\\to\\project",
+  "start_time": null,
+  "end_time": null,
+  "progress": 0,
+  "current_epoch": 0,
+  "total_epochs": null,
+  "best_metric": null,
+  "result_files": {
+    "logs": "D:\\path\\to\\.claude\\runs\\20260327_120000_example_experiment\\logs\\train.log",
+    "metrics": "D:\\path\\to\\.claude\\runs\\20260327_120000_example_experiment\\outputs\\metrics.json",
+    "checkpoint": "D:\\path\\to\\.claude\\runs\\20260327_120000_example_experiment\\outputs\\best.pt"
+  },
+  "error": null,
+  "traceback": null,
+  "last_update_time": "2026-03-27T12:00:00.0000000+08:00"
+}

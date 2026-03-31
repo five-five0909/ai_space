@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器学习 - 第2章 机器学习基本理论</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+            line-height: 1.8; color: #333; background-color: #fafafa;
+            padding: 20px; max-width: 900px; margin: 0 auto;
+        }
+        h1 { text-align: center; font-size: 2em; margin-bottom: 0.3em; color: #1a1a1a; }
+        .subtitle { text-align: center; font-size: 1.1em; color: #666; margin-bottom: 1.5em; }
+        h2 { font-size: 1.5em; margin: 1.5em 0 1em 0; padding-bottom: 0.3em; border-bottom: 2px solid #3498db; }
+        p { margin: 0.8em 0; }
+        strong { color: #1a1a1a; }
+        code { background-color: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: "Consolas", "Monaco", monospace; font-size: 0.9em; }
+        .beginner-box { background-color: #d9ecf5; border: 1px solid #4a90a4; border-radius: 5px; padding: 15px 20px; margin: 1em 0; }
+        .beginner-box .box-title { font-weight: bold; font-size: 0.95em; color: #2c5d6e; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #8fc1d8; }
+        .metaphor-box { background-color: #fef6ec; border: 1px solid #d4912c; border-radius: 5px; padding: 15px 20px; margin: 1em 0; }
+        .metaphor-box .box-title { font-weight: bold; font-size: 0.95em; color: #8b5a00; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #f0c080; }
+        .problem-box { background-color: #fff; border: 2px solid #3a7bd5; border-radius: 5px; padding: 15px 20px; margin: 1.5em 0; }
+        .problem-box .box-title { font-weight: bold; font-size: 0.95em; color: #1a5cb2; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #a0c4e8; }
+        .solution-box { background-color: #f0fff0; border: 1px solid #4a9c4a; border-radius: 5px; padding: 15px 20px; margin: 1em 0; }
+        .solution-box .box-title { font-weight: bold; font-size: 0.95em; color: #2d6b2d; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #90d890; }
+        .key-box { background-color: #fffbe6; border: 1px solid #d4a017; border-radius: 5px; padding: 15px 20px; margin: 1em 0; }
+        .key-box .box-title { font-weight: bold; font-size: 0.95em; color: #8b6914; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #f0d070; }
+        ul, ol { margin: 0.5em 0 0.5em 2em; }
+        li { margin: 0.3em 0; }
+        table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.95em; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+        thead { border-top: 2px solid #333; border-bottom: 2px solid #333; }
+        thead th { border-left: none; border-right: none; background-color: #f5f5f5; font-weight: bold; }
+        tbody tr:first-child td { border-top: none; }
+        tbody { border-bottom: 2px solid #333; }
+        .blank-line { display: inline-block; min-width: 80px; border-bottom: 1px solid #333; }
+        .source { color: #888; font-size: 0.85em; font-style: italic; }
+        .chapter-summary { background-color: #f8f8f8; border-left: 4px solid #3498db; padding: 15px 20px; margin: 1.5em 0; }
+    </style>
+</head>
+<body>
+
+<h1>机器学习<br>第2章　机器学习基本理论</h1>
+<p class="subtitle">——三要素、方法分类、建模流程：机器学习的"宪法"</p>
+
+<div class="beginner-box">
+    <div class="box-title">本章题目导览：你将挑战哪些核心问题？</div>
+    <p>本章建立机器学习的<strong>理论框架</strong>——弄清楚"学什么、用什么学、怎么学"的基本问题。本章 4 道题覆盖三大主题：</p>
+    <ul>
+        <li><strong>Q2-01（三要素辨析）</strong>：模型、策略、算法——机器学习三要素各自负责什么？三者如何协同工作？</li>
+        <li><strong>Q2-02（方法分类）</strong>：监督/无监督/强化学习的本质区别，以及生成模型 vs 判别模型的差异。</li>
+        <li><strong>Q2-03（建模流程）</strong>：从数据到部署的完整流程——每一步做什么、为什么要这样排序？</li>
+        <li><strong>Q2-04（综合应用）</strong>：给定一个具体场景，识别其三要素，规划建模流程，选择合适的方法类别。</li>
+    </ul>
+</div>
+
+<h2>第 2 章　机器学习基本理论</h2>
+
+<p>任何机器学习问题，不管表面上看起来多复杂，都可以用三个问题来拆解：</p>
+
+<ul>
+    <li><strong>学什么？</strong>（模型：用什么样的函数族来表达从输入到输出的映射）</li>
+    <li><strong>用什么标准评价好坏？</strong>（策略：定义"什么叫学得好"的损失/目标函数）</li>
+    <li><strong>怎么找到最优解？</strong>（算法：如何高效地在模型空间中搜索最优参数）</li>
+</ul>
+
+<div class="metaphor-box">
+    <div class="box-title">先建立一个总感觉：三要素就像"选手 + 裁判 + 赛制"</div>
+    <p><strong>模型</strong>是参赛选手——它的能力范围决定了它能解决什么问题（一个线性模型就像只能走直线的运动员）；<br>
+    <strong>策略</strong>是裁判规则——损失函数告诉模型"你现在答得有多差"，没有裁判就不知道怎么进步；<br>
+    <strong>算法</strong>是训练赛制——梯度下降就像每天按教练指导改进动作，直到找到最佳状态。<br>
+    三者缺一不可：再好的选手没有裁判规则不知道往哪里努力，再好的赛制没有合适的选手也无从发挥。</p>
+</div>
+
+<div class="problem-box">
+    <div class="box-title">Q2-01　机器学习三要素：模型、策略、算法</div>
+    <p><strong>题目描述：</strong><br>
+    机器学习方法 = 模型 + 策略 + 算法。三者共同构成了一个完整的机器学习系统。</p>
+
+    <p style="margin-top: 0.8em;"><strong>问题：</strong></p>
+    <ol>
+        <li>用一句话定义三要素，并填写下表：
+            <table>
+                <thead>
+                    <tr><th>要素</th><th>核心问题</th><th>具体内容举例</th><th>数学表示</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>模型</td><td>用什么函数来表示从输入到输出的映射？</td><td><span class="blank-line"></span></td><td>假设空间 $\mathcal{F}$</td></tr>
+                    <tr><td>策略</td><td><span class="blank-line"></span></td><td>均方误差、交叉熵、对数损失</td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>算法</td><td>如何求解使策略最优的模型参数？</td><td><span class="blank-line"></span></td><td>参数更新规则</td></tr>
+                </tbody>
+            </table>
+        </li>
+        <li>以<strong>线性回归</strong>为例，具体说明三要素各是什么：
+            <ol type="a">
+                <li>模型：函数族是什么形式？</li>
+                <li>策略：用什么损失函数？写出公式。</li>
+                <li>算法：可以用哪两种方法求解最优参数？</li>
+            </ol>
+        </li>
+        <li>"假设空间"（Hypothesis Space）是什么概念？它的大小对模型能力有什么影响？假设空间过大和过小分别有什么风险？</li>
+        <li>经验风险（Empirical Risk）和期望风险（Expected Risk）有什么区别？为什么最小化经验风险不等同于最小化期望风险？</li>
+    </ol>
+    <p class="source">来源溯源：[文档第 2 章 2.1 机器学习三要素]</p>
+</div>
+
+<div class="beginner-box">
+    <div class="box-title">小白必读：损失函数和目标函数是同一个东西吗？</div>
+    <ul>
+        <li><strong>损失函数（Loss Function）</strong>：衡量<strong>单个样本</strong>预测值与真实值之间差距的函数，如 $L(\hat{y}, y) = (\hat{y} - y)^2$。</li>
+        <li><strong>代价函数（Cost Function）</strong>：通常指<strong>整个训练集</strong>的平均损失，$J(\theta) = \frac{1}{n}\sum_i L(\hat{y}_i, y_i)$，是优化的直接对象。</li>
+        <li><strong>目标函数（Objective Function）</strong>：最广义的叫法，可以包含正则化项等，$\text{Obj}(\theta) = J(\theta) + \lambda R(\theta)$。</li>
+        <li>三者在很多语境下混用，但严格来说粒度不同：损失函数是样本级，代价函数是数据集级，目标函数是优化级。</li>
+    </ul>
+</div>
+
+<div class="solution-box">
+    <div class="box-title">参考答案与详细解析</div>
+    <p><strong>(1) 三要素填表：</strong></p>
+    <table>
+        <thead>
+            <tr><th>要素</th><th>核心问题</th><th>具体内容举例</th><th>数学表示</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>模型</td><td>用什么函数映射输入到输出？</td><td>线性模型、决策树、神经网络</td><td>假设空间 $\mathcal{F}$</td></tr>
+            <tr><td>策略</td><td><strong>用什么标准衡量模型好坏？</strong></td><td>均方误差、交叉熵</td><td><strong>损失/目标函数 $L$</strong></td></tr>
+            <tr><td>算法</td><td>如何高效求最优参数？</td><td>梯度下降、牛顿法、解析解</td><td>参数更新规则</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>(2) 线性回归的三要素：</strong></p>
+    <ol type="a">
+        <li><strong>模型</strong>：$f(x) = w^T x + b$，线性函数族，假设空间为所有可能的权重向量 $w$ 和偏置 $b$。</li>
+        <li><strong>策略</strong>：均方误差（MSE）：$L(w,b) = \dfrac{1}{n}\sum_{i=1}^n (f(x_i) - y_i)^2$</li>
+        <li><strong>算法</strong>：<strong>解析解</strong>（正规方程 $w^* = (X^TX)^{-1}X^Ty$）或<strong>梯度下降法</strong>（迭代更新 $w \leftarrow w - \eta\nabla_w L$）。</li>
+    </ol>
+
+    <p><strong>(3) 假设空间：</strong></p>
+    <p>假设空间是模型候选函数的集合——即"我们假设真实映射落在哪类函数中"。假设空间越大，模型表达能力越强，<strong>但过大会导致过拟合</strong>（过多候选函数，容易找到"记住训练数据"但不泛化的解）；假设空间过小，则表达能力不足，<strong>导致欠拟合</strong>（真实映射不在假设空间内，怎么优化都学不好）。</p>
+
+    <p><strong>(4) 经验风险 vs 期望风险：</strong></p>
+    <div class="key-box">
+        <div class="box-title">两种风险的本质区别</div>
+        <p><strong>期望风险</strong>（真正想最小化）：模型在所有可能数据上的平均损失，$R_{\exp}(f) = E_{(x,y)\sim P}[L(f(x), y)]$，依赖未知的真实数据分布 $P$，<strong>无法直接计算</strong>。<br>
+        <strong>经验风险</strong>（实际优化对象）：模型在有限训练集上的平均损失，$R_{\text{emp}}(f) = \frac{1}{n}\sum_i L(f(x_i), y_i)$，<strong>可以计算</strong>。<br>
+        当训练数据量有限时，经验风险只是期望风险的一个估计，存在偏差——训练集可能有偏，或模型过拟合训练集后经验风险很低但期望风险很高。这就是为什么需要测试集来估计真实泛化误差。</p>
+    </div>
+</div>
+
+<div class="problem-box">
+    <div class="box-title">Q2-02　机器学习方法分类：监督/无监督/强化 + 生成/判别</div>
+    <p><strong>题目描述：</strong><br>
+    机器学习方法从不同维度可以分成多种类型，两个最重要的分类维度是：①是否有标签（监督/无监督/强化），②建模目标（生成模型 vs 判别模型）。</p>
+
+    <p style="margin-top: 0.8em;"><strong>问题：</strong></p>
+    <ol>
+        <li>填写下表，对比监督学习、无监督学习、半监督学习、强化学习：
+            <table>
+                <thead>
+                    <tr><th>类型</th><th>训练数据</th><th>学习目标</th><th>典型算法</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>监督学习</td><td><span class="blank-line"></span></td><td>学习 $f: x\to y$</td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>无监督学习</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td><td>K-means、PCA</td></tr>
+                    <tr><td>半监督学习</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>强化学习</td><td><span class="blank-line"></span></td><td>学习最优决策策略</td><td><span class="blank-line"></span></td></tr>
+                </tbody>
+            </table>
+        </li>
+        <li><strong>生成模型（Generative Model）vs 判别模型（Discriminative Model）</strong>：
+            <ol type="a">
+                <li>两者建模的目标概率分布分别是什么？（用 $P(y|x)$ 和 $P(x,y)$ 表示）</li>
+                <li>朴素贝叶斯属于哪类？逻辑回归属于哪类？SVM 属于哪类？</li>
+                <li>生成模型有什么额外能力是判别模型不具备的？</li>
+            </ol>
+        </li>
+        <li>以下哪些描述正确？（多选，并解释错误选项的错误之处）
+            <ol type="A">
+                <li>深度学习一定属于监督学习</li>
+                <li>强化学习不需要任何数据，只靠与环境交互</li>
+                <li>无监督学习不能用于分类任务</li>
+                <li>半监督学习通常在有标签数据少、无标签数据多时使用</li>
+                <li>所有监督学习都需要大量标注数据才能工作</li>
+            </ol>
+        </li>
+    </ol>
+    <p class="source">来源溯源：[文档第 2 章 2.2 机器学习方法分类]</p>
+</div>
+
+<div class="solution-box">
+    <div class="box-title">参考答案与详细解析</div>
+    <p><strong>(1) 方法分类对比：</strong></p>
+    <table>
+        <thead>
+            <tr><th>类型</th><th>训练数据</th><th>学习目标</th><th>典型算法</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>监督学习</td><td>带标签 $\{(x_i,y_i)\}$</td><td>学习 $f:x\to y$</td><td>线性回归、SVM、神经网络</td></tr>
+            <tr><td>无监督学习</td><td>无标签 $\{x_i\}$</td><td>发现数据内在结构</td><td>K-means、PCA、DBSCAN</td></tr>
+            <tr><td>半监督学习</td><td>少量有标签 + 大量无标签</td><td>利用无标签数据辅助监督学习</td><td>Label Propagation、自训练</td></tr>
+            <tr><td>强化学习</td><td>环境交互的奖励信号</td><td>学习最优决策策略</td><td>Q-learning、PPO、AlphaGo</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>(2) 生成模型 vs 判别模型：</strong></p>
+    <ol type="a">
+        <li>生成模型建模<strong>联合分布</strong> $P(x, y)$（或类条件分布 $P(x|y)$），通过贝叶斯定理推导 $P(y|x)$；判别模型直接建模<strong>条件分布</strong> $P(y|x)$。</li>
+        <li>朴素贝叶斯→<strong>生成模型</strong>；逻辑回归→<strong>判别模型</strong>；SVM→<strong>判别模型</strong>（直接找分界面）。</li>
+        <li>生成模型因为建模了 $P(x)$，可以<strong>生成新样本</strong>（如 GAN、VAE 生成图片）；还可以处理缺失数据（利用联合分布填补），以及异常检测（低概率 $P(x)$ 的样本是异常）。判别模型只能做分类/回归，不具备这些能力。</li>
+    </ol>
+
+    <p><strong>(3) 正确/错误分析：</strong></p>
+    <ul>
+        <li><strong>A——错误</strong>：深度学习可以是无监督（如自编码器）、半监督（如对比学习）或强化学习（如 DQN），不仅限于监督学习。</li>
+        <li><strong>B——部分正确但表述不精确</strong>：强化学习不需要预先标注的数据集，但其"经验数据"来自智能体与环境的交互（奖励信号本身就是一种反馈数据）。</li>
+        <li><strong>C——错误</strong>：无监督学习可以辅助分类——先聚类，再给每个簇打标签，这是一种"先无监督后有监督"的半流程。</li>
+        <li><strong>D——正确</strong>：半监督学习正是为"标注稀缺"场景设计的。</li>
+        <li><strong>E——错误</strong>：Few-shot learning、零样本学习等方法可以用极少量标注数据完成分类任务。</li>
+    </ul>
+</div>
+
+<div class="problem-box">
+    <div class="box-title">Q2-03　建模流程：从数据到部署的完整 Pipeline</div>
+    <p><strong>题目描述：</strong><br>
+    一个完整的机器学习项目不只是"跑一个模型"，而是包含多个有严格顺序要求的步骤。</p>
+
+    <p style="margin-top: 0.8em;"><strong>问题：</strong></p>
+    <ol>
+        <li>将下列步骤按正确顺序排列，并简要说明每步的目的：
+            <p><em>（乱序列表）</em>模型部署与监控 / 数据收集与清洗 / 模型训练 / 问题定义 / 特征工程 / 模型评估与选择 / 数据集划分 / 超参数调优</p>
+        </li>
+        <li>"数据集划分"步骤中，通常将数据分为训练集、验证集、测试集三部分。
+            <ol type="a">
+                <li>三者各自的作用是什么？</li>
+                <li>为什么不能用测试集来调参？用测试集调参会导致什么问题？</li>
+                <li>典型的三部分比例是多少？（如 70/15/15 等，可以有多种合理答案）</li>
+            </ol>
+        </li>
+        <li>特征工程在整个流程中处于什么位置？它的主要工作内容有哪些？（列举 3 个以上）</li>
+        <li>为什么说"垃圾进，垃圾出"（Garbage In, Garbage Out）？数据质量对最终模型有什么决定性影响？</li>
+    </ol>
+    <p class="source">来源溯源：[文档第 2 章 2.3 建模流程]</p>
+</div>
+
+<div class="solution-box">
+    <div class="box-title">参考答案与详细解析</div>
+    <p><strong>(1) 正确顺序：</strong></p>
+    <p><strong>①问题定义 → ②数据收集与清洗 → ③数据集划分 → ④特征工程 → ⑤模型训练 → ⑥模型评估与选择 → ⑦超参数调优 → ⑧模型部署与监控</strong></p>
+
+    <p>各步目的：</p>
+    <ul>
+        <li><strong>问题定义</strong>：明确任务类型（分类/回归？）、评估指标、约束条件（延迟要求、可解释性需求）。</li>
+        <li><strong>数据收集与清洗</strong>：获取原始数据，处理缺失值、异常值、重复数据，保证数据质量。</li>
+        <li><strong>数据集划分</strong>：在任何特征处理之前先划分，防止信息泄漏。</li>
+        <li><strong>特征工程</strong>：在训练集上 fit 变换器，对训练/验证/测试集做 transform，提取有效特征。</li>
+        <li><strong>模型训练</strong>：用训练集拟合模型参数。</li>
+        <li><strong>模型评估与选择</strong>：用验证集比较不同模型的性能，选出最佳候选。</li>
+        <li><strong>超参数调优</strong>：用网格搜索/贝叶斯优化等方法在验证集上调整超参数。</li>
+        <li><strong>部署与监控</strong>：将模型上线服务，持续监控线上性能（数据漂移检测）。</li>
+    </ul>
+
+    <p><strong>(2) 数据集划分：</strong></p>
+    <ol type="a">
+        <li>训练集：拟合模型参数；验证集：调整超参数、进行模型选择；测试集：最终评估，模拟真实部署效果，<strong>只用一次</strong>。</li>
+        <li>用测试集调参相当于将测试集变成了"另一个验证集"，模型间接地"见过"测试集，导致对真实泛化能力的估计偏乐观（信息泄漏/数据泄露）。</li>
+        <li>典型比例：数据量大时 80/10/10 或 70/15/15；数据量小时可用 k 折交叉验证替代固定验证集。</li>
+    </ol>
+
+    <p><strong>(3) 特征工程位置与内容：</strong></p>
+    <p>特征工程在数据划分<strong>之后</strong>、模型训练<strong>之前</strong>进行（且必须先在训练集上 fit，再 transform 所有集合，防止测试集信息泄漏）。主要内容：缺失值填充、异常值处理、归一化/标准化、类别编码（One-hot/Label Encoding）、特征选择（过滤/包裹/嵌入法）、特征构造（交叉特征、多项式特征）、降维（PCA）。</p>
+
+    <p><strong>(4) "Garbage In, Garbage Out"：</strong></p>
+    <p>模型只能从数据中学习存在的模式，数据本身的偏差（噪声、错误标注、采样偏差）会被模型"学进去"并放大。再好的算法也无法从错误数据中学到正确规律。实践中数据清洗和特征工程通常占据整个项目 60--80% 的时间，是决定最终效果的最关键环节。</p>
+</div>
+
+<div class="problem-box">
+    <div class="box-title">Q2-04　综合应用：识别三要素，规划建模流程</div>
+    <p><strong>题目描述：</strong><br>
+    某互联网公司想构建一个模型，根据用户在 App 上的行为数据（浏览时长、点击次数、搜索关键词数量、设备类型等 20 个特征），<strong>预测用户次日是否会流失</strong>（不再使用 App）。历史数据有 50 万条记录，其中已有人工标注的"是否流失"标签，流失率约为 5%。</p>
+
+    <p style="margin-top: 0.8em;"><strong>问题：</strong></p>
+    <ol>
+        <li>识别该任务的<strong>三要素</strong>：
+            <ol type="a">
+                <li>模型：可以选用哪类模型？（至少列出两种候选）</li>
+                <li>策略：适合用什么损失函数？（注意：流失率只有 5%，类别极不平衡）</li>
+                <li>算法：如果选用逻辑回归，求解参数的算法是什么？</li>
+            </ol>
+        </li>
+        <li>该任务属于哪种机器学习类型？（监督/无监督/强化，分类/回归？）</li>
+        <li>5% 的流失率意味着数据严重<strong>类别不平衡</strong>。列出至少两种处理不平衡数据的策略。</li>
+        <li>规划完整的建模流程（列出关键步骤，每步一句话说明）。</li>
+        <li>如果公司同时有另一批<strong>没有流失标注的</strong>用户行为数据（500 万条），是否可以利用起来？如何利用？</li>
+    </ol>
+    <p class="source">来源溯源：[文档第 2 章 2.1--2.3]</p>
+</div>
+
+<div class="solution-box">
+    <div class="box-title">参考答案与详细解析</div>
+    <p><strong>(1) 三要素识别：</strong></p>
+    <ol type="a">
+        <li><strong>模型候选</strong>：逻辑回归（可解释性好，适合初期基线）；XGBoost/随机森林（处理非线性关系，效果通常更好）；深度神经网络（数据量足够时可以尝试）。</li>
+        <li><strong>策略</strong>：基础可用<strong>对数损失（交叉熵）</strong>，但针对类别不平衡应使用<strong>加权交叉熵</strong>（给少数类流失样本更高权重），或使用 Focal Loss 重点关注难分类样本。评估指标推荐 <strong>AUC-ROC 或 F1 分数</strong>（准确率在不平衡时会误导）。</li>
+        <li><strong>算法</strong>：逻辑回归使用<strong>梯度下降法</strong>（或 L-BFGS 拟牛顿法）最小化对数损失。</li>
+    </ol>
+
+    <p><strong>(2) 任务类型：监督学习——二分类</strong>（有标签，输出"是否流失"两个类别）。</p>
+
+    <p><strong>(3) 处理类别不平衡的策略：</strong></p>
+    <ul>
+        <li><strong>过采样</strong>：对少数类（流失用户）进行重复采样或合成新样本（SMOTE 算法）；</li>
+        <li><strong>欠采样</strong>：对多数类（未流失用户）随机删除部分样本，使类别比例接近平衡；</li>
+        <li><strong>代价敏感学习</strong>：设置 <code>class_weight='balanced'</code> 参数，给少数类赋予更高的误分类代价；</li>
+        <li><strong>选择合适的评估指标</strong>：放弃准确率，改用 F1、AUC-ROC、PR 曲线下面积。</li>
+    </ul>
+
+    <p><strong>(4) 完整建模流程：</strong></p>
+    <p>①问题定义（预测流失，评估指标选 AUC）→ ②数据探索与清洗（处理缺失值、异常行为）→ ③数据集划分（按时间切分，避免未来数据泄漏）→ ④特征工程（行为特征标准化，构造趋势特征）→ ⑤处理不平衡（SMOTE 过采样）→ ⑥模型训练（从逻辑回归基线开始）→ ⑦验证集调参（网格搜索超参数）→ ⑧测试集最终评估（一次性报告 AUC）→ ⑨部署与监控（监控模型分数分布，检测数据漂移）。</p>
+
+    <p><strong>(5) 利用无标注数据：</strong></p>
+    <p>可以采用<strong>半监督学习</strong>策略：用 50 万有标注数据训练初始模型，用该模型对 500 万无标注数据打伪标签（高置信度的预测），将伪标签数据加入训练集重新训练（自训练/Self-training）。还可以用无标注数据<strong>预训练特征提取器</strong>（如用无监督方法学习行为序列的嵌入表示），再用有标注数据微调分类头。</p>
+</div>
+
+<h2>本章小结</h2>
+<div class="chapter-summary">
+    <ul>
+        <li><strong>三要素框架</strong>：任何 ML 问题 = 模型（学什么）+ 策略（评价标准）+ 算法（怎么优化），三者明确后问题就被结构化了。</li>
+        <li><strong>方法分类的两个维度</strong>：有无标签（监督/无监督/强化）× 建模目标（生成/判别），四象限定位解决方案。</li>
+        <li><strong>建模流程的顺序很重要</strong>：数据划分必须在特征工程之前；测试集只用一次；超参数调优用验证集而非测试集。</li>
+        <li><strong>数据质量决定上限</strong>：再好的算法无法从差数据中学到好模型，数据清洗值得投入大量精力。</li>
+    </ul>
+</div>
+
+</body>
+</html>

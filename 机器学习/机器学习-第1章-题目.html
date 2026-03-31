@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器学习 - 第1章 机器学习概述</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #fafafa;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 0.3em;
+            color: #1a1a1a;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 1.5em;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin: 1.5em 0 1em 0;
+            padding-bottom: 0.3em;
+            border-bottom: 2px solid #3498db;
+        }
+        p {
+            margin: 0.8em 0;
+        }
+        strong {
+            color: #1a1a1a;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+        }
+
+        /* 彩色框样式 */
+        .beginner-box {
+            background-color: #d9ecf5;
+            border: 1px solid #4a90a4;
+            border-radius: 5px;
+            padding: 15px 20px;
+            margin: 1em 0;
+        }
+        .beginner-box .box-title {
+            font-weight: bold;
+            font-size: 0.95em;
+            color: #2c5d6e;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #8fc1d8;
+        }
+
+        .metaphor-box {
+            background-color: #fef6ec;
+            border: 1px solid #d4912c;
+            border-radius: 5px;
+            padding: 15px 20px;
+            margin: 1em 0;
+        }
+        .metaphor-box .box-title {
+            font-weight: bold;
+            font-size: 0.95em;
+            color: #8b5a00;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0c080;
+        }
+
+        .problem-box {
+            background-color: #fff;
+            border: 2px solid #3a7bd5;
+            border-radius: 5px;
+            padding: 15px 20px;
+            margin: 1.5em 0;
+        }
+        .problem-box .box-title {
+            font-weight: bold;
+            font-size: 0.95em;
+            color: #1a5cb2;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #a0c4e8;
+        }
+
+        .solution-box {
+            background-color: #f0fff0;
+            border: 1px solid #4a9c4a;
+            border-radius: 5px;
+            padding: 15px 20px;
+            margin: 1em 0;
+        }
+        .solution-box .box-title {
+            font-weight: bold;
+            font-size: 0.95em;
+            color: #2d6b2d;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #90d890;
+        }
+
+        .key-box {
+            background-color: #fffbe6;
+            border: 1px solid #d4a017;
+            border-radius: 5px;
+            padding: 15px 20px;
+            margin: 1em 0;
+        }
+        .key-box .box-title {
+            font-weight: bold;
+            font-size: 0.95em;
+            color: #8b6914;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0d070;
+        }
+
+        .app-box {
+            background-color: #f0fff0;
+            border: 1px solid #4a9c6a;
+            border-radius: 5px;
+            padding: 15px 20px;
+            margin: 1em 0;
+        }
+        .app-box .box-title {
+            font-weight: bold;
+            font-size: 0.95em;
+            color: #2d6b4d;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #90d8a0;
+        }
+
+        /* 列表样式 */
+        ul, ol {
+            margin: 0.5em 0 0.5em 2em;
+        }
+        li {
+            margin: 0.3em 0;
+        }
+
+        /* 表格样式 */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        thead {
+            border-top: 2px solid #333;
+            border-bottom: 2px solid #333;
+        }
+        thead th {
+            border-left: none;
+            border-right: none;
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        tbody tr:first-child td {
+            border-top: none;
+        }
+        tbody {
+            border-bottom: 2px solid #333;
+        }
+
+        /* 填空线 */
+        .blank-line {
+            display: inline-block;
+            min-width: 80px;
+            border-bottom: 1px solid #333;
+        }
+
+        /* 来源标注 */
+        .source {
+            color: #888;
+            font-size: 0.85em;
+            font-style: italic;
+        }
+
+        /* 章节小结 */
+        .chapter-summary {
+            background-color: #f8f8f8;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin: 1.5em 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>机器学习<br>第1章　机器学习概述</h1>
+<p class="subtitle">——从图灵的问题到大模型时代，机器学习从哪里来、到哪里去？</p>
+
+<div class="beginner-box">
+    <div class="box-title">本章题目导览：你将挑战哪些核心问题？</div>
+    <p>机器学习的大厦需要一块坚实的地基：弄清楚它<strong>是什么、从哪来、能做什么、用什么语言描述</strong>。本章 5 道题覆盖概述全貌：</p>
+    <ul>
+        <li><strong>Q1-01（概念辨析）</strong>：AI、机器学习、深度学习三者的关系——嵌套还是并列？韦恩图怎么画？</li>
+        <li><strong>Q1-02（发展历史）</strong>：六个时代横向对比——每个阶段的核心驱动力、代表成果和局限性是什么？</li>
+        <li><strong>Q1-03（时间线排序）</strong>：把关键里程碑事件按时间排序，建立历史感。</li>
+        <li><strong>Q1-04（术语辨析）</strong>：数据集、特征、标签、模型、训练、推断——6 个基本术语，你真的说得清吗？</li>
+        <li><strong>Q1-05（应用分类）</strong>：给一组实际应用场景，判断它们属于哪种机器学习任务类型。</li>
+    </ul>
+</div>
+
+<h2>第 1 章　机器学习概述</h2>
+
+<p>在正式学习任何算法之前，先问一个最根本的问题：<strong>什么是机器学习？</strong></p>
+
+<p>传统编程的逻辑是：程序员写规则，计算机执行规则，得到输出。但现实中很多问题的规则根本写不出来——你能把"如何识别一只猫"写成一套 <code>if-else</code> 吗？机器学习的回答是：<strong>不写规则，给数据，让机器自己找规律</strong>。</p>
+
+<div class="metaphor-box">
+    <div class="box-title">先建立一个总感觉：机器学习在做什么？</div>
+    <p><strong>传统编程</strong>：厨师（程序员）提供菜谱（规则），厨房（计算机）按菜谱做菜（执行），端出菜肴（输出）。<br>
+    <strong>机器学习</strong>：给厨房（机器）看一万道菜（数据），让它自己<strong>总结出做菜的规律</strong>（学习），以后给它新食材（新数据）它能自己做出菜来（预测）。<br>
+    关键区别：规则是机器<strong>学出来的</strong>，不是人写的。</p>
+</div>
+
+<div class="problem-box">
+    <div class="box-title">Q1-01　AI、机器学习、深度学习：三者关系辨析</div>
+    <p><strong>题目描述：</strong><br>
+    "人工智能""机器学习""深度学习"这三个词经常被混用，但它们是三个层次不同的概念。</p>
+
+    <p style="margin-top: 0.8em;"><strong>问题：</strong></p>
+    <ol>
+        <li>用一句话分别定义：人工智能（AI）、机器学习（ML）、深度学习（DL）。</li>
+        <li>三者的关系是<strong>包含</strong>关系还是<strong>并列</strong>关系？用文字描述其嵌套结构（最大圈到最小圈分别是哪个概念）。</li>
+        <li>填写下表，对比三者的核心特征：
+            <table>
+                <thead>
+                    <tr><th>概念</th><th>核心方法</th><th>典型代表技术/系统</th><th>兴起时间</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>人工智能</td><td><span class="blank-line"></span></td><td>专家系统、博弈程序</td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>机器学习</td><td>从数据中自动学习规律</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>深度学习</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td><td>2010年代</td></tr>
+                </tbody>
+            </table>
+        </li>
+        <li>举一个例子，说明某个任务<strong>属于 AI 但不属于机器学习</strong>（即用规则/逻辑而非数据学习的方式解决）。</li>
+    </ol>
+    <p class="source">来源溯源：[文档第 1 章 1.1--1.2]</p>
+</div>
+
+<div class="solution-box">
+    <div class="box-title">参考答案与详细解析</div>
+    <p><strong>(1) 一句话定义：</strong></p>
+    <ul>
+        <li><strong>人工智能（AI）</strong>：让机器具备类似人类智能的技术与研究领域的总称，包括推理、规划、感知、自然语言理解等能力。</li>
+        <li><strong>机器学习（ML）</strong>：AI 的一个子领域，研究如何让机器通过数据自动学习规律，而无需显式编程规则。</li>
+        <li><strong>深度学习（DL）</strong>：机器学习的一个子领域，专指使用多层神经网络（深层架构）从数据中自动提取层次化特征的方法。</li>
+    </ul>
+
+    <p><strong>(2) 嵌套包含关系：</strong></p>
+    <p>AI（最大圈）$\supset$ ML（中圈）$\supset$ DL（最小圈）。深度学习是机器学习的一种方法，机器学习是人工智能的一种实现途径，人工智能还包括规则系统、专家系统等非机器学习方法。</p>
+
+    <p><strong>(3) 对比表格：</strong></p>
+    <table>
+        <thead>
+            <tr><th>概念</th><th>核心方法</th><th>典型代表</th><th>兴起时间</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>人工智能</td><td>规则推理、逻辑符号操作、搜索</td><td>专家系统、深蓝（国际象棋程序）</td><td>1950年代</td></tr>
+            <tr><td>机器学习</td><td>从数据中自动学习规律</td><td>SVM、决策树、随机森林</td><td>1980--90年代</td></tr>
+            <tr><td>深度学习</td><td>多层神经网络自动特征提取</td><td>CNN、Transformer、GPT</td><td>2010年代</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>(4) 属于 AI 但不属于 ML 的例子：</strong></p>
+    <p><strong>国际象棋的 Minimax 搜索算法</strong>：通过穷举博弈树、用启发式估值函数评估局面，完全基于规则和搜索，没有从数据中学习任何参数。又如早期的<strong>专家系统</strong>（如 MYCIN 医疗诊断系统），将领域专家的知识编码为 IF-THEN 规则，靠规则推理而非数据训练。</p>
+</div>
+
+<div class="problem-box">
+    <div class="box-title">Q1-02　发展历史：六个时代的核心特征对比</div>
+    <p><strong>题目描述：</strong><br>
+    机器学习经历了六个主要发展阶段，每个阶段有其特定的核心驱动力、代表成果和历史局限。</p>
+
+    <p style="margin-top: 0.8em;"><strong>问题：</strong></p>
+    <ol>
+        <li>填写下表，概括各阶段的关键信息：
+            <table>
+                <thead>
+                    <tr><th>阶段名称</th><th>时间范围</th><th>核心驱动力/代表成果</th><th>主要局限</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>早期探索</td><td><span class="blank-line"></span></td><td>图灵测试、感知机</td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>知识驱动与专家系统</td><td>70--80年代</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>数据驱动与统计学习</td><td><span class="blank-line"></span></td><td>SVM、概率图模型</td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>深度学习崛起</td><td>21世纪初</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>大模型时代</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td><td>对齐、安全、能耗</td></tr>
+                </tbody>
+            </table>
+        </li>
+        <li>为什么 20 世纪 70--80 年代专家系统盛行，却在 80 年代末迎来"AI 寒冬"？知识瓶颈的核心矛盾是什么？</li>
+        <li>深度学习在 2010 年代崛起的三个关键条件是什么？（提示：不只是算法层面的突破）</li>
+        <li>大模型（如 GPT 系列）与传统机器学习模型在<strong>规模</strong>和<strong>训练范式</strong>上有哪两个本质区别？</li>
+    </ol>
+    <p class="source">来源溯源：[文档第 1 章 1.3.1--1.3.5]</p>
+</div>
+
+<div class="solution-box">
+    <div class="box-title">参考答案与详细解析</div>
+    <p><strong>(1) 六阶段对比表：</strong></p>
+    <table>
+        <thead>
+            <tr><th>阶段</th><th>时间</th><th>核心成果</th><th>主要局限</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>早期探索</td><td>50--70年代</td><td>图灵测试、感知机、LISP</td><td>计算力不足，只能处理玩具问题</td></tr>
+            <tr><td>知识驱动/专家系统</td><td>70--80年代</td><td>MYCIN、DENDRAL 等专家系统</td><td>知识获取瓶颈，无法处理不确定性</td></tr>
+            <tr><td>数据驱动/统计学习</td><td>80年代--21世纪初</td><td>SVM、贝叶斯网络、AdaBoost</td><td>特征工程依赖人工，浅层模型表达受限</td></tr>
+            <tr><td>深度学习崛起</td><td>2006--2015</td><td>AlexNet、Word2Vec、GAN</td><td>需要大量标注数据，可解释性差</td></tr>
+            <tr><td>大模型时代</td><td>2017--至今</td><td>GPT、BERT、Stable Diffusion</td><td>对齐问题、安全风险、巨大能耗</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>(2) 专家系统的"知识瓶颈"：</strong></p>
+    <p>专家系统需要将人类专家的知识逐条手工编码为规则，面临三大矛盾：<strong>知识难以穷举</strong>（现实世界的规则无限多）；<strong>知识难以更新</strong>（规则冲突时难以自动调整）；<strong>无法处理不确定性</strong>（规则系统缺乏对模糊/噪声情况的处理能力）。这使得专家系统在封闭领域有效但无法泛化，维护成本极高，最终导致资金和信心的双重崩溃。</p>
+
+    <p><strong>(3) 深度学习崛起的三个条件：</strong></p>
+    <ul>
+        <li><strong>大数据</strong>：互联网的爆炸式增长提供了海量带标注的训练数据（如 ImageNet 的 120 万张图片）；</li>
+        <li><strong>算力提升</strong>：GPU 的并行计算能力使深层网络训练在合理时间内成为可能；</li>
+        <li><strong>算法突破</strong>：ReLU 激活函数、Dropout 正则化、Batch Normalization 等技巧解决了梯度消失问题。</li>
+    </ul>
+
+    <p><strong>(4) 大模型 vs 传统 ML 的两个本质区别：</strong></p>
+    <ul>
+        <li><strong>规模</strong>：参数量从百万级（传统 ML）跃升至千亿级（GPT-3 1750 亿参数），涌现出传统模型不具备的"涌现能力"（in-context learning、chain-of-thought 等）；</li>
+        <li><strong>训练范式</strong>：传统 ML 针对特定任务训练专用模型；大模型采用"预训练 + 微调/提示"范式——先在超大规模无标注数据上预训练通用表示，再以极少标注数据适配下游任务。</li>
+    </ul>
+</div>
+
+<div class="problem-box">
+    <div class="box-title">Q1-03　历史里程碑时间线排序</div>
+    <p><strong>题目描述：</strong><br>
+    下面列出了 10 个机器学习领域的重要里程碑事件，请按时间先后排序（最早到最晚），并在每个事件旁标注大致年份。</p>
+
+    <p style="margin-top: 0.8em;"><strong>事件列表（乱序）：</strong></p>
+    <ol type="A">
+        <li>Transformer 架构论文《Attention is All You Need》发表</li>
+        <li>图灵发表论文《计算机器与智能》，提出图灵测试</li>
+        <li>AlexNet 在 ImageNet 竞赛中以大幅优势夺冠，引爆深度学习热潮</li>
+        <li>Minsky 和 Papert 出版《感知机》，指出单层感知机局限性，引发第一次 AI 寒冬</li>
+        <li>Rosenblatt 发明感知机（Perceptron）</li>
+        <li>Hinton 等人提出深度信念网络，深度学习概念复兴</li>
+        <li>ChatGPT 发布，大语言模型进入大众视野</li>
+        <li>MYCIN 专家系统用于医疗诊断，专家系统达到鼎盛</li>
+        <li>Vapnik 提出支持向量机（SVM）</li>
+        <li>反向传播算法被重新发现并推广，神经网络研究复苏</li>
+    </ol>
+
+    <p style="margin-top: 0.8em;"><strong>问题：</strong></p>
+    <ol>
+        <li>将上述事件按时间顺序排列（写出字母序列），并在每个字母后括号内填写大致年份。</li>
+        <li>指出哪两个事件之间发生了"AI 寒冬"，并说明原因。</li>
+        <li>哪个事件标志着深度学习时代的<strong>正式崛起</strong>？为什么以此为标志？</li>
+    </ol>
+    <p class="source">来源溯源：[文档第 1 章 1.3.1--1.3.5]</p>
+</div>
+
+<div class="solution-box">
+    <div class="box-title">参考答案与详细解析</div>
+    <p><strong>(1) 时间顺序排列：</strong></p>
+    <p><strong>B（1950）→ E（1957）→ D（1969）→ H（1974）→ J（1986）→ I（1995）→ F（2006）→ C（2012）→ A（2017）→ G（2022）</strong></p>
+
+    <p><strong>(2) AI 寒冬发生在 D 和 J 之间（1969--1986）：</strong></p>
+    <p>Minsky 等人的《感知机》从数学上证明了单层感知机的局限（无法解决 XOR 等非线性问题），导致神经网络研究经费大幅削减。直到 1986 年反向传播算法重新流行，多层网络的训练问题才得到解决。</p>
+
+    <p><strong>(3) 事件 C（2012 年 AlexNet）标志深度学习崛起：</strong></p>
+    <p>AlexNet 在 ImageNet 竞赛中将 Top-5 错误率从 26% 降低到 15.3%，远超第二名，差距之大震惊学界。它首次将深层卷积网络、GPU 加速、ReLU 激活、Dropout 正则化结合，<strong>用实验成果而非理论论证</strong>，彻底说服了整个计算机视觉领域，引发深度学习的全面爆发。</p>
+</div>
+
+<div class="problem-box">
+    <div class="box-title">Q1-04　基本术语辨析：数据集、特征、标签……</div>
+    <p><strong>题目描述：</strong><br>
+    机器学习有一套专用术语，同一个概念在不同语境下有不同名称，初学者常常混淆。</p>
+
+    <p style="margin-top: 0.8em;"><strong>问题：</strong></p>
+    <ol>
+        <li>填写下表，给出每个术语的定义，并用"预测房价"这一场景举例说明：
+            <table>
+                <thead>
+                    <tr><th>术语</th><th>定义</th><th>"预测房价"场景中的对应含义</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>样本（Sample）</td><td><span class="blank-line"></span></td><td>某一套具体的房子的信息</td></tr>
+                    <tr><td>特征（Feature）</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>标签（Label）</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>训练集</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>测试集</td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td></tr>
+                    <tr><td>模型（Model）</td><td><span class="blank-line"></span></td><td>根据房屋特征预测价格的函数</td></tr>
+                </tbody>
+            </table>
+        </li>
+        <li>"训练"（Training）和"推断/预测"（Inference）有什么区别？各自在什么阶段发生？</li>
+        <li>什么叫"泛化能力"（Generalization）？为什么我们不用训练集上的表现来评估模型好坏？</li>
+        <li>在机器学习中，"特征"有时也叫"属性"或"输入变量"，"标签"有时也叫"目标变量"或"输出变量"。结合这些别名，说明特征和标签在数据表格中各自对应什么列？</li>
+    </ol>
+    <p class="source">来源溯源：[文档第 1 章 1.4 基本术语]</p>
+</div>
+
+<div class="solution-box">
+    <div class="box-title">参考答案与详细解析</div>
+    <p><strong>(1) 术语表格：</strong></p>
+    <table>
+        <thead>
+            <tr><th>术语</th><th>定义</th><th>"预测房价"示例</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>样本</td><td>数据集中的一条记录，代表一个观测对象</td><td>某一套具体的房子的所有信息（一行数据）</td></tr>
+            <tr><td>特征</td><td>描述样本属性的输入变量（可以有多个）</td><td>面积、楼层、朝向、地铁距离、建成年份等</td></tr>
+            <tr><td>标签</td><td>样本对应的真实输出/答案，是模型要预测的目标</td><td>该房子的实际成交价格</td></tr>
+            <tr><td>训练集</td><td>用于训练模型（调整参数）的数据集</td><td>已知价格的历史房屋数据，用来拟合模型</td></tr>
+            <tr><td>测试集</td><td>训练结束后用于评估模型泛化能力的数据集，训练时不可见</td><td>另一批房屋数据，用来检验预测准不准</td></tr>
+            <tr><td>模型</td><td>从特征到标签的映射函数，通过训练从数据中学习得到</td><td>根据房屋特征预测价格的函数</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>(2) 训练 vs 推断：</strong></p>
+    <ul>
+        <li><strong>训练</strong>：使用训练集数据，通过优化算法（如梯度下降）反复调整模型参数，使模型在训练数据上的预测误差逐渐减小。发生在<strong>建模阶段</strong>。</li>
+        <li><strong>推断/预测</strong>：训练完成后，将新的未见过的输入特征送入固定参数的模型，得到预测结果。发生在<strong>部署/应用阶段</strong>，此时模型参数不再更新。</li>
+    </ul>
+
+    <p><strong>(3) 泛化能力：</strong></p>
+    <p>泛化能力指模型对<strong>未见过的新数据</strong>做出正确预测的能力。训练集上的表现无法衡量泛化——因为模型可以通过"死记硬背"训练数据达到零误差（过拟合），而对新数据的预测却很差。只有在训练时<strong>完全没有接触过</strong>的测试集上测出的误差，才能真实反映模型的实用价值。</p>
+
+    <p><strong>(4) 特征与标签在表格中的位置：</strong></p>
+    <p>在数据表格中，特征（属性/输入变量）对应除目标列外的<strong>所有其他列</strong>（通常是前几列）；标签（目标变量/输出变量）对应<strong>最后一列</strong>（或单独指定的目标列）。每一行是一个样本，每一列是一个变量。</p>
+</div>
+
+<div class="problem-box">
+    <div class="box-title">Q1-05　应用场景分类：判断机器学习任务类型</div>
+    <p><strong>题目描述：</strong><br>
+    机器学习根据数据是否有标签、输出类型等维度，分为监督学习、无监督学习、强化学习等类型。下面给出若干实际应用场景，请判断每个场景最适合用哪类机器学习方法解决，并说明理由。</p>
+
+    <p style="margin-top: 0.8em;"><strong>应用场景列表：</strong></p>
+    <ol type="A">
+        <li>银行根据客户的历史交易记录，预测某笔交易是否为欺诈</li>
+        <li>电商平台根据用户浏览行为（无购买标签），自动将用户分成若干消费群体</li>
+        <li>游戏 AI 通过反复自我对弈，学习如何在围棋比赛中取得最高得分</li>
+        <li>医疗系统根据患者的症状描述文本，自动将其分类到对应科室（有历史挂号数据作为标注）</li>
+        <li>将一张 $1024\times1024$ 的高清照片压缩到更小尺寸，同时尽量保留主要内容（无标签）</li>
+        <li>自动驾驶汽车通过与环境的持续互动，学习在不同路况下的驾驶策略</li>
+    </ol>
+
+    <p style="margin-top: 0.8em;"><strong>问题：</strong></p>
+    <ol>
+        <li>对每个场景，填写：任务类型（监督/无监督/强化学习）、具体子类型（分类/回归/聚类/降维/序列决策等）、判断理由。</li>
+        <li>监督学习中，"分类"和"回归"的根本区别是什么？各举两个现实应用例子。</li>
+        <li>机器学习还有一种重要范式——<strong>自监督学习</strong>（Self-supervised Learning），它与无监督学习有什么区别？GPT 的预训练属于哪种范式？</li>
+    </ol>
+    <p class="source">来源溯源：[文档第 1 章 1.3.6 机器学习应用领域]</p>
+</div>
+
+<div class="solution-box">
+    <div class="box-title">参考答案与详细解析</div>
+    <p><strong>(1) 场景分类：</strong></p>
+    <ul>
+        <li><strong>A</strong>：<strong>监督学习——二分类</strong>。有历史交易记录（特征）和是否欺诈的标注（标签），目标是预测"是/否"这一离散类别。</li>
+        <li><strong>B</strong>：<strong>无监督学习——聚类</strong>。没有预定义的群体标签，仅凭用户行为数据自动发现内在分组结构。</li>
+        <li><strong>C</strong>：<strong>强化学习——序列决策</strong>。智能体通过与环境交互，根据胜负信号（奖励）学习最优策略，没有"正确答案"标签。</li>
+        <li><strong>D</strong>：<strong>监督学习——多分类</strong>。有历史挂号数据作为标注（特征=症状文本，标签=科室），目标是从多个类别中选一个。</li>
+        <li><strong>E</strong>：<strong>无监督学习——降维</strong>。无标签，目标是在保留主要信息的前提下减少数据维度（如 PCA 降维）。</li>
+        <li><strong>F</strong>：<strong>强化学习——连续控制</strong>。自动驾驶需要在动态环境中持续做决策，通过与环境交互和奖励信号学习策略。</li>
+    </ul>
+
+    <p><strong>(2) 分类 vs 回归：</strong></p>
+    <p>根本区别在于<strong>输出类型</strong>：分类的输出是<strong>离散的类别标签</strong>（有限个选项），回归的输出是<strong>连续的数值</strong>。</p>
+    <ul>
+        <li><strong>分类示例</strong>：垃圾邮件检测（是/否）；图像识别（猫/狗/鸟）。</li>
+        <li><strong>回归示例</strong>：房价预测（具体金额）；气温预测（具体度数）。</li>
+    </ul>
+
+    <p><strong>(3) 自监督学习 vs 无监督学习：</strong></p>
+    <div class="key-box">
+        <div class="box-title">自监督学习的核心思想</div>
+        <p>无监督学习不使用任何标签，纯粹发现数据结构；<strong>自监督学习</strong>则从数据本身<strong>自动构造监督信号</strong>——比如遮住句子中的某些词，让模型预测被遮住的词（BERT 的 MLM 任务），或用前文预测下一个词（GPT 的 CLM 任务）。标签是从数据中自动生成的，不需要人工标注。GPT 的预训练属于<strong>自监督学习</strong>（语言建模任务）。</p>
+    </div>
+</div>
+
+<div class="app-box">
+    <div class="box-title">现实应用场景</div>
+    <p><strong>机器学习的六大应用领域一览：</strong><br>
+    计算机视觉（图像分类、目标检测、人脸识别）、自然语言处理（机器翻译、情感分析、问答系统）、语音识别与合成、推荐系统（电商、短视频、音乐）、医疗健康（辅助诊断、药物研发、基因组学）、金融科技（风控、量化交易、反欺诈）。这六大领域贡献了机器学习绝大多数的商业价值，也是就业最集中的方向。</p>
+</div>
+
+<h2>本章小结</h2>
+<div class="chapter-summary">
+    <ul>
+        <li><strong>ML 是 AI 的子集，DL 是 ML 的子集</strong>：三层嵌套，不要混用。</li>
+        <li><strong>六个时代的主旋律</strong>：规则→知识→统计→深度→大模型，每次转变都是"数据量和算力突破了瓶颈"。</li>
+        <li><strong>基本术语是语言基础</strong>：样本/特征/标签/训练集/测试集/模型，是所有后续章节的共同语言。</li>
+        <li><strong>任务类型决定方法选择</strong>：有标签→监督学习；无标签→无监督；序列决策→强化学习。</li>
+    </ul>
+</div>
+
+</body>
+</html>

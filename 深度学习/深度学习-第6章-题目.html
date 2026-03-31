@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度学习 - 第6章 - PyTorch 简介</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Microsoft YaHei", "SimSun", sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f9f9f9;
+            color: #333;
+        }
+        h1 { color: #1a5276; border-bottom: 3px solid #1a5276; padding-bottom: 10px; }
+        h2 { color: #2874a6; margin-top: 30px; border-left: 4px solid #2874a6; padding-left: 10px; }
+        h3 { color: #1e8449; }
+
+        /* tcolorbox styles */
+        .problembox {
+            background: white;
+            border: 1pt solid #4a86c2;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .problembox-title {
+            font-weight: bold;
+            color: #4a86c2;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .solutionbox {
+            background: #f0fff0;
+            border: 1pt solid #5cb85c;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .solutionbox-title {
+            font-weight: bold;
+            color: #5cb85c;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #c3e6c3;
+        }
+
+        .metaphorbox {
+            background: #fff8f0;
+            border: 1pt solid #e67e22;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .metaphorbox-title {
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #f5d7b3;
+        }
+
+        .beginnerbox {
+            background: #e8f4fc;
+            border: 1pt solid #5dade2;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .beginnerbox-title {
+            font-weight: bold;
+            color: #5dade2;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #bee5eb;
+        }
+
+        .appbox {
+            background: #f0fff0;
+            border: 1pt solid #27ae60;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .appbox-title {
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #c3e6c3;
+        }
+
+        .keybox {
+            background: #fff8dc;
+            border: 1pt solid #d35400;
+            border-radius: 6px;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .keybox-title {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #f5deb3;
+        }
+
+        /* Tables */
+        table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+        th, td { padding: 8px 12px; text-align: left; }
+        thead { border-bottom: 2px solid #333; }
+        tbody tr { border-bottom: 1px solid #ddd; }
+
+        /* Lists */
+        ul, ol { margin: 10px 0; padding-left: 25px; }
+        li { margin: 5px 0; }
+        ul ul, ol ol, ul ol, ol ul { margin: 5px 0 5px 15px; }
+
+        /* Code */
+        pre {
+            background: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            overflow-x: auto;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+        }
+        code { font-family: "Consolas", "Monaco", monospace; background: #f0f0f0; padding: 2px 4px; border-radius: 3px; }
+
+        /* Math */
+        .MathJax { font-size: 1.1em !important; }
+
+        /* Other */
+        strong { color: #2c3e50; }
+        .gray-text { color: #888; font-size: 0.9em; }
+        .subtitle { color: #666; font-size: 1.1em; margin-top: -10px; }
+        .blank-line { display: inline-block; min-width: 60px; border-bottom: 1px solid #333; }
+    </style>
+</head>
+<body>
+
+<h1>深度学习<br>第6章　PyTorch 简介</h1>
+<p class="subtitle">——从安装到张量，把深度学习的"乐高积木"摸透</p>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">本章题目导览：你将挑战哪些核心问题？</div>
+    <p>学深度学习，PyTorch 就是你的工具箱。工具不熟，后面所有的模型都是空中楼阁。本章 6 道题从零打通 PyTorch 的操作基础，帮你在动手之前先在脑子里把逻辑捋清楚：</p>
+    <ul>
+        <li><strong>Q6-01（辨析填空）</strong>：张量创建方法大梳理——<code>zeros</code>、<code>ones</code>、<code>rand</code>、<code>arange</code>、<code>linspace</code>……每种函数的参数和作用是什么？</li>
+        <li><strong>Q6-02（概念理解）</strong>：张量与 ndarray 的关系——Tensor 和 NumPy 数组怎么互转？共享内存是什么意思？什么时候会踩坑？</li>
+        <li><strong>Q6-03（计算题）</strong>：矩阵运算手动推导——给定两个张量，分别计算哈达玛积（元素级乘法）和矩阵乘法，搞清楚形状变化规律。</li>
+        <li><strong>Q6-04（对比分析）</strong>：四种索引方式横向对比——简单索引、范围索引、列表索引、布尔索引，各自的语法和适用场景是什么？</li>
+        <li><strong>Q6-05（代码阅读）</strong>：张量形状操作代码追踪——<code>reshape</code>、<code>squeeze</code>、<code>unsqueeze</code>、<code>transpose</code> 逐步追踪形状变化，搞清楚维度操作的本质。</li>
+        <li><strong>Q6-06（综合应用）</strong>：线性回归全流程——用自动微分模块手动实现梯度计算和参数更新，理解深度学习训练的底层逻辑。</li>
+    </ul>
+</div>
+
+<h2>第 6 章　PyTorch 简介</h2>
+
+<p>在学具体的神经网络之前，有一件事必须先搞定：<strong>学会用 PyTorch 操作数据</strong>。</p>
+
+<p>神经网络里流动的每一份数据——图片、文字、音频——在计算机内部都是一个<strong>张量（Tensor）</strong>。张量就是 PyTorch 的"货币"，你必须知道怎么创建它、操作它、计算它，才能真正理解后面的模型在干什么。</p>
+
+<ul>
+    <li>一个数字，是 0 维张量（标量）；</li>
+    <li>一行数字，是 1 维张量（向量）；</li>
+    <li>一个表格，是 2 维张量（矩阵）；</li>
+    <li>一张彩色图片（高 $\times$ 宽 $\times$ 通道），是 3 维张量；</li>
+    <li>一批彩色图片（批量 $\times$ 高 $\times$ 宽 $\times$ 通道），是 4 维张量。</li>
+</ul>
+
+<p><strong>维度越高，装的数据越复杂——但操作规律是一样的。</strong></p>
+
+<div class="metaphorbox">
+    <div class="metaphorbox-title">先建立一个总感觉：PyTorch 张量像什么？</div>
+    <p><strong>把 PyTorch 张量想象成一个超级智能的 Excel 表格。</strong></p>
+    <ul>
+        <li>普通 Excel 是二维的（行 $\times$ 列）；张量可以是任意维度，一张图片是三维"表格"，一批视频帧是五维"表格"；</li>
+        <li>Excel 只能手动计算；张量支持<strong>自动求导</strong>，你做完加减乘除，它能自动告诉你"对每个参数求偏导数是多少"——这正是深度学习训练的核心引擎；</li>
+        <li>张量还可以住在 GPU 上，数据搬上去之后，矩阵运算速度提升成百上千倍。</li>
+    </ul>
+    <p>本章的所有操作，都是在练习<strong>怎么优雅地操作这个超级表格</strong>。</p>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q6-01　张量创建方法大梳理</div>
+    <p><strong>题目描述：</strong><br>
+    文档第 6.3 节介绍了多种创建张量的方式。在做题之前，先来系统梳理各类创建函数的用法。</p>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li>填写下表，将各张量创建函数的关键信息补全：
+            <table style="margin-top: 10px;">
+                <thead>
+                    <tr><th>函数调用示例</th><th>返回张量的内容</th><th>常见用途</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>torch.zeros(3, 4)</code></td><td><span class="blank-line"></span></td><td>初始化<span class="blank-line"></span></td></tr>
+                    <tr><td><code>torch.ones(2, 3)</code></td><td><span class="blank-line"></span></td><td><span class="blank-line"></span></td></tr>
+                    <tr><td><code>torch.arange(0, 10, 2)</code></td><td>从0开始，步长为2，到10（不含）的序列：<span class="blank-line"></span></td><td><span class="blank-line"></span></td></tr>
+                    <tr><td><code>torch.linspace(0, 1, 5)</code></td><td>在$[0,1]$上均匀分布的<span class="blank-line"></span>个数</td><td><span class="blank-line"></span></td></tr>
+                    <tr><td><code>torch.rand(3, 3)</code></td><td><span class="blank-line"></span>分布的随机数</td><td>参数<span class="blank-line"></span>初始化</td></tr>
+                    <tr><td><code>torch.randn(3, 3)</code></td><td><span class="blank-line"></span>分布的随机数</td><td><span class="blank-line"></span></td></tr>
+                    <tr><td><code>torch.full((2,3), 7)</code></td><td><span class="blank-line"></span></td><td>快速创建<span class="blank-line"></span>张量</td></tr>
+                </tbody>
+            </table>
+        </li>
+
+        <li style="margin-top: 15px;"><code>torch.arange</code> 和 <code>torch.linspace</code> 都能生成序列，核心区别是什么？分别在什么场景下更合适？</li>
+
+        <li style="margin-top: 15px;">以下代码会输出什么形状的张量？请写出答案并解释：
+            <pre><code>a = torch.zeros_like(torch.rand(4, 5))
+b = torch.ones_like(torch.zeros(2, 3, 4))
+print(a.shape, b.shape)</code></pre>
+        </li>
+
+        <li style="margin-top: 15px;">如何用 <code>torch.tensor()</code> 从一个 Python 列表 <code>[[1, 2], [3, 4], [5, 6]]</code> 创建张量？该张量的 <code>shape</code>、<code>dtype</code> 和 <code>ndim</code> 分别是什么？</li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 6 章 6.3 张量创建]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：张量的三个最重要属性</div>
+    <ul>
+        <li><strong><code>shape</code>（形状）</strong>：张量每个维度的大小，如 <code>torch.Size([3, 4])</code> 表示3行4列。形状是理解数据结构最直观的方式，调试时第一件事就是打印 <code>x.shape</code>。</li>
+        <li><strong><code>dtype</code>（数据类型）</strong>：张量中每个元素的类型。整数默认 <code>torch.int64</code>，浮点数默认 <code>torch.float32</code>。神经网络的权重必须是浮点类型，因为梯度是小数。</li>
+        <li><strong><code>device</code>（设备）</strong>：张量存在 CPU（<code>cpu</code>）还是 GPU（<code>cuda:0</code>）上。两个张量必须在同一设备上才能运算，否则报错。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) 张量创建函数对比表（填写内容）：</strong></p>
+
+    <table>
+        <thead>
+            <tr><th>函数调用示例</th><th>返回张量的内容</th><th>常见用途</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>torch.zeros(3, 4)</code></td><td>全0的 $3\times4$ 矩阵</td><td>初始化偏置/掩码</td></tr>
+            <tr><td><code>torch.ones(2, 3)</code></td><td>全1的 $2\times3$ 矩阵</td><td>构造全1基准张量</td></tr>
+            <tr><td><code>torch.arange(0,10,2)</code></td><td><code>[0, 2, 4, 6, 8]</code></td><td>生成等差序列/索引</td></tr>
+            <tr><td><code>torch.linspace(0,1,5)</code></td><td>均匀分布的5个数</td><td>坐标轴/插值采样</td></tr>
+            <tr><td><code>torch.rand(3, 3)</code></td><td>$[0,1)$ 均匀分布随机数</td><td>参数随机初始化</td></tr>
+            <tr><td><code>torch.randn(3, 3)</code></td><td>标准正态分布随机数</td><td>Kaiming/Xavier初始化</td></tr>
+            <tr><td><code>torch.full((2,3), 7)</code></td><td>全为7的 $2\times3$ 矩阵</td><td>快速创建常数张量</td></tr>
+        </tbody>
+    </table>
+
+    <p style="margin-top: 15px;"><strong>(2) <code>arange</code> vs <code>linspace</code>：</strong></p>
+    <ul>
+        <li><code>arange(start, end, step)</code>：指定<strong>步长</strong>，元素个数由步长决定，类似 Python 的 <code>range</code>；适合需要固定间隔的整数序列或生成索引。</li>
+        <li><code>linspace(start, end, steps)</code>：指定<strong>元素个数</strong>，间隔由个数决定，端点包含在内；适合需要在区间内均匀采样的场景（如绘图坐标轴）。</li>
+    </ul>
+
+    <p style="margin-top: 15px;"><strong>(3) <code>zeros_like</code> 和 <code>ones_like</code> 的输出形状：</strong></p>
+    <p><code>zeros_like(input)</code> 和 <code>ones_like(input)</code> 返回与 <code>input</code> 形状相同的全0或全1张量，<strong>忽略输入的数值，只复制形状</strong>。</p>
+    <p>$$\texttt{a.shape} = \texttt{torch.Size([4, 5])}, \quad \texttt{b.shape} = \texttt{torch.Size([2, 3, 4])}$$</p>
+
+    <p style="margin-top: 15px;"><strong>(4) 从 Python 列表创建张量：</strong></p>
+    <pre><code>t = torch.tensor([[1, 2], [3, 4], [5, 6]])
+print(t.shape)   # torch.Size([3, 2])
+print(t.dtype)   # torch.int64（列表元素为整数）
+print(t.ndim)    # 2（二维张量）</code></pre>
+
+    <div class="keybox">
+        <div class="keybox-title">张量创建速查口诀</div>
+        <ul>
+            <li><strong>全0/全1</strong>：<code>zeros</code> / <code>ones</code>；　<strong>复制形状</strong>：<code>zeros_like</code> / <code>ones_like</code></li>
+            <li><strong>固定步长序列</strong>：<code>arange</code>；　<strong>固定个数序列</strong>：<code>linspace</code></li>
+            <li><strong>均匀随机</strong>：<code>rand</code>；　<strong>正态随机</strong>：<code>randn</code>；　<strong>填充常数</strong>：<code>full</code></li>
+            <li><strong>从数据创建</strong>：<code>torch.tensor(data)</code></li>
+        </ul>
+    </div>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q6-02　Tensor 与 NumPy ndarray 的相互转换</div>
+    <p><strong>题目描述：</strong><br>
+    文档第 6.4 节介绍了张量的各种转换操作。在实际项目中，数据往往先用 NumPy 处理，再送入 PyTorch 进行深度学习计算，理解两者的转换规则至关重要。</p>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li>阅读以下代码，逐行写出每个变量的类型和值：
+            <pre><code>import torch
+import numpy as np
+
+a = np.array([1.0, 2.0, 3.0])
+b = torch.from_numpy(a)   # 行A
+a[0] = 99.0               # 行B
+print(b)                  # 行C：b 的值是什么？
+
+c = torch.tensor([4.0, 5.0, 6.0])
+d = c.numpy()             # 行D
+c[0] = 88.0               # 行E
+print(d)                  # 行F：d 的值是什么？</code></pre>
+        </li>
+
+        <li style="margin-top: 15px;">上述代码中，修改 <code>a</code> 会影响 <code>b</code>，修改 <code>c</code> 也会影响 <code>d</code>，这是为什么？这种现象叫什么？在实际编程中会带来什么隐患，如何避免？</li>
+
+        <li style="margin-top: 15px;">将 Tensor 转换为标量（Python 数值）有哪两种方式？它们有什么区别？以下代码哪一行会报错？
+            <pre><code>t1 = torch.tensor([42.0])
+t2 = torch.tensor([1.0, 2.0, 3.0])
+
+val1 = t1.item()   # 方式一
+val2 = t2.item()   # 方式二：会报错吗？
+val3 = float(t1)   # 方式三</code></pre>
+        </li>
+
+        <li style="margin-top: 15px;">解释 <code>dtype</code> 转换的两种方式，并说明深度学习中为什么通常要把整数类型的张量转换为 <code>float32</code>：
+            <pre><code>x = torch.tensor([1, 2, 3])   # 默认 int64
+y = x.float()                  # 方式一
+z = x.to(torch.float32)        # 方式二</code></pre>
+        </li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 6 章 6.4 张量转换]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：为什么 Tensor 和 ndarray 要"共享内存"？</div>
+    <ul>
+        <li><strong>共享内存的好处</strong>：数据不需要复制一份，节省内存，转换速度极快。对于大型数据集（如数百MB的图像数组），复制一份代价极高。</li>
+        <li><strong>共享内存的风险</strong>：修改一个，另一个跟着变。如果代码逻辑上认为"转换后两个是独立的"，就会产生难以察觉的bug。</li>
+        <li><strong>如何"断开"共享</strong>：转换时用 <code>.copy()</code> 或 <code>torch.tensor()</code>（注意不是 <code>from_numpy</code>）创建副本，两者就不再共享内存了。</li>
+        <li><strong>GPU 上不能 <code>.numpy()</code></strong>：<code>.numpy()</code> 要求张量必须在 CPU 上。GPU 张量需要先 <code>.cpu()</code> 再 <code>.numpy()</code>，或用 <code>.cpu().detach().numpy()</code>（如果有梯度追踪的话）。</li>
+    </ul>
+</div>
+
+<div class="metaphorbox">
+    <div class="metaphorbox-title">生活比喻：共享内存像什么？</div>
+    <p><strong>把 <code>from_numpy</code> 想象成"共享文档"而不是"复制文档"。</strong></p>
+    <ul>
+        <li><code>from_numpy(a)</code> = 给同一份 Google 文档创建了两个快捷方式（<code>a</code> 和 <code>b</code>），打开任何一个都是同一份文档，在一处修改，另一处立刻看到变化；</li>
+        <li><code>torch.tensor(a)</code> = 真正复印了一份，两份文档从此独立，互不影响；</li>
+        <li>工作中的隐患：你以为改的是自己的那份，结果同事那边的数据也被你悄悄改掉了——深度学习里这种bug极难排查。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) 逐行分析：</strong></p>
+    <ul>
+        <li><strong>行A</strong>：<code>b = torch.from_numpy(a)</code>——<code>b</code> 是与 <code>a</code> <strong>共享内存</strong>的 Tensor，形状 <code>[3]</code>，dtype <code>float64</code>；</li>
+        <li><strong>行B</strong>：<code>a[0] = 99.0</code>——修改了底层内存的第一个元素；</li>
+        <li><strong>行C</strong>：由于共享内存，<code>b</code> 的值同步变化，输出 <code>tensor([99., 2., 3.], dtype=torch.float64)</code>；</li>
+        <li><strong>行D</strong>：<code>d = c.numpy()</code>——<code>d</code> 是与 <code>c</code> 共享内存的 ndarray；</li>
+        <li><strong>行E</strong>：<code>c[0] = 88.0</code>——修改 Tensor 的第一个元素；</li>
+        <li><strong>行F</strong>：<code>d</code> 同步变化，输出 <code>[88. 5. 6.]</code>。</li>
+    </ul>
+
+    <p style="margin-top: 15px;"><strong>(2) 共享内存（内存共享 / Memory Sharing）：</strong></p>
+    <p><code>torch.from_numpy</code> 和 <code>tensor.numpy()</code> 都不复制数据，转换后的对象与原对象指向同一块内存地址。修改任一方，另一方立刻可见。</p>
+    <p><strong>实际隐患</strong>：数据预处理流水线中，若对 ndarray 做了原地修改（如归一化），会意外改变已送入 DataLoader 的 Tensor 数据。</p>
+    <p><strong>避免方法</strong>：</p>
+    <pre><code># 断开共享，创建独立副本
+b = torch.tensor(a)         # 从 ndarray 创建独立 Tensor
+d = c.detach().clone().numpy()  # 从 Tensor 创建独立 ndarray</code></pre>
+
+    <p style="margin-top: 15px;"><strong>(3) 标量转换：</strong></p>
+    <p><code>t2.item()</code> 会<strong>报错</strong>（<code>RuntimeError</code>），因为 <code>.item()</code> 只能用于包含<strong>单个元素</strong>的张量。<code>t2</code> 有3个元素，无法转换为单一标量。</p>
+    <p><code>t1.item()</code> 和 <code>float(t1)</code> 均正常，返回 Python 浮点数 <code>42.0</code>。</p>
+
+    <p style="margin-top: 15px;"><strong>(4) dtype 转换及原因：</strong></p>
+    <p>两种方式等价：<code>x.float()</code> 是 <code>x.to(torch.float32)</code> 的简写。</p>
+    <p>深度学习中必须用 <code>float32</code> 的原因：反向传播计算的梯度是小数，整数类型无法表示小数，也不支持自动微分（<code>requires_grad</code> 只对浮点类型有效）。<code>float32</code> 在精度和显存占用之间取得了最佳平衡，是 GPU 运算的默认类型。</p>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q6-03　矩阵运算手动推导：哈达玛积 vs 矩阵乘法</div>
+    <p><strong>题目描述：</strong><br>
+    文档第 6.5 节介绍了张量的数值计算，重点区分了三种"乘法"：逐元素乘（哈达玛积）、矩阵乘法和标量乘法。这三种乘法在深度学习中各有明确的用途，混淆会导致形状报错或计算错误。</p>
+
+    <p style="margin-top: 15px;">给定两个张量：
+    $$A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}, \quad B = \begin{pmatrix} 5 & 6 \\ 7 & 8 \end{pmatrix}$$</p>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li>计算哈达玛积 $A \odot B$（逐元素乘法，对应 <code>A * B</code> 或 <code>torch.mul(A, B)</code>），写出结果矩阵。</li>
+
+        <li style="margin-top: 10px;">计算矩阵乘法 $A \times B$（对应 <code>torch.mm(A, B)</code> 或 <code>A @ B</code>），写出结果矩阵，并指出结果的形状。</li>
+
+        <li style="margin-top: 10px;">下面三行代码，哪些会报错？为什么？
+            <pre><code>C = torch.tensor([[1, 2, 3]])   # shape: [1, 3]
+D = torch.tensor([[4, 5, 6]])   # shape: [1, 3]
+
+result1 = C * D           # 哈达玛积
+result2 = torch.mm(C, D)  # 矩阵乘法
+result3 = C @ D.T         # D 转置后矩阵乘法</code></pre>
+        </li>
+
+        <li style="margin-top: 10px;">什么是"节省内存"（in-place 操作）？以下两种写法有什么区别？在哪种情况下不能使用 in-place 操作？
+            <pre><code>x = torch.tensor([1.0, 2.0, 3.0])
+y = x + 1       # 普通操作
+x.add_(1)       # in-place 操作（末尾加下划线）</code></pre>
+        </li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 6 章 6.5 张量数值计算]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：三种"乘法"傻傻分不清楚？</div>
+    <ul>
+        <li><strong>标量乘法</strong>：<code>A * 2</code>，每个元素都乘以2，形状不变，最简单；</li>
+        <li><strong>哈达玛积</strong>（逐元素乘法）：<code>A * B</code>，两个形状完全相同的张量，对应位置元素相乘，结果形状不变。用于注意力机制的掩码、逐元素加权等；</li>
+        <li><strong>矩阵乘法</strong>：<code>A @ B</code> 或 <code>torch.mm(A, B)</code>，遵循线性代数规则——第一个矩阵的列数必须等于第二个矩阵的行数，结果形状为 $[m, n] \times [n, k] = [m, k]$。全连接层的核心计算就是矩阵乘法。</li>
+        <li><strong>记忆口诀</strong>：<code>*</code> 对元素，<code>@</code> 对矩阵。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) 哈达玛积 $A \odot B$：</strong></p>
+    <p>对应位置元素相乘，形状保持 $2\times2$：
+    $$A \odot B = \begin{pmatrix} 1\times5 & 2\times6 \\ 3\times7 & 4\times8 \end{pmatrix} = \begin{pmatrix} 5 & 12 \\ 21 & 32 \end{pmatrix}$$</p>
+
+    <p style="margin-top: 15px;"><strong>(2) 矩阵乘法 $A \times B$：</strong></p>
+    <p>$[2,2] \times [2,2] = [2,2]$，结果形状为 $2\times2$：
+    $$A \times B = \begin{pmatrix} 1\times5+2\times7 & 1\times6+2\times8 \\ 3\times5+4\times7 & 3\times6+4\times8 \end{pmatrix} = \begin{pmatrix} 19 & 22 \\ 43 & 50 \end{pmatrix}$$</p>
+
+    <p style="margin-top: 15px;"><strong>(3) 哪些代码报错：</strong></p>
+    <ul>
+        <li><code>result1 = C * D</code>：<strong>不报错</strong>。<code>C</code> 和 <code>D</code> 形状均为 <code>[1,3]</code>，逐元素乘法可以执行，结果为 <code>[[4, 10, 18]]</code>；</li>
+        <li><code>result2 = torch.mm(C, D)</code>：<strong>报错</strong>。矩阵乘法要求第一个矩阵列数等于第二个矩阵行数。<code>C</code> 形状 <code>[1,3]</code>，<code>D</code> 形状 <code>[1,3]</code>，列数3 ≠ 行数1，形状不匹配；</li>
+        <li><code>result3 = C @ D.T</code>：<strong>不报错</strong>。<code>D.T</code> 形状为 <code>[3,1]</code>，<code>[1,3] @ [3,1] = [1,1]</code>，结果为 <code>[[32]]</code>（即 $4+10+18$）。</li>
+    </ul>
+
+    <p style="margin-top: 15px;"><strong>(4) In-place 操作与内存：</strong></p>
+    <p><code>y = x + 1</code>：创建一个新的张量 <code>y</code>，<code>x</code> 不变，额外占用内存。</p>
+    <p><code>x.add_(1)</code>：直接在 <code>x</code> 的内存上修改，不创建新张量，节省内存。PyTorch 中所有 in-place 操作在函数名末尾加下划线（如 <code>add_</code>、<code>mul_</code>、<code>fill_</code>）。</p>
+    <p><strong>不能使用 in-place 的情况</strong>：当张量参与了计算图（即 <code>requires_grad=True</code>）并被后续操作引用时，不能对其使用 in-place 操作，否则会破坏反向传播所需的中间值，导致梯度计算错误，PyTorch 会抛出 <code>RuntimeError</code>。</p>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q6-04　四种索引方式横向对比</div>
+    <p><strong>题目描述：</strong><br>
+    文档第 6.7 节介绍了张量的索引操作。索引是"从大张量中取出你想要的那部分数据"的核心手段。四种索引方式各有语法和适用场景。</p>
+
+    <p style="margin-top: 15px;">给定张量 <code>x</code>（形状 <code>[4, 5]</code>）：
+    <pre><code>x = torch.arange(20).reshape(4, 5)
+# tensor([[ 0,  1,  2,  3,  4],
+#         [ 5,  6,  7,  8,  9],
+#         [10, 11, 12, 13, 14],
+#         [15, 16, 17, 18, 19]])</code></pre>
+    </p>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li><strong>简单索引</strong>：写出以下操作的结果：
+            <ol type="a">
+                <li><code>x[2]</code>：<span class="blank-line"></span></li>
+                <li><code>x[1, 3]</code>：<span class="blank-line"></span></li>
+                <li><code>x[-1, -1]</code>：<span class="blank-line"></span></li>
+            </ol>
+        </li>
+
+        <li style="margin-top: 10px;"><strong>范围索引（切片）</strong>：写出以下操作的结果形状和内容：
+            <ol type="a">
+                <li><code>x[1:3, 2:5]</code>：形状<span class="blank-line"></span>，内容<span class="blank-line"></span></li>
+                <li><code>x[:, 0]</code>：形状<span class="blank-line"></span>，内容<span class="blank-line"></span></li>
+                <li><code>x[::2, ::2]</code>：形状<span class="blank-line"></span>，内容<span class="blank-line"></span></li>
+            </ol>
+        </li>
+
+        <li style="margin-top: 10px;"><strong>列表索引</strong>：<code>x[[0, 2, 3]]</code> 和 <code>x[:, [1, 3]]</code> 分别返回什么？形状各是多少？</li>
+
+        <li style="margin-top: 10px;"><strong>布尔索引</strong>：以下代码的作用和输出是什么？布尔索引在深度学习中最常用于什么场景？
+            <pre><code>mask = x > 10
+result = x[mask]
+print(result.shape, result)</code></pre>
+        </li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 6 章 6.7 张量索引操作]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：索引不改变原张量，切片返回视图！</div>
+    <ul>
+        <li><strong>索引与切片的区别</strong>：<code>x[2]</code> 是取一整行，结果是1维向量；<code>x[2:3]</code> 是取一个范围（虽然只有一行），结果仍是2维矩阵。维度会减少是索引的特点，切片保留维度。</li>
+        <li><strong>切片是视图（View）</strong>：切片不复制数据，修改切片会改变原张量。布尔索引和列表索引则会返回副本。</li>
+        <li><strong>负数索引</strong>：<code>-1</code> 表示最后一个，<code>-2</code> 表示倒数第二个，和 Python 列表一样，非常实用。</li>
+        <li><strong>步长切片 <code>::2</code></strong>：表示每隔一个取一个，相当于"隔行/列采样"，常用于降采样。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) 简单索引：</strong></p>
+    <ol type="a">
+        <li><code>x[2]</code>：第3行，结果为 <code>tensor([10, 11, 12, 13, 14])</code>，形状 <code>[5]</code>；</li>
+        <li><code>x[1, 3]</code>：第2行第4列，结果为标量 <code>tensor(8)</code>；</li>
+        <li><code>x[-1, -1]</code>：最后一行最后一列，结果为标量 <code>tensor(19)</code>。</li>
+    </ol>
+
+    <p style="margin-top: 15px;"><strong>(2) 范围索引：</strong></p>
+    <ol type="a">
+        <li><code>x[1:3, 2:5]</code>：取第1、2行（不含3）、第2至4列（不含5）。形状 <code>[2, 3]</code>，内容：
+            $$\begin{pmatrix} 7 & 8 & 9 \\ 12 & 13 & 14 \end{pmatrix}$$</li>
+        <li><code>x[:, 0]</code>：所有行的第0列。形状 <code>[4]</code>，内容 <code>tensor([0, 5, 10, 15])</code>；</li>
+        <li><code>x[::2, ::2]</code>：每隔一行、一列取一个。形状 <code>[2, 3]</code>，内容：
+            $$\begin{pmatrix} 0 & 2 & 4 \\ 10 & 12 & 14 \end{pmatrix}$$</li>
+    </ol>
+
+    <p style="margin-top: 15px;"><strong>(3) 列表索引：</strong></p>
+    <ul>
+        <li><code>x[[0, 2, 3]]</code>：取第0、2、3行，形状 <code>[3, 5]</code>，内容为第0、2、3行组成的矩阵；</li>
+        <li><code>x[:, [1, 3]]</code>：取所有行的第1、3列，形状 <code>[4, 2]</code>，内容为第1列 <code>[1,6,11,16]</code> 和第3列 <code>[3,8,13,18]</code> 组成的矩阵。</li>
+    </ul>
+
+    <p style="margin-top: 15px;"><strong>(4) 布尔索引：</strong></p>
+    <p><code>mask = x > 10</code> 生成一个形状为 <code>[4, 5]</code> 的布尔张量，元素大于10的位置为 <code>True</code>。</p>
+    <p><code>x[mask]</code> 返回所有 <code>True</code> 位置对应的元素，结果是<strong>一维张量</strong>（布尔索引总是将结果"拍平"）：
+    $$\texttt{tensor([11, 12, 13, 14, 15, 16, 17, 18, 19])}，\text{形状 \texttt{[9]}}$$</p>
+    <p><strong>深度学习中的常见用途</strong>：用布尔索引筛选满足条件的样本（如过滤掉损失超过阈值的异常样本）、在目标检测中筛选置信度大于阈值的候选框。</p>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q6-05　张量形状操作代码追踪</div>
+    <p><strong>题目描述：</strong><br>
+    文档第 6.8 节介绍了张量的形状操作，包括维度交换、形状调整、维度增删。形状操作是深度学习代码中最高频的操作之一——模型输入输出形状不对、批量维度缺失，都会在这里出问题。</p>
+
+    <p style="margin-top: 15px;"><strong>阅读以下代码，逐步填写各变量的形状：</strong></p>
+    <pre><code>import torch
+
+x = torch.arange(24)                     # 步骤1
+a = x.reshape(2, 3, 4)                   # 步骤2
+b = a.transpose(0, 2)                    # 步骤3
+c = a.reshape(6, -1)                     # 步骤4
+d = a.unsqueeze(0)                       # 步骤5
+e = d.squeeze(0)                         # 步骤6
+f = torch.cat([a, a], dim=0)             # 步骤7（来自6.9节）
+g = torch.stack([a, a], dim=0)           # 步骤8（来自6.9节）</code></pre>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li>依次写出步骤1至步骤8每个变量的形状（<code>shape</code>）：
+            <ol type="a">
+                <li><code>x.shape</code>：<span class="blank-line"></span></li>
+                <li><code>a.shape</code>：<span class="blank-line"></span></li>
+                <li><code>b.shape</code>：<span class="blank-line"></span></li>
+                <li><code>c.shape</code>：<span class="blank-line"></span></li>
+                <li><code>d.shape</code>：<span class="blank-line"></span></li>
+                <li><code>e.shape</code>：<span class="blank-line"></span></li>
+                <li><code>f.shape</code>：<span class="blank-line"></span></li>
+                <li><code>g.shape</code>：<span class="blank-line"></span></li>
+            </ol>
+        </li>
+
+        <li style="margin-top: 10px;"><code>reshape</code> 和 <code>view</code> 都能调整形状，两者有什么区别？什么情况下 <code>view</code> 会失败？</li>
+
+        <li style="margin-top: 10px;"><code>torch.cat</code> 和 <code>torch.stack</code> 都能拼接张量，核心区别是什么？用一句话分别说明各自的使用场景。</li>
+
+        <li style="margin-top: 10px;">在实际深度学习代码中，<code>unsqueeze(0)</code> 最常用于什么目的？举一个具体的场景。</li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 6 章 6.8 张量形状操作 / 6.9 张量拼接操作]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：形状操作不改变总元素个数！</div>
+    <ul>
+        <li><strong>reshape 的铁律</strong>：调整前后总元素数必须相等。24个元素可以变成 <code>[2,3,4]</code>、<code>[6,4]</code>、<code>[24,1]</code> 等，但不能变成 <code>[5,5]</code>（25个元素）。</li>
+        <li><strong><code>-1</code> 的妙用</strong>：<code>reshape(6, -1)</code> 中 <code>-1</code> 表示"让 PyTorch 自动计算这一维的大小"。总元素24，第一维是6，第二维自动算出 $24/6=4$，所以结果是 <code>[6,4]</code>。</li>
+        <li><strong>unsqueeze vs squeeze</strong>：<code>unsqueeze(dim)</code> 在指定位置增加一个大小为1的维度；<code>squeeze(dim)</code> 删除指定位置大小为1的维度。如果 squeeze 指定的维度大小不是1，则<strong>不做任何操作</strong>。</li>
+        <li><strong>cat vs stack</strong>：<code>cat</code> 在已有维度上拼接（维度数不变）；<code>stack</code> 新建一个维度再拼接（维度数加一）。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) 逐步形状追踪：</strong></p>
+
+    <table>
+        <thead>
+            <tr><th>步骤</th><th>变量</th><th>形状</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td><code>x</code></td><td><code>[24]</code></td><td>0到23的一维序列，共24个元素</td></tr>
+            <tr><td>2</td><td><code>a</code></td><td><code>[2, 3, 4]</code></td><td>24个元素重塑为三维张量</td></tr>
+            <tr><td>3</td><td><code>b</code></td><td><code>[4, 3, 2]</code></td><td>交换维度0和维度2，原 $[2,3,4]$ 变为 $[4,3,2]$</td></tr>
+            <tr><td>4</td><td><code>c</code></td><td><code>[6, 4]</code></td><td>$2\times3=6$，第二维自动推算为 $24/6=4$</td></tr>
+            <tr><td>5</td><td><code>d</code></td><td><code>[1, 2, 3, 4]</code></td><td>在最前面增加一个大小为1的批量维度</td></tr>
+            <tr><td>6</td><td><code>e</code></td><td><code>[2, 3, 4]</code></td><td>删除第0维（大小为1），恢复原形状</td></tr>
+            <tr><td>7</td><td><code>f</code></td><td><code>[4, 3, 4]</code></td><td>沿 dim=0 拼接两个 <code>[2,3,4]</code>，第0维 $2+2=4$</td></tr>
+            <tr><td>8</td><td><code>g</code></td><td><code>[2, 2, 3, 4]</code></td><td>新建 dim=0，将两个 <code>[2,3,4]</code> 堆叠成 $[2,2,3,4]$</td></tr>
+        </tbody>
+    </table>
+
+    <p style="margin-top: 15px;"><strong>(2) <code>reshape</code> vs <code>view</code>：</strong></p>
+    <p>两者功能相同，但 <code>view</code> 要求张量在内存中是<strong>连续存储</strong>的（contiguous）。如果对张量做了 <code>transpose</code>、<code>permute</code> 等操作，内存布局变得不连续，此时调用 <code>view</code> 会抛出错误。需要先调用 <code>.contiguous()</code> 使其变连续，再 <code>view</code>；或者直接用 <code>reshape</code>（会自动处理非连续情况，必要时复制数据）。</p>
+
+    <p style="margin-top: 15px;"><strong>(3) <code>cat</code> vs <code>stack</code>：</strong></p>
+    <ul>
+        <li><code>torch.cat</code>：<strong>在已有维度上合并</strong>，不增加维度数。用于将同类数据沿批量或序列方向拼接，如将两批图像合并为一个更大的批量；</li>
+        <li><code>torch.stack</code>：<strong>新建一个维度再合并</strong>，维度数加一。用于将多个同形状张量组成新的批量维度，如将多张处理好的图像打包成一个 batch。</li>
+    </ul>
+
+    <p style="margin-top: 15px;"><strong>(4) <code>unsqueeze(0)</code> 的典型用途：</strong></p>
+    <p>最常用于<strong>为单个样本增加批量维度</strong>，以满足模型输入格式要求。例如：</p>
+    <pre><code># 推理时，单张图片形状为 [3, 224, 224]（通道×高×宽）
+img = load_image("test.jpg")       # shape: [3, 224, 224]
+img = img.unsqueeze(0)             # shape: [1, 3, 224, 224]
+output = model(img)                # 模型期望 [batch, C, H, W]</code></pre>
+    <p>模型在训练时始终接收批量输入 <code>[batch, ...]</code>，推理时若直接传入单样本会形状不匹配，<code>unsqueeze(0)</code> 加上批量维度后即可正常工作。</p>
+</div>
+
+<div class="problembox">
+    <div class="problembox-title">Q6-06　综合应用：自动微分与线性回归全流程</div>
+    <p><strong>题目描述：</strong><br>
+    文档第 6.10 节介绍了 PyTorch 的自动微分模块（<code>autograd</code>），第 6.11 节给出了线性回归案例。自动微分是深度学习的核心引擎——你只需要写出前向计算，PyTorch 就能自动算出所有参数的梯度。以下是一段手动实现线性回归的代码骨架：</p>
+
+    <pre><code>import torch
+
+# 生成数据：y = 2x + 1 + 噪声
+torch.manual_seed(42)
+X = torch.rand(100, 1)
+y = 2 * X + 1 + 0.1 * torch.randn(100, 1)
+
+# 初始化参数
+w = torch.randn(1, 1, requires_grad=True)   # 权重
+b = torch.zeros(1, requires_grad=True)      # 偏置
+
+lr = 0.1   # 学习率
+
+for epoch in range(100):
+    # 前向传播
+    y_pred = X @ w + b                      # 行A
+
+    # 计算损失（MSE）
+    loss = ((y_pred - y) ** 2).mean()       # 行B
+
+    # 反向传播
+    loss.backward()                         # 行C
+
+    # 参数更新（不计入计算图）
+    with torch.no_grad():
+        w -= lr * w.grad                    # 行D
+        b -= lr * b.grad                    # 行E
+        w.grad.zero_()                      # 行F
+        b.grad.zero_()                      # 行G</code></pre>
+
+    <p style="margin-top: 15px;"><strong>问题：</strong></p>
+    <ol type="(1)">
+        <li><strong><code>requires_grad=True</code> 的作用</strong>：为什么只有 <code>w</code> 和 <code>b</code> 设置了 <code>requires_grad=True</code>，而 <code>X</code> 和 <code>y</code> 没有？</li>
+
+        <li style="margin-top: 10px;"><strong>计算图（Computation Graph）</strong>：执行行A和行B之后，PyTorch 内部构建了一张计算图。请用文字描述这张图的大致结构：从 <code>w</code>、<code>b</code>、<code>X</code> 出发，经过哪些操作，最终得到 <code>loss</code>？</li>
+
+        <li style="margin-top: 10px;"><strong><code>loss.backward()</code> 的作用</strong>（行C）：执行这行后，<code>w.grad</code> 和 <code>b.grad</code> 里存的是什么？数学上对应什么量？</li>
+
+        <li style="margin-top: 10px;"><strong>为什么参数更新要放在 <code>with torch.no_grad()</code> 里</strong>（行D、E）？如果去掉这个上下文管理器，会发生什么？</li>
+
+        <li style="margin-top: 10px;"><strong>为什么要手动清零梯度</strong>（行F、G）？如果不清零，连续训练两个 epoch 会出现什么问题？</li>
+
+        <li style="margin-top: 10px;">如果把这段手动更新代码替换成 PyTorch 的优化器，应该怎么写？请用 <code>torch.optim.SGD</code> 改写行D到行G的部分。</li>
+    </ol>
+
+    <p class="gray-text" style="margin-top: 15px;"><i>来源溯源：[文档第 6 章 6.10 自动微分模块 / 6.11 机器学习案例：线性回归]</i></p>
+</div>
+
+<div class="beginnerbox">
+    <div class="beginnerbox-title">小白必读：自动微分到底在"自动"什么？</div>
+    <ul>
+        <li><strong>核心思想</strong>：PyTorch 在你做前向计算时，偷偷记录了所有操作（构成"计算图"）。调用 <code>backward()</code> 时，它沿着计算图反向走一遍，用链式法则自动算出每个参数的偏导数，存入 <code>.grad</code> 属性。</li>
+        <li><strong>你不需要手推梯度公式</strong>：不管网络多深、多复杂，只要前向计算写对了，反向传播完全自动。这就是为什么深度学习可以处理数百层的网络——手推梯度几乎不可能，但自动微分可以。</li>
+        <li><strong>梯度的含义</strong>：<code>w.grad</code> 告诉你"如果把 <code>w</code> 增加一点点，损失会增加多少倍"。梯度下降就是朝着梯度的反方向更新参数——损失减少最快的方向。</li>
+    </ul>
+</div>
+
+<div class="metaphorbox">
+    <div class="metaphorbox-title">生活比喻：自动微分像导航软件的实时重算</div>
+    <ul>
+        <li><strong>前向传播</strong> = 沿着当前路线从起点开到终点，记录每一个路口的转弯；</li>
+        <li><strong>计算图</strong> = 导航软件记录下来的完整行驶轨迹；</li>
+        <li><strong>backward()</strong> = 到达终点（算出 loss）后，倒回去问"如果在某个路口稍微左转一点，总耗时会变多还是变少？"——对每一个路口（参数）都问一遍；</li>
+        <li><strong>梯度下降更新</strong> = 根据回答，调整每个路口的决策，下次走得更快；</li>
+        <li><strong>梯度清零</strong> = 清空上次行程的记录，开始记录新一次行程——否则两次记录叠加，路口信息就乱了。</li>
+    </ul>
+</div>
+
+<div class="solutionbox">
+    <div class="solutionbox-title">参考答案与详细解析</div>
+    <p><strong>(1) <code>requires_grad=True</code> 的作用：</strong></p>
+    <p><code>requires_grad=True</code> 告诉 PyTorch："这个张量是需要优化的参数，请追踪与它相关的所有计算，以便反向传播时计算梯度。"</p>
+    <p><code>X</code>（输入数据）和 <code>y</code>（标签）是已知的固定数据，不需要优化，因此无需追踪梯度。只有模型的可学习参数 <code>w</code> 和 <code>b</code> 才需要通过梯度下降不断调整，所以只给它们设置 <code>requires_grad=True</code>。这也减少了不必要的内存占用和计算开销。</p>
+
+    <p style="margin-top: 15px;"><strong>(2) 计算图的结构（文字描述）：</strong></p>
+    <ul>
+        <li>行A：<code>X</code>（数据）与 <code>w</code>（参数）做矩阵乘法 → 加上偏置 <code>b</code> → 得到预测值 <code>y_pred</code>；</li>
+        <li>行B：<code>y_pred</code> 减去真实值 <code>y</code> → 对差值平方 → 对所有元素求均值 → 得到标量 <code>loss</code>。</li>
+    </ul>
+    <p>整张图的叶节点是 <code>w</code>、<code>b</code>（有梯度），根节点是 <code>loss</code>。反向传播从根节点出发，沿箭头方向逆向传播梯度。</p>
+
+    <p style="margin-top: 15px;"><strong>(3) <code>loss.backward()</code> 的结果：</strong></p>
+    <p>执行后，PyTorch 从 <code>loss</code> 出发沿计算图反向遍历，计算 $\dfrac{\partial \text{loss}}{\partial w}$ 和 $\dfrac{\partial \text{loss}}{\partial b}$，分别存入 <code>w.grad</code> 和 <code>b.grad</code>。这在数学上正是 MSE 损失对两个参数的偏导数，即梯度向量在参数空间上的分量。</p>
+
+    <p style="margin-top: 15px;"><strong>(4) 为什么更新要在 <code>torch.no_grad()</code> 里：</strong></p>
+    <p>参数更新 <code>w -= lr * w.grad</code> 本身是一次张量运算，如果在计算图追踪状态下执行，PyTorch 会把这次更新也记录进计算图，导致计算图不断扩大，内存泄漏，且下一次 <code>backward()</code> 时会把参数更新本身也当作一部分计算路径——这完全不是我们想要的。<code>torch.no_grad()</code> 告诉 PyTorch："这段代码不需要追踪，纯粹的数值更新"，既节省内存又语义正确。</p>
+
+    <p style="margin-top: 15px;"><strong>(5) 为什么要手动清零梯度：</strong></p>
+    <p>PyTorch 的梯度是<strong>累加</strong>而非覆盖的。若不清零，第2个 epoch 的梯度会叠加在第1个 epoch 的梯度上，等效于用"两倍梯度"更新参数，参数更新方向和幅度均错误，训练无法正常收敛。</p>
+
+    <p style="margin-top: 15px;"><strong>(6) 用 <code>torch.optim.SGD</code> 改写：</strong></p>
+    <pre><code>import torch.optim as optim
+
+# 在循环外定义优化器
+optimizer = optim.SGD([w, b], lr=0.1)
+
+for epoch in range(100):
+    y_pred = X @ w + b
+    loss = ((y_pred - y) ** 2).mean()
+
+    optimizer.zero_grad()   # 替代行F、G：清零梯度
+    loss.backward()         # 行C：反向传播（不变）
+    optimizer.step()        # 替代行D、E：自动更新 w 和 b</code></pre>
+
+    <div class="keybox">
+        <div class="keybox-title">自动微分三步节奏（深度学习的心跳）</div>
+        <ul>
+            <li><strong>第一步</strong>：<code>optimizer.zero_grad()</code> —— 清空上一轮的梯度记录</li>
+            <li><strong>第二步</strong>：<code>loss.backward()</code> —— 从损失反向传播，计算所有参数的梯度</li>
+            <li><strong>第三步</strong>：<code>optimizer.step()</code> —— 根据梯度更新参数</li>
+            <li><strong>顺序铁律</strong>：清零 → 反向 → 更新，三步缺一不可，顺序不能乱</li>
+        </ul>
+    </div>
+</div>
+
+<div class="appbox">
+    <div class="appbox-title">现实应用场景</div>
+    <p><strong>PyTorch 的 <code>autograd</code>——支撑起整个深度学习时代的底层引擎：</strong><br>
+    GPT、Stable Diffusion、AlphaFold……这些划时代的模型，底层都依赖自动微分来训练参数。研究人员只需要写出模型的前向计算逻辑，反向传播完全交给框架。PyTorch 的动态计算图（每次前向传播都重建计算图）让调试变得和普通 Python 代码一样直观——你可以在 <code>forward</code> 里加 <code>print</code>、加断点、写条件分支，而不需要像静态图框架那样提前声明所有计算。这也是 PyTorch 在研究界迅速超越 TensorFlow 的核心原因。</p>
+</div>
+
+<h2>本章小结：把 PyTorch 的底层逻辑装进脑子里</h2>
+
+<p>学完这 6 道题，如果还觉得"操作很多、记不住"，试试把整章内容浓缩成这几句画面：</p>
+
+<ul>
+    <li><strong>张量是一切的基础</strong>：数字、向量、矩阵、图片、批量……在 PyTorch 里统统是张量，维度不同，但操作规律一样。</li>
+    <li><strong>创建张量的方法分两类</strong>：从数据创建（<code>tensor</code>）；按规则生成（<code>zeros</code>、<code>rand</code>、<code>arange</code> 等）。</li>
+    <li><strong>Tensor 与 ndarray 共享内存</strong>：<code>from_numpy</code> 和 <code>.numpy()</code> 不复制数据，修改一个会影响另一个——改用 <code>torch.tensor()</code> 创建独立副本。</li>
+    <li><strong>三种乘法别搞混</strong>：<code>*</code> 逐元素，<code>@</code> 矩阵乘，标量乘各自用途不同。</li>
+    <li><strong>形状操作记住"总元素不变"</strong>：<code>reshape</code> 自由变形，<code>unsqueeze</code>/<code>squeeze</code> 增删维度，<code>cat</code> 沿已有维度拼，<code>stack</code> 新建维度再拼。</li>
+    <li><strong>自动微分的三步节奏</strong>：清零梯度 → <code>backward()</code> → <code>step()</code>，这是深度学习训练的心跳，往后每个章节都是在这个框架上加料。</li>
+</ul>
+
+<div class="metaphorbox">
+    <div class="metaphorbox-title">给零基础读者的一句总比喻</div>
+    <p><strong>如果把深度学习比作造一辆汽车：</strong></p>
+    <ul>
+        <li><strong>张量</strong> = 钢板、零件——所有数据的物理形态；</li>
+        <li><strong>张量操作（索引、切片、形状变换）</strong> = 切割、焊接、打磨——把原材料加工成需要的形状；</li>
+        <li><strong>自动微分</strong> = 发动机——给整辆车提供动力，让训练可以自动推进；</li>
+        <li><strong>线性回归案例</strong> = 第一次发动引擎的测试：结构最简单，但发动机（autograd）是真实的，往后无论多复杂的模型，用的是同一台引擎。</li>
+    </ul>
+</div>
+
+</body>
+</html>

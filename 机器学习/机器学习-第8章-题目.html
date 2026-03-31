@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器学习 - 第8章 - 感知机</title>
+    <script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+    };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", "SimSun", Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fafafa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        h1 .subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+            display: block;
+            margin-top: 8px;
+        }
+        h2 {
+            color: #34495e;
+            font-size: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .problem-box {
+            background-color: white;
+            border: 1px solid #3a7ca5;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .problem-box .title {
+            font-weight: bold;
+            color: #3a7ca5;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background-color: #f0fff0;
+            border: 1px solid #5cb85c;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .solution-box .title {
+            font-weight: bold;
+            color: #5cb85c;
+            margin-bottom: 10px;
+        }
+        .metaphor-box {
+            background-color: #fff8e7;
+            border: 1px solid #e67e22;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .metaphor-box .title {
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 10px;
+        }
+        .beginner-box {
+            background-color: #e8f4fc;
+            border: 1px solid #5dade2;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .beginner-box .title {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        .key-box {
+            background-color: #fffde7;
+            border: 1px solid #f39c12;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .key-box .title {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+        .app-box {
+            background-color: #f0fff0;
+            border: 1px solid #27ae60;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .app-box .title {
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #ecf0f1;
+            font-weight: bold;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, monospace;
+        }
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .source {
+            color: #7f8c8d;
+            font-size: 12px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>机器学习<br>第8章 感知机<br><span class="subtitle">神经网络的起点：从一根神经元到万亿参数的第一步</span></h1>
+
+    <div class="beginner-box">
+        <div class="title">本章题目导览：你将挑战哪些核心问题？</div>
+        <p>所有现代深度学习——ChatGPT、Stable Diffusion、AlphaFold——归根结底都建立在一个极其简单的结构上：<strong>感知机</strong>。它诞生于 1957 年，是人类第一次用数学模型模拟"一个神经元如何做决策"。理解感知机，就是理解神经网络的基因。本章 6 道题从零到多层，逐步打通感知机的全部核心：</p>
+        <ul>
+            <li><strong>Q8-01（概念理解）</strong>：感知机是什么——输入、权重、偏置、激活函数，四个要素各自扮演什么角色？</li>
+            <li><strong>Q8-02（手动计算）</strong>：逻辑门真值表验证——用感知机的数学公式手动验证与门、与非门、或门的输出，体会权重如何决定"行为"。</li>
+            <li><strong>Q8-03（参数设计）</strong>：给定真值表，自行设计权重和偏置——如何从"要实现什么功能"反推出合适的 $(w_1, w_2, \theta)$ 取值？</li>
+            <li><strong>Q8-04（代码实践）</strong>：感知机 Python 实现——读懂简单实现与引入权重偏置的两种代码写法，理解偏置的数学等价性。</li>
+            <li><strong>Q8-05（深度辨析）</strong>：感知机的局限——为什么单层感知机无法解决异或（XOR）问题？从几何角度给出直觉解释。</li>
+            <li><strong>Q8-06（综合推理）</strong>：多层感知机突破局限——如何用已有的与门、与非门、或门组合出异或门？多层结构带来了什么本质变化？</li>
+        </ul>
+    </div>
+
+    <h2>第 8 章 感知机：神经网络的起点</h2>
+
+    <p>在学所有"高大上"的深度学习之前，有一个问题值得认真问一句：<strong>神经网络究竟是从哪里来的？</strong></p>
+    <p>答案是：从模仿大脑开始的。</p>
+    <ul>
+        <li>人类大脑有约 860 亿个神经元，每个神经元接收来自其他神经元的信号，<strong>当信号足够强时就"激发"输出一个信号，否则保持沉默</strong>。</li>
+        <li>1943 年，McCulloch 和 Pitts 把这个过程用数学写出来，得到了 MP 神经元模型。</li>
+        <li>1957 年，Rosenblatt 在此基础上发明了<strong>感知机</strong>——一个可以从数据中自动学习权重的模型。</li>
+    </ul>
+    <p>这就是整个深度学习大厦的地基。GPT-4 有 1.8 万亿参数，但每一个参数，都是在重复感知机里那个最简单的计算：<strong>加权求和，然后判断是否激活</strong>。</p>
+
+    <div class="metaphor-box">
+        <div class="title">先建立一个总感觉：感知机在模拟什么？</div>
+        <p><strong>把感知机想象成一个"投票裁判"。</strong></p>
+        <ul>
+            <li>有若干位"选民"（输入信号 $x_1, x_2, \ldots$），每位选民的投票有不同的<strong>影响力</strong>（权重 $w_1, w_2, \ldots$）；</li>
+            <li>裁判把所有人的加权票数加起来，再加上一个<strong>基础倾向</strong>（偏置 $b$）；</li>
+            <li>如果最终得分超过某个<strong>门槛</strong>（阈值），裁判拍板输出 1（通过），否则输出 0（否决）。</li>
+        </ul>
+        <p><strong>感知机的核心</strong>：用一个线性加权求和 + 一个阈值判断，模拟"做一个二元决策"。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q8-01 感知机的概念：四个要素，各司其职</div>
+        <p><strong>题目描述：</strong></p>
+        <p>感知机（Perceptron）是一种接收多个输入、输出一个二元信号（0 或 1）的计算模型。其数学定义为：</p>
+        <p>$$y = \begin{cases} 0 & \text{若 } w_1 x_1 + w_2 x_2 + b \leq 0 \\ 1 & \text{若 } w_1 x_1 + w_2 x_2 + b > 0 \end{cases}$$</p>
+        <p>其中 $x_1, x_2$ 为输入，$w_1, w_2$ 为权重，$b$ 为偏置（bias）。</p>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li>填写下表，解释感知机各要素的含义与作用：
+                <table>
+                    <tr><th>要素</th><th>含义</th><th>作用（对输出的影响）</th></tr>
+                    <tr><td>输入 $x_i$</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td>提供原始信号，本身不可修改</td></tr>
+                    <tr><td>权重 $w_i$</td><td>对应输入的<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td>$|w_i|$ 越大，$x_i$ 对输出的影响<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td></tr>
+                    <tr><td>偏置 $b$</td><td>与输入无关的<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td>$b$ 越大，感知机越<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>输出 1</td></tr>
+                    <tr><td>阈值 $\theta$</td><td>触发输出 1 的<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td>等价于将 $b = -\theta$ 写入公式中</td></tr>
+                </table>
+            </li>
+            <li>原始感知机有时写成"阈值"形式：$y=1$ 当且仅当 $w_1 x_1 + w_2 x_2 > \theta$。请说明这与上述"偏置"形式在数学上是完全等价的，并写出两者之间的转换关系。</li>
+            <li>感知机的输出 $y$ 只能取 0 或 1，这被称为<strong>阶跃激活函数</strong>（Heaviside 函数）。与后来的 Sigmoid 激活函数相比，它有什么缺陷？（提示：从"可微性"角度思考）</li>
+            <li>感知机本质上是一种<strong>线性分类器</strong>——它在输入空间中划出一条直线（或超平面）来分隔两类样本。对于二输入感知机，这条分界线的方程是什么？</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 8 章 8.1 感知机的概念]</p>
+    </div>
+
+    <div class="beginner-box">
+        <div class="title">小白必读：偏置到底是什么，为什么需要它？</div>
+        <ul>
+            <li><strong>没有偏置的感知机</strong>：分界线 $w_1 x_1 + w_2 x_2 = 0$ 永远过原点，不管怎么调权重，这条线只能绕原点旋转，无法平移。这大大限制了模型能表达的模式。</li>
+            <li><strong>有偏置的感知机</strong>：分界线变成 $w_1 x_1 + w_2 x_2 + b = 0$，$b$ 控制直线的平移位置——现在直线既能旋转又能平移，灵活性大大提高。</li>
+            <li><strong>直觉理解</strong>：偏置 $b$ 相当于感知机的"基础兴奋度"，即使所有输入都是 0，感知机也有 $b$ 决定的初始倾向——$b > 0$ 代表"没有输入时也倾向于激发"，$b < 0$ 代表"需要更强的输入信号才能激发"。</li>
+        </ul>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) 各要素含义与作用：</strong></p>
+        <table>
+            <tr><th>要素</th><th>含义</th><th>作用</th></tr>
+            <tr><td>输入 $x_i$</td><td>从外部接收的信号值（通常为 0 或 1，也可为实数）</td><td>提供原始信号，本身不可修改</td></tr>
+            <tr><td>权重 $w_i$</td><td>对应输入的<strong>重要性/影响力系数</strong></td><td>$|w_i|$ 越大，$x_i$ 对输出的影响<strong>越大</strong>；符号决定促进（正）或抑制（负）</td></tr>
+            <tr><td>偏置 $b$</td><td>与输入无关的<strong>常数项/基础激活量</strong></td><td>$b$ 越大，感知机越<strong>容易</strong>输出 1（激活门槛越低）</td></tr>
+            <tr><td>阈值 $\theta$</td><td>触发输出 1 的<strong>最低加权和要求</strong></td><td>等价于 $b = -\theta$（将阈值移至等式左边即为偏置）</td></tr>
+        </table>
+        <p><strong>(2) 阈值形式与偏置形式的等价性：</strong></p>
+        <p>阈值形式：$y = 1$ 当且仅当 $w_1 x_1 + w_2 x_2 > \theta$</p>
+        <p>将 $\theta$ 移到左边：$w_1 x_1 + w_2 x_2 - \theta > 0$</p>
+        <p>令 $b = -\theta$，即得偏置形式：$w_1 x_1 + w_2 x_2 + b > 0$</p>
+        <p><strong>转换关系</strong>：$b = -\theta$，即偏置是阈值的<strong>相反数</strong>。</p>
+        <p><strong>(3) 阶跃函数的缺陷：</strong></p>
+        <p>阶跃函数在 0 处<strong>不连续、不可微</strong>——导数在 0 处无定义，在其他地方恒为 0。这使得无法用梯度下降法训练含阶跃函数的网络（因为梯度几乎处处为零，无法传递有意义的误差信号）。Sigmoid 函数处处可微，梯度可以传播，这是神经网络能够用反向传播训练的基础。</p>
+        <p><strong>(4) 分界线方程：</strong></p>
+        <p>令 $w_1 x_1 + w_2 x_2 + b = 0$，即：</p>
+        <p>$$w_1 x_1 + w_2 x_2 + b = 0$$</p>
+        <p>这是一条在 $(x_1, x_2)$ 平面内的<strong>直线</strong>，直线一侧输出 1，另一侧输出 0。感知机只能学习能被一条直线分开的两类问题（线性可分问题）。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q8-02 逻辑门真值表验证：用公式手动计算</div>
+        <p><strong>题目描述：</strong></p>
+        <p>下面给出三种逻辑门的参数，请用感知机公式 $z = w_1 x_1 + w_2 x_2 + b$，当 $z > 0$ 时输出 1，否则输出 0，手动验证每种门的输出是否符合真值表。</p>
+        <p><strong>三种逻辑门的参数：</strong></p>
+        <ul>
+            <li><strong>与门（AND）</strong>：$w_1 = 0.5,\ w_2 = 0.5,\ b = -0.7$</li>
+            <li><strong>与非门（NAND）</strong>：$w_1 = -0.5,\ w_2 = -0.5,\ b = 0.7$</li>
+            <li><strong>或门（OR）</strong>：$w_1 = 0.5,\ w_2 = 0.5,\ b = -0.2$</li>
+        </ul>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li>对与门（AND），计算 $(x_1, x_2)$ 分别取 $(0,0), (1,0), (0,1), (1,1)$ 时的 $z$ 值，填写下表并给出输出 $y$：
+                <table>
+                    <tr><th>$x_1$</th><th>$x_2$</th><th>$z = 0.5x_1 + 0.5x_2 - 0.7$</th><th>输出 $y$</th><th>期望（AND）</th></tr>
+                    <tr><td>0</td><td>0</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;</u></td><td>0</td></tr>
+                    <tr><td>1</td><td>0</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;</u></td><td>0</td></tr>
+                    <tr><td>0</td><td>1</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;</u></td><td>0</td></tr>
+                    <tr><td>1</td><td>1</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;</u></td><td>1</td></tr>
+                </table>
+            </li>
+            <li>对或门（OR），填写下表并验证：
+                <table>
+                    <tr><th>$x_1$</th><th>$x_2$</th><th>$z = 0.5x_1 + 0.5x_2 - 0.2$</th><th>输出 $y$</th><th>期望（OR）</th></tr>
+                    <tr><td>0</td><td>0</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;</u></td><td>0</td></tr>
+                    <tr><td>1</td><td>0</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;</u></td><td>1</td></tr>
+                    <tr><td>0</td><td>1</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;</u></td><td>1</td></tr>
+                    <tr><td>1</td><td>1</td><td><u>&nbsp;&nbsp;&nbsp;&nbsp;</u></td><td><u>&nbsp;</u></td><td>1</td></tr>
+                </table>
+            </li>
+            <li>观察与门和或门的参数，两者的权重相同，只有<strong>偏置不同</strong>（$-0.7$ vs $-0.2$）。这说明了什么？偏置的变化对分界线产生了什么几何效果？</li>
+            <li>与非门（NAND）的权重是与门权重的<strong>相反数</strong>，这有什么直观含义？</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 8 章 8.2 简单逻辑电路]</p>
+    </div>
+
+    <div class="beginner-box">
+        <div class="title">小白必读：逻辑门是什么？为什么用它来讲感知机？</div>
+        <ul>
+            <li><strong>逻辑门</strong>是数字电路的基础元件，输入和输出都是 0 或 1：与门（AND）= "两个都是 1 才输出 1"；或门（OR）= "至少一个是 1 就输出 1"；与非门（NAND）= AND 的反转。</li>
+            <li><strong>为什么用逻辑门讲感知机？</strong>：逻辑门输入输出都是 0/1，是感知机最直接、最简单的应用场景——所有计算的正确性都可以用真值表枚举验证，不需要大数据集，让我们能完全手算看清感知机的工作方式。</li>
+            <li><strong>历史意义</strong>：Minsky 和 Papert 在 1969 年证明感知机无法实现异或门，这直接导致了第一次 AI 寒冬。但他们同时也提出了多层感知机可以解决这个问题——这为后来的深度学习埋下了种子。</li>
+        </ul>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) 与门（AND）验证：</strong></p>
+        <table>
+            <tr><th>$x_1$</th><th>$x_2$</th><th>$z = 0.5x_1 + 0.5x_2 - 0.7$</th><th>输出 $y$</th><th>期望（AND）</th></tr>
+            <tr><td>0</td><td>0</td><td>$0 + 0 - 0.7 = -0.7$</td><td>0</td><td>0 ✓</td></tr>
+            <tr><td>1</td><td>0</td><td>$0.5 + 0 - 0.7 = -0.2$</td><td>0</td><td>0 ✓</td></tr>
+            <tr><td>0</td><td>1</td><td>$0 + 0.5 - 0.7 = -0.2$</td><td>0</td><td>0 ✓</td></tr>
+            <tr><td>1</td><td>1</td><td>$0.5 + 0.5 - 0.7 = 0.3$</td><td>1</td><td>1 ✓</td></tr>
+        </table>
+        <p>全部正确，参数有效实现了与门。</p>
+        <p><strong>(2) 或门（OR）验证：</strong></p>
+        <table>
+            <tr><th>$x_1$</th><th>$x_2$</th><th>$z = 0.5x_1 + 0.5x_2 - 0.2$</th><th>输出 $y$</th><th>期望（OR）</th></tr>
+            <tr><td>0</td><td>0</td><td>$0 + 0 - 0.2 = -0.2$</td><td>0</td><td>0 ✓</td></tr>
+            <tr><td>1</td><td>0</td><td>$0.5 + 0 - 0.2 = 0.3$</td><td>1</td><td>1 ✓</td></tr>
+            <tr><td>0</td><td>1</td><td>$0 + 0.5 - 0.2 = 0.3$</td><td>1</td><td>1 ✓</td></tr>
+            <tr><td>1</td><td>1</td><td>$0.5 + 0.5 - 0.2 = 0.8$</td><td>1</td><td>1 ✓</td></tr>
+        </table>
+        <p>全部正确，参数有效实现了或门。</p>
+        <p><strong>(3) 偏置变化的几何意义：</strong></p>
+        <p>与门和或门权重相同（$w_1 = w_2 = 0.5$），意味着分界线的<strong>斜率/方向相同</strong>——两条分界线互相平行。偏置从 $-0.7$ 变为 $-0.2$，使分界线<strong>平移</strong>：或门的分界线比与门更靠近原点，因此更"宽松"——只要一个输入为 1 就能越过分界线输出 1，而与门需要两个输入都为 1 才能越过更远的分界线。</p>
+        <div class="key-box">
+            <div class="title">直觉总结</div>
+            <p><strong>权重决定分界线的方向（倾斜角度），偏置决定分界线的位置（平移量）。</strong>同样的权重 + 不同偏置 = 平行的分界线，对应着"宽严程度不同"的决策边界。</p>
+        </div>
+        <p><strong>(4) 与非门权重取反的含义：</strong></p>
+        <p>与非门（NAND）的权重是与门（AND）的相反数：$(-0.5, -0.5, +0.7)$ vs $(+0.5, +0.5, -0.7)$。权重全部取反相当于将分界线"翻转"——原来与门中 $(1,1)$ 落在 $z > 0$ 的激活侧，取反后 $(1,1)$ 落在 $z < 0$ 的抑制侧；原来不激活的三个输入组合，现在全部激活。这正好实现了 AND 的逻辑取反——与非门 $=$ NOT(AND)。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q8-03 参数设计：从真值表反推权重和偏置</div>
+        <p><strong>题目描述：</strong></p>
+        <p>前面是给你参数让你验证；现在反过来——给你一个逻辑门的真值表，<strong>请你自己设计</strong>满足条件的权重 $(w_1, w_2)$ 和偏置 $b$（不唯一，能满足条件即可）。</p>
+        <p><strong>题目（一）：或门（OR）</strong></p>
+        <p>真值表：$(0,0)\to 0$，$(1,0)\to 1$，$(0,1)\to 1$，$(1,1)\to 1$</p>
+        <p>约束条件（$y = 1$ 当 $z > 0$，$y = 0$ 当 $z \leq 0$）：</p>
+        <p>$$w_1 \cdot 0 + w_2 \cdot 0 + b \leq 0 \quad \Rightarrow \quad b \leq 0$$</p>
+        <p>$$w_1 \cdot 1 + w_2 \cdot 0 + b > 0 \quad \Rightarrow \quad w_1 + b > 0$$</p>
+        <p>$$w_1 \cdot 0 + w_2 \cdot 1 + b > 0 \quad \Rightarrow \quad w_2 + b > 0$$</p>
+        <p>$$w_1 \cdot 1 + w_2 \cdot 1 + b > 0 \quad \Rightarrow \quad w_1 + w_2 + b > 0$$</p>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li>从上面四个不等式，推导出 $w_1, w_2, b$ 必须满足的条件，并给出一组具体的参数值（如 $w_1 = \underline{\quad}, w_2 = \underline{\quad}, b = \underline{\quad}$）使其满足所有约束。</li>
+            <li><strong>题目（二）：与门（AND）设计</strong>。写出与门的四个约束不等式，并给出一组满足条件的参数。</li>
+            <li>对于上述两门，参数是否唯一？如果不唯一，"合法参数"的集合在几何上代表什么含义？</li>
+            <li>（选做）感知机的参数 $(\mathbf{w}, b)$ 在训练过程中是如何自动找到的？描述感知机学习规则的基本思路（不需要写出完整公式）。</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 8 章 8.3 感知机的实现 / 8.1 感知机的概念]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) 或门参数设计：</strong></p>
+        <p>由四个约束：</p>
+        <p>$$b \leq 0, \quad w_1 > -b, \quad w_2 > -b, \quad w_1 + w_2 > -b$$</p>
+        <p>由 $b \leq 0$，设 $b = -0.5$，则需要 $w_1 > 0.5$ 且 $w_2 > 0.5$（第四个约束自然满足）。</p>
+        <p><strong>一组合法参数</strong>：$w_1 = 1.0,\ w_2 = 1.0,\ b = -0.5$</p>
+        <p><strong>验证</strong>：$z(0,0) = -0.5 \leq 0$ ✓，$z(1,0) = 0.5 > 0$ ✓，$z(0,1) = 0.5 > 0$ ✓，$z(1,1) = 1.5 > 0$ ✓</p>
+        <p><strong>(2) 与门（AND）约束与参数设计：</strong></p>
+        <p>AND 真值表：$(0,0)\to 0,\ (1,0)\to 0,\ (0,1)\to 0,\ (1,1)\to 1$，约束为：</p>
+        <p>$$b \leq 0, \quad w_1 + b \leq 0, \quad w_2 + b \leq 0, \quad w_1 + w_2 + b > 0$$</p>
+        <p>由前三条：$w_1 \leq -b$，$w_2 \leq -b$，即 $w_1, w_2 \leq |b|$；由最后一条：$w_1 + w_2 > -b = |b|$。</p>
+        <p>设 $b = -1.5$，则 $w_1 \leq 1.5,\ w_2 \leq 1.5,\ w_1 + w_2 > 1.5$。</p>
+        <p><strong>一组合法参数</strong>：$w_1 = 1.0,\ w_2 = 1.0,\ b = -1.5$</p>
+        <p><strong>(3) 参数的非唯一性：</strong></p>
+        <p>参数<strong>不唯一</strong>。满足所有约束的参数集合是一个<strong>多维不等式区域</strong>——在参数空间 $(w_1, w_2, b)$ 中，所有合法参数构成一个多面体区域（多个线性不等式的交集）。几何上，这意味着有无数条分界线都能正确分类这四个数据点——只要直线穿过正确的"区域"，将 $(1,1)$ 和其他点分开即可。</p>
+        <p><strong>(4) 感知机学习规则（简述）：</strong></p>
+        <div class="key-box">
+            <div class="title">感知机学习规则的思路</div>
+            <ol>
+                <li>随机初始化权重和偏置；</li>
+                <li>对每个训练样本 $(x_i, y_i)$，用当前参数计算预测输出 $\hat{y}_i$；</li>
+                <li>若预测正确（$\hat{y}_i = y_i$），参数不变；</li>
+                <li>若预测为 0 但真实为 1（漏激活）：<strong>增大权重</strong>（$w_j \mathrel{+}= \eta x_{ij}$），让下次更容易激活；</li>
+                <li>若预测为 1 但真实为 0（误激活）：<strong>减小权重</strong>（$w_j \mathrel{-}= \eta x_{ij}$），让下次更难激活；</li>
+                <li>反复扫描训练集，直到所有样本都被正确分类（收敛定理：数据线性可分时，感知机学习一定收敛）。</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q8-04 感知机的 Python 实现：代码阅读与理解</div>
+        <p><strong>题目描述：</strong></p>
+        <p>下面给出感知机实现逻辑门的两种 Python 代码写法，请结合代码回答问题。</p>
+        <p><strong>写法一：直接使用阈值 $\theta$</strong></p>
+        <pre><code>def AND_v1(x1, x2):
+    w1, w2, theta = 0.5, 0.5, 0.7
+    tmp = x1 * w1 + x2 * w2
+    if tmp <= theta:
+        return 0
+    elif tmp > theta:
+        return 1</code></pre>
+        <p><strong>写法二：引入偏置 $b$（NumPy 向量化）</strong></p>
+        <pre><code>import numpy as np
+
+def AND_v2(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([0.5, 0.5])
+    b = -0.7
+    tmp = np.sum(w * x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
+
+def NAND(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([-0.5, -0.5])
+    b = 0.7
+    tmp = np.sum(w * x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
+
+def OR(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([0.5, 0.5])
+    b = -0.2
+    tmp = np.sum(w * x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1</code></pre>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li><code>AND_v1</code> 和 <code>AND_v2</code> 在逻辑上完全等价，但写法不同。具体说明两者的对应关系：<code>AND_v1</code> 中的 <code>theta</code> 对应 <code>AND_v2</code> 中的哪个变量，数值关系是什么？</li>
+            <li><code>np.sum(w * x)</code> 做了什么运算？为什么写法二比写法一更适合扩展到多输入（如 100 个输入）的情况？</li>
+            <li>写法二中，<code>w * x</code> 使用了 NumPy 的什么特性？如果 <code>w = np.array([0.5, 0.5])</code> 而 <code>x = np.array([1, 1])</code>，逐步写出 <code>w * x</code> 和 <code>np.sum(w * x)</code> 的计算结果。</li>
+            <li>如果想用写法二实现一个<strong>三输入与门</strong>（$x_1 \cdot x_2 \cdot x_3$，三个输入均为 1 时才输出 1），应如何修改 <code>w</code>、<code>x</code> 和 <code>b</code>？给出一组合法参数。</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 8 章 8.3 感知机的实现]</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) 两种写法的对应关系：</strong></p>
+        <p><code>AND_v1</code> 中判断 <code>tmp > theta</code>（即 $w_1 x_1 + w_2 x_2 > \theta$）；<code>AND_v2</code> 中判断 <code>tmp > 0</code>（即 $w_1 x_1 + w_2 x_2 + b > 0$）。</p>
+        <p>对应关系：<code>AND_v1</code> 的 <code>theta = 0.7</code> 对应 <code>AND_v2</code> 的 <code>b = -0.7</code>，即 $b = -\theta$（偏置是阈值的相反数）。</p>
+        <p><strong>(2) <code>np.sum(w * x)</code> 的作用：</strong></p>
+        <p><code>np.sum(w * x)</code> 计算的是向量内积（点积）$\sum_i w_i x_i = w_1 x_1 + w_2 x_2$。</p>
+        <p>写法二的优势：若有 100 个输入，写法一需要写 100 项 <code>x1*w1 + x2*w2 + ...</code>，既冗长又容易出错；写法二只需将 <code>w</code> 和 <code>x</code> 改为长度 100 的数组，代码本身不变——这是向量化编程的核心优势。</p>
+        <p><strong>(3) NumPy 逐元素乘法：</strong></p>
+        <p><code>w * x</code> 使用了 NumPy 的<strong>广播/逐元素乘法（element-wise multiplication）</strong>特性。</p>
+        <p>计算过程：</p>
+        <p>$$\texttt{w * x} = \texttt{np.array([0.5*1,\ 0.5*1])} = \texttt{np.array([0.5,\ 0.5])}$$</p>
+        <p>$$\texttt{np.sum(w * x)} = 0.5 + 0.5 = 1.0$$</p>
+        <p><strong>(4) 三输入与门的实现：</strong></p>
+        <p>三输入 AND：$(0,0,0),(1,0,0),(0,1,0),(0,0,1),(1,1,0),(1,0,1),(0,1,1) \to 0$；$(1,1,1) \to 1$。</p>
+        <p>约束：$b \leq 0$，$w_i + b \leq 0$，$w_i + w_j + b \leq 0$，$w_1 + w_2 + w_3 + b > 0$。</p>
+        <p><strong>一组合法参数</strong>：$w_1 = w_2 = w_3 = 1.0$，$b = -2.5$</p>
+        <p>验证关键项：$z(1,1,0) = 1+1+0-2.5 = -0.5 \leq 0$ ✓；$z(1,1,1) = 1+1+1-2.5 = 0.5 > 0$ ✓</p>
+        <pre><code>def AND3(x1, x2, x3):
+    x = np.array([x1, x2, x3])
+    w = np.array([1.0, 1.0, 1.0])
+    b = -2.5
+    tmp = np.sum(w * x) + b
+    return 0 if tmp <= 0 else 1</code></pre>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q8-05 感知机的局限：为什么无法解决异或（XOR）问题？</div>
+        <p><strong>题目描述：</strong></p>
+        <p>异或门（XOR）的真值表如下：</p>
+        <table>
+            <tr><th>$x_1$</th><th>$x_2$</th><th>XOR 输出</th></tr>
+            <tr><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>1</td><td>0</td><td>1</td></tr>
+            <tr><td>0</td><td>1</td><td>1</td></tr>
+            <tr><td>1</td><td>1</td><td>0</td></tr>
+        </table>
+        <p>XOR 的含义："两个输入不同时输出 1，相同时输出 0"。请从几何角度和代数角度两个维度，解释单层感知机<strong>无法</strong>实现 XOR 的原因。</p>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li><strong>几何角度</strong>：在 $(x_1, x_2)$ 平面上，将四个数据点画出来，标注哪些应输出 0（圆圈），哪些应输出 1（叉号）。观察：能否用一条直线将圆圈和叉号完全分开？</li>
+            <li><strong>代数角度</strong>：假设存在参数 $(w_1, w_2, b)$ 使感知机实现 XOR，写出对应的四个不等式约束。然后证明这四个不等式<strong>相互矛盾</strong>（不可能同时成立）。</li>
+            <li>XOR 的不可分性用数学术语叫"<strong>线性不可分</strong>"（Linearly Inseparable）。请解释这个概念：什么样的数据集是线性可分的？什么样的是线性不可分的？</li>
+            <li>与门（AND）、或门（OR）、与非门（NAND）都是线性可分的，而 XOR 不是。这说明单层感知机的<strong>表达能力</strong>有什么根本限制？</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 8 章 8.4 感知机的局限]</p>
+    </div>
+
+    <div class="metaphor-box">
+        <div class="title">生活比喻：为什么一刀切不开"异或"？</div>
+        <p>把四个点画在平面上：$(0,0)$ 和 $(1,1)$ 应该输出 0（一类），$(1,0)$ 和 $(0,1)$ 应该输出 1（另一类）——</p>
+        <p>你会发现，这四个点分布的方式就像棋盘的对角格：黑白各占两个对角。不管你怎么拿一把直尺，都没法把"两个黑格"和"两个白格"分开——直尺（一条直线）永远会把平面分成上下两半，而两类点各有一个在上半、一个在下半。</p>
+        <p>这就是线性不可分的直觉：<strong>两类点的分布方式，天生不能被一条直线分开</strong>。</p>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) 几何分析：</strong></p>
+        <p>在 $(x_1, x_2)$ 平面上，四个点的位置与类别：</p>
+        <ul>
+            <li>输出 0（圆圈）：$(0,0)$ 和 $(1,1)$——左下角与右上角</li>
+            <li>输出 1（叉号）：$(1,0)$ 和 $(0,1)$——右下角与左上角</li>
+        </ul>
+        <p>两类点各占一组对角位置。无论如何放置一条直线，它将平面分成两个半平面，而两类点各有一个点"跨越"在直线两侧——<strong>不存在任何一条直线能将这两类点完全分开</strong>。</p>
+        <p><strong>(2) 代数矛盾证明：</strong></p>
+        <p>假设存在 $(w_1, w_2, b)$ 实现 XOR，则：</p>
+        <p>\begin{align} b &\leq 0 \quad &\text{（$(0,0) \to 0$：$z(0,0) = b \leq 0$）} \\ w_1 + b &> 0 \quad &\text{（$(1,0) \to 1$：$z(1,0) = w_1 + b > 0$）} \\ w_2 + b &> 0 \quad &\text{（$(0,1) \to 1$：$z(0,1) = w_2 + b > 0$）} \\ w_1 + w_2 + b &\leq 0 \quad &\text{（$(1,1) \to 0$：$z(1,1) = w_1 + w_2 + b \leq 0$）} \end{align}</p>
+        <p>将不等式 (2) 和 (3) 相加：$(w_1 + b) + (w_2 + b) > 0$，即 $w_1 + w_2 + 2b > 0$。</p>
+        <p>由不等式 (1)，$b \leq 0$，故 $2b \leq 0$，于是 $w_1 + w_2 + b = (w_1 + w_2 + 2b) - b > 0 - b \geq 0$，即 $w_1 + w_2 + b > 0$。</p>
+        <p>但这与不等式 (4) $w_1 + w_2 + b \leq 0$ 直接矛盾！<strong>四个约束不能同时成立，单层感知机无法实现 XOR。</strong>$\blacksquare$</p>
+        <p><strong>(3) 线性可分 vs 线性不可分：</strong></p>
+        <div class="key-box">
+            <div class="title">线性可分的定义</div>
+            <ul>
+                <li><strong>线性可分</strong>：存在一个超平面（二维中是一条直线，三维中是一个平面，$n$ 维中是一个 $n-1$ 维超平面），能将两类样本<strong>完全正确地分开</strong>（所有正类在超平面一侧，所有负类在另一侧）。</li>
+                <li><strong>线性不可分</strong>：不存在任何这样的超平面——两类样本"交织"在一起，无法用线性边界分开。</li>
+            </ul>
+        </div>
+        <p><strong>(4) 单层感知机的根本限制：</strong></p>
+        <p>单层感知机只能表达<strong>线性可分</strong>的分类问题。它的决策边界永远是一个超平面，无法弯曲、无法组合——任何需要非线性边界才能正确分类的问题（如 XOR、环形分布等），都超出了单层感知机的表达能力范围。这是一个<strong>本质性的结构限制</strong>，不是参数数量不够，而是模型的函数类不够丰富。</p>
+    </div>
+
+    <div class="problem-box">
+        <div class="title">Q8-06 多层感知机：组合已有门，突破异或局限</div>
+        <p><strong>题目描述：</strong></p>
+        <p>虽然单层感知机无法实现 XOR，但<strong>多层感知机</strong>（MLP）可以。具体地，可以用与门、与非门、或门三个基本门组合出异或门。</p>
+        <p>XOR 的组合方案如下（请在做题过程中自行推导验证）：</p>
+        <p>$$\text{XOR}(x_1, x_2) = \text{AND}\!\Big(\text{NAND}(x_1, x_2),\ \text{OR}(x_1, x_2)\Big)$$</p>
+        <p>即：先同时计算 NAND 和 OR，再把两个结果送入 AND。</p>
+        <p><strong>问题：</strong></p>
+        <ol type="(1)">
+            <li>用真值表验证上述组合确实实现了 XOR：计算四组输入 $(x_1, x_2)$ 分别取 $(0,0), (1,0), (0,1), (1,1)$ 时，$s_1 = \text{NAND}(x_1,x_2)$，$s_2 = \text{OR}(x_1,x_2)$，$y = \text{AND}(s_1, s_2)$ 的值。
+                <table>
+                    <tr><th>$x_1$</th><th>$x_2$</th><th>$s_1 = \text{NAND}$</th><th>$s_2 = \text{OR}$</th><th>$y = \text{AND}(s_1, s_2)$</th><th>期望（XOR）</th></tr>
+                    <tr><td>0</td><td>0</td><td><u>&nbsp;</u></td><td><u>&nbsp;</u></td><td><u>&nbsp;</u></td><td>0</td></tr>
+                    <tr><td>1</td><td>0</td><td><u>&nbsp;</u></td><td><u>&nbsp;</u></td><td><u>&nbsp;</u></td><td>1</td></tr>
+                    <tr><td>0</td><td>1</td><td><u>&nbsp;</u></td><td><u>&nbsp;</u></td><td><u>&nbsp;</u></td><td>1</td></tr>
+                    <tr><td>1</td><td>1</td><td><u>&nbsp;</u></td><td><u>&nbsp;</u></td><td><u>&nbsp;</u></td><td>0</td></tr>
+                </table>
+            </li>
+            <li>用 Python 实现上述多层感知机（直接调用前面定义的 <code>AND</code>、<code>NAND</code>、<code>OR</code> 函数）：
+                <pre><code>def XOR(x1, x2):
+    s1 = ____(____, ____)   # 第一层：NAND
+    s2 = ____(____, ____)   # 第一层：OR
+    y  = ____(____, ____)   # 第二层：AND
+    return y</code></pre>
+            </li>
+            <li>从"层"的角度分析上述 XOR 实现：它有几层感知机？第一层和第二层各自的作用是什么？</li>
+            <li><strong>多层带来了什么本质变化？</strong>单层感知机的决策边界是直线，多层感知机的决策边界变成了什么形状？为什么说"层数越多，能表达的函数越复杂"？</li>
+            <li>从 XOR 多层感知机出发，联系后续的深度神经网络：多层感知机（MLP）与深度学习中的"全连接神经网络"有什么关系？两者的核心区别是什么？</li>
+        </ol>
+        <p class="source">来源溯源：[文档第 8 章 8.5 多层感知机]</p>
+    </div>
+
+    <div class="beginner-box">
+        <div class="title">小白必读：为什么多了一层就能解决 XOR？</div>
+        <ul>
+            <li><strong>第一层在做什么？</strong>NAND 和 OR 各自画了一条分界线，把四个点"重新编码"——$(x_1, x_2)$ 空间里线性不可分的四个点，经过两个感知机变换后，变成了 $(s_1, s_2)$ 空间里的四个新点。</li>
+            <li><strong>神奇之处</strong>：在新空间 $(s_1, s_2)$ 中，这四个点<strong>变成线性可分的了</strong>！第二层的 AND 只需要一条直线就能分开它们。</li>
+            <li><strong>核心洞察</strong>：多层网络 = <strong>特征变换</strong> + 线性分类。每一层都在做"换一个更好的视角来看数据"，最终在某个高维变换空间中，原本复杂的问题变得简单了。这正是深度学习的本质——用层层变换把复杂问题化简。</li>
+        </ul>
+    </div>
+
+    <div class="solution-box">
+        <div class="title">参考答案与详细解析</div>
+        <p><strong>(1) 真值表验证：</strong></p>
+        <p>利用前面计算好的逻辑门真值（NAND 是 AND 取反，OR 已验证）：</p>
+        <table>
+            <tr><th>$x_1$</th><th>$x_2$</th><th>$s_1 = \text{NAND}$</th><th>$s_2 = \text{OR}$</th><th>$y = \text{AND}(s_1, s_2)$</th><th>期望</th></tr>
+            <tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0 ✓</td></tr>
+            <tr><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1 ✓</td></tr>
+            <tr><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1 ✓</td></tr>
+            <tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0 ✓</td></tr>
+        </table>
+        <p>全部正确，组合方案成立。</p>
+        <p><strong>(2) Python 实现：</strong></p>
+        <pre><code>def XOR(x1, x2):
+    s1 = NAND(x1, x2)   # 第一层：NAND
+    s2 = OR(x1, x2)     # 第一层：OR
+    y  = AND(s1, s2)    # 第二层：AND
+    return y
+
+# 验证
+for x1, x2 in [(0,0),(1,0),(0,1),(1,1)]:
+    print(f"XOR({x1}, {x2}) = {XOR(x1, x2)}")</code></pre>
+        <p><strong>(3) 层的结构分析：</strong></p>
+        <ul>
+            <li><strong>共两层感知机</strong>。</li>
+            <li><strong>第一层</strong>（NAND + OR 并行）：<strong>特征变换层</strong>——将原始输入 $(x_1, x_2) \in \{0,1\}^2$ 映射到新的中间表示 $(s_1, s_2) \in \{0,1\}^2$，重新组织信息，使原本线性不可分的问题在新空间中变得线性可分。</li>
+            <li><strong>第二层</strong>（AND）：<strong>决策层</strong>——对变换后的特征做最终线性分类，输出结果。</li>
+        </ul>
+        <p><strong>(4) 多层带来的本质变化：</strong></p>
+        <p>单层感知机的决策边界是一条直线（超平面）；多层感知机的决策边界是<strong>分段线性曲线或折线</strong>，可以逼近任意曲线边界。层数越多，每一层的变换叠加起来，能表达的函数族越来越丰富：</p>
+        <ul>
+            <li>1 层：只能表达线性分类；</li>
+            <li>2 层：能表达任意凸多边形分类区域；</li>
+            <li>3 层及以上：理论上能以任意精度逼近任意连续函数（万能近似定理）。</li>
+        </ul>
+        <p><strong>(5) MLP 与深度神经网络的关系：</strong></p>
+        <div class="key-box">
+            <div class="title">MLP 与深度学习的传承与区别</div>
+            <ul>
+                <li><strong>联系</strong>：深度神经网络（DNN）本质上就是"多层感知机 + 连续可微激活函数"。XOR 感知机是最简单的两层 MLP，现代大语言模型是有数十亿参数的超深层 MLP。</li>
+                <li><strong>核心区别一——激活函数</strong>：感知机用阶跃函数（不可微），DNN 用 ReLU / Sigmoid / GELU 等可微函数，使反向传播成为可能。</li>
+                <li><strong>核心区别二——学习方式</strong>：感知机学习规则只能逐样本调整，且仅适用于线性可分问题；DNN 用梯度下降 + 反向传播，可以端到端训练整个多层网络。</li>
+                <li><strong>核心区别三——规模</strong>：感知机每层通常只有几个神经元；现代 DNN 每层可以有数千乃至数百万个神经元，通过矩阵乘法高效并行计算。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="app-box">
+        <div class="title">现实应用场景</div>
+        <p><strong>从感知机到 ChatGPT：相同的基因，不同的规模</strong></p>
+        <p>感知机的运算 $z = \mathbf{w}^T \mathbf{x} + b$，在 GPT-4 中被重复了约 1.8 万亿次（参数量）。每一个注意力头、每一个前馈层，都是在做"加权求和 + 非线性激活"——感知机的核心计算。变化的只是规模（从 2 个输入到数万维），层次（从 2 层到 96 层），以及训练数据（从 4 条真值表到数万亿词元）。理解感知机，就是理解整个深度学习大厦的砖头。</p>
+    </div>
+
+    <h2>本章小结：感知机——神经网络的 DNA</h2>
+    <p>学完本章 6 道题，感知机的全貌已经清晰：</p>
+    <ul>
+        <li><strong>感知机是什么</strong>：加权求和 + 阈值判断，用数学模拟"一个神经元的激发决策"。</li>
+        <li><strong>权重与偏置的几何含义</strong>：权重决定分界线方向，偏置决定分界线位置——改变参数就是移动分界线。</li>
+        <li><strong>逻辑门是感知机的最简验证场</strong>：AND、OR、NAND 都是线性可分的，感知机一层搞定；XOR 是线性不可分的，单层无能为力。</li>
+        <li><strong>单层感知机的根本限制</strong>：只能表达线性边界，世界上大部分有趣的问题都是非线性的。</li>
+        <li><strong>多层感知机的突破</strong>：通过堆叠层次实现特征变换，每一层把"难问题"变换成"在新视角下更简单的问题"——这是深度学习的核心哲学。</li>
+    </ul>
+
+    <div class="metaphor-box">
+        <div class="title">给零基础读者的一句总比喻</div>
+        <p><strong>如果把感知机比作一个"只会画直线做判断"的裁判：</strong></p>
+        <ul>
+            <li><strong>单层感知机</strong>：裁判只有一把直尺，能把站成简单队形的两队人分开（AND、OR），但遇到对角站位（XOR）就彻底没办法了——无论怎么放直尺，总有人站错边。</li>
+            <li><strong>多层感知机</strong>：先让两位助手（第一层的 NAND 和 OR）分别画一条线，把人群"重新安排位置"；重新站好后，裁判再画一条线，这次就能正确分开了。</li>
+            <li><strong>深度学习</strong>：不是 2 位助手，而是成千上万位，层层递进，把现实世界中最复杂的问题（识别人脸、理解语言、诊断疾病……）一步步化简成最后那条能画出来的直线。</li>
+        </ul>
+    </div>
+</body>
+</html>
