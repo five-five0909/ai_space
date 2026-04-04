@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1774923340137,
+  "lastScanned": 1775271986761,
   "projectRoot": "E:\\company_place\\ai_space",
   "techStack": {
     "languages": [],
@@ -32,199 +32,69 @@
   },
   "customNotes": [],
   "directoryMap": {
-    "ai_knowledge_base": {
-      "path": "ai_knowledge_base",
+    "01-学习资料": {
+      "path": "01-学习资料",
       "purpose": null,
-      "fileCount": 7,
-      "lastAccessed": 1774923340114,
-      "keyFiles": [
-        "CONTRIBUTING.md",
-        "INDEX_BY_APPLICATION.md",
-        "INDEX_BY_DIFFICULTY.md",
-        "INDEX_BY_TOPIC.md",
-        "README.md"
-      ]
+      "fileCount": 0,
+      "lastAccessed": 1775271986749,
+      "keyFiles": []
     },
-    "AI工具文档": {
-      "path": "AI工具文档",
+    "02-AI研究": {
+      "path": "02-AI研究",
       "purpose": null,
-      "fileCount": 2,
-      "lastAccessed": 1774923340114,
-      "keyFiles": [
-        "vibecoding文档.pdf",
-        "高级AI终端工具使用.md"
-      ]
+      "fileCount": 0,
+      "lastAccessed": 1775271986750,
+      "keyFiles": []
     },
-    "anki卡片制作": {
-      "path": "anki卡片制作",
+    "03-项目开发": {
+      "path": "03-项目开发",
       "purpose": null,
-      "fileCount": 3,
-      "lastAccessed": 1774923340116,
-      "keyFiles": [
-        "all_images.txt",
-        "anki环境.txt",
-        "notes.md"
-      ]
+      "fileCount": 0,
+      "lastAccessed": 1775271986750,
+      "keyFiles": []
+    },
+    "04-工具与文档": {
+      "path": "04-工具与文档",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1775271986750,
+      "keyFiles": []
     },
     "latex-space": {
       "path": "latex-space",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1774923340116,
+      "lastAccessed": 1775271986751,
       "keyFiles": []
-    },
-    "prompt-space": {
-      "path": "prompt-space",
-      "purpose": null,
-      "fileCount": 1,
-      "lastAccessed": 1774923340117,
-      "keyFiles": [
-        "Index.md"
-      ]
-    },
-    "python-space": {
-      "path": "python-space",
-      "purpose": null,
-      "fileCount": 0,
-      "lastAccessed": 1774923340118,
-      "keyFiles": []
-    },
-    "win-skills": {
-      "path": "win-skills",
-      "purpose": null,
-      "fileCount": 5,
-      "lastAccessed": 1774923340119,
-      "keyFiles": [
-        "add_git_bash_context_menu.reg",
-        "scan_wifi_connect.py",
-        "开机启动项.bat",
-        "自动重连脚本.py",
-        "设置系统环境变量.bat"
-      ]
-    },
-    "临时文件": {
-      "path": "临时文件",
-      "purpose": null,
-      "fileCount": 1,
-      "lastAccessed": 1774923340122,
-      "keyFiles": [
-        "train_output.log"
-      ]
-    },
-    "学术写作": {
-      "path": "学术写作",
-      "purpose": null,
-      "fileCount": 2,
-      "lastAccessed": 1774923340124,
-      "keyFiles": [
-        "Academic Phrasebank (Dr John Morley) (z-library.sk, 1lib.sk, z-lib.sk).pdf",
-        "English for Writing Research Papers (Adrian Wallwork) (z-library.sk, 1lib.sk, z-lib.sk).pdf"
-      ]
-    },
-    "小说写作": {
-      "path": "小说写作",
-      "purpose": null,
-      "fileCount": 0,
-      "lastAccessed": 1774923340125,
-      "keyFiles": []
-    },
-    "机器学习": {
-      "path": "机器学习",
-      "purpose": null,
-      "fileCount": 10,
-      "lastAccessed": 1774923340127,
-      "keyFiles": [
-        "机器学习-第10章-题目.html",
-        "机器学习-第1章-题目.html",
-        "机器学习-第2章-题目.html",
-        "机器学习-第3章-题目.html",
-        "机器学习-第4章-题目.html"
-      ]
     },
     "江西农业大学毕业设计": {
       "path": "江西农业大学毕业设计",
       "purpose": null,
-      "fileCount": 3,
-      "lastAccessed": 1774923340128,
+      "fileCount": 6,
+      "lastAccessed": 1775271986751,
       "keyFiles": [
+        "农产品溯源-附件5：江西农业大学毕业论文（设计）过程管理手册.docx",
+        "在线商城-附件5：江西农业大学毕业论文（设计）过程管理手册.docx",
         "基于Vue+Spring Boot的农场品溯源电商管理平台的设计与实现.docx",
         "基于Vue+Spring Boot的智慧农田环境监测系统的设计与实现.docx",
         "基于Vue+Spring Boot的网络购物平台管理系统的设计与实现.docx"
-      ]
-    },
-    "深度学习": {
-      "path": "深度学习",
-      "purpose": null,
-      "fileCount": 9,
-      "lastAccessed": 1774923340129,
-      "keyFiles": [
-        "深度学习-第1章-题目.html",
-        "深度学习-第2章-题目.html",
-        "深度学习-第3章-题目.html",
-        "深度学习-第4章-题目.html",
-        "深度学习-第5章-题目.html"
-      ]
-    },
-    "编程指南": {
-      "path": "编程指南",
-      "purpose": null,
-      "fileCount": 3,
-      "lastAccessed": 1774923340129,
-      "keyFiles": [
-        "python佬学习路线.html",
-        "Python学习指南.md",
-        "zh-google-styleguide-20241208.pdf"
-      ]
-    },
-    "论文库": {
-      "path": "论文库",
-      "purpose": null,
-      "fileCount": 1,
-      "lastAccessed": 1774923340130,
-      "keyFiles": [
-        "文献检索.md"
       ]
     },
     "latex-space\\assets": {
       "path": "latex-space\\assets",
       "purpose": "Static assets",
       "fileCount": 0,
-      "lastAccessed": 1774923340131,
+      "lastAccessed": 1775271986752,
       "keyFiles": []
     },
     "latex-space\\docs": {
       "path": "latex-space\\docs",
       "purpose": "Documentation",
       "fileCount": 0,
-      "lastAccessed": 1774923340131,
+      "lastAccessed": 1775271986752,
       "keyFiles": []
     }
   },
-  "hotPaths": [
-    {
-      "path": "README.md",
-      "accessCount": 2,
-      "lastAccessed": 1774926902290,
-      "type": "file"
-    },
-    {
-      "path": "README.en.md",
-      "accessCount": 2,
-      "lastAccessed": 1774926938502,
-      "type": "file"
-    },
-    {
-      "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\claude\\E--company-place-ai-space\\f555ee38-3524-4fc6-a8dd-220c5418353e\\tasks\\b43q5941v.output",
-      "accessCount": 1,
-      "lastAccessed": 1774923638534,
-      "type": "file"
-    },
-    {
-      "path": "",
-      "accessCount": 1,
-      "lastAccessed": 1774926680944,
-      "type": "directory"
-    }
-  ],
+  "hotPaths": [],
   "userDirectives": []
 }
