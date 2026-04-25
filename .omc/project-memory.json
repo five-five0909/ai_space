@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775271986761,
+  "lastScanned": 1776524770745,
   "projectRoot": "E:\\company_place\\ai_space",
   "techStack": {
     "languages": [],
@@ -36,42 +36,48 @@
       "path": "01-学习资料",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775271986749,
+      "lastAccessed": 1776524770735,
       "keyFiles": []
     },
     "02-AI研究": {
       "path": "02-AI研究",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775271986750,
+      "lastAccessed": 1776524770735,
       "keyFiles": []
     },
     "03-项目开发": {
       "path": "03-项目开发",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775271986750,
+      "lastAccessed": 1776524770735,
       "keyFiles": []
     },
     "04-工具与文档": {
       "path": "04-工具与文档",
       "purpose": null,
-      "fileCount": 0,
-      "lastAccessed": 1775271986750,
-      "keyFiles": []
+      "fileCount": 9,
+      "lastAccessed": 1776524770736,
+      "keyFiles": [
+        "AI科研Workflow实战经验.md",
+        "ClaudeCode全局配置汇总.md",
+        "ClaudeCode命令大全.md",
+        "ClaudeCode环境配置记录.md",
+        "npm镜像源配置.md"
+      ]
     },
     "latex-space": {
       "path": "latex-space",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775271986751,
+      "lastAccessed": 1776524770736,
       "keyFiles": []
     },
     "江西农业大学毕业设计": {
       "path": "江西农业大学毕业设计",
       "purpose": null,
       "fileCount": 6,
-      "lastAccessed": 1775271986751,
+      "lastAccessed": 1776524770736,
       "keyFiles": [
         "农产品溯源-附件5：江西农业大学毕业论文（设计）过程管理手册.docx",
         "在线商城-附件5：江西农业大学毕业论文（设计）过程管理手册.docx",
@@ -84,17 +90,24 @@
       "path": "latex-space\\assets",
       "purpose": "Static assets",
       "fileCount": 0,
-      "lastAccessed": 1775271986752,
+      "lastAccessed": 1776524770737,
       "keyFiles": []
     },
     "latex-space\\docs": {
       "path": "latex-space\\docs",
       "purpose": "Documentation",
       "fileCount": 0,
-      "lastAccessed": 1775271986752,
+      "lastAccessed": 1776524770737,
       "keyFiles": []
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "01-学习资料\\深度学习\\神经网络入门笔记\\神经网络入门笔记.md",
+      "accessCount": 1,
+      "lastAccessed": 1776524817301,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }
