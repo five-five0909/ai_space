@@ -1,7 +1,7 @@
 {
-  "tool_name": "WebFetch",
-  "tool_input_preview": "{\"url\":\"https://docs.trytrellis.app/zh/guide\",\"prompt\":\"提取 Trellis 的主要功能介绍、使用方法和核心概念，用中文整理\"}",
-  "error": "Unable to verify if domain docs.trytrellis.app is safe to fetch. This may be due to network restrictions or enterprise security policies blocking claude.ai.",
-  "timestamp": "2026-04-16T16:31:01.420Z",
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"ls E:/Scoop/apps/psreadline/current/ 2>/dev/null && echo \\\"---\\\" && ls E:/Scoop/apps/fzf/current/ 2>/dev/null && echo \\\"---\\\" && ls E:/Scoop/apps/bat/current/ 2>/dev/null && echo \\\"---\\\" &...",
+  "error": "Exit code 2",
+  "timestamp": "2026-04-30T13:33:22.570Z",
   "retry_count": 1
 }
