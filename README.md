@@ -29,7 +29,10 @@ ai_space/
 │
 ├── 04-工具与文档/        # 工具与文档
 │   ├── AI工具文档/       # Vibecoding、AI终端工具使用指南
-│   └── win-skills/       # Windows脚本（WiFi自动重连、启动项等）
+│   ├── MSYS2与Zsh开发环境配置.md   # Scoop/vmr + MSYS2 + Zsh 主力开发环境搭建
+│   ├── Modern-CLI-Tools-完整使用文档.md # 现代CLI工具（eza/bat/fd/rg等）使用手册
+│   ├── Python环境完整工具手册.md    # Scoop→Conda→PyCharm Python环境全流程
+│   └── win-skills/       # Windows脚本（WiFi自动重连、启动项、双网卡切换、息屏等）
 │
 ├── latex-space/          # LaTeX相关（独立维护）
 ├── 江西农业大学毕业设计/  # 毕业设计文档与模板
